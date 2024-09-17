@@ -3,10 +3,12 @@ title: 'Master Thesis Defense Date Fixed'
 date: 2024-09-17
 permalink: /posts/2024/09/master-defense/
 tags:
-  - Study
+  - MSc
 ---
 
-Master Thesis Defense Data Fixed
+Master Thesis Defense Date Fixed, I am graduating on **October 22nd, 2024**.
+
+Master Thesis Defense Date Fixed
 ======
 
 I am very excited to announce that my master thesis defense date has been set for **October 22nd, 2024**.
