@@ -21,8 +21,8 @@ repository               : "academicpages/academicpages.github.io"
 #               Additional customization can be done by editing /_includes/author-profile.html
 author:
   # Biographic information
-  avatar           : "Profile.png"
-  name             : "Tony Yang"
+  avatar           : "Profile.jpg"
+  name             : "Tony (Tongyun) Yang"
   pronouns         : # example: "she/her"  
   bio              : "I am an MSc graduate from TUDelft, seeking PhD opportunities in the field combining HCI and AI"
   location         : "Delft, the Netherlands"
