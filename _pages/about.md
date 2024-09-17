@@ -6,8 +6,9 @@ redirect_from:
   - /about/
   - /about.html
 ---
+## `Status: Looking for PhD positions👨‍🎓 in the domain combining HCI and AI.`
 
-👨‍💻 I am soon an MSc graduate from TUDelft, seeking PhD opportunities in the field combining HCI and AI.
+👨‍💻 I am soon an MSc graduate from TUDelft.
 
 🔬 My research interests lie at the intersection of HCI and AI, focusing on how to leverage AI technologies to enhance human capabilities and create more intuitive and accessible user experiences.
 
