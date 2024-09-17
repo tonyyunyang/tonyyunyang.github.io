@@ -6,7 +6,7 @@ permalink: /publication/2024-11-01-emotion-recognition-in-immersive-environments
 excerpt: 'This paper consists of two parts of contributions. The first part is a multi-modal dataset of emotions effectively triggered and captured in immersive environments. The second part is a framework for emotion recognition on our dataset, which serves as a baseline for future work in this area.'
 date: 2024-11-01
 venue: 'IMWUT'
-paperurl: 'http://academicpages.github.io/files/comingsoon.pdf'
+paperurl: 'http://tonyyunyang.github.io/files/comingsoon.pdf'
 citation: 'Soon available.'
 ---
 

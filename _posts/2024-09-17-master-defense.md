@@ -1,7 +1,7 @@
 ---
 title: 'Master Thesis Defense Date Fixed'
 date: 2024-09-17
-permalink: /posts/2024/09/master-defense/
+permalink: /posts/2024-09-17-master-defense
 tags:
   - MSc
 ---
