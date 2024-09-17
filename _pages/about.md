@@ -8,7 +8,7 @@ redirect_from:
 ---
 `Status: Actively looking for PhD positions👨‍🎓`
 
-👨‍💻 I am soon an MSc graduate from [TUDelft](https://www.tudelft.nl/).
+👨‍💻 I am soon an MSc graduate from [TUDelft](https://www.tudelft.nl/) CESE (Computer and Embedded Systems Engineering) program.
 
 🔬 My research interests lie at the intersection of HCI and AI. I focus on leveraging AI technologies to gain deeper insights into human cognition, behavior, and physical performance, aiming to enhance our understanding of human capabilities and create more intuitive and accessible user experiences.
 

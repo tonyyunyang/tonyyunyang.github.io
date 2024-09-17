@@ -1,8 +1,8 @@
 ---
-title: "Emotion Recognition in Immersive Environments"
-collection: submissions
+title: "(Coming Soon) Emotion Recognition in Immersive Environments"
+collection: publications
 category: conferences
-permalink: /publication/2024-02-17-paper-title-number-4
+permalink: /publication/2024-11-01-emotion-recognition-in-immersive-environments
 excerpt: 'This paper consists of two parts of contributions. The first part is a multi-modal dataset of emotions effectively triggered and captured in immersive environments. The second part is a framework for emotion recognition on our dataset, which serves as a baseline for future work in this area.'
 date: 2024-11-01
 venue: 'IMWUT'
