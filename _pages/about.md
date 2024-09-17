@@ -6,7 +6,7 @@ redirect_from:
   - /about/
   - /about.html
 ---
-## `Status: Actively looking for PhD positions👨‍🎓`
+`Status: Actively looking for PhD positions👨‍🎓`
 
 👨‍💻 I am soon an MSc graduate from [TUDelft](https://www.tudelft.nl/).
 
