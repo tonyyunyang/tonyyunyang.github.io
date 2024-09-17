@@ -6,26 +6,22 @@ redirect_from:
   - /about/
   - /about.html
 ---
-## `Status: Looking for PhD positions👨‍🎓 in the domain combining HCI and AI.`
+## `Status: Actively looking for PhD positions👨‍🎓`
 
-👨‍💻 I am soon an MSc graduate from TUDelft.
+👨‍💻 I am soon an MSc graduate from [TUDelft](https://www.tudelft.nl/).
 
-🔬 My research interests lie at the intersection of HCI and AI, focusing on how to leverage AI technologies to enhance human capabilities and create more intuitive and accessible user experiences.
+🔬 My research interests lie at the intersection of HCI and AI. I focus on leveraging AI technologies to gain deeper insights into human cognition, behavior, and physical performance, aiming to enhance our understanding of human capabilities and create more intuitive and accessible user experiences.
 
 📚 I am currently working on my master thesis about Emotion Recognition in Immersive Environments. The progress is planned to be submitted to IMWUT in November 🎉.
 
-👯‍♂️ I am always looking for opportunities to collaborate on side projects. Open-source machine learning frameworks, perception applications, AI agents, and anything in between.
+👯‍♂️ I am always looking for opportunities to collaborate on side projects. Open-source machine learning frameworks, perception applications, AI agents, wearable devices, and anything in between.
 
-👈 Please reach out to me via mail 📫.
-
+👈 Please reach out to me via mail 📫 tonyyunyang [at] outlook.com
 
 # Selected Publications
 
 # Selected Experience
 
-## Projects
-
-## Work Experience
 
 
 
