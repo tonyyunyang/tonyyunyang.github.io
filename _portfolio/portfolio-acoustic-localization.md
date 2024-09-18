@@ -1,6 +1,6 @@
 ---
 title: "Indoor Acoustic Localization"
-excerpt: "100% indoor acoustic localization accuracy across 16 areas sole with on-phone sensors<br/><img src='/images/project/acoustic_loalization/Assignment1_BuildingLayout.png'>"
+excerpt: "100% indoor acoustic localization accuracy across 16 areas sole with on-phone sensors<br/><img src='/images/project/acoustic_localization/Assignment1_BuildingLayout.png'>"
 collection: portfolio
 ---
 
@@ -16,5 +16,5 @@ You can find more details in the three reports delivered throughout the project.
 
 [Final Report](http://tonyyunyang.github.io/images/project/acoustic_localization/report3.pdf)
 
-Prof. [Marco Zúñiga](https://www.st.ewi.tudelft.nl/marco/team.html) proposed an opportunity to form a paper based on this project, and publish it.
+[Prof. Marco Zúñiga](https://www.st.ewi.tudelft.nl/marco/team.html) proposed an opportunity to form a paper based on this project, and publish it.
 
