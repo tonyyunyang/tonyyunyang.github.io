@@ -1,6 +1,6 @@
 ---
 title: "Indoor Acoustic Localization"
-excerpt: "100% indoor acoustic localization accuracy across 16 areas sole with on-phone sensors<br/><img src='/images/project/acoustic_localization/spectrogram.png'>"
+excerpt: "100% indoor acoustic localization accuracy across 16 areas sole with on-phone sensors<br/><img src='/images/project/acoustic_localization/teaser.png'>"
 collection: portfolio
 ---
 
@@ -10,11 +10,7 @@ I came up with the idea of **Spectral Contrast** to improve the localization acc
 
 You can find more details in the three reports delivered throughout the project.
 
-[Report 1](http://tonyyunyang.github.io/images/project/acoustic_localization/report1.pdf)
-
-[Report 2](http://tonyyunyang.github.io/images/project/acoustic_localization/report2.pdf)
-
-[Final Report](http://tonyyunyang.github.io/images/project/acoustic_localization/report3.pdf)
+[Report 1](http://tonyyunyang.github.io/images/project/acoustic_localization/report1.pdf), [Report 2](http://tonyyunyang.github.io/images/project/acoustic_localization/report2.pdf), [Final Report](http://tonyyunyang.github.io/images/project/acoustic_localization/report3.pdf)
 
 [Prof. Marco Zúñiga](https://www.st.ewi.tudelft.nl/marco/team.html) proposed an opportunity to form a paper based on this project, and publish it.
 
