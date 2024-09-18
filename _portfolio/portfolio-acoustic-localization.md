@@ -4,17 +4,48 @@ excerpt: "100% indoor acoustic localization accuracy across 16 areas solely with
 collection: portfolio
 ---
 
-This is a project built from scratch on indoor acoustic localization using on-phone sensors. We achieved 100% localization accuracy during the final evaluation across 16 areas in a building solely based on on-phone sensors.
+# Indoor Acoustic Localization: Achieving 100% Accuracy
 
-We first developed a prototype that could emit a chirp signal, receive the echo, crop the the echo out from the received signal with cross-correlation, and at last plot the gray-scaled spectrogram on the screen. During this process, we also decided to use a chirp signal varying from 12kHz to 13kHz with 10ms duration.
+## Project Overview
+We developed an innovative indoor acoustic localization system using only on-phone sensors, achieving 100% accuracy across 16 distinct areas within a building. This project demonstrates the potential of acoustic-based positioning in GPS-denied environments.
 
-Then we developed an app that could automatically collect data as the user moves around. Approximately 100 samples were collected for each area, resulting in 1600 samples among 16 areas in total.
+## Key Technologies
+- **Chirp Signal Processing**: Emitting 12-13kHz chirps (10ms duration), and receiving echo
+- **Cross-correlation**: For precise echo detection and isolation
+- **Spectrogram Analysis**: Converting acoustic data into visual representations
+- **Convolutional Neural Networks (CNN)**: For area classification based on gray-scaled spectrograms
+- **Spectral Contrast Enhancement**: Our novel technique for improving signal distinctiveness
+- **k-Nearest Neighbor (kNN)**: Supplementary algorithm using Wi-Fi RSS for east-west disambiguation of symmetrical areas
 
-After that an app with the model deployed was developed for testing. However, due to the similarity of spatial structures across some areas, the accuracy was not satisfactory. We came up with the idea of **Spectral Contrast** to improve the localization accuracy. The idea is rather simple, it basically enhances the part of the signal that is significanly different from the rest, while attenuate the part that is similar.
+## Development Process
 
-During the evaluation in the end, we also employed a very simple **k-nearest neighbor** algorithm utilizing the Wi-Fi signals in the building, to distinguish **EAST** and **WEST** of the building, as the building has a symmetric structure.
+1. **Prototype Creation**
+   - Implemented chirp signal generation and reception
+   - Developed cross-correlation for echo isolation
+   - Created real-time spectrogram visualization
 
-[Prof. Marco Zúñiga](https://www.st.ewi.tudelft.nl/marco/team.html) proposed an opportunity to extend this work to a paper, exploring the benefits brought by the **Spectral Contrast** idea.
+2. **Data Collection**
+   - Built an automated data collection app
+   - Gathered ~1600 samples (100 per area) across 16 locations
 
-You can find more details in the three concise reports delivered throughout the project:
-[Report 1](http://tonyyunyang.github.io/images/project/acoustic_localization/report1.pdf), [Report 2](http://tonyyunyang.github.io/images/project/acoustic_localization/report2.pdf), and [Final Report](http://tonyyunyang.github.io/images/project/acoustic_localization/report3.pdf)
+3. **Model Training**
+   - Designed and trained a CNN for spectrogram classification
+
+4. **Accuracy Improvement**
+   - Introduced **Spectral Contrast** technique to enhance unique signal features
+   - Implemented kNN with Wi-Fi RSS to resolve symmetrical area ambiguities
+
+5. **Final Evaluation**
+   - Achieved 100% localization accuracy in real-world testing
+
+## Innovation: Spectral Contrast
+Our key contribution, Spectral Contrast, improved localization accuracy by enhancing distinct signal features while attenuating common ones. This technique proved crucial in differentiating areas with similar spatial structures. Moreover, it also contributed to the reduction of training data required for the CNN.
+
+## Future Work
+[Prof. Marco Zúñiga](https://www.st.ewi.tudelft.nl/marco/team.html) has proposed extending this research into a paper, focusing on the benefits of the Spectral Contrast technique in acoustic localization.
+
+## Detailed Reports
+For in-depth technical information and project progression, please refer to our series of reports:
+- [Initial Prototype (Report 1)](http://tonyyunyang.github.io/images/project/acoustic_localization/report1.pdf)
+- [Data Collection and Model Training (Report 2)](http://tonyyunyang.github.io/images/project/acoustic_localization/report2.pdf)
+- [Final System and Evaluation (Final Report)](http://tonyyunyang.github.io/images/project/acoustic_localization/report3.pdf)
