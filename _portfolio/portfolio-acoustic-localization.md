@@ -1,10 +1,8 @@
 ---
-title: "Indoor Acoustic Localization"
+title: "Indoor Acoustic Localization: Achieving 100% Accuracy"
 excerpt: "100% indoor acoustic localization accuracy across 16 areas solely with on-phone sensors<br/><img src='/images/project/acoustic_localization/teaser2.png' width='600'>"
 collection: portfolio
 ---
-
-# Indoor Acoustic Localization: Achieving 100% Accuracy
 
 ## Project Overview
 We developed an innovative indoor acoustic localization system using only on-phone sensors, achieving 100% accuracy across 16 distinct areas within a building. This project demonstrates the potential of acoustic-based positioning in GPS-denied environments.

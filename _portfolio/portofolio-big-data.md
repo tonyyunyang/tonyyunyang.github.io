@@ -1,10 +1,8 @@
 ---
-title: "Global Flood Evacuation System with Big Data"
+title: "Global Flood Evacuation Big Data System: From Local to Worldwide Planning"
 excerpt: "Developed a scalable, real-time evacuation planning system for global flood scenarios using big data technologies<br/><img src='/images/project/big_data/teaser.png' width='600'>"
 collection: portfolio
 ---
-
-# Global Flood Evacuation System: From Local to Worldwide Planning
 
 ## Project Overview
 We developed a comprehensive, scalable evacuation planning system to address global flood scenarios. The project evolved through three phases, starting with a local focus on the Netherlands and scaling up to worldwide coverage, incorporating big data technologies for real-time processing and analysis.
