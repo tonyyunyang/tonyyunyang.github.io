@@ -26,10 +26,6 @@ I am always looking for opportunities to collaborate on side projects. Open-sour
 # Contact 📫
 👈 Please reach out to me via mail: `tonyyunyang [at] outlook.com`
 
-# Selected Publications
-
-# Selected Experience
-
 
 
 
