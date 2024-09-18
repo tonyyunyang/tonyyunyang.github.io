@@ -16,6 +16,5 @@ During the evaluation in the end, we also employed a very simple **k-nearest nei
 
 [Prof. Marco Zúñiga](https://www.st.ewi.tudelft.nl/marco/team.html) proposed an opportunity to extend this work to a paper, exploring the benefits brought by the **Spectral Contrast** idea.
 
-You can find more details in the three concise reports delivered throughout the project.
-
+You can find more details in the three concise reports delivered throughout the project:
 [Report 1](http://tonyyunyang.github.io/images/project/acoustic_localization/report1.pdf), [Report 2](http://tonyyunyang.github.io/images/project/acoustic_localization/report2.pdf), and [Final Report](http://tonyyunyang.github.io/images/project/acoustic_localization/report3.pdf)
