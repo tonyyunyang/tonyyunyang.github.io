@@ -7,6 +7,7 @@ redirect_from:
   - /resume
 ---
 
+CV in [PDF](http://tonyyunyang.github.io/files/cv.pdf)
 {% include base_path %}
 
 Education
@@ -15,7 +16,7 @@ Education
 * M.S. in Jekyll, GitHub University, 2014
 * B.S. in GitHub, GitHub University, 2012
 
-Work experience
+Experience
 ======
 * Spring 2024: Academic Pages Collaborator
   * Github University
@@ -32,26 +33,32 @@ Work experience
   * Duties included: Tagging issues
   * Supervisor: Professor Git
   
-Skills
+<!-- Skills
 ======
 * Skill 1
 * Skill 2
   * Sub-skill 2.1
   * Sub-skill 2.2
   * Sub-skill 2.3
-* Skill 3
+* Skill 3 -->
 
 Publications
 ======
   <ul>{% for post in site.publications reversed %}
     {% include archive-single-cv.html %}
   {% endfor %}</ul>
+
+Projects
+======
+  <ul>{% for post in site.portfolio reversed %}
+    {% include archive-single-cv.html %}
+  {% endfor %}</ul>
   
-Talks
+<!-- Talks
 ======
   <ul>{% for post in site.talks reversed %}
     {% include archive-single-talk-cv.html  %}
-  {% endfor %}</ul>
+  {% endfor %}</ul> -->
   
 Teaching
 ======
@@ -59,6 +66,6 @@ Teaching
     {% include archive-single-cv.html %}
   {% endfor %}</ul>
   
-Service and leadership
+<!-- Service and leadership
 ======
-* Currently signed in to 43 different slack teams
+* Currently signed in to 43 different slack teams -->
