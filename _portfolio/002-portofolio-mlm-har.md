@@ -1,6 +1,6 @@
 ---
 title: "Self-Supervised Human Activity Recognition"
-excerpt: "Improved accuracy in Human Activity Recognition using eye gaze data and self-supervised learning<br/><img src='images/project/ra_mlm_har/cover.png' width='600'>"
+excerpt: "Improved accuracy in Human Activity Recognition using eye gaze data and self-supervised learning<br/><img src='/images/project/ra_mlm_har/cover.png' width='600'>"
 collection: portfolio
 ---
 
