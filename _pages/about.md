@@ -6,19 +6,24 @@ redirect_from:
   - /about/
   - /about.html
 ---
-`Status: Actively looking for PhD positions👨‍🎓`
+`Actively looking for PhD positions👨‍🎓`
 
-👨‍💻 I am soon an MSc graduate from [TUDelft](https://www.tudelft.nl/) CESE (Computer and Embedded Systems Engineering) program.
+# Current Status 📅
+I am soon an MSc graduate from [TUDelft](https://www.tudelft.nl/) CESE (Computer and Embedded Systems Engineering) program.
 
-🔬 My research interests lie at the intersection of HCI and AI. I focus on leveraging AI technologies to gain deeper insights into human cognition, behavior, and physical performance, aiming to enhance our understanding of human capabilities and create more intuitive and accessible user experiences.
+I work closely with [Prof. Guohao Lan](https://guohao.netlify.app/xu) and [Prof. Xucong Zhang](https://www.ccmitss.com/zhang) on my master thesis on Emotion Recognition in Immersive Environments. The progress is planned to be submitted to IMWUT in November 🎉.
 
-👁️ I care about the values in the research and work I do. I believe that technology should be a force for good, and I am committed to using my skills to make a positive impact.
+# Research Interests 🔬 & Values 👁️
+My interests lie at the intersection of HCI and AI. I focus on leveraging AI technologies to gain deeper insights into human cognition, behavior, and physical performance, aiming to enhance our understanding of human capabilities and create more intuitive and accessible user experiences.
 
-📚 I am currently working on my master thesis about Emotion Recognition in Immersive Environments. The progress is planned to be submitted to IMWUT in November 🎉.
+I care about the values in the research and work I do. I believe that technology should be a force for good, and I am committed to using my skills to make a positive impact.
 
-👯‍♂️ I am always looking for opportunities to collaborate on side projects. Open-source machine learning frameworks, perception applications, AI agents, wearable devices, and anything in between.
+# Side Projects & Collaboration 👨‍💻
+I am always looking for opportunities to collaborate on side projects. Open-source machine learning frameworks, perception applications, AI agents, wearable devices, and anything in between.
+[lucidrains](https://github.com/lucidrains), [0x7c13](https://github.com/0x7c13), [setzer22](https://github.com/setzer22) and [linyiLYi](https://github.com/linyiLYi) are open-source contributors that I admire and have benefited from.
 
-👈 Please reach out to me via mail 📫 tonyyunyang [at] outlook.com
+# Contact 📫
+👈 Please reach out to me via mail: `tonyyunyang [at] outlook.com`
 
 # Selected Publications
 
