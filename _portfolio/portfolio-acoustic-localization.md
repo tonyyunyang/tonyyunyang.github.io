@@ -1,6 +1,6 @@
 ---
 title: "Indoor Acoustic Localization"
-excerpt: "100% indoor acoustic localization accuracy across 16 areas sole with on-phone sensors<br/><img src='/images/project/acoustic_localization/teaser.png', width='800'>"
+excerpt: "100% indoor acoustic localization accuracy across 16 areas sole with on-phone sensors<br/><img src='/images/project/acoustic_localization/teaser.png' width='800'>"
 collection: portfolio
 ---
 
