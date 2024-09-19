@@ -1,11 +1,11 @@
 ---
-title: '2 Day Bike Trip Zeeland'
+title: '2-Day Bike Trip Zeeland'
 date: 2024-08-31
 permalink: /posts/2024-08-31-zeeland-biking
 tags:
   - Sports
 ---
-A 2 day bike trip to Zeeland with friends. Cherishing the last days of summer.
+A 2-day bike trip to Zeeland with friends. Cherishing the last days of summer.
 
 Day 1: 90km
 Started in the early afternoon from Delft, and biked all the way south heading Vlissingen. Stopped for some great views of the north sea along the way.
