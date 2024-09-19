@@ -1,5 +1,5 @@
 ---
-title: "TA for CESE4010 Advanced Computing Systems"
+title: "TA for CESE4010 Advanced Computing Systems (23/24 Q1)"
 collection: teaching
 type: "Graduate course"
 permalink: /teaching/2023-fall-ta-advanced-computing-systems

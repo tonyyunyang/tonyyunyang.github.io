@@ -1,5 +1,5 @@
 ---
-title: "TA for CESE4030 Embedded Systems Lab"
+title: "TA for CESE4030 Embedded Systems Lab (23/24 Q3)"
 collection: teaching
 type: "Graduate course"
 permalink: /teaching/2024-spring-ta-embedded-systems-lab
