@@ -21,12 +21,12 @@ I received my MSc in Computer and Embedded Systems Engineering from TUDelft in 2
 Experience
 ======
 * Sep. 2023 - April 2024: Teaching Assistant, TUDelft
-  * CESE 4030 Embedded Systems Lab (2023/24 Q3) / TA
-  * CESE 4000 Software Fundamentals (2023/24 Q1) / TA
-  * CESE 4010 Advanced Computing Systems (2023/24 Q1) / TA
+  * [CESE 4030 Embedded Systems Lab (2023/24 Q3) / TA](https://tonyyunyang.github.io/teaching/2024-spring-ta-embedded-systems-lab)
+  * [CESE 4000 Software Fundamentals (2023/24 Q1) / TA](https://tonyyunyang.github.io/teaching/2023-fall-ta-software-fundamentals)
+  * [CESE 4010 Advanced Computing Systems (2023/24 Q1) / TA](https://tonyyunyang.github.io/teaching/2023-fall-ta-advanced-computing-systems)
 
 * June 2023 - Dec. 2023: Research Assistant, TUDelft
-  * Employing self-supervised learning methods for Human Activity Recognition with eye gaze data.
+  * [Employing self-supervised learning methods for Human Activity Recognition with eye gaze data](https://tonyyunyang.github.io/portfolio/002-portofolio-mlm-har/).
   * Supervisor: [Prof. Guohao Lan](https://guohao.netlify.app/xu)
 
 * Dec. 2020 - July 2021: Internship at NXP Semiconductors
