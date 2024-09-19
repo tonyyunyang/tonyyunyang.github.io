@@ -33,11 +33,11 @@ Experience
   * Developed an automated chip evaluation test bench, automatically diagnoses defect chips returned from customers.
   * Supervisor: John Van Zwam
   
-Skills
+<!-- Skills
 ======
 * Programming Languages: **Python**, **C/C++**, **Rust**, Java, Kotlin, Matlab
 * Frameworks: **Pytorch**, Tensorflow
-* Languages: **English**, **Mandarin**, beginner-level Dutch
+* Languages: **English**, **Mandarin**, beginner-level Dutch -->
 
 Publications
 ======

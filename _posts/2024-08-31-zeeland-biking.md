@@ -31,4 +31,4 @@ Then continued the trip to Vlissingen which might be the southernmost city the N
 
 <img src="/images/posts/zeeland-bike/IMG_0514.PNG" width="600">
 
-We took the train back to Rotterdam, and the trip ended with a dinner at our favorite Chinese Noodle restaurant.
+We took the train back to Rotterdam, and the trip ended with a dinner at our favorite Chinese noodle restaurant.
