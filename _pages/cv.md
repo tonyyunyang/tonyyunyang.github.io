@@ -12,35 +12,37 @@ CV in [PDF](http://tonyyunyang.github.io/files/cv.pdf)
 
 Education
 ======
-* Ph.D in Version Control Theory, GitHub University, 2018 (expected)
-* M.S. in Jekyll, GitHub University, 2014
-* B.S. in GitHub, GitHub University, 2012
+I received my MSc in Computer and Embedded Systems Engineering from TUDelft in 2024. Prior to that, I graduated Cum laude from Shanghai Maritime University (joint program with HZ University of Applied Sciences) with a BSc in Electrical Engineering.
+<!-- * Ph.D in Version Control Theory, GitHub University, 2018 (expected) -->
+<!-- * MSc in Computer and Embedded Systems Engineering, TUDelft, 2024
+* BSc. in Electrical Engineering, Shanghai Maritime University, 2021 -->
 
 Experience
 ======
-* Spring 2024: Academic Pages Collaborator
-  * Github University
-  * Duties includes: Updates and improvements to template
-  * Supervisor: The Users
+* Sep. 2023 - April 2024: Teaching Assistant
+  * TUDelft
+  * Duties:
+    * CESE 4030 Embedded Systems Lab (2023/24 Q3) / TA
+    * CESE 4000 Software Fundamentals (2023/24 Q1) / TA
+    * CESE 4010 Advanced Computing Systems (2023/24 Q1) / TA
 
-* Fall 2015: Research Assistant
-  * Github University
-  * Duties included: Merging pull requests
-  * Supervisor: Professor Hub
+* June 2023 - Dec. 2023: Research Assistant
+  * TUDelft
+  * Duties:
+    * Researched on employing self-supervised learning methods for Human Activity Recognition using eye tracking data.
+  * Supervisor: [Prof. Guohao Lan](https://guohao.netlify.app/xu)
 
-* Summer 2015: Research Assistant
-  * Github University
-  * Duties included: Tagging issues
-  * Supervisor: Professor Git
+* Dec. 2020 - July 2021: Internship
+  * NXP Semiconductors N.V.
+  * Duties:
+    * Developed an automated chip evaluation test bench. Automatically diagnoses defect chips returned from customers.
+  * Supervisor: John Van Zwam
   
-<!-- Skills
+Skills
 ======
-* Skill 1
-* Skill 2
-  * Sub-skill 2.1
-  * Sub-skill 2.2
-  * Sub-skill 2.3
-* Skill 3 -->
+* Programming Languages: Python, C/C++, Rust, ...
+* Frameworks: Pytorch, Tensorflow, ...
+* Languages: English, Mandarin, beginner-level Dutch
 
 Publications
 ======
