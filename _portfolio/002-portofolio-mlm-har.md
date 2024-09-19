@@ -4,7 +4,6 @@ excerpt: "Improved accuracy in Human Activity Recognition using eye gaze data an
 collection: portfolio
 ---
 
-# Self-Supervised Human Activity Recognition with Eye Gaze Data
 ## Project Overview
 We developed an innovative approach to Human Activity Recognition (HAR) using eye gaze data and self-supervised learning techniques. Our method achieves improved accuracy and generalization across different activities and subjects, demonstrating the potential of eye movement patterns in understanding human behavior.
 
