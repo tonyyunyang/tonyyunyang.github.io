@@ -1,4 +1,8 @@
-# Embedded Quadcopter Control System: Multi-Mode Flight Control
+---
+title: "Embedded Quadcopter Control System: Multi-Mode Flight Control"
+excerpt: "Developed a scalable, real-time evacuation planning system for global flood scenarios using big data technologies<br/><img src='/images/project/embedded_drone/teaser.png' width='600'>"
+collection: portfolio
+---
 
 ## Project Overview
 
