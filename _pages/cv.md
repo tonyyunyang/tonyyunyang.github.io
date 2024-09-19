@@ -27,7 +27,7 @@ Experience
 
 * June 2023 - Dec. 2023: Research Assistant, TUDelft
   * [Employing self-supervised learning methods for Human Activity Recognition with eye gaze data](https://tonyyunyang.github.io/portfolio/002-portofolio-mlm-har/).
-  * Supervisor: [Prof. Guohao Lan](https://guohao.netlify.app/xu)
+  * Supervisor: [Prof. Guohao Lan](https://guohao.netlify.app/)
 
 * Dec. 2020 - July 2021: Internship at NXP Semiconductors
   * Developed an automated chip evaluation test bench, automatically diagnoses defect chips returned from customers.

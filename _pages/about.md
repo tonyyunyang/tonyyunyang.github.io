@@ -11,7 +11,7 @@ redirect_from:
 # Current Status 📅
 I am soon an MSc graduate from [TUDelft](https://www.tudelft.nl/) CESE (Computer and Embedded Systems Engineering) program.
 
-I work closely with [Prof. Guohao Lan](https://guohao.netlify.app/xu) and [Prof. Xucong Zhang](https://www.ccmitss.com/zhang) during my master thesis on [Emotion Recognition in Immersive Environments](https://tonyyunyang.github.io/publication/2024-11-01-emotion-recognition-in-immersive-environments). The progress is planned to be submitted to [IMWUT](https://dl.acm.org/journal/imwut) in November 🎉.
+I work closely with [Prof. Guohao Lan](https://guohao.netlify.app/) and [Prof. Xucong Zhang](https://www.ccmitss.com/zhang) during my master thesis on [Emotion Recognition in Immersive Environments](https://tonyyunyang.github.io/publication/2024-11-01-emotion-recognition-in-immersive-environments). The progress is planned to be submitted to [IMWUT](https://dl.acm.org/journal/imwut) in November 🎉.
 
 # Research Interests 🔬 & Values 👁️
 My interests lie at the [intersection of HCI and AI](https://research.ibm.com/blog/what-is-human-centered-ai). I focus on leveraging AI technologies to gain deeper insights into human cognition, behavior, and physical performance, aiming to enhance our understanding of human capabilities and create more intuitive and accessible user experiences.
