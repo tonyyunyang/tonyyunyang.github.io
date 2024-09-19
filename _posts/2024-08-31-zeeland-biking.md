@@ -15,7 +15,7 @@ Started in the early afternoon from Delft, and biked all the way south heading V
 The beach at Ouddorp is probably the most beautiful beach I've been to. Not many people around, and the view is just amazing. It felt like in a Ghibli movie.
 
 <img src="/images/posts/zeeland-bike/IMG_0424.JPG" width="400">
-<img src="images/posts/zeeland-bike/IMG_0426.JPG" width="600">
+<img src="/images/posts/zeeland-bike/IMG_0426.JPG" width="600">
 <img src="/images/posts/zeeland-bike/IMG_0428.JPG" width="600">
 
 We just continued biking south, and ended up at `Fletcher Wellness-Hotel Kamperduinen` by sunset.
