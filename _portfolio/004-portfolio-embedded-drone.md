@@ -57,7 +57,7 @@ Potential areas for improvement and expansion include:
 
 Here's a demonstration of me testing the drone's control system.
 
-<video width="100%" controls>
+<video width="60%" controls>
   <source src="/images/project/embedded_drone/12cbcfd4-3e24-40ca-a39e-563229675c91.MP4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
