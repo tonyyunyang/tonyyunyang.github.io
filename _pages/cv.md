@@ -12,7 +12,7 @@ CV in [PDF](http://tonyyunyang.github.io/files/cv.pdf)
 
 Education
 ======
-I received my MSc in Computer and Embedded Systems Engineering from TUDelft in 2024. Prior to that, I graduated Cum laude from Shanghai Maritime University (joint program with HZ University of Applied Sciences) with a BSc in Electrical Engineering.
+I received my M.S. in Computer and Embedded Systems Engineering from TUDelft in 2024. Prior to that, I graduated Cum laude from Shanghai Maritime University (joint program with HZ University of Applied Sciences) with a B.Eng. in Electrical Engineering.
 
 <!-- * Ph.D in Version Control Theory, GitHub University, 2018 (expected)
 * MSc in Computer and Embedded Systems Engineering, TUDelft, 2024
