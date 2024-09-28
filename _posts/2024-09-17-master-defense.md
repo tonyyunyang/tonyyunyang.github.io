@@ -10,7 +10,7 @@ Master Thesis Defense Date Fixed, I am graduating on **October 22nd, 2024**.
 
 I am very excited to announce that my master thesis defense date has been set for **October 22nd, 2024**.
 
-The thesis is on **"Emotion Recognition in Immersive Environments"**, it will be submited to IMWUT in November.
+The thesis is on **"Emotion Recognition in Immersive Environments"**, the work is under progress, aiming for top-tier conference submission.
 
 More details will be shared in the coming weeks.
 
