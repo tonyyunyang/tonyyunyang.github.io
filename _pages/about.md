@@ -9,12 +9,13 @@ redirect_from:
 `Actively looking for PhD position👨‍🎓`
 
 # Current Status 📅
-I am soon an MSc graduate from [TUDelft](https://www.tudelft.nl/) CESE (Computer and Embedded Systems Engineering) program.
+I am an MSc student at [TUDelft](https://www.tudelft.nl/) CESE (Computer and Embedded Systems Engineering) program, expected graduation time October 22, 2024.
+<!-- I am soon an MSc graduate from [TUDelft](https://www.tudelft.nl/) CESE (Computer and Embedded Systems Engineering) program. -->
 
-I work closely with [Prof. Guohao Lan](https://guohao.netlify.app/) and [Prof. Xucong Zhang](https://www.ccmitss.com/zhang) during my master thesis on [Emotion Recognition in Immersive Environments](https://tonyyunyang.github.io/publication/2024-11-01-emotion-recognition-in-immersive-environments). The progress is planned to be submitted to [IMWUT](https://dl.acm.org/journal/imwut) in November 🎉.
+I work closely with [Prof. Guohao Lan](https://guohao.netlify.app/) and [Prof. Xucong Zhang](https://www.ccmitss.com/zhang) during my master thesis on Emotion Recognition in Immersive Environments. The work is under progress, aiming for top-tier conference submission.
 
 # Research Interests 🔬 & Values 👁️
-My interests lie at the [intersection of HCI and AI](https://research.ibm.com/blog/what-is-human-centered-ai). I focus on leveraging AI technologies to gain deeper insights into human cognition, behavior, and physical performance, aiming to enhance our understanding of human capabilities and create more intuitive and accessible user experiences.
+My interests lie at the intersection of HCI and A. I focus on leveraging AI technologies to gain deeper insights into human cognition, behavior, and physical performance, aiming to enhance our understanding of human capabilities and create more intuitive and accessible user experiences.
 
 I care about the values in the research and work I do. I believe that technology should be a force for good, and I am committed to using my skills to make a positive impact.
 
