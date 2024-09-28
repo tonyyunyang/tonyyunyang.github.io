@@ -40,11 +40,11 @@ Experience
 * Frameworks: **Pytorch**, Tensorflow
 * Languages: **English**, **Mandarin**, beginner-level Dutch -->
 
-Publications
+<!-- Publications
 ======
   <ul>{% for post in site.publications reversed %}
     {% include archive-single-cv.html %}
-  {% endfor %}</ul>
+  {% endfor %}</ul> -->
 
 Projects
 ======
