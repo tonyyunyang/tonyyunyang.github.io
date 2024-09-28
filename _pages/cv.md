@@ -12,7 +12,8 @@ CV in [PDF](http://tonyyunyang.github.io/files/cv.pdf)
 
 Education
 ======
-I received my M.S. in Computer and Embedded Systems Engineering from TUDelft in 2024. Prior to that, I graduated Cum laude from Shanghai Maritime University (joint program with HZ University of Applied Sciences) with a B.Eng. in Electrical Engineering.
+<!-- I received my M.S. in Computer and Embedded Systems Engineering from TUDelft in 2024. Prior to that, I graduated Cum laude from Shanghai Maritime University (joint program with HZ University of Applied Sciences) with a B.Eng. in Electrical Engineering. -->
+I received my M.S. in Computer and Embedded Systems Engineering from TUDelft in 2024. Prior to that, I graduated from Shanghai Maritime University with a B.Eng. in Electrical Engineering.
 
 <!-- * Ph.D in Version Control Theory, GitHub University, 2018 (expected)
 * MSc in Computer and Embedded Systems Engineering, TUDelft, 2024
@@ -25,7 +26,7 @@ Experience
   * [CESE 4000 Software Fundamentals (2023/24 Q1) / TA](https://tonyyunyang.github.io/teaching/2023-fall-ta-software-fundamentals)
   * [CESE 4010 Advanced Computing Systems (2023/24 Q1) / TA](https://tonyyunyang.github.io/teaching/2023-fall-ta-advanced-computing-systems)
 
-* June 2023 - Dec. 2023: Research Assistant, TUDelft
+* July 2023 - Jan. 2023: Research Assistant, TUDelft
   * [Employing self-supervised learning methods for Human Activity Recognition with eye gaze data](https://tonyyunyang.github.io/portfolio/002-portofolio-mlm-har/).
   * Supervisor: [Prof. Guohao Lan](https://guohao.netlify.app/)
 
