@@ -9,15 +9,25 @@ redirect_from:
 `Actively looking for PhD position👨‍🎓`
 
 # Current Status 📅
-I am an MSc student at [TUDelft](https://www.tudelft.nl/) CESE (Computer and Embedded Systems Engineering) program, expected graduation time October 22, 2024.
+I am an MSc graduate from [TUDelft](https://www.tudelft.nl/) CESE (Computer and Embedded Systems Engineering) programme.
 <!-- I am soon an MSc graduate from [TUDelft](https://www.tudelft.nl/) CESE (Computer and Embedded Systems Engineering) program. -->
 
-I work closely with [Prof. Guohao Lan](https://guohao.netlify.app/) and [Prof. Xucong Zhang](https://www.ccmitss.com/zhang) during my master thesis on Emotion Recognition in Immersive Environments. The work is under progress, aiming for top-tier conference submission.
+I work closely with [Prof. Guohao Lan](https://guohao.netlify.app/) and [Prof. Xucong Zhang](https://www.ccmitss.com/zhang) during my master thesis on Emotion Recognition in Immersive Environments. The work forms a [research paper](https://tonyyunyang.github.io/publication/2024-11-01-emotion-recognition-in-immersive-environments), and is currently under review at IMWUT 2024.
 
 # Research Interests 🔬 & Values 👁️
-My interests lie at the intersection of HCI and A. I focus on leveraging AI technologies to gain deeper insights into human cognition, behavior, and physical performance, aiming to enhance our understanding of human capabilities and create more intuitive and accessible user experiences.
+My interest spans three main areas: Human-Centered AI, Mobile Computing, and Generative AI.
 
-I care about the values in the research and work I do. I believe that technology should be a force for good, and I am committed to using my skills to make a positive impact.
+In Human-Centered AI, I explore how AI can be designed to better understand and adapt to human needs, combining HCI principles with cognitive science to create more empathetic and effective human-AI interactions.
+
+My interest in Mobile Computing focuses on context-aware sensing and embedded AI for IoT devices, pushing the boundaries of how we can make technology more responsive to and seamless in our daily lives.
+
+In the realm of Generative AI, I'm particularly passionate about healthcare applications, working on medical image generation to support better diagnostic tools and healthcare outcomes.
+
+I care deeply about the values in the research and work I do. I believe that technology should be a force for good, and I am committed to using my skills to make a positive impact. This means ensuring AI systems are not just powerful, but also ethical, accessible, and designed with human wellbeing at their core. My approach combines technical innovation with a strong emphasis on real-world applications that can improve people's lives, particularly in healthcare and assistive technologies.
+
+<!-- My interests lie at the intersection of HCI and AI. I focus on leveraging AI technologies to gain deeper insights into human cognition, behavior, and physical performance, aiming to enhance our understanding of human capabilities and create more intuitive and accessible user experiences.
+
+I care about the values in the research and work I do. I believe that technology should be a force for good, and I am committed to using my skills to make a positive impact. -->
 
 # Side Projects & Collaboration 👨‍💻
 I am always looking for opportunities to collaborate on side projects. Open-source implementation of SOTA models, perception applications, AI agents, wearable devices, and anything in between.
@@ -26,9 +36,6 @@ I am always looking for opportunities to collaborate on side projects. Open-sour
 
 # Contact 📫
 👈 Please reach out to me via mail: `tonyyunyang [at] outlook.com`
-
-
-
 
 <!-- This is the front page of a website that is powered by the [Academic Pages template](https://github.com/academicpages/academicpages.github.io) and hosted on GitHub pages. [GitHub pages](https://pages.github.com) is a free service in which websites are built and hosted from code and data stored in a GitHub repository, automatically updating when a new commit is made to the respository. This template was forked from the [Minimal Mistakes Jekyll Theme](https://mmistakes.github.io/minimal-mistakes/) created by Michael Rose, and then extended to support the kinds of content that academics have: publications, talks, teaching, a portfolio, blog posts, and a dynamically-generated CV. You can fork [this repository](https://github.com/academicpages/academicpages.github.io) right now, modify the configuration and markdown files, add your own PDFs and other content, and have your own site for free, with no ads! An older version of this template powers my own personal website at [stuartgeiger.com](http://stuartgeiger.com), which uses [this Github repository](https://github.com/staeiou/staeiou.github.io).
 
