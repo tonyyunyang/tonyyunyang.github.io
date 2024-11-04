@@ -9,9 +9,9 @@ We implemented a Conditional Latent Diffusion Model (LDM) for medical image gene
 
 ## Examples of Generated Images
 
-<embed src="/images/project/ldm_medical_image/comparison_batch_19.pdf" type="application/pdf" width="1000" height="800">
+<embed src="/images/project/ldm_medical_image/comparison_batch_19.pdf" type="application/pdf" width="1000" height="500">
 
-<embed src="/images/project/ldm_medical_image/comparison_batch_39.pdf" type="application/pdf" width="1000" height="800">
+<embed src="/images/project/ldm_medical_image/comparison_batch_39.pdf" type="application/pdf" width="1000" height="500">
 
 ## Key Technologies
 - Edge Detection: Canny Edge Algorithm with noise reduction
