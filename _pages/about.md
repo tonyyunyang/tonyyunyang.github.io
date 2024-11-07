@@ -17,7 +17,7 @@ I work closely with [Prof. Guohao Lan](https://guohao.netlify.app/) and [Prof. X
 # Research Interests 🔬 & Values 👁️
 My interest spans four main areas: Human-Centered Applications, Mobile Computing, and Generative AI.
 
-In Human-Centered Applications, I explore designing AI systems that better understand and adapt to human needs, while also applying HCI principles with cognitive science to create more empathetic and effective human-computer interactions.
+In Human-Centered Computing, I explore designing systems that better understand and adapt to human needs, while also applying HCI principles with cognitive science to create more empathetic and effective human-computer interactions.
 
 My interest in Mobile Computing focuses on context-aware sensing and embedded AI for IoT devices, pushing the boundaries of how we can make technology more responsive to and seamless in our daily lives.
 
