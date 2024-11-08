@@ -8,6 +8,8 @@ redirect_from:
 ---
 `Actively looking for PhD position👨‍🎓`
 
+`A paper is under review at IMWUT 2024👨‍🔬`
+
 # Current Status 📅
 I am an MSc graduate from [TUDelft](https://www.tudelft.nl/) CESE (Computer and Embedded Systems Engineering) programme.
 <!-- I am soon an MSc graduate from [TUDelft](https://www.tudelft.nl/) CESE (Computer and Embedded Systems Engineering) program. -->
