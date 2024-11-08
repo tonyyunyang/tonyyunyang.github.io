@@ -15,15 +15,15 @@ I am an MSc graduate from [TUDelft](https://www.tudelft.nl/) CESE (Computer and 
 I work closely with [Prof. Guohao Lan](https://guohao.netlify.app/) and [Prof. Xucong Zhang](https://www.ccmitss.com/zhang) during my master thesis on Emotion Recognition in Immersive Environments. The work forms a [research paper](https://tonyyunyang.github.io/publication/2024-11-01-emotion-recognition-in-immersive-environments), and is currently under review at IMWUT 2024.
 
 # Research Interests 🔬 & Values 👁️
-My interest spans four main areas: Human-Centered Applications, Mobile Computing, and Generative AI.
+My interest spans three main areas: **Human-Centered Computing**, **Mobile Computing**, and **Generative AI**.
 
-In Human-Centered Computing, I explore designing systems that better understand and adapt to human needs, while also applying HCI principles with cognitive science to create more empathetic and effective human-computer interactions.
+- In **Human-Centered Computing**, I explore designing systems that better understand and adapt to human needs, while also applying HCI principles with cognitive science to create more empathetic and effective human-computer interactions.
 
-My interest in Mobile Computing focuses on context-aware sensing and embedded AI for IoT devices, pushing the boundaries of how we can make technology more responsive to and seamless in our daily lives.
+- In **Mobile Computing**, I focus on context-aware sensing and embedded AI for IoT devices, pushing the boundaries of how we can make technology more responsive to and seamless in our daily lives.
 
-In the realm of Generative AI, I'm particularly passionate about healthcare applications, working on medical image generation to support better diagnostic tools and healthcare outcomes.
+- In the realm of **GenAI**, I'm particularly passionate about healthcare applications, working on medical image generation to support better diagnostic tools and healthcare outcomes.
 
-I care deeply about the values in the research and work I do. I believe that technology should be a force for good, and I am committed to using my skills to make a positive impact. I would like to combine technical innovation with a strong emphasis on real-world applications that can improve people's lives, particularly in healthcare and assistive technologies.
+I care deeply about the **VALUES** in the research and work I do. I believe that technology should be a force for good, and I am committed to using my skills to make a positive impact. I would like to combine technical innovation with a strong emphasis on real-world applications that can improve people's lives, particularly in healthcare and assistive technologies.
 
 <!-- My interests lie at the intersection of HCI and AI. I focus on leveraging AI technologies to gain deeper insights into human cognition, behavior, and physical performance, aiming to enhance our understanding of human capabilities and create more intuitive and accessible user experiences.
 
