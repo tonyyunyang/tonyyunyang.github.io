@@ -8,6 +8,7 @@ redirect_from:
 ---
 
 CV in [PDF](http://tonyyunyang.github.io/files/cv.pdf)
+<embed src="http://tonyyunyang.github.io/files/cv.pdf" type="application/pdf" width="100%" height="800px" />
 {% include base_path %}
 
 Education
