@@ -117,7 +117,63 @@ for Emotion Recognition in Virtual Reality</span>
     </tr>
 
 
-    <tr onmouseout="midl25_stop()" onmouseover="midl25_start()" bgcolor="#ffffd0">
+    <tr onmouseout="miccai25_stop()" onmouseover="miccai25_start()">
+      <!-- Left column: Image/Video -->
+      <td style="padding:16px;width:20%;vertical-align:middle">
+        <div class="one">
+          <div class="two" id='miccai25_image'>
+            <!-- For video hover effect -->
+            <!-- <video width=100% height=100% muted autoplay loop>
+              <source src="images/paper_video.mp4" type="video/mp4">
+            </video> -->
+            <!-- OR for image hover effect -->
+            <img src='images/MICCAI/2025/Untitled.png' width=100%>
+          </div>
+          <img src='images/MICCAI/2025/Untitled.png' width="160">
+        </div>
+        <script type="text/javascript">
+          function midl25_start() {
+            document.getElementById('miccai25_image').style.opacity = "1";
+          }
+          function midl25_stop() {
+            document.getElementById('miccai25_image').style.opacity = "0";
+          }
+          paperid_stop()
+        </script>
+      </td>
+    
+      <!-- Right column: Paper details -->
+      <td style="padding:8px;width:80%;vertical-align:middle">
+        <a href="https://tonyyunyang.github.io/">
+          <span class="papertitle">Reverse Imaging: Any-Sequence Generalization for Cardiac MRI Segmentation</span>
+        </a>
+        <br>
+        Yidong Zhao,
+        <a href="https://yizhang025.github.io/">Yi Zhang</a>,
+        <strong>Tongyun Yang</strong>,
+        Maša Božić-Iven,
+        Ayda Arami,
+        <a href="https://wexnermedical.osu.edu/find-a-doctor/yuchi-han-md-125529">Yuchi Han</a>,
+        <a href="https://medicine.osu.edu/find-faculty/clinical/internal-medicine/orlando-simonetti-phd">Orlando Simonetti</a>,
+        <a href="https://www.microsoft.com/en-us/research/people/xueh/">Hui Xue</a>,
+        <a href="https://kellmanp.github.io/webpages/curricula_vitae.htm">Petter Kellman</a>,
+        <a href="https://www.mars-lab.eu/">Sebastian Weingärtner</a>,
+        <a href="https://sites.google.com/view/qtao/">Qian Tao</a>,
+        <br>
+        <em>MICCAI & IEEE Transactions on Medical Imaging</em>, 2025 <font color="red"><strong>(To appear)</strong></font>
+        <br>
+        <!-- <a href="https://project-page.com">project page</a>
+        / -->
+        <a href="https://tonyyunyang.github.io/">arXiv</a>
+        <p></p>
+        <p>
+        A physics-driven framework that estimates tissue properties (M0, T1, T2) from annotated cardiac MRI images using diffusion models, enabling physics-based synthesis of diverse unseen sequences for zero-shot generalization of segmentation models across different MRI contrasts.
+        </p>
+      </td>
+    </tr>
+
+
+    <tr onmouseout="midl25_stop()" onmouseover="midl25_start()">
       <!-- Left column: Image/Video -->
       <td style="padding:16px;width:20%;vertical-align:middle">
         <div class="one">
