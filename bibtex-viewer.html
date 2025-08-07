@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BibTeX Viewer</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+            line-height: 1.6;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            border-bottom: 2px solid #007acc;
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+        }
+        .bibtex {
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 5px;
+            padding: 20px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            white-space: pre-wrap;
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+        .copy-btn {
+            background-color: #007acc;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+        .copy-btn:hover {
+            background-color: #005a9e;
+        }
+        .back-link {
+            margin-top: 30px;
+            text-align: center;
+        }
+        .back-link a {
+            color: #007acc;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .back-link a:hover {
+            text-decoration: underline;
+        }
+        .loading {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+        }
+        .error {
+            color: #dc3545;
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>BibTeX Viewer</h1>
+        <div id="content">
+            <div class="loading">Loading bibTeX content...</div>
+        </div>
+        
+        <div class="back-link">
+            <a href="index.html">← Back to Home</a>
+        </div>
+    </div>
+
+    <script>
+        // Get the bib file path from URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const bibFile = urlParams.get('file');
+        
+        if (!bibFile) {
+            document.getElementById('content').innerHTML = 
+                '<div class="error">No bibTeX file specified. Please provide a file parameter in the URL.</div>';
+        } else {
+            // Fetch the bibTeX file
+            fetch(bibFile)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('File not found');
+                    }
+                    return response.text();
+                })
+                .then(content => {
+                    displayBibTeX(content, bibFile);
+                })
+                .catch(error => {
+                    document.getElementById('content').innerHTML = 
+                        `<div class="error">Error loading bibTeX file: ${error.message}</div>`;
+                });
+        }
+        
+        function displayBibTeX(content, filename) {
+            const contentDiv = document.getElementById('content');
+            
+            // Extract filename for display
+            const fileName = filename.split('/').pop().replace('.bib', '');
+            
+            contentDiv.innerHTML = `
+                <p><strong>File:</strong> ${fileName}</p>
+                <div class="bibtex">${escapeHtml(content)}</div>
+                <button class="copy-btn" onclick="copyBibTeX()">Copy BibTeX</button>
+            `;
+            
+            // Store content for copying
+            window.bibtexContent = content;
+        }
+        
+        function copyBibTeX() {
+            if (window.bibtexContent) {
+                navigator.clipboard.writeText(window.bibtexContent).then(function() {
+                    const btn = document.querySelector('.copy-btn');
+                    const originalText = btn.textContent;
+                    btn.textContent = 'Copied!';
+                    btn.style.backgroundColor = '#28a745';
+                    
+                    setTimeout(function() {
+                        btn.textContent = originalText;
+                        btn.style.backgroundColor = '#007acc';
+                    }, 2000);
+                }).catch(function(err) {
+                    console.error('Could not copy text: ', err);
+                });
+            }
+        }
+        
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+    </script>
+</body>
+</html>
