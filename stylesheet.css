@@ -140,3 +140,13 @@ span.highlight {
     display: inline-block;
     border-radius: 10px;
 }
+
+.news-list {
+  margin: 8px 0 0 0;
+  padding-left: 20px;
+}
+
+.news-list li {
+  margin-bottom: 6px;
+  line-height: 1.4;
+}
