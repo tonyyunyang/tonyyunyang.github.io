@@ -155,9 +155,9 @@ a {
 
 .pixel-gallery {
   position: absolute;
-  left: 6%;
-  right: 6%;
-  bottom: 392px;
+  left: 7%;
+  right: 7%;
+  bottom: 366px;
   z-index: 5;
   display: grid;
   grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.26fr) minmax(0, 0.92fr);
@@ -166,7 +166,7 @@ a {
     "munch vangogh vermeer";
   align-items: end;
   justify-items: center;
-  gap: 22px 28px;
+  gap: 20px 24px;
   pointer-events: none;
 }
 
@@ -188,7 +188,7 @@ a {
   position: relative;
   margin: 0;
   width: 100%;
-  padding: 12px 12px 13px;
+  padding: 11px 11px 12px;
   border: 2px solid var(--ink);
   background: rgba(255, 255, 255, 0.92);
   box-shadow: 8px 8px 0 rgba(32, 32, 32, 0.14);
@@ -197,7 +197,7 @@ a {
 .pixel-masterpiece--munch {
   grid-area: munch;
   justify-self: end;
-  max-width: 338px;
+  max-width: 308px;
   --masterpiece-rotate-start: -0.85deg;
   --masterpiece-rotate-quarter: -0.2deg;
   --masterpiece-rotate-half: -1.2deg;
@@ -212,14 +212,14 @@ a {
 .pixel-masterpiece--vangogh {
   grid-area: vangogh;
   justify-self: center;
-  max-width: 560px;
-  transform: rotate(0.45deg) translateY(-14px);
+  max-width: 510px;
+  transform: rotate(0.45deg) translateY(-10px);
 }
 
 .pixel-masterpiece--vermeer {
   grid-area: vermeer;
   justify-self: start;
-  max-width: 338px;
+  max-width: 308px;
   --masterpiece-rotate-start: 0.7deg;
   --masterpiece-rotate-half: 0.16deg;
   --masterpiece-y-start: 5px;
@@ -2518,9 +2518,9 @@ a {
   }
 
   .pixel-gallery {
-    left: 12px;
-    right: 12px;
-    bottom: 334px;
+    left: 16px;
+    right: 16px;
+    bottom: 318px;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     grid-template-areas:
       "title title"
