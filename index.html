@@ -8,7 +8,7 @@
     <meta name="author" content="Tony Yang">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="images/favicon/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" type="text/css" href="stylesheet.css?v=20260317b">
+    <link rel="stylesheet" type="text/css" href="stylesheet.css?v=20260317d">
     
   </head>
 
@@ -537,7 +537,7 @@ for Emotion Recognition in Virtual Reality</span>
         <span class="portal-transition__spark portal-transition__spark--3"></span>
         <span class="portal-transition__spark portal-transition__spark--4"></span>
       </div>
-      <p class="portal-transition__label">loading my world...</p>
+      <p class="portal-transition__label">drifting into my world...</p>
     </div>
       <div style="position: absolute; width: 1px; height: 1px; overflow: hidden; opacity: 0;">
       <script type="text/javascript" id="clustrmaps" src="//clustrmaps.com/map_v2.js?d=iKkpkHnNrRabuXubBkrbYyRqd19Zjt1GhUxkeyjBjPA&cl=ffffff&w=a"></script>
@@ -562,13 +562,14 @@ for Emotion Recognition in Virtual Reality</span>
           }
         }
 
-        function openPortal() {
+        function openPortal(options) {
+          const previewOnly = options && options.previewOnly;
           const target = portalButton.getAttribute('data-portal-target');
           if (!target || document.body.classList.contains('portal-opening')) {
             return;
           }
 
-          if (reducedMotion.matches) {
+          if (reducedMotion.matches && !previewOnly) {
             window.location.href = target;
             return;
           }
@@ -580,15 +581,27 @@ for Emotion Recognition in Virtual Reality</span>
           portalButton.disabled = true;
           portalButton.setAttribute('aria-disabled', 'true');
 
+          if (previewOnly) {
+            return;
+          }
+
           portalTimer = window.setTimeout(function () {
             window.location.href = target;
-          }, 1180);
+          }, 1080);
         }
 
-        portalButton.addEventListener('click', openPortal);
+        portalButton.addEventListener('click', function () {
+          openPortal();
+        });
 
-        if (window.location.search.indexOf('portal=1') !== -1) {
-          window.setTimeout(openPortal, 240);
+        if (window.location.search.indexOf('portal_preview=1') !== -1) {
+          window.setTimeout(function () {
+            openPortal({ previewOnly: true });
+          }, 120);
+        } else if (window.location.search.indexOf('portal=1') !== -1) {
+          window.setTimeout(function () {
+            openPortal();
+          }, 240);
         }
 
         window.addEventListener('pageshow', function (event) {
