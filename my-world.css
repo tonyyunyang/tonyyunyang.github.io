@@ -8,11 +8,15 @@
   --paper: rgba(255, 255, 255, 0.84);
   --line: rgba(32, 32, 32, 0.18);
   --cloud: #ffffff;
+  --panel-shadow: rgba(32, 32, 32, 0.12);
   --ridge-1: #f5caa5;
   --ridge-2: #b8c7ff;
   --ridge-3: #afdcb9;
   --river: #f0a3bd;
   --ground: #40345a;
+  --story-dawn: #fff3d6;
+  --story-meadow: #edf6dd;
+  --story-night: #e7edff;
 }
 
 * {
@@ -51,7 +55,7 @@ a {
 }
 
 .pixel-hero__eyebrow,
-.pixel-panel h2,
+.story-panel__tag,
 .pixel-hero__return,
 .word-cloud,
 .word-ridge,
@@ -113,16 +117,18 @@ a {
 .pixel-scene {
   position: relative;
   overflow: hidden;
-  min-height: 620px;
-  margin-bottom: 28px;
+  min-height: 840px;
+  margin-bottom: 34px;
   border: 2px solid var(--ink);
   background:
-    radial-gradient(circle at 52% 24%, rgba(255, 224, 205, 0.64), rgba(255, 224, 205, 0) 22%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.46), transparent 28%),
-    linear-gradient(180deg, #fffdf9 0%, #f2f5ff 42%, #e7f2ff 74%, #fef7eb 100%);
+    radial-gradient(circle at 52% 22%, rgba(255, 224, 205, 0.72), rgba(255, 224, 205, 0) 18%),
+    radial-gradient(circle at 24% 12%, rgba(255, 252, 232, 0.9), rgba(255, 252, 232, 0) 20%),
+    radial-gradient(circle at 82% 18%, rgba(214, 232, 255, 0.7), rgba(214, 232, 255, 0) 18%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.58), transparent 26%),
+    linear-gradient(180deg, #fffef9 0%, #f7f7ff 36%, #e7f2ff 72%, #fff1e3 100%);
   box-shadow:
     0 0 0 10px rgba(255, 255, 255, 0.55),
-    14px 14px 0 rgba(32, 32, 32, 0.12);
+    14px 14px 0 var(--panel-shadow);
 }
 
 .pixel-scene::before {
@@ -133,6 +139,17 @@ a {
     linear-gradient(rgba(32, 32, 32, 0.06) 1px, transparent 1px),
     linear-gradient(90deg, rgba(32, 32, 32, 0.06) 1px, transparent 1px);
   background-size: 14px 14px;
+  pointer-events: none;
+}
+
+.pixel-scene::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 228px;
+  height: 170px;
+  background:
+    radial-gradient(circle at 50% 40%, rgba(255, 214, 166, 0.42), rgba(255, 214, 166, 0) 54%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0), rgba(255, 236, 210, 0.24));
   pointer-events: none;
 }
 
@@ -160,6 +177,16 @@ a {
   left: 32%;
 }
 
+.word-star--4 {
+  top: 46px;
+  right: 28%;
+}
+
+.word-star--5 {
+  top: 192px;
+  left: 18%;
+}
+
 .word-cloud {
   position: absolute;
   z-index: 2;
@@ -182,6 +209,12 @@ a {
   top: 134px;
   right: 54px;
   animation: drift 10s ease-in-out infinite reverse;
+}
+
+.word-cloud--3 {
+  top: 250px;
+  left: 17%;
+  animation: drift 9s ease-in-out infinite;
 }
 
 .word-ridge,
@@ -262,6 +295,25 @@ a {
   filter: drop-shadow(4px 4px 0 rgba(32, 32, 32, 0.14));
 }
 
+.pixel-sprite--bird,
+.pixel-sprite--book,
+.pixel-sprite--crystal {
+  animation: pixel-bob 5.8s steps(3, end) infinite;
+}
+
+.pixel-sprite--cloud {
+  animation: cloud-drift 14s linear infinite;
+}
+
+.pixel-sprite--butterfly {
+  animation: flutter 3.2s steps(2, end) infinite;
+}
+
+.pixel-sprite--heart,
+.pixel-sprite--lantern {
+  animation: pixel-flicker 2.8s steps(2, end) infinite;
+}
+
 .pixel-sprite--heart {
   background: #ff6f91;
   box-shadow:
@@ -283,6 +335,12 @@ a {
   top: 250px;
   left: 63%;
   --sprite-scale: 1.8;
+}
+
+.pixel-sprite--heart-2 {
+  top: 314px;
+  left: 31%;
+  --sprite-scale: 1.25;
 }
 
 .pixel-sprite--bird {
@@ -316,6 +374,12 @@ a {
   top: 164px;
   left: 57%;
   --sprite-scale: 1.25;
+}
+
+.pixel-sprite--bird-3 {
+  top: 228px;
+  right: 22%;
+  --sprite-scale: 1.05;
 }
 
 .pixel-sprite--book {
@@ -362,6 +426,190 @@ a {
   --sprite-scale: 1.95;
 }
 
+.pixel-sprite--cloud {
+  background: #ffffff;
+  box-shadow:
+    8px 0 0 #ffffff,
+    16px 0 0 #ffffff,
+    24px 0 0 #ffffff,
+    32px 0 0 #ffffff,
+    40px 0 0 #ffffff,
+    -8px 8px 0 #ffffff,
+    0 8px 0 #ffffff,
+    8px 8px 0 #ffffff,
+    16px 8px 0 #ffffff,
+    24px 8px 0 #ffffff,
+    32px 8px 0 #ffffff,
+    40px 8px 0 #ffffff,
+    48px 8px 0 #ffffff,
+    0 16px 0 #ffffff,
+    8px 16px 0 #ffffff,
+    16px 16px 0 #ffffff,
+    24px 16px 0 #ffffff,
+    32px 16px 0 #ffffff,
+    40px 16px 0 #ffffff;
+  opacity: 0.9;
+}
+
+.pixel-sprite--cloud::after {
+  content: "";
+  position: absolute;
+  left: 8px;
+  top: 16px;
+  width: 40px;
+  height: 8px;
+  background: rgba(163, 183, 216, 0.28);
+  box-shadow:
+    8px 8px 0 rgba(163, 183, 216, 0.18),
+    16px 0 0 rgba(163, 183, 216, 0.24);
+}
+
+.pixel-sprite--cloud-1 {
+  top: 96px;
+  left: 15%;
+  --sprite-scale: 0.95;
+}
+
+.pixel-sprite--cloud-2 {
+  top: 138px;
+  right: 10%;
+  --sprite-scale: 0.82;
+}
+
+.pixel-sprite--moon {
+  background: #fff5b8;
+  box-shadow:
+    8px 0 0 #fff5b8,
+    16px 0 0 #fff5b8,
+    0 8px 0 #fff5b8,
+    8px 8px 0 #fffce0,
+    16px 8px 0 #fff5b8,
+    24px 8px 0 #fff5b8,
+    0 16px 0 #fff5b8,
+    8px 16px 0 #fff5b8,
+    16px 16px 0 #fff5b8,
+    8px 24px 0 #fff5b8,
+    16px 24px 0 #fff5b8;
+}
+
+.pixel-sprite--moon::after {
+  content: "";
+  position: absolute;
+  left: 8px;
+  top: 8px;
+  width: 16px;
+  height: 16px;
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.pixel-sprite--moon-1 {
+  top: 52px;
+  right: 33%;
+  --sprite-scale: 1.1;
+}
+
+.pixel-sprite--star {
+  background: #ffd66b;
+  box-shadow:
+    8px 0 0 #ffd66b,
+    16px 0 0 #ffd66b,
+    0 8px 0 #ffd66b,
+    8px 8px 0 #fff2b4,
+    16px 8px 0 #ffd66b,
+    24px 8px 0 #ffd66b,
+    8px 16px 0 #ffd66b,
+    16px 16px 0 #ffd66b,
+    8px 24px 0 #ffd66b,
+    16px 24px 0 #ffd66b;
+  animation: twinkle 2.4s steps(2, end) infinite;
+}
+
+.pixel-sprite--star::after {
+  content: "";
+  position: absolute;
+  left: 8px;
+  top: 8px;
+  width: 8px;
+  height: 8px;
+  background: #fff9dc;
+}
+
+.pixel-sprite--star-1 {
+  top: 56px;
+  left: 24%;
+  --sprite-scale: 0.95;
+}
+
+.pixel-sprite--star-2 {
+  top: 164px;
+  left: 71%;
+  --sprite-scale: 0.85;
+}
+
+.pixel-sprite--star-3 {
+  top: 104px;
+  left: 61%;
+  --sprite-scale: 0.75;
+}
+
+.pixel-sprite--butterfly {
+  background: #ffb5d0;
+  box-shadow:
+    -8px 0 0 #ffb5d0,
+    8px 0 0 #ffb5d0,
+    16px 0 0 #ffb5d0,
+    0 8px 0 #ff7fae,
+    8px 8px 0 #704c76,
+    16px 8px 0 #ff7fae,
+    24px 8px 0 #ffb5d0,
+    8px 16px 0 #704c76;
+}
+
+.pixel-sprite--butterfly::after {
+  content: "";
+  position: absolute;
+  left: 8px;
+  top: 0;
+  width: 8px;
+  height: 8px;
+  background: #fff2a4;
+  box-shadow: 0 16px 0 #fff2a4;
+}
+
+.pixel-sprite--butterfly-1 {
+  top: 204px;
+  left: 27%;
+  --sprite-scale: 0.92;
+}
+
+.pixel-sprite--butterfly-2 {
+  top: 286px;
+  right: 34%;
+  --sprite-scale: 0.82;
+}
+
+.pixel-sprite--crystal {
+  background: #fefcff;
+  box-shadow:
+    8px 0 0 #fefcff,
+    16px 0 0 #fefcff,
+    -8px 8px 0 #fefcff,
+    0 8px 0 #dcc8ff,
+    8px 8px 0 #c7a9ff,
+    16px 8px 0 #dcc8ff,
+    24px 8px 0 #fefcff,
+    0 16px 0 #dcc8ff,
+    8px 16px 0 #9f74d9,
+    16px 16px 0 #dcc8ff,
+    8px 24px 0 #fefcff;
+}
+
+.pixel-sprite--crystal-1 {
+  top: 202px;
+  left: 47%;
+  --sprite-scale: 1.65;
+}
+
 .pixel-sprite--tree {
   background: #64ac7e;
   box-shadow:
@@ -397,6 +645,12 @@ a {
   bottom: 168px;
   right: 236px;
   --sprite-scale: 1.95;
+}
+
+.pixel-sprite--tree-3 {
+  bottom: 212px;
+  left: 64%;
+  --sprite-scale: 1.35;
 }
 
 .pixel-sprite--house {
@@ -475,34 +729,647 @@ a {
   --sprite-scale: 1.4;
 }
 
-.pixel-panels {
+.pixel-sprite--flower-3 {
+  bottom: 100px;
+  left: 38%;
+  --sprite-scale: 1.25;
+}
+
+.pixel-sprite--flower-4 {
+  bottom: 112px;
+  left: 58%;
+  --sprite-scale: 1.1;
+}
+
+.pixel-sprite--mushroom {
+  background: #fff1db;
+  box-shadow:
+    8px 0 0 #fff1db,
+    0 8px 0 #fff1db,
+    8px 8px 0 #fff1db,
+    16px 8px 0 #fff1db,
+    8px 16px 0 #7b9b59,
+    8px 24px 0 #7b9b59;
+}
+
+.pixel-sprite--mushroom::before {
+  content: "";
+  position: absolute;
+  left: -8px;
+  top: -8px;
+  width: 8px;
+  height: 8px;
+  background: #ff8686;
+  box-shadow:
+    0 8px 0 #ff8686,
+    8px 8px 0 #ff8686,
+    16px 8px 0 #ff8686,
+    24px 8px 0 #ff8686,
+    8px 16px 0 #ff8686,
+    16px 16px 0 #ff8686;
+}
+
+.pixel-sprite--mushroom::after {
+  content: "";
+  position: absolute;
+  left: 8px;
+  top: 0;
+  width: 8px;
+  height: 8px;
+  background: #fff9f2;
+  box-shadow:
+    -8px 8px 0 #fff9f2,
+    8px 8px 0 #fff9f2;
+}
+
+.pixel-sprite--mushroom-1 {
+  bottom: 76px;
+  left: 14%;
+  --sprite-scale: 1.35;
+}
+
+.pixel-sprite--mushroom-2 {
+  bottom: 82px;
+  left: 82%;
+  --sprite-scale: 1.1;
+}
+
+.pixel-sprite--lantern {
+  background: #ffe58a;
+  box-shadow:
+    8px 0 0 #ffe58a,
+    0 8px 0 #ffe58a,
+    8px 8px 0 #fff6c9,
+    16px 8px 0 #ffe58a,
+    0 16px 0 #a16d37,
+    8px 16px 0 #ffe58a,
+    16px 16px 0 #a16d37,
+    8px 24px 0 #66483a;
+}
+
+.pixel-sprite--lantern::before {
+  content: "";
+  position: absolute;
+  left: 8px;
+  top: -8px;
+  width: 8px;
+  height: 8px;
+  background: #66483a;
+  box-shadow: 0 -8px 0 #66483a;
+}
+
+.pixel-sprite--lantern::after {
+  content: "";
+  position: absolute;
+  left: -8px;
+  top: 8px;
+  width: 8px;
+  height: 8px;
+  background: #66483a;
+  box-shadow: 24px 0 0 #66483a;
+}
+
+.pixel-sprite--lantern-1 {
+  bottom: 146px;
+  right: 30%;
+  --sprite-scale: 1.15;
+}
+
+.pixel-sprite--cat {
+  background: #7a6d75;
+  box-shadow:
+    8px 0 0 #7a6d75,
+    16px 0 0 #7a6d75,
+    -8px 8px 0 #7a6d75,
+    0 8px 0 #7a6d75,
+    8px 8px 0 #b79aa8,
+    16px 8px 0 #7a6d75,
+    24px 8px 0 #7a6d75,
+    0 16px 0 #7a6d75,
+    8px 16px 0 #7a6d75,
+    16px 16px 0 #7a6d75,
+    0 24px 0 #7a6d75,
+    16px 24px 0 #7a6d75;
+}
+
+.pixel-sprite--cat::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: -8px;
+  width: 8px;
+  height: 8px;
+  background: #7a6d75;
+  box-shadow: 16px 0 0 #7a6d75;
+}
+
+.pixel-sprite--cat::after {
+  content: "";
+  position: absolute;
+  left: 24px;
+  top: 24px;
+  width: 8px;
+  height: 8px;
+  background: #7a6d75;
+  box-shadow:
+    8px -8px 0 #7a6d75,
+    16px -8px 0 #7a6d75,
+    24px 0 0 #7a6d75;
+}
+
+.pixel-sprite--cat-1 {
+  bottom: 142px;
+  left: 44%;
+  --sprite-scale: 1.05;
+}
+
+.pixel-sprite--pond {
+  background: #79b8ff;
+  box-shadow:
+    8px 0 0 #79b8ff,
+    16px 0 0 #79b8ff,
+    24px 0 0 #79b8ff,
+    32px 0 0 #79b8ff,
+    -8px 8px 0 #79b8ff,
+    0 8px 0 #5a95e4,
+    8px 8px 0 #5a95e4,
+    16px 8px 0 #9fd6ff,
+    24px 8px 0 #5a95e4,
+    32px 8px 0 #5a95e4,
+    40px 8px 0 #79b8ff,
+    0 16px 0 #79b8ff,
+    8px 16px 0 #9fd6ff,
+    16px 16px 0 #9fd6ff,
+    24px 16px 0 #9fd6ff,
+    32px 16px 0 #79b8ff;
+}
+
+.pixel-sprite--pond::before {
+  content: "";
+  position: absolute;
+  left: 8px;
+  top: -8px;
+  width: 8px;
+  height: 8px;
+  background: #7b9b59;
+  box-shadow:
+    16px 0 0 #7b9b59,
+    24px 8px 0 #7b9b59;
+}
+
+.pixel-sprite--pond-1 {
+  bottom: 120px;
+  left: 44%;
+  --sprite-scale: 1.05;
+}
+
+.pixel-sprite--signpost {
+  background: #f8ddb0;
+  box-shadow:
+    8px 0 0 #f8ddb0,
+    16px 0 0 #f8ddb0,
+    24px 0 0 #f8ddb0,
+    0 8px 0 #f8ddb0,
+    8px 8px 0 #e3b271,
+    16px 8px 0 #e3b271,
+    24px 8px 0 #f8ddb0,
+    8px 16px 0 #8a613d,
+    8px 24px 0 #8a613d,
+    8px 32px 0 #8a613d;
+}
+
+.pixel-sprite--signpost::after {
+  content: "";
+  position: absolute;
+  left: 32px;
+  top: 0;
+  width: 8px;
+  height: 8px;
+  background: #f8ddb0;
+}
+
+.pixel-sprite--signpost-1 {
+  bottom: 152px;
+  left: 18%;
+  --sprite-scale: 1.08;
+}
+
+.pixel-sprite--airship {
+  background: #f4cb7a;
+  box-shadow:
+    8px 0 0 #f4cb7a,
+    16px 0 0 #f4cb7a,
+    24px 0 0 #f4cb7a,
+    32px 0 0 #f4cb7a,
+    40px 0 0 #f4cb7a,
+    48px 0 0 #f4cb7a,
+    0 8px 0 #f4cb7a,
+    8px 8px 0 #ffe5ad,
+    16px 8px 0 #ffe5ad,
+    24px 8px 0 #ffe5ad,
+    32px 8px 0 #ffe5ad,
+    40px 8px 0 #ffe5ad,
+    48px 8px 0 #f4cb7a,
+    8px 16px 0 #f4cb7a,
+    16px 16px 0 #f4cb7a,
+    24px 16px 0 #f4cb7a,
+    32px 16px 0 #f4cb7a,
+    40px 16px 0 #f4cb7a;
+}
+
+.pixel-sprite--airship::before {
+  content: "";
+  position: absolute;
+  left: 16px;
+  top: 24px;
+  width: 8px;
+  height: 8px;
+  background: #6e5f66;
+  box-shadow:
+    8px 0 0 #6e5f66,
+    16px 0 0 #6e5f66,
+    24px 0 0 #6e5f66,
+    32px 0 0 #6e5f66,
+    16px 8px 0 #6e5f66,
+    24px 8px 0 #6e5f66;
+}
+
+.pixel-sprite--airship::after {
+  content: "";
+  position: absolute;
+  left: 24px;
+  top: 16px;
+  width: 8px;
+  height: 8px;
+  background: #8bb3ff;
+  box-shadow:
+    -8px 0 0 #8bb3ff,
+    8px 0 0 #8bb3ff,
+    -16px 8px 0 #8bb3ff,
+    16px 8px 0 #8bb3ff;
+}
+
+.pixel-sprite--airship-1 {
+  top: 176px;
+  left: 2%;
+  z-index: 4;
+  --sprite-scale: 1.34;
+}
+
+.pixel-sprite--whale {
+  background: #7da9ff;
+  box-shadow:
+    8px 0 0 #7da9ff,
+    16px 0 0 #7da9ff,
+    24px 0 0 #7da9ff,
+    32px 0 0 #7da9ff,
+    40px 0 0 #7da9ff,
+    48px 0 0 #7da9ff,
+    56px 0 0 #7da9ff,
+    0 8px 0 #7da9ff,
+    8px 8px 0 #9cc0ff,
+    16px 8px 0 #9cc0ff,
+    24px 8px 0 #9cc0ff,
+    32px 8px 0 #9cc0ff,
+    40px 8px 0 #9cc0ff,
+    48px 8px 0 #9cc0ff,
+    56px 8px 0 #7da9ff,
+    8px 16px 0 #7da9ff,
+    16px 16px 0 #7da9ff,
+    24px 16px 0 #7da9ff,
+    32px 16px 0 #7da9ff,
+    40px 16px 0 #7da9ff,
+    48px 16px 0 #7da9ff;
+}
+
+.pixel-sprite--whale::before {
+  content: "";
+  position: absolute;
+  left: 48px;
+  top: -8px;
+  width: 8px;
+  height: 8px;
+  background: #9cc0ff;
+  box-shadow:
+    8px 8px 0 #9cc0ff,
+    -32px 24px 0 #fff7e1,
+    -24px 24px 0 #fff7e1,
+    -16px 24px 0 #fff7e1,
+    -8px 24px 0 #fff7e1;
+}
+
+.pixel-sprite--whale::after {
+  content: "";
+  position: absolute;
+  left: -8px;
+  top: 8px;
+  width: 8px;
+  height: 8px;
+  background: #7da9ff;
+  box-shadow:
+    -8px -8px 0 #7da9ff,
+    -8px 8px 0 #7da9ff,
+    64px 8px 0 #25324a;
+}
+
+.pixel-sprite--whale-1 {
+  top: 74px;
+  right: 14%;
+  z-index: 4;
+  --sprite-scale: 1.46;
+}
+
+.pixel-sprite--comet {
+  background: #ffe18a;
+  box-shadow:
+    8px 0 0 #fff7d6,
+    -8px 8px 0 rgba(255, 255, 255, 0.72),
+    -16px 16px 0 rgba(255, 255, 255, 0.54),
+    -24px 24px 0 rgba(255, 255, 255, 0.32);
+}
+
+.pixel-sprite--comet::after {
+  content: "";
+  position: absolute;
+  left: -32px;
+  top: 16px;
+  width: 8px;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.22);
+  box-shadow:
+    8px -8px 0 rgba(255, 255, 255, 0.34),
+    16px -16px 0 rgba(255, 255, 255, 0.5),
+    24px -24px 0 rgba(255, 255, 255, 0.66);
+}
+
+.pixel-sprite--comet-1 {
+  top: 194px;
+  left: 48%;
+  z-index: 4;
+  --sprite-scale: 1.02;
+}
+
+.pixel-sprite--windmill {
+  background: #f8ead1;
+  box-shadow:
+    8px 0 0 #f8ead1,
+    16px 0 0 #f8ead1,
+    0 8px 0 #f8ead1,
+    8px 8px 0 #f8ead1,
+    16px 8px 0 #f8ead1,
+    8px 16px 0 #d6a878,
+    8px 24px 0 #d6a878,
+    8px 32px 0 #d6a878,
+    8px 40px 0 #d6a878;
+}
+
+.pixel-sprite--windmill::before {
+  content: "";
+  position: absolute;
+  left: 8px;
+  top: -8px;
+  width: 8px;
+  height: 8px;
+  background: #fff7e6;
+  box-shadow:
+    0 -16px 0 #fff7e6,
+    0 16px 0 #fff7e6,
+    -16px 0 0 #fff7e6,
+    16px 0 0 #fff7e6;
+  transform-origin: 50% calc(100% + 8px);
+}
+
+.pixel-sprite--windmill::after {
+  content: "";
+  position: absolute;
+  left: 8px;
+  top: -16px;
+  width: 8px;
+  height: 8px;
+  background: #f08f6d;
+  box-shadow:
+    -8px 8px 0 #f08f6d,
+    8px 8px 0 #f08f6d;
+}
+
+.pixel-sprite--windmill-1 {
+  bottom: 214px;
+  left: 27%;
+  z-index: 4;
+  --sprite-scale: 1.22;
+}
+
+.pixel-sprite--airship-1 {
+  animation: airship-sail 18s ease-in-out infinite;
+}
+
+.pixel-sprite--cloud-1 {
+  animation: cloud-drift-1 16s linear infinite;
+}
+
+.pixel-sprite--cloud-2 {
+  animation: cloud-drift-2 21s linear infinite;
+}
+
+.pixel-sprite--moon-1 {
+  animation: moon-halo 5.8s ease-in-out infinite;
+}
+
+.pixel-sprite--whale-1 {
+  animation: whale-swim 11s ease-in-out infinite;
+}
+
+.pixel-sprite--comet-1 {
+  animation: comet-flicker 4.6s ease-in-out infinite;
+}
+
+.pixel-sprite--star-1 {
+  animation: star-twinkle-1 2.4s steps(2, end) infinite;
+}
+
+.pixel-sprite--star-2 {
+  animation: star-twinkle-2 3.1s steps(2, end) infinite;
+}
+
+.pixel-sprite--star-3 {
+  animation: star-twinkle-3 2.7s steps(2, end) infinite;
+}
+
+.pixel-sprite--bird-1 {
+  animation: bird-soar-1 8.2s steps(4, end) infinite;
+}
+
+.pixel-sprite--bird-2 {
+  animation: bird-soar-2 6.6s steps(4, end) infinite;
+}
+
+.pixel-sprite--bird-3 {
+  animation: bird-soar-3 7.4s steps(4, end) infinite;
+}
+
+.pixel-sprite--butterfly-1 {
+  animation: butterfly-loop-1 3s steps(3, end) infinite;
+}
+
+.pixel-sprite--butterfly-2 {
+  animation: butterfly-loop-2 3.6s steps(3, end) infinite;
+}
+
+.pixel-sprite--book-1 {
+  animation: book-hover 6.4s ease-in-out infinite;
+}
+
+.pixel-sprite--crystal-1 {
+  animation: crystal-gleam 4.8s ease-in-out infinite;
+}
+
+.pixel-sprite--heart-1 {
+  animation: heart-beat-1 3.2s steps(2, end) infinite;
+}
+
+.pixel-sprite--heart-2 {
+  animation: heart-beat-2 4.2s steps(2, end) infinite;
+}
+
+.pixel-sprite--tree-1 {
+  animation: tree-sway-1 5.6s ease-in-out infinite;
+}
+
+.pixel-sprite--tree-2 {
+  animation: tree-sway-2 6.4s ease-in-out infinite;
+}
+
+.pixel-sprite--tree-3 {
+  animation: tree-sway-3 5.1s ease-in-out infinite;
+}
+
+.pixel-sprite--house-1 {
+  animation: house-hum 4.8s ease-in-out infinite;
+}
+
+.pixel-sprite--flower-1 {
+  animation: flower-nod-1 3.7s ease-in-out infinite;
+}
+
+.pixel-sprite--flower-2 {
+  animation: flower-nod-2 4.3s ease-in-out infinite;
+}
+
+.pixel-sprite--flower-3 {
+  animation: flower-nod-1 4.8s ease-in-out infinite;
+}
+
+.pixel-sprite--flower-4 {
+  animation: flower-nod-2 3.9s ease-in-out infinite;
+}
+
+.pixel-sprite--mushroom-1 {
+  animation: mushroom-bop-1 4.2s steps(2, end) infinite;
+}
+
+.pixel-sprite--mushroom-2 {
+  animation: mushroom-bop-2 5s steps(2, end) infinite;
+}
+
+.pixel-sprite--lantern-1 {
+  animation: lantern-sway 3.3s ease-in-out infinite;
+}
+
+.pixel-sprite--cat-1 {
+  animation: cat-prowl 6.8s steps(4, end) infinite;
+}
+
+.pixel-sprite--pond-1 {
+  animation: pond-ripple 5.4s ease-in-out infinite;
+}
+
+.pixel-sprite--signpost-1 {
+  animation: signpost-creak 4.6s ease-in-out infinite;
+}
+
+.pixel-sprite--windmill-1 {
+  animation: windmill-rock 5.5s ease-in-out infinite;
+}
+
+.pixel-sprite--windmill-1::before {
+  animation: windmill-spin 2.4s steps(4, end) infinite;
+}
+
+.story-panels {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 16px;
+  gap: 18px;
+  margin-bottom: 34px;
 }
 
-.pixel-panel {
-  padding: 18px;
-  border: 2px solid var(--ink);
-  background: rgba(255, 255, 255, 0.9);
-  box-shadow: 8px 8px 0 rgba(32, 32, 32, 0.1);
+.story-panel {
+  position: relative;
+  overflow: hidden;
+  min-height: 172px;
+  padding: 24px 28px 28px;
+  border: 3px solid var(--ink);
+  box-shadow: 12px 12px 0 var(--panel-shadow);
 }
 
-.pixel-panel h2 {
-  margin: 0 0 12px;
-  font-size: 14px;
-  letter-spacing: 0.12em;
+.story-panel::before {
+  content: "";
+  position: absolute;
+  inset: 10px;
+  border: 2px solid rgba(32, 32, 32, 0.12);
+  pointer-events: none;
+}
+
+.story-panel::after {
+  content: "";
+  position: absolute;
+  right: 24px;
+  top: 20px;
+  width: 48px;
+  height: 48px;
+  background:
+    linear-gradient(90deg, rgba(32, 32, 32, 0.18) 0 25%, transparent 25% 50%, rgba(32, 32, 32, 0.18) 50% 75%, transparent 75%),
+    linear-gradient(rgba(32, 32, 32, 0.18) 0 25%, transparent 25% 50%, rgba(32, 32, 32, 0.18) 50% 75%, transparent 75%);
+  background-size: 16px 16px;
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+.story-panel--dawn {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.82), rgba(255, 245, 220, 0) 58%),
+    linear-gradient(135deg, var(--story-dawn), #fffaf1);
+}
+
+.story-panel--meadow {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.76), rgba(255, 255, 255, 0) 58%),
+    linear-gradient(135deg, var(--story-meadow), #f7fbed);
+}
+
+.story-panel--night {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.76), rgba(255, 255, 255, 0) 58%),
+    linear-gradient(135deg, var(--story-night), #f7f9ff);
+}
+
+.story-panel__tag,
+.story-panel__text {
+  position: relative;
+  z-index: 1;
+}
+
+.story-panel__tag {
+  margin: 0 0 14px;
+  font-size: 12px;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
+  color: var(--ink-soft);
 }
 
-.pixel-panel p {
+.story-panel__text {
+  max-width: 48ch;
   margin: 0;
-  font-size: clamp(22px, 2.3vw, 30px);
-  line-height: 1.12;
-}
-
-.pixel-panel--accent {
-  background: #fff2c8;
+  font-size: clamp(28px, 4vw, 40px);
+  line-height: 1.05;
 }
 
 .construction-zone {
@@ -628,6 +1495,422 @@ a {
   }
 }
 
+@keyframes pixel-bob {
+  0%,
+  100% {
+    transform: scale(var(--sprite-scale, 1.8)) translate3d(0, 0, 0);
+  }
+
+  50% {
+    transform: scale(var(--sprite-scale, 1.8)) translate3d(0, -6px, 0);
+  }
+}
+
+@keyframes pixel-flicker {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.72;
+  }
+}
+
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.6;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes cloud-drift {
+  0%,
+  100% {
+    transform: scale(var(--sprite-scale, 1)) translate3d(0, 0, 0);
+  }
+
+  50% {
+    transform: scale(var(--sprite-scale, 1)) translate3d(10px, 0, 0);
+  }
+}
+
+@keyframes flutter {
+  0%,
+  100% {
+    transform: scale(var(--sprite-scale, 1)) translate3d(0, 0, 0);
+  }
+
+  50% {
+    transform: scale(var(--sprite-scale, 1)) translate3d(4px, -4px, 0);
+  }
+}
+
+@keyframes airship-sail {
+  0%,
+  100% {
+    transform: scale(var(--sprite-scale, 1)) translate3d(0, 0, 0);
+  }
+
+  50% {
+    transform: scale(var(--sprite-scale, 1)) translate3d(18px, -8px, 0);
+  }
+}
+
+@keyframes cloud-drift-1 {
+  0%,
+  100% {
+    transform: scale(var(--sprite-scale, 1)) translate3d(0, 0, 0);
+  }
+
+  50% {
+    transform: scale(var(--sprite-scale, 1)) translate3d(14px, 2px, 0);
+  }
+}
+
+@keyframes cloud-drift-2 {
+  0%,
+  100% {
+    transform: scale(var(--sprite-scale, 1)) translate3d(0, 0, 0);
+  }
+
+  50% {
+    transform: scale(var(--sprite-scale, 1)) translate3d(-12px, -2px, 0);
+  }
+}
+
+@keyframes moon-halo {
+  0%,
+  100% {
+    opacity: 0.82;
+    filter: drop-shadow(4px 4px 0 rgba(32, 32, 32, 0.14));
+  }
+
+  50% {
+    opacity: 1;
+    filter: drop-shadow(4px 4px 0 rgba(32, 32, 32, 0.14)) brightness(1.08);
+  }
+}
+
+@keyframes whale-swim {
+  0%,
+  100% {
+    transform: scale(var(--sprite-scale, 1)) translate3d(0, 0, 0);
+  }
+
+  50% {
+    transform: scale(var(--sprite-scale, 1)) translate3d(-8px, -6px, 0);
+  }
+}
+
+@keyframes comet-flicker {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: scale(var(--sprite-scale, 1)) translate3d(0, 0, 0);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(var(--sprite-scale, 1)) translate3d(8px, -6px, 0);
+  }
+}
+
+@keyframes star-twinkle-1 {
+  0%,
+  100% {
+    opacity: 0.38;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes star-twinkle-2 {
+  0%,
+  100% {
+    opacity: 0.5;
+  }
+
+  50% {
+    opacity: 0.88;
+  }
+}
+
+@keyframes star-twinkle-3 {
+  0%,
+  100% {
+    opacity: 0.28;
+  }
+
+  50% {
+    opacity: 0.96;
+  }
+}
+
+@keyframes bird-soar-1 {
+  0%,
+  100% {
+    transform: scale(var(--sprite-scale, 1)) translate3d(0, 0, 0);
+  }
+
+  50% {
+    transform: scale(var(--sprite-scale, 1)) translate3d(12px, -8px, 0);
+  }
+}
+
+@keyframes bird-soar-2 {
+  0%,
+  100% {
+    transform: scale(var(--sprite-scale, 1)) translate3d(0, 0, 0);
+  }
+
+  50% {
+    transform: scale(var(--sprite-scale, 1)) translate3d(-10px, -4px, 0);
+  }
+}
+
+@keyframes bird-soar-3 {
+  0%,
+  100% {
+    transform: scale(var(--sprite-scale, 1)) translate3d(0, 0, 0);
+  }
+
+  50% {
+    transform: scale(var(--sprite-scale, 1)) translate3d(8px, -6px, 0);
+  }
+}
+
+@keyframes butterfly-loop-1 {
+  0%,
+  100% {
+    transform: scale(var(--sprite-scale, 1)) translate3d(0, 0, 0);
+  }
+
+  50% {
+    transform: scale(var(--sprite-scale, 1)) translate3d(6px, -10px, 0);
+  }
+}
+
+@keyframes butterfly-loop-2 {
+  0%,
+  100% {
+    transform: scale(var(--sprite-scale, 1)) translate3d(0, 0, 0);
+  }
+
+  50% {
+    transform: scale(var(--sprite-scale, 1)) translate3d(-6px, -8px, 0);
+  }
+}
+
+@keyframes book-hover {
+  0%,
+  100% {
+    transform: scale(var(--sprite-scale, 1)) translate3d(0, 0, 0) rotate(0deg);
+  }
+
+  50% {
+    transform: scale(var(--sprite-scale, 1)) translate3d(0, -10px, 0) rotate(-2deg);
+  }
+}
+
+@keyframes crystal-gleam {
+  0%,
+  100% {
+    opacity: 0.82;
+    transform: scale(var(--sprite-scale, 1)) translate3d(0, 0, 0);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(var(--sprite-scale, 1)) translate3d(0, -6px, 0);
+  }
+}
+
+@keyframes heart-beat-1 {
+  0%,
+  100% {
+    transform: scale(var(--sprite-scale, 1)) translate3d(0, 0, 0);
+  }
+
+  50% {
+    transform: scale(var(--sprite-scale, 1)) translate3d(0, -4px, 0);
+  }
+}
+
+@keyframes heart-beat-2 {
+  0%,
+  100% {
+    transform: scale(var(--sprite-scale, 1)) translate3d(0, 0, 0);
+  }
+
+  50% {
+    transform: scale(var(--sprite-scale, 1)) translate3d(0, -3px, 0);
+  }
+}
+
+@keyframes tree-sway-1 {
+  0%,
+  100% {
+    transform: scale(var(--sprite-scale, 1)) rotate(-1deg);
+  }
+
+  50% {
+    transform: scale(var(--sprite-scale, 1)) rotate(2deg);
+  }
+}
+
+@keyframes tree-sway-2 {
+  0%,
+  100% {
+    transform: scale(var(--sprite-scale, 1)) rotate(1deg);
+  }
+
+  50% {
+    transform: scale(var(--sprite-scale, 1)) rotate(-2deg);
+  }
+}
+
+@keyframes tree-sway-3 {
+  0%,
+  100% {
+    transform: scale(var(--sprite-scale, 1)) rotate(-1deg);
+  }
+
+  50% {
+    transform: scale(var(--sprite-scale, 1)) rotate(1deg);
+  }
+}
+
+@keyframes house-hum {
+  0%,
+  100% {
+    filter: drop-shadow(4px 4px 0 rgba(32, 32, 32, 0.14));
+  }
+
+  50% {
+    filter: drop-shadow(4px 4px 0 rgba(32, 32, 32, 0.14)) brightness(1.06);
+  }
+}
+
+@keyframes flower-nod-1 {
+  0%,
+  100% {
+    transform: scale(var(--sprite-scale, 1)) rotate(-2deg);
+  }
+
+  50% {
+    transform: scale(var(--sprite-scale, 1)) rotate(3deg);
+  }
+}
+
+@keyframes flower-nod-2 {
+  0%,
+  100% {
+    transform: scale(var(--sprite-scale, 1)) rotate(2deg);
+  }
+
+  50% {
+    transform: scale(var(--sprite-scale, 1)) rotate(-3deg);
+  }
+}
+
+@keyframes mushroom-bop-1 {
+  0%,
+  100% {
+    transform: scale(var(--sprite-scale, 1)) translate3d(0, 0, 0);
+  }
+
+  50% {
+    transform: scale(var(--sprite-scale, 1)) translate3d(0, -3px, 0);
+  }
+}
+
+@keyframes mushroom-bop-2 {
+  0%,
+  100% {
+    transform: scale(var(--sprite-scale, 1)) translate3d(0, 0, 0);
+  }
+
+  50% {
+    transform: scale(var(--sprite-scale, 1)) translate3d(0, -2px, 0);
+  }
+}
+
+@keyframes lantern-sway {
+  0%,
+  100% {
+    transform: scale(var(--sprite-scale, 1)) rotate(-2deg);
+    opacity: 0.88;
+  }
+
+  50% {
+    transform: scale(var(--sprite-scale, 1)) rotate(2deg);
+    opacity: 1;
+  }
+}
+
+@keyframes cat-prowl {
+  0%,
+  100% {
+    transform: scale(var(--sprite-scale, 1)) translate3d(0, 0, 0);
+  }
+
+  50% {
+    transform: scale(var(--sprite-scale, 1)) translate3d(4px, -2px, 0);
+  }
+}
+
+@keyframes pond-ripple {
+  0%,
+  100% {
+    opacity: 0.86;
+    transform: scale(var(--sprite-scale, 1)) translate3d(0, 0, 0);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(var(--sprite-scale, 1)) translate3d(0, 1px, 0);
+  }
+}
+
+@keyframes signpost-creak {
+  0%,
+  100% {
+    transform: scale(var(--sprite-scale, 1)) rotate(-1deg);
+  }
+
+  50% {
+    transform: scale(var(--sprite-scale, 1)) rotate(2deg);
+  }
+}
+
+@keyframes windmill-rock {
+  0%,
+  100% {
+    transform: scale(var(--sprite-scale, 1)) translate3d(0, 0, 0);
+  }
+
+  50% {
+    transform: scale(var(--sprite-scale, 1)) translate3d(0, -2px, 0);
+  }
+}
+
+@keyframes windmill-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 @keyframes construction-blink {
   0%,
   49% {
@@ -647,11 +1930,11 @@ a {
   }
 
   .pixel-scene {
-    min-height: 560px;
+    min-height: 780px;
   }
 
-  .pixel-panels {
-    grid-template-columns: 1fr;
+  .story-panel {
+    min-height: auto;
   }
 
   .construction-zone {
@@ -679,7 +1962,7 @@ a {
   }
 
   .pixel-scene {
-    min-height: 560px;
+    min-height: 840px;
     box-shadow:
       0 0 0 6px rgba(255, 255, 255, 0.55),
       8px 8px 0 rgba(32, 32, 32, 0.1);
@@ -705,6 +1988,72 @@ a {
     right: 18px;
   }
 
+  .word-cloud--3 {
+    top: 242px;
+    left: 20px;
+  }
+
+  .word-star--4 {
+    top: 54px;
+    right: 20px;
+  }
+
+  .word-star--5 {
+    top: 222px;
+    left: 20px;
+  }
+
+  .pixel-sprite--airship-1 {
+    top: 248px;
+    left: 4%;
+    --sprite-scale: 0.98;
+  }
+
+  .pixel-sprite--cloud-1 {
+    top: 88px;
+    left: 8%;
+    --sprite-scale: 0.72;
+  }
+
+  .pixel-sprite--cloud-2 {
+    top: 124px;
+    right: 2%;
+    --sprite-scale: 0.66;
+  }
+
+  .pixel-sprite--moon-1 {
+    top: 58px;
+    right: 18%;
+    --sprite-scale: 0.92;
+  }
+
+  .pixel-sprite--whale-1 {
+    top: 136px;
+    right: 6%;
+    --sprite-scale: 1.02;
+  }
+
+  .pixel-sprite--comet-1 {
+    top: 214px;
+    left: 52%;
+    --sprite-scale: 0.82;
+  }
+
+  .pixel-sprite--star-1 {
+    top: 76px;
+    left: 30%;
+  }
+
+  .pixel-sprite--star-2 {
+    top: 184px;
+    left: 76%;
+  }
+
+  .pixel-sprite--star-3 {
+    top: 118px;
+    left: 58%;
+  }
+
   .pixel-sprite--bird-1 {
     top: 114px;
     left: 48%;
@@ -717,17 +2066,47 @@ a {
     --sprite-scale: 1.05;
   }
 
+  .pixel-sprite--bird-3 {
+    top: 286px;
+    right: 18px;
+    --sprite-scale: 0.92;
+  }
+
+  .pixel-sprite--butterfly-1 {
+    top: 272px;
+    left: 34%;
+    --sprite-scale: 0.76;
+  }
+
+  .pixel-sprite--butterfly-2 {
+    top: 334px;
+    right: 32%;
+    --sprite-scale: 0.7;
+  }
+
   .pixel-sprite--book-1 {
-    top: 214px;
-    left: 43%;
+    top: 188px;
+    left: 38%;
     --sprite-scale: 1.35;
   }
 
+  .pixel-sprite--crystal-1 {
+    top: 264px;
+    left: 52%;
+    --sprite-scale: 1.15;
+  }
+
   .pixel-sprite--heart-1 {
-    top: 286px;
+    top: 338px;
     left: auto;
     right: 46px;
     --sprite-scale: 1.3;
+  }
+
+  .pixel-sprite--heart-2 {
+    top: 382px;
+    left: 18%;
+    --sprite-scale: 0.95;
   }
 
   .pixel-sprite--tree-1 {
@@ -740,6 +2119,12 @@ a {
     bottom: 162px;
     right: 126px;
     --sprite-scale: 1.38;
+  }
+
+  .pixel-sprite--tree-3 {
+    bottom: 210px;
+    left: 58%;
+    --sprite-scale: 1.05;
   }
 
   .pixel-sprite--house-1 {
@@ -760,21 +2145,90 @@ a {
     --sprite-scale: 1.15;
   }
 
+  .pixel-sprite--flower-3 {
+    bottom: 108px;
+    left: 32%;
+    --sprite-scale: 1.02;
+  }
+
+  .pixel-sprite--flower-4 {
+    bottom: 116px;
+    left: 52%;
+    --sprite-scale: 0.96;
+  }
+
+  .pixel-sprite--mushroom-1 {
+    bottom: 90px;
+    left: 12%;
+    --sprite-scale: 1.15;
+  }
+
+  .pixel-sprite--mushroom-2 {
+    bottom: 102px;
+    left: 86%;
+    --sprite-scale: 0.95;
+  }
+
+  .pixel-sprite--lantern-1 {
+    bottom: 152px;
+    right: 36%;
+    --sprite-scale: 0.95;
+  }
+
+  .pixel-sprite--cat-1 {
+    bottom: 154px;
+    left: 48%;
+    --sprite-scale: 0.82;
+  }
+
+  .pixel-sprite--pond-1 {
+    bottom: 138px;
+    left: 40%;
+    --sprite-scale: 0.8;
+  }
+
+  .pixel-sprite--signpost-1 {
+    bottom: 170px;
+    left: 10%;
+    --sprite-scale: 0.78;
+  }
+
+  .pixel-sprite--windmill-1 {
+    bottom: 222px;
+    left: 20%;
+    --sprite-scale: 0.92;
+  }
+
+  .pixel-sprite--windmill-1::before {
+    animation-duration: 2.8s;
+  }
+
   .word-ridge--1 {
-    bottom: 228px;
+    bottom: 248px;
   }
 
   .word-ridge--2 {
-    bottom: 166px;
+    bottom: 182px;
   }
 
   .word-ridge--3 {
-    bottom: 106px;
+    bottom: 116px;
   }
 
   .construction-zone__sign {
     padding: 20px 16px 22px;
     box-shadow: 8px 8px 0 rgba(32, 32, 32, 0.12);
+  }
+
+  .story-panel {
+    padding: 20px 18px 22px;
+    box-shadow: 8px 8px 0 rgba(32, 32, 32, 0.12);
+  }
+
+  .story-panel__text {
+    max-width: 100%;
+    font-size: clamp(20px, 6.6vw, 28px);
+    line-height: 1.1;
   }
 
   .construction-zone .pixel-sprite {
