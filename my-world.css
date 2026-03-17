@@ -117,7 +117,7 @@ a {
 .pixel-scene {
   position: relative;
   overflow: hidden;
-  min-height: 840px;
+  min-height: 980px;
   margin-bottom: 34px;
   border: 2px solid var(--ink);
   background:
@@ -145,8 +145,8 @@ a {
 .pixel-scene::after {
   content: "";
   position: absolute;
-  inset: auto 0 228px;
-  height: 170px;
+  inset: auto 0 298px;
+  height: 220px;
   background:
     radial-gradient(circle at 50% 40%, rgba(255, 214, 166, 0.42), rgba(255, 214, 166, 0) 54%),
     linear-gradient(180deg, rgba(255, 255, 255, 0), rgba(255, 236, 210, 0.24));
@@ -155,33 +155,40 @@ a {
 
 .pixel-gallery {
   position: absolute;
-  left: 5%;
-  right: 5%;
-  bottom: 344px;
+  left: 6%;
+  right: 6%;
+  bottom: 392px;
   z-index: 5;
   display: grid;
-  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.28fr) minmax(0, 0.9fr);
+  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.26fr) minmax(0, 0.92fr);
   grid-template-areas:
-    "title title title"
+    ". title ."
     "munch vangogh vermeer";
   align-items: end;
-  gap: 16px 22px;
+  justify-items: center;
+  gap: 22px 28px;
   pointer-events: none;
 }
 
 .pixel-gallery__title {
   grid-area: title;
-  margin: 0 0 2px 12px;
+  justify-self: center;
+  margin: 0;
+  padding: 8px 18px;
+  border: 2px solid rgba(32, 32, 32, 0.12);
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 6px 6px 0 rgba(32, 32, 32, 0.08);
   font-family: "Silkscreen", monospace;
   font-size: 11px;
-  letter-spacing: 0.16em;
-  color: rgba(32, 32, 32, 0.66);
+  letter-spacing: 0.18em;
+  color: rgba(32, 32, 32, 0.72);
 }
 
 .pixel-masterpiece {
   position: relative;
   margin: 0;
-  padding: 10px 10px 12px;
+  width: 100%;
+  padding: 12px 12px 13px;
   border: 2px solid var(--ink);
   background: rgba(255, 255, 255, 0.92);
   box-shadow: 8px 8px 0 rgba(32, 32, 32, 0.14);
@@ -189,28 +196,34 @@ a {
 
 .pixel-masterpiece--munch {
   grid-area: munch;
-  --masterpiece-rotate-start: -1.25deg;
-  --masterpiece-rotate-quarter: -0.35deg;
-  --masterpiece-rotate-half: -1.85deg;
-  --masterpiece-rotate-three-quarter: -0.6deg;
-  --masterpiece-y-start: 6px;
-  --masterpiece-y-quarter: 2px;
-  --masterpiece-y-half: 8px;
-  --masterpiece-y-three-quarter: 4px;
+  justify-self: end;
+  max-width: 338px;
+  --masterpiece-rotate-start: -0.85deg;
+  --masterpiece-rotate-quarter: -0.2deg;
+  --masterpiece-rotate-half: -1.2deg;
+  --masterpiece-rotate-three-quarter: -0.45deg;
+  --masterpiece-y-start: 4px;
+  --masterpiece-y-quarter: 1px;
+  --masterpiece-y-half: 6px;
+  --masterpiece-y-three-quarter: 2px;
   animation: munch-shiver 6.4s steps(4, end) infinite;
 }
 
 .pixel-masterpiece--vangogh {
   grid-area: vangogh;
-  transform: rotate(0.8deg) translateY(-10px);
+  justify-self: center;
+  max-width: 560px;
+  transform: rotate(0.45deg) translateY(-14px);
 }
 
 .pixel-masterpiece--vermeer {
   grid-area: vermeer;
-  --masterpiece-rotate-start: 1.15deg;
-  --masterpiece-rotate-half: 0.4deg;
-  --masterpiece-y-start: 10px;
-  --masterpiece-y-half: 6px;
+  justify-self: start;
+  max-width: 338px;
+  --masterpiece-rotate-start: 0.7deg;
+  --masterpiece-rotate-half: 0.16deg;
+  --masterpiece-y-start: 5px;
+  --masterpiece-y-half: 2px;
   animation: vermeer-tilt 7.2s ease-in-out infinite;
 }
 
@@ -250,10 +263,11 @@ a {
   display: flex;
   justify-content: space-between;
   gap: 10px;
-  margin-top: 8px;
+  margin-top: 10px;
+  padding: 0 2px;
   font-family: "Silkscreen", monospace;
   font-size: 8px;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: rgba(32, 32, 32, 0.76);
 }
@@ -2230,7 +2244,7 @@ a {
   }
 
   .pixel-scene {
-    min-height: 780px;
+    min-height: 960px;
   }
 
   .story-panel {
@@ -2262,7 +2276,7 @@ a {
   }
 
   .pixel-scene {
-    min-height: 840px;
+    min-height: 980px;
     box-shadow:
       0 0 0 6px rgba(255, 255, 255, 0.55),
       8px 8px 0 rgba(32, 32, 32, 0.1);
@@ -2504,47 +2518,51 @@ a {
   }
 
   .pixel-gallery {
-    left: 14px;
-    right: 14px;
-    bottom: 310px;
+    left: 12px;
+    right: 12px;
+    bottom: 334px;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     grid-template-areas:
       "title title"
       "vangogh vangogh"
       "munch vermeer";
-    gap: 10px 12px;
+    gap: 12px 12px;
   }
 
   .pixel-gallery__title {
-    margin-left: 4px;
-    font-size: 9px;
+    padding: 6px 12px;
+    box-shadow: 4px 4px 0 rgba(32, 32, 32, 0.08);
+    font-size: 8px;
   }
 
   .pixel-masterpiece {
-    padding: 8px 8px 9px;
+    padding: 8px 8px 10px;
     box-shadow: 6px 6px 0 rgba(32, 32, 32, 0.12);
   }
 
   .pixel-masterpiece--munch {
-    --masterpiece-rotate-start: -0.7deg;
-    --masterpiece-rotate-quarter: -0.2deg;
-    --masterpiece-rotate-half: -1deg;
-    --masterpiece-rotate-three-quarter: -0.45deg;
-    --masterpiece-y-start: 2px;
+    max-width: none;
+    --masterpiece-rotate-start: -0.45deg;
+    --masterpiece-rotate-quarter: -0.12deg;
+    --masterpiece-rotate-half: -0.8deg;
+    --masterpiece-rotate-three-quarter: -0.28deg;
+    --masterpiece-y-start: 1px;
     --masterpiece-y-quarter: 0;
-    --masterpiece-y-half: 4px;
+    --masterpiece-y-half: 3px;
     --masterpiece-y-three-quarter: 1px;
   }
 
   .pixel-masterpiece--vangogh {
-    transform: rotate(0.45deg);
+    max-width: none;
+    transform: rotate(0.2deg) translateY(-4px);
   }
 
   .pixel-masterpiece--vermeer {
-    --masterpiece-rotate-start: 0.8deg;
-    --masterpiece-rotate-half: 0.2deg;
-    --masterpiece-y-start: 4px;
-    --masterpiece-y-half: 2px;
+    max-width: none;
+    --masterpiece-rotate-start: 0.45deg;
+    --masterpiece-rotate-half: 0.1deg;
+    --masterpiece-y-start: 2px;
+    --masterpiece-y-half: 1px;
   }
 
   .pixel-masterpiece__mat {
