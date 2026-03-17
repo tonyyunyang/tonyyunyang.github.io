@@ -165,6 +165,14 @@ h2 {
   color: #34495e;
 }
 
+.hero-copy > p:not(.name):not(.tagline):not(.link-badges):not(.nav-pills) {
+  max-width: 34em;
+  margin: 0 0 14px;
+  font-size: 15px;
+  line-height: 1.78;
+  text-wrap: pretty;
+}
+
 .hero-photo {
   border: 4px solid rgba(255, 255, 255, 0.96);
   box-shadow: 0 14px 36px rgba(23, 114, 208, 0.18);
@@ -465,6 +473,48 @@ span.highlight {
   transition: opacity .24s ease;
 }
 
+.portal-transition::before,
+.portal-transition::after {
+  content: "";
+  position: absolute;
+  left: var(--portal-origin-x);
+  top: var(--portal-origin-y);
+  width: 8px;
+  height: 8px;
+  border-radius: 1px;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.4);
+  pointer-events: none;
+}
+
+.portal-transition::before {
+  background: rgba(255, 245, 212, 0.96);
+  box-shadow:
+    -120px -88px 0 rgba(255, 204, 141, 0.90),
+    -82px -44px 0 rgba(201, 223, 255, 0.84),
+    -36px -102px 0 rgba(255, 255, 255, 0.92),
+    54px -92px 0 rgba(255, 214, 156, 0.92),
+    108px -46px 0 rgba(201, 223, 255, 0.86),
+    84px 48px 0 rgba(255, 255, 255, 0.92),
+    -92px 62px 0 rgba(255, 225, 176, 0.88),
+    -22px 112px 0 rgba(201, 223, 255, 0.82),
+    42px 126px 0 rgba(255, 214, 156, 0.90);
+}
+
+.portal-transition::after {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow:
+    -154px -20px 0 rgba(255, 214, 156, 0.82),
+    -132px 104px 0 rgba(201, 223, 255, 0.80),
+    -16px -148px 0 rgba(255, 240, 208, 0.88),
+    142px -12px 0 rgba(201, 223, 255, 0.82),
+    124px 88px 0 rgba(255, 214, 156, 0.84),
+    8px 154px 0 rgba(255, 255, 255, 0.90);
+}
+
 .portal-transition__veil {
   position: absolute;
   inset: 0;
@@ -488,8 +538,8 @@ span.highlight {
 .portal-transition__veil::before {
   inset: -4%;
   background:
-    repeating-linear-gradient(to right, rgba(118, 133, 156, 0.10) 0 1px, transparent 1px 34px),
-    repeating-linear-gradient(to bottom, rgba(118, 133, 156, 0.10) 0 1px, transparent 1px 34px);
+    repeating-linear-gradient(to right, rgba(118, 133, 156, 0.12) 0 1px, transparent 1px 32px),
+    repeating-linear-gradient(to bottom, rgba(118, 133, 156, 0.12) 0 1px, transparent 1px 32px);
   opacity: 0;
   transform: scale(1.06) translateY(12px);
 }
@@ -498,8 +548,23 @@ span.highlight {
   inset: auto -2% -10% -2%;
   height: 52%;
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(253, 217, 177, 0.18) 30%, rgba(248, 210, 166, 0.78) 44%, rgba(176, 193, 255, 0.78) 58%, rgba(176, 226, 189, 0.72) 72%, rgba(241, 173, 205, 0.70) 86%, rgba(99, 88, 145, 0.60) 100%);
-  filter: blur(22px);
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0) 24%,
+      rgba(248, 210, 166, 0.18) 24%,
+      rgba(248, 210, 166, 0.70) 39%,
+      rgba(176, 193, 255, 0.74) 39%,
+      rgba(176, 193, 255, 0.74) 55%,
+      rgba(176, 226, 189, 0.70) 55%,
+      rgba(176, 226, 189, 0.70) 71%,
+      rgba(241, 173, 205, 0.68) 71%,
+      rgba(241, 173, 205, 0.68) 85%,
+      rgba(99, 88, 145, 0.62) 85%,
+      rgba(99, 88, 145, 0.62) 100%
+    ),
+    repeating-linear-gradient(to bottom, rgba(255, 255, 255, 0.12) 0 2px, transparent 2px 26px);
+  filter: blur(14px);
   opacity: 0;
   transform: translateY(74px) scaleY(1.08);
 }
@@ -511,7 +576,8 @@ span.highlight {
   width: 168px;
   height: 168px;
   transform: translate(-50%, -50%) scale(0.12) rotate(-6deg);
-  border-radius: 50%;
+  border-radius: 0;
+  clip-path: polygon(18% 0, 82% 0, 100% 18%, 100% 82%, 82% 100%, 18% 100%, 0 82%, 0 18%);
   background:
     radial-gradient(circle at 48% 45%, rgba(255, 255, 255, 0.99) 0%, rgba(255, 252, 232, 0.96) 20%, rgba(255, 239, 196, 0.92) 40%, rgba(255, 222, 183, 0.76) 58%, rgba(201, 223, 255, 0.56) 76%, rgba(201, 223, 255, 0) 100%),
     conic-gradient(from 180deg, rgba(255, 222, 164, 0.44), rgba(255, 255, 255, 0.18), rgba(194, 223, 255, 0.54), rgba(247, 196, 255, 0.28), rgba(255, 222, 164, 0.44));
@@ -527,15 +593,16 @@ span.highlight {
 .portal-transition__rift::after {
   content: "";
   position: absolute;
-  border-radius: inherit;
+  clip-path: inherit;
 }
 
 .portal-transition__rift::before {
   inset: 8%;
-  border: 1px solid rgba(255, 255, 255, 0.68);
+  border: 1px solid rgba(255, 255, 255, 0.76);
   box-shadow:
     inset 0 0 40px rgba(255, 255, 255, 0.32),
-    0 0 0 12px rgba(255, 247, 222, 0.12);
+    0 0 0 10px rgba(255, 247, 222, 0.12),
+    0 0 0 22px rgba(255, 232, 190, 0.05);
   opacity: 0.9;
 }
 
@@ -554,7 +621,8 @@ span.highlight {
 
 .portal-transition__pulse {
   inset: -24%;
-  border-radius: 44% 56% 52% 48% / 54% 42% 58% 46%;
+  border-radius: 0;
+  clip-path: polygon(16% 0, 84% 0, 100% 16%, 100% 84%, 84% 100%, 16% 100%, 0 84%, 0 16%);
   border: 1px solid rgba(255, 241, 207, 0.84);
   box-shadow:
     inset 0 0 0 1px rgba(255, 255, 255, 0.14),
@@ -635,6 +703,14 @@ body.portal-opening .portal-transition {
   opacity: 1;
 }
 
+body.portal-opening .portal-transition::before {
+  animation: portal-pixel-burst .9s ease-out .05s forwards;
+}
+
+body.portal-opening .portal-transition::after {
+  animation: portal-pixel-burst-large 1.02s ease-out .12s forwards;
+}
+
 body.portal-opening .portal-transition__veil {
   animation: portal-veil 1.02s ease forwards;
 }
@@ -700,7 +776,7 @@ body.portal-opening .portal-transition__label {
   }
 
   100% {
-    opacity: 0.42;
+    opacity: 0.5;
     transform: scale(1) translateY(0);
   }
 }
@@ -740,6 +816,38 @@ body.portal-opening .portal-transition__label {
   100% {
     opacity: 1;
     transform: translate(-50%, -54%) scale(13.6) rotate(0deg);
+  }
+}
+
+@keyframes portal-pixel-burst {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.35);
+  }
+
+  28% {
+    opacity: 0.92;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1.5);
+  }
+}
+
+@keyframes portal-pixel-burst-large {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.28);
+  }
+
+  30% {
+    opacity: 0.78;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1.35);
   }
 }
 
@@ -827,6 +935,16 @@ body.portal-opening .portal-transition__label {
 
   .portal-launch-wrap {
     max-width: none;
+  }
+
+  .portal-transition__veil::after {
+    height: 46%;
+    filter: blur(12px);
+  }
+
+  .portal-transition__rift {
+    width: 144px;
+    height: 144px;
   }
 
   .card-row {
