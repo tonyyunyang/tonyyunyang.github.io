@@ -153,6 +153,192 @@ a {
   pointer-events: none;
 }
 
+.pixel-gallery {
+  position: absolute;
+  left: 5%;
+  right: 5%;
+  bottom: 344px;
+  z-index: 5;
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.28fr) minmax(0, 0.9fr);
+  grid-template-areas:
+    "title title title"
+    "munch vangogh vermeer";
+  align-items: end;
+  gap: 16px 22px;
+  pointer-events: none;
+}
+
+.pixel-gallery__title {
+  grid-area: title;
+  margin: 0 0 2px 12px;
+  font-family: "Silkscreen", monospace;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  color: rgba(32, 32, 32, 0.66);
+}
+
+.pixel-masterpiece {
+  position: relative;
+  margin: 0;
+  padding: 10px 10px 12px;
+  border: 2px solid var(--ink);
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 8px 8px 0 rgba(32, 32, 32, 0.14);
+}
+
+.pixel-masterpiece--munch {
+  grid-area: munch;
+  --masterpiece-rotate-start: -1.25deg;
+  --masterpiece-rotate-quarter: -0.35deg;
+  --masterpiece-rotate-half: -1.85deg;
+  --masterpiece-rotate-three-quarter: -0.6deg;
+  --masterpiece-y-start: 6px;
+  --masterpiece-y-quarter: 2px;
+  --masterpiece-y-half: 8px;
+  --masterpiece-y-three-quarter: 4px;
+  animation: munch-shiver 6.4s steps(4, end) infinite;
+}
+
+.pixel-masterpiece--vangogh {
+  grid-area: vangogh;
+  transform: rotate(0.8deg) translateY(-10px);
+}
+
+.pixel-masterpiece--vermeer {
+  grid-area: vermeer;
+  --masterpiece-rotate-start: 1.15deg;
+  --masterpiece-rotate-half: 0.4deg;
+  --masterpiece-y-start: 10px;
+  --masterpiece-y-half: 6px;
+  animation: vermeer-tilt 7.2s ease-in-out infinite;
+}
+
+.pixel-masterpiece__mat {
+  padding: 8px;
+  border: 2px solid rgba(32, 32, 32, 0.14);
+  background: linear-gradient(180deg, #fffdf5 0%, #f7f0df 100%);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.66);
+}
+
+.pixel-masterpiece__canvas {
+  position: relative;
+  overflow: hidden;
+  border: 2px solid rgba(32, 32, 32, 0.22);
+  background: #20263b;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.22);
+}
+
+.pixel-masterpiece__canvas::before,
+.pixel-masterpiece__canvas::after {
+  content: "";
+  position: absolute;
+  display: block;
+  pointer-events: none;
+}
+
+.pixel-masterpiece__image {
+  display: block;
+  width: 100%;
+  height: auto;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  transform-origin: center;
+}
+
+.pixel-masterpiece__caption {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 8px;
+  font-family: "Silkscreen", monospace;
+  font-size: 8px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(32, 32, 32, 0.76);
+}
+
+.pixel-masterpiece__caption span:last-child {
+  text-align: right;
+}
+
+.pixel-masterpiece--vangogh .pixel-masterpiece__canvas {
+  aspect-ratio: 18 / 11;
+  background: #213c73;
+}
+
+.pixel-masterpiece--vangogh .pixel-masterpiece__image {
+  animation: vangogh-drift 9.8s ease-in-out infinite;
+}
+
+.pixel-masterpiece--vangogh .pixel-masterpiece__canvas::before {
+  inset: 0;
+  background:
+    radial-gradient(circle at 16% 20%, rgba(255, 243, 176, 0.7) 0 1.4%, transparent 1.6%),
+    radial-gradient(circle at 29% 46%, rgba(255, 243, 176, 0.5) 0 1.2%, transparent 1.4%),
+    radial-gradient(circle at 74% 22%, rgba(255, 243, 176, 0.62) 0 1%, transparent 1.2%),
+    linear-gradient(162deg, rgba(255, 255, 255, 0) 0 38%, rgba(255, 255, 255, 0.22) 38% 42%, rgba(255, 255, 255, 0) 42% 56%, rgba(255, 255, 255, 0.18) 56% 60%, rgba(255, 255, 255, 0) 60% 100%);
+  mix-blend-mode: screen;
+  opacity: 0.38;
+  animation: vangogh-swirl 8.4s steps(4, end) infinite;
+}
+
+.pixel-masterpiece--vangogh .pixel-masterpiece__canvas::after {
+  inset: auto 0 0 0;
+  height: 26%;
+  background: linear-gradient(180deg, rgba(17, 25, 44, 0), rgba(17, 25, 44, 0.18));
+}
+
+.pixel-masterpiece--munch .pixel-masterpiece__canvas {
+  aspect-ratio: 13 / 16;
+  background: #4f78aa;
+}
+
+.pixel-masterpiece--munch .pixel-masterpiece__image {
+  animation: munch-breathe 5.6s ease-in-out infinite;
+}
+
+.pixel-masterpiece--munch .pixel-masterpiece__canvas::before {
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(255, 185, 91, 0.16) 0%, rgba(255, 111, 82, 0.2) 30%, rgba(255, 111, 82, 0) 64%),
+    repeating-linear-gradient(-12deg, rgba(255, 214, 133, 0) 0 14px, rgba(255, 214, 133, 0.18) 14px 20px, rgba(255, 214, 133, 0) 20px 32px);
+  mix-blend-mode: screen;
+  opacity: 0.44;
+  animation: munch-sky 4.8s ease-in-out infinite;
+}
+
+.pixel-masterpiece--munch .pixel-masterpiece__canvas::after {
+  inset: auto 0 0 0;
+  height: 28%;
+  background: linear-gradient(180deg, rgba(18, 24, 34, 0), rgba(18, 24, 34, 0.26));
+}
+
+.pixel-masterpiece--vermeer .pixel-masterpiece__canvas {
+  aspect-ratio: 66 / 94;
+  background: #15181f;
+}
+
+.pixel-masterpiece--vermeer .pixel-masterpiece__image {
+  animation: vermeer-breathe 6.8s ease-in-out infinite;
+}
+
+.pixel-masterpiece--vermeer .pixel-masterpiece__canvas::before {
+  inset: 0;
+  background:
+    radial-gradient(circle at 62% 58%, rgba(255, 255, 255, 0.96) 0 1.1%, rgba(255, 255, 255, 0.48) 1.1% 2.3%, rgba(255, 255, 255, 0) 2.4%),
+    radial-gradient(circle at 60% 58%, rgba(255, 243, 209, 0.24) 0 11%, rgba(255, 243, 209, 0) 18%);
+  animation: vermeer-glint 4.6s steps(3, end) infinite;
+}
+
+.pixel-masterpiece--vermeer .pixel-masterpiece__canvas::after {
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(255, 239, 207, 0.02), rgba(255, 239, 207, 0.12) 64%, rgba(255, 239, 207, 0.02));
+  mix-blend-mode: screen;
+  opacity: 0.42;
+}
+
 .word-star {
   position: absolute;
   z-index: 1;
@@ -1911,6 +2097,120 @@ a {
   }
 }
 
+@keyframes vangogh-drift {
+  0%,
+  100% {
+    transform: scale(1) translate3d(0, 0, 0);
+  }
+
+  50% {
+    transform: scale(1.02) translate3d(-4px, -2px, 0);
+  }
+}
+
+@keyframes vangogh-swirl {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+    opacity: 0.72;
+  }
+
+  50% {
+    transform: translate3d(8px, -3px, 0);
+    opacity: 0.92;
+  }
+}
+
+@keyframes munch-shiver {
+  0%,
+  100% {
+    transform:
+      rotate(var(--masterpiece-rotate-start, -1.25deg))
+      translateY(var(--masterpiece-y-start, 6px));
+  }
+
+  25% {
+    transform:
+      rotate(var(--masterpiece-rotate-quarter, -0.35deg))
+      translateY(var(--masterpiece-y-quarter, 2px));
+  }
+
+  50% {
+    transform:
+      rotate(var(--masterpiece-rotate-half, -1.85deg))
+      translateY(var(--masterpiece-y-half, 8px));
+  }
+
+  75% {
+    transform:
+      rotate(var(--masterpiece-rotate-three-quarter, -0.6deg))
+      translateY(var(--masterpiece-y-three-quarter, 4px));
+  }
+}
+
+@keyframes munch-breathe {
+  0%,
+  100% {
+    filter: saturate(1) contrast(1);
+  }
+
+  50% {
+    filter: saturate(1.08) contrast(1.05);
+  }
+}
+
+@keyframes munch-sky {
+  0%,
+  100% {
+    transform: translateX(0);
+    opacity: 0.82;
+  }
+
+  50% {
+    transform: translateX(6px);
+    opacity: 1;
+  }
+}
+
+@keyframes vermeer-glint {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+
+  50% {
+    transform: scale(1.18);
+    opacity: 1;
+  }
+}
+
+@keyframes vermeer-breathe {
+  0%,
+  100% {
+    filter: brightness(1);
+  }
+
+  50% {
+    filter: brightness(1.06);
+  }
+}
+
+@keyframes vermeer-tilt {
+  0%,
+  100% {
+    transform:
+      rotate(var(--masterpiece-rotate-start, 1.15deg))
+      translateY(var(--masterpiece-y-start, 10px));
+  }
+
+  50% {
+    transform:
+      rotate(var(--masterpiece-rotate-half, 0.4deg))
+      translateY(var(--masterpiece-y-half, 6px));
+  }
+}
+
 @keyframes construction-blink {
   0%,
   49% {
@@ -2201,6 +2501,60 @@ a {
 
   .pixel-sprite--windmill-1::before {
     animation-duration: 2.8s;
+  }
+
+  .pixel-gallery {
+    left: 14px;
+    right: 14px;
+    bottom: 310px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-areas:
+      "title title"
+      "vangogh vangogh"
+      "munch vermeer";
+    gap: 10px 12px;
+  }
+
+  .pixel-gallery__title {
+    margin-left: 4px;
+    font-size: 9px;
+  }
+
+  .pixel-masterpiece {
+    padding: 8px 8px 9px;
+    box-shadow: 6px 6px 0 rgba(32, 32, 32, 0.12);
+  }
+
+  .pixel-masterpiece--munch {
+    --masterpiece-rotate-start: -0.7deg;
+    --masterpiece-rotate-quarter: -0.2deg;
+    --masterpiece-rotate-half: -1deg;
+    --masterpiece-rotate-three-quarter: -0.45deg;
+    --masterpiece-y-start: 2px;
+    --masterpiece-y-quarter: 0;
+    --masterpiece-y-half: 4px;
+    --masterpiece-y-three-quarter: 1px;
+  }
+
+  .pixel-masterpiece--vangogh {
+    transform: rotate(0.45deg);
+  }
+
+  .pixel-masterpiece--vermeer {
+    --masterpiece-rotate-start: 0.8deg;
+    --masterpiece-rotate-half: 0.2deg;
+    --masterpiece-y-start: 4px;
+    --masterpiece-y-half: 2px;
+  }
+
+  .pixel-masterpiece__mat {
+    padding: 6px;
+  }
+
+  .pixel-masterpiece__caption {
+    gap: 4px;
+    margin-top: 6px;
+    font-size: 6px;
   }
 
   .word-ridge--1 {
