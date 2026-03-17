@@ -16,7 +16,7 @@
     <table class="page-shell" style="width:100%;max-width:800px;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
       <tr style="padding:0px">
         <td style="padding:0px">
-          <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+          <table class="hero-panel" style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
             <tr style="padding:0px">
               <td class="hero-copy" style="padding:2.5%;width:63%;vertical-align:middle">
                 <p class="name" style="text-align: center;">
@@ -65,8 +65,11 @@
                   <a href="#projects">Projects</a>
                   <a href="#teaching">Teaching</a>
                 </p>
+                <div class="portal-launch-wrap">
+                  <button class="portal-launch" type="button" data-portal-target="my-world.html">Enter My World</button>
+                </div>
               </td>
-              <td style="padding:2.5%;width:37%;max-width:37%">
+              <td class="hero-photo-cell" style="padding:2.5%;width:37%;max-width:37%">
                 <a href="images/profile/Profile.jpg"><img style="width:100%;max-width:100%;object-fit: cover; border-radius: 50%;" alt="profile photo" src="images/profile/profile_rec3.png" class="hoverZoomLink hero-photo"></a>
               </td>
             </tr>
@@ -473,8 +476,77 @@ for Emotion Recognition in Virtual Reality</span>
         </td>
       </tr>
     </table>
+    <div class="portal-transition" aria-hidden="true">
+      <div class="portal-transition__veil"></div>
+      <div class="portal-transition__rift">
+        <span class="portal-transition__pulse portal-transition__pulse--1"></span>
+        <span class="portal-transition__pulse portal-transition__pulse--2"></span>
+        <span class="portal-transition__pulse portal-transition__pulse--3"></span>
+        <span class="portal-transition__spark portal-transition__spark--1"></span>
+        <span class="portal-transition__spark portal-transition__spark--2"></span>
+        <span class="portal-transition__spark portal-transition__spark--3"></span>
+        <span class="portal-transition__spark portal-transition__spark--4"></span>
+      </div>
+      <p class="portal-transition__label">loading my world...</p>
+    </div>
       <div style="position: absolute; width: 1px; height: 1px; overflow: hidden; opacity: 0;">
       <script type="text/javascript" id="clustrmaps" src="//clustrmaps.com/map_v2.js?d=iKkpkHnNrRabuXubBkrbYyRqd19Zjt1GhUxkeyjBjPA&cl=ffffff&w=a"></script>
       </div>
+    <script type="text/javascript">
+      (function () {
+        const portalButton = document.querySelector('.portal-launch');
+        if (!portalButton) {
+          return;
+        }
+
+        const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+        let portalTimer = null;
+
+        function resetPortalState() {
+          document.body.classList.remove('portal-opening');
+          portalButton.disabled = false;
+          portalButton.removeAttribute('aria-disabled');
+          if (portalTimer) {
+            window.clearTimeout(portalTimer);
+            portalTimer = null;
+          }
+        }
+
+        function openPortal() {
+          const target = portalButton.getAttribute('data-portal-target');
+          if (!target || document.body.classList.contains('portal-opening')) {
+            return;
+          }
+
+          if (reducedMotion.matches) {
+            window.location.href = target;
+            return;
+          }
+
+          const rect = portalButton.getBoundingClientRect();
+          document.documentElement.style.setProperty('--portal-origin-x', (rect.left + rect.width / 2) + 'px');
+          document.documentElement.style.setProperty('--portal-origin-y', (rect.top + rect.height / 2) + 'px');
+          document.body.classList.add('portal-opening');
+          portalButton.disabled = true;
+          portalButton.setAttribute('aria-disabled', 'true');
+
+          portalTimer = window.setTimeout(function () {
+            window.location.href = target;
+          }, 1180);
+        }
+
+        portalButton.addEventListener('click', openPortal);
+
+        if (window.location.search.indexOf('portal=1') !== -1) {
+          window.setTimeout(openPortal, 240);
+        }
+
+        window.addEventListener('pageshow', function (event) {
+          if (event.persisted) {
+            resetPortalState();
+          }
+        });
+      })();
+    </script>
   </body>
 </html>
