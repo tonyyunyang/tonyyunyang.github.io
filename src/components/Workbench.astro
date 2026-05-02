@@ -1,0 +1,262 @@
+---
+import { getCollection } from "astro:content";
+import { buildGraph } from "~/lib/workbench-graph";
+
+const papers = await getCollection("papers");
+const projects = await getCollection("projects");
+
+const graph = buildGraph({
+  papers: papers.map((p) => ({
+    slug: p.slug,
+    title: p.data.title,
+    venue: p.data.venue,
+    year: p.data.year,
+    topics: p.data.topics,
+  })),
+  projects: projects.map((p) => ({
+    slug: p.slug,
+    title: p.data.title,
+    topics: p.data.topics,
+    sortKey: p.data.sortKey,
+  })),
+});
+
+const TOPIC_X = 200;
+const OUTPUT_X = 480;
+const TOPIC_GAP = 64;
+const OUTPUT_GAP = 38;
+
+const topicNodes = graph.nodes.filter((n) => n.kind === "topic");
+const outputNodes = graph.nodes.filter((n) => n.kind !== "topic");
+
+const topicYStart = 56;
+const outputYStart = 36;
+
+const topicCoords = new Map<string, { x: number; y: number }>(
+  topicNodes.map((n, i) => [n.id, { x: TOPIC_X, y: topicYStart + i * TOPIC_GAP }])
+);
+const outputCoords = new Map<string, { x: number; y: number }>(
+  outputNodes.map((n, i) => [n.id, { x: OUTPUT_X, y: outputYStart + i * OUTPUT_GAP }])
+);
+
+const svgWidth = 880;
+const svgHeight = Math.max(
+  topicYStart + topicNodes.length * TOPIC_GAP,
+  outputYStart + outputNodes.length * OUTPUT_GAP
+) + 32;
+---
+
+<section class="workbench" aria-label="Research workbench">
+  <p class="workbench__caption">
+    <span class="workbench__caption-line" aria-hidden="true"></span>
+    <span class="workbench__caption-text">the workbench</span>
+    <span class="workbench__caption-sub">topics × outputs · live</span>
+    <span class="workbench__caption-line" aria-hidden="true"></span>
+  </p>
+  <svg
+    viewBox={`0 0 ${svgWidth} ${svgHeight}`}
+    width="100%"
+    role="img"
+    aria-label="A graph linking research topics to papers and projects."
+    class="workbench__svg"
+  >
+    <g class="edges">
+      {graph.edges.map((e) => {
+        const from = topicCoords.get(e.from)!;
+        const to = outputCoords.get(e.to)!;
+        return (
+          <path
+            class="edge"
+            data-from={e.from}
+            data-to={e.to}
+            d={`M ${from.x + 8} ${from.y} C ${(from.x + to.x) / 2} ${from.y}, ${(from.x + to.x) / 2} ${to.y}, ${to.x - 6} ${to.y}`}
+          />
+        );
+      })}
+    </g>
+
+    <g class="topics">
+      {topicNodes.map((n) => {
+        const c = topicCoords.get(n.id)!;
+        return (
+          <g class="topic" data-topic-id={n.id}>
+            <circle cx={c.x} cy={c.y} r={6} />
+            <text x={c.x - 16} y={c.y + 4} text-anchor="end">{n.label}</text>
+          </g>
+        );
+      })}
+    </g>
+
+    <g class="outputs">
+      {outputNodes.map((n) => {
+        const c = outputCoords.get(n.id)!;
+        return (
+          <a
+            href={n.href}
+            class="output"
+            data-output-id={n.id}
+            data-kind={n.kind}
+          >
+            <circle cx={c.x} cy={c.y} r={4} />
+            <text x={c.x + 12} y={c.y + 4}>{n.label}</text>
+            {n.meta && <text class="meta" x={c.x + 12} y={c.y + 18}>{n.meta}</text>}
+          </a>
+        );
+      })}
+    </g>
+  </svg>
+</section>
+
+<script>
+  import "~/scripts/workbench";
+</script>
+
+<style>
+  .workbench {
+    max-width: var(--content-max);
+    margin: 64px auto 32px;
+    padding: 24px;
+  }
+
+  .workbench__caption {
+    margin: 0 0 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-ink-soft);
+  }
+
+  .workbench__caption-line {
+    flex: 1 1 60px;
+    max-width: 80px;
+    height: 1px;
+    background: var(--color-hairline);
+  }
+
+  .workbench__caption-text {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 18px;
+    letter-spacing: 0;
+    text-transform: none;
+    color: var(--color-ink);
+  }
+
+  .workbench__caption-sub {
+    color: var(--color-ink-soft);
+  }
+
+  .workbench__svg {
+    overflow: visible;
+  }
+
+  @media (max-width: 720px) {
+    .workbench__svg {
+      min-width: 720px;
+    }
+    .workbench {
+      overflow-x: auto;
+      padding-bottom: 32px;
+    }
+    .workbench__caption-sub {
+      display: none;
+    }
+  }
+
+  .edge {
+    fill: none;
+    stroke: var(--color-hairline);
+    stroke-width: 1;
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    transition:
+      stroke 240ms ease-out,
+      opacity 240ms ease-out;
+  }
+
+  .workbench[data-drawn="true"] .edge {
+    animation: workbench-draw 1400ms linear forwards;
+  }
+
+  @keyframes workbench-draw {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  .topic {
+    cursor: pointer;
+  }
+
+  .topic circle {
+    fill: var(--color-paper);
+    stroke: var(--color-ink);
+    stroke-width: 1.2;
+    transition: fill 240ms ease-out, transform 180ms ease-out;
+  }
+
+  .topic[data-active="true"] circle {
+    fill: var(--color-accent);
+    stroke: var(--color-accent);
+  }
+
+  .topic:hover circle {
+    fill: var(--color-accent);
+    stroke: var(--color-accent);
+  }
+
+  .topic text {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 17px;
+    fill: var(--color-ink);
+  }
+
+  .topic:hover text {
+    fill: var(--color-accent);
+  }
+
+  .output circle {
+    fill: var(--color-ink);
+  }
+
+  .output text {
+    font-family: var(--font-sans);
+    font-size: 13px;
+    fill: var(--color-ink);
+  }
+
+  .output text.meta {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    fill: var(--color-ink-soft);
+  }
+
+  .workbench[data-dim] .edge,
+  .workbench[data-dim] .topic,
+  .workbench[data-dim] .output {
+    opacity: 0.3;
+  }
+
+  .workbench[data-dim] .edge[data-active="true"],
+  .workbench[data-dim] .topic[data-active="true"],
+  .workbench[data-dim] .output[data-active="true"] {
+    opacity: 1;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .edge {
+      stroke-dashoffset: 0;
+    }
+    .workbench[data-drawn="true"] .edge {
+      animation: none;
+    }
+  }
+</style>

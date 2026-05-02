@@ -1,0 +1,391 @@
+---
+import siteConfig from "~/content/site.json";
+import Icon from "./Icon.astro";
+
+const card = siteConfig.businessCard;
+---
+
+<div class="card">
+  <!-- Subtle paper plate background -->
+  <svg class="card__plate" viewBox="0 0 800 460" aria-hidden="true" preserveAspectRatio="none">
+    <defs>
+      <pattern id="cardHatch" patternUnits="userSpaceOnUse" width="6" height="6" patternTransform="rotate(35)">
+        <line x1="0" y1="0" x2="0" y2="6" stroke="#0F1417" stroke-width="0.4" opacity="0.5" />
+      </pattern>
+    </defs>
+    <!-- Outer dashed frame -->
+    <rect x="6" y="6" width="788" height="448" fill="none" stroke="#0F1417" stroke-width="0.6" stroke-dasharray="3 4" opacity="0.5" />
+    <!-- Inner solid frame -->
+    <rect x="14" y="14" width="772" height="432" fill="none" stroke="#0F1417" stroke-width="1.4" />
+    <!-- Hatched corners (engraving plate flair) -->
+    <rect x="14" y="14" width="60" height="14" fill="url(#cardHatch)" opacity="0.55" />
+    <rect x="14" y="14" width="14" height="60" fill="url(#cardHatch)" opacity="0.55" />
+    <rect x="726" y="14" width="60" height="14" fill="url(#cardHatch)" opacity="0.55" />
+    <rect x="772" y="14" width="14" height="60" fill="url(#cardHatch)" opacity="0.55" />
+    <rect x="14" y="432" width="60" height="14" fill="url(#cardHatch)" opacity="0.55" />
+    <rect x="14" y="372" width="14" height="60" fill="url(#cardHatch)" opacity="0.55" />
+    <rect x="726" y="432" width="60" height="14" fill="url(#cardHatch)" opacity="0.55" />
+    <rect x="772" y="372" width="14" height="60" fill="url(#cardHatch)" opacity="0.55" />
+    <!-- Decorative top centerpiece (a printer's flourish) -->
+    <path d="M340 26 Q360 18 380 26 Q400 34 420 26 Q440 18 460 26" fill="none" stroke="#0F1417" stroke-width="0.7" />
+    <circle cx="400" cy="26" r="2" fill="#0E5347" />
+    <!-- Bottom decorative line -->
+    <path d="M14 422 H786" stroke="#0F1417" stroke-width="0.4" opacity="0.5" />
+  </svg>
+
+  <div class="card__content">
+    <div class="card__top">
+      <div class="card__head">
+        <p class="card__looking">
+          <span class="card__looking-mark" aria-hidden="true">
+            <Icon name="sparkles" size={14} strokeWidth={1.2} />
+          </span>
+          {card.looking}
+        </p>
+        <h3 class="card__name">
+          <span class="card__name-en">{card.name}</span>
+          <span class="card__name-zh">{card.nameZh}</span>
+        </h3>
+        <p class="card__role">{card.role}</p>
+        <p class="card__tagline">{card.tagline}</p>
+      </div>
+      <div class="card__crest" aria-hidden="true">
+        <svg viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+          <!-- Hand-drawn monogram crest TY -->
+          <circle cx="40" cy="40" r="34" stroke-width="1.2" />
+          <circle cx="40" cy="40" r="28" stroke-width="0.5" stroke-dasharray="1.6 2.4" opacity="0.55" />
+          <text x="40" y="48" text-anchor="middle" font-family="EB Garamond, serif" font-style="italic" font-size="32" fill="currentColor" stroke="none">TY</text>
+          <path d="M22 64 L40 70 L58 64" stroke-width="0.8" />
+        </svg>
+      </div>
+    </div>
+
+    <div class="card__divider" aria-hidden="true">
+      <span class="card__divider-line"></span>
+      <span class="card__divider-mark">·</span>
+      <span class="card__divider-line"></span>
+    </div>
+
+    <div class="card__bottom">
+      <ul class="card__contact">
+        <li>
+          <a href={`mailto:${siteConfig.contact.email}`}>
+            <Icon name="envelope" size={16} strokeWidth={1.4} />
+            <span>{siteConfig.contact.email}</span>
+          </a>
+        </li>
+        <li>
+          <a href={siteConfig.contact.scholar} target="_blank" rel="noopener noreferrer">
+            <Icon name="scholar" size={16} strokeWidth={1.4} />
+            <span>google scholar</span>
+          </a>
+        </li>
+        <li>
+          <a href={siteConfig.contact.github} target="_blank" rel="noopener noreferrer">
+            <Icon name="branch" size={16} strokeWidth={1.4} />
+            <span>github / tonyyunyang</span>
+          </a>
+        </li>
+        <li>
+          <a href={siteConfig.contact.cv} target="_blank" rel="noopener noreferrer">
+            <Icon name="document" size={16} strokeWidth={1.4} />
+            <span>curriculum vitae · pdf</span>
+          </a>
+        </li>
+      </ul>
+
+      <div class="card__meta">
+        <div class="card__meta-block">
+          <p class="card__meta-label">
+            <Icon name="pin" size={12} strokeWidth={1.4} />
+            <span>based in</span>
+          </p>
+          <ul class="card__meta-list">
+            {card.locations.map((loc) => <li>{loc}</li>)}
+          </ul>
+        </div>
+        <div class="card__meta-block">
+          <p class="card__meta-label">
+            <Icon name="globe" size={12} strokeWidth={1.4} />
+            <span>languages</span>
+          </p>
+          <ul class="card__meta-list">
+            {card.languages.map((lang) => (
+              <li>
+                <span class="card__lang-name">{lang.lang}</span>
+                <span class="card__lang-level">{lang.level}</span>
+                {lang.note && <span class="card__lang-note">{lang.note}</span>}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <p class="card__signature">
+      <span class="card__signature-line" aria-hidden="true"></span>
+      <span class="card__signature-text">signed · T.</span>
+    </p>
+  </div>
+</div>
+
+<style>
+  .card {
+    position: relative;
+    margin: 32px 0 16px;
+    padding: 36px 40px 28px;
+    background: var(--color-paper-shade);
+    border-radius: 6px;
+    overflow: hidden;
+    color: var(--color-ink);
+  }
+
+  .card__plate {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    color: var(--color-ink);
+    opacity: 0.85;
+    pointer-events: none;
+  }
+
+  .card__content {
+    position: relative;
+    z-index: 1;
+  }
+
+  .card__top {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 32px;
+    align-items: start;
+  }
+
+  .card__looking {
+    margin: 0 0 10px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    border: 1px solid var(--color-accent);
+    padding: 6px 12px 5px;
+    border-radius: 999px;
+  }
+
+  .card__looking-mark {
+    color: var(--color-accent);
+  }
+
+  .card__name {
+    margin: 4px 0 6px;
+    font-family: var(--font-display);
+    font-style: normal;
+    font-weight: 500;
+    font-size: clamp(34px, 4vw, 48px);
+    line-height: 1;
+    letter-spacing: -0.005em;
+    color: var(--color-ink);
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+
+  .card__name-en {
+    font-style: italic;
+  }
+
+  .card__name-zh {
+    font-style: normal;
+    font-size: 0.6em;
+    color: var(--color-ink-soft);
+    letter-spacing: 0.06em;
+  }
+
+  .card__role {
+    margin: 0 0 8px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-ink-soft);
+  }
+
+  .card__tagline {
+    margin: 0;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 16px;
+    color: var(--color-ink-soft);
+  }
+
+  .card__crest {
+    color: var(--color-accent);
+    width: 88px;
+    height: 88px;
+  }
+
+  .card__crest svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .card__divider {
+    margin: 24px 0 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .card__divider-line {
+    flex: 1;
+    height: 1px;
+    background: var(--color-hairline);
+  }
+
+  .card__divider-mark {
+    font-family: var(--font-mono);
+    color: var(--color-ink-soft);
+    font-size: 12px;
+  }
+
+  .card__bottom {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 32px;
+    align-items: start;
+  }
+
+  .card__contact {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .card__contact a {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    color: var(--color-ink);
+    text-decoration: none;
+    transition: color 180ms ease-out;
+  }
+
+  .card__contact a:hover {
+    color: var(--color-accent);
+  }
+
+  .card__meta {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .card__meta-block {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .card__meta-label {
+    margin: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-ink-soft);
+  }
+
+  .card__meta-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 14.5px;
+    color: var(--color-ink);
+  }
+
+  .card__meta-list li {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    line-height: 1.35;
+  }
+
+  .card__lang-name {
+    font-weight: 500;
+  }
+
+  .card__lang-level {
+    color: var(--color-ink);
+  }
+
+  .card__lang-note {
+    font-size: 12.5px;
+    color: var(--color-ink-soft);
+    font-style: italic;
+  }
+
+  .card__signature {
+    margin: 24px 0 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 14px;
+    color: var(--color-ink-soft);
+  }
+
+  .card__signature-line {
+    flex: 1;
+    height: 1px;
+    background: var(--color-hairline);
+  }
+
+  .card__signature-text {
+    white-space: nowrap;
+  }
+
+  @media (max-width: 720px) {
+    .card {
+      padding: 28px 22px 22px;
+    }
+    .card__top {
+      grid-template-columns: 1fr;
+    }
+    .card__crest {
+      width: 64px;
+      height: 64px;
+    }
+    .card__bottom {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+    .card__name {
+      flex-direction: column;
+      gap: 4px;
+    }
+    .card__name-zh {
+      font-size: 0.55em;
+    }
+  }
+</style>

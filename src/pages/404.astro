@@ -1,0 +1,41 @@
+---
+import Base from "~/layouts/Base.astro";
+---
+
+<Base title="Lost · Tony Yang" description="This page wandered off.">
+  <section class="lost">
+    <p class="lost__meta">§404 · LOST IN THE STUDIO</p>
+    <h1>The page wandered off.</h1>
+    <p>
+      Maybe try the <a href="/">home page</a>, or open the <a href="/world/">studio</a>.
+    </p>
+  </section>
+</Base>
+
+<style>
+  .lost {
+    max-width: var(--content-max);
+    margin: 96px auto;
+    padding: 24px;
+    text-align: center;
+  }
+  .lost__meta {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-ink-soft);
+    margin: 0 0 16px;
+  }
+  h1 {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: clamp(36px, 6vw, 64px);
+    margin: 0;
+  }
+  p {
+    margin-top: 16px;
+    font-style: italic;
+    color: var(--color-ink-soft);
+  }
+</style>

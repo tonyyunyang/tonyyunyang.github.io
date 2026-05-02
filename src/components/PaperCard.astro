@@ -1,0 +1,183 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+  paper: CollectionEntry<"papers">;
+}
+
+const { paper } = Astro.props;
+const { data, slug } = paper;
+
+const datelineParts = [data.venue, data.venueExtra, String(data.year)].filter(Boolean);
+const dateline = datelineParts.join(" · ").toUpperCase();
+---
+
+<article id={`paper-${slug}`} class={`paper${data.featured ? " paper--featured" : ""}`}>
+  <a
+    class="paper__thumb"
+    href={data.links.paper ?? "#"}
+    target={data.links.paper ? "_blank" : undefined}
+    rel="noopener noreferrer"
+  >
+    <img src={data.thumbnail} alt="" loading="lazy" />
+  </a>
+  <div class="paper__body">
+    <p class="paper__dateline">
+      {data.featured && <span class="paper__star" aria-label="featured">★</span>}
+      <span>{dateline}</span>
+    </p>
+    <h3 class="paper__title">
+      {data.links.paper ? (
+        <a href={data.links.paper} target="_blank" rel="noopener noreferrer">{data.title}</a>
+      ) : data.title}
+    </h3>
+    <p class="paper__authors">
+      {data.authors.map((a, i) => (
+        <>
+          <span class={a.isMe ? "is-me" : undefined}>
+            {a.url ? (
+              <a href={a.url} target="_blank" rel="noopener noreferrer">{a.name}</a>
+            ) : (
+              <span class="paper__author-name">{a.name}</span>
+            )}
+            {a.equalContrib && <sup>*</sup>}
+          </span>
+          {i < data.authors.length - 1 && <span class="paper__author-sep">{", "}</span>}
+        </>
+      ))}
+    </p>
+    <p class="paper__summary">{data.summary}</p>
+    <p class="paper__links">
+      {data.links.paper && <a href={data.links.paper} target="_blank" rel="noopener noreferrer">paper</a>}
+      {data.links.code && <span> · <a href={data.links.code} target="_blank" rel="noopener noreferrer">code</a></span>}
+      {data.links.bibtex && <span> · <a href={data.links.bibtex} target="_blank" rel="noopener noreferrer">bib</a></span>}
+    </p>
+  </div>
+</article>
+
+<style>
+  .paper {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 24px;
+    padding: 24px;
+    border: 1px solid var(--color-hairline);
+    border-radius: 16px;
+    background: var(--color-paper-shade);
+    transition:
+      transform 240ms ease-out,
+      border-color 240ms ease-out;
+  }
+
+  @media (max-width: 720px) {
+    .paper {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .paper:hover {
+    transform: translateY(-2px);
+    border-color: var(--color-accent);
+  }
+
+  .paper--featured {
+    background: var(--color-featured);
+  }
+
+  .paper__thumb {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    border-radius: 12px;
+    border: 1px solid var(--color-hairline);
+    background: var(--color-paper);
+  }
+
+  .paper__thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background: var(--color-paper);
+  }
+
+  .paper__body {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .paper__dateline {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-ink-soft);
+  }
+
+  .paper__star {
+    color: var(--color-accent);
+    font-size: 12px;
+  }
+
+  .paper__title {
+    margin: 0;
+    font-family: var(--font-display);
+    font-style: normal;
+    font-size: 22px;
+    line-height: 1.25;
+    font-weight: 500;
+  }
+
+  .paper__title a {
+    color: inherit;
+  }
+
+  .paper__title a:hover {
+    color: var(--color-accent);
+  }
+
+  .paper__authors {
+    margin: 0;
+    font-size: 14px;
+    color: var(--color-ink-soft);
+    line-height: 1.5;
+  }
+
+  .paper__authors .is-me > span,
+  .paper__authors .is-me > a {
+    font-weight: 500;
+    color: var(--color-ink);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1px;
+  }
+
+  .paper__authors a {
+    color: var(--color-ink-soft);
+  }
+
+  .paper__authors a:hover {
+    color: var(--color-accent);
+  }
+
+  .paper__summary {
+    margin: 4px 0 0;
+    font-style: italic;
+    color: var(--color-ink);
+    line-height: 1.55;
+  }
+
+  .paper__links {
+    margin: 8px 0 0;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-ink-soft);
+  }
+</style>

@@ -1,0 +1,77 @@
+---
+import "~/styles/globals.css";
+import CommandPalette from "~/components/CommandPalette.astro";
+import SketchbookButton from "~/components/SketchbookButton.astro";
+
+interface Props {
+  title?: string;
+  description?: string;
+  ogImage?: string;
+  hideSketchbook?: boolean;
+}
+
+const {
+  title = "Tony Yang",
+  description = "Independent AI researcher in Amsterdam. Building AI systems that expand what people can perceive, understand, and do.",
+  ogImage = "/og-default.png",
+  hideSketchbook = false,
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/x-icon" href="/favicon/favicon.ico" />
+    <link rel="apple-touch-icon" href="/favicon/apple-touch-icon.png" />
+    <link rel="canonical" href={canonicalURL} />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content="Tony Yang" />
+
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={new URL(ogImage, Astro.site)} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="alternate" type="application/rss+xml" title="Tony Yang — Writing" href="/rss.xml" />
+  </head>
+  <body>
+    <a class="sr-only focus:not-sr-only" href="#main">Skip to content</a>
+    <main id="main">
+      <slot />
+    </main>
+    <CommandPalette />
+    {!hideSketchbook && <SketchbookButton />}
+
+    <div aria-hidden="true" class="visit-tracker">
+      <script
+        is:inline
+        type="text/javascript"
+        id="clustrmaps"
+        src="//clustrmaps.com/map_v2.js?d=iKkpkHnNrRabuXubBkrbYyRqd19Zjt1GhUxkeyjBjPA&cl=ffffff&w=a"
+      ></script>
+    </div>
+
+    <style>
+      .visit-tracker {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        margin: -1px;
+        padding: 0;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+        pointer-events: none;
+      }
+    </style>
+  </body>
+</html>

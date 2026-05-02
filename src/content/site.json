@@ -1,0 +1,81 @@
+{
+  "name": "Tony (Tongyun) Yang",
+  "shortName": "Tony Yang",
+  "initials": "TY",
+  "tagline": [
+    "The limits of language",
+    "mean the limits of the world?",
+    "Perhaps, yet we dwell",
+    "in more than we can name."
+  ],
+  "datelineLines": [
+    "INDEPENDENT AI RESEARCHER",
+    "AMSTERDAM · 2026"
+  ],
+  "dateline": "INDEPENDENT AI RESEARCHER · AMSTERDAM · 2026",
+  "openingHeadline": "Open to PhD positions, ready to start any time.",
+  "openingBody": "What pulls me is meaning more than topic. With experience across the spectrum of AI (world models, large language models, computer vision, AI for medicine), I want to build things that are genuinely useful for the people who don't already have everything, and durable enough to be worth a long career.",
+  "currentlyHeadline": "Day-to-day",
+  "currently": "An independent AI researcher in Amsterdam. I currently collaborate with industry (Tencent, Gradient Networks, MeetaVista) and academia (TU Delft, McGill, Tsinghua) on cost-efficient large language models, optimization-as-reasoning, and intent-aware world models. Earlier roles include Marie Skłodowska-Curie Fellow at IMDEA Networks (Madrid), AI Research Engineer at TU Delft Imaging Physics, and an MSc in Computer & Embedded Systems Engineering at TU Delft.",
+  "intro": "Open to PhD positions, ready to start any time. What pulls me is meaning more than topic.",
+  "researchThemesIntro": "Two threads run through everything I work on. Pulling AI past the boundaries of language into perception and action, and bending those capabilities back toward fairness and access for the people they touch.",
+  "researchThemes": [
+    {
+      "id": "world-models",
+      "icon": "world-model",
+      "title": "World models",
+      "blurb": "Systems that perceive a scene and imagine what happens next. The bridge from describing the world to acting in it."
+    },
+    {
+      "id": "llms",
+      "icon": "tokens",
+      "title": "Large language models",
+      "blurb": "Making capable models cheap, dependable, and useful enough to actually deploy. Routing, optimization, and agent design."
+    },
+    {
+      "id": "vision",
+      "icon": "eye",
+      "title": "Computer vision",
+      "blurb": "Vision as a channel for human signal, not just object detection. Reading emotion, intent, and attention from what people see."
+    },
+    {
+      "id": "medical-ai",
+      "icon": "heartbeat",
+      "title": "AI for medicine",
+      "blurb": "Models that work in the real clinic, not only on the leaderboard. Smaller, faster, and fair across patient populations."
+    },
+    {
+      "id": "ai-safety",
+      "icon": "shield",
+      "title": "AI safety",
+      "blurb": "Building things that behave reliably when they leave the lab. Robustness, evaluation, and the unglamorous work of trust."
+    },
+    {
+      "id": "fairness-access",
+      "icon": "open-door",
+      "title": "Fairness × access",
+      "blurb": "A motivation, not a sub-field. Anything I build should reach the people who need it most, not the people who already have everything."
+    }
+  ],
+  "researchDek": "What runs through every paper here. I want this work to be useful where it matters, accessible to people who don't already have it, and meaningful enough to keep at for years.",
+  "projectsIntro": "Where the research meets real systems. Each one is a live collaboration with an actual partner (Gradient Networks, Tencent, MeetaVista). Most are still in motion.",
+  "businessCard": {
+    "name": "Tony Yang",
+    "nameZh": "杨童耘",
+    "role": "Independent AI Researcher",
+    "looking": "Seeking PhD positions · ready any time",
+    "tagline": "World models · LLMs · vision · medical AI · safety",
+    "locations": ["Amsterdam (current)", "Shanghai", "Shenzhen"],
+    "languages": [
+      { "lang": "Mandarin", "level": "native" },
+      { "lang": "English", "level": "near-native, professional", "note": "raised in English-speaking environments · IELTS 8.0" }
+    ]
+  },
+  "contactInvitation": "I read everything. Reach out about research, collaboration, supervision, or just to say hi. I answer faster than is professional, and I bring my whole self to the conversation.",
+  "contact": {
+    "email": "tonyyunyang@outlook.com",
+    "scholar": "https://scholar.google.com/citations?hl=en&user=rIFdBYAAAAAJ",
+    "github": "https://github.com/tonyyunyang",
+    "cv": "/cv.pdf"
+  }
+}

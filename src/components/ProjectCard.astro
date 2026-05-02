@@ -1,0 +1,155 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+  project: CollectionEntry<"projects">;
+}
+
+const { project } = Astro.props;
+const { data, slug } = project;
+
+const statusLabel =
+  data.status === "shipped"
+    ? "SHIPPED"
+    : `IN PROGRESS${data.statusDetail ? ` · ${data.statusDetail.toUpperCase()}` : ""}`;
+
+const primaryLink =
+  data.links?.site ??
+  data.links?.store ??
+  data.links?.github ??
+  data.links?.paper;
+---
+
+<article id={`project-${slug}`} class="project">
+  {data.thumbnail && (
+    primaryLink ? (
+      <a
+        class="project__thumb"
+        href={primaryLink}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={`Open ${data.title} in a new tab`}
+      >
+        <img src={data.thumbnail} alt="" loading="lazy" />
+      </a>
+    ) : (
+      <div class="project__thumb project__thumb--static" aria-hidden="true">
+        <img src={data.thumbnail} alt="" loading="lazy" />
+      </div>
+    )
+  )}
+  <div class="project__body">
+    <p class="project__meta">
+      {data.collaborator ? `${data.collaborator.toUpperCase()} · ` : ""}
+      <span>{data.period.toUpperCase()}</span>
+      <span> · </span>
+      <span class="project__status">{statusLabel}</span>
+    </p>
+    <h3 class="project__title">
+      {primaryLink ? (
+        <a href={primaryLink} target="_blank" rel="noopener noreferrer">{data.title}</a>
+      ) : data.title}
+    </h3>
+    <p class="project__summary">{data.summary}</p>
+    {data.links && (data.links.github || data.links.store || data.links.site || data.links.paper) && (
+      <p class="project__links">
+        {data.links.github && <a href={data.links.github} target="_blank" rel="noopener noreferrer">github</a>}
+        {data.links.github && data.links.store && <span> · </span>}
+        {data.links.store && <a href={data.links.store} target="_blank" rel="noopener noreferrer">chrome web store</a>}
+        {data.links.site && <span> · <a href={data.links.site} target="_blank" rel="noopener noreferrer">site</a></span>}
+        {data.links.paper && <span> · <a href={data.links.paper} target="_blank" rel="noopener noreferrer">paper</a></span>}
+      </p>
+    )}
+  </div>
+</article>
+
+<style>
+  .project {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 24px;
+    padding: 20px 24px;
+    border: 1px solid var(--color-hairline);
+    border-radius: 16px;
+    background: var(--color-paper-shade);
+    transition:
+      transform 240ms ease-out,
+      border-color 240ms ease-out;
+  }
+
+  @media (max-width: 720px) {
+    .project {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .project:hover {
+    transform: translateY(-2px);
+    border-color: var(--color-accent);
+  }
+
+  .project__thumb {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--color-hairline);
+    background: var(--color-paper);
+  }
+
+  .project__thumb--static {
+    cursor: default;
+  }
+
+  .project__thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .project__meta {
+    margin: 0 0 6px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-ink-soft);
+  }
+
+  .project__status {
+    color: var(--color-accent);
+  }
+
+  .project__title {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: 22px;
+    line-height: 1.25;
+    font-style: normal;
+    font-weight: 500;
+  }
+
+  .project__title a {
+    color: inherit;
+  }
+
+  .project__title a:hover {
+    color: var(--color-accent);
+  }
+
+  .project__summary {
+    margin: 6px 0 0;
+    font-style: italic;
+    line-height: 1.55;
+  }
+
+  .project__links {
+    margin: 8px 0 0;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-ink-soft);
+  }
+</style>

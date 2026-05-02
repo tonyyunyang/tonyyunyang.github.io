@@ -1,0 +1,92 @@
+---
+import Base from "./Base.astro";
+
+interface Props {
+  title: string;
+  date: string;
+  dek?: string;
+  description?: string;
+}
+
+const { title, date, dek, description } = Astro.props;
+---
+
+<Base title={`${title} — Tony Yang`} description={description ?? dek}>
+  <article class="post max-content">
+    <header class="post__header">
+      <p class="post__date">{date}</p>
+      <h1 class="post__title">{title}</h1>
+      {dek && <p class="post__dek">{dek}</p>}
+    </header>
+    <div class="post__body">
+      <slot />
+    </div>
+  </article>
+</Base>
+
+<style>
+  .post {
+    padding-block: 96px;
+    max-width: 720px;
+  }
+  .post__date {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-ink-soft);
+    margin: 0 0 16px;
+  }
+  .post__title {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: clamp(36px, 6vw, 64px);
+    line-height: 1.1;
+    margin: 0;
+  }
+  .post__dek {
+    margin: 16px 0 0;
+    font-style: italic;
+    font-size: 18px;
+    color: var(--color-ink-soft);
+    max-width: 50ch;
+  }
+  .post__body {
+    margin-top: 48px;
+    font-size: 17px;
+    line-height: 1.75;
+  }
+  .post__body :global(h2) {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 28px;
+    margin-top: 48px;
+  }
+  .post__body :global(p) {
+    margin-block: 1em;
+  }
+  .post__body :global(a) {
+    color: var(--color-accent);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    text-decoration-thickness: 1px;
+  }
+  .post__body :global(blockquote) {
+    border-left: 2px solid var(--color-accent);
+    padding-left: 16px;
+    color: var(--color-ink-soft);
+    font-style: italic;
+  }
+  .post__body :global(pre) {
+    background: var(--color-paper-shade);
+    border: 1px solid var(--color-hairline);
+    padding: 16px;
+    border-radius: 12px;
+    overflow-x: auto;
+    font-size: 13px;
+  }
+  .post__body :global(code) {
+    font-family: var(--font-mono);
+    font-size: 13px;
+  }
+</style>

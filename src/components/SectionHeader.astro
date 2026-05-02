@@ -1,0 +1,101 @@
+---
+interface Props {
+  num: string;
+  title: string;
+  dek?: string;
+  id?: string;
+  total?: string;
+  dekWide?: boolean;
+}
+
+const { num, title, dek, id, total = "06", dekWide = false } = Astro.props;
+const slugId = id ?? title.toLowerCase().replace(/\s+/g, "-");
+---
+
+<header id={slugId} class="section-header">
+  <div class="row">
+    <p class="prefix">
+      <span class="num">§{num}</span>
+      <span class="bullet">·</span>
+      <span class="label">{title}</span>
+    </p>
+    <span class="folio" aria-hidden="true">§{num} / {total}</span>
+  </div>
+  {dek && <p class={`dek ${dekWide ? "dek--wide" : ""}`}>{dek}</p>}
+  <span class="underline" aria-hidden="true"></span>
+</header>
+
+<style>
+  .section-header {
+    margin-block: 96px 32px;
+  }
+
+  @media (min-width: 768px) {
+    .section-header {
+      margin-block: 144px 40px;
+    }
+  }
+
+  .row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 24px;
+  }
+
+  .prefix {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin: 0;
+  }
+
+  .num,
+  .bullet {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-ink-soft);
+  }
+
+  .label {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: clamp(28px, 4vw, 44px);
+    color: var(--color-ink);
+    line-height: 1.05;
+  }
+
+  .folio {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-ink-soft);
+  }
+
+  .dek {
+    margin: 14px 0 0;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: clamp(20px, 1.7vw, 23px);
+    line-height: 1.5;
+    color: var(--color-ink-soft);
+    max-width: 50ch;
+    text-wrap: pretty;
+  }
+
+  .dek--wide {
+    max-width: 80ch;
+  }
+
+  .underline {
+    display: block;
+    margin-top: 16px;
+    width: 32px;
+    height: 2px;
+    background: var(--color-accent);
+    border-radius: 2px;
+  }
+</style>

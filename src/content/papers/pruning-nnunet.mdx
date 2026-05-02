@@ -1,0 +1,18 @@
+---
+title: "Pruning nnU-Net with Minimal Performance Loss"
+venue: "MIDL"
+year: 2025
+date: "2025-05-01"
+authors:
+  - { name: "Tongyun Yang", isMe: true }
+  - { name: "Yidong Zhao" }
+  - { name: "Qian Tao", url: "https://sites.google.com/view/qtao/" }
+topics: ["medical-ai"]
+summary: "Trained nnU-Net models contain substantial weight redundancy. Over 80% of weights can be removed by simple magnitude pruning while preserving segmentation quality."
+thumbnail: "/papers/prune-nnunet.svg"
+links:
+  paper: "https://openreview.net/forum?id=uTTOhthEDR#discussion"
+  code: "https://github.com/prunennunet/Prune_nnUNet"
+---
+
+Demonstrated that nnU-Net can be structurally pruned to 99% sparsity with minimal performance degradation, leading to a 6× improvement in training efficiency and gain in inference speed across multiple medical segmentation tasks.

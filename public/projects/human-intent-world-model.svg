@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 200" fill="none">
+  <rect width="240" height="200" fill="#F5EFE2"/>
+  <g stroke="#0F1417" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Frame -->
+    <rect x="8" y="8" width="224" height="184" stroke-width="0.6" stroke-dasharray="2 3" opacity="0.5"/>
+    <!-- Person silhouette (left) -->
+    <circle cx="48" cy="58" r="10" fill="#F5EFE2"/>
+    <path d="M36 92 Q36 76 48 76 Q60 76 60 92 L60 122 L36 122 Z" fill="#F5EFE2"/>
+    <text x="48" y="142" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="6" fill="#4A5159" stroke="none" letter-spacing="0.06em">AGENT</text>
+    <!-- Vision cone -->
+    <path d="M60 70 L120 50 L120 90 Z" stroke-width="0.7" fill="#0E5347" opacity="0.12"/>
+    <path d="M60 70 L120 50 M60 70 L120 90" stroke-width="0.7" stroke-dasharray="2 3" opacity="0.7"/>
+    <!-- World model (center) -->
+    <rect x="124" y="36" width="76" height="56" rx="3"/>
+    <text x="162" y="56" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="7" fill="#0F1417" stroke="none" letter-spacing="0.08em">WORLD</text>
+    <text x="162" y="68" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="7" fill="#0F1417" stroke="none" letter-spacing="0.08em">MODEL</text>
+    <path d="M132 78 H192 M134 84 H190" stroke-width="0.5" opacity="0.55"/>
+    <!-- Predicted trajectory (right) -->
+    <path d="M124 122 Q140 130 160 134 Q180 138 200 142" stroke-width="1.2"/>
+    <circle cx="124" cy="122" r="2" fill="#0F1417"/>
+    <circle cx="142" cy="130" r="2" fill="#F5EFE2"/>
+    <circle cx="162" cy="135" r="2" fill="#F5EFE2"/>
+    <circle cx="182" cy="140" r="2" fill="#F5EFE2"/>
+    <circle cx="200" cy="142" r="3" fill="#0E5347" stroke="#0E5347"/>
+    <text x="200" y="158" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="6" fill="#4A5159" stroke="none" letter-spacing="0.06em">INTENT</text>
+    <!-- Feedback loop -->
+    <path d="M200 130 Q210 100 200 80 Q190 60 180 60" stroke-width="0.7" stroke-dasharray="2 2" opacity="0.6"/>
+    <path d="M186 60 L180 60 L180 66" stroke-width="0.7" opacity="0.6"/>
+  </g>
+</svg>

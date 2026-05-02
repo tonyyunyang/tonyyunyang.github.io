@@ -1,0 +1,1118 @@
+---
+import scene from "~/content/atelier.json";
+
+const objects = scene.scene.objects;
+const allNotes = objects.filter(
+  (o): o is typeof o & { note: string } => "note" in o && Boolean(o.note)
+);
+---
+
+<div class="atelier" data-atelier>
+  <header class="atelier__chrome">
+    <p class="atelier__breadcrumb">
+      <span class="atelier__breadcrumb-mono">No. 03</span>
+      <span class="atelier__breadcrumb-display">{scene.scene.title}</span>
+      <span class="atelier__breadcrumb-mono atelier__breadcrumb-mono--soft"
+        >{scene.scene.subtitle}</span
+      >
+    </p>
+    <p class="atelier__hint" data-atelier-hint>
+      click an object · <kbd>T</kbd> all notes · <kbd>Esc</kbd> close
+    </p>
+    <button
+      class="atelier__close"
+      type="button"
+      data-atelier-close
+      aria-label="Close studio"
+    >
+      <span class="atelier__close-key">Esc</span>
+      <span class="atelier__close-arrow" aria-hidden="true">↘</span>
+    </button>
+  </header>
+
+  <div class="atelier__stage" data-atelier-stage>
+    <div class="atelier__canvas">
+    <svg
+      class="atelier__art"
+      viewBox="0 0 1600 1000"
+      role="img"
+      aria-label="An ink illustration of Tony's studio, viewed as an architectural cross-section. Bookshelf at left, reading chair and cat in front of it, a desk at center facing a tall window onto an Amsterdam canal at evening, and a small kitchen alcove to the right with a pot on a stove."
+      preserveAspectRatio="xMidYMid meet"
+    >
+      <defs>
+        <pattern
+          id="planks"
+          patternUnits="userSpaceOnUse"
+          width="160"
+          height="40"
+          patternTransform="translate(0,0)"
+        >
+          <path
+            d="M0 39.5 H160"
+            stroke="#0f1417"
+            stroke-width="0.6"
+            opacity="0.55"
+          ></path>
+          <path d="M0 0 V40" stroke="#0f1417" stroke-width="0.5" opacity="0.4"
+          ></path>
+          <path d="M80 0 V40" stroke="#0f1417" stroke-width="0.5" opacity="0.3"
+          ></path>
+        </pattern>
+        <pattern
+          id="hatch"
+          patternUnits="userSpaceOnUse"
+          width="6"
+          height="6"
+          patternTransform="rotate(35)"
+        >
+          <line x1="0" y1="0" x2="0" y2="6" stroke="#0f1417" stroke-width="0.7"
+          ></line>
+        </pattern>
+        <pattern
+          id="hatchSoft"
+          patternUnits="userSpaceOnUse"
+          width="8"
+          height="8"
+          patternTransform="rotate(-30)"
+        >
+          <line
+            x1="0"
+            y1="0"
+            x2="0"
+            y2="8"
+            stroke="#0f1417"
+            stroke-width="0.5"
+          ></line>
+        </pattern>
+        <radialGradient id="lampGlow" cx="0.5" cy="0.5" r="0.5">
+          <stop offset="0" stop-color="#FAF1D8" stop-opacity="0.95"></stop>
+          <stop offset="0.45" stop-color="#FAF1D8" stop-opacity="0.6"></stop>
+          <stop offset="1" stop-color="#FAF1D8" stop-opacity="0"></stop>
+        </radialGradient>
+        <radialGradient id="lampGlowDesk" cx="0.5" cy="0.5" r="0.5">
+          <stop offset="0" stop-color="#FAF1D8" stop-opacity="0.85"></stop>
+          <stop offset="0.5" stop-color="#FAF1D8" stop-opacity="0.45"></stop>
+          <stop offset="1" stop-color="#FAF1D8" stop-opacity="0"></stop>
+        </radialGradient>
+        <radialGradient id="moonGlow" cx="0.5" cy="0.5" r="0.5">
+          <stop offset="0" stop-color="#FAF1D8" stop-opacity="0.7"></stop>
+          <stop offset="0.5" stop-color="#FAF1D8" stop-opacity="0.3"></stop>
+          <stop offset="1" stop-color="#FAF1D8" stop-opacity="0"></stop>
+        </radialGradient>
+        <radialGradient id="candleGlow" cx="0.5" cy="0.5" r="0.5">
+          <stop offset="0" stop-color="#FAF1D8" stop-opacity="0.85"></stop>
+          <stop offset="0.4" stop-color="#FAF1D8" stop-opacity="0.4"></stop>
+          <stop offset="1" stop-color="#FAF1D8" stop-opacity="0"></stop>
+        </radialGradient>
+        <radialGradient id="windowGlow" cx="0.5" cy="0.7" r="0.7">
+          <stop offset="0" stop-color="#0E5347" stop-opacity="0.10"></stop>
+          <stop offset="1" stop-color="#0E5347" stop-opacity="0"></stop>
+        </radialGradient>
+        <filter id="paperNoise">
+          <feTurbulence type="fractalNoise" baseFrequency="1.3" numOctaves="2" seed="3"></feTurbulence>
+          <feColorMatrix values="0 0 0 0 0.06 0 0 0 0 0.08 0 0 0 0 0.09 0 0 0 0.08 0"></feColorMatrix>
+          <feComposite in2="SourceGraphic" operator="in"></feComposite>
+        </filter>
+      </defs>
+
+      <!-- ROOM FRAME (outer cross-section) -->
+      <g class="ink" stroke="#0f1417" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <!-- Outer wall opening -->
+        <path d="M80 80 H1520 V920 H80 Z" stroke-width="2.4"></path>
+        <!-- Inner wall depth -->
+        <path d="M140 200 H1460 V900 H140 Z" stroke-width="1.4" opacity="0.85"></path>
+        <!-- Wall thickness hatch (top + sides) -->
+        <path d="M80 80 L140 200" stroke-width="0.9" opacity="0.55"></path>
+        <path d="M1520 80 L1460 200" stroke-width="0.9" opacity="0.55"></path>
+        <path d="M80 920 L140 900" stroke-width="0.9" opacity="0.55"></path>
+        <path d="M1520 920 L1460 900" stroke-width="0.9" opacity="0.55"></path>
+        <!-- Ceiling beam suggestion -->
+        <path d="M180 240 H1420" stroke-width="0.7" stroke-dasharray="5 9" opacity="0.55"></path>
+      </g>
+
+      <!-- WARM WINDOW WASH (light spilling into room) -->
+      <ellipse cx="820" cy="600" rx="500" ry="260" fill="url(#windowGlow)"></ellipse>
+      <!-- WARM LAMP POOL on desk (cast light from above, broader) -->
+      <ellipse cx="820" cy="700" rx="320" ry="60" fill="url(#lampGlowDesk)" opacity="0.85"></ellipse>
+      <!-- Inner intense pool exactly on the laptop -->
+      <ellipse cx="820" cy="688" rx="140" ry="28" fill="url(#lampGlowDesk)" opacity="0.95"></ellipse>
+
+      <!-- FLOOR (planks fill, with hatch line at edge) -->
+      <rect x="140" y="858" width="1320" height="42" fill="url(#planks)" opacity="0.7"></rect>
+      <path d="M140 858 H1460" stroke="#0f1417" stroke-width="1.2"></path>
+      <path d="M140 870 H1460" stroke="#0f1417" stroke-width="0.5" opacity="0.4"></path>
+
+      <!-- BASEBOARD shadow -->
+      <rect x="140" y="846" width="1320" height="14" fill="url(#hatchSoft)" opacity="0.45"></rect>
+
+      <!-- =================================================== -->
+      <!-- BOOKSHELF (left wall)                                -->
+      <!-- =================================================== -->
+      <g class="ink" stroke="#0f1417" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <!-- Frame -->
+        <rect x="170" y="240" width="220" height="620" stroke-width="1.6"></rect>
+        <!-- Inside shadow -->
+        <rect x="174" y="244" width="212" height="612" fill="url(#hatchSoft)" stroke="none" opacity="0.18"></rect>
+        <!-- Shelves -->
+        <path d="M170 340 H390" stroke-width="1.2"></path>
+        <path d="M170 440 H390" stroke-width="1.2"></path>
+        <path d="M170 540 H390" stroke-width="1.2"></path>
+        <path d="M170 640 H390" stroke-width="1.2"></path>
+        <path d="M170 740 H390" stroke-width="1.2"></path>
+        <!-- Top ornament -->
+        <path d="M165 240 H395" stroke-width="2.2"></path>
+        <path d="M180 232 Q195 222 220 232 Q245 242 280 232 Q315 222 350 232 Q375 240 380 232" stroke-width="0.9" opacity="0.6"></path>
+      </g>
+
+      <!-- Books on shelves (each a vertical rectangle, varied heights/widths/fills) -->
+      <g class="books-row" stroke="#0f1417" stroke-width="1" stroke-linejoin="miter">
+        <!-- Shelf 1 (top) -->
+        <rect x="184" y="282" width="14" height="58" fill="#EDE6D5"></rect>
+        <rect x="200" y="276" width="20" height="64" fill="#0f1417" opacity="0.9"></rect>
+        <rect x="222" y="290" width="12" height="50" fill="#EDE6D5"></rect>
+        <rect x="236" y="284" width="22" height="56" fill="#0f1417" opacity="0.85"></rect>
+        <rect x="260" y="294" width="16" height="46" fill="#EDE6D5"></rect>
+        <rect x="278" y="278" width="18" height="62" fill="#0E5347" opacity="0.85"></rect>
+        <rect x="298" y="288" width="14" height="52" fill="#EDE6D5"></rect>
+        <rect x="314" y="282" width="20" height="58" fill="#0f1417" opacity="0.85"></rect>
+        <!-- Tilted book -->
+        <path d="M340 340 L340 296 L356 302 L356 340 Z" fill="#EDE6D5" stroke="#0f1417"></path>
+        <!-- Spine titles (just hairlines) -->
+        <path d="M188 300 H194 M204 295 H214 M226 305 H230 M240 295 H252 M264 305 H272 M282 295 H290 M302 302 H308 M318 295 H328" stroke="#0f1417" stroke-width="0.6" opacity="0.5"></path>
+
+        <!-- Shelf 2 -->
+        <rect x="184" y="380" width="22" height="60" fill="#EDE6D5"></rect>
+        <rect x="208" y="386" width="14" height="54" fill="#0f1417" opacity="0.85"></rect>
+        <rect x="224" y="378" width="18" height="62" fill="#EDE6D5"></rect>
+        <rect x="244" y="382" width="22" height="58" fill="#0E5347" opacity="0.8"></rect>
+        <!-- Stack lying down -->
+        <rect x="270" y="416" width="60" height="10" fill="#EDE6D5" stroke="#0f1417"></rect>
+        <rect x="272" y="406" width="58" height="10" fill="#0f1417" opacity="0.8"></rect>
+        <rect x="278" y="396" width="50" height="10" fill="#EDE6D5"></rect>
+        <rect x="334" y="384" width="14" height="56" fill="#0f1417" opacity="0.85"></rect>
+        <rect x="350" y="388" width="18" height="52" fill="#EDE6D5"></rect>
+        <rect x="370" y="382" width="14" height="58" fill="#0f1417" opacity="0.8"></rect>
+
+        <!-- Shelf 3 -->
+        <rect x="184" y="478" width="18" height="62" fill="#0f1417" opacity="0.9"></rect>
+        <rect x="204" y="490" width="20" height="50" fill="#EDE6D5"></rect>
+        <rect x="226" y="482" width="14" height="58" fill="#0E5347" opacity="0.85"></rect>
+        <rect x="242" y="486" width="22" height="54" fill="#0f1417" opacity="0.8"></rect>
+        <rect x="266" y="492" width="16" height="48" fill="#EDE6D5"></rect>
+        <rect x="284" y="478" width="18" height="62" fill="#0f1417" opacity="0.85"></rect>
+        <rect x="304" y="488" width="14" height="52" fill="#EDE6D5"></rect>
+        <rect x="320" y="480" width="22" height="60" fill="#0f1417" opacity="0.9"></rect>
+        <rect x="344" y="490" width="16" height="50" fill="#EDE6D5"></rect>
+        <rect x="362" y="484" width="22" height="56" fill="#0f1417" opacity="0.85"></rect>
+
+        <!-- Shelf 4 -->
+        <rect x="184" y="582" width="14" height="58" fill="#EDE6D5"></rect>
+        <rect x="200" y="576" width="20" height="64" fill="#0f1417" opacity="0.9"></rect>
+        <rect x="224" y="588" width="14" height="52" fill="#EDE6D5"></rect>
+        <rect x="240" y="582" width="20" height="58" fill="#0E5347" opacity="0.8"></rect>
+        <!-- Globe / sphere for variety -->
+        <circle cx="278" cy="612" r="22" fill="#EDE6D5" stroke="#0f1417" stroke-width="1"></circle>
+        <path d="M256 612 H300 M278 590 V634 M260 600 Q278 608 296 600 M260 624 Q278 616 296 624" stroke="#0f1417" stroke-width="0.5" fill="none" opacity="0.55"></path>
+        <path d="M278 588 V638 M270 590 L286 634" stroke="#0f1417" stroke-width="0.4" opacity="0.4" fill="none"></path>
+        <rect x="306" y="582" width="18" height="58" fill="#0f1417" opacity="0.85"></rect>
+        <rect x="326" y="586" width="22" height="54" fill="#EDE6D5"></rect>
+        <rect x="350" y="580" width="14" height="60" fill="#0f1417" opacity="0.9"></rect>
+        <rect x="366" y="588" width="18" height="52" fill="#EDE6D5"></rect>
+
+        <!-- Shelf 5 (bottom — large books, papers) -->
+        <rect x="184" y="676" width="60" height="64" fill="#EDE6D5"></rect>
+        <rect x="186" y="678" width="56" height="60" fill="none" stroke="#0f1417" stroke-width="0.5" opacity="0.5"></rect>
+        <path d="M194 690 H230 M194 700 H222 M194 710 H230 M194 720 H218 M194 730 H226" stroke="#0f1417" stroke-width="0.5" opacity="0.55"></path>
+        <rect x="248" y="678" width="20" height="62" fill="#0f1417" opacity="0.85"></rect>
+        <rect x="272" y="688" width="14" height="52" fill="#EDE6D5"></rect>
+        <rect x="288" y="678" width="22" height="62" fill="#0E5347" opacity="0.8"></rect>
+        <!-- Camera/object for character -->
+        <rect x="316" y="710" width="60" height="30" fill="#EDE6D5" stroke="#0f1417" stroke-width="1"></rect>
+        <circle cx="346" cy="725" r="8" fill="none" stroke="#0f1417" stroke-width="1"></circle>
+        <circle cx="346" cy="725" r="4" fill="#0f1417"></circle>
+        <rect x="328" y="704" width="14" height="8" fill="none" stroke="#0f1417" stroke-width="0.7"></rect>
+
+        <!-- Bottom-most shelf (stacks of paper drafts) -->
+        <rect x="184" y="772" width="100" height="14" fill="#EDE6D5" stroke="#0f1417" stroke-width="0.7"></rect>
+        <rect x="186" y="758" width="96" height="14" fill="#FAF1D8" stroke="#0f1417" stroke-width="0.7"></rect>
+        <rect x="190" y="744" width="90" height="14" fill="#EDE6D5" stroke="#0f1417" stroke-width="0.7"></rect>
+        <path d="M194 752 H262 M196 766 H258 M196 780 H266" stroke="#0f1417" stroke-width="0.4" opacity="0.5" fill="none"></path>
+        <rect x="296" y="746" width="18" height="60" fill="#0f1417" opacity="0.85"></rect>
+        <rect x="318" y="752" width="22" height="54" fill="#EDE6D5"></rect>
+        <rect x="344" y="744" width="14" height="62" fill="#0E5347" opacity="0.85"></rect>
+        <rect x="362" y="754" width="20" height="52" fill="#EDE6D5"></rect>
+      </g>
+
+      <!-- Hook + medal hanging on the side of bookshelf -->
+      <g stroke="#0f1417" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <!-- Hook -->
+        <path d="M398 320 L408 320 L408 348" stroke-width="1.4"></path>
+        <!-- Ribbon -->
+        <path d="M404 348 L398 396 M412 348 L418 396" stroke-width="1" fill="none"></path>
+        <path d="M396 396 L420 396 L416 410 L400 410 Z" fill="#0E5347" stroke-width="1"></path>
+        <!-- Medal disc -->
+        <circle cx="408" cy="438" r="22" fill="#FAF1D8" stroke-width="1.4"></circle>
+        <circle cx="408" cy="438" r="16" fill="none" stroke-width="0.7" opacity="0.7"></circle>
+        <text x="408" y="444" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="#0f1417" stroke="none" letter-spacing="0.04em">21.1</text>
+      </g>
+
+      <!-- =================================================== -->
+      <!-- READING CHAIR + CAT + RUG                            -->
+      <!-- =================================================== -->
+      <g class="ink" stroke="#0f1417" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <!-- Rug -->
+        <ellipse cx="370" cy="884" rx="200" ry="14" fill="#EDE6D5" stroke-width="1"></ellipse>
+        <ellipse cx="370" cy="884" rx="180" ry="10" fill="none" stroke-width="0.6" opacity="0.7"></ellipse>
+        <!-- Rug pattern hash -->
+        <path d="M220 880 H520 M230 888 H510" stroke-width="0.5" stroke-dasharray="2 6" opacity="0.65"></path>
+
+        <!-- Chair shadow -->
+        <ellipse cx="370" cy="884" rx="120" ry="8" fill="url(#hatchSoft)" stroke="none" opacity="0.4"></ellipse>
+
+        <!-- Chair (high-backed armchair, 3/4 view from side) -->
+        <!-- Back -->
+        <path d="M286 740 Q280 690 296 690 Q310 690 312 700 L312 836 Q312 850 296 854 L286 854 Q284 824 286 800 Z" fill="#EDE6D5" stroke-width="1.6"></path>
+        <!-- Seat cushion -->
+        <path d="M296 836 Q310 830 380 832 Q442 832 446 838 L450 854 Q420 858 380 858 Q330 858 304 856 Z" fill="#FAF1D8" stroke-width="1.4"></path>
+        <!-- Front of seat (front legs visible) -->
+        <path d="M324 858 L320 882 M438 858 L442 882" stroke-width="1.4"></path>
+        <!-- Right armrest -->
+        <path d="M442 836 Q458 832 458 800 L458 760 Q450 750 446 762 L446 836" fill="#EDE6D5" stroke-width="1.4"></path>
+        <!-- Pillow on chair -->
+        <path d="M312 770 Q330 750 358 752 Q380 754 384 776 Q386 798 360 802 Q330 804 314 796 Z" fill="#0E5347" stroke-width="1" opacity="0.85"></path>
+        <path d="M324 762 Q344 760 360 762 M324 790 Q344 794 360 790" stroke="#FAF1D8" stroke-width="0.6" fill="none" opacity="0.85"></path>
+      </g>
+
+      <!-- Cat (curled on chair seat, asleep) — bigger, more visible -->
+      <g stroke="#0f1417" stroke-linecap="round" stroke-linejoin="round" fill="none">
+        <!-- Body curled in a circle (larger) -->
+        <path d="M324 800 Q294 798 288 822 Q284 848 304 858 Q336 868 384 864 Q428 858 436 838 Q438 814 416 802 Q386 794 358 798 Q342 802 324 800 Z" fill="#0f1417" stroke-width="1.8" opacity="0.96"></path>
+        <!-- Belly highlight band -->
+        <path d="M318 836 Q360 830 410 838" stroke="#FAF1D8" stroke-width="0.9" opacity="0.45" fill="none"></path>
+        <!-- Striped tabby hint -->
+        <path d="M306 822 L308 832 M324 814 L325 824 M388 808 L390 818 M408 814 L412 824" stroke="#FAF1D8" stroke-width="0.5" opacity="0.35"></path>
+        <!-- Head tucked into curl, larger -->
+        <path d="M322 822 Q310 808 322 798 Q344 786 358 796 Q368 808 362 824 Q352 834 336 834 Q322 832 322 822 Z" fill="#0f1417" stroke-width="1.5" opacity="0.96"></path>
+        <!-- Ears (two triangles, more pointed) -->
+        <path d="M328 800 L320 786 L336 796 Z M348 796 L362 784 L356 802 Z" fill="#0f1417" stroke-width="1.3"></path>
+        <!-- Inner ear (warm pink hint via emerald-soft) -->
+        <path d="M328 794 L328 800 M354 792 L354 798" stroke="#FAF1D8" stroke-width="0.7" opacity="0.65"></path>
+        <!-- Tail curling over body, more visible -->
+        <path d="M428 822 Q458 814 462 794 Q464 776 446 772 Q428 770 422 784 Q420 798 426 812" stroke="#0f1417" stroke-width="2.4" fill="none"></path>
+        <!-- Tail tip with little curl -->
+        <path d="M446 772 Q438 766 444 760 Q452 756 454 762" stroke="#0f1417" stroke-width="1.8" fill="none"></path>
+        <!-- Closed sleeping eye (gentle curve) -->
+        <path d="M334 814 Q340 818 346 814" stroke="#FAF1D8" stroke-width="1" fill="none" opacity="0.8"></path>
+        <!-- Second closed eye -->
+        <path d="M348 812 Q352 816 356 812" stroke="#FAF1D8" stroke-width="0.8" fill="none" opacity="0.6"></path>
+        <!-- Nose (emerald accent) -->
+        <circle cx="338" cy="822" r="1.6" fill="#0E5347" stroke="none"></circle>
+        <!-- Mouth (tiny inverted Y) -->
+        <path d="M338 824 L336 828 M338 824 L340 828" stroke="#FAF1D8" stroke-width="0.5" opacity="0.55"></path>
+        <!-- Whiskers -->
+        <path d="M334 822 L324 820 M334 824 L324 824 M334 826 L324 828 M342 822 L352 820 M342 824 L352 824" stroke="#FAF1D8" stroke-width="0.5" opacity="0.6"></path>
+        <!-- Tiny "Z" for sleeping (above head) -->
+        <path d="M308 776 L316 776 L308 784 L316 784" stroke="#0f1417" stroke-width="0.7" opacity="0.55" fill="none"></path>
+      </g>
+
+      <!-- =================================================== -->
+      <!-- GUITAR (leaning between chair and desk)              -->
+      <!-- =================================================== -->
+      <g stroke="#0f1417" stroke-linecap="round" stroke-linejoin="round" fill="none" transform="rotate(7 510 884)">
+        <!-- Lower body bout (rounded) -->
+        <ellipse cx="510" cy="850" rx="30" ry="34" fill="#EDE6D5" stroke-width="1.6"></ellipse>
+        <!-- Upper body bout (smaller) -->
+        <ellipse cx="510" cy="800" rx="22" ry="22" fill="#EDE6D5" stroke-width="1.6"></ellipse>
+        <!-- Waist connection (cinch) -->
+        <path d="M488 820 Q496 826 488 832 M532 820 Q524 826 532 832" stroke-width="1.4" fill="none"></path>
+        <!-- Sound hole -->
+        <circle cx="510" cy="836" r="9" fill="#0f1417" stroke-width="1.2"></circle>
+        <circle cx="510" cy="836" r="6" fill="none" stroke="#FAF1D8" stroke-width="0.5" opacity="0.7"></circle>
+        <!-- Bridge (under sound hole) -->
+        <rect x="498" y="864" width="24" height="4" fill="#0f1417" stroke-width="0.6"></rect>
+        <!-- Pickguard (subtle, emerald accent) -->
+        <path d="M524 832 Q536 846 528 866 Q514 866 514 856 Z" fill="#0E5347" opacity="0.55" stroke-width="0.6"></path>
+        <!-- Neck -->
+        <rect x="504" y="722" width="12" height="76" fill="#FAF1D8" stroke-width="1.4"></rect>
+        <!-- Frets -->
+        <path d="M504 736 H516 M504 750 H516 M504 764 H516 M504 778 H516 M504 792 H516" stroke-width="0.5" opacity="0.6"></path>
+        <!-- Inlay dots on neck -->
+        <circle cx="510" cy="743" r="0.9" fill="#0f1417" opacity="0.7"></circle>
+        <circle cx="510" cy="771" r="0.9" fill="#0f1417" opacity="0.7"></circle>
+        <!-- Headstock -->
+        <path d="M500 696 L520 696 L522 722 L498 722 Z" fill="#FAF1D8" stroke-width="1.4"></path>
+        <!-- Tuning pegs (6, two rows of 3) -->
+        <circle cx="503" cy="704" r="1.6" fill="#0f1417" stroke-width="0.5"></circle>
+        <circle cx="503" cy="712" r="1.6" fill="#0f1417" stroke-width="0.5"></circle>
+        <circle cx="503" cy="720" r="1.6" fill="#0f1417" stroke-width="0.5"></circle>
+        <circle cx="517" cy="704" r="1.6" fill="#0f1417" stroke-width="0.5"></circle>
+        <circle cx="517" cy="712" r="1.6" fill="#0f1417" stroke-width="0.5"></circle>
+        <circle cx="517" cy="720" r="1.6" fill="#0f1417" stroke-width="0.5"></circle>
+        <!-- Strings (6, from headstock to bridge) -->
+        <path d="M506 698 L504 866 M508 698 L506 866 M509 698 L508 866 M511 698 L512 866 M512 698 L514 866 M514 698 L516 866" stroke="#0f1417" stroke-width="0.4" opacity="0.6"></path>
+      </g>
+
+      <!-- =================================================== -->
+      <!-- HAT ON CHAIR BACK (fedora silhouette)                -->
+      <!-- =================================================== -->
+      <g stroke="#0f1417" stroke-linecap="round" stroke-linejoin="round" fill="none">
+        <!-- Brim (wider) -->
+        <ellipse cx="298" cy="708" rx="38" ry="7" fill="#0f1417" stroke-width="1.6" opacity="0.95"></ellipse>
+        <!-- Crown (taller, with classic fedora pinch) -->
+        <path d="M274 708 Q274 678 282 670 Q298 664 314 670 Q322 678 322 708 Z" fill="#0f1417" stroke-width="1.6" opacity="0.95"></path>
+        <!-- Crown pinch dent -->
+        <path d="M286 676 Q298 686 310 676" stroke="#FAF1D8" stroke-width="0.8" opacity="0.55"></path>
+        <!-- Hat band (emerald) -->
+        <path d="M276 700 Q298 706 320 700" stroke="#0E5347" stroke-width="2.4"></path>
+        <path d="M276 704 Q298 710 320 704" stroke="#0E5347" stroke-width="0.6" opacity="0.7"></path>
+      </g>
+
+      <!-- =================================================== -->
+      <!-- WALL ART: small etching frame above desk             -->
+      <!-- =================================================== -->
+      <g stroke="#0f1417" stroke-linecap="round" stroke-linejoin="round" fill="none">
+        <!-- Frame -->
+        <rect x="1054" y="298" width="80" height="56" fill="#FAF1D8" stroke-width="1.4"></rect>
+        <rect x="1058" y="302" width="72" height="48" stroke-width="0.5" opacity="0.6" fill="#EDE6D5"></rect>
+        <!-- Etching content: a small abstract landscape (horizon line + sun) -->
+        <path d="M1060 332 H1130" stroke-width="0.7" opacity="0.7"></path>
+        <circle cx="1112" cy="318" r="4" fill="none" stroke-width="0.7" opacity="0.6"></circle>
+        <path d="M1064 342 Q1070 338 1076 342 Q1082 338 1088 342" stroke-width="0.4" opacity="0.55"></path>
+        <!-- Caption tag -->
+        <path d="M1058 358 H1130" stroke-width="0.4" stroke-dasharray="2 2" opacity="0.5"></path>
+      </g>
+
+      <!-- Running shoes (on floor, just left of rug) — larger, more characterful -->
+      <g stroke="#0f1417" stroke-linecap="round" stroke-linejoin="round" fill="none">
+        <!-- Right shoe (back, slightly turned) -->
+        <path d="M168 870 Q176 850 204 848 L256 848 Q278 850 282 864 Q284 878 274 884 L194 886 Q170 884 168 870 Z" fill="#0E5347" stroke-width="1.8" opacity="0.92"></path>
+        <!-- Right shoe sole -->
+        <path d="M170 880 Q210 876 282 876" stroke-width="1.2" fill="none"></path>
+        <!-- Right shoe toe accent -->
+        <path d="M196 856 Q208 854 220 858 L222 868 L198 868 Z" fill="#FAF1D8" opacity="0.9" stroke-width="0.8"></path>
+        <!-- Right laces -->
+        <path d="M226 856 Q240 854 252 858 M228 862 Q242 860 254 864 M230 868 Q244 866 256 870" stroke="#FAF1D8" stroke-width="0.9" fill="none"></path>
+        <!-- Right heel cup -->
+        <path d="M270 854 L276 866 L268 870" stroke="#FAF1D8" stroke-width="0.7" fill="none"></path>
+
+        <!-- Left shoe (front, fully visible) -->
+        <path d="M178 884 Q184 866 214 866 L274 868 Q298 870 304 882 Q306 896 294 902 L210 902 Q180 900 178 884 Z" fill="#FAF1D8" stroke-width="1.8"></path>
+        <!-- Left shoe sole stripe -->
+        <path d="M180 894 Q220 890 304 892" stroke-width="1.4" fill="none"></path>
+        <path d="M184 898 Q220 894 300 896" stroke-width="0.6" fill="none" opacity="0.6"></path>
+        <!-- Left toe box separation -->
+        <path d="M218 866 Q224 884 222 902" stroke-width="0.7" fill="none" opacity="0.65"></path>
+        <!-- Left laces (pattern) -->
+        <path d="M232 874 Q246 870 260 874 M234 882 Q248 878 262 882 M236 890 Q250 886 264 890" stroke-width="1.1" fill="none"></path>
+        <!-- Left logo swoosh (subtle) -->
+        <path d="M276 880 Q284 876 290 882" stroke="#0E5347" stroke-width="1.4" fill="none"></path>
+        <!-- Left heel detail -->
+        <path d="M286 870 L292 884" stroke-width="0.7" fill="none" opacity="0.7"></path>
+      </g>
+
+      <!-- =================================================== -->
+      <!-- WINDOW + CANAL VIEW                                  -->
+      <!-- =================================================== -->
+      <!-- Window opening (sky background fill) -->
+      <rect x="640" y="240" width="380" height="280" fill="#FAF1D8"></rect>
+      <!-- Subtle sky hatch (warmer evening tone) -->
+      <rect x="640" y="240" width="380" height="120" fill="url(#hatchSoft)" opacity="0.18"></rect>
+
+      <!-- Canal view scenery -->
+      <g stroke="#0f1417" stroke-linecap="round" stroke-linejoin="round" fill="none">
+        <!-- Distant houses (gabled) silhouette -->
+        <path d="M640 410 L660 410 L660 384 L674 384 L674 372 L686 372 L686 384 L702 384 L702 410 L720 410 L720 380 L728 380 L728 368 L744 360 L760 368 L760 380 L772 380 L772 410 L786 410 L786 386 L800 386 L800 372 L812 372 L812 386 L828 386 L828 410 L844 410 L844 376 L858 376 L858 410 L876 410 L876 384 L884 380 L894 376 L902 380 L908 386 L908 410 L924 410 L924 388 L936 388 L936 376 L950 376 L950 388 L964 388 L964 410 L984 410 L984 380 L996 380 L996 410 L1020 410" stroke-width="1.4" fill="#EDE6D5"></path>
+        <!-- Window panes / mullions (dark windows in distant houses) -->
+        <rect x="668" y="392" width="6" height="8" fill="#0f1417" opacity="0.85"></rect>
+        <rect x="690" y="394" width="6" height="8" fill="#0f1417" opacity="0.85"></rect>
+        <rect x="734" y="386" width="6" height="8" fill="#0E5347" opacity="0.85"></rect>
+        <rect x="752" y="386" width="6" height="8" fill="#0E5347" opacity="0.85"></rect>
+        <rect x="788" y="394" width="6" height="8" fill="#0f1417" opacity="0.85"></rect>
+        <rect x="820" y="394" width="6" height="8" fill="#0f1417" opacity="0.85"></rect>
+        <rect x="852" y="386" width="6" height="8" fill="#FAF1D8" opacity="0.95"></rect>
+        <rect x="884" y="394" width="6" height="8" fill="#0E5347" opacity="0.85"></rect>
+        <rect x="940" y="396" width="6" height="8" fill="#0f1417" opacity="0.85"></rect>
+        <rect x="970" y="396" width="6" height="8" fill="#0f1417" opacity="0.85"></rect>
+        <rect x="1000" y="394" width="6" height="8" fill="#0E5347" opacity="0.85"></rect>
+
+        <!-- Canal water -->
+        <rect x="640" y="420" width="380" height="100" fill="#EDE6D5" stroke-width="0"></rect>
+        <path d="M640 420 H1020" stroke-width="1"></path>
+        <!-- Water ripples -->
+        <path d="M652 438 Q672 434 690 438 Q708 442 728 438 Q748 434 768 438 Q788 442 806 438 Q826 434 844 438 Q864 442 884 438 Q904 434 922 438 Q940 442 960 438 Q980 434 1000 438" stroke-width="0.6" opacity="0.7"></path>
+        <path d="M660 458 Q680 454 700 458 Q720 462 738 458 Q758 454 776 458 Q796 462 816 458 Q836 454 856 458 Q876 462 894 458 Q914 454 932 458 Q952 462 970 458 Q990 454 1010 458" stroke-width="0.6" opacity="0.55"></path>
+        <path d="M650 478 Q670 474 690 478 Q710 482 728 478 Q748 474 768 478 Q790 482 808 478 Q828 474 846 478 Q866 482 886 478 Q906 474 924 478 Q944 482 962 478 Q982 474 1002 478" stroke-width="0.5" opacity="0.45"></path>
+        <path d="M662 498 Q682 494 702 498 Q722 502 740 498 Q760 494 778 498 Q798 502 818 498 Q838 494 856 498 Q876 502 894 498" stroke-width="0.5" opacity="0.35"></path>
+
+        <!-- A houseboat -->
+        <path d="M872 478 Q874 472 884 472 L962 472 Q972 472 974 478 L974 488 L872 488 Z" fill="#0f1417" opacity="0.85" stroke-width="1"></path>
+        <path d="M888 472 V464 H932 V472 M912 464 V456 H924 V464" stroke-width="0.9" fill="#FAF1D8"></path>
+        <path d="M876 488 L968 488" stroke-width="0.6" opacity="0.6"></path>
+
+        <!-- Moon (top-right pane) with halo -->
+        <circle cx="982" cy="290" r="56" fill="url(#moonGlow)" stroke="none" opacity="0.85"></circle>
+        <circle cx="982" cy="290" r="24" fill="#FAF1D8" stroke-width="1.4"></circle>
+        <circle cx="978" cy="286" r="3" fill="#0f1417" opacity="0.35"></circle>
+        <circle cx="990" cy="296" r="1.8" fill="#0f1417" opacity="0.3"></circle>
+        <circle cx="976" cy="300" r="1.4" fill="#0f1417" opacity="0.3"></circle>
+        <circle cx="993" cy="284" r="1.2" fill="#0f1417" opacity="0.25"></circle>
+
+        <!-- Tiny stars -->
+        <circle cx="708" cy="266" r="1.2" fill="#0f1417" stroke-width="0"></circle>
+        <circle cx="754" cy="298" r="1" fill="#0f1417" stroke-width="0"></circle>
+        <circle cx="820" cy="276" r="1.3" fill="#0f1417" stroke-width="0"></circle>
+        <circle cx="868" cy="250" r="0.9" fill="#0f1417" stroke-width="0"></circle>
+        <circle cx="930" cy="332" r="1.1" fill="#0f1417" stroke-width="0"></circle>
+        <circle cx="676" cy="328" r="0.9" fill="#0f1417" stroke-width="0"></circle>
+      </g>
+
+      <!-- Window frame on top of view -->
+      <g stroke="#0f1417" stroke-linecap="round" stroke-linejoin="round" fill="none">
+        <rect x="624" y="232" width="412" height="296" stroke-width="2.4"></rect>
+        <rect x="640" y="240" width="380" height="280" stroke-width="0.8" opacity="0.6"></rect>
+        <!-- Mullions: 2 vertical, 1 horizontal -->
+        <path d="M768 240 V520" stroke-width="1.4"></path>
+        <path d="M894 240 V520" stroke-width="1.4"></path>
+        <path d="M640 380 H1020" stroke-width="1.4"></path>
+        <!-- Sash hardware -->
+        <circle cx="830" cy="528" r="3" fill="#0f1417"></circle>
+        <!-- Sill -->
+        <path d="M612 528 H1048 V544 H612 Z" fill="#EDE6D5" stroke-width="1.4"></path>
+        <!-- Sill shadow -->
+        <path d="M612 544 H1048" stroke-width="0.7" opacity="0.55"></path>
+      </g>
+
+      <!-- Wall clock (above kitchen alcove, on right side of wall) -->
+      <g stroke="#0f1417" stroke-linecap="round" stroke-linejoin="round" fill="none">
+        <circle cx="1130" cy="306" r="28" fill="#FAF1D8" stroke-width="1.6"></circle>
+        <circle cx="1130" cy="306" r="22" fill="none" stroke-width="0.5" opacity="0.5"></circle>
+        <!-- 12, 3, 6, 9 ticks -->
+        <path d="M1130 282 V288 M1154 306 H1148 M1130 330 V324 M1106 306 H1112" stroke-width="1.2"></path>
+        <!-- Hour & minute hands (frozen at 11:08, lazy evening) -->
+        <path d="M1130 306 L1118 296" stroke-width="2"></path>
+        <path d="M1130 306 L1138 290" stroke-width="1.4"></path>
+        <circle cx="1130" cy="306" r="1.6" fill="#0f1417"></circle>
+      </g>
+
+      <!-- Small framed photo on left wall (above bookshelf) -->
+      <g stroke="#0f1417" stroke-linecap="round" stroke-linejoin="round" fill="none">
+        <rect x="450" y="284" width="88" height="60" stroke-width="1.6" fill="#FAF1D8"></rect>
+        <rect x="456" y="290" width="76" height="48" stroke-width="0.9" fill="#EDE6D5"></rect>
+        <!-- Stylized portrait silhouette -->
+        <path d="M482 332 Q484 314 494 312 Q502 312 504 326 L504 338 L482 338 Z" fill="#0f1417" opacity="0.85" stroke-width="0"></path>
+        <circle cx="494" cy="306" r="6" fill="#0f1417" opacity="0.85" stroke-width="0"></circle>
+        <!-- Hand-written caption tag (mono feel) -->
+        <path d="M460 348 H528" stroke-width="0.5" stroke-dasharray="2 2" opacity="0.5"></path>
+      </g>
+
+      <!-- Postcard pinned next to frame -->
+      <g stroke="#0f1417" stroke-linecap="round" stroke-linejoin="round" fill="none">
+        <rect x="554" y="296" width="56" height="40" stroke-width="1.2" fill="#FAF1D8" transform="rotate(-4 582 316)"></rect>
+        <!-- Stamp corner -->
+        <rect x="586" y="300" width="14" height="12" stroke-width="0.6" fill="#0E5347" opacity="0.85" transform="rotate(-4 586 312)"></rect>
+        <!-- Wavy lines -->
+        <path d="M558 322 L600 322 M558 328 L596 328" stroke-width="0.5" opacity="0.55" transform="rotate(-4 582 316)"></path>
+        <!-- Pin -->
+        <circle cx="582" cy="296" r="2" fill="#0E5347"></circle>
+      </g>
+
+      <!-- Curtain on left side of window -->
+      <g stroke="#0f1417" fill="#EDE6D5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M576 232 Q600 240 614 244 L614 530 Q604 532 590 528 Q580 526 576 530 Z" stroke-width="1.4" fill="#EDE6D5"></path>
+        <path d="M584 240 Q586 380 580 528 M594 246 Q598 380 596 528 M604 250 Q612 380 608 530" stroke-width="0.6" fill="none" opacity="0.7"></path>
+      </g>
+
+      <!-- =================================================== -->
+      <!-- DESK + OBJECTS                                       -->
+      <!-- =================================================== -->
+      <g class="ink" stroke="#0f1417" stroke-linecap="round" stroke-linejoin="round" fill="none">
+        <!-- Desk shadow on floor -->
+        <ellipse cx="816" cy="858" rx="280" ry="6" fill="#0f1417" opacity="0.18"></ellipse>
+        <!-- Desk top -->
+        <path d="M548 690 H1084 L1080 712 H552 Z" fill="#EDE6D5" stroke-width="1.6"></path>
+        <!-- Desk apron / front -->
+        <path d="M576 712 H1056 V724 H576 Z" fill="#FAF1D8" stroke-width="1.2"></path>
+        <!-- Desk legs -->
+        <path d="M580 724 L578 858 M598 724 L600 858" stroke-width="1.4"></path>
+        <path d="M1054 724 L1056 858 M1036 724 L1034 858" stroke-width="1.4"></path>
+        <!-- Cross-stretcher -->
+        <path d="M598 800 H1036" stroke-width="1.2" opacity="0.55"></path>
+        <!-- Drawer -->
+        <rect x="700" y="730" width="220" height="42" stroke-width="1.2" fill="#EDE6D5"></rect>
+        <circle cx="810" cy="752" r="3" fill="#0f1417"></circle>
+
+        <!-- Desk top hatch (subtle wood grain) -->
+        <path d="M560 700 H1078 M566 706 H1072" stroke-width="0.5" opacity="0.4"></path>
+
+        <!-- Cross-hatch shadow on right side of desk (away from window) -->
+        <path d="M1056 712 H1080" stroke-width="0.5"></path>
+      </g>
+      <rect x="998" y="695" width="84" height="20" fill="url(#hatchSoft)" opacity="0.25"></rect>
+
+      <!-- Stack of paper drafts (left of laptop) -->
+      <g stroke="#0f1417" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="608" y="678" width="80" height="12" fill="#EDE6D5" stroke-width="1"></rect>
+        <rect x="612" y="668" width="78" height="12" fill="#FAF1D8" stroke-width="1"></rect>
+        <rect x="610" y="658" width="80" height="12" fill="#EDE6D5" stroke-width="1"></rect>
+        <path d="M620 664 H682 M624 674 H678 M620 684 H682" stroke="#0f1417" stroke-width="0.5" fill="none" opacity="0.6"></path>
+        <!-- Top page slightly off -->
+        <path d="M608 658 L612 654 L688 654 L692 658" stroke-width="0.7" fill="none" opacity="0.7"></path>
+      </g>
+
+      <!-- Notebook + pen -->
+      <g stroke="#0f1417" stroke-linecap="round" stroke-linejoin="round">
+        <!-- Notebook -->
+        <rect x="668" y="668" width="76" height="22" fill="#0E5347" stroke-width="1.2"></rect>
+        <path d="M676 670 V690 M740 670 V690" stroke="#FAF1D8" stroke-width="0.8" fill="none" opacity="0.85"></path>
+        <path d="M676 678 H740" stroke="#FAF1D8" stroke-width="0.5" fill="none" opacity="0.7"></path>
+        <!-- Bookmark ribbon -->
+        <path d="M730 668 L730 698 L734 692 L738 698 L738 668" fill="#FAF1D8" stroke-width="0.7"></path>
+
+        <!-- Pen -->
+        <path d="M756 658 L820 692 L824 690 L760 656 Z" fill="#0f1417" stroke-width="0.9"></path>
+        <path d="M756 658 L754 654 L758 652 L762 656" stroke-width="0.8" fill="#FAF1D8"></path>
+      </g>
+
+      <!-- Wedding ring (on small dish near papers) -->
+      <g stroke="#0f1417" stroke-linecap="round" stroke-linejoin="round" fill="none">
+        <ellipse cx="586" cy="694" rx="22" ry="6" fill="#FAF1D8" stroke-width="1"></ellipse>
+        <ellipse cx="586" cy="692" rx="22" ry="5" fill="none" stroke-width="0.6" opacity="0.7"></ellipse>
+        <!-- Two rings stacked -->
+        <ellipse cx="582" cy="692" rx="6" ry="2.5" fill="none" stroke-width="1.2"></ellipse>
+        <ellipse cx="592" cy="691" rx="6" ry="2.5" fill="none" stroke-width="1.2" stroke="#0E5347"></ellipse>
+      </g>
+
+      <!-- Laptop (open, screen showing subtle code) -->
+      <g stroke="#0f1417" stroke-linecap="round" stroke-linejoin="round">
+        <!-- Base -->
+        <path d="M754 696 L876 696 L884 712 L750 712 Z" fill="#EDE6D5" stroke-width="1.4"></path>
+        <!-- Lid (behind, slightly open) -->
+        <path d="M770 696 L770 612 Q770 604 778 604 L862 604 Q872 604 872 612 L872 696 Z" fill="#0f1417" stroke-width="1.6"></path>
+        <!-- Screen border -->
+        <rect x="780" y="612" width="82" height="76" fill="#EDE6D5" stroke="#FAF1D8" stroke-width="0.6"></rect>
+        <!-- Code lines on screen -->
+        <path d="M786 622 H812 M786 628 H826 M786 634 H800 M790 640 H814 M790 646 H802 M786 652 H818 M786 658 H806 M786 664 H826 M790 670 H810 M786 676 H822 M786 682 H814" stroke="#0f1417" stroke-width="0.7" fill="none" opacity="0.55"></path>
+        <!-- Cursor (emerald accent) -->
+        <rect x="824" y="638" width="2" height="6" fill="#0E5347"></rect>
+        <!-- Hinge -->
+        <path d="M770 696 L872 696" stroke-width="0.9" opacity="0.7"></path>
+        <!-- Trackpad / keyboard hint -->
+        <rect x="784" y="700" width="60" height="6" fill="none" stroke="#0f1417" stroke-width="0.6" opacity="0.6"></rect>
+      </g>
+
+      <!-- Coffee mug -->
+      <g stroke="#0f1417" stroke-linecap="round" stroke-linejoin="round" fill="none">
+        <path d="M912 666 L912 702 Q912 712 928 712 L944 712 Q960 712 960 702 L960 666 Z" fill="#EDE6D5" stroke-width="1.4"></path>
+        <ellipse cx="936" cy="666" rx="24" ry="4" fill="#0f1417" opacity="0.85" stroke-width="1.2"></ellipse>
+        <!-- Coffee surface -->
+        <ellipse cx="936" cy="668" rx="22" ry="3" fill="#0E5347" opacity="0.5" stroke="none"></ellipse>
+        <!-- Handle -->
+        <path d="M960 678 Q976 678 976 690 Q976 700 960 700" stroke-width="1.4"></path>
+        <!-- Steam -->
+        <path d="M922 658 Q918 648 924 638 Q930 628 924 618" stroke-width="0.9" opacity="0.7"></path>
+        <path d="M940 658 Q936 648 942 638 Q948 628 942 618" stroke-width="0.9" opacity="0.6"></path>
+        <path d="M952 658 Q948 650 952 642" stroke-width="0.9" opacity="0.55"></path>
+      </g>
+
+      <!-- Candle in brass holder -->
+      <g stroke="#0f1417" stroke-linecap="round" stroke-linejoin="round" fill="none">
+        <!-- Holder dish -->
+        <ellipse cx="1018" cy="704" rx="22" ry="5" fill="#FAF1D8" stroke-width="1.2"></ellipse>
+        <path d="M996 702 Q1018 696 1040 702" stroke-width="0.7" opacity="0.7"></path>
+        <!-- Stem -->
+        <path d="M1014 700 L1014 690 Q1010 686 1018 684 Q1026 686 1022 690 L1022 700" stroke-width="1.2"></path>
+        <!-- Candle column -->
+        <rect x="1010" y="652" width="16" height="32" fill="#FAF1D8" stroke-width="1.2"></rect>
+        <!-- Wick -->
+        <path d="M1018 652 L1018 642" stroke-width="1.1"></path>
+        <!-- Flame -->
+        <path d="M1018 642 Q1010 634 1018 622 Q1026 634 1018 642 Z" fill="#0E5347" stroke-width="1" opacity="0.92"></path>
+        <path d="M1018 638 Q1014 632 1018 626 Q1022 632 1018 638 Z" fill="#FAF1D8" stroke="none"></path>
+        <!-- Glow halo -->
+        <circle cx="1018" cy="626" r="58" fill="url(#candleGlow)" stroke="none" opacity="0.9"></circle>
+        <circle cx="1018" cy="630" r="20" fill="url(#lampGlow)" stroke="none" opacity="0.95"></circle>
+      </g>
+
+      <!-- =================================================== -->
+      <!-- KITCHEN ALCOVE (right side)                          -->
+      <!-- =================================================== -->
+      <g class="ink" stroke="#0f1417" stroke-linecap="round" stroke-linejoin="round" fill="none">
+        <!-- Alcove frame separator -->
+        <path d="M1144 240 V858" stroke-width="1.2" opacity="0.6"></path>
+        <!-- Counter top -->
+        <path d="M1158 690 H1448 L1444 716 H1162 Z" fill="#EDE6D5" stroke-width="1.6"></path>
+        <!-- Counter front -->
+        <rect x="1162" y="716" width="282" height="142" fill="#FAF1D8" stroke-width="1.2"></rect>
+        <!-- Cabinet handles -->
+        <path d="M1198 736 H1218 M1280 736 H1300 M1374 736 H1394" stroke-width="1.2"></path>
+        <path d="M1190 752 V790 M1230 752 V790 M1270 752 V790 M1310 752 V790 M1350 752 V790 M1390 752 V790" stroke-width="0.4" opacity="0.4"></path>
+
+        <!-- Wall shelf with hanging utensils -->
+        <path d="M1158 466 H1448" stroke-width="1.4"></path>
+        <path d="M1158 470 H1448" stroke-width="0.5" opacity="0.4"></path>
+
+        <!-- Hanging hooks under shelf -->
+        <path d="M1190 466 V482 M1230 466 V480 M1270 466 V478" stroke-width="1"></path>
+
+        <!-- Hanging pots -->
+        <path d="M1184 482 Q1180 510 1184 528 L1196 528 Q1200 510 1196 482 Z" fill="#0f1417" opacity="0.9" stroke-width="1.2"></path>
+        <path d="M1198 482 H1180" stroke-width="1"></path>
+        <path d="M1224 480 Q1216 508 1226 530 L1244 530 Q1252 508 1244 480 Z" fill="#0E5347" stroke-width="1.2" opacity="0.9"></path>
+        <path d="M1244 480 H1224" stroke-width="1"></path>
+        <!-- Spatula / ladle -->
+        <path d="M1270 478 L1270 540 L1264 552 L1276 552 L1270 540" stroke-width="1"></path>
+
+        <!-- Spice rack on right side of shelf -->
+        <rect x="1330" y="488" width="100" height="40" stroke-width="1"></rect>
+        <path d="M1340 488 V528 M1356 488 V528 M1372 488 V528 M1388 488 V528 M1404 488 V528 M1420 488 V528" stroke-width="0.5" opacity="0.5"></path>
+        <!-- Tiny jars -->
+        <rect x="1342" y="498" width="12" height="22" fill="#EDE6D5" stroke-width="0.7"></rect>
+        <rect x="1358" y="496" width="12" height="24" fill="#0E5347" opacity="0.85" stroke-width="0.7"></rect>
+        <rect x="1374" y="500" width="12" height="20" fill="#EDE6D5" stroke-width="0.7"></rect>
+        <rect x="1390" y="498" width="12" height="22" fill="#0f1417" opacity="0.85" stroke-width="0.7"></rect>
+        <rect x="1406" y="500" width="12" height="20" fill="#EDE6D5" stroke-width="0.7"></rect>
+      </g>
+
+      <!-- Pot on stove (with steam, cooking) -->
+      <g stroke="#0f1417" stroke-linecap="round" stroke-linejoin="round" fill="none">
+        <!-- Stove burner outline -->
+        <ellipse cx="1240" cy="694" rx="50" ry="6" fill="#0f1417" opacity="0.4"></ellipse>
+        <circle cx="1240" cy="694" r="32" fill="none" stroke-width="0.6" opacity="0.6"></circle>
+        <!-- Pot body -->
+        <path d="M1198 670 L1206 692 Q1210 696 1216 696 L1264 696 Q1270 696 1274 692 L1282 670 Z" fill="#0f1417" opacity="0.9" stroke-width="1.4"></path>
+        <!-- Pot lid -->
+        <path d="M1198 670 H1282" stroke-width="1.2"></path>
+        <path d="M1196 666 H1284" stroke-width="1.2"></path>
+        <!-- Lid handle -->
+        <circle cx="1240" cy="660" r="4" fill="#FAF1D8" stroke-width="1"></circle>
+        <!-- Pot handles -->
+        <path d="M1198 670 L1188 666 L1186 672" stroke-width="1"></path>
+        <path d="M1282 670 L1292 666 L1294 672" stroke-width="1"></path>
+        <!-- Steam -->
+        <path d="M1216 660 Q1212 644 1220 628 Q1228 614 1220 596" stroke-width="1" opacity="0.7"></path>
+        <path d="M1240 660 Q1244 644 1238 628 Q1232 614 1240 596" stroke-width="1" opacity="0.6"></path>
+        <path d="M1262 660 Q1258 644 1264 628 Q1270 614 1264 600" stroke-width="1" opacity="0.65"></path>
+      </g>
+
+      <!-- Knife block (on counter, right side) -->
+      <g stroke="#0f1417" stroke-linecap="round" stroke-linejoin="round" fill="none">
+        <path d="M1336 670 L1340 700 L1402 700 L1406 670 Q1406 666 1400 666 L1342 666 Q1336 666 1336 670 Z" fill="#0f1417" opacity="0.9" stroke-width="1.4"></path>
+        <!-- Knife slots -->
+        <path d="M1346 670 H1394 M1348 678 H1392 M1352 686 H1388" stroke="#FAF1D8" stroke-width="0.5" opacity="0.7"></path>
+        <!-- Knife handles sticking up -->
+        <rect x="1346" y="650" width="6" height="18" fill="#FAF1D8" stroke-width="0.7"></rect>
+        <rect x="1358" y="646" width="6" height="22" fill="#FAF1D8" stroke-width="0.7"></rect>
+        <rect x="1370" y="644" width="6" height="24" fill="#FAF1D8" stroke-width="0.7"></rect>
+        <rect x="1382" y="652" width="6" height="16" fill="#FAF1D8" stroke-width="0.7"></rect>
+      </g>
+
+      <!-- Plant (Monstera) on top of cabinet right side -->
+      <g stroke="#0f1417" stroke-linecap="round" stroke-linejoin="round" fill="none">
+        <!-- Pot -->
+        <path d="M1396 444 L1404 466 L1444 466 L1452 444 Z" fill="#FAF1D8" stroke-width="1.4"></path>
+        <path d="M1396 444 H1452" stroke-width="0.6" opacity="0.6"></path>
+        <!-- Stems -->
+        <path d="M1416 444 Q1414 412 1408 380 M1428 444 Q1432 412 1438 384 M1424 444 Q1422 420 1418 396" stroke-width="1"></path>
+        <!-- Leaves (Monstera-style with notches) -->
+        <path d="M1408 380 Q1390 372 1380 354 Q1376 348 1382 344 Q1394 348 1402 358 M1408 380 Q1394 358 1402 344 Q1414 350 1416 366 M1408 380 Q1410 360 1404 350 Q1418 354 1422 372" fill="#0E5347" stroke-width="1.2" opacity="0.9"></path>
+        <path d="M1438 384 Q1428 366 1438 350 Q1454 354 1460 372 Q1458 380 1444 384 M1438 384 Q1454 370 1462 374 Q1466 388 1454 396 M1438 384 Q1450 380 1456 388" fill="#0E5347" stroke-width="1.2" opacity="0.9"></path>
+        <path d="M1418 396 Q1408 388 1408 380 Q1426 384 1428 396" fill="#0E5347" stroke-width="1" opacity="0.8"></path>
+        <!-- Leaf veins -->
+        <path d="M1408 380 Q1404 376 1394 360 M1408 380 Q1414 372 1418 366 M1438 384 Q1442 380 1452 372" stroke="#0f1417" stroke-width="0.5" opacity="0.7"></path>
+      </g>
+
+      <!-- Tennis racket leaning against right wall -->
+      <g stroke="#0f1417" stroke-linecap="round" stroke-linejoin="round" fill="none">
+        <!-- Frame -->
+        <ellipse cx="1444" cy="784" rx="22" ry="32" stroke-width="1.6" fill="#FAF1D8" transform="rotate(15 1444 784)"></ellipse>
+        <!-- Strings (vertical + horizontal) -->
+        <g transform="rotate(15 1444 784)">
+          <path d="M1428 758 V810 M1436 754 V814 M1444 752 V816 M1452 754 V814 M1460 758 V810" stroke-width="0.5" opacity="0.7"></path>
+          <path d="M1424 768 H1464 M1424 776 H1464 M1424 784 H1464 M1424 792 H1464 M1424 800 H1464" stroke-width="0.5" opacity="0.7"></path>
+        </g>
+        <!-- Throat -->
+        <path d="M1448 822 L1452 836 L1454 858" stroke-width="1.4" transform="rotate(15 1452 836)"></path>
+        <!-- Handle -->
+        <rect x="1450" y="818" width="6" height="40" fill="#0f1417" opacity="0.85" stroke-width="0.8" transform="rotate(15 1452 836)"></rect>
+      </g>
+
+      <!-- =================================================== -->
+      <!-- PENDANT LAMP                                         -->
+      <!-- =================================================== -->
+      <g stroke="#0f1417" stroke-linecap="round" stroke-linejoin="round" fill="none">
+        <!-- Cord -->
+        <path d="M820 200 L820 540" stroke-width="1.2"></path>
+        <!-- Ceiling cap -->
+        <ellipse cx="820" cy="204" rx="10" ry="3" fill="#0f1417"></ellipse>
+        <!-- Shade -->
+        <path d="M778 540 L820 580 L862 540 Q862 528 820 528 Q778 528 778 540 Z" fill="#0f1417" stroke-width="1.4" opacity="0.92"></path>
+        <!-- Bulb glow at base of shade -->
+        <circle cx="820" cy="582" r="14" fill="#FAF1D8" stroke="none" opacity="0.95"></circle>
+        <!-- Inside light -->
+        <path d="M794 558 L820 574 L846 558" stroke="#FAF1D8" stroke-width="0.6"></path>
+        <!-- Glow -->
+        <ellipse cx="820" cy="610" rx="190" ry="180" fill="url(#lampGlow)" stroke="none" opacity="0.75"></ellipse>
+      </g>
+
+      <!-- =================================================== -->
+      <!-- TITLE BLOCK (printers-style ornament at bottom)      -->
+      <!-- =================================================== -->
+      <g stroke="#0f1417" stroke-linecap="round" stroke-linejoin="round" fill="none">
+        <path d="M120 956 L1480 956" stroke-width="0.7"></path>
+        <path d="M120 962 L1480 962" stroke-width="0.4" opacity="0.6"></path>
+        <!-- Centerpiece flourish -->
+        <path d="M780 956 Q800 944 820 956 Q840 968 860 956" stroke-width="0.7" fill="none"></path>
+        <circle cx="820" cy="956" r="2" fill="#0E5347"></circle>
+      </g>
+      <text x="160" y="980" font-family="JetBrains Mono, monospace" font-size="11" letter-spacing="0.16em" fill="#4a5159" text-transform="uppercase">PLATE III · THE STUDIO</text>
+      <text x="1480" y="980" text-anchor="end" font-family="JetBrains Mono, monospace" font-size="11" letter-spacing="0.16em" fill="#4a5159">AMSTERDAM · 2026</text>
+    </svg>
+
+    <!-- HOTSPOTS (overlay on top of SVG) -->
+    {
+      objects.map((o) => {
+        const note = "note" in o ? o.note : undefined;
+        return (
+          <button
+            type="button"
+            class="atelier__hotspot"
+            data-obj-id={o.id}
+            data-obj-note={note ?? ""}
+            data-obj-label={o.label}
+            style={`left: ${o.x}%; top: ${o.y}%;`}
+            aria-label={o.label}
+            disabled={!note}
+          >
+            <span class="atelier__hotspot-dot" aria-hidden="true" />
+            <span class="atelier__hotspot-label">{o.label}</span>
+          </button>
+        );
+      })
+    }
+    </div>
+  </div>
+
+  <aside class="atelier__panel" data-atelier-panel hidden>
+    <p class="atelier__panel-label" data-atelier-panel-label></p>
+    <p class="atelier__panel-note" data-atelier-panel-note></p>
+    <button
+      type="button"
+      class="atelier__panel-close"
+      data-atelier-panel-close
+      aria-label="Dismiss note"
+    >
+      close ×
+    </button>
+  </aside>
+
+  <ul class="atelier__sr" aria-label="All atelier notes">
+    {
+      allNotes.map((n) => (
+        <li>
+          <strong>{n.label}</strong>: {n.note}
+        </li>
+      ))
+    }
+  </ul>
+</div>
+
+<script>
+  import "~/scripts/atelier-scene";
+</script>
+
+<style>
+  .atelier {
+    position: fixed;
+    inset: 0;
+    background: var(--color-paper);
+    overflow: hidden;
+    z-index: 40;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .atelier__chrome {
+    flex: 0 0 auto;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    padding: 18px 28px;
+    gap: 24px;
+    border-bottom: 1px solid var(--color-hairline);
+    background: rgba(245, 239, 226, 0.92);
+    backdrop-filter: blur(2px);
+    z-index: 5;
+  }
+
+  .atelier__breadcrumb {
+    margin: 0;
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+
+  .atelier__breadcrumb-mono {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-ink-soft);
+  }
+
+  .atelier__breadcrumb-mono--soft {
+    opacity: 0.7;
+  }
+
+  .atelier__breadcrumb-display {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 22px;
+    color: var(--color-ink);
+    line-height: 1;
+  }
+
+  .atelier__hint {
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-ink-soft);
+    text-align: center;
+  }
+
+  .atelier__hint kbd {
+    font-family: inherit;
+    font-size: inherit;
+    border: 1px solid var(--color-hairline);
+    padding: 1px 5px;
+    border-radius: 3px;
+    background: var(--color-paper);
+    color: var(--color-ink);
+  }
+
+  .atelier__close {
+    justify-self: end;
+    background: transparent;
+    border: 1px solid var(--color-hairline);
+    color: var(--color-ink-soft);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 6px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: color 180ms ease-out, border-color 180ms ease-out;
+  }
+
+  .atelier__close:hover {
+    color: var(--color-accent);
+    border-color: var(--color-accent);
+  }
+
+  .atelier__close-arrow {
+    font-size: 14px;
+  }
+
+  .atelier__stage {
+    position: relative;
+    flex: 1 1 auto;
+    width: 100%;
+    overflow: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    box-sizing: border-box;
+  }
+
+  .atelier__canvas {
+    position: relative;
+    width: 100%;
+    max-width: 1500px;
+    aspect-ratio: 16 / 10;
+    flex: 0 0 auto;
+  }
+
+  .atelier__art {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  .atelier__hotspot {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    border: 0;
+    background: transparent;
+    padding: 14px;
+    cursor: pointer;
+    color: var(--color-ink);
+    z-index: 3;
+  }
+
+  .atelier__hotspot:disabled {
+    cursor: default;
+  }
+
+  .atelier__hotspot-dot {
+    display: block;
+    width: 14px;
+    height: 14px;
+    border-radius: 999px;
+    border: 1.5px solid var(--color-ink-soft);
+    background: rgba(245, 239, 226, 0.4);
+    box-shadow: 0 0 0 6px rgba(245, 239, 226, 0.25);
+    transition:
+      background 180ms ease-out,
+      border-color 180ms ease-out,
+      transform 180ms ease-out,
+      box-shadow 180ms ease-out;
+  }
+
+  .atelier__hotspot:hover .atelier__hotspot-dot,
+  .atelier__hotspot:focus-visible .atelier__hotspot-dot,
+  .atelier[data-show-captions] .atelier__hotspot-dot {
+    background: var(--color-accent);
+    border-color: var(--color-accent);
+    transform: scale(1.15);
+    box-shadow: 0 0 0 8px rgba(14, 83, 71, 0.18);
+  }
+
+  .atelier__hotspot-label {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-ink);
+    background: var(--color-paper);
+    padding: 2px 6px;
+    border: 1px solid var(--color-hairline);
+    border-radius: 3px;
+    opacity: 0;
+    transition: opacity 180ms;
+    pointer-events: none;
+  }
+
+  .atelier[data-show-captions] .atelier__hotspot-label,
+  .atelier__hotspot:hover .atelier__hotspot-label,
+  .atelier__hotspot:focus-visible .atelier__hotspot-label {
+    opacity: 1;
+  }
+
+  .atelier__hotspot:disabled .atelier__hotspot-dot {
+    border-style: dashed;
+    background: transparent;
+  }
+
+  .atelier__panel {
+    position: fixed;
+    right: 28px;
+    bottom: 28px;
+    width: min(380px, calc(100% - 56px));
+    background: var(--color-paper-shade);
+    border: 1px solid var(--color-hairline);
+    border-radius: 16px;
+    padding: 22px 24px 20px;
+    z-index: 6;
+    box-shadow:
+      0 1px 0 rgba(15, 20, 23, 0.04),
+      0 18px 40px -18px rgba(15, 20, 23, 0.18);
+  }
+
+  .atelier__panel-label {
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-ink-soft);
+  }
+
+  .atelier__panel-note {
+    margin: 8px 0 0;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 19px;
+    line-height: 1.45;
+    color: var(--color-ink);
+  }
+
+  .atelier__panel-close {
+    margin-top: 14px;
+    background: transparent;
+    border: 0;
+    padding: 0;
+    color: var(--color-ink-soft);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+
+  .atelier__panel-close:hover {
+    color: var(--color-accent);
+  }
+
+  .atelier__sr {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+  }
+
+  @media (max-width: 720px) {
+    .atelier__chrome {
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto auto;
+      padding: 14px 18px;
+      gap: 8px 16px;
+    }
+    .atelier__breadcrumb {
+      grid-column: 1 / 2;
+    }
+    .atelier__close {
+      grid-column: 2 / 3;
+      grid-row: 1 / 2;
+    }
+    .atelier__hint {
+      grid-column: 1 / 3;
+      grid-row: 2 / 3;
+      text-align: left;
+    }
+    .atelier__breadcrumb-display {
+      font-size: 18px;
+    }
+    .atelier__stage {
+      align-items: flex-start;
+      padding: 16px 12px;
+    }
+    .atelier__panel {
+      right: 12px;
+      bottom: 12px;
+    }
+    .atelier__hotspot {
+      padding: 10px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .atelier__hotspot-dot {
+      transition: none;
+    }
+  }
+</style>

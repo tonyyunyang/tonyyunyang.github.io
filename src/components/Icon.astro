@@ -1,0 +1,116 @@
+---
+interface Props {
+  name: string;
+  size?: number;
+  class?: string;
+  strokeWidth?: number;
+}
+
+const {
+  name,
+  size = 18,
+  class: className = "",
+  strokeWidth = 1.4,
+} = Astro.props;
+
+// Hand-drawn engraving style icons. All on a 24x24 viewBox.
+const PATHS: Record<string, string> = {
+  // Communication
+  envelope:
+    "M3 6 H21 V18 H3 Z M3 6 L12 13 L21 6 M3 18 L9 12 M21 18 L15 12",
+  // Academic / scholar
+  scholar:
+    "M3 9 L12 5 L21 9 L12 13 Z M6.5 11 V16 Q6.5 18 12 18 Q17.5 18 17.5 16 V11 M19 10 V18 M18 18 H20",
+  // Github (simplified branch glyph)
+  branch:
+    "M6 4 V14 M6 14 A2 2 0 1 0 6 18 A2 2 0 1 0 6 14 Z M18 4 A2 2 0 1 0 18 8 A2 2 0 1 0 18 4 Z M18 8 V11 Q18 13 16 13 H10 Q8 13 8 14",
+  // Document / CV
+  document:
+    "M6 3 H15 L19 7 V21 H6 Z M15 3 V7 H19 M9 11 H16 M9 14 H16 M9 17 H13",
+  // Pen / sketch
+  pen:
+    "M5 19 L5 21 L7 21 L18 10 L16 8 Z M16 8 L18 6 L20 8 L18 10",
+  // Phone
+  phone:
+    "M5 4 H9 L11 9 L8 11 Q9 14 13 16 L15 13 L20 15 V19 Q20 21 18 21 Q9 21 5 12 Q3 6 5 4 Z",
+  // Location pin
+  pin:
+    "M12 22 Q5 14 5 9 A7 7 0 0 1 19 9 Q19 14 12 22 Z M12 9 m-2.5 0 a 2.5 2.5 0 1 0 5 0 a 2.5 2.5 0 1 0 -5 0",
+  // Globe (used for "based in" / location)
+  globe:
+    "M12 3 A9 9 0 1 0 12 21 A9 9 0 1 0 12 3 M3 12 H21 M12 3 Q6 8 6 12 Q6 16 12 21 M12 3 Q18 8 18 12 Q18 16 12 21",
+  // World model: a framed scene (a model of the world) with a small predictive arrow above
+  "world-model":
+    "M3 7 H21 V19 H3 Z M3 15 H21 M16 11 m-1.4 0 a 1.4 1.4 0 1 0 2.8 0 a 1.4 1.4 0 1 0 -2.8 0 M3 17 L7 13 L11 15 L16 11 L21 14 M5 5 Q12 3 19 5 M17 3 L19 5 L17 7",
+  // Shield (AI safety) with a checkmark inside
+  shield:
+    "M12 3 L20 6 V12 Q20 18 12 21 Q4 18 4 12 V6 Z M9 12 L11 14 L15 10",
+  // Tokens / LLM
+  tokens:
+    "M4 7 H10 V11 H4 Z M12 7 H20 V11 H12 Z M4 13 H8 V17 H4 Z M10 13 H16 V17 H10 Z M18 13 H20 V17 H18 Z",
+  // Eye / vision
+  eye:
+    "M2 12 Q6 5 12 5 Q18 5 22 12 Q18 19 12 19 Q6 19 2 12 Z M12 12 m-3 0 a 3 3 0 1 0 6 0 a 3 3 0 1 0 -6 0 M12 12 m-1 0 a 1 1 0 1 0 2 0 a 1 1 0 1 0 -2 0",
+  // Heartbeat / medical AI
+  heartbeat:
+    "M2 12 H6 L8 6 L12 18 L14 9 L16 14 L18 12 H22",
+  // Waveform / wireless
+  waveform:
+    "M2 14 Q4 6 6 14 Q8 22 10 14 Q12 6 14 14 Q16 22 18 14 Q20 6 22 14",
+  // Open door / fairness × access
+  "open-door":
+    "M5 3 V21 L13 19 V5 Z M13 5 L19 5 V19 L13 19 M11 11 m-0.5 0 a 0.5 0.5 0 1 0 1 0 a 0.5 0.5 0 1 0 -1 0",
+  // Compass (decorative)
+  compass:
+    "M12 2 A10 10 0 1 0 12 22 A10 10 0 1 0 12 2 M8 16 L11 11 L16 8 L13 13 Z M12 12 m-0.5 0 a 0.5 0.5 0 1 0 1 0 a 0.5 0.5 0 1 0 -1 0",
+  // Star (rating / featured)
+  star:
+    "M12 3 L14.6 9.3 L21 9.7 L16 14 L17.6 20.5 L12 17 L6.4 20.5 L8 14 L3 9.7 L9.4 9.3 Z",
+  // Arrow right
+  "arrow-right":
+    "M5 12 H19 M14 7 L19 12 L14 17",
+  // Arrow up-right (external link)
+  "arrow-up-right":
+    "M7 17 L17 7 M9 7 H17 V15",
+  // Plus / add
+  plus:
+    "M12 5 V19 M5 12 H19",
+  // Coffee
+  coffee:
+    "M5 9 H15 V17 Q15 19 13 19 H7 Q5 19 5 17 Z M15 11 Q18 11 18 14 Q18 16 15 16 M9 3 Q11 5 9 6 M12 3 Q14 5 12 6",
+  // Heart (subtle)
+  heart:
+    "M12 21 Q4 14 4 9 Q4 5 8 5 Q11 5 12 8 Q13 5 16 5 Q20 5 20 9 Q20 14 12 21 Z",
+  // Sparkles / atelier-style
+  sparkles:
+    "M12 4 L13 8 L17 9 L13 10 L12 14 L11 10 L7 9 L11 8 Z M19 14 L20 16 L22 17 L20 18 L19 20 L18 18 L16 17 L18 16 Z M5 16 L6 18 L8 19 L6 20 L5 22 L4 20 L2 19 L4 18 Z",
+  // Door (sketchbook entry)
+  door:
+    "M6 21 V4 Q6 3 7 3 H17 Q18 3 18 4 V21 M6 21 H18 M16 12 m-0.5 0 a 0.5 0.5 0 1 0 1 0 a 0.5 0.5 0 1 0 -1 0",
+};
+
+const path = PATHS[name] ?? PATHS.plus;
+---
+
+<svg
+  class={`icon icon-${name} ${className}`.trim()}
+  viewBox="0 0 24 24"
+  width={size}
+  height={size}
+  fill="none"
+  stroke="currentColor"
+  stroke-width={strokeWidth}
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+>
+  <path d={path} />
+</svg>
+
+<style>
+  .icon {
+    display: inline-block;
+    vertical-align: -2px;
+    flex-shrink: 0;
+  }
+</style>

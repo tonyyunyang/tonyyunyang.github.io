@@ -1,0 +1,65 @@
+---
+import Icon from "./Icon.astro";
+
+interface Props {
+  href: string;
+  external?: boolean;
+  label: string;
+  icon?: string;
+}
+
+const {
+  href,
+  external = href.startsWith("http") || href.startsWith("mailto:"),
+  label,
+  icon,
+} = Astro.props;
+---
+
+<a
+  class="pill"
+  href={href}
+  rel={external ? "noopener noreferrer" : undefined}
+  target={external ? "_blank" : undefined}
+>
+  {icon && <Icon name={icon} size={14} class="pill__icon" strokeWidth={1.5} />}
+  <span class="pill__label">{label}</span>
+</a>
+
+<style>
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 14px;
+    border: 1px solid var(--color-hairline);
+    border-radius: 999px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-ink);
+    background: var(--color-paper-shade);
+    transition:
+      background 180ms ease-out,
+      border-color 180ms ease-out,
+      color 180ms ease-out,
+      transform 180ms ease-out;
+  }
+
+  .pill:hover {
+    background: var(--color-paper);
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+    transform: translateY(-1px);
+  }
+
+  .pill__icon {
+    color: inherit;
+    margin-left: -2px;
+  }
+
+  .pill__label {
+    line-height: 1;
+  }
+</style>

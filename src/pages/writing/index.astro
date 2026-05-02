@@ -1,0 +1,78 @@
+---
+import { getCollection } from "astro:content";
+import Base from "~/layouts/Base.astro";
+import SectionHeader from "~/components/SectionHeader.astro";
+
+const posts = (await getCollection("posts", (p) => !p.data.draft)).sort(
+  (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+);
+---
+
+<Base
+  title="Writing · Tony Yang"
+  description="Notes on research, taste, and the boring parts of building AI."
+>
+  <section class="max-content">
+    <SectionHeader num="03" title="Writing" id="writing" total="06" />
+    {posts.length === 0 ? (
+      <p class="empty">
+        First entry coming soon. <a href="/rss.xml">↗ subscribe via RSS</a>
+      </p>
+    ) : (
+      <ul class="post-list">
+        {posts.map((post) => (
+          <li>
+            <a href={`/writing/${post.slug}/`}>
+              <span class="post__date">{post.data.date}</span>
+              <span class="post__title">{post.data.title}</span>
+              <span class="post__dek">{post.data.dek}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    )}
+  </section>
+</Base>
+
+<style>
+  .empty {
+    border: 1px dashed var(--color-hairline);
+    padding: 32px;
+    border-radius: 16px;
+    text-align: center;
+    font-style: italic;
+    color: var(--color-ink-soft);
+  }
+  .post-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  .post-list a {
+    display: block;
+  }
+  .post__date {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-ink-soft);
+  }
+  .post__title {
+    display: block;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 28px;
+    margin-top: 4px;
+    color: var(--color-ink);
+  }
+  .post__dek {
+    display: block;
+    color: var(--color-ink-soft);
+    font-style: italic;
+    margin-top: 4px;
+  }
+</style>

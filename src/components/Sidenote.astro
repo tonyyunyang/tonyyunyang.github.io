@@ -1,0 +1,37 @@
+---
+interface Props {
+  label?: string;
+}
+
+const { label } = Astro.props;
+---
+
+<aside class="sidenote">
+  {label && <p class="sidenote__label">{label}</p>}
+  <div class="sidenote__body"><slot /></div>
+</aside>
+
+<style>
+  .sidenote {
+    font-family: var(--font-sans);
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--color-ink-soft);
+    border-left: 1px solid var(--color-hairline);
+    padding-left: 12px;
+    margin-block: 8px;
+  }
+
+  .sidenote__label {
+    margin: 0 0 4px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-ink-soft);
+  }
+
+  .sidenote__body {
+    font-style: italic;
+  }
+</style>

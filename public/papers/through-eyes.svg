@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 200" fill="none">
+  <rect width="240" height="200" fill="#F5EFE2"/>
+  <g stroke="#0F1417" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Outer dashed plate frame -->
+    <rect x="8" y="8" width="224" height="184" stroke-width="0.6" stroke-dasharray="2 3" opacity="0.5"/>
+
+    <!-- VR headset silhouette (front-view ski-goggle) -->
+    <path d="M52 78 Q52 64 70 62 L170 62 Q188 64 188 78 L188 116 Q188 130 170 132 L70 132 Q52 130 52 116 Z" stroke-width="1.4" fill="#FAF1D8"/>
+    <!-- Strap (top arc) -->
+    <path d="M70 62 Q120 38 170 62" stroke-width="0.9" stroke-dasharray="3 3" opacity="0.6"/>
+    <!-- Side strap nubs -->
+    <rect x="46" y="86" width="8" height="22" rx="2" stroke-width="0.9" fill="#0F1417" opacity="0.85"/>
+    <rect x="186" y="86" width="8" height="22" rx="2" stroke-width="0.9" fill="#0F1417" opacity="0.85"/>
+    <!-- Center bridge -->
+    <rect x="116" y="92" width="8" height="16" rx="1" stroke-width="0.7" fill="#EDE6D5"/>
+
+    <!-- Two eye lenses inside headset -->
+    <!-- Left lens -->
+    <ellipse cx="86" cy="98" rx="22" ry="20" stroke-width="1.3" fill="#FAF1D8"/>
+    <!-- Right lens -->
+    <ellipse cx="156" cy="98" rx="22" ry="20" stroke-width="1.3" fill="#FAF1D8"/>
+
+    <!-- LEFT EYE: iris + pupil + gaze trace -->
+    <circle cx="86" cy="98" r="9" stroke-width="1" fill="#FAF1D8"/>
+    <circle cx="86" cy="98" r="4.5" fill="#0F1417" stroke="none"/>
+    <!-- Eye highlight -->
+    <circle cx="83" cy="95" r="1.4" fill="#FAF1D8" stroke="none"/>
+    <!-- Gaze trace (dashed jagged path inside lens) -->
+    <path d="M76 88 L94 92 L80 102 L96 108 L82 112" stroke-width="0.6" stroke-dasharray="1.5 1.8" stroke="#0E5347" opacity="0.85"/>
+    <circle cx="82" cy="112" r="1.2" fill="#0E5347" stroke="none"/>
+
+    <!-- RIGHT EYE: iris + pupil + gaze trace -->
+    <circle cx="156" cy="98" r="9" stroke-width="1" fill="#FAF1D8"/>
+    <circle cx="156" cy="98" r="4.5" fill="#0F1417" stroke="none"/>
+    <circle cx="153" cy="95" r="1.4" fill="#FAF1D8" stroke="none"/>
+    <path d="M146 88 L164 92 L150 102 L166 108 L152 112" stroke-width="0.6" stroke-dasharray="1.5 1.8" stroke="#0E5347" opacity="0.85"/>
+    <circle cx="152" cy="112" r="1.2" fill="#0E5347" stroke="none"/>
+
+    <!-- Frequency tag (top-left, like a sample-rate stamp) -->
+    <rect x="14" y="14" width="40" height="14" rx="2" fill="#0E5347" stroke="#0E5347"/>
+    <text x="34" y="24" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="8" letter-spacing="0.06em" fill="#FAF1D8" stroke="none">240 Hz</text>
+
+    <!-- 7 emotion glyphs around the headset (radial) -->
+    <!-- joy (top-left of headset) -->
+    <g transform="translate(38, 50)">
+      <circle cx="0" cy="0" r="6" stroke-width="0.9" fill="#FAF1D8"/>
+      <circle cx="-2" cy="-1.5" r="0.8" fill="#0F1417" stroke="none"/>
+      <circle cx="2" cy="-1.5" r="0.8" fill="#0F1417" stroke="none"/>
+      <path d="M-3 1.5 Q0 4 3 1.5" stroke-width="0.7"/>
+    </g>
+    <!-- sadness (top-mid) -->
+    <g transform="translate(72, 38)">
+      <circle cx="0" cy="0" r="6" stroke-width="0.9" fill="#FAF1D8"/>
+      <circle cx="-2" cy="-1.5" r="0.8" fill="#0F1417" stroke="none"/>
+      <circle cx="2" cy="-1.5" r="0.8" fill="#0F1417" stroke="none"/>
+      <path d="M-3 3 Q0 0.5 3 3" stroke-width="0.7"/>
+    </g>
+    <!-- surprise (top-right of headset) -->
+    <g transform="translate(168, 38)">
+      <circle cx="0" cy="0" r="6" stroke-width="0.9" fill="#FAF1D8"/>
+      <circle cx="-2" cy="-2" r="1" fill="#0F1417" stroke="none"/>
+      <circle cx="2" cy="-2" r="1" fill="#0F1417" stroke="none"/>
+      <ellipse cx="0" cy="2" rx="1.3" ry="2" stroke-width="0.6" fill="#FAF1D8"/>
+    </g>
+    <!-- fear (right side) -->
+    <g transform="translate(202, 50)">
+      <circle cx="0" cy="0" r="6" stroke-width="0.9" fill="#FAF1D8"/>
+      <path d="M-3 -2 L-1 -3 M1 -3 L3 -2" stroke-width="0.7"/>
+      <circle cx="-2" cy="-1" r="0.8" fill="#0F1417" stroke="none"/>
+      <circle cx="2" cy="-1" r="0.8" fill="#0F1417" stroke="none"/>
+      <ellipse cx="0" cy="2.5" rx="1.5" ry="1.6" stroke-width="0.6" fill="#FAF1D8"/>
+    </g>
+    <!-- anger (bottom-right) -->
+    <g transform="translate(204, 154)">
+      <circle cx="0" cy="0" r="6" stroke-width="0.9" fill="#FAF1D8"/>
+      <path d="M-4 -3 L-1 -2 M1 -2 L4 -3" stroke-width="0.9"/>
+      <circle cx="-2" cy="-1" r="0.7" fill="#0F1417" stroke="none"/>
+      <circle cx="2" cy="-1" r="0.7" fill="#0F1417" stroke="none"/>
+      <path d="M-3 3 L3 3" stroke-width="0.8"/>
+    </g>
+    <!-- disgust (bottom-mid) -->
+    <g transform="translate(120, 168)">
+      <circle cx="0" cy="0" r="6" stroke-width="0.9" fill="#FAF1D8"/>
+      <circle cx="-2" cy="-1.5" r="0.7" fill="#0F1417" stroke="none"/>
+      <circle cx="2" cy="-1.5" r="0.7" fill="#0F1417" stroke="none"/>
+      <path d="M-3 2 L0 3 L0 1 L3 2" stroke-width="0.7"/>
+    </g>
+    <!-- neutral (bottom-left) -->
+    <g transform="translate(36, 154)">
+      <circle cx="0" cy="0" r="6" stroke-width="0.9" fill="#FAF1D8"/>
+      <circle cx="-2" cy="-1" r="0.7" fill="#0F1417" stroke="none"/>
+      <circle cx="2" cy="-1" r="0.7" fill="#0F1417" stroke="none"/>
+      <path d="M-3 2 L3 2" stroke-width="0.7"/>
+    </g>
+
+    <!-- Subtle radial dotted lines from headset to glyphs -->
+    <path d="M58 78 L42 56" stroke-width="0.4" stroke-dasharray="1 2" opacity="0.45"/>
+    <path d="M76 64 L74 44" stroke-width="0.4" stroke-dasharray="1 2" opacity="0.45"/>
+    <path d="M166 64 L168 44" stroke-width="0.4" stroke-dasharray="1 2" opacity="0.45"/>
+    <path d="M184 78 L198 56" stroke-width="0.4" stroke-dasharray="1 2" opacity="0.45"/>
+    <path d="M186 122 L200 148" stroke-width="0.4" stroke-dasharray="1 2" opacity="0.45"/>
+    <path d="M120 132 L120 162" stroke-width="0.4" stroke-dasharray="1 2" opacity="0.45"/>
+    <path d="M56 122 L40 148" stroke-width="0.4" stroke-dasharray="1 2" opacity="0.45"/>
+
+    <!-- Caption -->
+    <text x="120" y="190" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="6" fill="#4A5159" stroke="none" letter-spacing="0.08em">VR · 7 EMOTIONS · IMWUT '25</text>
+  </g>
+</svg>

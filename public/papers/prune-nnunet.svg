@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 200" fill="none">
+  <rect width="240" height="200" fill="#F5EFE2"/>
+  <g stroke="#0F1417" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Outer dashed plate frame -->
+    <rect x="8" y="8" width="224" height="184" stroke-width="0.6" stroke-dasharray="2 3" opacity="0.5"/>
+
+    <!-- Subtle anatomy contour behind (organ silhouette, dashed) -->
+    <path d="M82 78 Q66 78 66 92 Q66 112 90 130 Q104 140 118 128 Q126 140 142 130 Q166 112 166 92 Q166 78 148 78 Q132 78 124 92 Q114 78 100 78 Q92 76 82 78 Z" stroke-width="0.6" stroke-dasharray="1.5 2.5" opacity="0.32"/>
+
+    <!-- U-Net architecture skeleton -->
+    <!-- IN tag -->
+    <text x="22" y="48" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="6" letter-spacing="0.06em" fill="#4A5159" stroke="none">IN</text>
+    <!-- OUT tag -->
+    <text x="218" y="48" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="6" letter-spacing="0.06em" fill="#4A5159" stroke="none">OUT</text>
+
+    <!-- Encoder (descending) -->
+    <rect x="34" y="40" width="16" height="14" stroke-width="0.9" fill="#FAF1D8"/>
+    <rect x="44" y="60" width="14" height="12" stroke-width="0.9" fill="#FAF1D8"/>
+    <rect x="52" y="78" width="12" height="10" stroke-width="0.9" fill="#FAF1D8"/>
+    <rect x="58" y="94" width="10" height="8" stroke-width="0.9" fill="#FAF1D8"/>
+
+    <!-- Bottleneck (emerald accent) -->
+    <rect x="104" y="108" width="32" height="22" stroke-width="1.4" fill="#FAF1D8" stroke="#0E5347"/>
+
+    <!-- Decoder (ascending) -->
+    <rect x="172" y="94" width="10" height="8" stroke-width="0.9" fill="#FAF1D8"/>
+    <rect x="178" y="78" width="12" height="10" stroke-width="0.9" fill="#FAF1D8"/>
+    <rect x="182" y="60" width="14" height="12" stroke-width="0.9" fill="#FAF1D8"/>
+    <rect x="190" y="40" width="16" height="14" stroke-width="0.9" fill="#FAF1D8"/>
+
+    <!-- Forward connections (encoder side: solid, kept) -->
+    <path d="M44 54 L51 60" stroke-width="0.8"/>
+    <path d="M51 72 L58 78" stroke-width="0.8"/>
+    <path d="M58 88 L63 94" stroke-width="0.8"/>
+    <path d="M64 102 L106 120" stroke-width="0.8"/>
+
+    <!-- Forward connections (decoder side: solid, kept) -->
+    <path d="M134 120 L173 102" stroke-width="0.8"/>
+    <path d="M177 94 L182 88" stroke-width="0.8"/>
+    <path d="M184 78 L188 72" stroke-width="0.8"/>
+    <path d="M190 60 L198 54" stroke-width="0.8"/>
+
+    <!-- Skip connections (mostly dashed = pruned) -->
+    <path d="M50 47 L190 47" stroke-width="0.7" stroke-dasharray="2 3" opacity="0.42"/>
+    <path d="M58 66 L182 66" stroke-width="0.7" stroke-dasharray="2 3" opacity="0.42"/>
+    <!-- One skip kept (solid) -->
+    <path d="M64 83 Q120 72 178 83" stroke-width="1.2"/>
+    <path d="M68 98 L172 98" stroke-width="0.7" stroke-dasharray="2 3" opacity="0.42"/>
+
+    <!-- Pruned-weight × marks on the dashed skips -->
+    <path d="M118 43 L122 51 M118 51 L122 43" stroke-width="0.9" stroke="#0E5347"/>
+    <path d="M118 62 L122 70 M118 70 L122 62" stroke-width="0.9" stroke="#0E5347"/>
+    <path d="M118 94 L122 102 M118 102 L122 94" stroke-width="0.9" stroke="#0E5347"/>
+
+    <!-- 99% sparse badge (top-right corner) -->
+    <rect x="184" y="16" width="46" height="16" rx="2" fill="#0E5347" stroke="#0E5347"/>
+    <text x="207" y="27" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="8" letter-spacing="0.06em" fill="#FAF1D8" stroke="none">99% SPARSE</text>
+    <!-- Connector tick from badge to network -->
+    <path d="M184 24 L177 28" stroke-width="0.6" stroke="#0E5347" stroke-dasharray="1.4 1.6" opacity="0.7"/>
+
+    <!-- Bottleneck label -->
+    <text x="120" y="142" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="6" letter-spacing="0.08em" fill="#0E5347" stroke="none">CORE</text>
+
+    <!-- Caption -->
+    <text x="120" y="184" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="6" fill="#4A5159" stroke="none" letter-spacing="0.08em">U-NET · MAGNITUDE PRUNING · MIDL '25</text>
+  </g>
+</svg>
