@@ -21,6 +21,7 @@
     "@fontsource/eb-garamond": "^5.1.0",
     "@fontsource/inter": "^5.1.0",
     "@fontsource/jetbrains-mono": "^5.1.0",
+    "@fontsource/lxgw-wenkai": "^5.2.5",
     "@fontsource/noto-serif-sc": "^5.2.9",
     "@iconify-json/lucide": "^1.2.0",
     "@tailwindcss/vite": "^4.0.0",
