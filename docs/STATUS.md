@@ -1,11 +1,11 @@
 # Project status — tonyyunyang.github.io
 
-_Last updated: 2026-05-02 (after iteration 7 polish + codex round-3 convergence)_
+_Last updated: 2026-05-02 (after iteration 8 polish + codex round-2 convergence)_
 
 ## TL;DR
 
 - **Live at https://tonyyunyang.github.io.** Custom Astro 5 build, single-author project, no template ancestry, no fork lineage.
-- Repo: `git@github.com:tonyyunyang/tonyyunyang.github.io.git`. Default branch `main`. HEAD `3826701`.
+- Repo: `git@github.com:tonyyunyang/tonyyunyang.github.io.git`. Default branch `main`. HEAD `bb8aca9`.
 - Local git identity for this project: `tony / tonyyunyang@outlook.com` (project-scoped via `git config --local`, NOT global).
 - Auto-deploy: every push to `main` triggers `.github/workflows/deploy.yml` → builds Astro → uploads `dist/` → `actions/deploy-pages@v4` → live in ~45 s.
 - Pages source is `workflow` (GitHub Actions, NOT Jekyll). `public/.nojekyll` is a defensive marker.
@@ -14,6 +14,7 @@ _Last updated: 2026-05-02 (after iteration 7 polish + codex round-3 convergence)
 ## Polish iterations shipped (all on `main`)
 
 ```
+bb8aca9  feat(iter 8): hero CN font, Plate I portal, Studio idle motion, cat 狸花猫, shoes redo
 3826701  feat(iter 7): mobile Studio CTA → icon-only
 70442c6  feat(iter 6): tighten mobile hero, shoes refine, heart asymmetry, tap targets
 0987377  feat(iter 5): hero identity card, paper SVG redo, studio polish, type swap

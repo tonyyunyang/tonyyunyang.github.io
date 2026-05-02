@@ -1,11 +1,26 @@
 # Polish & improvement backlog
 
-_Last updated: 2026-05-02 (after iteration 7 + codex round-3 convergence)_
+_Last updated: 2026-05-02 (after iteration 8 + codex round-2 convergence)_
 
 A working list of things noticed during build & visual inspection that
-would sharpen the site further. Codex round 3 declared the design
-converged — everything below is either backlog (high) or out-of-scope
-(low). Pick one bullet per session, work on it, push.
+would sharpen the site further. Codex declared iter 8 converged —
+everything below is either backlog (high) or out-of-scope (low). Pick
+one bullet per session, work on it, push.
+
+## Closed in iteration 8
+
+- ✅ **Chinese name typography**: `杨童耘` now uses Noto Serif SC (Source Han Serif) so it pairs cleanly with EB Garamond, with bumped letter-spacing and a slight upward translate to align caps with the Latin baseline.
+- ✅ **Identity-card spacing tightened**: `.hero__id` gap 14 → 22 px, name line-height 1 → 1.05, name margin-bottom 6 px so "Tony Yang 杨童耘" stops crowding the role line below.
+- ✅ **PhD pill copy** changed from "READY ANY TIME" → "MY CONTACT INFO" so the pill announces it leads to the contact card.
+- ✅ **Plate I sketch is now a clickable portal into Studio**: wrapped in `<a href="/world/">`, with a persistent emerald "studio ↗" tag at rest in the bottom-right of the sketch (anchored near the plate colophon, not the italic margin annotation), idle hover lift, and motion on the moon halo / boat / chimney smoke / teacup steam. Reduced-motion users get the static plate.
+- ✅ **§00 Currently shows the email address** (`tonyyunyang@outlook.com`) as a visible row above the email/scholar/github/cv pills, so visitors don't have to click to read it.
+- ✅ **Reverse-imaging paper SVG redrawn** with non-overlapping rows: T1 + DIFFUSION + M0 across the top, heart in the middle, REVERSE arrow, T2* SYNTHESIZED panel, CMR caption. Microtype on DIFFUSION / SYNTHESIZED / CMR caption was bumped so it stays legible at 240×240 thumbnail scale.
+- ✅ **Cat is now `狸花猫`** (Chinese mackerel tabby): ink-soft base coat with bold mackerel stripes, ringed tail, M-mark on forehead, cheek stripes, ear-tip darks. Label updated to `瓜子 · 狸花猫 (planned)` in `atelier.json`. The on-canvas tag uses `shortLabel: "Cat"` so the initial reveal stays atmospheric.
+- ✅ **Running shoes redrawn** with proper running-shoe anatomy: low toe spring, vamp / lacing area, ankle-collar dip, vertical heel counter, thick midsole foam, dark outsole with tread ticks, swoosh, tongue, eyelets, mesh dots, heel pull tab.
+- ✅ **Studio idle motion**: lamp glow pulse, candle flame flicker + halo pulse, coffee + wok steam rise + fade, wok flames flicker, tulip stems sway, moon halo pulse, cat zzz drift. Reduced-motion users get a static room.
+- ✅ **Initial label reveal in Studio**: every hotspot label is visible briefly on entry then fades unless the user pressed T or arrived via `?at=<id>` deep link. Long verbose labels (cat, tennis rackets, wok, window) gained a `shortLabel` so the on-canvas tag stays terse while the side panel header keeps the full label.
+- ✅ **Sketchbook (Studio CTA) more obvious by default**: emerald background, paper text, expanding emerald halo ring, slow breathing pulse, slightly larger tap target. Restrained enough to sit *behind* the hero PhD pill in visual hierarchy.
+- ✅ **`_zoom-preview.spec.ts` patched**: emulates `prefers-reduced-motion: reduce` so screenshots stabilise even with the new idle animations.
 
 ## Closed in iteration 7
 
