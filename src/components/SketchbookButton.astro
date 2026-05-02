@@ -137,14 +137,24 @@
   }
 
   @media (max-width: 720px) {
+    /* Compact icon-only CTA on phones so the fixed pill doesn't obscure
+       running copy mid-scroll. Tap target stays well above 44 px. */
     .sketchbook {
-      padding: 10px 14px 10px 10px;
+      padding: 12px;
+      bottom: 18px;
+      right: 18px;
+      gap: 0;
+      box-shadow:
+        0 1px 0 rgba(15, 20, 23, 0.04),
+        0 10px 22px -12px rgba(15, 20, 23, 0.32);
     }
-    .sketchbook__hint {
+    .sketchbook__text,
+    .sketchbook__arrow {
       display: none;
     }
-    .sketchbook__label {
-      font-size: 14px;
+    .sketchbook__glyph {
+      width: 24px;
+      height: 24px;
     }
   }
 
