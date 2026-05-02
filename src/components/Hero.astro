@@ -629,30 +629,38 @@ const card = siteConfig.businessCard;
     transform: translate(2px, -2px);
   }
 
-  /* SVG idle animations: subtle, dreamlike, atmospheric */
+  /* SVG idle animations: visible enough to register motion, gentle enough
+     to feel atmospheric. Honored by prefers-reduced-motion. */
   @keyframes heroSketchIdle {
     0%, 100% { transform: translateY(0); }
-    50%      { transform: translateY(-3px); }
+    50%      { transform: translateY(-5px); }
   }
 
   @keyframes heroSketchMoonHalo {
-    0%, 100% { opacity: 0.85; }
-    50%      { opacity: 1; }
+    0%, 100% { opacity: 0.55; transform: scale(0.92); }
+    50%      { opacity: 1;    transform: scale(1.1);  }
   }
 
+  /* Boat actually visibly bobs up + down on the ripples */
   @keyframes heroSketchBoat {
-    0%, 100% { transform: translateY(0); }
-    50%      { transform: translateY(-1.4px); }
+    0%, 100% { transform: translateY(0)    rotate(0deg);   }
+    25%      { transform: translateY(-1.5px) rotate(-1deg);  }
+    50%      { transform: translateY(0.5px) rotate(0.6deg); }
+    75%      { transform: translateY(-1px) rotate(-0.4deg); }
   }
 
+  /* Chimney smoke drifts up + fades, then loops */
   @keyframes heroSketchSmoke {
-    0%   { transform: translateY(0); opacity: 0.55; }
-    100% { transform: translateY(-4px); opacity: 0.18; }
+    0%   { transform: translateY(0)    translateX(0);   opacity: 0.7; }
+    50%  { transform: translateY(-6px) translateX(1px); opacity: 0.4; }
+    100% { transform: translateY(-14px) translateX(-1px); opacity: 0; }
   }
 
+  /* Teacup steam rises noticeably */
   @keyframes heroSketchSteam {
-    0%   { transform: translateY(0); opacity: 0.7; }
-    100% { transform: translateY(-3px); opacity: 0.25; }
+    0%   { transform: translateY(0)    translateX(0);   opacity: 0.9; }
+    50%  { transform: translateY(-5px) translateX(0.6px); opacity: 0.5; }
+    100% { transform: translateY(-10px) translateX(-0.4px); opacity: 0; }
   }
 
   .hero__sketch-moon-halo {
