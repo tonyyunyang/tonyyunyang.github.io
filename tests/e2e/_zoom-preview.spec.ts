@@ -5,6 +5,12 @@ const OUT = "tests/visual/shots";
 test.describe("zoom previews", () => {
   test.use({ viewport: { width: 1600, height: 1000 } });
 
+  // Idle animations on Plate I + Studio mean elements drift continuously.
+  // Pause motion via prefers-reduced-motion emulation so screenshots stabilise.
+  test.beforeEach(async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: "reduce" });
+  });
+
   test("plate I (hero sketch closeup)", async ({ page }) => {
     await page.goto("/");
     await page.waitForLoadState("networkidle");

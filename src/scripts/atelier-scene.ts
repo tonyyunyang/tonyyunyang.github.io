@@ -32,6 +32,20 @@ if (root) {
     }
   }
 
+  // Initial label reveal: show all hotspot labels briefly so visitors know
+  // what is clickable, then fade out unless the user pressed T or arrived via deep-link.
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (!at && !reduceMotion) {
+    root.dataset.showCaptions = "";
+    root.dataset.initialReveal = "";
+    window.setTimeout(() => {
+      delete root.dataset.initialReveal;
+      if (!("userToggled" in root.dataset)) {
+        delete root.dataset.showCaptions;
+      }
+    }, 2400);
+  }
+
   hotspots.forEach((obj) => {
     obj.addEventListener("click", () => {
       const id = obj.dataset.objId ?? "";
@@ -60,6 +74,7 @@ if (root) {
   window.addEventListener("keydown", (e) => {
     if (e.key.toLowerCase() === "t") {
       e.preventDefault();
+      root.dataset.userToggled = "";
       if (root.dataset.showCaptions !== undefined) {
         delete root.dataset.showCaptions;
       } else {

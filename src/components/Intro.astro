@@ -37,6 +37,11 @@ import Icon from "./Icon.astro";
       <p class="intro__currently-label">{siteConfig.currentlyHeadline}</p>
       <p class="intro__currently">{siteConfig.currently}</p>
 
+      <p class="intro__email-row">
+        <span class="intro__email-label">Email</span>
+        <a class="intro__email-addr" href={`mailto:${siteConfig.contact.email}`}>{siteConfig.contact.email}</a>
+      </p>
+
       <div class="intro__pills">
         <PillLink href={`mailto:${siteConfig.contact.email}`} label="email" icon="envelope" />
         <PillLink href={siteConfig.contact.scholar} label="scholar" icon="scholar" />
@@ -197,10 +202,42 @@ import Icon from "./Icon.astro";
     max-width: 60ch;
   }
 
+  .intro__email-row {
+    margin: 28px 0 12px;
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .intro__email-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-ink-soft);
+  }
+
+  .intro__email-addr {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    letter-spacing: 0.02em;
+    color: var(--color-accent);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(14, 83, 71, 0.35);
+    transition: color 180ms ease-out, border-color 180ms ease-out;
+  }
+
+  .intro__email-addr:hover,
+  .intro__email-addr:focus-visible {
+    color: var(--color-ink);
+    border-color: var(--color-ink);
+  }
+
   .intro__pills {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
-    margin-top: 28px;
+    margin-top: 0;
   }
 </style>

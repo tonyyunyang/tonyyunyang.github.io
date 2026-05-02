@@ -41,6 +41,7 @@
       {
         "id": "window",
         "label": "Window · canal",
+        "shortLabel": "Window",
         "x": 51.0,
         "y": 28.0,
         "note": "The Brouwersgracht. On clear nights you can see the gables across the water. Most of my running routes start by following it east."
@@ -68,14 +69,16 @@
       },
       {
         "id": "cat",
-        "label": "瓜子 · the cat (planned)",
+        "label": "瓜子 · 狸花猫 (planned)",
+        "shortLabel": "Cat",
         "x": 23.0,
         "y": 83.0,
-        "note": "Future cat, name already chosen: 瓜子 (sunflower seeds), because I cannot stop snacking on them. The chair is already reserved. So is the corner of the desk."
+        "note": "Future cat. Breed picked: 狸花猫, the Chinese mackerel tabby, what my wife and I love most. Name picked: 瓜子 (sunflower seeds), because I cannot stop snacking on them. The chair is already reserved. So is the corner of the desk."
       },
       {
         "id": "tennis",
         "label": "Tennis rackets · Pure Drive + Blade",
+        "shortLabel": "Tennis rackets",
         "x": 90.5,
         "y": 75.0,
         "note": "Two rackets. The Pure Drive is the easy one (mine, mostly). The Blade kills the wrist but unlocks the most when you find the sweet spot. That one belongs to my wife. Saturday mornings on the public courts."
@@ -83,6 +86,7 @@
       {
         "id": "stove",
         "label": "Wok · Sichuan stir-fry",
+        "shortLabel": "Wok",
         "x": 81.0,
         "y": 65.0,
         "note": "I'm from Sichuan, so the spice is in the blood. No pot, no slow simmer: just the wok, high heat, garlic, chili, doubanjiang, the things that announce themselves on the first breath."

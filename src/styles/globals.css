@@ -10,6 +10,8 @@
 @import "@fontsource/inter/400-italic.css";
 @import "@fontsource/jetbrains-mono/400.css";
 @import "@fontsource/jetbrains-mono/500.css";
+@import "@fontsource/noto-serif-sc/400.css";
+@import "@fontsource/noto-serif-sc/500.css";
 
 @theme {
   --color-paper: #f5efe2;
@@ -21,6 +23,7 @@
   --color-featured: #faf1d8;
 
   --font-display: "EB Garamond", "PP Editorial New", Georgia, serif;
+  --font-display-zh: "Noto Serif SC", "Songti SC", "STSong", "EB Garamond", serif;
   --font-sans: "Inter", system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
 

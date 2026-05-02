@@ -4,70 +4,84 @@
     <!-- Outer dashed plate frame -->
     <rect x="14" y="14" width="212" height="212" stroke-width="0.6" stroke-dasharray="2 3" opacity="0.5"/>
 
-    <!-- Subtle ribcage / chest contour -->
-    <path d="M52 92 Q52 70 88 66 Q120 60 124 66 Q128 60 152 66 Q188 70 188 92 Q190 124 180 152 Q160 178 120 184 Q80 178 60 152 Q50 124 52 92 Z" stroke-width="0.5" stroke-dasharray="1.4 2.4" opacity="0.32"/>
-    <!-- Rib hint lines -->
-    <path d="M70 96 Q120 102 170 96 M66 110 Q120 118 174 110 M66 124 Q120 132 174 124 M70 140 Q120 148 170 140" stroke-width="0.4" stroke-dasharray="1.4 2.6" opacity="0.28"/>
-
-    <!-- Heart silhouette (anatomical asymmetry: right side fuller than left, narrower apex) -->
-    <path d="M122 100 C 100 78, 70 82, 68 112 C 68 140, 96 162, 124 182 C 158 158, 184 134, 182 108 C 180 78, 146 76, 122 100 Z" stroke-width="1.6" fill="#FAF1D8"/>
-    <!-- Inner ventricle hints (LV on left, RV on right but smaller per anatomy) -->
-    <path d="M98 122 Q104 144 120 158" stroke-width="0.7" opacity="0.55"/>
-    <path d="M148 122 Q142 138 130 152" stroke-width="0.7" opacity="0.5"/>
-    <!-- Septal line (curved, not perfectly vertical) -->
-    <path d="M122 108 Q126 140 124 178" stroke-width="0.5" stroke-dasharray="1.5 2" opacity="0.45"/>
-    <!-- Apex tick (narrow, anatomical) -->
-    <circle cx="124" cy="182" r="1.4" fill="#0F1417" opacity="0.6" stroke="none"/>
-
-    <!-- Three sequence panels orbiting the heart (top-left, top-right, bottom-center) -->
-    <!-- Top-left: T1 panel -->
+    <!-- ============================================================ -->
+    <!-- ROW 1 (y 22-48): INPUT PANELS — T1 (left) · DIFFUSION · M0 (right) -->
+    <!-- ============================================================ -->
+    <!-- T1 panel -->
     <g>
-      <rect x="32" y="32" width="42" height="22" rx="2" stroke-width="1" fill="#FAF1D8"/>
-      <path d="M38 44 H50 M54 44 H66" stroke-width="0.5" opacity="0.5"/>
-      <text x="53" y="48" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" letter-spacing="0.08em" fill="#0F1417" stroke="none" font-weight="500">T1</text>
+      <rect x="20" y="22" width="48" height="26" rx="3" stroke-width="1" fill="#FAF1D8"/>
+      <path d="M28 35 H42 M46 35 H60" stroke-width="0.5" opacity="0.5"/>
+      <text x="44" y="40" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" letter-spacing="0.08em" fill="#0F1417" stroke="none" font-weight="500">T1</text>
     </g>
-    <!-- Top-right: M0 panel -->
+    <!-- M0 panel -->
     <g>
-      <rect x="166" y="32" width="42" height="22" rx="2" stroke-width="1" fill="#FAF1D8"/>
-      <path d="M172 44 H184 M188 44 H200" stroke-width="0.5" opacity="0.5"/>
-      <text x="187" y="48" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" letter-spacing="0.08em" fill="#0F1417" stroke="none" font-weight="500">M0</text>
+      <rect x="172" y="22" width="48" height="26" rx="3" stroke-width="1" fill="#FAF1D8"/>
+      <path d="M180 35 H194 M198 35 H212" stroke-width="0.5" opacity="0.5"/>
+      <text x="196" y="40" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" letter-spacing="0.08em" fill="#0F1417" stroke="none" font-weight="500">M0</text>
     </g>
-    <!-- Bottom: T2* synthesized panel (emerald, larger — this is the paper's headline output) -->
+    <!-- DIFFUSION label between, with hairline rules either side -->
+    <path d="M74 36 H98" stroke-width="0.4" stroke-dasharray="1 2" opacity="0.55"/>
+    <text x="120" y="38.5" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="7.2" letter-spacing="0.16em" fill="#4A5159" stroke="none" font-weight="500">DIFFUSION</text>
+    <path d="M142 36 H166" stroke-width="0.4" stroke-dasharray="1 2" opacity="0.55"/>
+
+    <!-- ============================================================ -->
+    <!-- ROW 2 (y 50-90): CURVED ARROWS feeding into the heart        -->
+    <!-- ============================================================ -->
+    <path d="M58 50 Q70 72 90 92" stroke-width="0.8" stroke-dasharray="1.8 2.2" opacity="0.62"/>
+    <path d="M86 88 L90 94 L84 94" stroke-width="0.7" opacity="0.7"/>
+    <path d="M182 50 Q170 72 150 92" stroke-width="0.8" stroke-dasharray="1.8 2.2" opacity="0.62"/>
+    <path d="M154 88 L150 94 L156 94" stroke-width="0.7" opacity="0.7"/>
+
+    <!-- ============================================================ -->
+    <!-- ROW 3 (y 80-170): HEART (anatomically asymmetric)            -->
+    <!-- ============================================================ -->
+    <!-- Subtle ribcage / chest contour behind heart -->
+    <path d="M62 100 Q62 82 92 78 Q120 74 128 78 Q134 74 152 78 Q182 82 184 100 Q186 128 176 152 Q156 170 124 174 Q88 170 68 152 Q60 128 62 100 Z" stroke-width="0.5" stroke-dasharray="1.4 2.4" opacity="0.28"/>
+    <path d="M76 106 Q124 112 172 106 M72 120 Q124 126 176 120 M72 134 Q124 140 176 134 M76 148 Q124 154 172 148" stroke-width="0.4" stroke-dasharray="1.4 2.6" opacity="0.24"/>
+
+    <!-- Heart silhouette (right side fuller, narrower apex, curved septal) -->
+    <path d="M122 96 C 102 78, 76 82, 74 108 C 74 132, 98 152, 124 170 C 154 150, 178 128, 176 104 C 174 78, 144 76, 122 96 Z" stroke-width="1.6" fill="#FAF1D8"/>
+    <!-- Inner ventricle hints (LV on left, RV smaller per anatomy) -->
+    <path d="M104 118 Q108 138 122 150" stroke-width="0.7" opacity="0.55"/>
+    <path d="M148 116 Q142 132 132 146" stroke-width="0.7" opacity="0.5"/>
+    <!-- Septal line (curved) -->
+    <path d="M122 104 Q126 134 124 168" stroke-width="0.5" stroke-dasharray="1.5 2" opacity="0.45"/>
+    <!-- Apex tick -->
+    <circle cx="124" cy="170" r="1.3" fill="#0F1417" opacity="0.6" stroke="none"/>
+
+    <!-- Diffusion noise dots around heart (the generative process hint) -->
+    <circle cx="84" cy="82" r="0.9" fill="#0F1417" opacity="0.38"/>
+    <circle cx="100" cy="72" r="0.6" fill="#0F1417" opacity="0.32"/>
+    <circle cx="148" cy="72" r="0.7" fill="#0F1417" opacity="0.36"/>
+    <circle cx="164" cy="82" r="0.9" fill="#0F1417" opacity="0.38"/>
+    <circle cx="66" cy="124" r="0.7" fill="#0F1417" opacity="0.32"/>
+    <circle cx="180" cy="124" r="0.7" fill="#0F1417" opacity="0.36"/>
+
+    <!-- ============================================================ -->
+    <!-- ROW 4 (y 172-188): REVERSE ARROW — heart → output           -->
+    <!-- ============================================================ -->
+    <path d="M124 174 L124 188" stroke-width="2" stroke="#0E5347"/>
+    <path d="M118 184 L124 190 L130 184" stroke-width="1.8" stroke="#0E5347"/>
+    <!-- REVERSE label to the right of arrow (clear of all panels) -->
+    <text x="142" y="188" font-family="JetBrains Mono, monospace" font-size="8" letter-spacing="0.12em" fill="#0E5347" stroke="none" font-weight="700">REVERSE</text>
+
+    <!-- ============================================================ -->
+    <!-- ROW 5 (y 192-222): T2* SYNTHESIZED OUTPUT PANEL              -->
+    <!-- All labels live INSIDE the panel with proper line spacing.   -->
+    <!-- ============================================================ -->
     <g>
-      <rect x="84" y="196" width="72" height="28" rx="3" stroke-width="1.8" fill="#FAF1D8" stroke="#0E5347"/>
-      <path d="M92 210 H108 M114 210 H130 M138 210 H146" stroke-width="0.5" stroke="#0E5347" opacity="0.7"/>
-      <text x="120" y="216" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="13" letter-spacing="0.08em" fill="#0E5347" stroke="none" font-weight="700">T2*</text>
-      <text x="120" y="227" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="5.5" letter-spacing="0.18em" fill="#0E5347" stroke="none">SYNTHESIZED</text>
+      <rect x="74" y="192" width="92" height="30" rx="3.5" stroke-width="1.8" fill="#FAF1D8" stroke="#0E5347"/>
+      <!-- Top tag inside the panel -->
+      <text x="120" y="202" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="6.2" letter-spacing="0.16em" fill="#0E5347" stroke="none" font-weight="500">SYNTHESIZED</text>
+      <!-- Faint texture between labels -->
+      <path d="M88 208 H108 M112 208 H132 M138 208 H152" stroke-width="0.5" stroke="#0E5347" opacity="0.55"/>
+      <!-- Big T2* label -->
+      <text x="120" y="219" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="13" letter-spacing="0.06em" fill="#0E5347" stroke="none" font-weight="700">T2*</text>
     </g>
 
-    <!-- Arrows: T1 → heart, M0 → heart, heart → T2* (the reverse generation) -->
-    <!-- T1 → heart (curved down-right) -->
-    <path d="M64 56 Q72 70 86 88" stroke-width="0.8" stroke-dasharray="1.8 2.2" opacity="0.65"/>
-    <path d="M84 84 L88 90 L82 92" stroke-width="0.8" opacity="0.7"/>
-
-    <!-- M0 → heart (curved down-left) -->
-    <path d="M176 56 Q168 70 154 88" stroke-width="0.8" stroke-dasharray="1.8 2.2" opacity="0.65"/>
-    <path d="M156 84 L152 90 L158 92" stroke-width="0.8" opacity="0.7"/>
-
-    <!-- Heart → T2* (the REVERSE arrow, solid emerald, prominent) -->
-    <path d="M120 188 L120 198" stroke-width="2" stroke="#0E5347"/>
-    <path d="M113 190 L120 198 L127 190" stroke-width="1.8" stroke="#0E5347"/>
-    <text x="146" y="194" font-family="JetBrains Mono, monospace" font-size="8" letter-spacing="0.12em" fill="#0E5347" stroke="none" font-weight="700">REVERSE</text>
-
-    <!-- Diffusion noise dots (around heart, hinting at the generative process) -->
-    <circle cx="78" cy="80" r="1" fill="#0F1417" opacity="0.4"/>
-    <circle cx="94" cy="68" r="0.8" fill="#0F1417" opacity="0.35"/>
-    <circle cx="146" cy="68" r="0.7" fill="#0F1417" opacity="0.4"/>
-    <circle cx="162" cy="80" r="1" fill="#0F1417" opacity="0.4"/>
-    <circle cx="64" cy="124" r="0.7" fill="#0F1417" opacity="0.35"/>
-    <circle cx="176" cy="124" r="0.8" fill="#0F1417" opacity="0.4"/>
-    <circle cx="80" cy="166" r="0.7" fill="#0F1417" opacity="0.35"/>
-    <circle cx="160" cy="166" r="0.7" fill="#0F1417" opacity="0.35"/>
-
-    <!-- "DIFFUSION" small label tucked above heart -->
-    <text x="120" y="74" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="6" letter-spacing="0.2em" fill="#4A5159" stroke="none">DIFFUSION</text>
-
-    <!-- Caption (well inside safe area) -->
-    <text x="120" y="232" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="6.5" fill="#4A5159" stroke="none" letter-spacing="0.14em">CMR · ZERO-SHOT GENERATION · MICCAI '25</text>
+    <!-- ============================================================ -->
+    <!-- ROW 6 (y 230-238): CAPTION                                  -->
+    <!-- ============================================================ -->
+    <text x="120" y="235" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="6.6" fill="#4A5159" stroke="none" letter-spacing="0.1em" font-weight="500">CMR · ZERO-SHOT GENERATION · MICCAI '25</text>
   </g>
 </svg>

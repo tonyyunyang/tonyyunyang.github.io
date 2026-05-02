@@ -32,15 +32,18 @@
     display: inline-flex;
     align-items: center;
     gap: 12px;
-    padding: 10px 16px 10px 12px;
-    background: var(--color-paper);
-    border: 1.5px solid var(--color-ink);
+    padding: 10px 16px 10px 13px;
+    /* Default: emerald-on-paper, but quieter than the hero PhD pill so the
+       hero CTA wins the first fold. Halo + pulse stay, just dialled back. */
+    background: var(--color-accent);
+    border: 1.5px solid var(--color-accent);
     border-radius: 999px;
-    color: var(--color-ink);
+    color: var(--color-paper);
     text-decoration: none;
+    min-height: 44px;
     box-shadow:
-      0 1px 0 rgba(15, 20, 23, 0.04),
-      0 12px 28px -14px rgba(15, 20, 23, 0.32);
+      0 1px 0 rgba(15, 20, 23, 0.06),
+      0 10px 24px -12px rgba(14, 83, 71, 0.4);
     transition:
       transform 240ms cubic-bezier(.22,.72,.16,1),
       background 240ms ease-out,
@@ -49,41 +52,37 @@
       box-shadow 240ms ease-out;
   }
 
+  /* Pulsing halo ring (visible at rest, slow + restrained) */
   .sketchbook::before {
     content: "";
     position: absolute;
-    inset: -6px;
+    inset: -4px;
     border-radius: 999px;
-    border: 1px dashed var(--color-hairline);
-    opacity: 0;
-    transition: opacity 240ms ease-out;
+    border: 1.2px solid var(--color-accent);
+    opacity: 0.4;
     pointer-events: none;
+    animation: sketchbook-halo 5.4s ease-out infinite;
   }
 
   .sketchbook:hover,
   .sketchbook:focus-visible {
-    transform: translateY(-3px);
-    background: var(--color-accent);
+    transform: translateY(-3px) scale(1.03);
+    background: var(--color-ink);
+    border-color: var(--color-ink);
     color: var(--color-paper);
-    border-color: var(--color-accent);
     box-shadow:
-      0 1px 0 rgba(15, 20, 23, 0.06),
-      0 18px 32px -14px rgba(14, 83, 71, 0.45);
-  }
-
-  .sketchbook:hover::before,
-  .sketchbook:focus-visible::before {
-    opacity: 0.85;
+      0 1px 0 rgba(15, 20, 23, 0.08),
+      0 22px 38px -12px rgba(15, 20, 23, 0.55);
   }
 
   .sketchbook:hover .sketchbook__hint,
   .sketchbook:focus-visible .sketchbook__hint {
-    color: rgba(245, 239, 226, 0.75);
+    color: rgba(245, 239, 226, 0.78);
   }
 
   .sketchbook:hover .sketchbook__arrow,
   .sketchbook:focus-visible .sketchbook__arrow {
-    transform: translate(2px, -2px);
+    transform: translate(3px, -3px);
   }
 
   .sketchbook__glyph {
@@ -105,48 +104,62 @@
   .sketchbook__hint {
     font-family: var(--font-mono);
     font-size: 10.5px;
-    letter-spacing: 0.18em;
+    letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: var(--color-ink-soft);
-    margin-bottom: 4px;
+    color: rgba(245, 239, 226, 0.85);
+    margin-bottom: 5px;
     transition: color 240ms ease-out;
   }
 
   .sketchbook__label {
     font-family: var(--font-display);
     font-style: italic;
-    font-size: 16px;
+    font-size: 17px;
     line-height: 1;
   }
 
   .sketchbook__arrow {
     display: inline-block;
-    font-size: 14px;
+    font-size: 15px;
     line-height: 1;
     transition: transform 240ms cubic-bezier(.22,.72,.16,1);
   }
 
-  /* Idle gentle pulse so it's noticed (one breath every 4s) */
+  /* Idle: gentle breathing pulse — restrained so the hero PhD pill keeps focus */
   @keyframes sketchbook-breathe {
-    0%, 100% { box-shadow: 0 1px 0 rgba(15, 20, 23, 0.04), 0 12px 28px -14px rgba(15, 20, 23, 0.32); }
-    50%      { box-shadow: 0 1px 0 rgba(15, 20, 23, 0.04), 0 14px 36px -10px rgba(14, 83, 71, 0.28); }
+    0%, 100% {
+      box-shadow:
+        0 1px 0 rgba(15, 20, 23, 0.06),
+        0 10px 24px -12px rgba(14, 83, 71, 0.4);
+    }
+    50% {
+      box-shadow:
+        0 1px 0 rgba(15, 20, 23, 0.06),
+        0 14px 30px -10px rgba(14, 83, 71, 0.5);
+    }
+  }
+
+  @keyframes sketchbook-halo {
+    0%   { opacity: 0.45; inset: -2px;  border-width: 1.2px; }
+    70%  { opacity: 0;    inset: -14px; border-width: 0.4px; }
+    100% { opacity: 0;    inset: -14px; border-width: 0.4px; }
   }
 
   .sketchbook {
-    animation: sketchbook-breathe 4.8s ease-in-out infinite;
+    animation: sketchbook-breathe 5.4s ease-in-out infinite;
   }
 
   @media (max-width: 720px) {
     /* Compact icon-only CTA on phones so the fixed pill doesn't obscure
        running copy mid-scroll. Tap target stays well above 44 px. */
     .sketchbook {
-      padding: 12px;
+      padding: 13px;
       bottom: 18px;
       right: 18px;
       gap: 0;
       box-shadow:
-        0 1px 0 rgba(15, 20, 23, 0.04),
-        0 10px 22px -12px rgba(15, 20, 23, 0.32);
+        0 1px 0 rgba(15, 20, 23, 0.06),
+        0 12px 26px -10px rgba(14, 83, 71, 0.55);
     }
     .sketchbook__text,
     .sketchbook__arrow {
@@ -159,8 +172,11 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .sketchbook {
+    .sketchbook,
+    .sketchbook::before {
       animation: none;
+    }
+    .sketchbook {
       transition: none;
     }
     .sketchbook:hover,
