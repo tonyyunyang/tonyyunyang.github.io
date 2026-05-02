@@ -1,11 +1,11 @@
 # Project status — tonyyunyang.github.io
 
-_Last updated: 2026-05-02 (after iteration 8 polish + codex round-2 convergence)_
+_Last updated: 2026-05-03 (after iteration 13 — variant C cat + shoes locked in)_
 
 ## TL;DR
 
 - **Live at https://tonyyunyang.github.io.** Custom Astro 5 build, single-author project, no template ancestry, no fork lineage.
-- Repo: `git@github.com:tonyyunyang/tonyyunyang.github.io.git`. Default branch `main`. HEAD `bb8aca9`.
+- Repo: `git@github.com:tonyyunyang/tonyyunyang.github.io.git`. Default branch `main`. HEAD `489b585`.
 - Local git identity for this project: `tony / tonyyunyang@outlook.com` (project-scoped via `git config --local`, NOT global).
 - Auto-deploy: every push to `main` triggers `.github/workflows/deploy.yml` → builds Astro → uploads `dist/` → `actions/deploy-pages@v4` → live in ~45 s.
 - Pages source is `workflow` (GitHub Actions, NOT Jekyll). `public/.nojekyll` is a defensive marker.
@@ -14,6 +14,11 @@ _Last updated: 2026-05-02 (after iteration 8 polish + codex round-2 convergence)
 ## Polish iterations shipped (all on `main`)
 
 ```
+489b585  feat(iter 13): swap to variant C (anatomical realism) for cat + shoes
+b5111d0  feat(iter 12): proper-cat-and-shoe redo from parallel-agent design pass
+54b4677  feat(iter 11): LXGW WenKai for 杨童耘, alert 狸花猫 cat, cleaner running shoes
+fed895e  feat(iter 10): broaden idle motion — stars, clock, medal, tennis ball, ripples
+dd49d59  feat(iter 9): cat reads as 狸花猫, running shoes proportions, visible animations
 bb8aca9  feat(iter 8): hero CN font, Plate I portal, Studio idle motion, cat 狸花猫, shoes redo
 3826701  feat(iter 7): mobile Studio CTA → icon-only
 70442c6  feat(iter 6): tighten mobile hero, shoes refine, heart asymmetry, tap targets

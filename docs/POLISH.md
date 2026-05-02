@@ -1,11 +1,36 @@
 # Polish & improvement backlog
 
-_Last updated: 2026-05-02 (after iteration 8 + codex round-2 convergence)_
+_Last updated: 2026-05-03 (after iteration 13 — variant C cat + shoes locked in)_
 
 A working list of things noticed during build & visual inspection that
-would sharpen the site further. Codex declared iter 8 converged —
-everything below is either backlog (high) or out-of-scope (low). Pick
-one bullet per session, work on it, push.
+would sharpen the site further. Pick one bullet per session, work on
+it, push.
+
+## Closed in iterations 9–13
+
+- ✅ **iter 13**: Swapped Studio cat + running shoes to variant C
+  (anatomical realism) after a parallel-agent design pass. Cat is now
+  a sitting alert 狸花猫 with dark almond ink eyes (slit pupils),
+  cream catchlights, layered fur tones, M-mark forehead, ringed tail,
+  cream chest + tucked paws. Shoes are a side-profile pair with proper
+  rocker bottoms, exposed dark outsole + tread ticks, sweeping swoosh,
+  visible heel pull tab, eight eyelets, mesh dot toe-box texture.
+- ✅ **iter 12**: Spawned 4 isolated worktree agents in parallel
+  (engraving / bold-flat / anatomical / minimal-icon) and applied the
+  bold-flat variant briefly before iter 13's variant-C lock-in.
+- ✅ **iter 11**: Switched the Chinese name `杨童耘` from Noto Serif SC
+  to **LXGW WenKai** (humanist calligraphic, pairs warmly with EB
+  Garamond's serif). Slightly smaller (`0.5em → 0.44em`).
+- ✅ **iter 10**: Broadened idle motion across the Studio — stars
+  twinkle, clock minute hand 8 s / hour hand 60 s rotation, half-
+  marathon medal swings on its ribbon, new tennis ball next to the
+  rackets squishes / settles, houseboat bobs + rocks, water ripples
+  shimmer at four different rates, pendant lamp sways from the ceiling
+  cap, curtain waves, cat tail twitches occasionally.
+- ✅ **iter 9**: Boosted animation amplitudes after Tony reported the
+  iter 8 motion was imperceptible. Added `_motion-check.spec.ts` that
+  takes two screenshots 1.5 s apart and confirms pixel-level
+  differences on the live build.
 
 ## Closed in iteration 8
 
