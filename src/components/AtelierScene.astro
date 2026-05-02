@@ -287,136 +287,183 @@ const allNotes = objects.filter(
       </g>
 
       <!-- Cat (狸花猫 · Chinese mackerel tabby, sitting alert on chair seat).
-           Iter 12: bold flat-shape rebuild. Filled tabby bands (not strokes),
-           dark eyes with cream catchlights (no green), distinct M-mark on
-           forehead, cream chest/paws, ringed tail curled around the side.
-           Body fill is paper-shade so the dark stripes pop with maximum
-           contrast at the small studio render scale. -->
-      <g class="atelier__cat" stroke="#0F1417" stroke-linecap="round" stroke-linejoin="round" fill="none">
+           Iter 12 anatomical-realism rebuild: correct head:body ratio, layered
+           fur tones (paper-shade body over hairline shadow), bold mackerel
+           bands, tail wrapped to the front, dark slit-pupil eyes (NOT green).
+           Bands hand-placed to follow real tabby pattern: vertical streaks
+           down the flanks, ringed tail, spiked M-mark on forehead. -->
+      <g class="atelier__cat" stroke="#0f1417" stroke-linecap="round" stroke-linejoin="round" fill="none">
 
-        <!-- ============ TAIL (curls forward around right hip) ============ -->
+        <!-- ============ TAIL (curls around front of chair, ringed) ============ -->
         <g class="atelier__cat-tail">
-          <!-- Tail base silhouette: cream-shade with bold tip ring stripes -->
+          <!-- Tail base sweeping out from rump, around to the front -->
           <path
-            d="M414 854 Q438 848 450 858 Q458 870 452 884 Q444 896 426 898 Q406 898 392 890 Q394 880 408 874 Q420 870 414 862 Z"
+            d="M412 858 Q442 854 454 870 Q462 884 454 894 Q444 904 418 902 Q396 900 384 892"
             fill="#EDE6D5"
             stroke="#0F1417"
-            stroke-width="2.2"
+            stroke-width="2.1"
           ></path>
-          <!-- Bold tabby rings (filled bands across the tail) -->
-          <path d="M422 854 Q432 854 440 860 Q436 866 426 868 Q418 866 418 858 Z" fill="#0F1417" stroke="none"></path>
-          <path d="M442 868 Q452 870 454 878 Q448 884 438 882 Q436 874 442 868 Z" fill="#0F1417" stroke="none"></path>
-          <path d="M408 884 Q422 886 436 890 Q428 894 416 894 Q406 892 408 884 Z" fill="#0F1417" stroke="none"></path>
+          <!-- Hairline shadow underbelly of tail -->
+          <path
+            d="M398 898 Q418 902 442 900 Q452 898 456 892"
+            fill="none"
+            stroke="#D9D2C2"
+            stroke-width="1.4"
+            opacity="0.85"
+          ></path>
+          <!-- Tail rings (4 bold dark bands) -->
+          <path d="M410 858 Q418 864 422 870" stroke="#0F1417" stroke-width="2.4"></path>
+          <path d="M428 860 Q438 866 442 874" stroke="#0F1417" stroke-width="2.4"></path>
+          <path d="M450 876 Q456 884 452 892" stroke="#0F1417" stroke-width="2.4"></path>
+          <path d="M432 898 Q442 898 448 894" stroke="#0F1417" stroke-width="2.4"></path>
+          <!-- Tail tip dark cap -->
+          <path d="M386 894 Q392 902 402 900 Q396 894 386 894 Z" fill="#0F1417" stroke="none"></path>
         </g>
 
-        <!-- ============ SEATED BODY (haunches, chunky base) ============ -->
+        <!-- ============ BODY (seated, with shoulder/haunch separation) ============ -->
+        <!-- Hairline-shaded undertone (creates fur depth — appears below the body fill on rump and chest sides) -->
         <path
-          d="M308 866 Q300 836 314 808 Q330 784 360 780 Q394 778 416 798 Q432 818 432 846 Q432 870 418 882 Q400 894 370 894 Q336 894 318 884 Q308 878 308 866 Z"
+          d="M320 858 Q316 838 322 818 Q330 800 348 794 L398 794 Q418 800 426 820 Q430 842 422 862 Q412 880 384 884 Q346 886 326 874 Q320 866 320 858 Z"
+          fill="#D9D2C2"
+          stroke="none"
+        ></path>
+        <!-- Main body silhouette (tapered haunch + chest, paper-shade fur) -->
+        <path
+          d="M324 856 Q318 836 326 814 Q336 794 358 788 Q386 784 404 794 Q422 804 426 826 Q430 850 416 866 Q400 880 374 882 Q346 884 328 870 Q324 864 324 856 Z"
           fill="#EDE6D5"
           stroke="#0F1417"
-          stroke-width="2.3"
+          stroke-width="2.1"
         ></path>
+        <!-- Front-leg break line (subtle, separates chest from foreleg) -->
+        <path d="M362 826 Q360 850 368 874" stroke="#0F1417" stroke-width="0.8" opacity="0.5"></path>
 
-        <!-- ============ CREAM CHEST (vertical bib down the front) ============ -->
+        <!-- ============ CREAM CHEST + PAWS ============ -->
         <path
-          d="M340 808 Q352 798 372 800 Q386 802 392 818 Q394 838 388 858 Q380 878 366 884 Q348 884 340 870 Q334 850 336 830 Q336 816 340 808 Z"
+          d="M348 818 Q364 808 384 814 Q396 832 392 856 Q382 874 364 876 Q346 872 342 856 Q340 832 348 818 Z"
           fill="#FAF1D8"
           stroke="#0F1417"
           stroke-width="1.6"
         ></path>
-
-        <!-- ============ FRONT PAWS (cream, side-by-side, with toe lines) ============ -->
+        <!-- Front left paw (tucked) -->
         <path
-          d="M334 880 Q340 868 354 870 Q362 876 360 890 Q352 896 340 894 Q332 890 334 880 Z"
+          d="M344 870 Q350 862 362 866 Q368 876 360 882 Q348 884 342 878 Q340 872 344 870 Z"
           fill="#FAF1D8"
           stroke="#0F1417"
-          stroke-width="1.7"
+          stroke-width="1.6"
         ></path>
+        <!-- Front right paw (tucked) -->
         <path
-          d="M364 880 Q372 868 386 872 Q392 880 388 892 Q378 896 366 894 Q360 890 364 880 Z"
+          d="M368 868 Q378 860 388 866 Q392 876 384 882 Q374 884 368 878 Q366 872 368 868 Z"
           fill="#FAF1D8"
           stroke="#0F1417"
-          stroke-width="1.7"
+          stroke-width="1.6"
         ></path>
-        <!-- Toe split lines on each paw -->
-        <path d="M345 884 L345 893 M353 882 L353 893" stroke="#0F1417" stroke-width="1.1"></path>
-        <path d="M373 884 L373 893 M381 882 L381 893" stroke="#0F1417" stroke-width="1.1"></path>
+        <!-- Toe separations on paws -->
+        <path d="M350 880 L350 884 M356 882 L356 886 M376 880 L376 884 M382 882 L382 886" stroke="#0F1417" stroke-width="0.9" opacity="0.7"></path>
 
-        <!-- ============ TABBY MACKEREL BANDS (bold filled shapes, NOT strokes) ============ -->
-        <!-- Left flank vertical bars -->
-        <path d="M312 818 Q322 812 336 812 L336 824 Q322 828 314 828 Z" fill="#0F1417" stroke="none"></path>
-        <path d="M314 838 Q324 832 336 834 L336 846 Q322 848 314 850 Z" fill="#0F1417" stroke="none"></path>
-        <path d="M316 858 Q326 854 336 856 L336 868 Q324 870 316 870 Z" fill="#0F1417" stroke="none"></path>
-        <!-- Spine band along the back -->
-        <path d="M326 794 Q360 786 396 792 Q396 802 386 802 Q360 798 336 802 Q326 804 326 794 Z" fill="#0F1417" stroke="none"></path>
-        <!-- Right flank vertical bars -->
-        <path d="M398 814 Q412 814 422 822 L420 832 Q408 832 396 830 Z" fill="#0F1417" stroke="none"></path>
-        <path d="M398 836 Q414 838 426 846 L424 856 Q410 856 396 854 Z" fill="#0F1417" stroke="none"></path>
-        <path d="M396 858 Q412 860 424 868 L420 878 Q408 878 394 876 Z" fill="#0F1417" stroke="none"></path>
+        <!-- ============ MACKEREL BANDS (shoulder + flank, vertical streaks) ============ -->
+        <!-- Shoulder band (diagonal across upper body) -->
+        <path d="M326 808 Q336 802 348 806 Q346 814 344 824 Q334 822 326 808 Z" fill="#0F1417" stroke="none"></path>
+        <!-- Mid-flank band -->
+        <path d="M326 826 Q340 820 352 822 Q350 836 348 850 Q336 846 326 836 Z" fill="#0F1417" stroke="none"></path>
+        <!-- Lower flank band -->
+        <path d="M334 854 Q346 848 360 854 Q358 866 356 876 Q344 874 334 866 Z" fill="#0F1417" stroke="none"></path>
+        <!-- Right side shoulder band -->
+        <path d="M398 798 Q410 802 418 814 Q412 822 402 824 Q400 812 398 798 Z" fill="#0F1417" stroke="none"></path>
+        <!-- Right side mid band -->
+        <path d="M402 826 Q416 830 424 842 Q416 850 404 850 Q406 838 402 826 Z" fill="#0F1417" stroke="none"></path>
+        <!-- Right side rump band -->
+        <path d="M398 854 Q412 856 420 868 Q412 874 402 872 Q402 864 398 854 Z" fill="#0F1417" stroke="none"></path>
+        <!-- Thin secondary stripes (between major bands, hand-drawn feel) -->
+        <path d="M340 818 Q344 822 342 832" stroke="#0F1417" stroke-width="1.2" opacity="0.65"></path>
+        <path d="M408 822 Q412 828 410 836" stroke="#0F1417" stroke-width="1.2" opacity="0.65"></path>
+        <path d="M348 842 Q352 848 350 856" stroke="#0F1417" stroke-width="1.2" opacity="0.65"></path>
 
-        <!-- ============ HEAD (round, slightly wider than body at the cheeks) ============ -->
+        <!-- ============ HEAD (rounded triangle with proper tabby proportions) ============ -->
+        <!-- Head shadow (hairline tone behind ears) -->
         <path
-          d="M322 802 Q318 776 334 760 Q352 744 374 744 Q398 744 414 760 Q428 776 426 802 Q424 824 412 836 Q396 846 374 846 Q350 846 336 836 Q322 824 322 802 Z"
+          d="M334 802 Q330 778 348 762 Q368 750 388 750 Q406 752 416 768 Q424 786 422 802 Q418 824 402 836 Q384 846 362 842 Q344 840 336 824 Q332 814 334 802 Z"
+          fill="#D9D2C2"
+          stroke="none"
+        ></path>
+        <!-- Head silhouette -->
+        <path
+          d="M336 800 Q334 776 350 762 Q370 750 388 750 Q406 752 414 766 Q422 784 420 800 Q418 822 402 832 Q384 842 362 840 Q346 836 338 822 Q334 812 336 800 Z"
           fill="#EDE6D5"
           stroke="#0F1417"
-          stroke-width="2.3"
+          stroke-width="2.1"
         ></path>
 
-        <!-- ============ EARS (large alert triangles with cream inner pinna) ============ -->
-        <!-- Left ear -->
-        <path d="M338 758 L324 728 L354 748 Z" fill="#EDE6D5" stroke="#0F1417" stroke-width="2.2"></path>
-        <path d="M340 754 L334 738 L348 748 Z" fill="#FAF1D8" stroke="none"></path>
-        <!-- Right ear -->
-        <path d="M396 748 L424 728 L410 758 Z" fill="#EDE6D5" stroke="#0F1417" stroke-width="2.2"></path>
-        <path d="M400 748 L416 738 L408 754 Z" fill="#FAF1D8" stroke="none"></path>
-        <!-- Bold filled stripe at the base of each ear (tabby cue) -->
-        <path d="M334 752 Q344 754 354 754 Q352 762 342 762 Q334 758 334 752 Z" fill="#0F1417" stroke="none"></path>
-        <path d="M396 754 Q406 754 414 752 Q414 760 406 762 Q396 762 396 754 Z" fill="#0F1417" stroke="none"></path>
+        <!-- ============ EARS (large, alert, triangular) ============ -->
+        <!-- Left ear outer -->
+        <path d="M348 762 L336 736 L362 752 Z" fill="#EDE6D5" stroke="#0F1417" stroke-width="2"></path>
+        <!-- Right ear outer -->
+        <path d="M396 752 L416 736 L408 766 Z" fill="#EDE6D5" stroke="#0F1417" stroke-width="2"></path>
+        <!-- Left inner ear (cream) -->
+        <path d="M350 758 L342 744 L356 752 Z" fill="#FAF1D8" stroke="#0F1417" stroke-width="0.9"></path>
+        <!-- Right inner ear (cream) -->
+        <path d="M398 752 L410 744 L406 760 Z" fill="#FAF1D8" stroke="#0F1417" stroke-width="0.9"></path>
+        <!-- Ear tip dark caps -->
+        <path d="M340 740 L336 736 L344 740 Z" fill="#0F1417" stroke="none"></path>
+        <path d="M408 740 L414 736 L412 744 Z" fill="#0F1417" stroke="none"></path>
+        <!-- Ear furnishing tufts -->
+        <path d="M354 754 Q358 750 360 752" stroke="#0F1417" stroke-width="0.8" opacity="0.7"></path>
+        <path d="M398 754 Q402 750 404 752" stroke="#0F1417" stroke-width="0.8" opacity="0.7"></path>
 
-        <!-- ============ HEAD TABBY MARKS (M on forehead + cheek bars) ============ -->
-        <!-- Vertical forehead bars (signature 狸花 markings) -->
-        <path d="M348 758 Q352 770 350 786 Q346 786 346 770 Q346 762 348 758 Z" fill="#0F1417" stroke="none"></path>
-        <path d="M362 760 Q364 772 364 786 Q358 786 358 772 Q358 762 362 760 Z" fill="#0F1417" stroke="none"></path>
-        <path d="M376 760 Q378 772 376 786 Q372 786 372 770 Q372 762 376 760 Z" fill="#0F1417" stroke="none"></path>
-        <path d="M390 758 Q394 770 392 786 Q388 786 386 770 Q386 762 390 758 Z" fill="#0F1417" stroke="none"></path>
-        <!-- M shape under the bars (dark M apex) -->
-        <path d="M352 790 L362 800 L370 790 L378 800 L388 790 L388 794 L378 806 L370 796 L362 806 L352 794 Z" fill="#0F1417" stroke="none"></path>
+        <!-- ============ M-MARK on forehead (signature tabby spiked stripes) ============ -->
+        <path d="M348 776 L356 762 L362 774" stroke="#0F1417" stroke-width="2.4" fill="none"></path>
+        <path d="M384 774 L392 762 L400 776" stroke="#0F1417" stroke-width="2.4" fill="none"></path>
+        <path d="M362 774 L368 786 L374 774 L380 786 L384 774" stroke="#0F1417" stroke-width="2" fill="none"></path>
+        <!-- Forehead vertical streaks between eyes -->
+        <path d="M362 786 L362 796" stroke="#0F1417" stroke-width="1.6" opacity="0.85"></path>
+        <path d="M374 786 L374 796" stroke="#0F1417" stroke-width="1.6" opacity="0.85"></path>
+        <path d="M384 786 L384 796" stroke="#0F1417" stroke-width="1.6" opacity="0.85"></path>
 
-        <!-- ============ CREAM MUZZLE (round, sits below the eyes) ============ -->
+        <!-- ============ MUZZLE (cream, with cheek puffs) ============ -->
         <path
-          d="M340 812 Q354 802 374 802 Q396 802 408 812 Q406 826 396 832 Q380 838 374 838 Q360 838 350 832 Q342 826 340 812 Z"
+          d="M346 812 Q358 800 374 798 Q394 800 408 814 Q402 832 384 836 Q360 840 346 828 Q340 820 346 812 Z"
           fill="#FAF1D8"
           stroke="#0F1417"
-          stroke-width="1.7"
+          stroke-width="1.6"
         ></path>
+        <!-- Cheek shading hint -->
+        <path d="M348 818 Q352 824 354 830" stroke="#D9D2C2" stroke-width="1.4" opacity="0.85"></path>
+        <path d="M404 818 Q400 824 398 830" stroke="#D9D2C2" stroke-width="1.4" opacity="0.85"></path>
 
-        <!-- ============ EYES (DARK INK, NOT GREEN — with cream catchlights) ============ -->
-        <!-- Eye whites/cream rim -->
-        <ellipse cx="354" cy="800" rx="9" ry="7" fill="#FAF1D8" stroke="#0F1417" stroke-width="1.8"></ellipse>
-        <ellipse cx="392" cy="800" rx="9" ry="7" fill="#FAF1D8" stroke="#0F1417" stroke-width="1.8"></ellipse>
-        <!-- Big dark pupils filling most of the eye (alert daytime cat) -->
-        <ellipse cx="354" cy="800" rx="5.4" ry="6" fill="#0F1417" stroke="none"></ellipse>
-        <ellipse cx="392" cy="800" rx="5.4" ry="6" fill="#0F1417" stroke="none"></ellipse>
-        <!-- Cream catchlights (top-right of pupil — gives life and "wet eye" cue) -->
-        <circle cx="356" cy="797" r="1.7" fill="#FAF1D8" stroke="none"></circle>
-        <circle cx="394" cy="797" r="1.7" fill="#FAF1D8" stroke="none"></circle>
+        <!-- ============ EYES (DARK ink + slit pupils, with cream catchlight) ============ -->
+        <!-- Eye almond shapes (filled paper-shade for whites of eye) -->
+        <path d="M352 802 Q360 798 368 802 Q364 808 360 810 Q354 808 352 802 Z" fill="#FAF1D8" stroke="#0F1417" stroke-width="1.6"></path>
+        <path d="M378 802 Q386 798 394 802 Q392 808 386 810 Q380 808 378 802 Z" fill="#FAF1D8" stroke="#0F1417" stroke-width="1.6"></path>
+        <!-- Iris (DARK ink, almost circular) -->
+        <ellipse cx="360" cy="804" rx="4.2" ry="4.6" fill="#0F1417" stroke="none"></ellipse>
+        <ellipse cx="386" cy="804" rx="4.2" ry="4.6" fill="#0F1417" stroke="none"></ellipse>
+        <!-- Slit pupils (vertical narrow ovals, ink-soft to suggest texture) -->
+        <ellipse cx="360" cy="804" rx="0.9" ry="3.4" fill="#0F1417" stroke="none"></ellipse>
+        <ellipse cx="386" cy="804" rx="0.9" ry="3.4" fill="#0F1417" stroke="none"></ellipse>
+        <!-- Cream catchlights -->
+        <circle cx="358" cy="801" r="1.1" fill="#FAF1D8" stroke="none"></circle>
+        <circle cx="384" cy="801" r="1.1" fill="#FAF1D8" stroke="none"></circle>
 
         <!-- ============ NOSE + MOUTH ============ -->
-        <!-- Triangular pink-ish nose (using ink for flat-design boldness) -->
-        <path d="M368 814 L380 814 L374 822 Z" fill="#0F1417" stroke="none"></path>
-        <!-- Mouth: vertical philtrum + smile curve -->
-        <path d="M374 822 L374 828" stroke="#0F1417" stroke-width="1.8"></path>
-        <path d="M374 828 Q368 832 362 830" stroke="#0F1417" stroke-width="1.8"></path>
-        <path d="M374 828 Q380 832 386 830" stroke="#0F1417" stroke-width="1.8"></path>
+        <!-- Triangular nose (filled ink) -->
+        <path d="M370 818 L380 818 L375 824 Z" fill="#0F1417" stroke="#0F1417" stroke-width="0.8" stroke-linejoin="round"></path>
+        <!-- Philtrum -->
+        <path d="M375 824 L375 828" stroke="#0F1417" stroke-width="1.2"></path>
+        <!-- Mouth (subtle smile, thinner strokes so they don't form a bushy shape) -->
+        <path d="M375 828 Q370 831 366 829" stroke="#0F1417" stroke-width="1.1" fill="none"></path>
+        <path d="M375 828 Q380 831 384 829" stroke="#0F1417" stroke-width="1.1" fill="none"></path>
 
-        <!-- ============ WHISKERS (clean, simple, on each cheek) ============ -->
-        <path d="M340 818 L322 814 M342 824 L322 824" stroke="#0F1417" stroke-width="1.4" opacity="0.85"></path>
-        <path d="M408 818 L426 814 M406 824 L426 824" stroke="#0F1417" stroke-width="1.4" opacity="0.85"></path>
-
-        <!-- ============ EMERALD COLLAR (tiny accent of the brand color) ============ -->
-        <path d="M344 850 Q374 858 404 850 L406 856 Q374 864 342 856 Z" fill="#0E5347" stroke="#0F1417" stroke-width="1.4"></path>
-        <!-- Collar tag -->
-        <circle cx="374" cy="862" r="3.2" fill="#FAF1D8" stroke="#0F1417" stroke-width="1.2"></circle>
+        <!-- ============ WHISKERS (thin, sparse, delicate) ============ -->
+        <!-- Whisker pad dots (small puncta) -->
+        <circle cx="358" cy="824" r="0.5" fill="#0F1417" stroke="none"></circle>
+        <circle cx="362" cy="826" r="0.5" fill="#0F1417" stroke="none"></circle>
+        <circle cx="388" cy="826" r="0.5" fill="#0F1417" stroke="none"></circle>
+        <circle cx="392" cy="824" r="0.5" fill="#0F1417" stroke="none"></circle>
+        <!-- Two thin whiskers per side, extending outward (kept short to avoid bushy halo at small scale) -->
+        <path d="M356 822 L344 820" stroke="#0F1417" stroke-width="0.7"></path>
+        <path d="M356 826 L344 828" stroke="#0F1417" stroke-width="0.7"></path>
+        <path d="M394 822 L406 820" stroke="#0F1417" stroke-width="0.7"></path>
+        <path d="M394 826 L406 828" stroke="#0F1417" stroke-width="0.7"></path>
       </g>
 
       <!-- =================================================== -->
@@ -486,246 +533,280 @@ const allNotes = objects.filter(
         <path d="M1058 358 H1130" stroke-width="0.4" stroke-dasharray="2 2" opacity="0.5"></path>
       </g>
 
-      <!-- Running shoes (side profile pair · Asics Novablast / Nike Pegasus DNA).
-           Iter 14: bold flat silhouette approach. The whole shoe outline is
-           drawn as a single forward-leaning shape, then internal layer
-           dividers split it into outsole · midsole · upper. This avoids the
-           "stacked pillows" look from the previous iteration. Heel sits LEFT
-           (with the pull tab loop), toe sits RIGHT (with the toe cap stitch).
-           Two shoes are slightly offset so the back one peeks out behind. -->
-      <g class="atelier__shoes" stroke="#0F1417" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <!-- Running shoes (side-profile pair, iter 12c anatomical-realism rebuild).
+           Profile-defining geometry: pronounced ROCKER bottom (curves up
+           noticeably at toe AND heel), tall sculpted midsole foam wedge
+           thickest at the heel, distinct heel-collar STEP-UP at back of
+           upper, forward-leaning silhouette where toe box visually
+           "leans" forward, cream/emerald sweeping swoosh, secondary
+           midsole stripe, exposed tread, defined heel counter with pull
+           tab. Two-color pair: back shoe emerald upper, front shoe cream. -->
+      <g class="atelier__shoes" stroke="#0f1417" stroke-linecap="round" stroke-linejoin="round" fill="none">
 
-        <!-- ============ BACK SHOE (left + slightly back · emerald upper colorway) ============ -->
+        <!-- ============ BACK SHOE (left in pair, emerald upper) ============ -->
         <g>
-          <!-- =====  WHOLE SHOE SILHOUETTE (one closed flat shape, cream upper baseline).  =====
-               Geometry from heel-top (top-left) clockwise:
-                 1. Up over heel collar with pull-tab notch
-                 2. Down into the ankle dip (where the foot enters)
-                 3. Up onto the tongue
-                 4. Forward + slightly down across the vamp
-                 5. Curl over the toe cap
-                 6. Down the front of the toe to the ground
-                 7. Along the outsole back to the heel
-                 8. Up the heel counter to close. -->
-          <path d="M156 870
-                   Q150 854 156 842
-                   Q160 830 174 826
-                   L186 826
-                   L188 836
-                   L210 838
-                   L210 868
-                   L218 868
-                   L220 836
-                   L228 832
-                   Q236 830 244 836
-                   Q254 844 260 854
-                   L286 858
-                   Q298 858 300 866
-                   L300 882
-                   Q298 894 286 896
-                   L162 896
-                   Q150 894 148 884
-                   Z"
-                fill="#FAF1D8" stroke="#0F1417" stroke-width="2.2"></path>
 
-          <!-- =====  OUTSOLE STRIP (dark band along the very bottom of the silhouette)  ===== -->
-          <path d="M148 888
-                   L300 888
-                   L300 882
-                   Q298 894 286 896
-                   L162 896
-                   Q150 894 148 884
-                   Z"
+          <!-- ============ OUTSOLE (rocker shape, toe and heel both lift) ============ -->
+          <!-- Outsole shape — concave underside (rocker), with toe-spring at left -->
+          <path d="M148 892
+                   Q142 898 150 904
+                   Q160 908 178 906
+                   L260 906
+                   Q282 906 296 902
+                   Q306 898 306 892
+                   Q298 896 280 898
+                   L188 898
+                   Q166 896 148 892 Z"
                 fill="#0F1417" stroke="none"></path>
-          <!-- Outsole tread ticks (cream against dark) -->
-          <path d="M168 896 L168 890 M188 896 L188 890 M210 896 L210 890 M232 896 L232 890 M254 896 L254 890 M276 896 L276 890"
-                stroke="#FAF1D8" stroke-width="0.9" opacity="0.85"></path>
+          <!-- Tread lug ticks -->
+          <path d="M170 902 L170 906" stroke="#FAF1D8" stroke-width="0.6"></path>
+          <path d="M188 904 L188 907" stroke="#FAF1D8" stroke-width="0.6"></path>
+          <path d="M206 904 L206 907" stroke="#FAF1D8" stroke-width="0.6"></path>
+          <path d="M224 904 L224 907" stroke="#FAF1D8" stroke-width="0.6"></path>
+          <path d="M242 904 L242 907" stroke="#FAF1D8" stroke-width="0.6"></path>
+          <path d="M260 904 L260 907" stroke="#FAF1D8" stroke-width="0.6"></path>
+          <path d="M278 903 L278 906" stroke="#FAF1D8" stroke-width="0.6"></path>
+          <!-- Heavier flex groove at forefoot -->
+          <path d="M214 900 L218 907" stroke="#FAF1D8" stroke-width="0.9"></path>
 
-          <!-- =====  MIDSOLE BAND (cream wave between outsole and upper).
-                The two divider lines define a foam wedge: thicker at heel,
-                slimmer at the arch (the gentle dip), thicker again at toe.  ===== -->
-          <!-- Top edge of midsole (where it meets the upper) -->
-          <path d="M155 870
-                   Q170 868 188 868
-                   L210 868
-                   L218 868
-                   L260 870
-                   Q280 872 296 868"
-                stroke="#0F1417" stroke-width="1.6" fill="none"></path>
-          <!-- Subtle arch carve — the curve under the foot -->
-          <path d="M180 882 Q220 878 260 882" stroke="#0F1417" stroke-width="1" opacity="0.55" fill="none"></path>
+          <!-- ============ MIDSOLE (sculpted foam, heel-thick → toe-thin wedge) ============ -->
+          <!-- Foam mass: high heel block stepping down to a thinner toe box -->
+          <path d="M148 882
+                   Q140 884 138 890
+                   Q138 896 148 898
+                   L168 900
+                   L262 900
+                   Q284 900 298 898
+                   Q310 894 310 882
+                   Q310 866 300 858
+                   Q294 854 286 856
+                   Q278 858 272 864
+                   L256 868
+                   Q220 872 184 878
+                   Q166 880 148 882 Z"
+                fill="#FAF1D8" stroke="#0F1417" stroke-width="1.8"></path>
+          <!-- Lower midsole stripe (visible foam plate suggests Asics geometry) -->
+          <path d="M150 892 Q230 894 304 892" stroke="#0F1417" stroke-width="0.6" opacity="0.55"></path>
+          <!-- Mid-curve sculpt line (carved sidewall) -->
+          <path d="M168 884 Q224 880 290 880" stroke="#0F1417" stroke-width="0.5" opacity="0.4"></path>
+          <!-- Emerald accent stripe through midsole -->
+          <path d="M178 886 Q230 884 280 886" stroke="#0E5347" stroke-width="0.8" opacity="0.85"></path>
+          <!-- Heel "step-up" carve (where heel block rises above toe box) -->
+          <path d="M268 868 Q270 862 278 858" stroke="#0F1417" stroke-width="0.7" opacity="0.55" fill="none"></path>
 
-          <!-- =====  UPPER FILL (emerald) — overpaints the upper region only  ===== -->
-          <path d="M156 868
-                   Q150 854 156 842
-                   Q160 830 174 826
-                   L186 826
-                   L188 836
-                   L210 838
-                   L210 868
-                   Q188 868 170 868
-                   Z"
-                fill="#0E5347" stroke="#0F1417" stroke-width="2"></path>
-          <path d="M218 868
-                   L220 836
-                   L228 832
-                   Q236 830 244 836
-                   Q254 844 260 854
-                   L286 858
-                   Q298 858 300 866
-                   L296 868
-                   Q260 870 218 868
-                   Z"
-                fill="#0E5347" stroke="#0F1417" stroke-width="2"></path>
+          <!-- ============ UPPER (continuous silhouette with saddle dip + heel step-up) ============ -->
+          <!-- Toe box rises slightly upward at left (toe-spring), saddle dips
+               between toe-cap and heel collar, heel collar rises decisively
+               at the back where the ankle goes. Forward-leaning running-shoe
+               silhouette. -->
+          <path d="M148 880
+                   Q138 868 144 856
+                   Q150 850 162 846
+                   L184 840
+                   Q200 836 214 836
+                   Q220 836 220 846
+                   L220 854
+                   L232 854
+                   L234 846
+                   Q238 836 252 832
+                   Q272 828 282 838
+                   Q286 842 286 850
+                   Q294 850 296 858
+                   Q302 866 300 876
+                   L298 882
+                   L284 882
+                   L162 882
+                   L148 880 Z"
+                fill="#0E5347" stroke="#0F1417" stroke-width="1.8"></path>
 
-          <!-- =====  HEEL PULL TAB (small cream finger loop sticking up at heel)  ===== -->
-          <path d="M162 836
-                   Q156 828 162 822
-                   Q172 820 176 828
-                   L172 836
-                   Z"
-                fill="#FAF1D8" stroke="#0F1417" stroke-width="1.4"></path>
+          <!-- Mesh upper texture (toe box dot pattern) -->
+          <g stroke="#FAF1D8" stroke-width="0.5" opacity="0.6">
+            <circle cx="160" cy="868" r="0.4" fill="#FAF1D8"></circle>
+            <circle cx="166" cy="864" r="0.4" fill="#FAF1D8"></circle>
+            <circle cx="172" cy="860" r="0.4" fill="#FAF1D8"></circle>
+            <circle cx="178" cy="856" r="0.4" fill="#FAF1D8"></circle>
+            <circle cx="184" cy="852" r="0.4" fill="#FAF1D8"></circle>
+            <circle cx="190" cy="848" r="0.4" fill="#FAF1D8"></circle>
+            <circle cx="166" cy="872" r="0.4" fill="#FAF1D8"></circle>
+            <circle cx="172" cy="868" r="0.4" fill="#FAF1D8"></circle>
+            <circle cx="178" cy="864" r="0.4" fill="#FAF1D8"></circle>
+            <circle cx="184" cy="860" r="0.4" fill="#FAF1D8"></circle>
+            <circle cx="190" cy="856" r="0.4" fill="#FAF1D8"></circle>
+            <circle cx="172" cy="876" r="0.4" fill="#FAF1D8"></circle>
+            <circle cx="178" cy="872" r="0.4" fill="#FAF1D8"></circle>
+            <circle cx="184" cy="868" r="0.4" fill="#FAF1D8"></circle>
+            <circle cx="190" cy="864" r="0.4" fill="#FAF1D8"></circle>
+          </g>
 
-          <!-- =====  TONGUE (rises through the lace throat between the heel and vamp)  ===== -->
-          <path d="M210 836
-                   L210 866
-                   L218 866
-                   L218 834
-                   Q214 828 210 836
-                   Z"
-                fill="#FAF1D8" stroke="#0F1417" stroke-width="1.4"></path>
+          <!-- Vamp seam (toe box / midfoot division) -->
+          <path d="M194 846 Q196 866 196 882" stroke="#0F1417" stroke-width="0.7" opacity="0.55"></path>
+          <!-- Quarter panel seam (midfoot / heel division) -->
+          <path d="M256 838 Q260 866 262 882" stroke="#0F1417" stroke-width="0.7" opacity="0.55"></path>
 
-          <!-- =====  LACES (cream bars across throat — tongue → vamp side)  ===== -->
-          <path d="M210 842 L242 842" stroke="#FAF1D8" stroke-width="2.2" stroke-linecap="round"></path>
-          <path d="M210 850 L248 850" stroke="#FAF1D8" stroke-width="2.2" stroke-linecap="round"></path>
-          <path d="M210 858 L254 858" stroke="#FAF1D8" stroke-width="2.2" stroke-linecap="round"></path>
-          <path d="M210 866 L258 866" stroke="#FAF1D8" stroke-width="2.2" stroke-linecap="round"></path>
-          <!-- Eyelet dots on the tongue side -->
-          <circle cx="210" cy="842" r="1" fill="#0F1417" stroke="none"></circle>
-          <circle cx="210" cy="850" r="1" fill="#0F1417" stroke="none"></circle>
-          <circle cx="210" cy="858" r="1" fill="#0F1417" stroke="none"></circle>
-          <circle cx="210" cy="866" r="1" fill="#0F1417" stroke="none"></circle>
+          <!-- ============ TONGUE (small, tucked under laces, peeks through dip) ============ -->
+          <path d="M220 854 L222 842 L232 842 L232 852 Z"
+                fill="#FAF1D8" stroke="#0F1417" stroke-width="1"></path>
 
-          <!-- =====  SWOOSH STRIPE (long cream sweep from heel through midfoot to toe)  ===== -->
-          <path d="M170 862
-                   Q220 838 290 858
-                   L292 866
-                   Q220 850 170 870
-                   Z"
-                fill="#FAF1D8" stroke="#0F1417" stroke-width="1.1"></path>
+          <!-- ============ SWOOSH (cream sweeping stripe across midfoot) ============ -->
+          <path d="M168 878
+                   Q198 858 246 852
+                   Q272 850 286 858
+                   L284 866
+                   Q268 856 246 860
+                   Q210 866 180 880 Z"
+                fill="#FAF1D8" stroke="#0F1417" stroke-width="0.7"></path>
 
-          <!-- =====  HEEL COUNTER seam (vertical line from collar to outsole)  ===== -->
-          <path d="M180 850 L180 870" stroke="#0F1417" stroke-width="1.1" opacity="0.7"></path>
+          <!-- ============ LACES (4 cross-bars threaded through eyelets) ============ -->
+          <g>
+            <circle cx="218" cy="850" r="0.7" fill="#0F1417"></circle>
+            <circle cx="234" cy="846" r="0.7" fill="#0F1417"></circle>
+            <circle cx="220" cy="858" r="0.7" fill="#0F1417"></circle>
+            <circle cx="236" cy="854" r="0.7" fill="#0F1417"></circle>
+            <circle cx="222" cy="866" r="0.7" fill="#0F1417"></circle>
+            <circle cx="238" cy="862" r="0.7" fill="#0F1417"></circle>
+            <circle cx="224" cy="874" r="0.7" fill="#0F1417"></circle>
+            <circle cx="240" cy="870" r="0.7" fill="#0F1417"></circle>
+            <path d="M218 850 L236 854" stroke="#FAF1D8" stroke-width="1.2"></path>
+            <path d="M234 846 L220 858" stroke="#FAF1D8" stroke-width="1.2"></path>
+            <path d="M220 858 L238 862" stroke="#FAF1D8" stroke-width="1.2"></path>
+            <path d="M236 854 L222 866" stroke="#FAF1D8" stroke-width="1.2"></path>
+            <path d="M222 866 L240 870" stroke="#FAF1D8" stroke-width="1.2"></path>
+            <path d="M238 862 L224 874" stroke="#FAF1D8" stroke-width="1.2"></path>
+          </g>
 
-          <!-- =====  TOE CAP (rounded reinforcement stitch over the toe box)  ===== -->
-          <path d="M276 858 Q286 856 294 862" stroke="#0F1417" stroke-width="1.1" opacity="0.7" fill="none"></path>
+          <!-- ============ HEEL PULL TAB ============ -->
+          <path d="M276 850 Q278 838 286 836 Q294 836 294 844 L292 852 Z"
+                fill="#FAF1D8" stroke="#0F1417" stroke-width="1.2"></path>
+
+          <!-- ============ HEEL COUNTER (vertical seam at back) ============ -->
+          <path d="M286 858 Q290 870 290 882" stroke="#0F1417" stroke-width="1.2" opacity="0.85"></path>
+          <!-- Heel logo strip -->
+          <path d="M260 870 L284 868" stroke="#FAF1D8" stroke-width="1" opacity="0.85"></path>
         </g>
 
-        <!-- ============ FRONT SHOE (offset right + slightly down · cream upper) ============ -->
-        <g transform="translate(78 14)">
-          <!-- Whole shoe silhouette -->
-          <path d="M156 870
-                   Q150 854 156 842
-                   Q160 830 174 826
-                   L186 826
-                   L188 836
-                   L210 838
-                   L210 868
-                   L218 868
-                   L220 836
-                   L228 832
-                   Q236 830 244 836
-                   Q254 844 260 854
-                   L286 858
-                   Q298 858 300 866
-                   L300 882
-                   Q298 894 286 896
-                   L162 896
-                   Q150 894 148 884
-                   Z"
-                fill="#FAF1D8" stroke="#0F1417" stroke-width="2.2"></path>
-
-          <!-- Outsole strip -->
-          <path d="M148 888
-                   L300 888
-                   L300 882
-                   Q298 894 286 896
-                   L162 896
-                   Q150 894 148 884
-                   Z"
+        <!-- ============ FRONT SHOE (right + lower, cream upper variant) ============ -->
+        <g transform="translate(58 14)">
+          <!-- OUTSOLE -->
+          <path d="M148 892
+                   Q142 898 150 904
+                   Q160 908 178 906
+                   L260 906
+                   Q282 906 296 902
+                   Q306 898 306 892
+                   Q298 896 280 898
+                   L188 898
+                   Q166 896 148 892 Z"
                 fill="#0F1417" stroke="none"></path>
-          <path d="M168 896 L168 890 M188 896 L188 890 M210 896 L210 890 M232 896 L232 890 M254 896 L254 890 M276 896 L276 890"
-                stroke="#FAF1D8" stroke-width="0.9" opacity="0.85"></path>
+          <path d="M170 902 L170 906" stroke="#FAF1D8" stroke-width="0.6"></path>
+          <path d="M188 904 L188 907" stroke="#FAF1D8" stroke-width="0.6"></path>
+          <path d="M206 904 L206 907" stroke="#FAF1D8" stroke-width="0.6"></path>
+          <path d="M224 904 L224 907" stroke="#FAF1D8" stroke-width="0.6"></path>
+          <path d="M242 904 L242 907" stroke="#FAF1D8" stroke-width="0.6"></path>
+          <path d="M260 904 L260 907" stroke="#FAF1D8" stroke-width="0.6"></path>
+          <path d="M278 903 L278 906" stroke="#FAF1D8" stroke-width="0.6"></path>
+          <path d="M214 900 L218 907" stroke="#FAF1D8" stroke-width="0.9"></path>
 
-          <!-- Midsole layer top edge -->
-          <path d="M155 870
-                   Q170 868 188 868
-                   L210 868
-                   L218 868
-                   L260 870
-                   Q280 872 296 868"
-                stroke="#0F1417" stroke-width="1.6" fill="none"></path>
-          <path d="M180 882 Q220 878 260 882" stroke="#0F1417" stroke-width="1" opacity="0.55" fill="none"></path>
+          <!-- MIDSOLE (paper-shade variant) -->
+          <path d="M148 882
+                   Q140 884 138 890
+                   Q138 896 148 898
+                   L168 900
+                   L262 900
+                   Q284 900 298 898
+                   Q310 894 310 882
+                   Q310 866 300 858
+                   Q294 854 286 856
+                   Q278 858 272 864
+                   L256 868
+                   Q220 872 184 878
+                   Q166 880 148 882 Z"
+                fill="#EDE6D5" stroke="#0F1417" stroke-width="1.8"></path>
+          <path d="M150 892 Q230 894 304 892" stroke="#0F1417" stroke-width="0.6" opacity="0.55"></path>
+          <path d="M168 884 Q224 880 290 880" stroke="#0F1417" stroke-width="0.5" opacity="0.4"></path>
+          <path d="M178 886 Q230 884 280 886" stroke="#0E5347" stroke-width="0.8" opacity="0.85"></path>
+          <path d="M268 868 Q270 862 278 858" stroke="#0F1417" stroke-width="0.7" opacity="0.55" fill="none"></path>
 
-          <!-- Upper (cream stays as base, subtle paper-shade tint inset for visual difference) -->
-          <path d="M156 868
-                   Q150 854 156 842
-                   Q160 830 174 826
-                   L186 826
-                   L188 836
-                   L210 838
-                   L210 868
-                   Q188 868 170 868
-                   Z"
-                fill="#EDE6D5" stroke="#0F1417" stroke-width="2"></path>
-          <path d="M218 868
-                   L220 836
-                   L228 832
-                   Q236 830 244 836
-                   Q254 844 260 854
-                   L286 858
-                   Q298 858 300 866
-                   L296 868
-                   Q260 870 218 868
-                   Z"
-                fill="#EDE6D5" stroke="#0F1417" stroke-width="2"></path>
+          <!-- UPPER (cream variant, same silhouette) -->
+          <path d="M148 880
+                   Q138 868 144 856
+                   Q150 850 162 846
+                   L184 840
+                   Q200 836 214 836
+                   Q220 836 220 846
+                   L220 854
+                   L232 854
+                   L234 846
+                   Q238 836 252 832
+                   Q272 828 282 838
+                   Q286 842 286 850
+                   Q294 850 296 858
+                   Q302 866 300 876
+                   L298 882
+                   L284 882
+                   L162 882
+                   L148 880 Z"
+                fill="#FAF1D8" stroke="#0F1417" stroke-width="1.8"></path>
 
-          <!-- Heel pull tab (cream loop) -->
-          <path d="M158 838
-                   Q150 826 158 820
-                   Q170 816 178 824
-                   Q180 832 174 840
-                   Z"
-                fill="#FAF1D8" stroke="#0F1417" stroke-width="1.6"></path>
-          <path d="M164 826 Q170 822 174 828" stroke="#0F1417" stroke-width="0.9" opacity="0.75"></path>
+          <!-- Mesh dots -->
+          <g stroke="#0F1417" stroke-width="0.5" opacity="0.45">
+            <circle cx="160" cy="868" r="0.4" fill="#0F1417"></circle>
+            <circle cx="166" cy="864" r="0.4" fill="#0F1417"></circle>
+            <circle cx="172" cy="860" r="0.4" fill="#0F1417"></circle>
+            <circle cx="178" cy="856" r="0.4" fill="#0F1417"></circle>
+            <circle cx="184" cy="852" r="0.4" fill="#0F1417"></circle>
+            <circle cx="190" cy="848" r="0.4" fill="#0F1417"></circle>
+            <circle cx="166" cy="872" r="0.4" fill="#0F1417"></circle>
+            <circle cx="172" cy="868" r="0.4" fill="#0F1417"></circle>
+            <circle cx="178" cy="864" r="0.4" fill="#0F1417"></circle>
+            <circle cx="184" cy="860" r="0.4" fill="#0F1417"></circle>
+            <circle cx="190" cy="856" r="0.4" fill="#0F1417"></circle>
+            <circle cx="172" cy="876" r="0.4" fill="#0F1417"></circle>
+            <circle cx="178" cy="872" r="0.4" fill="#0F1417"></circle>
+            <circle cx="184" cy="868" r="0.4" fill="#0F1417"></circle>
+            <circle cx="190" cy="864" r="0.4" fill="#0F1417"></circle>
+          </g>
 
-          <!-- Tongue (cream) -->
-          <path d="M210 836
-                   L210 866
-                   L218 866
-                   L218 834
-                   Q214 828 210 836
-                   Z"
-                fill="#FAF1D8" stroke="#0F1417" stroke-width="1.4"></path>
+          <path d="M194 846 Q196 866 196 882" stroke="#0F1417" stroke-width="0.7" opacity="0.5"></path>
+          <path d="M256 838 Q260 866 262 882" stroke="#0F1417" stroke-width="0.7" opacity="0.5"></path>
 
-          <!-- Laces (dark bars against cream upper for max contrast) -->
-          <path d="M210 842 L242 842" stroke="#0F1417" stroke-width="2.2" stroke-linecap="round"></path>
-          <path d="M210 850 L248 850" stroke="#0F1417" stroke-width="2.2" stroke-linecap="round"></path>
-          <path d="M210 858 L254 858" stroke="#0F1417" stroke-width="2.2" stroke-linecap="round"></path>
-          <path d="M210 866 L258 866" stroke="#0F1417" stroke-width="2.2" stroke-linecap="round"></path>
+          <!-- TONGUE (small, tucked) -->
+          <path d="M220 854 L222 842 L232 842 L232 852 Z"
+                fill="#EDE6D5" stroke="#0F1417" stroke-width="1"></path>
 
-          <!-- Swoosh (emerald sweep across cream upper — the brand-color accent) -->
-          <path d="M170 862
-                   Q220 838 290 858
-                   L292 866
-                   Q220 850 170 870
-                   Z"
-                fill="#0E5347" stroke="#0F1417" stroke-width="1.1"></path>
+          <!-- SWOOSH (emerald against cream) -->
+          <path d="M168 878
+                   Q198 858 246 852
+                   Q272 850 286 858
+                   L284 866
+                   Q268 856 246 860
+                   Q210 866 180 880 Z"
+                fill="#0E5347" stroke="#0F1417" stroke-width="0.7"></path>
 
-          <!-- Heel counter seam -->
-          <path d="M180 850 L180 870" stroke="#0F1417" stroke-width="1.1" opacity="0.7"></path>
-          <!-- Toe cap -->
-          <path d="M276 858 Q286 856 294 862" stroke="#0F1417" stroke-width="1.1" opacity="0.7" fill="none"></path>
+          <!-- LACES (dark on cream) -->
+          <g>
+            <circle cx="218" cy="850" r="0.7" fill="#0F1417"></circle>
+            <circle cx="234" cy="846" r="0.7" fill="#0F1417"></circle>
+            <circle cx="220" cy="858" r="0.7" fill="#0F1417"></circle>
+            <circle cx="236" cy="854" r="0.7" fill="#0F1417"></circle>
+            <circle cx="222" cy="866" r="0.7" fill="#0F1417"></circle>
+            <circle cx="238" cy="862" r="0.7" fill="#0F1417"></circle>
+            <circle cx="224" cy="874" r="0.7" fill="#0F1417"></circle>
+            <circle cx="240" cy="870" r="0.7" fill="#0F1417"></circle>
+            <path d="M218 850 L236 854" stroke="#0F1417" stroke-width="1.2"></path>
+            <path d="M234 846 L220 858" stroke="#0F1417" stroke-width="1.2"></path>
+            <path d="M220 858 L238 862" stroke="#0F1417" stroke-width="1.2"></path>
+            <path d="M236 854 L222 866" stroke="#0F1417" stroke-width="1.2"></path>
+            <path d="M222 866 L240 870" stroke="#0F1417" stroke-width="1.2"></path>
+            <path d="M238 862 L224 874" stroke="#0F1417" stroke-width="1.2"></path>
+          </g>
+
+          <!-- HEEL PULL TAB -->
+          <path d="M276 850 Q278 838 286 836 Q294 836 294 844 L292 852 Z"
+                fill="#EDE6D5" stroke="#0F1417" stroke-width="1.2"></path>
+
+          <!-- HEEL COUNTER -->
+          <path d="M286 858 Q290 870 290 882" stroke="#0F1417" stroke-width="1.2" opacity="0.85"></path>
+          <path d="M260 870 L284 868" stroke="#0E5347" stroke-width="1" opacity="0.85"></path>
         </g>
       </g>
 
