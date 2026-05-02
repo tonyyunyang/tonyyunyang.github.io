@@ -8,91 +8,91 @@
         "label": "Laptop",
         "x": 50.0,
         "y": 64.5,
-        "note": "Where the LLM Router commits get made. Usually around midnight, with bad lo-fi and the desk lamp turned all the way down."
+        "note": "Where most of the research code gets written. Usually late, lo-fi in the background, the desk lamp turned all the way down."
       },
       {
         "id": "notebook",
         "label": "Notebook",
         "x": 41.0,
         "y": 67.5,
-        "note": "A new one every quarter. Most of the good ideas live here before they live in any repo. Half the pages are unreadable."
+        "note": "A new one every quarter. Most of the good ideas live here before they live in any repo."
       },
       {
         "id": "coffee",
         "label": "Coffee",
         "x": 58.5,
         "y": 65.0,
-        "note": "Filter, black, no sugar. Always cold by the time I notice it."
+        "note": "Filter, black, no sugar. Almost always cold by the time I remember it."
       },
       {
         "id": "candle",
         "label": "Candle",
         "x": 64.0,
         "y": 64.5,
-        "note": "For the things I'm not yet ready to write about. I light it when a paper is stuck."
+        "note": "Lit when a paper is stuck. Useful as a focus timer, useful as an excuse to slow down."
       },
       {
         "id": "rings",
         "label": "Wedding ring",
         "x": 36.5,
         "y": 70.0,
-        "note": "Married to the love of my life. The first co-author who never asks for revisions."
+        "note": "Married to the love of my life. The best co-author I have."
       },
       {
         "id": "window",
         "label": "Window · canal",
         "x": 51.0,
         "y": 28.0,
-        "note": "The Brouwersgracht, on a clear night when you can see the gables across the water. Most of the running routes start by following it east."
+        "note": "The Brouwersgracht. On clear nights you can see the gables across the water. Most of my running routes start by following it east."
       },
       {
         "id": "books",
         "label": "Books",
         "x": 17.0,
         "y": 50.0,
-        "note": "A short stack of paper drafts and Le Guin essays. Always re-reading: Borges, On Photography, Calvino."
+        "note": "Sartre on the desk. Boom Latinoamericano on the shelf, especially Borges. A short stack of paper drafts on top of everything."
       },
       {
         "id": "medal",
         "label": "Half marathon medal",
         "x": 24.5,
         "y": 35.0,
-        "note": "1:43:53 in Amsterdam, October 2024. The medal isn't the point. The km-8 part is."
+        "note": "1:43:53 in Amsterdam, October 2024. Mostly there to remind me that the long, boring middle of anything is where the good ideas show up."
       },
       {
         "id": "shoes",
         "label": "Running shoes",
         "x": 15.0,
         "y": 89.0,
-        "note": "Saucony Endorphin Pros, on their second resole. Most ideas show up around km 8, somewhere between Vondelpark and the Amstel."
+        "note": "On their second resole. Most weeks they cover the loop from Vondelpark to the Amstel and back."
       },
       {
         "id": "cat",
-        "label": "The cat (planned)",
+        "label": "瓜子 · the cat (planned)",
         "x": 23.0,
         "y": 83.0,
-        "note": "We're planning to adopt a cat. The chair is already reserved. So is the corner of the desk."
+        "note": "Future cat, name already chosen: 瓜子 (sunflower seeds), because I cannot stop snacking on them. The chair is already reserved. So is the corner of the desk."
       },
       {
         "id": "tennis",
-        "label": "Tennis racket",
+        "label": "Tennis rackets · Pure Drive + Blade",
         "x": 90.5,
         "y": 75.0,
-        "note": "Saturday mornings, public courts in Westerpark. Mostly losing, but it's the right kind of losing."
+        "note": "Two rackets. The Pure Drive is the easy one (mine, mostly). The Blade kills the wrist but unlocks the most when you find the sweet spot. That one belongs to my wife. Saturday mornings on the public courts."
       },
       {
         "id": "stove",
-        "label": "Pot on stove",
+        "label": "Wok · Sichuan stir-fry",
         "x": 81.0,
         "y": 65.0,
-        "note": "I cook for family on Sundays. Mostly Chinese, mostly experimental: yu choy, garlic, ginger, soy. Reset button at the end of any week."
+        "note": "I'm from Sichuan, so the spice is in the blood. No pot, no slow simmer: just the wok, high heat, garlic, chili, doubanjiang, the things that announce themselves on the first breath."
       },
       {
         "id": "plant",
-        "label": "Monstera",
+        "label": "Tulips",
         "x": 88.0,
         "y": 38.0,
-        "note": "Fourth one. The previous three did not make it. This one is determined."
+        "note": "Different colors, restocked every spring at the Bloemenmarkt. My wife and I once filled the apartment with them. The Dutch spring without tulips wouldn't be the Dutch spring."
       }
     ]
   }

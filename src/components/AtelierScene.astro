@@ -382,32 +382,78 @@ const allNotes = objects.filter(
         <path d="M1058 358 H1130" stroke-width="0.4" stroke-dasharray="2 2" opacity="0.5"></path>
       </g>
 
-      <!-- Running shoes (on floor, just left of rug) — larger, more characterful -->
+      <!-- Running shoes (side-profile, two paired on the floor — clear double-peak silhouette) -->
       <g stroke="#0f1417" stroke-linecap="round" stroke-linejoin="round" fill="none">
-        <!-- Right shoe (back, slightly turned) -->
-        <path d="M168 870 Q176 850 204 848 L256 848 Q278 850 282 864 Q284 878 274 884 L194 886 Q170 884 168 870 Z" fill="#0E5347" stroke-width="1.8" opacity="0.92"></path>
-        <!-- Right shoe sole -->
-        <path d="M170 880 Q210 876 282 876" stroke-width="1.2" fill="none"></path>
-        <!-- Right shoe toe accent -->
-        <path d="M196 856 Q208 854 220 858 L222 868 L198 868 Z" fill="#FAF1D8" opacity="0.9" stroke-width="0.8"></path>
-        <!-- Right laces -->
-        <path d="M226 856 Q240 854 252 858 M228 862 Q242 860 254 864 M230 868 Q244 866 256 870" stroke="#FAF1D8" stroke-width="0.9" fill="none"></path>
-        <!-- Right heel cup -->
-        <path d="M270 854 L276 866 L268 870" stroke="#FAF1D8" stroke-width="0.7" fill="none"></path>
 
-        <!-- Left shoe (front, fully visible) -->
-        <path d="M178 884 Q184 866 214 866 L274 868 Q298 870 304 882 Q306 896 294 902 L210 902 Q180 900 178 884 Z" fill="#FAF1D8" stroke-width="1.8"></path>
-        <!-- Left shoe sole stripe -->
-        <path d="M180 894 Q220 890 304 892" stroke-width="1.4" fill="none"></path>
-        <path d="M184 898 Q220 894 300 896" stroke-width="0.6" fill="none" opacity="0.6"></path>
-        <!-- Left toe box separation -->
-        <path d="M218 866 Q224 884 222 902" stroke-width="0.7" fill="none" opacity="0.65"></path>
-        <!-- Left laces (pattern) -->
-        <path d="M232 874 Q246 870 260 874 M234 882 Q248 878 262 882 M236 890 Q250 886 264 890" stroke-width="1.1" fill="none"></path>
-        <!-- Left logo swoosh (subtle) -->
-        <path d="M276 880 Q284 876 290 882" stroke="#0E5347" stroke-width="1.4" fill="none"></path>
-        <!-- Left heel detail -->
-        <path d="M286 870 L292 884" stroke-width="0.7" fill="none" opacity="0.7"></path>
+        <!-- Shoe B (behind / left): emerald upper -->
+        <!-- Upper silhouette: toe peak → instep dip → tongue → collar peak → heel curve down -->
+        <path d="M156 884
+                 Q150 872 164 858
+                 Q176 852 188 854
+                 L204 858
+                 Q218 866 226 874
+                 L240 874
+                 Q254 866 268 854
+                 L284 856
+                 Q298 858 300 870
+                 Q302 880 296 884
+                 Z"
+              fill="#0E5347" opacity="0.95" stroke-width="1.6"></path>
+        <!-- Midsole (cream foam slab) -->
+        <path d="M152 884 L302 884 Q306 892 296 894 L162 894 Q148 892 152 884 Z" fill="#FAF1D8" stroke-width="1.4"></path>
+        <!-- Outsole (dark rubber strip) -->
+        <rect x="160" y="892" width="138" height="3" fill="#0f1417" stroke-width="0.4"></rect>
+        <!-- Toe box seam -->
+        <path d="M168 880 Q176 868 188 858" stroke="#FAF1D8" stroke-width="0.6" opacity="0.7"></path>
+        <!-- Tongue / lace area -->
+        <path d="M212 868 Q224 858 240 856 Q254 856 256 868" stroke="#FAF1D8" stroke-width="0.7" opacity="0.75"></path>
+        <!-- Laces (3 horizontal pairs across the saddle) -->
+        <path d="M218 868 Q230 866 244 868 M220 874 Q232 872 246 874 M222 880 Q234 878 248 880" stroke="#FAF1D8" stroke-width="0.9" opacity="0.9"></path>
+        <!-- Eyelets -->
+        <circle cx="216" cy="868" r="0.7" fill="#FAF1D8" stroke="none"></circle>
+        <circle cx="248" cy="868" r="0.7" fill="#FAF1D8" stroke="none"></circle>
+        <!-- Heel cup detail -->
+        <path d="M278 858 Q288 866 296 880" stroke="#FAF1D8" stroke-width="0.7" opacity="0.65"></path>
+        <!-- Pull tab on heel -->
+        <path d="M286 854 L290 850 L294 854" stroke-width="0.9" opacity="0.85"></path>
+        <!-- Swoosh stripe (cream against emerald, swept long curve) -->
+        <path d="M188 884 Q224 870 280 884" stroke="#FAF1D8" stroke-width="2.2"></path>
+
+        <!-- Shoe A (front / right): paper upper, emerald swoosh — overlaps slightly behind shoe B -->
+        <g transform="translate(28 12)">
+          <!-- Upper silhouette -->
+          <path d="M156 884
+                   Q150 872 164 858
+                   Q176 852 188 854
+                   L204 858
+                   Q218 866 226 874
+                   L240 874
+                   Q254 866 268 854
+                   L284 856
+                   Q298 858 300 870
+                   Q302 880 296 884
+                   Z"
+                fill="#FAF1D8" stroke-width="1.6"></path>
+          <!-- Midsole (paper-shade foam slab) -->
+          <path d="M152 884 L302 884 Q306 892 296 894 L162 894 Q148 892 152 884 Z" fill="#EDE6D5" stroke-width="1.4"></path>
+          <!-- Outsole (dark rubber) -->
+          <rect x="160" y="892" width="138" height="3" fill="#0f1417" stroke-width="0.4"></rect>
+          <!-- Toe box seam -->
+          <path d="M168 880 Q176 868 188 858" stroke-width="0.7" opacity="0.65"></path>
+          <!-- Tongue / lace area -->
+          <path d="M212 868 Q224 858 240 856 Q254 856 256 868" stroke-width="0.8" opacity="0.7"></path>
+          <!-- Laces -->
+          <path d="M218 868 Q230 866 244 868 M220 874 Q232 872 246 874 M222 880 Q234 878 248 880" stroke-width="1" opacity="0.85"></path>
+          <!-- Eyelets -->
+          <circle cx="216" cy="868" r="0.7" fill="#0f1417" stroke="none"></circle>
+          <circle cx="248" cy="868" r="0.7" fill="#0f1417" stroke="none"></circle>
+          <!-- Heel cup detail -->
+          <path d="M278 858 Q288 866 296 880" stroke-width="0.7" opacity="0.65"></path>
+          <!-- Pull tab -->
+          <path d="M286 854 L290 850 L294 854" stroke-width="0.9" opacity="0.85"></path>
+          <!-- Swoosh stripe (emerald, swept long) -->
+          <path d="M188 884 Q224 870 280 884" stroke="#0E5347" stroke-width="2.4"></path>
+        </g>
       </g>
 
       <!-- =================================================== -->
@@ -673,25 +719,44 @@ const allNotes = objects.filter(
         <rect x="1406" y="500" width="12" height="20" fill="#EDE6D5" stroke-width="0.7"></rect>
       </g>
 
-      <!-- Pot on stove (with steam, cooking) -->
+      <!-- Wok on stove (Sichuan stir-fry — open, mid-toss, long wood handle) -->
       <g stroke="#0f1417" stroke-linecap="round" stroke-linejoin="round" fill="none">
-        <!-- Stove burner outline -->
-        <ellipse cx="1240" cy="694" rx="50" ry="6" fill="#0f1417" opacity="0.4"></ellipse>
-        <circle cx="1240" cy="694" r="32" fill="none" stroke-width="0.6" opacity="0.6"></circle>
-        <!-- Pot body -->
-        <path d="M1198 670 L1206 692 Q1210 696 1216 696 L1264 696 Q1270 696 1274 692 L1282 670 Z" fill="#0f1417" opacity="0.9" stroke-width="1.4"></path>
-        <!-- Pot lid -->
-        <path d="M1198 670 H1282" stroke-width="1.2"></path>
-        <path d="M1196 666 H1284" stroke-width="1.2"></path>
-        <!-- Lid handle -->
-        <circle cx="1240" cy="660" r="4" fill="#FAF1D8" stroke-width="1"></circle>
-        <!-- Pot handles -->
-        <path d="M1198 670 L1188 666 L1186 672" stroke-width="1"></path>
-        <path d="M1282 670 L1292 666 L1294 672" stroke-width="1"></path>
-        <!-- Steam -->
-        <path d="M1216 660 Q1212 644 1220 628 Q1228 614 1220 596" stroke-width="1" opacity="0.7"></path>
-        <path d="M1240 660 Q1244 644 1238 628 Q1232 614 1240 596" stroke-width="1" opacity="0.6"></path>
-        <path d="M1262 660 Q1258 644 1264 628 Q1270 614 1264 600" stroke-width="1" opacity="0.65"></path>
+        <!-- Stove burner outline (visible flame ring) -->
+        <ellipse cx="1240" cy="700" rx="58" ry="6" fill="#0f1417" opacity="0.4"></ellipse>
+        <circle cx="1240" cy="700" r="36" fill="none" stroke-width="0.6" opacity="0.55"></circle>
+        <!-- Tiny flames licking up -->
+        <path d="M1212 696 Q1210 690 1214 686 Q1218 690 1216 696" stroke-width="0.6" stroke="#0E5347" opacity="0.8"></path>
+        <path d="M1268 696 Q1266 690 1270 686 Q1274 690 1272 696" stroke-width="0.6" stroke="#0E5347" opacity="0.8"></path>
+        <!-- Wok bowl: wide, shallow, slightly tilted (mid-toss) -->
+        <path d="M1184 670 Q1186 700 1226 706 Q1262 706 1296 700 Q1300 670 1280 668 Q1240 670 1200 668 Q1186 668 1184 670 Z" fill="#0f1417" opacity="0.92" stroke-width="1.6"></path>
+        <!-- Inner rim hint -->
+        <path d="M1196 672 Q1240 678 1288 672" stroke-width="0.7" stroke="#FAF1D8" opacity="0.45"></path>
+        <!-- Long wooden handle (right side, angled up) -->
+        <path d="M1296 686 L1352 666 Q1358 664 1362 670 L1306 692 Q1300 692 1296 686 Z" fill="#EDE6D5" stroke-width="1.4"></path>
+        <path d="M1314 678 L1352 668 M1318 686 L1352 672" stroke-width="0.4" opacity="0.55"></path>
+        <!-- Stir-fry contents tossed up: dried chilis + Sichuan peppercorns + ginger flecks -->
+        <!-- Long dried chili silhouette (mid-toss, far) -->
+        <path d="M1212 656 Q1206 644 1210 636 Q1216 628 1224 632 Q1228 638 1226 646 Q1222 656 1216 660 Q1212 660 1212 656 Z" fill="#0E5347" stroke-width="0.8" opacity="0.95"></path>
+        <!-- Long dried chili (mid-toss, center) -->
+        <path d="M1238 638 Q1234 626 1240 618 Q1248 612 1254 620 Q1256 628 1252 638 Q1248 648 1242 646 Q1238 644 1238 638 Z" fill="#0E5347" stroke-width="0.8" opacity="0.95"></path>
+        <!-- Long dried chili (mid-toss, near) -->
+        <path d="M1262 654 Q1260 644 1268 638 Q1274 634 1278 640 Q1280 648 1274 656 Q1268 662 1264 660 Q1262 658 1262 654 Z" fill="#0E5347" stroke-width="0.8" opacity="0.92"></path>
+        <!-- Garlic clove (paper-shade fill) -->
+        <ellipse cx="1232" cy="664" rx="3" ry="4" fill="#FAF1D8" stroke-width="0.6"></ellipse>
+        <!-- Sichuan peppercorn dots scattered -->
+        <circle cx="1220" cy="664" r="1.2" fill="#0E5347" stroke="none"></circle>
+        <circle cx="1244" cy="668" r="1" fill="#0E5347" stroke="none"></circle>
+        <circle cx="1258" cy="664" r="1.1" fill="#0E5347" stroke="none"></circle>
+        <circle cx="1272" cy="668" r="0.9" fill="#0E5347" stroke="none"></circle>
+        <circle cx="1232" cy="654" r="0.8" fill="#0f1417" opacity="0.7" stroke="none"></circle>
+        <circle cx="1264" cy="640" r="0.7" fill="#0f1417" opacity="0.7" stroke="none"></circle>
+        <!-- Spark / flick of oil -->
+        <path d="M1250 626 L1252 622 M1226 622 L1224 618 M1278 632 L1282 630" stroke="#0E5347" stroke-width="0.6" opacity="0.7"></path>
+        <!-- Steam wisps (more vigorous, stir-fry style) -->
+        <path d="M1206 660 Q1200 644 1208 628 Q1216 612 1208 594" stroke-width="0.9" opacity="0.7"></path>
+        <path d="M1232 656 Q1238 640 1230 624 Q1222 608 1232 590" stroke-width="0.9" opacity="0.65"></path>
+        <path d="M1260 658 Q1254 642 1262 626 Q1270 612 1264 600" stroke-width="0.9" opacity="0.7"></path>
+        <path d="M1284 660 Q1280 646 1286 632" stroke-width="0.7" opacity="0.55"></path>
       </g>
 
       <!-- Knife block (on counter, right side) -->
@@ -706,34 +771,87 @@ const allNotes = objects.filter(
         <rect x="1382" y="652" width="6" height="16" fill="#FAF1D8" stroke-width="0.7"></rect>
       </g>
 
-      <!-- Plant (Monstera) on top of cabinet right side -->
+      <!-- Tulips (NL spring, different colors) on top of cabinet right side -->
       <g stroke="#0f1417" stroke-linecap="round" stroke-linejoin="round" fill="none">
-        <!-- Pot -->
-        <path d="M1396 444 L1404 466 L1444 466 L1452 444 Z" fill="#FAF1D8" stroke-width="1.4"></path>
-        <path d="M1396 444 H1452" stroke-width="0.6" opacity="0.6"></path>
-        <!-- Stems -->
-        <path d="M1416 444 Q1414 412 1408 380 M1428 444 Q1432 412 1438 384 M1424 444 Q1422 420 1418 396" stroke-width="1"></path>
-        <!-- Leaves (Monstera-style with notches) -->
-        <path d="M1408 380 Q1390 372 1380 354 Q1376 348 1382 344 Q1394 348 1402 358 M1408 380 Q1394 358 1402 344 Q1414 350 1416 366 M1408 380 Q1410 360 1404 350 Q1418 354 1422 372" fill="#0E5347" stroke-width="1.2" opacity="0.9"></path>
-        <path d="M1438 384 Q1428 366 1438 350 Q1454 354 1460 372 Q1458 380 1444 384 M1438 384 Q1454 370 1462 374 Q1466 388 1454 396 M1438 384 Q1450 380 1456 388" fill="#0E5347" stroke-width="1.2" opacity="0.9"></path>
-        <path d="M1418 396 Q1408 388 1408 380 Q1426 384 1428 396" fill="#0E5347" stroke-width="1" opacity="0.8"></path>
-        <!-- Leaf veins -->
-        <path d="M1408 380 Q1404 376 1394 360 M1408 380 Q1414 372 1418 366 M1438 384 Q1442 380 1452 372" stroke="#0f1417" stroke-width="0.5" opacity="0.7"></path>
+        <!-- Vase (slim, ceramic) -->
+        <path d="M1396 444 L1404 470 L1448 470 L1456 444 Z" fill="#FAF1D8" stroke-width="1.4"></path>
+        <path d="M1396 444 H1456" stroke-width="0.6" opacity="0.6"></path>
+        <path d="M1402 462 H1450" stroke-width="0.4" opacity="0.45"></path>
+        <!-- Water-line in vase -->
+        <path d="M1404 452 Q1426 454 1448 452" stroke-width="0.4" opacity="0.4"></path>
+
+        <!-- Stems (5 thin stems from vase) -->
+        <path d="M1410 446 Q1408 414 1410 384" stroke-width="1.1"></path>
+        <path d="M1420 446 Q1418 410 1416 378" stroke-width="1.1"></path>
+        <path d="M1428 446 Q1430 412 1430 380" stroke-width="1.1"></path>
+        <path d="M1436 446 Q1438 418 1438 390" stroke-width="1.1"></path>
+        <path d="M1448 446 Q1450 416 1450 386" stroke-width="1.1"></path>
+
+        <!-- Leaves attached to stems (long blade-like) -->
+        <path d="M1410 420 Q1402 416 1398 408 Q1402 414 1410 416" fill="#0E5347" stroke-width="0.8" opacity="0.85"></path>
+        <path d="M1430 420 Q1438 414 1444 406 Q1438 416 1430 418" fill="#0E5347" stroke-width="0.8" opacity="0.85"></path>
+        <path d="M1418 432 Q1410 428 1404 420" stroke-width="0.7" opacity="0.7"></path>
+        <path d="M1440 430 Q1448 426 1452 418" stroke-width="0.7" opacity="0.7"></path>
+
+        <!-- Tulip 1: red (filled ink, deepest tone) -->
+        <path d="M1410 384 Q1400 380 1402 372 Q1404 366 1410 366 Q1416 366 1418 372 Q1420 380 1410 384 Z" fill="#0f1417" stroke-width="1.1" opacity="0.92"></path>
+        <path d="M1406 372 Q1410 376 1414 372" stroke-width="0.4" opacity="0.7" stroke="#FAF1D8"></path>
+
+        <!-- Tulip 2: emerald (paper-shade fill with emerald rim — open bloom) -->
+        <path d="M1416 378 Q1408 374 1410 366 Q1412 358 1418 358 Q1424 358 1426 366 Q1428 374 1416 378 Z" fill="#0E5347" stroke-width="1.1" opacity="0.95"></path>
+        <path d="M1414 365 Q1418 369 1422 365" stroke-width="0.4" opacity="0.6" stroke="#FAF1D8"></path>
+
+        <!-- Tulip 3: cream-yellow (paper-fill with hatched petals for visible pattern) -->
+        <path d="M1430 380 Q1420 376 1422 366 Q1424 356 1430 356 Q1436 356 1438 366 Q1440 376 1430 380 Z" fill="#FAF1D8" stroke-width="1.2"></path>
+        <path d="M1424 368 L1428 360 M1430 368 L1430 358 M1432 368 L1436 360" stroke-width="0.5" opacity="0.55"></path>
+
+        <!-- Tulip 4: rose / pink (paper-shade with cross-hatch fill for warmer tone) -->
+        <path d="M1438 390 Q1430 386 1432 378 Q1434 370 1440 370 Q1446 370 1448 378 Q1450 386 1438 390 Z" fill="url(#hatchSoft)" stroke-width="1.2"></path>
+        <path d="M1438 390 Q1430 386 1432 378 Q1434 370 1440 370 Q1446 370 1448 378 Q1450 386 1438 390 Z" stroke-width="1.2" fill="none"></path>
+        <path d="M1436 378 Q1440 382 1444 376" stroke-width="0.5" opacity="0.7"></path>
+
+        <!-- Tulip 5: white (paper-fill with vertical stripe hatching for striped tulip) -->
+        <path d="M1450 386 Q1442 382 1444 374 Q1446 366 1452 366 Q1458 366 1460 374 Q1462 382 1450 386 Z" fill="#FAF1D8" stroke-width="1.2"></path>
+        <path d="M1448 370 L1448 384 M1452 368 L1452 386 M1456 370 L1456 384" stroke-width="0.5" opacity="0.55"></path>
+
+        <!-- Tiny pollen dots floating -->
+        <circle cx="1402" cy="356" r="0.6" fill="#0E5347" opacity="0.6" stroke="none"></circle>
+        <circle cx="1462" cy="358" r="0.5" fill="#0E5347" opacity="0.5" stroke="none"></circle>
+        <circle cx="1422" cy="346" r="0.5" fill="#0E5347" opacity="0.5" stroke="none"></circle>
       </g>
 
-      <!-- Tennis racket leaning against right wall -->
-      <g stroke="#0f1417" stroke-linecap="round" stroke-linejoin="round" fill="none">
-        <!-- Frame -->
-        <ellipse cx="1444" cy="784" rx="22" ry="32" stroke-width="1.6" fill="#FAF1D8" transform="rotate(15 1444 784)"></ellipse>
-        <!-- Strings (vertical + horizontal) -->
-        <g transform="rotate(15 1444 784)">
-          <path d="M1428 758 V810 M1436 754 V814 M1444 752 V816 M1452 754 V814 M1460 758 V810" stroke-width="0.5" opacity="0.7"></path>
-          <path d="M1424 768 H1464 M1424 776 H1464 M1424 784 H1464 M1424 792 H1464 M1424 800 H1464" stroke-width="0.5" opacity="0.7"></path>
-        </g>
+      <!-- Tennis rackets (a pair: Pure Drive + Blade — moved left + slightly larger so heads separate from the cabinet edge) -->
+      <!-- Racket 1: Pure Drive (emerald accent — easy + friendly), tilted left -->
+      <g stroke="#0f1417" stroke-linecap="round" stroke-linejoin="round" fill="none" transform="rotate(-14 1396 800)">
+        <ellipse cx="1396" cy="776" rx="22" ry="30" stroke-width="1.6" fill="#FAF1D8"></ellipse>
+        <ellipse cx="1396" cy="776" rx="17" ry="25" stroke-width="0.6" fill="none" opacity="0.55"></ellipse>
+        <!-- Strings -->
+        <path d="M1380 758 V796 M1388 752 V800 M1396 750 V802 M1404 752 V800 M1412 758 V796" stroke-width="0.5" opacity="0.7"></path>
+        <path d="M1378 764 H1414 M1378 776 H1414 M1378 788 H1414" stroke-width="0.5" opacity="0.7"></path>
+        <!-- Throat (Y-yoke) -->
+        <path d="M1390 806 Q1396 814 1402 806" stroke-width="1.4"></path>
+        <path d="M1396 814 L1396 858" stroke-width="1.6"></path>
+        <!-- Handle (emerald grip wrap) -->
+        <rect x="1391" y="818" width="10" height="42" fill="#0E5347" opacity="0.92" stroke-width="0.8"></rect>
+        <path d="M1391 826 H1401 M1391 834 H1401 M1391 842 H1401 M1391 850 H1401" stroke="#FAF1D8" stroke-width="0.4" opacity="0.55"></path>
+        <!-- Brand mark hint -->
+        <path d="M1388 770 Q1396 766 1404 770" stroke-width="0.7" stroke="#0E5347" opacity="0.9"></path>
+      </g>
+      <!-- Racket 2: Blade (dark — serious, full-potential one), tilted right -->
+      <g stroke="#0f1417" stroke-linecap="round" stroke-linejoin="round" fill="none" transform="rotate(20 1438 800)">
+        <ellipse cx="1438" cy="776" rx="22" ry="30" stroke-width="1.8" fill="#0f1417" opacity="0.94"></ellipse>
+        <ellipse cx="1438" cy="776" rx="17" ry="25" stroke-width="0.6" fill="none" stroke="#FAF1D8" opacity="0.55"></ellipse>
+        <!-- Strings (light against dark) -->
+        <path d="M1422 758 V796 M1430 752 V800 M1438 750 V802 M1446 752 V800 M1454 758 V796" stroke="#FAF1D8" stroke-width="0.5" opacity="0.65"></path>
+        <path d="M1420 764 H1456 M1420 776 H1456 M1420 788 H1456" stroke="#FAF1D8" stroke-width="0.5" opacity="0.65"></path>
         <!-- Throat -->
-        <path d="M1448 822 L1452 836 L1454 858" stroke-width="1.4" transform="rotate(15 1452 836)"></path>
-        <!-- Handle -->
-        <rect x="1450" y="818" width="6" height="40" fill="#0f1417" opacity="0.85" stroke-width="0.8" transform="rotate(15 1452 836)"></rect>
+        <path d="M1432 806 Q1438 814 1444 806" stroke-width="1.4"></path>
+        <path d="M1438 814 L1438 858" stroke-width="1.6"></path>
+        <!-- Handle (dark grip) -->
+        <rect x="1433" y="818" width="10" height="42" fill="#0f1417" opacity="0.96" stroke-width="0.8"></rect>
+        <path d="M1433 826 H1443 M1433 834 H1443 M1433 842 H1443 M1433 850 H1443" stroke="#FAF1D8" stroke-width="0.4" opacity="0.4"></path>
+        <!-- Brand mark hint -->
+        <path d="M1430 770 Q1438 766 1446 770" stroke-width="0.7" stroke="#FAF1D8" opacity="0.9"></path>
       </g>
 
       <!-- =================================================== -->

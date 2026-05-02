@@ -1,67 +1,64 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 200" fill="none">
-  <rect width="240" height="200" fill="#F5EFE2"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" fill="none">
+  <rect width="240" height="240" fill="#F5EFE2"/>
   <g stroke="#0F1417" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
     <!-- Outer dashed plate frame -->
-    <rect x="8" y="8" width="224" height="184" stroke-width="0.6" stroke-dasharray="2 3" opacity="0.5"/>
+    <rect x="14" y="14" width="212" height="212" stroke-width="0.6" stroke-dasharray="2 3" opacity="0.5"/>
 
-    <!-- Subtle anatomy contour behind (organ silhouette, dashed) -->
-    <path d="M82 78 Q66 78 66 92 Q66 112 90 130 Q104 140 118 128 Q126 140 142 130 Q166 112 166 92 Q166 78 148 78 Q132 78 124 92 Q114 78 100 78 Q92 76 82 78 Z" stroke-width="0.6" stroke-dasharray="1.5 2.5" opacity="0.32"/>
+    <!-- Subtle organ contour behind (medical anatomy hint) -->
+    <path d="M76 92 Q60 92 60 108 Q60 132 92 152 Q108 162 124 148 Q134 162 152 152 Q188 132 188 108 Q188 92 168 92 Q148 92 138 108 Q126 92 110 92 Q96 90 76 92 Z" stroke-width="0.5" stroke-dasharray="1.4 2.4" opacity="0.28"/>
 
-    <!-- U-Net architecture skeleton -->
-    <!-- IN tag -->
-    <text x="22" y="48" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="6" letter-spacing="0.06em" fill="#4A5159" stroke="none">IN</text>
-    <!-- OUT tag -->
-    <text x="218" y="48" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="6" letter-spacing="0.06em" fill="#4A5159" stroke="none">OUT</text>
+    <!-- IN / OUT labels (well inside safe area) -->
+    <text x="34" y="68" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="6.5" letter-spacing="0.18em" fill="#4A5159" stroke="none">IN</text>
+    <text x="206" y="68" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="6.5" letter-spacing="0.18em" fill="#4A5159" stroke="none">OUT</text>
 
-    <!-- Encoder (descending) -->
-    <rect x="34" y="40" width="16" height="14" stroke-width="0.9" fill="#FAF1D8"/>
-    <rect x="44" y="60" width="14" height="12" stroke-width="0.9" fill="#FAF1D8"/>
-    <rect x="52" y="78" width="12" height="10" stroke-width="0.9" fill="#FAF1D8"/>
-    <rect x="58" y="94" width="10" height="8" stroke-width="0.9" fill="#FAF1D8"/>
+    <!-- Encoder (descending steps, left side) -->
+    <rect x="40" y="74" width="20" height="16" stroke-width="1" fill="#FAF1D8"/>
+    <rect x="50" y="98" width="18" height="14" stroke-width="1" fill="#FAF1D8"/>
+    <rect x="58" y="120" width="16" height="12" stroke-width="1" fill="#FAF1D8"/>
+    <rect x="64" y="140" width="14" height="10" stroke-width="1" fill="#FAF1D8"/>
 
-    <!-- Bottleneck (emerald accent) -->
-    <rect x="104" y="108" width="32" height="22" stroke-width="1.4" fill="#FAF1D8" stroke="#0E5347"/>
+    <!-- Bottleneck (the surviving "core" — emerald) -->
+    <rect x="100" y="156" width="40" height="26" stroke-width="1.6" fill="#FAF1D8" stroke="#0E5347"/>
+    <path d="M108 168 H132 M108 174 H128" stroke="#0E5347" stroke-width="0.5" opacity="0.7"/>
 
-    <!-- Decoder (ascending) -->
-    <rect x="172" y="94" width="10" height="8" stroke-width="0.9" fill="#FAF1D8"/>
-    <rect x="178" y="78" width="12" height="10" stroke-width="0.9" fill="#FAF1D8"/>
-    <rect x="182" y="60" width="14" height="12" stroke-width="0.9" fill="#FAF1D8"/>
-    <rect x="190" y="40" width="16" height="14" stroke-width="0.9" fill="#FAF1D8"/>
+    <!-- Decoder (ascending steps, right side) -->
+    <rect x="162" y="140" width="14" height="10" stroke-width="1" fill="#FAF1D8"/>
+    <rect x="172" y="120" width="16" height="12" stroke-width="1" fill="#FAF1D8"/>
+    <rect x="180" y="98" width="18" height="14" stroke-width="1" fill="#FAF1D8"/>
+    <rect x="180" y="74" width="20" height="16" stroke-width="1" fill="#FAF1D8"/>
 
-    <!-- Forward connections (encoder side: solid, kept) -->
-    <path d="M44 54 L51 60" stroke-width="0.8"/>
-    <path d="M51 72 L58 78" stroke-width="0.8"/>
-    <path d="M58 88 L63 94" stroke-width="0.8"/>
-    <path d="M64 102 L106 120" stroke-width="0.8"/>
+    <!-- Forward connections (encoder, all kept) -->
+    <path d="M50 90 L59 98" stroke-width="0.9"/>
+    <path d="M59 112 L66 120" stroke-width="0.9"/>
+    <path d="M66 132 L71 140" stroke-width="0.9"/>
+    <path d="M71 150 L100 168" stroke-width="0.9"/>
 
-    <!-- Forward connections (decoder side: solid, kept) -->
-    <path d="M134 120 L173 102" stroke-width="0.8"/>
-    <path d="M177 94 L182 88" stroke-width="0.8"/>
-    <path d="M184 78 L188 72" stroke-width="0.8"/>
-    <path d="M190 60 L198 54" stroke-width="0.8"/>
+    <!-- Forward connections (decoder, all kept) -->
+    <path d="M140 168 L169 150" stroke-width="0.9"/>
+    <path d="M169 140 L180 132" stroke-width="0.9"/>
+    <path d="M180 120 L189 112" stroke-width="0.9"/>
+    <path d="M189 98 L190 90" stroke-width="0.9"/>
 
-    <!-- Skip connections (mostly dashed = pruned) -->
-    <path d="M50 47 L190 47" stroke-width="0.7" stroke-dasharray="2 3" opacity="0.42"/>
-    <path d="M58 66 L182 66" stroke-width="0.7" stroke-dasharray="2 3" opacity="0.42"/>
-    <!-- One skip kept (solid) -->
-    <path d="M64 83 Q120 72 178 83" stroke-width="1.2"/>
-    <path d="M68 98 L172 98" stroke-width="0.7" stroke-dasharray="2 3" opacity="0.42"/>
+    <!-- Skip connections — most pruned (dashed), one kept (solid) -->
+    <path d="M60 82 L180 82" stroke-width="0.7" stroke-dasharray="2.5 3" opacity="0.45"/>
+    <path d="M68 105 L180 105" stroke-width="0.7" stroke-dasharray="2.5 3" opacity="0.45"/>
+    <!-- Kept skip (solid, deep) -->
+    <path d="M74 126 Q120 116 188 126" stroke-width="1.3"/>
+    <path d="M78 145 L162 145" stroke-width="0.7" stroke-dasharray="2.5 3" opacity="0.45"/>
 
-    <!-- Pruned-weight × marks on the dashed skips -->
-    <path d="M118 43 L122 51 M118 51 L122 43" stroke-width="0.9" stroke="#0E5347"/>
-    <path d="M118 62 L122 70 M118 70 L122 62" stroke-width="0.9" stroke="#0E5347"/>
-    <path d="M118 94 L122 102 M118 102 L122 94" stroke-width="0.9" stroke="#0E5347"/>
-
-    <!-- 99% sparse badge (top-right corner) -->
-    <rect x="184" y="16" width="46" height="16" rx="2" fill="#0E5347" stroke="#0E5347"/>
-    <text x="207" y="27" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="8" letter-spacing="0.06em" fill="#FAF1D8" stroke="none">99% SPARSE</text>
-    <!-- Connector tick from badge to network -->
-    <path d="M184 24 L177 28" stroke-width="0.6" stroke="#0E5347" stroke-dasharray="1.4 1.6" opacity="0.7"/>
+    <!-- Pruned-edge × marks (smaller, less dominant) -->
+    <path d="M118 78 L122 86 M118 86 L122 78" stroke-width="0.9" stroke="#0E5347"/>
+    <path d="M118 101 L122 109 M118 109 L122 101" stroke-width="0.9" stroke="#0E5347"/>
+    <path d="M118 141 L122 149 M118 149 L122 141" stroke-width="0.9" stroke="#0E5347"/>
 
     <!-- Bottleneck label -->
-    <text x="120" y="142" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="6" letter-spacing="0.08em" fill="#0E5347" stroke="none">CORE</text>
+    <text x="120" y="196" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="6.5" letter-spacing="0.16em" fill="#0E5347" stroke="none">CORE</text>
+
+    <!-- Sparsity badge — placed BELOW the network in the safe area, prominent -->
+    <rect x="80" y="32" width="80" height="22" rx="3" fill="#0E5347" stroke="#0E5347"/>
+    <text x="120" y="47" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11" letter-spacing="0.1em" fill="#FAF1D8" stroke="none" font-weight="700">99% SPARSE</text>
 
     <!-- Caption -->
-    <text x="120" y="184" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="6" fill="#4A5159" stroke="none" letter-spacing="0.08em">U-NET · MAGNITUDE PRUNING · MIDL '25</text>
+    <text x="120" y="222" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="6.5" fill="#4A5159" stroke="none" letter-spacing="0.16em">U-NET · MAGNITUDE PRUNING · MIDL '25</text>
   </g>
 </svg>

@@ -2,38 +2,57 @@
 import siteConfig from "~/content/site.json";
 
 const taglineLines = siteConfig.tagline;
-const datelineLines = siteConfig.datelineLines ?? [siteConfig.dateline];
 
-// Render as two stanzas (2 lines each)
+// Render the quote as two stanzas (2 lines each)
 const stanza1 = taglineLines.slice(0, 2);
 const stanza2 = taglineLines.slice(2);
+
+const card = siteConfig.businessCard;
 ---
 
 <section class="hero" aria-label="Introduction">
+  <!-- top corners: minimal printer's-plate header -->
   <div class="hero__corners">
     <p class="hero__corner hero__corner--left">
       <span class="hero__corner-mark" aria-hidden="true">§</span>
-      {siteConfig.shortName.toUpperCase()} · {siteConfig.initials}
+      No. 01 · Personal
     </p>
     <p class="hero__corner hero__corner--right">
-      {datelineLines.map((line) => (
-        <span class="hero__corner-line">{line}</span>
-      ))}
+      <span class="hero__corner-line">AMSTERDAM · 2026</span>
     </p>
   </div>
 
   <div class="hero__layout">
     <div class="hero__text">
-      <h1 class="hero__tagline">
-        <span class="hero__stanza">
-          {stanza1.map((line) => <span class="hero__line">{line}</span>)}
-        </span>
-        <span class="hero__stanza">
-          {stanza2.map((line) => <span class="hero__line">{line}</span>)}
-        </span>
-      </h1>
+      <!-- Identity card: name + role + PhD search status + specialties -->
+      <div class="hero__id">
+        <h1 class="hero__name">
+          <span class="hero__name-en">{card.name}</span>
+          <span class="hero__name-zh" aria-hidden="true">{card.nameZh}</span>
+        </h1>
 
-      <!-- Hand-drawn flourish ornament beneath tagline -->
+        <p class="hero__role">
+          <span>{card.role}</span>
+          <span class="hero__role-sep" aria-hidden="true">·</span>
+          <span>Amsterdam</span>
+        </p>
+
+        <a class="hero__seeking" href="#contact">
+          <span class="hero__seeking-mark" aria-hidden="true">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M8 1 L9.6 6.4 L15 8 L9.6 9.6 L8 15 L6.4 9.6 L1 8 L6.4 6.4 Z" />
+            </svg>
+          </span>
+          <span class="hero__seeking-label">Seeking PhD positions</span>
+          <span class="hero__seeking-sep" aria-hidden="true">·</span>
+          <span class="hero__seeking-when">ready any time</span>
+          <span class="hero__seeking-arrow" aria-hidden="true">→</span>
+        </a>
+
+        <p class="hero__specialty">{card.tagline}</p>
+      </div>
+
+      <!-- Hand-drawn flourish ornament between identity and quote -->
       <svg
         class="hero__flourish"
         viewBox="0 0 280 32"
@@ -51,9 +70,19 @@ const stanza2 = taglineLines.slice(2);
         <path d="M264 16 L278 16" stroke-width="1" />
         <circle cx="180" cy="16" r="1.4" fill="currentColor" stroke="none" />
       </svg>
+
+      <!-- Quote: the only fancy italic display, smaller than before -->
+      <blockquote class="hero__quote">
+        <span class="hero__stanza">
+          {stanza1.map((line) => <span class="hero__line">{line}</span>)}
+        </span>
+        <span class="hero__stanza">
+          {stanza2.map((line) => <span class="hero__line">{line}</span>)}
+        </span>
+      </blockquote>
     </div>
 
-    <!-- Hand-drawn vignette: an open window onto an Amsterdam canal at twilight,
+    <!-- Hand-drawn vignette: window onto an Amsterdam canal at twilight,
          with a writing tableau on the sill below. -->
     <svg
       class="hero__sketch"
@@ -78,20 +107,16 @@ const stanza2 = taglineLines.slice(2);
         </radialGradient>
       </defs>
 
-      <!-- ============ TOP MARGIN ANNOTATION ============ -->
+      <!-- top margin annotation -->
       <circle cx="40" cy="22" r="1.4" fill="currentColor" stroke="none" />
       <circle cx="48" cy="22" r="1.4" fill="currentColor" stroke="none" />
       <text x="60" y="27" font-family="EB Garamond, serif" font-style="italic" font-size="18" fill="currentColor" stroke="none" opacity="0.7">a window onto more</text>
 
-      <!-- ============ ARCHITECTURAL WINDOW FRAME ============ -->
-      <!-- Outer arched frame, thicker stroke -->
+      <!-- arched window frame, hatched corners, keystone -->
       <path d="M48 70 Q48 44 88 44 H272 Q312 44 312 70 V296 H48 Z" stroke-width="2" fill="#FAF1D8" />
-      <!-- Inner frame line for depth -->
       <path d="M56 78 Q56 52 90 52 H270 Q304 52 304 78 V288 H56 Z" stroke-width="0.6" opacity="0.55" fill="none" />
-      <!-- Keystone at the top of arch -->
       <path d="M174 44 L174 60 L186 60 L186 44 Z" stroke-width="0.9" fill="#EDE6D5" />
       <path d="M178 48 L178 56 M182 48 L182 56" stroke-width="0.4" opacity="0.55" />
-      <!-- Hatched corner brackets (engraving plate flair) -->
       <rect x="48" y="70" width="24" height="6" fill="url(#heroHatch)" opacity="0.7" />
       <rect x="48" y="70" width="6" height="24" fill="url(#heroHatch)" opacity="0.7" />
       <rect x="288" y="70" width="24" height="6" fill="url(#heroHatch)" opacity="0.7" />
@@ -101,23 +126,19 @@ const stanza2 = taglineLines.slice(2);
       <rect x="288" y="290" width="24" height="6" fill="url(#heroHatch)" opacity="0.7" />
       <rect x="306" y="272" width="6" height="24" fill="url(#heroHatch)" opacity="0.7" />
 
-      <!-- ============ WINDOW INTERIOR (sky + horizon) ============ -->
-      <!-- Sky pane -->
+      <!-- sky pane + warm hatch -->
       <rect x="56" y="78" width="248" height="100" fill="#FAF1D8" />
-      <!-- Soft hatched sky tone (warm twilight) -->
       <rect x="56" y="78" width="248" height="60" fill="url(#heroHatchFine)" opacity="0.6" />
 
-      <!-- Moon halo -->
+      <!-- moon halo + crescent -->
       <circle cx="252" cy="106" r="42" fill="url(#heroMoonHalo)" stroke="none" opacity="0.9" />
-      <!-- Crescent moon: outer disc + offset disc that "bites" out the shape -->
       <circle cx="252" cy="106" r="16" fill="#FAF1D8" stroke-width="1.4" />
       <circle cx="246" cy="102" r="13" fill="#FAF1D8" stroke="none" />
       <path d="M252 90 A 16 16 0 0 1 268 106 A 16 16 0 0 1 252 122 A 14 14 0 0 0 252 90 Z" fill="currentColor" opacity="0.18" stroke="none" />
-      <!-- Tiny moon craters -->
       <circle cx="259" cy="100" r="1.4" fill="currentColor" opacity="0.35" stroke="none" />
       <circle cx="262" cy="111" r="0.9" fill="currentColor" opacity="0.3" stroke="none" />
 
-      <!-- Stars (varied size + cluster pattern) -->
+      <!-- stars -->
       <circle cx="78" cy="92" r="1.1" fill="currentColor" stroke="none" />
       <circle cx="86" cy="100" r="0.7" fill="currentColor" stroke="none" />
       <circle cx="106" cy="86" r="0.9" fill="currentColor" stroke="none" />
@@ -128,27 +149,24 @@ const stanza2 = taglineLines.slice(2);
       <circle cx="188" cy="118" r="0.6" fill="currentColor" stroke="none" />
       <circle cx="206" cy="98" r="0.9" fill="currentColor" stroke="none" />
       <circle cx="222" cy="138" r="0.6" fill="currentColor" stroke="none" />
-      <!-- 4-point star (near the moon) -->
+      <!-- small radiated stars -->
       <path d="M118 84 L118 80 M118 84 L118 88 M118 84 L114 84 M118 84 L122 84" stroke-width="0.6" opacity="0.7" />
       <path d="M196 134 L196 131 M196 134 L196 137 M196 134 L193 134 M196 134 L199 134" stroke-width="0.5" opacity="0.6" />
 
-      <!-- Tiny bird in flight (V-shape) -->
+      <!-- bird in flight, gentle V -->
       <path d="M158 80 Q162 76 166 80 Q170 76 174 80" stroke-width="0.8" opacity="0.7" />
       <path d="M178 88 Q182 85 186 88" stroke-width="0.6" opacity="0.55" />
 
-      <!-- ============ HORIZON: GABLED ROOFLINE ============ -->
-      <!-- Gabled silhouette of Amsterdam canal houses + church spire -->
+      <!-- gabled silhouette + church spire -->
       <path
         d="M56 178 L70 178 L70 162 L80 162 L80 152 L92 152 L92 162 L106 162 L106 178 L120 178 L120 156 L130 150 L140 142 L150 150 L160 156 L160 178 L172 178 L172 158 L184 158 L184 168 L196 168 L196 158 L208 158 L208 178 L222 178 L218 168 L226 158 L228 154 L228 130 L226 124 L232 124 L232 102 L236 100 L240 102 L240 124 L246 124 L244 130 L244 154 L246 158 L254 168 L250 178 L268 178 L268 152 L280 152 L280 144 L294 144 L294 156 L304 156 L304 178"
         stroke-width="1.4"
         fill="#EDE6D5"
       />
-      <!-- Westerkerk-style cross atop spire -->
       <path d="M236 96 L236 100 M234 98 L238 98" stroke-width="0.8" />
-      <!-- Spire orb -->
       <circle cx="236" cy="124" r="1.4" fill="currentColor" opacity="0.7" stroke="none" />
 
-      <!-- Chimneys with smoke wisps -->
+      <!-- chimneys with smoke -->
       <rect x="86" y="146" width="3" height="6" fill="currentColor" opacity="0.85" stroke="none" />
       <rect x="142" y="138" width="3" height="6" fill="currentColor" opacity="0.85" stroke="none" />
       <rect x="278" y="138" width="3" height="6" fill="currentColor" opacity="0.85" stroke="none" />
@@ -156,7 +174,7 @@ const stanza2 = taglineLines.slice(2);
       <path d="M144 138 Q142 130 146 124 Q150 118 146 112" stroke-width="0.5" opacity="0.5" />
       <path d="M280 138 Q278 130 282 124" stroke-width="0.5" opacity="0.5" />
 
-      <!-- Tiny lit windows in distant houses (mix of dark + emerald glow) -->
+      <!-- lit windows in distant houses -->
       <rect x="76" y="168" width="3" height="5" fill="#0E5347" opacity="0.9" stroke="none" />
       <rect x="86" y="170" width="3" height="4" fill="currentColor" opacity="0.65" stroke="none" />
       <rect x="98" y="168" width="3" height="5" fill="#0E5347" opacity="0.9" stroke="none" />
@@ -169,106 +187,88 @@ const stanza2 = taglineLines.slice(2);
       <rect x="270" y="160" width="3" height="5" fill="currentColor" opacity="0.65" stroke="none" />
       <rect x="284" y="156" width="3" height="5" fill="#0E5347" opacity="0.9" stroke="none" />
 
-      <!-- ============ CANAL WATER ============ -->
+      <!-- canal water -->
       <rect x="56" y="180" width="248" height="62" fill="#EDE6D5" />
       <path d="M56 180 H304" stroke-width="0.7" />
-      <!-- Reflection of moon (broken into ripple bits) -->
+      <!-- moon reflection broken into ripple bits -->
       <path d="M244 192 H262 M242 200 H264 M246 208 H260" stroke-width="1" opacity="0.55" stroke="#FAF1D8" />
-      <!-- Water ripples -->
+      <!-- ripples -->
       <path d="M62 198 Q78 195 94 198 Q110 201 126 198 Q142 195 158 198 Q174 201 190 198 Q206 195 222 198 Q238 201 254 198 Q270 195 286 198 Q298 200 302 198" stroke-width="0.5" opacity="0.65" />
       <path d="M62 210 Q78 207 94 210 Q110 213 126 210 Q142 207 158 210 Q174 213 190 210 Q206 207 222 210" stroke-width="0.5" opacity="0.5" />
       <path d="M62 222 Q78 219 94 222 Q110 225 126 222 Q142 219 158 222 Q174 225 190 222 Q206 219 222 222 Q238 225 254 222 Q270 219 286 222 Q298 224 302 222" stroke-width="0.5" opacity="0.4" />
       <path d="M62 234 Q78 231 94 234 Q110 237 126 234 Q142 231 158 234 Q174 237 190 234" stroke-width="0.4" opacity="0.3" />
 
-      <!-- Small canal boat (rowboat with mast) -->
+      <!-- canal boat: simple flat-bottomed punt with two oars (no mast) -->
       <g>
-        <path d="M88 222 Q90 218 100 218 L138 218 Q148 218 150 222 L146 232 L92 232 Z" stroke-width="0.9" fill="currentColor" opacity="0.85" />
-        <path d="M118 218 L118 198" stroke-width="0.8" />
-        <path d="M118 200 L130 208 L118 210 Z" stroke-width="0.6" fill="#FAF1D8" />
-        <path d="M88 232 H150" stroke-width="0.5" opacity="0.6" />
+        <!-- hull -->
+        <path d="M86 222 Q88 218 100 218 L142 218 Q154 218 156 222 L150 232 L92 232 Z" stroke-width="0.9" fill="currentColor" opacity="0.85" />
+        <!-- water line under hull -->
+        <path d="M86 232 H156" stroke-width="0.5" opacity="0.6" />
+        <!-- two oars sticking out at angles -->
+        <path d="M104 218 L92 208" stroke-width="0.7" opacity="0.85" />
+        <path d="M138 218 L150 208" stroke-width="0.7" opacity="0.85" />
+        <!-- tiny figure rowing (silhouette) -->
+        <path d="M118 218 L118 212 Q118 209 121 209 Q124 209 124 212 L124 218 Z" stroke-width="0.6" fill="#FAF1D8" />
+        <circle cx="121" cy="206" r="2" fill="currentColor" opacity="0.85" stroke="none" />
       </g>
 
-      <!-- ============ WINDOW MULLIONS ============ -->
-      <!-- Vertical mullion -->
+      <!-- mullion + transom -->
       <path d="M180 78 V242" stroke-width="1.4" />
-      <!-- Horizontal transom -->
       <path d="M56 178 H304" stroke-width="1" opacity="0.85" />
 
-      <!-- ============ SILL ============ -->
+      <!-- sill -->
       <path d="M40 242 H320 V258 H40 Z" fill="#EDE6D5" stroke-width="1.4" />
       <path d="M40 258 H320" stroke-width="0.5" opacity="0.55" />
-      <!-- Sill cast shadow line -->
       <path d="M44 262 H316" stroke-width="0.4" opacity="0.4" stroke-dasharray="1 3" />
 
-      <!-- ============ TABLEAU: BOOK + SPECTACLES + INKWELL + QUILL + LETTERS ============ -->
-
-      <!-- Stack of letters (right side, slightly behind book) tied with ribbon -->
+      <!-- letters tied with ribbon (right) -->
       <g>
         <rect x="244" y="368" width="64" height="9" fill="#FAF1D8" stroke-width="0.9" transform="rotate(-3 276 372)" />
         <rect x="244" y="376" width="64" height="9" fill="#EDE6D5" stroke-width="0.9" transform="rotate(-3 276 380)" />
         <rect x="244" y="384" width="64" height="9" fill="#FAF1D8" stroke-width="0.9" transform="rotate(-3 276 388)" />
-        <!-- Wax seal on top letter -->
         <circle cx="288" cy="370" r="2.6" fill="#0E5347" stroke="none" />
-        <!-- Ribbon tied vertically -->
         <path d="M270 366 L270 396" stroke-width="2.2" stroke="#0E5347" />
         <path d="M266 396 L264 404 L272 400 L270 408" stroke-width="1" stroke="#0E5347" />
       </g>
 
-      <!-- Open book at center, slightly V-shaped pages -->
+      <!-- open book -->
       <g>
-        <!-- Page shadow / book base -->
         <path d="M120 412 L240 412 L246 426 L114 426 Z" stroke-width="1.3" fill="#0F1417" opacity="0.3" />
-        <!-- Left page -->
         <path d="M118 360 L180 358 L180 412 L120 412 Z" stroke-width="1.3" fill="#FAF1D8" />
-        <!-- Right page -->
         <path d="M180 358 L242 360 L240 412 L180 412 Z" stroke-width="1.3" fill="#FAF1D8" />
-        <!-- Spine binding -->
         <path d="M180 358 L180 412" stroke-width="1.1" opacity="0.85" />
         <path d="M178 359 L178 410 M182 359 L182 410" stroke-width="0.4" opacity="0.5" />
-        <!-- Text lines on left page -->
         <path d="M126 372 H172 M126 378 H170 M126 384 H172 M126 390 H164 M126 396 H170" stroke-width="0.4" opacity="0.55" />
-        <!-- Text lines on right page -->
         <path d="M188 372 H234 M188 378 H232 M188 384 H236 M188 390 H230 M188 396 H232" stroke-width="0.4" opacity="0.55" />
-        <!-- Bookmark ribbon emerging from spine -->
         <path d="M180 358 L184 432 L186 422 L188 432 L188 358" stroke-width="0.7" fill="#0E5347" opacity="0.9" />
       </g>
 
-      <!-- Spectacles resting atop book (round-frame, classic) -->
+      <!-- spectacles atop book -->
       <g>
         <circle cx="148" cy="356" r="9" stroke-width="1.2" fill="#FAF1D8" />
         <circle cx="170" cy="356" r="9" stroke-width="1.2" fill="#FAF1D8" />
-        <!-- Bridge -->
         <path d="M157 356 L161 356" stroke-width="1.1" />
-        <!-- Temple arms -->
         <path d="M139 356 L130 350 L126 354" stroke-width="0.9" />
         <path d="M179 356 L188 350 L192 354" stroke-width="0.9" />
-        <!-- Tiny lens reflection -->
         <path d="M144 352 Q146 350 150 350" stroke-width="0.4" opacity="0.6" />
         <path d="M166 352 Q168 350 172 350" stroke-width="0.4" opacity="0.6" />
       </g>
 
-      <!-- Inkwell (left of book) -->
+      <!-- inkwell + quill (left) -->
       <g>
         <ellipse cx="80" cy="380" rx="20" ry="5" fill="#0F1417" stroke-width="1" />
         <path d="M60 380 Q60 412 80 412 Q100 412 100 380 Z" stroke-width="1.4" fill="#0F1417" />
         <ellipse cx="80" cy="378" rx="16" ry="3" fill="none" stroke-width="0.5" stroke="#FAF1D8" opacity="0.5" />
       </g>
-
-      <!-- Quill (rises from inkwell, sweeping up + right) -->
       <g>
-        <!-- Shaft -->
         <path d="M86 380 L46 296 L52 292 L92 376 Z" stroke-width="1.1" fill="#FAF1D8" />
-        <!-- Feather barbs (left side) -->
         <path d="M52 312 L60 308 M56 322 L66 318 M60 332 L70 328 M64 342 L74 338 M68 352 L78 348 M72 362 L82 358" stroke-width="0.5" opacity="0.7" />
-        <!-- Feather barbs (right side) -->
         <path d="M62 308 L48 304 M66 318 L52 314 M70 328 L56 324 M74 338 L60 334 M78 348 L64 344 M82 358 L68 354" stroke-width="0.4" opacity="0.6" />
-        <!-- Nib -->
         <path d="M82 376 L92 380 L88 384 Z" fill="currentColor" />
-        <!-- Tiny ink drop -->
         <circle cx="92" cy="392" r="1.2" fill="#0E5347" stroke="none" />
       </g>
 
-      <!-- Tiny teacup at far right (echoes the writing-tableau cosiness) -->
+      <!-- teacup at far right -->
       <g opacity="0.9">
         <path d="M298 412 Q298 422 308 422 L314 422 Q324 422 324 412 V404 H298 Z" stroke-width="0.7" fill="#FAF1D8" />
         <ellipse cx="311" cy="404" rx="13" ry="2" stroke-width="0.6" fill="#0E5347" opacity="0.5" />
@@ -277,20 +277,31 @@ const stanza2 = taglineLines.slice(2);
         <path d="M314 400 Q312 394 316 388" stroke-width="0.5" opacity="0.55" fill="none" />
       </g>
 
-      <!-- ============ BOTTOM MARGIN ANNOTATION ============ -->
+      <!-- bottom margin annotation -->
       <text x="40" y="464" font-family="EB Garamond, serif" font-style="italic" font-size="18" fill="currentColor" stroke="none" opacity="0.7">and we dwell here.</text>
       <path d="M44 474 L300 474" stroke-width="0.5" stroke-dasharray="2 4" opacity="0.55" />
       <circle cx="304" cy="474" r="1.4" fill="currentColor" stroke="none" opacity="0.6" />
 
-      <!-- ============ PLATE LABEL ============ -->
+      <!-- plate label -->
       <path d="M40 502 H320" stroke-width="0.4" opacity="0.4" />
       <text x="40" y="518" font-family="JetBrains Mono, monospace" font-size="11" fill="currentColor" stroke="none" letter-spacing="0.18em" opacity="0.75">PLATE I · TWILIGHT</text>
       <text x="320" y="518" text-anchor="end" font-family="JetBrains Mono, monospace" font-size="11" fill="currentColor" stroke="none" letter-spacing="0.18em" opacity="0.75">2026</text>
     </svg>
   </div>
 
+  <!-- Scroll cue: friendly invitation, animated chevron -->
+  <a class="hero__cue" href="#currently" aria-label="Scroll to introduction">
+    <span class="hero__cue-text">scroll for the work</span>
+    <span class="hero__cue-chevron" aria-hidden="true">
+      <svg viewBox="0 0 16 22" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M8 1 V19" />
+        <path d="M2 13 L8 19 L14 13" />
+      </svg>
+    </span>
+  </a>
+
   <p class="hero__hint" aria-hidden="true">
-    SCROLL · OR <kbd>⌘K</kbd>
+    or <kbd>⌘K</kbd>
   </p>
 </section>
 
@@ -298,7 +309,7 @@ const stanza2 = taglineLines.slice(2);
   .hero {
     position: relative;
     min-height: 100vh;
-    padding: 32px 32px 96px;
+    padding: 32px 32px 120px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -357,18 +368,161 @@ const stanza2 = taglineLines.slice(2);
     max-width: 100%;
   }
 
-  .hero__tagline {
+  /* ============ IDENTITY CARD ============ */
+
+  .hero__id {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-bottom: 8px;
+  }
+
+  .hero__name {
+    margin: 0;
+    font-family: var(--font-display);
+    font-style: normal; /* upright EB Garamond — elegant + readable, not "fancy" */
+    font-weight: 400;
+    font-size: clamp(48px, 6.4vw, 84px);
+    line-height: 1;
+    letter-spacing: -0.012em;
+    color: var(--color-ink);
+    display: flex;
+    align-items: baseline;
+    gap: 18px;
+    flex-wrap: wrap;
+  }
+
+  .hero__name-en {
+    /* upright */
+  }
+
+  .hero__name-zh {
+    font-size: 0.46em;
+    color: var(--color-ink-soft);
+    letter-spacing: 0.04em;
+  }
+
+  .hero__role {
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-ink);
+    display: inline-flex;
+    align-items: baseline;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .hero__role-sep {
+    color: var(--color-ink-soft);
+    opacity: 0.7;
+  }
+
+  /* The PhD-search callout: prominent, emerald, the active "looking" status */
+  .hero__seeking {
+    margin: 6px 0 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    align-self: flex-start;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    background: var(--color-paper);
+    border: 1.4px solid var(--color-accent);
+    padding: 10px 18px 9px;
+    border-radius: 999px;
+    box-shadow: 0 1px 0 rgba(14, 83, 71, 0.06), 0 6px 18px -10px rgba(14, 83, 71, 0.4);
+    transition: transform 240ms ease-out, box-shadow 240ms ease-out;
+  }
+
+  .hero__seeking:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 1px 0 rgba(14, 83, 71, 0.06), 0 10px 24px -10px rgba(14, 83, 71, 0.5);
+  }
+
+  .hero__seeking-mark {
+    color: var(--color-accent);
+    width: 14px;
+    height: 14px;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .hero__seeking-mark svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .hero__seeking-label {
+    font-weight: 500;
+  }
+
+  .hero__seeking-sep {
+    color: var(--color-accent);
+    opacity: 0.55;
+  }
+
+  .hero__seeking-when {
+    font-style: normal;
+    color: var(--color-ink);
+  }
+
+  .hero__seeking-arrow {
+    color: var(--color-accent);
+    margin-left: 4px;
+    transition: transform 240ms ease-out;
+  }
+
+  .hero__seeking:hover .hero__seeking-arrow {
+    transform: translateX(3px);
+  }
+
+  a.hero__seeking {
+    text-decoration: none;
+  }
+
+  .hero__specialty {
+    margin: 6px 0 0;
+    font-family: var(--font-display);
+    font-style: normal;
+    font-size: 17.5px;
+    line-height: 1.5;
+    color: var(--color-ink-soft);
+    max-width: 56ch;
+  }
+
+  /* ============ FLOURISH ============ */
+
+  .hero__flourish {
+    width: clamp(160px, 22vw, 280px);
+    height: auto;
+    color: var(--color-ink-soft);
+    margin-top: 36px;
+    margin-bottom: 14px;
+    opacity: 0.7;
+  }
+
+  /* ============ QUOTE ============ */
+
+  .hero__quote {
+    margin: 0;
+    padding: 0;
     font-family: var(--font-display);
     font-style: italic;
     font-weight: 400;
-    font-size: clamp(30px, 4.4vw, 60px);
-    line-height: 1.12;
+    font-size: clamp(22px, 2.6vw, 34px);
+    line-height: 1.22;
     letter-spacing: -0.005em;
-    margin: 0;
-    color: var(--color-ink);
+    color: var(--color-ink-soft);
     display: flex;
     flex-direction: column;
-    gap: 0.55em;
+    gap: 0.5em;
+    max-width: 24ch;
   }
 
   .hero__stanza {
@@ -380,20 +534,14 @@ const stanza2 = taglineLines.slice(2);
     display: block;
   }
 
-  .hero__flourish {
-    width: clamp(160px, 22vw, 280px);
-    height: auto;
-    color: var(--color-ink-soft);
-    margin-top: 44px;
-    opacity: 0.7;
-  }
+  /* ============ SKETCH ============ */
 
   .hero__sketch {
     display: block;
     position: absolute;
-    top: -56px;
+    top: -24px;
     right: 0;
-    width: clamp(240px, 26vw, 340px);
+    width: clamp(220px, 24vw, 320px);
     height: auto;
     color: var(--color-ink);
     z-index: 0;
@@ -406,8 +554,53 @@ const stanza2 = taglineLines.slice(2);
       top: auto;
       right: auto;
       width: 260px;
-      margin: 32px auto 0;
+      margin: 40px auto 32px;
     }
+
+    .hero__name {
+      font-size: clamp(40px, 9vw, 60px);
+    }
+  }
+
+  /* ============ SCROLL CUE ============ */
+
+  .hero__cue {
+    position: absolute;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-ink-soft);
+    text-decoration: none;
+    transition: color 240ms ease-out, transform 240ms ease-out;
+  }
+
+  .hero__cue:hover {
+    color: var(--color-accent);
+  }
+
+  .hero__cue-chevron {
+    width: 16px;
+    height: 22px;
+    color: var(--color-accent);
+    animation: heroCueBounce 2.6s ease-in-out infinite;
+  }
+
+  .hero__cue-chevron svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  @keyframes heroCueBounce {
+    0%, 100% { transform: translateY(0); opacity: 0.85; }
+    50% { transform: translateY(6px); opacity: 1; }
   }
 
   .hero__hint {
@@ -434,16 +627,35 @@ const stanza2 = taglineLines.slice(2);
 
   @media (max-width: 720px) {
     .hero {
-      padding: 24px 24px 96px;
+      padding: 24px 24px 110px;
     }
     .hero__corners {
       top: 20px;
       left: 24px;
       right: 24px;
     }
+    .hero__role {
+      font-size: 11px;
+    }
+    .hero__seeking {
+      font-size: 11.5px;
+      padding: 9px 14px 8px;
+    }
+    .hero__specialty {
+      font-size: 16px;
+    }
     .hero__hint {
       bottom: 24px;
       right: 24px;
+    }
+    .hero__cue {
+      bottom: 24px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero__cue-chevron {
+      animation: none;
     }
   }
 </style>
