@@ -13,12 +13,12 @@
     "AMSTERDAM · 2026"
   ],
   "dateline": "INDEPENDENT AI RESEARCHER · AMSTERDAM · 2026",
-  "openingHeadline": "Five years deep in applied AI. Now I'm looking for the PhD that lets me go deeper.",
-  "openingBody": "I have built and shipped work across world models, large language models, computer vision, and clinical AI, with collaborations spanning Tencent, Gradient Networks, MeetaVista, TU Delft, McGill, Tsinghua, and IMDEA. What I want next is the long-form, principled depth a PhD makes possible: research that is genuinely useful for the people who don't already have everything, and durable enough to keep at for a career.",
+  "openingHeadline": "Built across LLMs, vision, world models, and clinical AI. Now I want a PhD with room for deeper work.",
+  "openingBody": "I've shipped research with Tencent, Gradient Networks, MeetaVista, TU Delft, McGill, Tsinghua, and IMDEA. Next I want long-horizon work on useful, durable AI, especially where access and reliability matter.",
   "currentlyHeadline": "Day-to-day",
   "currently": "An independent AI researcher in Amsterdam. I currently collaborate with industry (Tencent, Gradient Networks, MeetaVista) and academia (TU Delft, McGill, Tsinghua) on cost-efficient large language models, optimization-as-reasoning, and intent-aware world models. Earlier roles include Marie Skłodowska-Curie Fellow at IMDEA Networks (Madrid), AI Research Engineer at TU Delft Imaging Physics, and an MSc in Computer & Embedded Systems Engineering at TU Delft.",
   "intro": "Open to PhD positions, ready to start any time. What pulls me is meaning more than topic.",
-  "researchThemesIntro": "Two threads run through everything I work on. Pulling AI past the boundaries of language into perception and action, and bending those capabilities back toward fairness and access for the people they touch.",
+  "researchThemesIntro": "Two things drive this work: pushing AI beyond text into perception and action, and making those systems fairer and more reachable in practice.",
   "researchThemes": [
     {
       "id": "world-models",

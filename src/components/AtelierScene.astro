@@ -382,77 +382,75 @@ const allNotes = objects.filter(
         <path d="M1058 358 H1130" stroke-width="0.4" stroke-dasharray="2 2" opacity="0.5"></path>
       </g>
 
-      <!-- Running shoes (side-profile, two paired on the floor — clear double-peak silhouette) -->
+      <!-- Running shoes (side-profile pair: bigger midsole, vertical heel counter, toe-spring) -->
       <g stroke="#0f1417" stroke-linecap="round" stroke-linejoin="round" fill="none">
 
         <!-- Shoe B (behind / left): emerald upper -->
-        <!-- Upper silhouette: toe peak → instep dip → tongue → collar peak → heel curve down -->
-        <path d="M156 884
-                 Q150 872 164 858
-                 Q176 852 188 854
-                 L204 858
-                 Q218 866 226 874
-                 L240 874
-                 Q254 866 268 854
-                 L284 856
-                 Q298 858 300 870
-                 Q302 880 296 884
+        <!-- Upper silhouette: pronounced toe-spring (last 18% lifts), instep dip, vertical heel counter -->
+        <path d="M156 882
+                 Q148 876 156 866
+                 Q166 856 184 850
+                 Q204 850 218 866
+                 L232 870
+                 Q248 866 264 856
+                 Q282 854 286 866
+                 L286 882
                  Z"
               fill="#0E5347" opacity="0.95" stroke-width="1.6"></path>
-        <!-- Midsole (cream foam slab) -->
-        <path d="M152 884 L302 884 Q306 892 296 894 L162 894 Q148 892 152 884 Z" fill="#FAF1D8" stroke-width="1.4"></path>
-        <!-- Outsole (dark rubber strip) -->
-        <rect x="160" y="892" width="138" height="3" fill="#0f1417" stroke-width="0.4"></rect>
-        <!-- Toe box seam -->
-        <path d="M168 880 Q176 868 188 858" stroke="#FAF1D8" stroke-width="0.6" opacity="0.7"></path>
+        <!-- Midsole (taller cream foam, 14px) -->
+        <path d="M148 882 Q145 894 156 896 L292 896 Q300 894 296 882 Z" fill="#FAF1D8" stroke-width="1.4"></path>
+        <!-- Outsole (dark rubber strip with subtle tread) -->
+        <rect x="160" y="894" width="132" height="4" fill="#0f1417" stroke-width="0.4"></rect>
+        <path d="M170 896 L170 898 M190 896 L190 898 M212 896 L212 898 M232 896 L232 898 M252 896 L252 898 M272 896 L272 898" stroke="#FAF1D8" stroke-width="0.4" opacity="0.5"></path>
+        <!-- Toe box seam (curved over the upturned toe) -->
+        <path d="M158 880 Q166 866 184 854" stroke="#FAF1D8" stroke-width="0.6" opacity="0.7"></path>
         <!-- Tongue / lace area -->
-        <path d="M212 868 Q224 858 240 856 Q254 856 256 868" stroke="#FAF1D8" stroke-width="0.7" opacity="0.75"></path>
-        <!-- Laces (3 horizontal pairs across the saddle) -->
-        <path d="M218 868 Q230 866 244 868 M220 874 Q232 872 246 874 M222 880 Q234 878 248 880" stroke="#FAF1D8" stroke-width="0.9" opacity="0.9"></path>
+        <path d="M204 866 Q216 856 230 854 Q244 854 246 866" stroke="#FAF1D8" stroke-width="0.7" opacity="0.75"></path>
+        <!-- Laces -->
+        <path d="M210 868 Q220 866 232 868 M212 874 Q222 872 234 874 M214 880 Q224 878 236 880" stroke="#FAF1D8" stroke-width="0.9" opacity="0.9"></path>
         <!-- Eyelets -->
-        <circle cx="216" cy="868" r="0.7" fill="#FAF1D8" stroke="none"></circle>
-        <circle cx="248" cy="868" r="0.7" fill="#FAF1D8" stroke="none"></circle>
-        <!-- Heel cup detail -->
-        <path d="M278 858 Q288 866 296 880" stroke="#FAF1D8" stroke-width="0.7" opacity="0.65"></path>
+        <circle cx="208" cy="868" r="0.7" fill="#FAF1D8" stroke="none"></circle>
+        <circle cx="238" cy="868" r="0.7" fill="#FAF1D8" stroke="none"></circle>
+        <!-- Heel counter (vertical reinforcement at the back) -->
+        <path d="M276 858 L284 858 L286 880" stroke="#FAF1D8" stroke-width="0.7" opacity="0.7"></path>
         <!-- Pull tab on heel -->
-        <path d="M286 854 L290 850 L294 854" stroke-width="0.9" opacity="0.85"></path>
-        <!-- Swoosh stripe (cream against emerald, swept long curve) -->
-        <path d="M188 884 Q224 870 280 884" stroke="#FAF1D8" stroke-width="2.2"></path>
+        <path d="M276 854 L280 848 L286 850" stroke-width="0.9" opacity="0.85"></path>
+        <!-- Swoosh stripe (cream against emerald, swept) -->
+        <path d="M180 880 Q220 866 274 880" stroke="#FAF1D8" stroke-width="2.4"></path>
 
-        <!-- Shoe A (front / right): paper upper, emerald swoosh — overlaps slightly behind shoe B -->
-        <g transform="translate(28 12)">
+        <!-- Shoe A (front / right): paper upper, emerald swoosh — offset further so they don't fuse -->
+        <g transform="translate(36 8)">
           <!-- Upper silhouette -->
-          <path d="M156 884
-                   Q150 872 164 858
-                   Q176 852 188 854
-                   L204 858
-                   Q218 866 226 874
-                   L240 874
-                   Q254 866 268 854
-                   L284 856
-                   Q298 858 300 870
-                   Q302 880 296 884
+          <path d="M156 882
+                   Q148 876 156 866
+                   Q166 856 184 850
+                   Q204 850 218 866
+                   L232 870
+                   Q248 866 264 856
+                   Q282 854 286 866
+                   L286 882
                    Z"
                 fill="#FAF1D8" stroke-width="1.6"></path>
-          <!-- Midsole (paper-shade foam slab) -->
-          <path d="M152 884 L302 884 Q306 892 296 894 L162 894 Q148 892 152 884 Z" fill="#EDE6D5" stroke-width="1.4"></path>
-          <!-- Outsole (dark rubber) -->
-          <rect x="160" y="892" width="138" height="3" fill="#0f1417" stroke-width="0.4"></rect>
+          <!-- Midsole (taller paper-shade foam slab, 14px) -->
+          <path d="M148 882 Q145 894 156 896 L292 896 Q300 894 296 882 Z" fill="#EDE6D5" stroke-width="1.4"></path>
+          <!-- Outsole (dark rubber strip with tread) -->
+          <rect x="160" y="894" width="132" height="4" fill="#0f1417" stroke-width="0.4"></rect>
+          <path d="M170 896 L170 898 M190 896 L190 898 M212 896 L212 898 M232 896 L232 898 M252 896 L252 898 M272 896 L272 898" stroke-width="0.4" opacity="0.55"></path>
           <!-- Toe box seam -->
-          <path d="M168 880 Q176 868 188 858" stroke-width="0.7" opacity="0.65"></path>
+          <path d="M158 880 Q166 866 184 854" stroke-width="0.7" opacity="0.65"></path>
           <!-- Tongue / lace area -->
-          <path d="M212 868 Q224 858 240 856 Q254 856 256 868" stroke-width="0.8" opacity="0.7"></path>
+          <path d="M204 866 Q216 856 230 854 Q244 854 246 866" stroke-width="0.8" opacity="0.7"></path>
           <!-- Laces -->
-          <path d="M218 868 Q230 866 244 868 M220 874 Q232 872 246 874 M222 880 Q234 878 248 880" stroke-width="1" opacity="0.85"></path>
+          <path d="M210 868 Q220 866 232 868 M212 874 Q222 872 234 874 M214 880 Q224 878 236 880" stroke-width="1" opacity="0.85"></path>
           <!-- Eyelets -->
-          <circle cx="216" cy="868" r="0.7" fill="#0f1417" stroke="none"></circle>
-          <circle cx="248" cy="868" r="0.7" fill="#0f1417" stroke="none"></circle>
-          <!-- Heel cup detail -->
-          <path d="M278 858 Q288 866 296 880" stroke-width="0.7" opacity="0.65"></path>
+          <circle cx="208" cy="868" r="0.7" fill="#0f1417" stroke="none"></circle>
+          <circle cx="238" cy="868" r="0.7" fill="#0f1417" stroke="none"></circle>
+          <!-- Heel counter -->
+          <path d="M276 858 L284 858 L286 880" stroke-width="0.7" opacity="0.7"></path>
           <!-- Pull tab -->
-          <path d="M286 854 L290 850 L294 854" stroke-width="0.9" opacity="0.85"></path>
-          <!-- Swoosh stripe (emerald, swept long) -->
-          <path d="M188 884 Q224 870 280 884" stroke="#0E5347" stroke-width="2.4"></path>
+          <path d="M276 854 L280 848 L286 850" stroke-width="0.9" opacity="0.85"></path>
+          <!-- Swoosh stripe (emerald, swept) -->
+          <path d="M180 880 Q220 866 274 880" stroke="#0E5347" stroke-width="2.6"></path>
         </g>
       </g>
 

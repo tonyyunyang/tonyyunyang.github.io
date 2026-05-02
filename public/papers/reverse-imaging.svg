@@ -9,15 +9,15 @@
     <!-- Rib hint lines -->
     <path d="M70 96 Q120 102 170 96 M66 110 Q120 118 174 110 M66 124 Q120 132 174 124 M70 140 Q120 148 170 140" stroke-width="0.4" stroke-dasharray="1.4 2.6" opacity="0.28"/>
 
-    <!-- Heart silhouette (iconic two-lobe, larger and more central) -->
-    <path d="M120 100 C 96 76, 64 80, 64 110 C 64 138, 90 158, 120 178 C 150 158, 176 138, 176 110 C 176 80, 144 76, 120 100 Z" stroke-width="1.6" fill="#FAF1D8"/>
-    <!-- Inner ventricle hints -->
-    <path d="M96 122 Q102 142 116 154" stroke-width="0.7" opacity="0.55"/>
-    <path d="M144 122 Q138 142 124 154" stroke-width="0.7" opacity="0.55"/>
-    <!-- Septal line -->
-    <path d="M120 108 L120 174" stroke-width="0.5" stroke-dasharray="1.5 2" opacity="0.45"/>
-    <!-- Apex tick -->
-    <circle cx="120" cy="178" r="1.4" fill="#0F1417" opacity="0.55" stroke="none"/>
+    <!-- Heart silhouette (anatomical asymmetry: right side fuller than left, narrower apex) -->
+    <path d="M122 100 C 100 78, 70 82, 68 112 C 68 140, 96 162, 124 182 C 158 158, 184 134, 182 108 C 180 78, 146 76, 122 100 Z" stroke-width="1.6" fill="#FAF1D8"/>
+    <!-- Inner ventricle hints (LV on left, RV on right but smaller per anatomy) -->
+    <path d="M98 122 Q104 144 120 158" stroke-width="0.7" opacity="0.55"/>
+    <path d="M148 122 Q142 138 130 152" stroke-width="0.7" opacity="0.5"/>
+    <!-- Septal line (curved, not perfectly vertical) -->
+    <path d="M122 108 Q126 140 124 178" stroke-width="0.5" stroke-dasharray="1.5 2" opacity="0.45"/>
+    <!-- Apex tick (narrow, anatomical) -->
+    <circle cx="124" cy="182" r="1.4" fill="#0F1417" opacity="0.6" stroke="none"/>
 
     <!-- Three sequence panels orbiting the heart (top-left, top-right, bottom-center) -->
     <!-- Top-left: T1 panel -->
@@ -50,9 +50,9 @@
     <path d="M156 84 L152 90 L158 92" stroke-width="0.8" opacity="0.7"/>
 
     <!-- Heart → T2* (the REVERSE arrow, solid emerald, prominent) -->
-    <path d="M120 184 L120 196" stroke-width="2" stroke="#0E5347"/>
-    <path d="M113 188 L120 196 L127 188" stroke-width="1.8" stroke="#0E5347"/>
-    <text x="158" y="190" font-family="JetBrains Mono, monospace" font-size="8" letter-spacing="0.18em" fill="#0E5347" stroke="none" font-weight="700">REVERSE</text>
+    <path d="M120 188 L120 198" stroke-width="2" stroke="#0E5347"/>
+    <path d="M113 190 L120 198 L127 190" stroke-width="1.8" stroke="#0E5347"/>
+    <text x="146" y="194" font-family="JetBrains Mono, monospace" font-size="8" letter-spacing="0.12em" fill="#0E5347" stroke="none" font-weight="700">REVERSE</text>
 
     <!-- Diffusion noise dots (around heart, hinting at the generative process) -->
     <circle cx="78" cy="80" r="1" fill="#0F1417" opacity="0.4"/>

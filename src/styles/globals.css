@@ -120,6 +120,14 @@
   }
 }
 
+/* Reserve space at the bottom on mobile so the fixed Studio CTA never
+   sits on top of intro / contact content */
+@media (max-width: 720px) {
+  main {
+    padding-bottom: 88px;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
