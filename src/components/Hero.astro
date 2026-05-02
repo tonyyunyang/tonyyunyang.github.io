@@ -145,17 +145,17 @@ const card = siteConfig.businessCard;
       <circle cx="259" cy="100" r="1.4" fill="currentColor" opacity="0.35" stroke="none" />
       <circle cx="262" cy="111" r="0.9" fill="currentColor" opacity="0.3" stroke="none" />
 
-      <!-- stars -->
-      <circle cx="78" cy="92" r="1.1" fill="currentColor" stroke="none" />
-      <circle cx="86" cy="100" r="0.7" fill="currentColor" stroke="none" />
-      <circle cx="106" cy="86" r="0.9" fill="currentColor" stroke="none" />
-      <circle cx="124" cy="116" r="1.2" fill="currentColor" stroke="none" />
-      <circle cx="138" cy="98" r="0.6" fill="currentColor" stroke="none" />
-      <circle cx="152" cy="124" r="0.9" fill="currentColor" stroke="none" />
-      <circle cx="170" cy="92" r="0.7" fill="currentColor" stroke="none" />
-      <circle cx="188" cy="118" r="0.6" fill="currentColor" stroke="none" />
-      <circle cx="206" cy="98" r="0.9" fill="currentColor" stroke="none" />
-      <circle cx="222" cy="138" r="0.6" fill="currentColor" stroke="none" />
+      <!-- stars (twinkle on staggered cycles) -->
+      <circle class="hero__sketch-star hero__sketch-star--a" cx="78" cy="92" r="1.1" fill="currentColor" stroke="none" />
+      <circle class="hero__sketch-star hero__sketch-star--b" cx="86" cy="100" r="0.7" fill="currentColor" stroke="none" />
+      <circle class="hero__sketch-star hero__sketch-star--c" cx="106" cy="86" r="0.9" fill="currentColor" stroke="none" />
+      <circle class="hero__sketch-star hero__sketch-star--d" cx="124" cy="116" r="1.2" fill="currentColor" stroke="none" />
+      <circle class="hero__sketch-star hero__sketch-star--e" cx="138" cy="98" r="0.6" fill="currentColor" stroke="none" />
+      <circle class="hero__sketch-star hero__sketch-star--f" cx="152" cy="124" r="0.9" fill="currentColor" stroke="none" />
+      <circle class="hero__sketch-star hero__sketch-star--a" cx="170" cy="92" r="0.7" fill="currentColor" stroke="none" />
+      <circle class="hero__sketch-star hero__sketch-star--c" cx="188" cy="118" r="0.6" fill="currentColor" stroke="none" />
+      <circle class="hero__sketch-star hero__sketch-star--e" cx="206" cy="98" r="0.9" fill="currentColor" stroke="none" />
+      <circle class="hero__sketch-star hero__sketch-star--b" cx="222" cy="138" r="0.6" fill="currentColor" stroke="none" />
       <!-- small radiated stars -->
       <path d="M118 84 L118 80 M118 84 L118 88 M118 84 L114 84 M118 84 L122 84" stroke-width="0.6" opacity="0.7" />
       <path d="M196 134 L196 131 M196 134 L196 137 M196 134 L193 134 M196 134 L199 134" stroke-width="0.5" opacity="0.6" />
@@ -688,6 +688,22 @@ const card = siteConfig.businessCard;
   }
   .hero__sketch-steam--b { animation-duration: 2.8s; animation-delay: 0.6s; }
 
+  /* Stars in the night sky twinkle */
+  @keyframes heroSketchStarTwinkle {
+    0%, 100% { opacity: 1;    transform: scale(1);   }
+    50%      { opacity: 0.25; transform: scale(0.5); }
+  }
+  .hero__sketch-star {
+    transform-origin: center;
+    transform-box: fill-box;
+    animation: heroSketchStarTwinkle 2.6s ease-in-out infinite;
+  }
+  .hero__sketch-star--b { animation-duration: 3.2s; animation-delay: 0.4s; }
+  .hero__sketch-star--c { animation-duration: 2.4s; animation-delay: 0.8s; }
+  .hero__sketch-star--d { animation-duration: 3.6s; animation-delay: 1.2s; }
+  .hero__sketch-star--e { animation-duration: 2.8s; animation-delay: 1.6s; }
+  .hero__sketch-star--f { animation-duration: 3s;   animation-delay: 0.2s; }
+
   @media (max-width: 880px) {
     .hero__sketch-link {
       position: relative;
@@ -809,7 +825,8 @@ const card = siteConfig.businessCard;
     .hero__sketch-moon-halo,
     .hero__sketch-boat,
     .hero__sketch-smoke,
-    .hero__sketch-steam {
+    .hero__sketch-steam,
+    .hero__sketch-star {
       animation: none;
     }
     .hero__sketch-link:hover,

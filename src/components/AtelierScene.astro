@@ -243,17 +243,20 @@ const allNotes = objects.filter(
         <rect x="362" y="754" width="20" height="52" fill="#EDE6D5"></rect>
       </g>
 
-      <!-- Hook + medal hanging on the side of bookshelf -->
+      <!-- Hook + medal hanging on the side of bookshelf
+           (the ribbon + disc swing gently as a pendulum from the hook end) -->
       <g stroke="#0f1417" fill="none" stroke-linecap="round" stroke-linejoin="round">
-        <!-- Hook -->
+        <!-- Hook (fixed) -->
         <path d="M398 320 L408 320 L408 348" stroke-width="1.4"></path>
-        <!-- Ribbon -->
-        <path d="M404 348 L398 396 M412 348 L418 396" stroke-width="1" fill="none"></path>
-        <path d="M396 396 L420 396 L416 410 L400 410 Z" fill="#0E5347" stroke-width="1"></path>
-        <!-- Medal disc -->
-        <circle cx="408" cy="438" r="22" fill="#FAF1D8" stroke-width="1.4"></circle>
-        <circle cx="408" cy="438" r="16" fill="none" stroke-width="0.7" opacity="0.7"></circle>
-        <text x="408" y="444" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="#0f1417" stroke="none" letter-spacing="0.04em">21.1</text>
+        <g class="atelier__medal-swing">
+          <!-- Ribbon -->
+          <path d="M404 348 L398 396 M412 348 L418 396" stroke-width="1" fill="none"></path>
+          <path d="M396 396 L420 396 L416 410 L400 410 Z" fill="#0E5347" stroke-width="1"></path>
+          <!-- Medal disc -->
+          <circle cx="408" cy="438" r="22" fill="#FAF1D8" stroke-width="1.4"></circle>
+          <circle cx="408" cy="438" r="16" fill="none" stroke-width="0.7" opacity="0.7"></circle>
+          <text x="408" y="444" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="#0f1417" stroke="none" letter-spacing="0.04em">21.1</text>
+        </g>
       </g>
 
       <!-- =================================================== -->
@@ -330,15 +333,18 @@ const allNotes = objects.filter(
         <path d="M354 794 L358 788" stroke="#0F1417" stroke-width="1.4" opacity="0.92"></path>
 
         <!-- ===== TAIL ===== -->
-        <!-- Tail wraps over the body, paper-shade base with strong ringed bands -->
-        <path d="M430 818 Q462 808 466 788 Q468 768 448 766 Q428 766 422 782 Q420 800 426 812 Z"
-              fill="#EDE6D5" stroke="#0F1417" stroke-width="2"></path>
-        <!-- Tail rings (4 thick dark bands, the signature 狸花猫 ringed tail) -->
-        <path d="M432 814 Q444 814 444 808 L450 808 Q450 818 434 820 Z" fill="#0F1417" opacity="0.95" stroke="none"></path>
-        <path d="M448 802 Q458 800 460 794 L464 794 Q462 806 448 808 Z" fill="#0F1417" opacity="0.95" stroke="none"></path>
-        <path d="M460 786 Q464 780 462 774 L466 772 Q468 782 462 788 Z" fill="#0F1417" opacity="0.92" stroke="none"></path>
-        <!-- Tail tip darker -->
-        <path d="M448 766 Q452 762 458 766 Q458 770 450 770 Z" fill="#0F1417" opacity="0.92" stroke="none"></path>
+        <!-- Tail wraps over the body, paper-shade base with strong ringed bands.
+             Wrapped in a class so the tip can twitch periodically. -->
+        <g class="atelier__cat-tail">
+          <path d="M430 818 Q462 808 466 788 Q468 768 448 766 Q428 766 422 782 Q420 800 426 812 Z"
+                fill="#EDE6D5" stroke="#0F1417" stroke-width="2"></path>
+          <!-- Tail rings (4 thick dark bands, the signature 狸花猫 ringed tail) -->
+          <path d="M432 814 Q444 814 444 808 L450 808 Q450 818 434 820 Z" fill="#0F1417" opacity="0.95" stroke="none"></path>
+          <path d="M448 802 Q458 800 460 794 L464 794 Q462 806 448 808 Z" fill="#0F1417" opacity="0.95" stroke="none"></path>
+          <path d="M460 786 Q464 780 462 774 L466 772 Q468 782 462 788 Z" fill="#0F1417" opacity="0.92" stroke="none"></path>
+          <!-- Tail tip darker -->
+          <path d="M448 766 Q452 762 458 766 Q458 770 450 770 Z" fill="#0F1417" opacity="0.92" stroke="none"></path>
+        </g>
 
         <!-- ===== FACE DETAILS ===== -->
         <!-- Closed sleeping eyes -->
@@ -558,16 +564,18 @@ const allNotes = objects.filter(
         <!-- Canal water -->
         <rect x="640" y="420" width="380" height="100" fill="#EDE6D5" stroke-width="0"></rect>
         <path d="M640 420 H1020" stroke-width="1"></path>
-        <!-- Water ripples -->
-        <path d="M652 438 Q672 434 690 438 Q708 442 728 438 Q748 434 768 438 Q788 442 806 438 Q826 434 844 438 Q864 442 884 438 Q904 434 922 438 Q940 442 960 438 Q980 434 1000 438" stroke-width="0.6" opacity="0.7"></path>
-        <path d="M660 458 Q680 454 700 458 Q720 462 738 458 Q758 454 776 458 Q796 462 816 458 Q836 454 856 458 Q876 462 894 458 Q914 454 932 458 Q952 462 970 458 Q990 454 1010 458" stroke-width="0.6" opacity="0.55"></path>
-        <path d="M650 478 Q670 474 690 478 Q710 482 728 478 Q748 474 768 478 Q790 482 808 478 Q828 474 846 478 Q866 482 886 478 Q906 474 924 478 Q944 482 962 478 Q982 474 1002 478" stroke-width="0.5" opacity="0.45"></path>
-        <path d="M662 498 Q682 494 702 498 Q722 502 740 498 Q760 494 778 498 Q798 502 818 498 Q838 494 856 498 Q876 502 894 498" stroke-width="0.5" opacity="0.35"></path>
+        <!-- Water ripples (shimmer / drift horizontally) -->
+        <path class="atelier__water-ripple atelier__water-ripple--a" d="M652 438 Q672 434 690 438 Q708 442 728 438 Q748 434 768 438 Q788 442 806 438 Q826 434 844 438 Q864 442 884 438 Q904 434 922 438 Q940 442 960 438 Q980 434 1000 438" stroke-width="0.6" opacity="0.7"></path>
+        <path class="atelier__water-ripple atelier__water-ripple--b" d="M660 458 Q680 454 700 458 Q720 462 738 458 Q758 454 776 458 Q796 462 816 458 Q836 454 856 458 Q876 462 894 458 Q914 454 932 458 Q952 462 970 458 Q990 454 1010 458" stroke-width="0.6" opacity="0.55"></path>
+        <path class="atelier__water-ripple atelier__water-ripple--c" d="M650 478 Q670 474 690 478 Q710 482 728 478 Q748 474 768 478 Q790 482 808 478 Q828 474 846 478 Q866 482 886 478 Q906 474 924 478 Q944 482 962 478 Q982 474 1002 478" stroke-width="0.5" opacity="0.45"></path>
+        <path class="atelier__water-ripple atelier__water-ripple--d" d="M662 498 Q682 494 702 498 Q722 502 740 498 Q760 494 778 498 Q798 502 818 498 Q838 494 856 498 Q876 502 894 498" stroke-width="0.5" opacity="0.35"></path>
 
-        <!-- A houseboat -->
-        <path d="M872 478 Q874 472 884 472 L962 472 Q972 472 974 478 L974 488 L872 488 Z" fill="#0f1417" opacity="0.85" stroke-width="1"></path>
-        <path d="M888 472 V464 H932 V472 M912 464 V456 H924 V464" stroke-width="0.9" fill="#FAF1D8"></path>
-        <path d="M876 488 L968 488" stroke-width="0.6" opacity="0.6"></path>
+        <!-- A houseboat (bobs gently on the canal) -->
+        <g class="atelier__houseboat">
+          <path d="M872 478 Q874 472 884 472 L962 472 Q972 472 974 478 L974 488 L872 488 Z" fill="#0f1417" opacity="0.85" stroke-width="1"></path>
+          <path d="M888 472 V464 H932 V472 M912 464 V456 H924 V464" stroke-width="0.9" fill="#FAF1D8"></path>
+          <path d="M876 488 L968 488" stroke-width="0.6" opacity="0.6"></path>
+        </g>
 
         <!-- Moon (top-right pane) with halo (gentle pulse) -->
         <circle class="atelier__moon-halo" cx="982" cy="290" r="56" fill="url(#moonGlow)" stroke="none" opacity="0.85"></circle>
@@ -577,13 +585,13 @@ const allNotes = objects.filter(
         <circle cx="976" cy="300" r="1.4" fill="#0f1417" opacity="0.3"></circle>
         <circle cx="993" cy="284" r="1.2" fill="#0f1417" opacity="0.25"></circle>
 
-        <!-- Tiny stars -->
-        <circle cx="708" cy="266" r="1.2" fill="#0f1417" stroke-width="0"></circle>
-        <circle cx="754" cy="298" r="1" fill="#0f1417" stroke-width="0"></circle>
-        <circle cx="820" cy="276" r="1.3" fill="#0f1417" stroke-width="0"></circle>
-        <circle cx="868" cy="250" r="0.9" fill="#0f1417" stroke-width="0"></circle>
-        <circle cx="930" cy="332" r="1.1" fill="#0f1417" stroke-width="0"></circle>
-        <circle cx="676" cy="328" r="0.9" fill="#0f1417" stroke-width="0"></circle>
+        <!-- Tiny stars (twinkle on staggered cycles) -->
+        <circle class="atelier__star atelier__star--a" cx="708" cy="266" r="1.4" fill="#0f1417" stroke-width="0"></circle>
+        <circle class="atelier__star atelier__star--b" cx="754" cy="298" r="1.2" fill="#0f1417" stroke-width="0"></circle>
+        <circle class="atelier__star atelier__star--c" cx="820" cy="276" r="1.5" fill="#0f1417" stroke-width="0"></circle>
+        <circle class="atelier__star atelier__star--d" cx="868" cy="250" r="1.1" fill="#0f1417" stroke-width="0"></circle>
+        <circle class="atelier__star atelier__star--e" cx="930" cy="332" r="1.3" fill="#0f1417" stroke-width="0"></circle>
+        <circle class="atelier__star atelier__star--f" cx="676" cy="328" r="1.1" fill="#0f1417" stroke-width="0"></circle>
       </g>
 
       <!-- Window frame on top of view -->
@@ -608,9 +616,9 @@ const allNotes = objects.filter(
         <circle cx="1130" cy="306" r="22" fill="none" stroke-width="0.5" opacity="0.5"></circle>
         <!-- 12, 3, 6, 9 ticks -->
         <path d="M1130 282 V288 M1154 306 H1148 M1130 330 V324 M1106 306 H1112" stroke-width="1.2"></path>
-        <!-- Hour & minute hands (frozen at 11:08, lazy evening) -->
-        <path d="M1130 306 L1118 296" stroke-width="2"></path>
-        <path d="M1130 306 L1138 290" stroke-width="1.4"></path>
+        <!-- Hour & minute hands (rotate slowly — minute fast, hour slow) -->
+        <path class="atelier__clock-hour" d="M1130 306 L1118 296" stroke-width="2"></path>
+        <path class="atelier__clock-minute" d="M1130 306 L1138 290" stroke-width="1.4"></path>
         <circle cx="1130" cy="306" r="1.6" fill="#0f1417"></circle>
       </g>
 
@@ -636,8 +644,8 @@ const allNotes = objects.filter(
         <circle cx="582" cy="296" r="2" fill="#0E5347"></circle>
       </g>
 
-      <!-- Curtain on left side of window -->
-      <g stroke="#0f1417" fill="#EDE6D5" stroke-linecap="round" stroke-linejoin="round">
+      <!-- Curtain on left side of window (gentle wave like a draft) -->
+      <g class="atelier__curtain" stroke="#0f1417" fill="#EDE6D5" stroke-linecap="round" stroke-linejoin="round">
         <path d="M576 232 Q600 240 614 244 L614 530 Q604 532 590 528 Q580 526 576 530 Z" stroke-width="1.4" fill="#EDE6D5"></path>
         <path d="M584 240 Q586 380 580 528 M594 246 Q598 380 596 528 M604 250 Q612 380 608 530" stroke-width="0.6" fill="none" opacity="0.7"></path>
       </g>
@@ -933,20 +941,35 @@ const allNotes = objects.filter(
       </g>
 
       <!-- =================================================== -->
-      <!-- PENDANT LAMP                                         -->
+      <!-- TENNIS BALL (rests on floor below the rackets)       -->
+      <!-- =================================================== -->
+      <g class="atelier__tennis-ball" stroke="#0f1417" stroke-linecap="round" stroke-linejoin="round" fill="none">
+        <!-- Ball body (emerald, our brand colour standing in for the iconic tennis-yellow) -->
+        <circle cx="1340" cy="876" r="11" fill="#0E5347" stroke="#0F1417" stroke-width="1.4"></circle>
+        <!-- Cream seam — the unmistakable tennis-ball signature -->
+        <path d="M1330 873 Q1340 868 1350 873" stroke="#FAF1D8" stroke-width="0.9" fill="none"></path>
+        <path d="M1330 879 Q1340 884 1350 879" stroke="#FAF1D8" stroke-width="0.9" fill="none"></path>
+        <!-- Tiny shadow on the floor -->
+        <ellipse cx="1340" cy="889" rx="11" ry="2" fill="#0f1417" opacity="0.18" stroke="none"></ellipse>
+      </g>
+
+      <!-- =================================================== -->
+      <!-- PENDANT LAMP (sways gently from the ceiling cap)     -->
       <!-- =================================================== -->
       <g stroke="#0f1417" stroke-linecap="round" stroke-linejoin="round" fill="none">
-        <!-- Cord -->
-        <path d="M820 200 L820 540" stroke-width="1.2"></path>
-        <!-- Ceiling cap -->
+        <!-- Ceiling cap (fixed anchor point) -->
         <ellipse cx="820" cy="204" rx="10" ry="3" fill="#0f1417"></ellipse>
-        <!-- Shade -->
-        <path d="M778 540 L820 580 L862 540 Q862 528 820 528 Q778 528 778 540 Z" fill="#0f1417" stroke-width="1.4" opacity="0.92"></path>
-        <!-- Bulb glow at base of shade -->
-        <circle class="atelier__lamp-bulb" cx="820" cy="582" r="14" fill="#FAF1D8" stroke="none" opacity="0.95"></circle>
-        <!-- Inside light -->
-        <path d="M794 558 L820 574 L846 558" stroke="#FAF1D8" stroke-width="0.6"></path>
-        <!-- Glow (gentle pulse) -->
+        <g class="atelier__pendant-sway">
+          <!-- Cord -->
+          <path d="M820 204 L820 540" stroke-width="1.2"></path>
+          <!-- Shade -->
+          <path d="M778 540 L820 580 L862 540 Q862 528 820 528 Q778 528 778 540 Z" fill="#0f1417" stroke-width="1.4" opacity="0.92"></path>
+          <!-- Bulb glow at base of shade -->
+          <circle class="atelier__lamp-bulb" cx="820" cy="582" r="14" fill="#FAF1D8" stroke="none" opacity="0.95"></circle>
+          <!-- Inside light -->
+          <path d="M794 558 L820 574 L846 558" stroke="#FAF1D8" stroke-width="0.6"></path>
+        </g>
+        <!-- Glow pool stays roughly steady on the desk (lamp sways but pool is on table) -->
         <ellipse class="atelier__lamp-glow" cx="820" cy="610" rx="190" ry="180" fill="url(#lampGlow)" stroke="none" opacity="0.75"></ellipse>
       </g>
 
@@ -1454,6 +1477,124 @@ const allNotes = objects.filter(
     animation: atelierCatZzz 3.4s ease-out infinite;
   }
 
+  /* ============ EXTENDED IDLE MOTION (iter 10) ============
+     More objects move so the room feels properly inhabited. */
+
+  /* Stars twinkle on staggered cycles */
+  @keyframes atelierStarTwinkle {
+    0%, 100% { opacity: 1;   transform: scale(1);   }
+    50%      { opacity: 0.25; transform: scale(0.6); }
+  }
+  .atelier__star {
+    transform-origin: center;
+    transform-box: fill-box;
+    animation: atelierStarTwinkle 2.4s ease-in-out infinite;
+  }
+  .atelier__star--b { animation-duration: 3.2s; animation-delay: 0.4s; }
+  .atelier__star--c { animation-duration: 2.8s; animation-delay: 0.8s; }
+  .atelier__star--d { animation-duration: 3.6s; animation-delay: 1.2s; }
+  .atelier__star--e { animation-duration: 2.6s; animation-delay: 1.6s; }
+  .atelier__star--f { animation-duration: 3s;   animation-delay: 0.2s; }
+
+  /* Clock hands rotate (theatrical pace, not real-time) */
+  @keyframes atelierClockSpin {
+    0%   { transform: rotate(0deg);   }
+    100% { transform: rotate(360deg); }
+  }
+  .atelier__clock-hour {
+    transform-origin: 1130px 306px;
+    transform-box: view-box;
+    animation: atelierClockSpin 60s linear infinite;
+  }
+  .atelier__clock-minute {
+    transform-origin: 1130px 306px;
+    transform-box: view-box;
+    animation: atelierClockSpin 8s linear infinite;
+  }
+
+  /* Half-marathon medal swings on its ribbon */
+  @keyframes atelierMedalSwing {
+    0%, 100% { transform: rotate(-3deg); }
+    50%      { transform: rotate(3deg);  }
+  }
+  .atelier__medal-swing {
+    transform-origin: 408px 348px;
+    transform-box: view-box;
+    animation: atelierMedalSwing 3.6s ease-in-out infinite;
+  }
+
+  /* Tennis ball: subtle settle / squish (resting + breathing) */
+  @keyframes atelierTennisBall {
+    0%, 100% { transform: translateY(0)    scaleY(1)    scaleX(1);    }
+    25%      { transform: translateY(-3px) scaleY(1.04) scaleX(0.97); }
+    60%      { transform: translateY(0)    scaleY(0.95) scaleX(1.04); }
+    80%      { transform: translateY(-1px) scaleY(1.02) scaleX(0.99); }
+  }
+  .atelier__tennis-ball {
+    transform-origin: 1340px 887px;
+    transform-box: view-box;
+    animation: atelierTennisBall 4.2s ease-in-out infinite;
+  }
+
+  /* Houseboat bobs gently on the canal */
+  @keyframes atelierHouseboatBob {
+    0%, 100% { transform: translateY(0)    rotate(0deg);   }
+    25%      { transform: translateY(-2px) rotate(-0.7deg); }
+    50%      { transform: translateY(0.5px) rotate(0.4deg);  }
+    75%      { transform: translateY(-1px) rotate(-0.3deg); }
+  }
+  .atelier__houseboat {
+    transform-origin: center;
+    transform-box: fill-box;
+    animation: atelierHouseboatBob 3.6s ease-in-out infinite;
+  }
+
+  /* Water ripples shimmer / drift sideways at different rates */
+  @keyframes atelierWaterRipple {
+    0%, 100% { transform: translateX(0);    opacity: 0.7; }
+    50%      { transform: translateX(10px); opacity: 0.4; }
+  }
+  .atelier__water-ripple {
+    animation: atelierWaterRipple 5s ease-in-out infinite;
+  }
+  .atelier__water-ripple--b { animation-duration: 6s;   animation-delay: 0.5s; }
+  .atelier__water-ripple--c { animation-duration: 7s;   animation-delay: 1s;   }
+  .atelier__water-ripple--d { animation-duration: 5.5s; animation-delay: 1.5s; }
+
+  /* Pendant lamp sways slightly from the ceiling cap */
+  @keyframes atelierPendantSway {
+    0%, 100% { transform: rotate(-1.6deg); }
+    50%      { transform: rotate(1.6deg);  }
+  }
+  .atelier__pendant-sway {
+    transform-origin: 820px 204px;
+    transform-box: view-box;
+    animation: atelierPendantSway 6.8s ease-in-out infinite;
+  }
+
+  /* Curtain waves like a draft is coming through the window */
+  @keyframes atelierCurtainWave {
+    0%, 100% { transform: translateX(0)    skewX(0deg);   }
+    50%      { transform: translateX(-1.5px) skewX(-1deg); }
+  }
+  .atelier__curtain {
+    transform-origin: top;
+    transform-box: fill-box;
+    animation: atelierCurtainWave 5.2s ease-in-out infinite;
+  }
+
+  /* Cat tail twitches occasionally (mostly still, a flick every cycle) */
+  @keyframes atelierCatTailTwitch {
+    0%, 78%, 100% { transform: rotate(0deg); }
+    82%, 92%      { transform: rotate(-5deg); }
+    87%           { transform: rotate(5deg); }
+  }
+  .atelier__cat-tail {
+    transform-origin: 426px 812px;
+    transform-box: view-box;
+    animation: atelierCatTailTwitch 7s ease-in-out infinite;
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .atelier__hotspot-dot,
     .atelier__hotspot-label {
@@ -1468,7 +1609,17 @@ const allNotes = objects.filter(
     .atelier__wok-flame,
     .atelier__wok-steam,
     .atelier__tulips,
-    .atelier__cat-zzz {
+    .atelier__cat-zzz,
+    .atelier__star,
+    .atelier__clock-hour,
+    .atelier__clock-minute,
+    .atelier__medal-swing,
+    .atelier__tennis-ball,
+    .atelier__houseboat,
+    .atelier__water-ripple,
+    .atelier__pendant-sway,
+    .atelier__curtain,
+    .atelier__cat-tail {
       animation: none;
     }
   }
