@@ -31,12 +31,13 @@ first; brainstorm an extension if it doesn't.
 - **Astro 5** (TypeScript, MDX content collections)
 - **Tailwind v4** via `@tailwindcss/vite`
 - **Self-hosted free fonts** through `@fontsource`:
-  - Display: EB Garamond italic (stand-in for paid PP Editorial New)
-  - Body: Inter
-  - Mono: JetBrains Mono
+  - Display: EB Garamond (400 + 500, both upright and italic)
+  - Body: Inter (400, 500, 600, 400-italic)
+  - Mono: JetBrains Mono (400, 500)
 - **Pagefind** for client-side fuzzy search (powers `⌘K`)
 - **Vitest** for unit tests, **Playwright** for E2E + visual screenshots
 - **GitHub Actions** for build + deploy to Pages
+- **ClustrMaps** for silent visit analytics (hidden in `Base.astro`)
 
 No React/Vue/Svelte. Tiny vanilla TypeScript "islands" power the workbench,
 command palette, and atelier scene.
@@ -53,9 +54,16 @@ npm run test:unit       # vitest
 npm run test:e2e        # playwright
 npm test                # all tests
 
-# Visual inspection (saves PNGs to tests/visual/shots, gitignored):
-npx playwright test tests/e2e/_visual.spec.ts
+# Visual inspection (helper specs, all `_`-prefixed; PNGs → tests/visual/shots/, gitignored):
+npx playwright test tests/e2e/_homepage-preview.spec.ts
+npx playwright test tests/e2e/_atelier-preview.spec.ts
+npx playwright test tests/e2e/_paper-thumbs.spec.ts
+npx playwright test tests/e2e/_zoom-preview.spec.ts
 ```
+
+NOTE: the legacy `tests/e2e/atelier-scene.spec.ts` and `_visual.spec.ts`
+expect the original 4-viewport scene with arrow-key walk. They will fail
+in CI; rewrite or delete before they run. See `docs/POLISH.md` §1.
 
 ## Repository layout (high-level)
 
@@ -73,24 +81,28 @@ src/
 │   └── atelier.json          /world/ Studio scene data (single flat list
 │                              of objects with x,y % coordinates)
 ├── components/
-│   ├── Hero.astro            hero with right-side window-onto-canal sketch
+│   ├── Hero.astro            identity card + Plate I sketch (the page's
+│   │                          first impression — name, role, PhD pill, etc.)
 │   ├── Intro.astro           §00 (PhD opening + day-to-day)
 │   ├── ResearchThemes.astro  6-card "Research compass" grid
-│   ├── PaperCard.astro
+│   ├── PaperCard.astro       (author name underline only on the name,
+│   │                          NOT the trailing comma — see PaperCard.astro)
 │   ├── ProjectCard.astro     thumbnails open primary link in new tab
 │   ├── BusinessCard.astro    sketch-style §06 contact card
-│   ├── SectionHeader.astro   gained `dekWide` prop (80ch dek max)
+│   ├── SectionHeader.astro   `dekWide` prop (80ch); deks are Inter, NOT
+│   │                          italic display (see Don'ts below)
 │   ├── Sidenote.astro
 │   ├── Icon.astro            hand-drawn engraving icon library
-│   ├── PillLink.astro        now accepts an `icon` prop
+│   ├── PillLink.astro        accepts `icon` prop; min-height 44 px tap
 │   ├── Folio.astro
 │   ├── CommandPalette.astro
-│   ├── SketchbookButton.astro
+│   ├── SketchbookButton.astro  collapses to icon-only on ≤720 px
 │   ├── AtelierScene.astro    Studio cross-section illustration
 │   ├── Toc.astro
 │   └── Workbench.astro       not currently mounted; ResearchThemes
 │                              replaced it on the homepage
-├── layouts/Base.astro        main layout (CommandPalette + SketchbookButton)
+├── layouts/Base.astro        main layout (CommandPalette +
+│                              SketchbookButton + hidden ClustrMaps tracker)
 ├── layouts/Post.astro        blog post layout
 ├── pages/
 │   ├── index.astro           homepage (single long scroll)
@@ -120,9 +132,16 @@ docs/                         specs, plans, status, polish
 --featured     #FAF1D8   (highlighted-paper tint)
 ```
 
-Type: display = `var(--font-display)` (EB Garamond italic), body =
-`var(--font-sans)` (Inter), captions = `var(--font-mono)` (JetBrains Mono,
-uppercase, letter-spacing 0.08em).
+Type rules:
+- `var(--font-display)` (EB Garamond) — used **upright** for the hero
+  name + business-card name, and **italic** ONLY for the hero quote,
+  section title labels, business-card name italic variant, and Studio
+  sidenotes. Body text is NEVER italic display — that read as too
+  literary in earlier rounds.
+- `var(--font-sans)` (Inter) — body running text, section deks
+  (16-18 px / line-height 1.6), research-themes intro, paper summaries.
+- `var(--font-mono)` (JetBrains Mono, uppercase, letter-spacing 0.08em)
+  — captions, role lines, breadcrumbs, plate colophons.
 
 Motion budget: hover 180ms ease-out, default 240ms ease-out, iris reveal
 480ms, page transitions 320ms, atelier door 1200ms one-shot. Honor
@@ -141,7 +160,7 @@ Motion budget: hover 180ms ease-out, default 240ms ease-out, iris reveal
 ## Don'ts
 
 - Don't add React/Vue/Svelte. Astro components + vanilla TS only.
-- Don't introduce a fifth color. Stick to the 7 tokens above.
+- Don't introduce an eighth color. Stick to the 7 tokens above.
 - **Don't use em-dashes (`—`) in user-visible content.** Tony explicitly
   doesn't like them. Use parens, periods, commas, the middle dot `·`, or
   the arrow `→` (for date ranges) instead. Hunt with
@@ -154,10 +173,35 @@ Motion budget: hover 180ms ease-out, default 240ms ease-out, iris reveal
   (the hidden `<div class="visit-tracker">` block). It's an off-screen
   ClustrMaps script that pings analytics without rendering a visible
   widget.
+- **Don't make body deks italic display.** They were italic EB Garamond
+  in earlier rounds and read as "fancy and distracting". They're upright
+  Inter now for academic scannability — keep them that way.
+- **Don't reduce the PhD-search pill prominence.** It's the page's
+  primary call-to-action. The `Hero.astro:.hero__seeking` pill links to
+  `#contact` and has min-height 44 px on touch; preserve both.
+- **Don't push to `master`.** The default branch is `main`; `master`
+  doesn't exist on this repo. Pushes to `main` auto-deploy.
+
+## Polish workflow that worked (codex critique loop)
+
+The site converged through three codex critique rounds (codex-rescue
+subagent). The pattern:
+
+1. Make a batch of changes locally.
+2. Refresh `tests/visual/shots/` via the helper specs.
+3. Dispatch codex-rescue with a focused critique prompt — point at
+   specific files + screenshots, ask for ranked highest-impact-fixes
+   first, under 500-700 words.
+4. Apply codex's concrete suggestions verbatim where they're concrete.
+5. Commit + push (auto-deploys).
+6. Loop until codex says "converged" / "no urgent issues".
+
+`docs/STATUS.md` has the run log + lessons. `docs/POLISH.md` has the
+remaining backlog.
 
 ## Memory
 
 Recurring per-user/per-project context lives at
 `~/.claude/projects/-Users-tonyyunyang-Code-tonyyunyang-github-io/memory/`.
 Refresh the project memory when ground truth changes (e.g., the redesign
-ships).
+ships, a new repo migration happens).
