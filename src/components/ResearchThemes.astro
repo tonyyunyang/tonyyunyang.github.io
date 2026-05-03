@@ -142,7 +142,7 @@ const intro = siteConfig.researchThemesIntro;
     display: flex;
     flex-direction: column;
     gap: 14px;
-    transition: background 240ms ease-out;
+    transition: background 160ms ease-out;
     position: relative;
   }
 
@@ -163,6 +163,13 @@ const intro = siteConfig.researchThemesIntro;
     height: 36px;
     display: flex;
     align-items: center;
+    transition: color 160ms ease-out;
+  }
+
+  /* Glyph picks up the accent on hover so the card signals interactivity
+     without resorting to a heavy border or shadow change. */
+  .themes__card:hover .themes__card-glyph {
+    color: var(--color-accent);
   }
 
   .themes__card--north .themes__card-glyph {

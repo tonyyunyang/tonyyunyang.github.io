@@ -99,4 +99,48 @@ const slugId = id ?? title.toLowerCase().replace(/\s+/g, "-");
     background: var(--color-accent);
     border-radius: 2px;
   }
+
+  /* Page-load entry: title, dek, rule rise + fade in on a short stagger.
+     CSS-only (no IntersectionObserver) — most users see sections in the
+     order they appear, and this plays once at load like printed plates
+     unfolding on the page. animation-fill-mode: backwards keeps each
+     element invisible until its delayed start. */
+  @keyframes sectionHeaderRise {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .row,
+  .dek,
+  .underline {
+    animation: sectionHeaderRise 600ms cubic-bezier(.22,.72,.16,1) both;
+  }
+
+  .row {
+    animation-delay: 0ms;
+  }
+
+  .dek {
+    animation-delay: 80ms;
+  }
+
+  .underline {
+    animation-delay: 160ms;
+    /* Subtle width sweep so the rule feels drawn rather than dropped in */
+    transform-origin: left center;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .row,
+    .dek,
+    .underline {
+      animation: none;
+    }
+  }
 </style>

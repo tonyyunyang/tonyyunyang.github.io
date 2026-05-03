@@ -1809,23 +1809,27 @@ const allNotes = objects.filter(
     100% { transform: translateY(-14px) scale(0.9); opacity: 0;   }
   }
 
-  /* Pendant lamp pool — gentle warm breathing (visible at scale) */
+  /* Pendant lamp pool — gentle warm breathing (visible at scale).
+     Glow + bulb share the 5s cycle (same lamp, same heartbeat) but the
+     pair is offset from the rest of the room so the page doesn't pulse
+     in lockstep. */
   .atelier__lamp-glow {
     transform-origin: center;
     transform-box: fill-box;
-    animation: atelierLampPulse 5.2s ease-in-out infinite;
+    animation: atelierLampPulse 5s ease-in-out infinite;
   }
   .atelier__lamp-bulb {
     transform-origin: center;
     transform-box: fill-box;
-    animation: atelierLampBulb 5.2s ease-in-out infinite;
+    animation: atelierLampBulb 5s ease-in-out infinite;
   }
 
   /* Moon halo over the canal — slow pulse */
   .atelier__moon-halo {
     transform-origin: center;
     transform-box: fill-box;
-    animation: atelierMoonHalo 8s ease-in-out infinite;
+    animation: atelierMoonHalo 7.6s ease-in-out infinite;
+    animation-delay: 1.2s;
   }
 
   /* Candle flame flickers, halo gently pulses */
@@ -1845,10 +1849,10 @@ const allNotes = objects.filter(
   /* Coffee steam wisps drift up and fade (alternating delays) */
   .atelier__coffee-steam {
     transform-box: fill-box;
-    animation: atelierSteamRise 3.4s ease-out infinite;
+    animation: atelierSteamRise 3.6s ease-out infinite;
   }
-  .atelier__coffee-steam--b { animation-duration: 4s;   animation-delay: 0.6s; }
-  .atelier__coffee-steam--c { animation-duration: 3s;   animation-delay: 1.2s; }
+  .atelier__coffee-steam--b { animation-duration: 4.2s; animation-delay: 0.7s; }
+  .atelier__coffee-steam--c { animation-duration: 3.1s; animation-delay: 1.3s; }
 
   /* Wok flames flicker; wok steam rises (vigorous, stir-fry energy) */
   .atelier__wok-flame {
@@ -1870,13 +1874,15 @@ const allNotes = objects.filter(
   .atelier__tulips {
     transform-origin: bottom center;
     transform-box: fill-box;
-    animation: atelierTulipSway 5.2s ease-in-out infinite;
+    animation: atelierTulipSway 5.6s ease-in-out infinite;
+    animation-delay: 0.8s;
   }
 
   /* Sleeping cat: zzz drifts up + fades */
   .atelier__cat-zzz {
     transform-box: fill-box;
-    animation: atelierCatZzz 3.4s ease-out infinite;
+    animation: atelierCatZzz 3.8s ease-out infinite;
+    animation-delay: 0.4s;
   }
 
   /* ============ EXTENDED IDLE MOTION (iter 10) ============
@@ -1922,7 +1928,8 @@ const allNotes = objects.filter(
   .atelier__medal-swing {
     transform-origin: 408px 348px;
     transform-box: view-box;
-    animation: atelierMedalSwing 3.6s ease-in-out infinite;
+    animation: atelierMedalSwing 4s ease-in-out infinite;
+    animation-delay: 0.5s;
   }
 
   /* Tennis ball: subtle settle / squish (resting + breathing) */
@@ -1935,7 +1942,8 @@ const allNotes = objects.filter(
   .atelier__tennis-ball {
     transform-origin: 1340px 887px;
     transform-box: view-box;
-    animation: atelierTennisBall 4.2s ease-in-out infinite;
+    animation: atelierTennisBall 4.4s ease-in-out infinite;
+    animation-delay: 0.6s;
   }
 
   /* Houseboat bobs gently on the canal */
@@ -1948,7 +1956,8 @@ const allNotes = objects.filter(
   .atelier__houseboat {
     transform-origin: center;
     transform-box: fill-box;
-    animation: atelierHouseboatBob 3.6s ease-in-out infinite;
+    animation: atelierHouseboatBob 3.2s ease-in-out infinite;
+    animation-delay: 1.1s;
   }
 
   /* Water ripples shimmer / drift sideways at different rates */
@@ -1971,7 +1980,8 @@ const allNotes = objects.filter(
   .atelier__pendant-sway {
     transform-origin: 820px 204px;
     transform-box: view-box;
-    animation: atelierPendantSway 6.8s ease-in-out infinite;
+    animation: atelierPendantSway 6.4s ease-in-out infinite;
+    animation-delay: 0.9s;
   }
 
   /* Curtain waves like a draft is coming through the window */
@@ -1982,7 +1992,8 @@ const allNotes = objects.filter(
   .atelier__curtain {
     transform-origin: top;
     transform-box: fill-box;
-    animation: atelierCurtainWave 5.2s ease-in-out infinite;
+    animation: atelierCurtainWave 4.8s ease-in-out infinite;
+    animation-delay: 0.3s;
   }
 
   /* Cat tail twitches occasionally (mostly still, a flick every cycle) */

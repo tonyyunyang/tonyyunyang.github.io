@@ -20,6 +20,18 @@ const { label } = Astro.props;
     border-left: 1px solid var(--color-hairline);
     padding-left: 12px;
     margin-block: 8px;
+    animation: sidenoteRise 240ms ease-out both;
+  }
+
+  @keyframes sidenoteRise {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 
   .sidenote__label {
@@ -33,5 +45,11 @@ const { label } = Astro.props;
 
   .sidenote__body {
     font-style: italic;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .sidenote {
+      animation: none;
+    }
   }
 </style>

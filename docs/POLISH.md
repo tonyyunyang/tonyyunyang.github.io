@@ -1,10 +1,29 @@
 # Polish & improvement backlog
 
-_Last updated: 2026-05-03 (after iteration 15 — mobile compaction round 2 from a second codex critique pass)_
+_Last updated: 2026-05-03 (after iteration 16 — three-agent parallel polish pass: hero rhythm, BusinessCard flourish fix, animation refinement)_
 
 A working list of things noticed during build & visual inspection that
 would sharpen the site further. Pick one bullet per session, work on
 it, push.
+
+## Closed in iteration 16
+
+Tony sent two close-up mobile screenshots showing (a) the hero feels visually stretched and (b) the BusinessCard's SVG plate flourish is rendering through the right edge of "RESEARCH" in the contact pill. Spawned three parallel polish agents — different files, no merge conflicts — and applied all of their work.
+
+- ✅ **Hero mobile rhythm tightened (`Hero.astro`)**: `.hero__id { gap: 22 → 16 }`, `margin-bottom: 8 → 4`, role line tucks `margin-top: -4px` under the name's baseline, specialty line `font-size: 16 → 15` and `margin-top: 2px`. Identity card now reads as one composed plate, not four floating elements. Bonus: the "scroll for the work" cue now reaches above the fold on 320 px viewports.
+- ✅ **Hero entry animation**: 4-child stagger (name / role / pill / specialty) with fade + 8 px rise, 600 ms cubic-bezier(.22,.72,.16,1), 80 ms stagger. Pure CSS, runs once on first paint. Reduced-motion safe.
+- ✅ **Hero pill sparkle pulse**: `heroSeekingMarkPulse` keyframe (5.4 s, opacity 0.7→1→0.7, scale 0.94→1.02→0.94) on `.hero__seeking-mark`. Atmospheric breathing.
+- ✅ **BusinessCard plate flourish hidden on mobile**: wrapped the centerpiece path + green dot in `<g class="card__plate-flourish">` and `display: none`'d on `≤720 px`. The flourish no longer renders through the pill text.
+- ✅ **BusinessCard TY crest sized down on mobile**: 64 px → 44 px so it stops dominating the lower card.
+- ✅ **BusinessCard internal spacing tightened on mobile**: divider `24/20 → 20/18`, signature `margin-top: 24 → 18`, name `margin: 4/6 → 4/4`, looking-pill `margin-bottom: 10 → 14`. Card reads as one composed plate now.
+- ✅ **BusinessCard entrance animation**: `cardReveal` keyframe (8 px rise + fade, 700 ms ease-out) staggered across the four content children at 0/120/240/360 ms.
+- ✅ **BusinessCard contact-link hover**: `transform: translateX(4px)` on `.card__contact a:hover`, 200 ms ease-out, gives a tactile feel.
+- ✅ **Section reveal animation pattern (`SectionHeader.astro`)**: rule + heading + dek fade-in + 6 px rise, staggered 80 ms, on first load. Reduced-motion safe.
+- ✅ **PaperCard + ProjectCard hover lift**: `translateY(-2px)` + box-shadow deepening on hover. 180 ms ease-out.
+- ✅ **ResearchThemes glyph hover**: card glyph picks up emerald accent on hover with 160 ms ease-out so each card signals interactivity without resorting to heavy borders.
+- ✅ **AtelierScene idle motion variation**: rebalanced shared-duration animations (lamp pulse / candle flicker / moon halo / steam / tulip sway) by ±0.4 s + 0–1.2 s delay so the room no longer pulses in lockstep. Same animations, just less synchronized.
+- ✅ **PillLink trailing arrow nudge**: 2 px right translation on hover, 200 ms ease-out. Subtle but tactile.
+- ✅ **Sidenote panel reveal**: 240 ms fade + 6 px rise on open. Reduced-motion safe.
 
 ## Closed in iteration 15
 

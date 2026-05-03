@@ -34,8 +34,10 @@ const [lookingLabel, lookingWhen] = card.looking
     <rect x="726" y="432" width="60" height="14" fill="url(#cardHatch)" opacity="0.55" />
     <rect x="772" y="372" width="14" height="60" fill="url(#cardHatch)" opacity="0.55" />
     <!-- Decorative top centerpiece (a printer's flourish) -->
-    <path d="M340 26 Q360 18 380 26 Q400 34 420 26 Q440 18 460 26" fill="none" stroke="#0F1417" stroke-width="0.7" />
-    <circle cx="400" cy="26" r="2" fill="#0E5347" />
+    <g class="card__plate-flourish">
+      <path d="M340 26 Q360 18 380 26 Q400 34 420 26 Q440 18 460 26" fill="none" stroke="#0F1417" stroke-width="0.7" />
+      <circle cx="400" cy="26" r="2" fill="#0E5347" />
+    </g>
     <!-- Bottom decorative line -->
     <path d="M14 422 H786" stroke="#0F1417" stroke-width="0.4" opacity="0.5" />
   </svg>
@@ -315,11 +317,22 @@ const [lookingLabel, lookingWhen] = card.looking
     letter-spacing: 0.04em;
     color: var(--color-ink);
     text-decoration: none;
-    transition: color 180ms ease-out;
+    transition: color 180ms ease-out, transform 200ms ease-out;
+    will-change: transform;
   }
 
   .card__contact a:hover {
     color: var(--color-accent);
+    transform: translateX(4px);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .card__contact a {
+      transition: color 180ms ease-out;
+    }
+    .card__contact a:hover {
+      transform: none;
+    }
   }
 
   .card__meta {
@@ -401,22 +414,72 @@ const [lookingLabel, lookingWhen] = card.looking
     white-space: nowrap;
   }
 
+  /* One-shot entrance animation when the card mounts. Each direct child of
+     .card__content fades + rises 8px in sequence. CSS-only, no JS observer. */
+  @keyframes cardReveal {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .card__content > * {
+    animation: cardReveal 700ms ease-out both;
+  }
+
+  .card__content > *:nth-child(1) {
+    animation-delay: 0ms;
+  }
+  .card__content > *:nth-child(2) {
+    animation-delay: 120ms;
+  }
+  .card__content > *:nth-child(3) {
+    animation-delay: 240ms;
+  }
+  .card__content > *:nth-child(4) {
+    animation-delay: 360ms;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .card__content > * {
+      animation: none;
+    }
+  }
+
   @media (max-width: 720px) {
     .card {
       padding: 28px 22px 22px;
+    }
+    /* The printer's flourish + dot land near the top centerline of the SVG
+       and on narrow screens the pill widens into them. Hide on mobile so the
+       pill border + text stay clean. Outer dashed frame, inner solid frame,
+       hatched corners, and bottom decorative line all remain. */
+    .card__plate-flourish {
+      display: none;
     }
     .card__top {
       grid-template-columns: 1fr;
     }
     .card__crest {
-      width: 64px;
-      height: 64px;
+      width: 44px;
+      height: 44px;
     }
     .card__bottom {
       grid-template-columns: 1fr;
       gap: 24px;
     }
+    .card__divider {
+      margin: 20px 0 18px;
+    }
+    .card__signature {
+      margin-top: 18px;
+    }
     .card__name {
+      margin: 4px 0 4px;
       flex-direction: column;
       gap: 4px;
     }
@@ -424,8 +487,10 @@ const [lookingLabel, lookingWhen] = card.looking
       font-size: 0.55em;
     }
     /* Pill stacks "open to research" / "academia or industry" so it stays
-       a clean ellipse instead of breaking mid-phrase. */
+       a clean ellipse instead of breaking mid-phrase. Margin-bottom gives
+       the pill more breathing room before the (tightened) name. */
     .card__looking {
+      margin: 0 0 14px;
       align-items: flex-start;
       padding: 8px 14px 7px;
       border-radius: 18px;

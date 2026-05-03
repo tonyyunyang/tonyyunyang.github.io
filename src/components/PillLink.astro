@@ -42,25 +42,43 @@ const {
     color: var(--color-ink);
     background: var(--color-paper-shade);
     transition:
-      background 180ms ease-out,
-      border-color 180ms ease-out,
-      color 180ms ease-out,
-      transform 180ms ease-out;
+      background 200ms ease-out,
+      border-color 200ms ease-out,
+      color 200ms ease-out,
+      transform 200ms ease-out;
   }
 
-  .pill:hover {
+  .pill:hover,
+  .pill:focus-visible {
     background: var(--color-paper);
     border-color: var(--color-accent);
     color: var(--color-accent);
     transform: translateY(-1px);
   }
 
+  .pill:hover .pill__icon,
+  .pill:focus-visible .pill__icon {
+    transform: translateX(1px);
+  }
+
   .pill__icon {
     color: inherit;
     margin-left: -2px;
+    transition: transform 200ms ease-out;
   }
 
   .pill__label {
     line-height: 1;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .pill:hover,
+    .pill:focus-visible {
+      transform: none;
+    }
+    .pill:hover .pill__icon,
+    .pill:focus-visible .pill__icon {
+      transform: none;
+    }
   }
 </style>

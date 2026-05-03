@@ -387,6 +387,22 @@ const card = siteConfig.businessCard;
     margin-bottom: 8px;
   }
 
+  /* Stagger entry: name → role → pill → specialty fade-and-rise on first paint.
+     Each child runs once (forwards) so the final state is the natural layout. */
+  @keyframes heroIdEntry {
+    0%   { opacity: 0; transform: translateY(8px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero__id > * {
+    opacity: 0;
+    animation: heroIdEntry 600ms cubic-bezier(.22,.72,.16,1) both;
+  }
+  .hero__id > *:nth-child(1) { animation-delay: 0ms; }
+  .hero__id > *:nth-child(2) { animation-delay: 80ms; }
+  .hero__id > *:nth-child(3) { animation-delay: 160ms; }
+  .hero__id > *:nth-child(4) { animation-delay: 240ms; }
+
   .hero__name {
     margin: 0 0 6px;
     font-family: var(--font-display);
@@ -471,11 +487,24 @@ const card = siteConfig.businessCard;
     height: 14px;
     display: inline-flex;
     align-items: center;
+    transition: color 200ms ease-out;
+    /* Slow breathing pulse so the sparkle feels alive without distracting */
+    animation: heroSeekingMarkPulse 5.4s ease-in-out infinite;
+    transform-origin: center;
   }
 
   .hero__seeking-mark svg {
     width: 100%;
     height: 100%;
+  }
+
+  .hero__seeking:hover .hero__seeking-mark {
+    color: var(--color-accent);
+  }
+
+  @keyframes heroSeekingMarkPulse {
+    0%, 100% { opacity: 0.7; transform: scale(0.94); }
+    50%      { opacity: 1;   transform: scale(1.02); }
   }
 
   /* Wraps label · separator · when so we can re-flow them as a 2-line
@@ -811,9 +840,18 @@ const card = siteConfig.businessCard;
       left: 24px;
       right: 24px;
     }
+    /* Tighter vertical rhythm so name → role → pill → specialty reads as
+       one identity card rather than a list of separated items. */
+    .hero__id {
+      gap: 16px;
+      margin-bottom: 4px;
+    }
     .hero__role {
       font-size: 11px;
       letter-spacing: 0.14em;
+      /* Pull the mono caps up under the name's baseline so the name's
+         natural line-height tail doesn't leave a gap above the role. */
+      margin-top: -4px;
     }
     /* Pill goes full-width on mobile and stacks label / when so the
        text never wraps mid-phrase. The arrow stays anchored at the
@@ -824,6 +862,7 @@ const card = siteConfig.businessCard;
       align-self: stretch;
       width: 100%;
       gap: 10px;
+      margin-top: 0;
     }
     .hero__seeking-content {
       flex: 1 1 auto;
@@ -841,7 +880,8 @@ const card = siteConfig.businessCard;
       opacity: 0.92;
     }
     .hero__specialty {
-      font-size: 16px;
+      font-size: 15px;
+      margin-top: 2px;
     }
     .hero__quote {
       font-size: clamp(18px, 5.2vw, 26px);
@@ -914,12 +954,18 @@ const card = siteConfig.businessCard;
     .hero__sketch-boat,
     .hero__sketch-smoke,
     .hero__sketch-steam,
-    .hero__sketch-star {
+    .hero__sketch-star,
+    .hero__seeking-mark {
       animation: none;
     }
     .hero__sketch-link:hover,
     .hero__sketch-link:focus-visible {
       transform: none;
+    }
+    /* Keep the staggered entry from running; show final state immediately. */
+    .hero__id > * {
+      opacity: 1;
+      animation: none;
     }
   }
 </style>
