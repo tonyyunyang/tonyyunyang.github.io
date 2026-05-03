@@ -1,7 +1,7 @@
 {
   "scene": {
     "title": "Studio",
-    "subtitle": "March 2026 · Amsterdam · evening",
+    "subtitle": "March 2026 · Amsterdam evening",
     "objects": [
       {
         "id": "laptop",
@@ -56,6 +56,7 @@
       {
         "id": "medal",
         "label": "Half marathon medal",
+        "shortLabel": "Half marathon",
         "x": 24.5,
         "y": 35.0,
         "note": "1:43:53 in Amsterdam, October 2024. Mostly there to remind me that the long, boring middle of anything is where the good ideas show up."

@@ -1,6 +1,6 @@
 # Project status — tonyyunyang.github.io
 
-_Last updated: 2026-05-03 (after iteration 13 — variant C cat + shoes locked in)_
+_Last updated: 2026-05-03 (after iteration 14 — academia-or-industry reframe + mobile pill rebuild + Studio mobile tap-list)_
 
 ## TL;DR
 
@@ -14,6 +14,7 @@ _Last updated: 2026-05-03 (after iteration 13 — variant C cat + shoes locked i
 ## Polish iterations shipped (all on `main`)
 
 ```
+(iter 14) feat: academia-or-industry pill reframe + mobile rebuild
 489b585  feat(iter 13): swap to variant C (anatomical realism) for cat + shoes
 b5111d0  feat(iter 12): proper-cat-and-shoe redo from parallel-agent design pass
 54b4677  feat(iter 11): LXGW WenKai for 杨童耘, alert 狸花猫 cat, cleaner running shoes
@@ -33,7 +34,7 @@ those rounds lives in `docs/superpowers/` (internal doc, not user-facing).
 ## What lives in the repo today
 
 ### Hero (the design north star)
-- Identity card leads: large upright "Tony Yang 杨童耘" (EB Garamond 400, NOT italic), role+location mono caps, prominent emerald **"Seeking PhD positions · ready any time →"** pill (links to `#contact`, min-height 44 px tap target), specialty tagline.
+- Identity card leads: large upright "Tony Yang 杨童耘" (EB Garamond 400, NOT italic), role+location mono caps, prominent emerald **"Open to research · academia or industry →"** pill (links to `#contact`, min-height 44 px tap target, and on mobile becomes a full-width 2-line stack so the label / when never wrap mid-phrase), specialty tagline.
 - Italic-display quote sits below the identity, smaller and ink-soft so it does not outweigh the PhD search signal.
 - Top corners: printer's-plate header `§ N° 01 · PERSONAL` // `AMSTERDAM · 2026`.
 - Animated chevron + "scroll for the work" cue at the bottom-center; ⌘K hint at bottom-right.
@@ -77,7 +78,7 @@ those rounds lives in `docs/superpowers/` (internal doc, not user-facing).
 - `main { padding-bottom: 88px }` on ≤720 px reserves end-of-page clearance.
 
 ### Site copy
-- `openingHeadline`: "Built across LLMs, vision, world models, and clinical AI. Now I want a PhD with room for deeper work."
+- `openingHeadline`: "Built across LLMs, vision, world models, and clinical AI. Now I want to go deeper, in academia or industry."
 - `openingBody`: "I've shipped research with Tencent, Gradient Networks, MeetaVista, TU Delft, McGill, Tsinghua, and IMDEA. Next I want long-horizon work on useful, durable AI, especially where access and reliability matter."
 - `researchThemesIntro`: "Two things drive this work: pushing AI beyond text into perception and action, and making those systems fairer and more reachable in practice."
 

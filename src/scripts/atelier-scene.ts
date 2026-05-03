@@ -5,8 +5,11 @@ if (root) {
   const panelNote = root.querySelector<HTMLElement>("[data-atelier-panel-note]")!;
   const panelClose = root.querySelector<HTMLElement>("[data-atelier-panel-close]")!;
   const closeBtn = root.querySelector<HTMLElement>("[data-atelier-close]")!;
+  // Includes both the absolute-positioned canvas hotspots AND the mobile
+  // tap-list tiles below the canvas. Anything carrying [data-obj-id] gets
+  // the same open-panel behavior so the two surfaces stay in sync.
   const hotspots = Array.from(
-    root.querySelectorAll<HTMLButtonElement>(".atelier__hotspot")
+    root.querySelectorAll<HTMLButtonElement>("[data-obj-id]")
   );
 
   function showNote(label: string, note: string) {

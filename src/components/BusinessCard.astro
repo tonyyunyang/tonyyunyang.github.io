@@ -3,6 +3,13 @@ import siteConfig from "~/content/site.json";
 import Icon from "./Icon.astro";
 
 const card = siteConfig.businessCard;
+
+// Split "Open to research · academia or industry" on the middle dot so we
+// can render the two phrases as discrete spans. This lets the mobile CSS
+// stack them without ever wrapping mid-phrase.
+const [lookingLabel, lookingWhen] = card.looking
+  .split(/\s*·\s*/)
+  .map((s) => s.trim());
 ---
 
 <div class="card">
@@ -40,7 +47,15 @@ const card = siteConfig.businessCard;
           <span class="card__looking-mark" aria-hidden="true">
             <Icon name="sparkles" size={14} strokeWidth={1.2} />
           </span>
-          {card.looking}
+          <span class="card__looking-text">
+            <span class="card__looking-label">{lookingLabel}</span>
+            {lookingWhen && (
+              <>
+                <span class="card__looking-sep" aria-hidden="true">·</span>
+                <span class="card__looking-when">{lookingWhen}</span>
+              </>
+            )}
+          </span>
         </p>
         <h3 class="card__name">
           <span class="card__name-en">{card.name}</span>
@@ -175,10 +190,29 @@ const card = siteConfig.businessCard;
     border: 1px solid var(--color-accent);
     padding: 6px 12px 5px;
     border-radius: 999px;
+    max-width: 100%;
   }
 
   .card__looking-mark {
     color: var(--color-accent);
+    flex: 0 0 auto;
+  }
+
+  .card__looking-text {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 8px;
+    flex-wrap: wrap;
+    min-width: 0;
+  }
+
+  .card__looking-label,
+  .card__looking-when {
+    white-space: nowrap;
+  }
+
+  .card__looking-sep {
+    opacity: 0.55;
   }
 
   .card__name {
@@ -388,6 +422,31 @@ const card = siteConfig.businessCard;
     }
     .card__name-zh {
       font-size: 0.55em;
+    }
+    /* Pill stacks "open to research" / "academia or industry" so it stays
+       a clean ellipse instead of breaking mid-phrase. */
+    .card__looking {
+      align-items: flex-start;
+      padding: 8px 14px 7px;
+      border-radius: 18px;
+      font-size: 10.5px;
+      letter-spacing: 0.14em;
+    }
+    .card__looking-mark {
+      transform: translateY(2px);
+    }
+    .card__looking-text {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1px;
+    }
+    .card__looking-sep {
+      display: none;
+    }
+    .card__looking-when {
+      font-size: 9.5px;
+      color: var(--color-ink-soft);
+      letter-spacing: 0.12em;
     }
   }
 </style>

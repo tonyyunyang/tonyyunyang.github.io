@@ -1,10 +1,21 @@
 # Polish & improvement backlog
 
-_Last updated: 2026-05-03 (after iteration 13 — variant C cat + shoes locked in)_
+_Last updated: 2026-05-03 (after iteration 14 — academia-or-industry reframe + mobile rebuild + Studio mobile tap-list)_
 
 A working list of things noticed during build & visual inspection that
 would sharpen the site further. Pick one bullet per session, work on
 it, push.
+
+## Closed in iteration 14
+
+- ✅ **Hero pill reframed**: "Seeking PhD positions · my contact info →" → **"Open to research · academia or industry →"**. Tony's framing is "always looking for research to enjoy", which can attach a PhD or an industry research role; the old copy read as a job-search status. The pill structure was also restructured (`hero__seeking-content` wrapper) so on mobile (`@media ≤720px`) the label / when stack into 2 lines inside a full-width pill instead of breaking mid-phrase. Files: `src/components/Hero.astro`.
+- ✅ **§00 opening headline rewritten**: "Now I want a PhD with room for deeper work" → **"Now I want to go deeper, in academia or industry"**. Same broadening (academia OR industry) and tighter prose (codex's recommended option from three drafts).
+- ✅ **BusinessCard pill split** the same way: `card.looking` is parsed on the middle dot at build time and rendered as label + when, with a column-stack mobile treatment that mirrors the hero pill.
+- ✅ **News + intro + businessCard all updated** for consistency: no remaining "Seeking PhD positions" string in any user-visible content.
+- ✅ **Hero narrow-phone breakpoint (≤380px)** added: smaller name + corner labels, tighter padding, and a column-stacked role line so "INDEPENDENT AI RESEARCHER · AMSTERDAM" no longer wraps with a stranded city below the dot.
+- ✅ **Studio mobile tap-list**: under the canvas on mobile, every readable object renders as a 2-col grid of buttons that share data attributes with the canvas hotspots so the existing JS opens the same side-panel. The empty space below the 16:10 canvas now becomes a usable index. Stage flex-direction set to column on mobile so the list sits below the canvas, not beside it. The medal hotspot got a `shortLabel: "Half marathon"` so its tile stays single-line.
+- ✅ **Studio chrome touch-friendly + breadcrumb fix**: hint reads "select an object" (not "click"), and the subtitle dropped its trailing dot ("March 2026 · Amsterdam evening" instead of "March 2026 · Amsterdam · evening") so the orphan "· EVENING" no longer wraps to a fresh line on narrow phones.
+- ✅ **Helper specs added** (all `_`-prefixed, gitignored shots): `_mobile-audit.spec.ts` for full-page captures at 320 / 375 / 390 / 414 plus Studio + writing + contact, `_pill-zoom.spec.ts` for hero + card pill close-ups at every mobile width, `_section-audit.spec.ts` for per-section mobile screenshots.
 
 ## Closed in iterations 9–13
 

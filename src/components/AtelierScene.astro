@@ -17,7 +17,7 @@ const allNotes = objects.filter(
       >
     </p>
     <p class="atelier__hint" data-atelier-hint>
-      click an object · <kbd>T</kbd> all notes · <kbd>Esc</kbd> close
+      select an object · <kbd>T</kbd> all notes · <kbd>Esc</kbd> close
     </p>
     <button
       class="atelier__close"
@@ -1286,6 +1286,40 @@ const allNotes = objects.filter(
       })
     }
     </div>
+
+    <!-- Mobile-only tap list: turns the empty space below the canvas into
+         a usable index of every readable object. Buttons share the same
+         data attributes as the canvas hotspots so the existing
+         click-to-open-panel script binds them automatically. Hidden at
+         ≥720 px so the desktop scene reads as intended. -->
+    <nav class="atelier__mobile-index" aria-label="Studio objects">
+      <p class="atelier__mobile-index-eyebrow">
+        <span class="atelier__mobile-index-line" aria-hidden="true"></span>
+        <span>Tap to read</span>
+        <span class="atelier__mobile-index-line" aria-hidden="true"></span>
+      </p>
+      <ul class="atelier__mobile-index-list">
+        {
+          allNotes.map((n) => {
+            const tagLabel = "shortLabel" in n && n.shortLabel ? n.shortLabel : n.label;
+            return (
+              <li>
+                <button
+                  type="button"
+                  class="atelier__mobile-tile"
+                  data-obj-id={n.id}
+                  data-obj-note={n.note}
+                  data-obj-label={n.label}
+                >
+                  <span class="atelier__mobile-tile-label">{tagLabel}</span>
+                  <span class="atelier__mobile-tile-arrow" aria-hidden="true">→</span>
+                </button>
+              </li>
+            );
+          })
+        }
+      </ul>
+    </nav>
   </div>
 
   <aside class="atelier__panel" data-atelier-panel hidden>
@@ -1433,6 +1467,86 @@ const allNotes = objects.filter(
     max-width: 1500px;
     aspect-ratio: 16 / 10;
     flex: 0 0 auto;
+  }
+
+  /* ============ MOBILE TAP-LIST (below the canvas) ============
+     Hidden on desktop. On mobile it fills the space the 16:10 canvas
+     leaves below itself with a usable index of every readable object —
+     each tile opens the same side-panel as a canvas hotspot. */
+  .atelier__mobile-index {
+    display: none;
+  }
+
+  @media (max-width: 720px) {
+    .atelier__mobile-index {
+      display: block;
+      width: 100%;
+      max-width: 520px;
+      margin: 18px auto 12px;
+      padding: 0 4px;
+      box-sizing: border-box;
+    }
+    .atelier__mobile-index-eyebrow {
+      margin: 0 0 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--color-ink-soft);
+    }
+    .atelier__mobile-index-line {
+      flex: 1;
+      height: 1px;
+      background: var(--color-hairline);
+    }
+    .atelier__mobile-index-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+    .atelier__mobile-tile {
+      width: 100%;
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 10px 12px;
+      background: var(--color-paper);
+      border: 1px solid var(--color-hairline);
+      border-radius: 6px;
+      color: var(--color-ink);
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      cursor: pointer;
+      text-align: left;
+      transition: border-color 180ms ease-out, background 180ms ease-out, color 180ms ease-out;
+    }
+    .atelier__mobile-tile:hover,
+    .atelier__mobile-tile:focus-visible {
+      border-color: var(--color-accent);
+      color: var(--color-accent);
+      background: var(--color-paper-shade);
+    }
+    .atelier__mobile-tile-arrow {
+      font-size: 13px;
+      color: var(--color-accent);
+      flex: 0 0 auto;
+      opacity: 0.85;
+    }
+    /* Stage already aligns content to the top on mobile; reserve a bit
+       more bottom padding so the tap-list breathes above the page edge. */
+    .atelier__stage {
+      padding-bottom: 32px;
+    }
   }
 
   .atelier__art {
@@ -1593,9 +1707,17 @@ const allNotes = objects.filter(
     .atelier__breadcrumb-display {
       font-size: 18px;
     }
+    /* Stage stacks the canvas + tap-list vertically on mobile so the
+       index sits below the scene, not next to it. */
     .atelier__stage {
-      align-items: flex-start;
-      padding: 16px 12px;
+      flex-direction: column;
+      align-items: stretch;
+      justify-content: flex-start;
+      padding: 14px 14px 32px;
+      gap: 4px;
+    }
+    .atelier__canvas {
+      align-self: center;
     }
     .atelier__panel {
       right: 12px;
