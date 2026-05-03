@@ -832,8 +832,13 @@ const card = siteConfig.businessCard;
   }
 
   @media (max-width: 720px) {
+    /* padding-top must clear the absolute-positioned corner annotation
+       band (top:16 + ~16 px tall = y≈32). With a 40-60 px name below,
+       a 24 px top padding crashes the name's cap-top into the corner
+       baseline. 56 px gives ~24 px comfortable air between
+       "§ NO. 01 · PERSONAL" and "Tony Yang". */
     .hero {
-      padding: 24px 24px 110px;
+      padding: 56px 24px 110px;
     }
     .hero__corners {
       top: 16px;
@@ -908,8 +913,11 @@ const card = siteConfig.businessCard;
      "Tony Yang 杨童耘" cannot collide with the AMSTERDAM · 2026 tag and
      the role line stops dropping its dot to a fresh row. */
   @media (max-width: 380px) {
+    /* Same overlap-clearance logic at the narrowest phones: corner band
+       ends at y≈26 (top:12 + ~14 px), so 44 px padding-top leaves ~18 px
+       air before the name. */
     .hero {
-      padding: 20px 18px 100px;
+      padding: 44px 18px 100px;
     }
     .hero__corners {
       top: 12px;
