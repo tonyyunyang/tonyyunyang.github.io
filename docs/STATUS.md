@@ -1,11 +1,11 @@
 # Project status — tonyyunyang.github.io
 
-_Last updated: 2026-05-03 (after iteration 16 — three parallel polish agents: hero rhythm + BusinessCard fixes + animation refinement)_
+_Last updated: 2026-05-03 (after iteration 19 — iPhone Pro Max-specific fixes: pill stadium proportions + hero corner overlap + BusinessCard mobile rebuild)_
 
 ## TL;DR
 
 - **Live at https://tonyyunyang.github.io.** Custom Astro 5 build, single-author project, no template ancestry, no fork lineage.
-- Repo: `git@github.com:tonyyunyang/tonyyunyang.github.io.git`. Default branch `main`. HEAD `489b585`.
+- Repo: `git@github.com:tonyyunyang/tonyyunyang.github.io.git`. Default branch `main`. HEAD `60a885a`.
 - Local git identity for this project: `tony / tonyyunyang@outlook.com` (project-scoped via `git config --local`, NOT global).
 - Auto-deploy: every push to `main` triggers `.github/workflows/deploy.yml` → builds Astro → uploads `dist/` → `actions/deploy-pages@v4` → live in ~45 s.
 - Pages source is `workflow` (GitHub Actions, NOT Jekyll). `public/.nojekyll` is a defensive marker.
@@ -14,7 +14,10 @@ _Last updated: 2026-05-03 (after iteration 16 — three parallel polish agents: 
 ## Polish iterations shipped (all on `main`)
 
 ```
-(iter 16) feat: three-agent polish pass (hero rhythm + card fix + animations)
+60a885a  fix(iter 19): BusinessCard mobile rebuild — TY crest hidden, pill 12px radius, +56px bottom padding
+de6e77d  fix(iter 18): hero corner-band / name vertical overlap on mobile
+eb03ada  fix(iter 17): hero pill shape on iPhone Pro Max — drop full-width to restore stadium proportions
+c770b92  feat(iter 16): three-agent polish pass (hero rhythm + card fix + animations)
 f903368  feat(iter 15): mobile compaction round 2 (themes + intro photo + studio)
 523ca13  feat(iter 14): academia-or-industry pill reframe + mobile rebuild
 489b585  feat(iter 13): swap to variant C (anatomical realism) for cat + shoes
@@ -36,8 +39,11 @@ those rounds lives in `docs/superpowers/` (internal doc, not user-facing).
 ## What lives in the repo today
 
 ### Hero (the design north star)
-- Identity card leads: large upright "Tony Yang 杨童耘" (EB Garamond 400, NOT italic), role+location mono caps, prominent emerald **"Open to research · academia or industry →"** pill (links to `#contact`, min-height 44 px tap target, and on mobile becomes a full-width 2-line stack so the label / when never wrap mid-phrase), specialty tagline.
-- Italic-display quote sits below the identity, smaller and ink-soft so it does not outweigh the PhD search signal.
+- Identity card leads: large upright "Tony Yang 杨童耘" (EB Garamond 400 Latin + LXGW WenKai Chinese, NOT italic), role+location mono caps, prominent emerald **"Open to research · academia or industry →"** pill (links to `#contact`, min-height 44 px tap target).
+- **Pill mobile shape** (iter 17): pill auto-sizes to its content (NOT full-width), so `border-radius: 999px` produces a properly proportioned stadium with semi-circular ends. The earlier full-width treatment created a stretched lozenge on iPhone 17 Pro Max (430 px) — drop `align-self: stretch; width: 100%` to fix.
+- **Hero corner / name overlap** (iter 18): mobile padding-top is 56 px (44 px on ≤380), enough to clear the absolute corner annotation band so "Tony Yang" never sits in the same vertical zone as "§ N° 01 · PERSONAL".
+- **Hero entry animation** (iter 16): `.hero__id` 4-child stagger (name → role → pill → specialty), fade + 8 px rise, 600 ms cubic-bezier(.22,.72,.16,1), 80 ms stagger, reduced-motion safe. Pill sparkle has a 5.4 s breathing pulse.
+- Italic-display quote sits below the identity, smaller and ink-soft so it does not outweigh the open-to-research signal.
 - Top corners: printer's-plate header `§ N° 01 · PERSONAL` // `AMSTERDAM · 2026`.
 - Animated chevron + "scroll for the work" cue at the bottom-center; ⌘K hint at bottom-right.
 - Plate I sketch on the right (architectural arched window with hatched corners, 4-pane mullion+transom, crescent moon + halo, Westerkerk-style spire, gables with chimneys + smoke + lit windows, canal water with a small rower-with-oars, writing tableau under the sill: open book + spectacles + quill rising from inkwell + letters with emerald wax seal + steaming teacup).
@@ -58,7 +64,7 @@ those rounds lives in `docs/superpowers/` (internal doc, not user-facing).
 
 ### Studio (`/world/`, `AtelierScene.astro` + `atelier.json`)
 - Bookshelf at left (with framed portrait + postcard above).
-- Reading chair with a curled cat (sleeping eye, emerald nose, whiskers, tabby stripe hint, Z-glyph) and a fedora hat hanging on the chair back.
+- Reading chair with a curled cat (`狸花猫` Chinese mackerel tabby) and a fedora hat hanging on the chair back.
 - Acoustic guitar leaning between chair and desk (frets, headstock with 6 tuning pegs, strings, emerald pickguard).
 - **Running shoes** as a paired side-profile: double-peak silhouette (toe peak + collar peak with instep dip), 14 px midsole foam slab, vertical heel counter, dark outsole strip with tread ticks, swoosh, eyelets, pull-tab.
 - Window onto Amsterdam canal at evening (gables, church spire silhouette, boat).
@@ -66,27 +72,34 @@ those rounds lives in `docs/superpowers/` (internal doc, not user-facing).
 - Desk vignette: laptop+code+coffee+candle+wedding-ring.
 - Kitchen alcove: hanging pots, knife block, **wok** with dried Sichuan chilis tossed up + garlic + scattered peppercorns + flame accents (NOT a covered pot — Tony is from Sichuan, no slow simmer), wall etching frame above the desk.
 - **Tulips** in a vase (5 stems, 4 distinct fill patterns) on the cabinet — bought every spring at the Bloemenmarkt, NOT a Monstera.
-- **Two tennis rackets** (Pure Drive in cream + emerald grip + emerald swoosh; Blade in dark with cream-against-dark strings) leaning right wall — his + wife's. Moved left + larger heads so they separate from the cabinet edge.
+- **Two tennis rackets** (Pure Drive in cream + emerald grip + emerald swoosh; Blade in dark with cream-against-dark strings) leaning right wall — his + wife's.
 - 13 hotspots, sidenote panel, T toggles all labels, `?at=<id>` deep links, Esc exits.
-- Sidenote names/notes (in `atelier.json`): cat is `瓜子 · the cat (planned)`; books are Sartre + Boom Latinoamericano (Borges); stove is wok + Sichuan stir-fry; plant is tulips at the Bloemenmarkt; rackets are Pure Drive + Blade; medal note rephrased so the repetitive "km-8" line is gone.
+- Subtitle "March 2026 · Amsterdam evening" (iter 14 fix — single dot so "· EVENING" stops orphaning to a new row on narrow phones). Hint: "select an object · T all notes" (iter 15 — touch-friendly, no Esc duplicate).
+- **Mobile tap-list** (iter 14): 2-col grid of buttons under the canvas, sharing data attributes with hotspots so the existing JS opens the same side-panel. Trailing odd tile spans full width (iter 15). Medal got `shortLabel: "Half marathon"` so its tile stays single-line.
+- Idle motion timings rebalanced (iter 16): shared-duration animations get ±0.4 s + 0–1.2 s delay so the room no longer pulses in lockstep. Same animations, less synchronized.
+- Sidenote names/notes (in `atelier.json`): cat is `瓜子 · 狸花猫 (planned)`; books are Sartre + Boom Latinoamericano (Borges); stove is wok + Sichuan stir-fry; plant is tulips at the Bloemenmarkt; rackets are Pure Drive + Blade; medal note rephrased so the repetitive "km-8" line is gone.
 
 ### Mobile UX
-- PhD pill min-height 44 px tap target.
+- Pill min-height 44 px tap target. Pill is **auto-width on mobile** (iter 17) so it stays a proper stadium shape; on the narrowest phones the label / when stack into 2 lines (column flex), separator hidden.
 - PillLink (§00 + Contact) min-height 44 px.
 - Mobile hero quote: clamp(18px, 5.2vw, 26px), max-width 28ch (preserves the original 4-line stanza).
-- Top-corner meta lifted from 20 → 16 px so it stops crowding the name.
-- Role-line tracking eased on mobile (0.18 → 0.14 em).
+- **Hero `padding-top: 56px`** (iter 18) on ≤720 px so the corner annotation band cannot overlap the name. 44 px on ≤380.
+- Role-line tracking eased on mobile (0.18 → 0.14 em). On ≤380 px the role line column-stacks so "INDEPENDENT AI RESEARCHER · AMSTERDAM" stops dropping its dot to a fresh row.
 - Sketchbook button collapses to icon-only on ≤720 px so it never obscures running copy mid-scroll.
 - `main { padding-bottom: 88px }` on ≤720 px reserves end-of-page clearance.
+- Section reveal pattern (iter 16): `SectionHeader` rule + heading + dek staggered fade-rise on first paint.
+- Studio (`/world/`) on mobile: 2-col tap-list of every readable object below the canvas (iter 14), with the trailing odd tile spanning full width. Chrome hint reads "select an object · T all notes" (touch-friendly, no Esc duplicate).
 
 ### Site copy
 - `openingHeadline`: "Built across LLMs, vision, world models, and clinical AI. Now I want to go deeper, in academia or industry."
-- `openingBody`: "I've shipped research with Tencent, Gradient Networks, MeetaVista, TU Delft, McGill, Tsinghua, and IMDEA. Next I want long-horizon work on useful, durable AI, especially where access and reliability matter."
+- `openingBody`: "I've shipped research with Tencent, Gradient Networks, MeetaVista, TU Delft, McGill, Tsinghua, and IMDEA. The throughline I care about: useful, durable AI, especially where access and reliability matter."
 - `researchThemesIntro`: "Two things drive this work: pushing AI beyond text into perception and action, and making those systems fairer and more reachable in practice."
 
 ### BusinessCard (§06 Contact)
 - Tagline weight 500, ink at 88 % opacity (legible carry, not ink-soft fade).
 - Bilingual name (Tony Yang · 杨童耘), structured languages (Mandarin native; English near-native, professional, IELTS 8.0).
+- **Mobile (iter 19)**: TY crest hidden so name → role → tagline → divider → contact reads without an orphan row. Pill `border-radius: 12px` (refined tag/button, not stretched stadium). Card `padding-bottom: 56px` so the languages caption sits clearly above the SVG plate's inner border (which lives at viewBox y=446, ~3% from bottom). Contact list bumped 12 → 13.5 px mono for readability. Plate flourish hidden on mobile so the pill doesn't widen into it.
+- Card entry animation (iter 16): 4-child stagger across content blocks (top → divider → bottom → signature). Contact link tactile 4 px right-nudge on hover.
 
 ## Daily commands
 
@@ -108,6 +121,11 @@ npm test                # all tests
 - `_thumb-render.spec.ts` — eager-loads images for full-page captures.
 - `_paper-thumbs.spec.ts` — individual paper thumbnail closeups.
 - `_zoom-preview.spec.ts` — Plate I 1× / 2×, themes, research, papers list, Studio enlarged 2700 px, kitchen+rackets+tulips, shoes.
+- `_mobile-audit.spec.ts` (iter 14) — full-page captures at 320 / 375 / 390 / 414 / **430** (iPhone 17 Pro Max, added in iter 17). Use for verifying mobile rendering after any layout change.
+- `_pill-zoom.spec.ts` (iter 14) — close-up screenshots of hero + business-card pills at every mobile width (including 430). Use for verifying the stacked label / when typography stays inside the pill border.
+- `_section-audit.spec.ts` (iter 14) — per-section mobile screenshots (intro, themes, projects, writing, news, teaching, contact).
+- `_iter15-audit.spec.ts` (iter 15) — hero-fold + intro-photo + themes-grid + papers + Studio @ 360 / 414.
+- `_iter19-contact.spec.ts` (iter 19) — full-card contact screenshots at 320 / 375 / 390 / 414 / 430.
 
 ## How the deploy works
 
@@ -129,6 +147,7 @@ The legacy `pages-build-deployment` Jekyll workflow only fires when Pages source
 ## Known follow-ups (open polish backlog → see `docs/POLISH.md`)
 
 - **Old E2E specs** `tests/e2e/atelier-scene.spec.ts` + `_visual.spec.ts` still expect the original 4-viewport scene with arrow-key walk. They will fail when CI runs them; rewrite or delete.
+- **Verification grid going forward**: always check 320 / 375 / 390 / 414 / **430** (iPhone 17 Pro Max). The 430 viewport surfaced two real bugs (iter 17 stretched-pill, iter 19 inner-border overlap) that 414 alone did not catch. The `_mobile-audit` and `_pill-zoom` specs already include 430.
 - **`og-default.png`** referenced in `Base.astro` but missing in `public/`. Social embeds will 404 the og:image until a 1200×630 PNG is generated.
 - **Studio mobile** has empty space below the SVG when the stage is taller than the canvas. Consider a denser layout or a "↓ scroll" hint underneath.
 - **Lighthouse verification** on the live URL (Accessibility ≥ 100, Performance ≥ 95, SEO ≥ 100, Best Practices ≥ 100) is overdue.

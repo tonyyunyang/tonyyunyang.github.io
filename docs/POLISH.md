@@ -1,10 +1,40 @@
 # Polish & improvement backlog
 
-_Last updated: 2026-05-03 (after iteration 16 — three-agent parallel polish pass: hero rhythm, BusinessCard flourish fix, animation refinement)_
+_Last updated: 2026-05-03 (after iteration 19 — iPhone Pro Max-specific fixes: pill stadium shape + hero corner overlap + BusinessCard mobile rebuild)_
 
 A working list of things noticed during build & visual inspection that
 would sharpen the site further. Pick one bullet per session, work on
 it, push.
+
+## Closed in iteration 19
+
+Tony's third iPhone 17 Pro Max screenshot (the contact card at full
+height) showed: the pill still read as a stretched stadium even at
+auto-width, the TY monogram crest sat as an orphan row between the
+tagline and the divider, the languages caption overlapped the SVG
+plate's inner bottom border, and the contact list font felt undersized.
+
+- ✅ **TY crest hidden on mobile**: `display: none` on `.card__crest` in `@media (max-width: 720px)`. The monogram is decorative; in single-column flow it became a floating element with no spatial purpose. Card now reads name → role → tagline → divider → contact without an interruption.
+- ✅ **Pill border-radius 18 → 12 px** so it reads as a refined "tag" rounded button, not a stretched ellipse. Padding 8/14/7 → 9/14/8 for marginally more breathing room.
+- ✅ **Card padding-bottom 22 → 56 px**: the SVG plate's inner solid border lives at viewBox y=446 (~3% from bottom). The prior 22 px let the languages caption + signature reach past the border into the dead zone. 56 px keeps both safely above on every mobile width.
+- ✅ **Contact list font 12 → 13.5 px** mono on mobile, gap 8 → 10 px, contact-link gap 10 → 12 px. Improves scannability and tap comfort.
+- ✅ **Type hierarchy refined**: role 10.5 px, tagline 15.5 px, meta-list 14 px, lang-note 12 px / line-height 1.4. Card name uses `clamp(32, 8vw, 40)` so it scales gracefully on the narrowest phones.
+- ✅ **Internal spacing tightened**: divider 22/20, signature margin-top 20, name margin 6/6, looking-pill margin-bottom 16, meta gap 16.
+- ✅ **`_iter19-contact.spec.ts` added**: full-card screenshots at 320 / 375 / 390 / 414 / 430 (iPhone Pro Max). Use to verify the languages caption stays clear of the inner border on every mobile width.
+
+## Closed in iteration 18
+
+Tony's second iPhone 17 Pro Max screenshot showed "§ NO. 01 · PERSONAL" sitting in the same vertical band as the cap of "Tony Yang" — the corner annotation and the name shared y-space.
+
+- ✅ **Hero `padding-top` bumped on mobile**: 24 → 56 px on ≤720, 20 → 44 px on ≤380. The corner annotation band ends around y=32 (top:16 + ~16 px font height); the name now starts at y=56 (or y=44 on narrow phones), with ~24 px (or ~18 px) of comfortable air between them.
+- 🧠 **Process lesson**: the 320 / 375 / 390 / 414 grid I'd been testing missed the iPhone 17 Pro Max width (430 CSS px). At 430 the cap-of-name extends higher than at smaller widths because the line-height tail scales. Always test at 430 going forward.
+
+## Closed in iteration 17
+
+Tony's first iPhone 17 Pro Max screenshot showed the hero pill rendering as a stretched lozenge (very rounded ends, but the rest of the box read as a long flat slab).
+
+- ✅ **Hero pill auto-width on mobile**: dropped `align-self: stretch; width: 100%`. The pill now sizes to its content (~280 × ~52 px), so `border-radius: 999px` gives proper stadium proportions where the semi-circular ends actually look like a pill, not a lozenge. Padding nudged 11/16/10 → 11/20/10, gap 10 → 12 px.
+- ✅ **`_mobile-audit` + `_pill-zoom` viewport grids extended to include 430** (iPhone 17 Pro Max). This exact device is now in the verification grid going forward.
 
 ## Closed in iteration 16
 
