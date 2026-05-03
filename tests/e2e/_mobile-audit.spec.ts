@@ -11,6 +11,8 @@ const widths = [
   { name: "375", w: 375 },
   { name: "390", w: 390 },
   { name: "414", w: 414 },
+  // iPhone 17 Pro Max is 430 CSS px wide — Tony's actual phone, so verify here.
+  { name: "430", w: 430 },
 ];
 
 test.use({ viewport: { width: 390, height: 844 } });

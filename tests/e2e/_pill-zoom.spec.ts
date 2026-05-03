@@ -6,7 +6,7 @@ const OUT = "tests/visual/shots";
 // mobile width so we can verify the stacked label / when typography is
 // rendering correctly with no truncation or overflow.
 
-const widths = [320, 375, 390, 414];
+const widths = [320, 375, 390, 414, 430];
 
 for (const w of widths) {
   test(`hero pill close-up @${w}`, async ({ page }) => {

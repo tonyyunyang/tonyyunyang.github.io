@@ -853,19 +853,22 @@ const card = siteConfig.businessCard;
          natural line-height tail doesn't leave a gap above the role. */
       margin-top: -4px;
     }
-    /* Pill goes full-width on mobile and stacks label / when so the
-       text never wraps mid-phrase. The arrow stays anchored at the
-       trailing edge so the CTA affordance is preserved. */
+    /* Pill auto-sizes to its content on mobile and stacks label / when so
+       the text never wraps mid-phrase. Crucially we DROP the old
+       align-self: stretch / width: 100% — those made the pill a stretched
+       lozenge on wider phones (iPhone 17 Pro Max @ 430 CSS px especially)
+       because border-radius: 999px against a much-wider-than-tall box
+       creates an awkward elongated stadium. Auto-width keeps the proper
+       stadium proportions: ~280 px wide, ~52 px tall, semi-circular ends. */
     .hero__seeking {
       font-size: 11.5px;
-      padding: 11px 16px 10px;
-      align-self: stretch;
-      width: 100%;
-      gap: 10px;
+      padding: 11px 20px 10px;
+      align-self: flex-start;
+      gap: 12px;
       margin-top: 0;
     }
     .hero__seeking-content {
-      flex: 1 1 auto;
+      flex: 0 0 auto;
       flex-direction: column;
       align-items: flex-start;
       gap: 1px;
