@@ -17,7 +17,7 @@ const allNotes = objects.filter(
       >
     </p>
     <p class="atelier__hint" data-atelier-hint>
-      select an object · <kbd>T</kbd> all notes · <kbd>Esc</kbd> close
+      select an object · <kbd>T</kbd> all notes
     </p>
     <button
       class="atelier__close"
@@ -1541,6 +1541,12 @@ const allNotes = objects.filter(
       color: var(--color-accent);
       flex: 0 0 auto;
       opacity: 0.85;
+    }
+    /* If the readable-object count is odd, the trailing tile would be
+       a lonely half-row tile. Stretch it across both columns so the
+       grid resolves cleanly. */
+    .atelier__mobile-index-list > li:last-child:nth-child(odd) {
+      grid-column: 1 / -1;
     }
     /* Stage already aligns content to the top on mobile; reserve a bit
        more bottom padding so the tap-list breathes above the page edge. */

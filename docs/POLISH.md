@@ -1,10 +1,20 @@
 # Polish & improvement backlog
 
-_Last updated: 2026-05-03 (after iteration 14 — academia-or-industry reframe + mobile rebuild + Studio mobile tap-list)_
+_Last updated: 2026-05-03 (after iteration 15 — mobile compaction round 2 from a second codex critique pass)_
 
 A working list of things noticed during build & visual inspection that
 would sharpen the site further. Pick one bullet per session, work on
 it, push.
+
+## Closed in iteration 15
+
+A second codex critique pass after iter 14 returned "close to converged · no P0". The remaining items were P1 / P2 polish fixes, all applied:
+
+- ✅ **Studio mobile chrome trimmed**: hint dropped its trailing "· Esc close" since the dedicated Esc button already lives in the chrome bar. Now reads "select an object · T all notes". Files: `src/components/AtelierScene.astro`.
+- ✅ **Research themes compacted on mobile (≤560px)**: card padding 26/24/24 → 20/20/18, gap 14 → 10, glyph height 36 → 28, title 22 → 20, blurb 15 → 14 / line-height 1.55 → 1.5, intro margin-bottom 40 → 28. The 6-card column now reads as a compass instead of a long staircase.
+- ✅ **Intro photo capped on mobile**: `width: min(100%, 320px); margin-inline: auto` so the 1:1 portrait stops dominating the §00 reading area.
+- ✅ **Studio mobile tap-list orphan**: with 13 readable objects (odd count), the trailing tile used to sit alone in the left column. `li:last-child:nth-child(odd)` now stretches it across both columns so the grid resolves cleanly.
+- ⏭ **Hero scroll cue below fold (skipped)**: codex confirmed this is not a real ship problem — the Plate I sketch already functions as the visual continuation cue. No diff applied.
 
 ## Closed in iteration 14
 

@@ -1,6 +1,6 @@
 # Project status — tonyyunyang.github.io
 
-_Last updated: 2026-05-03 (after iteration 14 — academia-or-industry reframe + mobile pill rebuild + Studio mobile tap-list)_
+_Last updated: 2026-05-03 (after iteration 15 — themes mobile compaction + photo cap + Studio chrome trim + tap-list orphan fix)_
 
 ## TL;DR
 
@@ -14,7 +14,8 @@ _Last updated: 2026-05-03 (after iteration 14 — academia-or-industry reframe +
 ## Polish iterations shipped (all on `main`)
 
 ```
-(iter 14) feat: academia-or-industry pill reframe + mobile rebuild
+(iter 15) feat: mobile compaction round 2 (themes + intro photo + studio)
+523ca13  feat(iter 14): academia-or-industry pill reframe + mobile rebuild
 489b585  feat(iter 13): swap to variant C (anatomical realism) for cat + shoes
 b5111d0  feat(iter 12): proper-cat-and-shoe redo from parallel-agent design pass
 54b4677  feat(iter 11): LXGW WenKai for 杨童耘, alert 狸花猫 cat, cleaner running shoes

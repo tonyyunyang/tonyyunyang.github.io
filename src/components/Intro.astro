@@ -69,7 +69,13 @@ import Icon from "./Icon.astro";
   @media (max-width: 720px) {
     .intro__head {
       grid-template-columns: 1fr;
-      gap: 24px;
+      gap: 20px;
+    }
+    /* Cap the photo + center it so the 1:1 portrait stops dominating
+       the §00 intro on phones. */
+    .intro__photo {
+      width: min(100%, 320px);
+      margin-inline: auto;
     }
   }
 
