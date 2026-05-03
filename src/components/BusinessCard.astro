@@ -451,49 +451,66 @@ const [lookingLabel, lookingWhen] = card.looking
   }
 
   @media (max-width: 720px) {
+    /* Bigger padding-bottom: the SVG plate's inner solid border lives at
+       viewBox y=446 (out of 460), i.e. ~3% of the card's height from the
+       bottom. With only 22 px of bottom padding the languages caption was
+       reaching past that border line into the dead zone. 56 px keeps the
+       last text line and the signature row both safely above the border. */
     .card {
-      padding: 28px 22px 22px;
+      padding: 28px 22px 56px;
     }
-    /* The printer's flourish + dot land near the top centerline of the SVG
-       and on narrow screens the pill widens into them. Hide on mobile so the
-       pill border + text stay clean. Outer dashed frame, inner solid frame,
-       hatched corners, and bottom decorative line all remain. */
+    /* Hide on mobile: the pill's "RESEARCH" was widening into this
+       printer's flourish at the top centerline. */
     .card__plate-flourish {
+      display: none;
+    }
+    /* Hide the TY monogram crest on mobile. In single-column flow it
+       sits as an orphan row between the tagline and the divider, which
+       reads as awkward dead space. The crest is decorative — the card
+       reads cleanly without it on phones. */
+    .card__crest {
       display: none;
     }
     .card__top {
       grid-template-columns: 1fr;
-    }
-    .card__crest {
-      width: 44px;
-      height: 44px;
+      gap: 0;
     }
     .card__bottom {
       grid-template-columns: 1fr;
-      gap: 24px;
+      gap: 22px;
     }
     .card__divider {
-      margin: 20px 0 18px;
+      margin: 22px 0 20px;
     }
     .card__signature {
-      margin-top: 18px;
+      margin-top: 20px;
     }
     .card__name {
-      margin: 4px 0 4px;
+      margin: 6px 0 6px;
       flex-direction: column;
       gap: 4px;
+      font-size: clamp(32px, 8vw, 40px);
     }
     .card__name-zh {
       font-size: 0.55em;
     }
-    /* Pill stacks "open to research" / "academia or industry" so it stays
-       a clean ellipse instead of breaking mid-phrase. Margin-bottom gives
-       the pill more breathing room before the (tightened) name. */
+    .card__role {
+      font-size: 10.5px;
+      letter-spacing: 0.14em;
+      margin-bottom: 12px;
+    }
+    .card__tagline {
+      font-size: 15.5px;
+    }
+    /* Pill: refined rounded button shape (12 px radius) sized to its
+       content. The 18 px radius from before still read as a stretched
+       stadium against the stacked label / when. 12 px gives a cleaner
+       "tag" feel that pairs with the printer's plate aesthetic. */
     .card__looking {
-      margin: 0 0 14px;
+      margin: 0 0 16px;
       align-items: flex-start;
-      padding: 8px 14px 7px;
-      border-radius: 18px;
+      padding: 9px 14px 8px;
+      border-radius: 12px;
       font-size: 10.5px;
       letter-spacing: 0.14em;
     }
@@ -503,7 +520,7 @@ const [lookingLabel, lookingWhen] = card.looking
     .card__looking-text {
       flex-direction: column;
       align-items: flex-start;
-      gap: 1px;
+      gap: 2px;
     }
     .card__looking-sep {
       display: none;
@@ -512,6 +529,28 @@ const [lookingLabel, lookingWhen] = card.looking
       font-size: 9.5px;
       color: var(--color-ink-soft);
       letter-spacing: 0.12em;
+    }
+    /* Bigger contact-list type on mobile — 12 px mono read too small
+       relative to the rest of the card. 13.5 px improves scannability
+       and tap comfort on touchscreens. */
+    .card__contact a {
+      font-size: 13.5px;
+      gap: 12px;
+    }
+    .card__contact {
+      gap: 10px;
+    }
+    /* Tighten the meta blocks so "BASED IN" and "LANGUAGES" stack with
+       intentional spacing rather than the desktop's 18 px gap. */
+    .card__meta {
+      gap: 16px;
+    }
+    .card__meta-list {
+      font-size: 14px;
+    }
+    .card__lang-note {
+      font-size: 12px;
+      line-height: 1.4;
     }
   }
 </style>
