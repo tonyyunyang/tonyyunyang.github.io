@@ -1,6 +1,7 @@
 ---
 import "~/styles/globals.css";
 import CommandPalette from "~/components/CommandPalette.astro";
+import BibtexModal from "~/components/BibtexModal.astro";
 import SketchbookButton from "~/components/SketchbookButton.astro";
 
 interface Props {
@@ -48,6 +49,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
       <slot />
     </main>
     <CommandPalette />
+    <BibtexModal />
     {!hideSketchbook && <SketchbookButton />}
 
     <div aria-hidden="true" class="visit-tracker">

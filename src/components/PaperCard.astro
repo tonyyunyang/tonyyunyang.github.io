@@ -1,5 +1,6 @@
 ---
 import type { CollectionEntry } from "astro:content";
+import { getBibtex } from "~/lib/bibtex";
 
 interface Props {
   paper: CollectionEntry<"papers">;
@@ -10,6 +11,8 @@ const { data, slug } = paper;
 
 const datelineParts = [data.venue, data.venueExtra, String(data.year)].filter(Boolean);
 const dateline = datelineParts.join(" · ").toUpperCase();
+
+const bibtex = getBibtex(data);
 ---
 
 <article id={`paper-${slug}`} class={`paper${data.featured ? " paper--featured" : ""}`}>
@@ -48,9 +51,30 @@ const dateline = datelineParts.join(" · ").toUpperCase();
     </p>
     <p class="paper__summary">{data.summary}</p>
     <p class="paper__links">
-      {data.links.paper && <a href={data.links.paper} target="_blank" rel="noopener noreferrer">paper</a>}
-      {data.links.code && <span> · <a href={data.links.code} target="_blank" rel="noopener noreferrer">code</a></span>}
-      {data.links.bibtex && <span> · <a href={data.links.bibtex} target="_blank" rel="noopener noreferrer">bib</a></span>}
+      {[
+        data.links.paper && (
+          <a href={data.links.paper} target="_blank" rel="noopener noreferrer">paper</a>
+        ),
+        data.links.code && (
+          <a href={data.links.code} target="_blank" rel="noopener noreferrer">code</a>
+        ),
+        (
+          <button
+            type="button"
+            class="paper__bibtex"
+            data-bibtex-trigger
+            data-bibtex={JSON.stringify(bibtex)}
+            data-paper-title={data.title}
+          >bibtex</button>
+        ),
+      ]
+        .filter(Boolean)
+        .map((node, i) => (
+          <>
+            {i > 0 && <span class="paper__sep"> · </span>}
+            {node}
+          </>
+        ))}
     </p>
   </div>
 </article>
@@ -192,5 +216,34 @@ const dateline = datelineParts.join(" · ").toUpperCase();
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--color-ink-soft);
+  }
+
+  .paper__sep {
+    color: var(--color-ink-soft);
+    opacity: 0.55;
+  }
+
+  .paper__bibtex {
+    background: none;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    font: inherit;
+    color: inherit;
+    text-transform: inherit;
+    letter-spacing: inherit;
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1px;
+    text-decoration-color: rgba(74, 81, 89, 0.4);
+    transition: color 180ms ease-out, text-decoration-color 180ms ease-out;
+  }
+
+  .paper__bibtex:hover,
+  .paper__bibtex:focus-visible {
+    color: var(--color-accent);
+    text-decoration-color: var(--color-accent);
+    outline: 0;
   }
 </style>

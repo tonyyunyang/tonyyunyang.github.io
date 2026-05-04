@@ -29,10 +29,10 @@ const papers = defineCollection({
     summary: z.string().min(20).max(400),
     featured: z.boolean().default(false),
     thumbnail: z.string(),
+    bibtex: z.string().optional(),
     links: z.object({
       paper: z.string().url().optional(),
       code: z.string().url().optional(),
-      bibtex: z.string().optional(),
       project: z.string().url().optional(),
     }),
   }),

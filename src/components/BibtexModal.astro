@@ -1,0 +1,423 @@
+---
+// Global BibTeX citation modal. One instance is mounted in Base.astro.
+// Trigger from any [data-bibtex-trigger] button — the script reads
+// data-bibtex (the citation content) and data-paper-title (optional
+// label) and populates the modal.
+---
+
+<div class="bibmodal" data-bibmodal hidden>
+  <button class="bibmodal__veil" type="button" aria-label="Close citation" data-bibmodal-close></button>
+  <div
+    class="bibmodal__panel"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="bibmodal-heading"
+  >
+    <!-- Decorative top flourish (printer's plate cue, mirrors BusinessCard) -->
+    <svg class="bibmodal__flourish" viewBox="0 0 200 14" aria-hidden="true" preserveAspectRatio="none">
+      <path d="M70 8 Q85 2 100 8 Q115 14 130 8" fill="none" stroke="currentColor" stroke-width="0.7" />
+      <circle cx="100" cy="8" r="1.6" fill="currentColor" />
+    </svg>
+
+    <header class="bibmodal__head">
+      <div class="bibmodal__eyebrow">
+        <span class="bibmodal__eyebrow-mark" aria-hidden="true">@</span>
+        <span class="bibmodal__eyebrow-label">BibTeX citation</span>
+        <span class="bibmodal__eyebrow-sep" aria-hidden="true" data-bibmodal-key-sep>·</span>
+        <span class="bibmodal__eyebrow-key" data-bibmodal-key></span>
+      </div>
+      <p class="bibmodal__title" id="bibmodal-heading" data-bibmodal-title></p>
+      <button
+        class="bibmodal__close"
+        type="button"
+        aria-label="Close"
+        data-bibmodal-close
+      >
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round">
+          <path d="M6 6 L18 18 M18 6 L6 18" />
+        </svg>
+      </button>
+    </header>
+
+    <pre class="bibmodal__body" data-bibmodal-content tabindex="0"></pre>
+
+    <footer class="bibmodal__foot">
+      <p class="bibmodal__hint">
+        <kbd class="bibmodal__kbd">Esc</kbd>
+        <span>to close</span>
+      </p>
+      <button
+        class="bibmodal__copy"
+        type="button"
+        aria-label="Copy citation to clipboard"
+        data-bibmodal-copy
+      >
+        <span class="bibmodal__copy-iconwrap" aria-hidden="true">
+          <svg class="bibmodal__copy-icon bibmodal__copy-icon--copy" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="8" y="8" width="12" height="13" rx="2" />
+            <path d="M16 8 V5 a2 2 0 0 0 -2 -2 H6 a2 2 0 0 0 -2 2 v11 a2 2 0 0 0 2 2 h2" />
+          </svg>
+          <svg class="bibmodal__copy-icon bibmodal__copy-icon--check" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12 L10 17 L20 7" />
+          </svg>
+        </span>
+        <span class="bibmodal__copy-label" data-bibmodal-copy-label aria-live="polite">copy</span>
+      </button>
+    </footer>
+  </div>
+</div>
+
+<script>
+  import "~/scripts/bibtex-modal";
+</script>
+
+<style>
+  .bibmodal {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    display: grid;
+    place-items: start center;
+    padding: clamp(36px, 12vh, 120px) 16px 16px;
+    animation: bibmodalVeil 220ms ease-out;
+  }
+
+  @keyframes bibmodalVeil {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  .bibmodal[hidden] {
+    display: none;
+  }
+
+  .bibmodal__veil {
+    position: absolute;
+    inset: 0;
+    background: rgba(15, 20, 23, 0.5);
+    backdrop-filter: blur(3px);
+    border: 0;
+    cursor: default;
+    padding: 0;
+  }
+
+  .bibmodal__panel {
+    position: relative;
+    width: min(720px, calc(100% - 32px));
+    background: var(--color-paper);
+    border: 1px solid var(--color-hairline);
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 28px 70px rgba(15, 20, 23, 0.22);
+    display: flex;
+    flex-direction: column;
+    max-height: calc(100vh - 80px);
+    animation: bibmodalReveal 240ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  /* Dashed inner frame: subtle engraving plate grammar (mirrors the
+     dashed outer frame of BusinessCard's plate). Drawn above content
+     via z-index, with pointer-events: none so it never blocks clicks. */
+  .bibmodal__panel::before {
+    content: "";
+    position: absolute;
+    inset: 8px;
+    border: 1px dashed rgba(15, 20, 23, 0.18);
+    border-radius: 8px;
+    pointer-events: none;
+    z-index: 3;
+  }
+
+  @keyframes bibmodalReveal {
+    from {
+      opacity: 0;
+      transform: translateY(-8px) scale(0.985);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .bibmodal,
+    .bibmodal__panel {
+      animation: none;
+    }
+  }
+
+  .bibmodal__flourish {
+    position: absolute;
+    top: 6px;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 12px;
+    color: var(--color-accent);
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  .bibmodal__head {
+    position: relative;
+    padding: 26px 56px 18px 24px;
+    border-bottom: 1px solid var(--color-hairline);
+  }
+
+  .bibmodal__eyebrow {
+    margin: 0 0 6px;
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .bibmodal__eyebrow-mark {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--color-accent);
+    font-weight: 500;
+  }
+
+  .bibmodal__eyebrow-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-ink-soft);
+  }
+
+  .bibmodal__eyebrow-sep {
+    font-family: var(--font-mono);
+    color: var(--color-ink-soft);
+    opacity: 0.45;
+    font-size: 11px;
+  }
+
+  .bibmodal__eyebrow-sep[hidden] {
+    display: none;
+  }
+
+  .bibmodal__eyebrow-key {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    color: var(--color-accent);
+  }
+
+  .bibmodal__eyebrow-key:empty {
+    display: none;
+  }
+
+  .bibmodal__title {
+    margin: 0;
+    font-family: var(--font-display);
+    font-style: normal;
+    font-weight: 500;
+    font-size: 17px;
+    line-height: 1.3;
+    color: var(--color-ink);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    max-width: 60ch;
+  }
+
+  .bibmodal__title:empty {
+    display: none;
+  }
+
+  .bibmodal__close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    width: 32px;
+    height: 32px;
+    display: grid;
+    place-items: center;
+    border: 1px solid transparent;
+    background: transparent;
+    color: var(--color-ink-soft);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: color 180ms ease-out, border-color 180ms ease-out, background 180ms ease-out;
+  }
+
+  .bibmodal__close:hover,
+  .bibmodal__close:focus-visible {
+    color: var(--color-ink);
+    border-color: var(--color-hairline);
+    background: var(--color-paper-shade);
+    outline: 0;
+  }
+
+  .bibmodal__body {
+    margin: 0;
+    padding: 20px 24px;
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    line-height: 1.6;
+    color: var(--color-ink);
+    background: var(--color-paper-shade);
+    overflow: auto;
+    white-space: pre;
+    flex: 1 1 auto;
+    min-height: 0;
+    /* Subtle inset shadow on the top edge so the body reads as
+       a sunken plate against the head. */
+    box-shadow: inset 0 1px 0 rgba(15, 20, 23, 0.04);
+  }
+
+  .bibmodal__body:focus-visible {
+    outline: 1px solid var(--color-accent);
+    outline-offset: -1px;
+  }
+
+  .bibmodal__foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 12px 16px 12px 22px;
+    border-top: 1px solid var(--color-hairline);
+    background: var(--color-paper);
+  }
+
+  .bibmodal__hint {
+    margin: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-ink-soft);
+  }
+
+  .bibmodal__kbd {
+    display: inline-block;
+    padding: 2px 6px;
+    border: 1px solid var(--color-hairline);
+    border-bottom-width: 2px;
+    border-radius: 4px;
+    background: var(--color-paper-shade);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.04em;
+    color: var(--color-ink);
+  }
+
+  .bibmodal__copy {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 18px;
+    border: 1px solid var(--color-accent);
+    background: var(--color-paper);
+    color: var(--color-accent);
+    border-radius: 999px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition:
+      background 180ms ease-out,
+      color 180ms ease-out,
+      transform 180ms ease-out,
+      border-color 180ms ease-out;
+  }
+
+  .bibmodal__copy:hover,
+  .bibmodal__copy:focus-visible {
+    background: var(--color-accent);
+    color: var(--color-paper);
+    outline: 0;
+    transform: translateY(-1px);
+  }
+
+  .bibmodal__copy-iconwrap {
+    position: relative;
+    width: 14px;
+    height: 14px;
+    display: inline-block;
+  }
+
+  .bibmodal__copy-icon {
+    position: absolute;
+    inset: 0;
+    transition: opacity 180ms ease-out, transform 180ms ease-out;
+  }
+
+  .bibmodal__copy-icon--check {
+    opacity: 0;
+    transform: scale(0.7);
+  }
+
+  .bibmodal__copy.is-copied {
+    background: var(--color-accent);
+    color: var(--color-paper);
+    transform: none;
+  }
+
+  .bibmodal__copy.is-copied .bibmodal__copy-icon--copy {
+    opacity: 0;
+    transform: scale(0.7);
+  }
+
+  .bibmodal__copy.is-copied .bibmodal__copy-icon--check {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .bibmodal__copy:hover,
+    .bibmodal__copy:focus-visible {
+      transform: none;
+    }
+    .bibmodal__copy-icon {
+      transition: opacity 180ms ease-out;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .bibmodal {
+      padding-top: 24px;
+    }
+    .bibmodal__head {
+      padding: 22px 48px 14px 18px;
+    }
+    .bibmodal__title {
+      font-size: 15.5px;
+      -webkit-line-clamp: 3;
+    }
+    .bibmodal__body {
+      padding: 14px 18px;
+      font-size: 11.5px;
+      /* On phones, the long title field overflows the panel width.
+         Wrap on whitespace and within long tokens so the citation stays
+         readable without horizontal scroll. Desktop keeps `pre`. */
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+      max-height: min(48vh, 380px);
+    }
+    .bibmodal__foot {
+      flex-direction: column-reverse;
+      align-items: stretch;
+      gap: 10px;
+      padding: 12px 14px;
+    }
+    .bibmodal__copy {
+      justify-content: center;
+    }
+    .bibmodal__hint {
+      justify-content: center;
+    }
+  }
+</style>
