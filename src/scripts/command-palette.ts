@@ -1,5 +1,10 @@
 interface SiteConfig {
-  contact: { email: string; scholar: string; github: string; cv: string };
+  contact: {
+    email: string;
+    scholar: string;
+    github: string;
+    cv: { en: string; zh: string };
+  };
   currently: string;
 }
 
@@ -75,8 +80,12 @@ if (root) {
         location.hash = "#research";
         close();
         return;
-      case "cv":
-        window.open(site.contact.cv, "_blank");
+      case "cv-en":
+        window.open(site.contact.cv.en, "_blank");
+        close();
+        return;
+      case "cv-zh":
+        window.open(site.contact.cv.zh, "_blank");
         close();
         return;
       case "email":

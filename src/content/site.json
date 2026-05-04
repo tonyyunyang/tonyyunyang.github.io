@@ -76,6 +76,9 @@
     "email": "tonyyunyang@outlook.com",
     "scholar": "https://scholar.google.com/citations?hl=en&user=rIFdBYAAAAAJ",
     "github": "https://github.com/tonyyunyang",
-    "cv": "/cv.pdf"
+    "cv": {
+      "en": "/cv-en.pdf",
+      "zh": "/cv-zh.pdf"
+    }
   }
 }
