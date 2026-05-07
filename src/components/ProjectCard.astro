@@ -20,7 +20,7 @@ const primaryLink =
   data.links?.paper;
 ---
 
-<article id={`project-${slug}`} class="project">
+<article id={`project-${slug}`} class={`project${primaryLink ? "" : " project--static"}`}>
   {data.thumbnail && (
     primaryLink ? (
       <a
@@ -31,6 +31,7 @@ const primaryLink =
         aria-label={`Open ${data.title} in a new tab`}
       >
         <img src={data.thumbnail} alt="" loading="lazy" />
+        <span class="project__thumb-mark" aria-hidden="true">↗</span>
       </a>
     ) : (
       <div class="project__thumb project__thumb--static" aria-hidden="true">
@@ -76,9 +77,8 @@ const primaryLink =
       0 1px 0 rgba(15, 20, 23, 0.02),
       0 2px 4px -2px rgba(15, 20, 23, 0.04);
     transition:
-      transform 180ms ease-out,
-      border-color 180ms ease-out,
-      box-shadow 180ms ease-out;
+      border-color var(--motion-warm),
+      box-shadow var(--motion-warm);
   }
 
   @media (max-width: 720px) {
@@ -87,21 +87,19 @@ const primaryLink =
     }
   }
 
-  .project:hover {
-    transform: translateY(-2px);
+  /* ProjectCard hover language is interior, not a whole-card lift —
+     PaperCard already owns the lift. The thumb subtly zooms, the
+     external-link chevron warms to accent + nudges, and the card's
+     border softens to accent. No translateY so the row doesn't dance. */
+  .project:not(.project--static):hover {
     border-color: var(--color-accent);
     box-shadow:
       0 1px 0 rgba(15, 20, 23, 0.04),
-      0 12px 24px -14px rgba(15, 20, 23, 0.18);
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .project:hover {
-      transform: none;
-    }
+      0 6px 14px -10px rgba(15, 20, 23, 0.15);
   }
 
   .project__thumb {
+    position: relative;
     display: block;
     width: 100%;
     aspect-ratio: 1 / 1;
@@ -109,6 +107,7 @@ const primaryLink =
     overflow: hidden;
     border: 1px solid var(--color-hairline);
     background: var(--color-paper);
+    transition: border-color var(--motion-warm);
   }
 
   .project__thumb--static {
@@ -119,6 +118,54 @@ const primaryLink =
     width: 100%;
     height: 100%;
     object-fit: contain;
+    transition: transform var(--motion-warm);
+  }
+
+  .project:not(.project--static):hover .project__thumb {
+    border-color: var(--color-accent);
+  }
+
+  .project:not(.project--static):hover .project__thumb img {
+    transform: scale(1.02);
+  }
+
+  /* "↗" external-link mark, persistent in the corner of every linked
+     thumb so the affordance is visible even at rest. Warms to accent
+     and slides on hover, signaling the click goes off-site. */
+  .project__thumb-mark {
+    position: absolute;
+    top: 8px;
+    right: 9px;
+    width: 22px;
+    height: 22px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-paper);
+    border: 1px solid var(--color-hairline);
+    border-radius: 999px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--color-ink-soft);
+    pointer-events: none;
+    transition:
+      color var(--motion-warm),
+      border-color var(--motion-warm),
+      transform var(--motion-warm);
+  }
+
+  .project:not(.project--static):hover .project__thumb-mark {
+    color: var(--color-accent);
+    border-color: var(--color-accent);
+    transform: translate(2px, -2px);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .project__thumb img,
+    .project__thumb-mark {
+      transition: none;
+      transform: none;
+    }
   }
 
   .project__meta {

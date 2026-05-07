@@ -10,6 +10,14 @@ interface Props {
 
 const { num, title, dek, id, total = "06", dekWide = false } = Astro.props;
 const slugId = id ?? title.toLowerCase().replace(/\s+/g, "-");
+
+// Folio reads as a running head: "PROJECTS · 02 / 06". Stronger
+// print-tradition feel than the bare "§02 / 06" we had before.
+const folioName = title.toUpperCase();
+
+// Underline width drifts with section number (32px → 56px across §01-§06).
+// Subtle progression so the rhythm feels authored rather than templated.
+const underlineWidth = 32 + (parseInt(num, 10) - 1) * 5;
 ---
 
 <header id={slugId} class="section-header">
@@ -19,10 +27,18 @@ const slugId = id ?? title.toLowerCase().replace(/\s+/g, "-");
       <span class="bullet">·</span>
       <span class="label">{title}</span>
     </p>
-    <span class="folio" aria-hidden="true">§{num} / {total}</span>
+    <span class="folio" aria-hidden="true">
+      <span class="folio-name">{folioName}</span>
+      <span class="folio-sep" aria-hidden="true">·</span>
+      <span class="folio-count">{num} / {total}</span>
+    </span>
   </div>
   {dek && <p class={`dek ${dekWide ? "dek--wide" : ""}`}>{dek}</p>}
-  <span class="underline" aria-hidden="true"></span>
+  <span
+    class="underline"
+    aria-hidden="true"
+    style={`--underline-w: ${underlineWidth}px;`}
+  ></span>
 </header>
 
 <style>
@@ -68,11 +84,35 @@ const slugId = id ?? title.toLowerCase().replace(/\s+/g, "-");
   }
 
   .folio {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 8px;
     font-family: var(--font-mono);
     font-size: 11px;
     letter-spacing: 0.1em;
     text-transform: uppercase;
     color: var(--color-ink-soft);
+    /* Lined + tabular figures so the count "02 / 06" stays a grid. */
+    font-feature-settings: "lnum", "tnum";
+    font-variant-numeric: tabular-nums lining-nums;
+  }
+
+  .folio-sep {
+    opacity: 0.55;
+  }
+
+  .folio-count {
+    color: var(--color-ink);
+    font-weight: 500;
+  }
+
+  @media (max-width: 480px) {
+    /* On the narrowest phones the running-head treatment can crowd
+       the title; collapse the section name and keep just the count. */
+    .folio-name,
+    .folio-sep {
+      display: none;
+    }
   }
 
   .dek {
@@ -94,17 +134,19 @@ const slugId = id ?? title.toLowerCase().replace(/\s+/g, "-");
   .underline {
     display: block;
     margin-top: 16px;
-    width: 32px;
+    /* Underline width drifts with section number so §01 → §06 grow
+       progressively. CSS-var driven; falls back to 32px if unset. */
+    width: var(--underline-w, 32px);
     height: 2px;
     background: var(--color-accent);
     border-radius: 2px;
+    transform-origin: left center;
   }
 
-  /* Page-load entry: title, dek, rule rise + fade in on a short stagger.
-     CSS-only (no IntersectionObserver) — most users see sections in the
-     order they appear, and this plays once at load like printed plates
-     unfolding on the page. animation-fill-mode: backwards keeps each
-     element invisible until its delayed start. */
+  /* Page-load entry: title and dek rise + fade; underline draws across
+     from origin: left, like an inked rule pulled with a straightedge.
+     CSS-only — most visitors see sections in the order they appear, and
+     this plays once at load. */
   @keyframes sectionHeaderRise {
     from {
       opacity: 0;
@@ -116,10 +158,25 @@ const slugId = id ?? title.toLowerCase().replace(/\s+/g, "-");
     }
   }
 
+  @keyframes sectionHeaderUnderline {
+    from {
+      opacity: 0;
+      transform: scaleX(0);
+    }
+    to {
+      opacity: 1;
+      transform: scaleX(1);
+    }
+  }
+
   .row,
-  .dek,
+  .dek {
+    animation: sectionHeaderRise var(--motion-reveal) both;
+  }
+
   .underline {
-    animation: sectionHeaderRise 600ms cubic-bezier(.22,.72,.16,1) both;
+    animation: sectionHeaderUnderline var(--motion-reveal) both;
+    animation-delay: 160ms;
   }
 
   .row {
@@ -128,12 +185,6 @@ const slugId = id ?? title.toLowerCase().replace(/\s+/g, "-");
 
   .dek {
     animation-delay: 80ms;
-  }
-
-  .underline {
-    animation-delay: 160ms;
-    /* Subtle width sweep so the rule feels drawn rather than dropped in */
-    transform-origin: left center;
   }
 
   @media (prefers-reduced-motion: reduce) {

@@ -190,6 +190,36 @@ import Icon from "./Icon.astro";
     line-height: 1.65;
     color: var(--color-ink);
     max-width: 60ch;
+    /* Pretty paragraph wrap so the prose breaks evenly without a lonely
+       last word. Hyphens for long terms ("interpretability") that would
+       otherwise gouge the right edge. */
+    text-wrap: pretty;
+    hyphens: auto;
+    -webkit-hyphens: auto;
+  }
+
+  /* Lettrine: a single illuminated capital opening the body prose, in
+     the print tradition. Upright EB Garamond at 500 weight, accent
+     emerald, dropping ~3 lines. The headline above stays italic; this
+     dropcap re-anchors the eye for the actual reading. */
+  .intro__opening-body::first-letter {
+    float: left;
+    font-family: var(--font-display);
+    font-style: normal;
+    font-weight: 500;
+    font-size: 3.4em;
+    line-height: 0.82;
+    padding-top: 0.06em;
+    margin: 0 0.1em 0 0;
+    color: var(--color-accent);
+  }
+
+  @media (max-width: 720px) {
+    .intro__opening-body::first-letter {
+      /* Slightly smaller on phones so the 'I' doesn't dominate the
+         narrow column. Still drops ~2.5 lines, still legibly a lettrine. */
+      font-size: 3em;
+    }
   }
 
   .intro__currently-label {
@@ -232,7 +262,7 @@ import Icon from "./Icon.astro";
     color: var(--color-accent);
     text-decoration: none;
     border-bottom: 1px solid rgba(14, 83, 71, 0.35);
-    transition: color 180ms ease-out, border-color 180ms ease-out;
+    transition: color var(--motion-warm), border-color var(--motion-warm);
   }
 
   .intro__email-addr:hover,

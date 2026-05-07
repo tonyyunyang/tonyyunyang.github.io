@@ -1,14 +1,26 @@
 ---
 import "~/styles/globals.css";
+import { ClientRouter } from "astro:transitions";
 import CommandPalette from "~/components/CommandPalette.astro";
 import BibtexModal from "~/components/BibtexModal.astro";
 import SketchbookButton from "~/components/SketchbookButton.astro";
+import RunningHead from "~/components/RunningHead.astro";
+
+interface RunningHeadSection {
+  id: string;
+  num: string;
+  title: string;
+}
 
 interface Props {
   title?: string;
   description?: string;
   ogImage?: string;
   hideSketchbook?: boolean;
+  hideRunningHead?: boolean;
+  runningHeadSections?: RunningHeadSection[];
+  runningHeadName?: string;
+  runningHeadNum?: string;
 }
 
 const {
@@ -16,6 +28,10 @@ const {
   description = "Independent AI researcher in Amsterdam. Building AI systems that expand what people can perceive, understand, and do.",
   ogImage = "/og-default.png",
   hideSketchbook = false,
+  hideRunningHead = false,
+  runningHeadSections = [],
+  runningHeadName,
+  runningHeadNum,
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
@@ -44,10 +60,19 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
 
-    <link rel="alternate" type="application/rss+xml" title="Tony Yang — Writing" href="/rss.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Tony Yang · Writing" href="/rss.xml" />
+
+    <ClientRouter />
   </head>
   <body>
     <a class="sr-only focus:not-sr-only" href="#main">Skip to content</a>
+    {!hideRunningHead && (
+      <RunningHead
+        sections={runningHeadSections}
+        pageName={runningHeadName}
+        pageNum={runningHeadNum}
+      />
+    )}
     <main id="main">
       <slot />
     </main>

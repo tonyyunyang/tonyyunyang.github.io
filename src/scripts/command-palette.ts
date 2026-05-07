@@ -95,6 +95,9 @@ if (root) {
       case "world":
         location.href = "/world/";
         return;
+      case "colophon":
+        location.href = "/colophon/";
+        return;
       case "pace":
         toast("Half-marathon PB: 1:43:53");
         return;

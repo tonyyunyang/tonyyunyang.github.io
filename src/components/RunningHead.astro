@@ -1,0 +1,242 @@
+---
+// A thin printer's-running-head pinned to the top of the viewport.
+// On the homepage, where sections are tracked via IntersectionObserver,
+// it updates with the section the reader is currently inside. On other
+// pages, it shows the page name as a static running head.
+//
+// Hidden behind the hero; rolls down once the reader scrolls past it,
+// so the first impression of the page is uninterrupted.
+
+interface Section {
+  id: string;
+  num: string;
+  title: string;
+}
+
+interface Props {
+  sections?: Section[];
+  pageName?: string;
+  pageNum?: string;
+}
+
+const { sections = [], pageName, pageNum } = Astro.props;
+const isTracking = sections.length > 0;
+const initialName = pageName ?? (isTracking ? "Personal" : "Tony Yang");
+const initialNum = pageNum ?? (isTracking ? "01" : "");
+---
+
+<header class="run-head" data-run-head data-tracking={isTracking ? "" : null} hidden>
+  <div class="run-head__inner">
+    <span class="run-head__crest" aria-hidden="true">§</span>
+    <span class="run-head__num" data-run-num>{initialNum}</span>
+    <span class="run-head__sep" aria-hidden="true">·</span>
+    <span class="run-head__current" data-run-current>{initialName}</span>
+    <span class="run-head__divider" aria-hidden="true"></span>
+    <span class="run-head__byline">Tony Yang</span>
+  </div>
+</header>
+
+<script is:inline define:vars={{ sections, isTracking }}>
+  (function () {
+    const head = document.querySelector("[data-run-head]");
+    const current = document.querySelector("[data-run-current]");
+    const num = document.querySelector("[data-run-num]");
+    if (!head || !current || !num) return;
+
+    // On pages with section tracking (the homepage), the running head
+    // is hidden behind the hero and rolls in once the reader has
+    // scrolled past it. On pages without tracking (colophon, 404,
+    // posts), there is no hero, so it shows from the start.
+    const HERO_HIDE_PX = isTracking ? 280 : 0;
+    let visible = false;
+
+    function setVisible(v) {
+      if (v === visible) return;
+      visible = v;
+      if (v) {
+        head.hidden = false;
+        // Force a reflow so the transition runs from the hidden state.
+        // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+        head.offsetHeight;
+        head.classList.add("is-visible");
+      } else {
+        head.classList.remove("is-visible");
+        // Wait for fade-out before flipping the hidden attribute back on.
+        setTimeout(() => {
+          if (!visible) head.hidden = true;
+        }, 280);
+      }
+    }
+
+    function onScroll() {
+      setVisible(window.scrollY > HERO_HIDE_PX);
+    }
+
+    onScroll();
+    document.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+
+    if (isTracking && sections.length > 0) {
+      // Pick the section the reader is currently inside: the LAST
+      // section whose header has crossed the "trigger line" (~30% from
+      // the top of the viewport). Iterates in document order, so this
+      // works even on shorter sections that don't fully fill the
+      // viewport.
+      function pickSection() {
+        const triggerY = Math.max(120, window.innerHeight * 0.3);
+        let pick = sections[0];
+        for (const s of sections) {
+          const el = document.getElementById(s.id);
+          if (!el) continue;
+          const y = el.getBoundingClientRect().top;
+          if (y <= triggerY) {
+            pick = s;
+          } else {
+            // Sections below the trigger line are still ahead of the
+            // reader. Stop walking; pick is correct.
+            break;
+          }
+        }
+        if (current.textContent !== pick.title) current.textContent = pick.title;
+        if (num.textContent !== pick.num) num.textContent = pick.num;
+      }
+
+      let ticking = false;
+      function onScrollTick() {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(() => {
+          pickSection();
+          ticking = false;
+        });
+      }
+
+      pickSection();
+      document.addEventListener("scroll", onScrollTick, { passive: true });
+      window.addEventListener("resize", onScrollTick);
+    }
+
+    // Re-attach on Astro view-transition page loads.
+    document.addEventListener("astro:page-load", () => {
+      onScroll();
+    });
+  })();
+</script>
+
+<style>
+  .run-head {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 40;
+    pointer-events: none;
+    background: rgba(245, 239, 226, 0.92);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--color-hairline);
+    /* The hidden state slides up by a tiny amount so the reveal feels
+       like a printer's strip dropping into place. */
+    opacity: 0;
+    transform: translateY(-6px);
+    transition: opacity var(--motion-warm), transform var(--motion-warm);
+  }
+
+  .run-head[hidden] {
+    display: none;
+  }
+
+  .run-head.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .run-head__inner {
+    margin: 0 auto;
+    max-width: var(--content-with-rail);
+    padding: 8px 32px;
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-ink-soft);
+    font-feature-settings: "lnum", "tnum";
+    font-variant-numeric: tabular-nums lining-nums;
+  }
+
+  .run-head__crest {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 14px;
+    color: var(--color-accent);
+    transform: translateY(1px);
+  }
+
+  .run-head__num {
+    color: var(--color-accent);
+    font-weight: 500;
+  }
+
+  .run-head__sep {
+    opacity: 0.55;
+  }
+
+  .run-head__current {
+    color: var(--color-ink);
+    font-weight: 500;
+    /* Smooth crossfade when section changes — handled by setting the
+       textContent inside requestAnimationFrame, plus a CSS transition
+       to soften the visual jump. */
+    transition: color var(--motion-warm);
+  }
+
+  .run-head__divider {
+    flex: 0 0 auto;
+    width: 24px;
+    height: 1px;
+    background: var(--color-hairline);
+    margin: 0 4px;
+    transform: translateY(-3px);
+  }
+
+  .run-head__byline {
+    color: var(--color-ink-soft);
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 13px;
+    letter-spacing: 0;
+    text-transform: none;
+  }
+
+  @media (max-width: 720px) {
+    .run-head__inner {
+      padding: 7px 20px;
+      gap: 8px;
+      font-size: 10px;
+    }
+    .run-head__divider {
+      width: 16px;
+    }
+    .run-head__byline {
+      font-size: 12px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    /* Drop the byline on narrow phones — the section + count is what's
+       useful at that width. */
+    .run-head__divider,
+    .run-head__byline {
+      display: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .run-head {
+      transition: none;
+    }
+  }
+</style>

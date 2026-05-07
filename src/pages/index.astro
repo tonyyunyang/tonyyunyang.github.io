@@ -27,9 +27,21 @@ const newsEntry = await getEntry("news", "news");
 const teachingEntry = await getEntry("teaching", "teaching");
 const NewsBody = newsEntry ? (await newsEntry.render()).Content : null;
 const TeachingBody = teachingEntry ? (await teachingEntry.render()).Content : null;
+
+// Sections the running-head should track on the homepage. Each entry
+// corresponds to an id rendered on this page.
+const runningHeadSections = [
+  { id: "currently", num: "00", title: "Currently" },
+  { id: "research",  num: "01", title: "Research" },
+  { id: "projects",  num: "02", title: "Projects" },
+  { id: "writing",   num: "03", title: "Writing" },
+  { id: "news",      num: "04", title: "News" },
+  { id: "teaching",  num: "05", title: "Teaching" },
+  { id: "contact",   num: "06", title: "Contact" },
+];
 ---
 
-<Base title="Tony Yang">
+<Base title="Tony Yang" runningHeadSections={runningHeadSections}>
   <Hero />
   <Toc />
   <Intro />
