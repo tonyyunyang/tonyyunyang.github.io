@@ -4,13 +4,13 @@ import PillLink from "./PillLink.astro";
 import Icon from "./Icon.astro";
 
 // §00 mirrors the SectionHeader structure (prefix · folio · underline)
-// so the opening section reads as part of the same numbered series as
-// §01-§06 instead of a small tucked-in eyebrow.
+// so the opening section reads architecturally like §01-§06.
 //
-// Layout sits in three regions:
-//   A · top     — 2-col: photo (left) + headline + opening body (right)
-//   B · day-to-day — full-width: DAY-TO-DAY label + extended bio prose
-//   C · contact — 2-col: email row (left) + pill links (right)
+// Layout: portrait photo on the left fills the full height of the
+// right-column content (which contains everything: headline, opening
+// body, DAY-TO-DAY block, and the contact strip with email + pills).
+// The photo's source is already 3253×3978 portrait, so the tall crop
+// renders naturally with no obvious distortion.
 ---
 
 <section id="currently" class="intro">
@@ -30,58 +30,51 @@ import Icon from "./Icon.astro";
     <span class="intro__head-rule" aria-hidden="true"></span>
   </header>
 
-  <div class="intro__body">
-    <!-- Region A · top -->
-    <div class="intro__top">
-      <figure class="intro__figure">
-        <div class="intro__photo">
-          <img
-            src="/profile/Profile.jpg"
-            alt="Portrait of Tony Yang"
-            loading="eager"
-            width="300"
-            height="300"
-          />
-          <span class="intro__photo-corner intro__photo-corner--tl" aria-hidden="true"></span>
-          <span class="intro__photo-corner intro__photo-corner--tr" aria-hidden="true"></span>
-          <span class="intro__photo-corner intro__photo-corner--bl" aria-hidden="true"></span>
-          <span class="intro__photo-corner intro__photo-corner--br" aria-hidden="true"></span>
-        </div>
-        <figcaption class="intro__caption">
-          <span class="intro__caption-meta">PORTRAIT · 2026</span>
-          <span class="intro__caption-name">Tony Yang <span class="intro__caption-zh">杨童耘</span></span>
-        </figcaption>
-      </figure>
-
-      <div class="intro__lede">
-        <p class="intro__opening">
-          <span class="intro__opening-mark" aria-hidden="true">
-            <Icon name="sparkles" size={18} strokeWidth={1.2} />
-          </span>
-          <span class="intro__opening-text">{siteConfig.openingHeadline}</span>
-        </p>
-        <p class="intro__opening-body">{siteConfig.openingBody}</p>
+  <div class="intro__layout">
+    <figure class="intro__figure">
+      <div class="intro__photo">
+        <img
+          src="/profile/Profile.jpg"
+          alt="Portrait of Tony Yang"
+          loading="eager"
+          width="320"
+          height="400"
+        />
+        <span class="intro__photo-corner intro__photo-corner--tl" aria-hidden="true"></span>
+        <span class="intro__photo-corner intro__photo-corner--tr" aria-hidden="true"></span>
+        <span class="intro__photo-corner intro__photo-corner--bl" aria-hidden="true"></span>
+        <span class="intro__photo-corner intro__photo-corner--br" aria-hidden="true"></span>
       </div>
-    </div>
+    </figure>
 
-    <!-- Region B · day-to-day (full-width) -->
-    <div class="intro__day-to-day">
-      <p class="intro__currently-label">{siteConfig.currentlyHeadline}</p>
-      <p class="intro__currently">{siteConfig.currently}</p>
-    </div>
-
-    <!-- Region C · contact (2-col: email-text left, pill links right) -->
-    <div class="intro__contact-grid">
-      <p class="intro__email-row">
-        <span class="intro__email-label">Email</span>
-        <a class="intro__email-addr" href={`mailto:${siteConfig.contact.email}`}>{siteConfig.contact.email}</a>
+    <div class="intro__content">
+      <p class="intro__opening">
+        <span class="intro__opening-mark" aria-hidden="true">
+          <Icon name="sparkles" size={18} strokeWidth={1.2} />
+        </span>
+        <span class="intro__opening-text">{siteConfig.openingHeadline}</span>
       </p>
-      <div class="intro__pills">
-        <PillLink href={`mailto:${siteConfig.contact.email}`} label="email" icon="envelope" />
-        <PillLink href={siteConfig.contact.scholar} label="scholar" icon="scholar" />
-        <PillLink href={siteConfig.contact.github} label="github" icon="branch" />
-        <PillLink href={siteConfig.contact.cv.en} label="cv · en" icon="document" />
-        <PillLink href={siteConfig.contact.cv.zh} label="cv · 中文" icon="document" />
+      <p class="intro__opening-body">{siteConfig.openingBody}</p>
+
+      <div class="intro__day">
+        <p class="intro__currently-label">{siteConfig.currentlyHeadline}</p>
+        <p class="intro__currently">{siteConfig.currently}</p>
+      </div>
+
+      <div class="intro__contact-row">
+        <p class="intro__email-row">
+          <span class="intro__email-label">Email</span>
+          <a class="intro__email-addr" href={`mailto:${siteConfig.contact.email}`}>{siteConfig.contact.email}</a>
+        </p>
+        <div class="intro__pills">
+          <!-- Email lives in the row above (clickable). The pill set is
+               the externally-linked profiles + CVs only, so there's no
+               duplicate of the email and the four pills fit one row. -->
+          <PillLink href={siteConfig.contact.scholar} label="scholar" icon="scholar" />
+          <PillLink href={siteConfig.contact.github} label="github" icon="branch" />
+          <PillLink href={siteConfig.contact.cv.en} label="cv · en" icon="document" />
+          <PillLink href={siteConfig.contact.cv.zh} label="cv · 中文" icon="document" />
+        </div>
       </div>
     </div>
   </div>
@@ -94,8 +87,7 @@ import Icon from "./Icon.astro";
     padding: 24px;
   }
 
-  /* ============ Section head (§00) — mirrors SectionHeader so the
-       opening section reads architecturally like §01-§06 ============ */
+  /* ============ Section head (§00) — mirrors SectionHeader ============ */
 
   .intro__head {
     margin-bottom: 36px;
@@ -183,44 +175,40 @@ import Icon from "./Icon.astro";
     }
   }
 
-  /* ============ Body (vertical stack of three regions) ============ */
+  /* ============ Layout: photo (left, fills column height) + content (right) ============ */
 
-  .intro__body {
+  .intro__layout {
     display: grid;
+    grid-template-columns: clamp(260px, 26vw, 300px) minmax(0, 1fr);
     gap: 36px;
-  }
-
-  /* ============ Region A · top — photo + lede in 2-col ============ */
-
-  .intro__top {
-    display: grid;
-    grid-template-columns: clamp(240px, 26vw, 300px) minmax(0, 1fr);
-    gap: 40px;
-    align-items: start;
+    /* stretch so the photo column matches the natural height of the
+       content column on the right. The photo's flex:1 inside fills
+       the column. */
+    align-items: stretch;
   }
 
   @media (max-width: 720px) {
-    .intro__top {
+    .intro__layout {
       grid-template-columns: 1fr;
       gap: 24px;
     }
   }
 
+  /* ============ Photo column ============ */
+
   .intro__figure {
     margin: 0;
-    width: 100%;
-  }
-
-  @media (max-width: 720px) {
-    .intro__figure {
-      width: clamp(240px, 74vw, 320px);
-      margin-inline: auto;
-    }
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
   }
 
   .intro__photo {
     position: relative;
-    aspect-ratio: 1 / 1;
+    flex: 1 1 auto;
+    /* Floor so the photo never collapses if the right column is very
+       short (e.g., reduced motion, narrow viewport, etc.). */
+    min-height: 480px;
     border-radius: 4px;
     overflow: hidden;
     background: var(--color-paper-shade);
@@ -229,14 +217,26 @@ import Icon from "./Icon.astro";
       0 14px 30px -18px rgba(15, 20, 23, 0.18);
   }
 
+  @media (max-width: 720px) {
+    .intro__photo {
+      /* On mobile we fall back to a portrait crop (4:5) and cap width
+         so the photo doesn't dominate the narrow viewport. */
+      aspect-ratio: 4 / 5;
+      min-height: 0;
+      width: clamp(260px, 80vw, 360px);
+      margin-inline: auto;
+    }
+  }
+
   .intro__photo img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center 18%;
+    /* Pull a touch above center so the face anchors the upper third
+       of the photograph and the body fills the lower portion. */
+    object-position: center 22%;
     display: block;
     border-radius: 4px;
-    /* Photo renders at its natural color — no filter, no overlay. */
   }
 
   /* Hand-drawn corner crops, like a printed plate or a polaroid */
@@ -276,58 +276,26 @@ import Icon from "./Icon.astro";
     border-top: 0;
   }
 
-  /* Photo caption: a small print-tradition colophon under the portrait. */
-  .intro__caption {
+  /* ============ Right column ============ */
+
+  .intro__content {
     display: flex;
     flex-direction: column;
-    gap: 4px;
-    margin-top: 14px;
-    text-align: left;
+    gap: 24px;
+    min-width: 0;
   }
 
-  .intro__caption-meta {
-    font-family: var(--font-mono);
-    font-size: 10.5px;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--color-ink-soft);
-    font-feature-settings: "lnum", "tnum";
-  }
-
-  .intro__caption-name {
-    font-family: var(--font-display);
-    font-style: italic;
-    font-size: 16px;
-    color: var(--color-ink);
-    line-height: 1.2;
-    display: inline-flex;
-    align-items: baseline;
-    gap: 8px;
-    flex-wrap: wrap;
-  }
-
-  .intro__caption-zh {
-    font-family: var(--font-display-zh);
-    font-style: normal;
-    font-size: 0.9em;
-    color: var(--color-ink-soft);
-    letter-spacing: 0.04em;
-  }
-
-  /* ============ Lede (right side of region A) ============ */
-
-  .intro__lede {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
-
+  /* Opening headline. Upright EB Garamond 500 reads as a confident
+     direct statement rather than a literary quote. The sparkle mark
+     stays as a small print-tradition opener. */
   .intro__opening {
     margin: 0;
     font-family: var(--font-display);
-    font-style: italic;
-    font-size: clamp(22px, 2.6vw, 30px);
-    line-height: 1.18;
+    font-style: normal;
+    font-weight: 500;
+    font-size: clamp(22px, 2.4vw, 28px);
+    line-height: 1.28;
+    letter-spacing: -0.005em;
     color: var(--color-ink);
     display: flex;
     align-items: baseline;
@@ -356,9 +324,9 @@ import Icon from "./Icon.astro";
     -webkit-hyphens: auto;
   }
 
-  /* ============ Region B · day-to-day (full-width) ============ */
+  /* DAY-TO-DAY block */
 
-  .intro__day-to-day {
+  .intro__day {
     display: flex;
     flex-direction: column;
     gap: 6px;
@@ -375,45 +343,38 @@ import Icon from "./Icon.astro";
 
   .intro__currently {
     margin: 0;
-    font-size: 16.5px;
-    line-height: 1.65;
+    font-size: 16px;
+    line-height: 1.6;
     color: var(--color-ink-soft);
-    max-width: 68ch;
+    max-width: 64ch;
     text-wrap: pretty;
   }
 
-  /* ============ Region C · contact grid (email left, pills right) ============
+  /* Contact: email row stacked above the pill links so the pills get
+     the full right-column width (plenty of room for all five). The
+     hairline rule above the block separates it from the prose. */
 
-     Flex rather than grid so the email column takes its natural width
-     and the pills get all the remaining room — that way a 5th pill
-     never orphans onto a second line at desktop. On mobile the row
-     wraps and stacks. */
-
-  .intro__contact-grid {
+  .intro__contact-row {
+    margin-top: 4px;
     padding-top: 22px;
     border-top: 1px solid var(--color-hairline);
     display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    gap: 24px 32px;
-    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 16px;
   }
 
   @media (max-width: 720px) {
-    .intro__contact-grid {
+    .intro__contact-row {
       padding-top: 18px;
-      flex-direction: column;
-      align-items: flex-start;
     }
   }
 
   .intro__email-row {
     margin: 0;
     display: flex;
-    flex-direction: column;
-    gap: 6px;
-    flex: 0 1 auto;
-    min-width: 0;
+    align-items: baseline;
+    gap: 12px;
+    flex-wrap: wrap;
   }
 
   .intro__email-label {
@@ -446,15 +407,18 @@ import Icon from "./Icon.astro";
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
-    justify-content: flex-end;
+    justify-content: flex-start;
     align-items: center;
-    flex: 1 1 auto;
-    min-width: 0;
   }
 
-  @media (max-width: 720px) {
-    .intro__pills {
-      justify-content: flex-start;
-    }
+  /* Tighter pill chrome inside the §00 contact row so all four
+     profile/CV pills fit on a single row inside the narrower right
+     column. Tap target stays at 40px (still comfortable on touch),
+     padding eased from 12/16 → 10/13. */
+  .intro__pills :global(.pill) {
+    padding: 10px 13px;
+    min-height: 40px;
+    font-size: 10.5px;
+    letter-spacing: 0.09em;
   }
 </style>
