@@ -12,20 +12,24 @@
     <rect x="96" y="84" width="48" height="32" rx="3"/>
     <text x="120" y="98" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="6" fill="#0F1417" stroke="none" letter-spacing="0.06em">ROUTER</text>
     <path d="M104 106 H136 M104 110 H132" stroke-width="0.5" opacity="0.55"/>
-    <!-- Three model branches (right) -->
-    <path d="M144 92 Q176 60 200 56" stroke-width="1.2"/>
-    <path d="M144 100 Q176 100 200 100" stroke-width="1.2"/>
-    <path d="M144 108 Q176 140 200 144" stroke-width="1.2"/>
-    <!-- Model nodes (small / medium / large) -->
+    <!-- Three model branches (right). Symmetric curves all targeting
+         the same x=208 centerline; control points mirror around y=100
+         so the top and bottom paths feel balanced. -->
+    <path d="M144 92 Q176 68 202 56" stroke-width="1.2"/>
+    <path d="M144 100 Q176 100 199 100" stroke-width="1.2"/>
+    <path d="M144 108 Q176 132 202 144" stroke-width="1.2"/>
+    <!-- Model nodes (small / medium / large) on a single x-centerline -->
     <circle cx="208" cy="56" r="6" fill="#F5EFE2"/>
-    <circle cx="210" cy="100" r="9" fill="#0E5347" stroke="#0E5347"/>
-    <circle cx="210" cy="144" r="12" fill="#F5EFE2"/>
-    <text x="222" y="58" font-family="JetBrains Mono, monospace" font-size="6" fill="#4A5159" stroke="none">S</text>
-    <text x="224" y="103" font-family="JetBrains Mono, monospace" font-size="6" fill="#4A5159" stroke="none">M</text>
+    <circle cx="208" cy="100" r="9" fill="#0E5347" stroke="#0E5347"/>
+    <circle cx="208" cy="144" r="12" fill="#F5EFE2"/>
+    <!-- Labels at consistent x so the right edge feels intentional -->
+    <text x="226" y="58" font-family="JetBrains Mono, monospace" font-size="6" fill="#4A5159" stroke="none">S</text>
+    <text x="226" y="103" font-family="JetBrains Mono, monospace" font-size="6" fill="#4A5159" stroke="none">M</text>
     <text x="226" y="147" font-family="JetBrains Mono, monospace" font-size="6" fill="#4A5159" stroke="none">L</text>
-    <!-- Cost ticks below router -->
-    <path d="M96 132 H144" stroke-width="0.5"/>
-    <path d="M104 130 V134 M120 130 V134 M136 130 V134" stroke-width="0.5"/>
-    <text x="120" y="148" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="6" fill="#4A5159" stroke="none" letter-spacing="0.06em">$ / TOK</text>
+    <!-- Cost rail below the router, dropped 6px so it doesn't crowd
+         the router's bottom edge (y=116). -->
+    <path d="M96 138 H144" stroke-width="0.5"/>
+    <path d="M104 136 V140 M120 136 V140 M136 136 V140" stroke-width="0.5"/>
+    <text x="120" y="156" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="6" fill="#4A5159" stroke="none" letter-spacing="0.06em">$ / TOK</text>
   </g>
 </svg>

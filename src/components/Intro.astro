@@ -2,30 +2,53 @@
 import siteConfig from "~/content/site.json";
 import PillLink from "./PillLink.astro";
 import Icon from "./Icon.astro";
+
+// §00 mirrors the SectionHeader structure (prefix · folio · underline)
+// so the opening section reads as part of the same numbered series as
+// §01-§06 instead of a small tucked-in eyebrow. Margins are local
+// rather than imported because SectionHeader's own margins are tuned
+// for mid-page spacing, and the intro sits right under the hero.
 ---
 
 <section id="currently" class="intro">
-  <div class="intro__head">
-    <figure class="intro__photo">
-      <img
-        src="/profile/Profile.jpg"
-        alt="Portrait of Tony Yang"
-        loading="eager"
-        width="280"
-        height="280"
-      />
-      <span class="intro__photo-corner intro__photo-corner--tl" aria-hidden="true"></span>
-      <span class="intro__photo-corner intro__photo-corner--tr" aria-hidden="true"></span>
-      <span class="intro__photo-corner intro__photo-corner--bl" aria-hidden="true"></span>
-      <span class="intro__photo-corner intro__photo-corner--br" aria-hidden="true"></span>
-    </figure>
-    <div class="intro__text">
-      <p class="intro__eyebrow">
-        <span class="intro__eyebrow-num">§00</span>
-        <span class="intro__eyebrow-bullet">·</span>
-        <span class="intro__eyebrow-label">Currently</span>
+  <header class="intro__head">
+    <div class="intro__head-row">
+      <p class="intro__head-prefix">
+        <span class="intro__head-num">§00</span>
+        <span class="intro__head-bullet">·</span>
+        <span class="intro__head-label">Currently</span>
       </p>
+      <span class="intro__head-folio" aria-hidden="true">
+        <span class="intro__head-folio-name">CURRENTLY</span>
+        <span class="intro__head-folio-sep">·</span>
+        <span class="intro__head-folio-count">00 / 06</span>
+      </span>
+    </div>
+    <span class="intro__head-rule" aria-hidden="true"></span>
+  </header>
 
+  <div class="intro__body">
+    <figure class="intro__figure">
+      <div class="intro__photo">
+        <img
+          src="/profile/Profile.jpg"
+          alt="Portrait of Tony Yang"
+          loading="eager"
+          width="280"
+          height="280"
+        />
+        <span class="intro__photo-corner intro__photo-corner--tl" aria-hidden="true"></span>
+        <span class="intro__photo-corner intro__photo-corner--tr" aria-hidden="true"></span>
+        <span class="intro__photo-corner intro__photo-corner--bl" aria-hidden="true"></span>
+        <span class="intro__photo-corner intro__photo-corner--br" aria-hidden="true"></span>
+      </div>
+      <figcaption class="intro__caption">
+        <span class="intro__caption-meta">PORTRAIT · 2026</span>
+        <span class="intro__caption-name">Tony Yang <span class="intro__caption-zh">杨童耘</span></span>
+      </figcaption>
+    </figure>
+
+    <div class="intro__text">
       <p class="intro__opening">
         <span class="intro__opening-mark" aria-hidden="true">
           <Icon name="sparkles" size={18} strokeWidth={1.2} />
@@ -60,7 +83,98 @@ import Icon from "./Icon.astro";
     padding: 24px;
   }
 
+  /* ============ Section head (§00) — mirrors SectionHeader so the
+       opening section reads architecturally like §01-§06 ============ */
+
   .intro__head {
+    margin-bottom: 36px;
+  }
+
+  .intro__head-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .intro__head-prefix {
+    margin: 0;
+    display: inline-flex;
+    align-items: baseline;
+    gap: 12px;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-ink-soft);
+  }
+
+  .intro__head-num {
+    color: var(--color-accent);
+    font-feature-settings: "lnum", "tnum";
+    font-variant-numeric: tabular-nums lining-nums;
+  }
+
+  .intro__head-bullet {
+    opacity: 0.55;
+  }
+
+  .intro__head-label {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 30px;
+    line-height: 1;
+    letter-spacing: -0.005em;
+    text-transform: none;
+    color: var(--color-ink);
+  }
+
+  .intro__head-folio {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 8px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-ink-soft);
+    font-feature-settings: "lnum", "tnum";
+    font-variant-numeric: tabular-nums lining-nums;
+  }
+
+  .intro__head-folio-sep {
+    opacity: 0.55;
+  }
+
+  .intro__head-folio-count {
+    color: var(--color-ink);
+    font-weight: 500;
+  }
+
+  .intro__head-rule {
+    display: block;
+    margin-top: 16px;
+    width: 32px;
+    height: 2px;
+    background: var(--color-accent);
+    border-radius: 2px;
+    transform-origin: left center;
+  }
+
+  @media (max-width: 480px) {
+    .intro__head-folio-name,
+    .intro__head-folio-sep {
+      display: none;
+    }
+    .intro__head-label {
+      font-size: 26px;
+    }
+  }
+
+  /* ============ 2-column body ============ */
+
+  .intro__body {
     display: grid;
     grid-template-columns: 280px 1fr;
     gap: 40px;
@@ -68,13 +182,20 @@ import Icon from "./Icon.astro";
   }
 
   @media (max-width: 720px) {
-    .intro__head {
+    .intro__body {
       grid-template-columns: 1fr;
-      gap: 20px;
+      gap: 24px;
     }
-    /* Cap the photo + center it so the 1:1 portrait stops dominating
-       the §00 intro on phones. */
-    .intro__photo {
+  }
+
+  /* ============ Photo + caption ============ */
+
+  .intro__figure {
+    margin: 0;
+  }
+
+  @media (max-width: 720px) {
+    .intro__figure {
       width: min(100%, 320px);
       margin-inline: auto;
     }
@@ -82,7 +203,6 @@ import Icon from "./Icon.astro";
 
   .intro__photo {
     position: relative;
-    margin: 0;
     aspect-ratio: 1 / 1;
     border-radius: 4px;
     overflow: hidden;
@@ -138,32 +258,50 @@ import Icon from "./Icon.astro";
     border-top: 0;
   }
 
-  .intro__eyebrow {
-    margin: 0 0 18px;
+  /* Photo caption: a small print-tradition colophon under the portrait
+     so the left column has weight beyond the square frame. Mono meta
+     row sits above an italic-display name line. */
+  .intro__caption {
     display: flex;
-    align-items: baseline;
-    gap: 8px;
+    flex-direction: column;
+    gap: 4px;
+    margin-top: 14px;
+    text-align: left;
   }
 
-  .intro__eyebrow-num,
-  .intro__eyebrow-bullet {
+  .intro__caption-meta {
     font-family: var(--font-mono);
-    font-size: 11px;
-    letter-spacing: 0.14em;
+    font-size: 10.5px;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
     color: var(--color-ink-soft);
+    font-feature-settings: "lnum", "tnum";
   }
 
-  .intro__eyebrow-label {
+  .intro__caption-name {
     font-family: var(--font-display);
     font-style: italic;
-    font-size: 22px;
+    font-size: 16px;
     color: var(--color-ink);
-    line-height: 1;
+    line-height: 1.2;
+    display: inline-flex;
+    align-items: baseline;
+    gap: 8px;
+    flex-wrap: wrap;
   }
 
+  .intro__caption-zh {
+    font-family: var(--font-display-zh);
+    font-style: normal;
+    font-size: 0.9em;
+    color: var(--color-ink-soft);
+    letter-spacing: 0.04em;
+  }
+
+  /* ============ Right column prose ============ */
+
   .intro__opening {
-    margin: 0 0 8px;
+    margin: 0 0 12px;
     font-family: var(--font-display);
     font-style: italic;
     font-size: clamp(22px, 2.6vw, 30px);
@@ -172,6 +310,7 @@ import Icon from "./Icon.astro";
     display: flex;
     align-items: baseline;
     gap: 12px;
+    text-wrap: balance;
   }
 
   .intro__opening-mark {
@@ -190,37 +329,14 @@ import Icon from "./Icon.astro";
     line-height: 1.65;
     color: var(--color-ink);
     max-width: 60ch;
-    /* Pretty paragraph wrap so the prose breaks evenly without a lonely
-       last word. Hyphens for long terms ("interpretability") that would
-       otherwise gouge the right edge. */
     text-wrap: pretty;
     hyphens: auto;
     -webkit-hyphens: auto;
   }
 
-  /* Lettrine: a single illuminated capital opening the body prose, in
-     the print tradition. Upright EB Garamond at 500 weight, accent
-     emerald, dropping ~3 lines. The headline above stays italic; this
-     dropcap re-anchors the eye for the actual reading. */
-  .intro__opening-body::first-letter {
-    float: left;
-    font-family: var(--font-display);
-    font-style: normal;
-    font-weight: 500;
-    font-size: 3.4em;
-    line-height: 0.82;
-    padding-top: 0.06em;
-    margin: 0 0.1em 0 0;
-    color: var(--color-accent);
-  }
-
-  @media (max-width: 720px) {
-    .intro__opening-body::first-letter {
-      /* Slightly smaller on phones so the 'I' doesn't dominate the
-         narrow column. Still drops ~2.5 lines, still legibly a lettrine. */
-      font-size: 3em;
-    }
-  }
+  /* (Lettrine intentionally removed: starting word "I've" creates a
+     visually broken contraction when the apostrophe sits beside a
+     dropped capital.) */
 
   .intro__currently-label {
     margin: 0 0 6px;
@@ -237,6 +353,7 @@ import Icon from "./Icon.astro";
     line-height: 1.65;
     color: var(--color-ink-soft);
     max-width: 60ch;
+    text-wrap: pretty;
   }
 
   .intro__email-row {
