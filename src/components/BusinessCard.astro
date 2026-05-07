@@ -246,10 +246,18 @@ const [lookingLabel, lookingWhen] = card.looking
   }
 
   .card__name-zh {
+    /* Match the Hero treatment: LXGW WenKai (humanist calligraphic
+       Chinese face) at weight 500, with the same caps-align nudge so
+       the Chinese sits visually flush with the Latin name. Size stays
+       slightly larger here (0.6em vs Hero's 0.44em) because the card's
+       parent name is much smaller. */
+    font-family: var(--font-display-zh);
+    font-weight: 500;
     font-style: normal;
     font-size: 0.6em;
     color: var(--color-ink-soft);
-    letter-spacing: 0.06em;
+    letter-spacing: 0.04em;
+    transform: translateY(-0.04em);
   }
 
   .card__role {
