@@ -82,7 +82,10 @@ import Icon from "./Icon.astro";
 
 <style>
   .intro {
-    max-width: var(--content-max);
+    /* §00 uses the wider rail width (matches the hero) so the
+       photo + prose + contact strip have room to breathe. The
+       other §-numbered sections stay at --content-max. */
+    max-width: var(--content-with-rail);
     margin-inline: auto;
     padding: 24px;
   }
@@ -179,8 +182,10 @@ import Icon from "./Icon.astro";
 
   .intro__layout {
     display: grid;
-    grid-template-columns: clamp(300px, 30vw, 380px) minmax(0, 1fr);
-    gap: 36px;
+    /* Wider section width gives the photo more presence and the right
+       column more line length. Photo: 360-440px, content: rest. */
+    grid-template-columns: clamp(340px, 30vw, 440px) minmax(0, 1fr);
+    gap: 48px;
     /* Start-aligned: photo sits at the top of its column at its
        natural aspect, the right column extends as far as its prose
        takes it. No flex-stretch (that produced an extreme tall crop
@@ -317,7 +322,7 @@ import Icon from "./Icon.astro";
     font-size: 16.5px;
     line-height: 1.65;
     color: var(--color-ink);
-    max-width: 60ch;
+    max-width: 64ch;
     text-wrap: pretty;
     hyphens: auto;
     -webkit-hyphens: auto;
@@ -345,7 +350,7 @@ import Icon from "./Icon.astro";
     font-size: 16px;
     line-height: 1.6;
     color: var(--color-ink-soft);
-    max-width: 64ch;
+    max-width: 72ch;
     text-wrap: pretty;
   }
 
