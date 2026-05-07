@@ -5,9 +5,12 @@ import Icon from "./Icon.astro";
 
 // §00 mirrors the SectionHeader structure (prefix · folio · underline)
 // so the opening section reads as part of the same numbered series as
-// §01-§06 instead of a small tucked-in eyebrow. Margins are local
-// rather than imported because SectionHeader's own margins are tuned
-// for mid-page spacing, and the intro sits right under the hero.
+// §01-§06 instead of a small tucked-in eyebrow.
+//
+// Layout sits in three regions:
+//   A · top     — 2-col: photo (left) + headline + opening body (right)
+//   B · day-to-day — full-width: DAY-TO-DAY label + extended bio prose
+//   C · contact — 2-col: email row (left) + pill links (right)
 ---
 
 <section id="currently" class="intro">
@@ -28,49 +31,51 @@ import Icon from "./Icon.astro";
   </header>
 
   <div class="intro__body">
-    <figure class="intro__figure">
-      <div class="intro__photo">
-        <img
-          src="/profile/Profile.jpg"
-          alt="Portrait of Tony Yang"
-          loading="eager"
-          width="280"
-          height="280"
-        />
-        <span class="intro__photo-corner intro__photo-corner--tl" aria-hidden="true"></span>
-        <span class="intro__photo-corner intro__photo-corner--tr" aria-hidden="true"></span>
-        <span class="intro__photo-corner intro__photo-corner--bl" aria-hidden="true"></span>
-        <span class="intro__photo-corner intro__photo-corner--br" aria-hidden="true"></span>
+    <!-- Region A · top -->
+    <div class="intro__top">
+      <figure class="intro__figure">
+        <div class="intro__photo">
+          <img
+            src="/profile/Profile.jpg"
+            alt="Portrait of Tony Yang"
+            loading="eager"
+            width="300"
+            height="300"
+          />
+          <span class="intro__photo-corner intro__photo-corner--tl" aria-hidden="true"></span>
+          <span class="intro__photo-corner intro__photo-corner--tr" aria-hidden="true"></span>
+          <span class="intro__photo-corner intro__photo-corner--bl" aria-hidden="true"></span>
+          <span class="intro__photo-corner intro__photo-corner--br" aria-hidden="true"></span>
+        </div>
+        <figcaption class="intro__caption">
+          <span class="intro__caption-meta">PORTRAIT · 2026</span>
+          <span class="intro__caption-name">Tony Yang <span class="intro__caption-zh">杨童耘</span></span>
+        </figcaption>
+      </figure>
+
+      <div class="intro__lede">
+        <p class="intro__opening">
+          <span class="intro__opening-mark" aria-hidden="true">
+            <Icon name="sparkles" size={18} strokeWidth={1.2} />
+          </span>
+          <span class="intro__opening-text">{siteConfig.openingHeadline}</span>
+        </p>
+        <p class="intro__opening-body">{siteConfig.openingBody}</p>
       </div>
-      <figcaption class="intro__caption">
-        <span class="intro__caption-meta">PORTRAIT · 2026</span>
-        <span class="intro__caption-name">Tony Yang <span class="intro__caption-zh">杨童耘</span></span>
-        <span class="intro__caption-note">Currently in Amsterdam.</span>
-      </figcaption>
-    </figure>
+    </div>
 
-    <div class="intro__text">
-      <p class="intro__opening">
-        <span class="intro__opening-mark" aria-hidden="true">
-          <Icon name="sparkles" size={18} strokeWidth={1.2} />
-        </span>
-        <span class="intro__opening-text">{siteConfig.openingHeadline}</span>
-      </p>
-      <p class="intro__opening-body">{siteConfig.openingBody}</p>
-
+    <!-- Region B · day-to-day (full-width) -->
+    <div class="intro__day-to-day">
       <p class="intro__currently-label">{siteConfig.currentlyHeadline}</p>
       <p class="intro__currently">{siteConfig.currently}</p>
     </div>
 
-    <!-- Contact band spans both columns so the pills stop wrapping
-         awkwardly inside the narrower right column and the layout
-         resolves cleanly at the bottom. -->
-    <div class="intro__contact-band">
+    <!-- Region C · contact (2-col: email-text left, pill links right) -->
+    <div class="intro__contact-grid">
       <p class="intro__email-row">
         <span class="intro__email-label">Email</span>
         <a class="intro__email-addr" href={`mailto:${siteConfig.contact.email}`}>{siteConfig.contact.email}</a>
       </p>
-
       <div class="intro__pills">
         <PillLink href={`mailto:${siteConfig.contact.email}`} label="email" icon="envelope" />
         <PillLink href={siteConfig.contact.scholar} label="scholar" icon="scholar" />
@@ -178,31 +183,37 @@ import Icon from "./Icon.astro";
     }
   }
 
-  /* ============ 2-column body ============ */
+  /* ============ Body (vertical stack of three regions) ============ */
 
   .intro__body {
     display: grid;
-    grid-template-columns: 280px 1fr;
+    gap: 36px;
+  }
+
+  /* ============ Region A · top — photo + lede in 2-col ============ */
+
+  .intro__top {
+    display: grid;
+    grid-template-columns: clamp(240px, 26vw, 300px) minmax(0, 1fr);
     gap: 40px;
     align-items: start;
   }
 
   @media (max-width: 720px) {
-    .intro__body {
+    .intro__top {
       grid-template-columns: 1fr;
       gap: 24px;
     }
   }
 
-  /* ============ Photo + caption ============ */
-
   .intro__figure {
     margin: 0;
+    width: 100%;
   }
 
   @media (max-width: 720px) {
     .intro__figure {
-      width: min(100%, 320px);
+      width: clamp(240px, 74vw, 320px);
       margin-inline: auto;
     }
   }
@@ -225,25 +236,7 @@ import Icon from "./Icon.astro";
     object-position: center 18%;
     display: block;
     border-radius: 4px;
-    /* Warm tone so the studio's white background integrates with the
-       cream paper rather than reading as a hard rectangle pasted onto
-       the page. Sepia for the warm cast, slight desaturation so skin
-       tones don't go yellow, brightness easing the highlights down. */
-    filter: sepia(0.2) saturate(0.82) brightness(0.97);
-  }
-
-  /* Paper-tinted overlay across the photo at low opacity. Pulls the
-     studio's near-white background closer to the page tone without
-     touching the subject's skin tones (which the sepia handles). */
-  .intro__photo::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: var(--color-paper);
-    mix-blend-mode: multiply;
-    opacity: 0.08;
-    pointer-events: none;
-    border-radius: 4px;
+    /* Photo renders at its natural color — no filter, no overlay. */
   }
 
   /* Hand-drawn corner crops, like a printed plate or a polaroid */
@@ -283,9 +276,7 @@ import Icon from "./Icon.astro";
     border-top: 0;
   }
 
-  /* Photo caption: a small print-tradition colophon under the portrait
-     so the left column has weight beyond the square frame. Mono meta
-     row sits above an italic-display name line. */
+  /* Photo caption: a small print-tradition colophon under the portrait. */
   .intro__caption {
     display: flex;
     flex-direction: column;
@@ -323,23 +314,16 @@ import Icon from "./Icon.astro";
     letter-spacing: 0.04em;
   }
 
-  /* A quiet italic line under the caption gives the left column a
-     little extra reach, so the photo block doesn't end abruptly while
-     the right column still has prose to deliver. */
-  .intro__caption-note {
-    margin-top: 6px;
-    font-family: var(--font-display);
-    font-style: italic;
-    font-size: 14.5px;
-    line-height: 1.4;
-    color: var(--color-ink-soft);
-    opacity: 0.85;
+  /* ============ Lede (right side of region A) ============ */
+
+  .intro__lede {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
   }
 
-  /* ============ Right column prose ============ */
-
   .intro__opening {
-    margin: 0 0 12px;
+    margin: 0;
     font-family: var(--font-display);
     font-style: italic;
     font-size: clamp(22px, 2.6vw, 30px);
@@ -362,7 +346,7 @@ import Icon from "./Icon.astro";
   }
 
   .intro__opening-body {
-    margin: 0 0 28px;
+    margin: 0;
     font-size: 16.5px;
     line-height: 1.65;
     color: var(--color-ink);
@@ -372,12 +356,16 @@ import Icon from "./Icon.astro";
     -webkit-hyphens: auto;
   }
 
-  /* (Lettrine intentionally removed: starting word "I've" creates a
-     visually broken contraction when the apostrophe sits beside a
-     dropped capital.) */
+  /* ============ Region B · day-to-day (full-width) ============ */
+
+  .intro__day-to-day {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
 
   .intro__currently-label {
-    margin: 0 0 6px;
+    margin: 0;
     font-family: var(--font-mono);
     font-size: 11px;
     letter-spacing: 0.14em;
@@ -390,35 +378,42 @@ import Icon from "./Icon.astro";
     font-size: 16.5px;
     line-height: 1.65;
     color: var(--color-ink-soft);
-    max-width: 60ch;
+    max-width: 68ch;
     text-wrap: pretty;
   }
 
-  /* ============ Contact band (full-width, below both columns) ============ */
+  /* ============ Region C · contact grid (email left, pills right) ============
 
-  .intro__contact-band {
-    grid-column: 1 / -1;
-    margin-top: 36px;
+     Flex rather than grid so the email column takes its natural width
+     and the pills get all the remaining room — that way a 5th pill
+     never orphans onto a second line at desktop. On mobile the row
+     wraps and stacks. */
+
+  .intro__contact-grid {
     padding-top: 22px;
     border-top: 1px solid var(--color-hairline);
     display: flex;
-    flex-direction: column;
-    gap: 14px;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px 32px;
+    flex-wrap: wrap;
   }
 
   @media (max-width: 720px) {
-    .intro__contact-band {
-      margin-top: 28px;
+    .intro__contact-grid {
       padding-top: 18px;
+      flex-direction: column;
+      align-items: flex-start;
     }
   }
 
   .intro__email-row {
     margin: 0;
     display: flex;
-    align-items: baseline;
-    gap: 12px;
-    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 6px;
+    flex: 0 1 auto;
+    min-width: 0;
   }
 
   .intro__email-label {
@@ -436,6 +431,8 @@ import Icon from "./Icon.astro";
     color: var(--color-accent);
     text-decoration: none;
     border-bottom: 1px solid rgba(14, 83, 71, 0.35);
+    padding-bottom: 1px;
+    align-self: flex-start;
     transition: color var(--motion-warm), border-color var(--motion-warm);
   }
 
@@ -448,19 +445,16 @@ import Icon from "./Icon.astro";
   .intro__pills {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
-    margin-top: 0;
+    gap: 8px;
+    justify-content: flex-end;
+    align-items: center;
+    flex: 1 1 auto;
+    min-width: 0;
   }
 
-  /* The right-column text block ends with the prose; the contact band
-     handles email + pills below. Remove any tail margins that used to
-     trail the prose into the pills row. */
-  .intro__text {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .intro__currently {
-    margin-bottom: 0;
+  @media (max-width: 720px) {
+    .intro__pills {
+      justify-content: flex-start;
+    }
   }
 </style>
