@@ -45,10 +45,10 @@
       "blurb": "Models that work in the real clinic, not only on the leaderboard. Smaller, faster, and fair across patient populations."
     },
     {
-      "id": "ai-safety",
-      "icon": "shield",
-      "title": "AI safety",
-      "blurb": "Building things that behave reliably when they leave the lab. Robustness, evaluation, and the unglamorous work of trust."
+      "id": "on-device-models",
+      "icon": "chip",
+      "title": "On-device models",
+      "blurb": "Perception and language models that run locally, not in the cloud. Distillation, quantization, and the craft of keeping small systems capable."
     },
     {
       "id": "fairness-access",
@@ -64,7 +64,7 @@
     "nameZh": "杨童耘",
     "role": "Independent AI Researcher",
     "looking": "Open to research · academia or industry",
-    "tagline": "World models · LLMs · vision · medical AI · safety",
+    "tagline": "World models · LLMs · vision · medical AI · on‑device AI",
     "locations": ["Amsterdam (current)", "Shanghai", "Shenzhen"],
     "languages": [
       { "lang": "Mandarin", "level": "native" },
