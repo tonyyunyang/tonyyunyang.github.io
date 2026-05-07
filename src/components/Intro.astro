@@ -179,12 +179,13 @@ import Icon from "./Icon.astro";
 
   .intro__layout {
     display: grid;
-    grid-template-columns: clamp(260px, 26vw, 300px) minmax(0, 1fr);
+    grid-template-columns: clamp(300px, 30vw, 380px) minmax(0, 1fr);
     gap: 36px;
-    /* stretch so the photo column matches the natural height of the
-       content column on the right. The photo's flex:1 inside fills
-       the column. */
-    align-items: stretch;
+    /* Start-aligned: photo sits at the top of its column at its
+       natural aspect, the right column extends as far as its prose
+       takes it. No flex-stretch (that produced an extreme tall crop
+       that scaled the source up and made the face huge). */
+    align-items: start;
   }
 
   @media (max-width: 720px) {
@@ -198,17 +199,16 @@ import Icon from "./Icon.astro";
 
   .intro__figure {
     margin: 0;
-    display: flex;
-    flex-direction: column;
-    min-height: 0;
   }
 
   .intro__photo {
     position: relative;
-    flex: 1 1 auto;
-    /* Floor so the photo never collapses if the right column is very
-       short (e.g., reduced motion, narrow viewport, etc.). */
-    min-height: 480px;
+    width: 100%;
+    /* Native source ratio is 3253x3978 ≈ 5:6, so use 5:6 for the
+       container too. The image fills without being scaled up to
+       cover an artificially tall box, so the face renders at a
+       natural size. */
+    aspect-ratio: 5 / 6;
     border-radius: 4px;
     overflow: hidden;
     background: var(--color-paper-shade);
@@ -219,10 +219,9 @@ import Icon from "./Icon.astro";
 
   @media (max-width: 720px) {
     .intro__photo {
-      /* On mobile we fall back to a portrait crop (4:5) and cap width
-         so the photo doesn't dominate the narrow viewport. */
+      /* Slightly less tall on phones (4:5) since vertical real estate
+         is precious; still longer than square. */
       aspect-ratio: 4 / 5;
-      min-height: 0;
       width: clamp(260px, 80vw, 360px);
       margin-inline: auto;
     }
@@ -232,9 +231,9 @@ import Icon from "./Icon.astro";
     width: 100%;
     height: 100%;
     object-fit: cover;
-    /* Pull a touch above center so the face anchors the upper third
-       of the photograph and the body fills the lower portion. */
-    object-position: center 22%;
+    /* Native aspect now matches container, so this just centers the
+       composition. center 35% sits the face slightly above middle. */
+    object-position: center 35%;
     display: block;
     border-radius: 4px;
   }
