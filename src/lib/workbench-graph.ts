@@ -46,6 +46,8 @@ const TOPIC_LABELS: Record<Topic, string> = {
   "vision": "vision",
   "medical-ai": "medical AI",
   "wireless-sensing": "wireless sensing",
+  "social-econ": "social & econ",
+  "hci": "HCI",
 };
 
 export function buildGraph({ papers, projects }: GraphInput): Graph {

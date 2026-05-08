@@ -6,6 +6,8 @@ const TOPIC = z.enum([
   "vision",
   "medical-ai",
   "wireless-sensing",
+  "social-econ",
+  "hci",
 ]);
 export type Topic = z.infer<typeof TOPIC>;
 

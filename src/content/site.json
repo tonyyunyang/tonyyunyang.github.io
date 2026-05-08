@@ -51,6 +51,18 @@
       "blurb": "Perception and language models that run locally, not in the cloud. Distillation, quantization, and the craft of keeping small systems capable."
     },
     {
+      "id": "social-econ",
+      "icon": "market-trend",
+      "title": "Social & economic behavior",
+      "blurb": "How crowds price information, shift positions, and reveal preferences over time. Reading collective signal from messy human data."
+    },
+    {
+      "id": "hci",
+      "icon": "interface",
+      "title": "Human-computer interaction",
+      "blurb": "Where AI stops being a model and becomes a tool. Designing systems that fit how people actually think, type, and decide."
+    },
+    {
       "id": "fairness-access",
       "icon": "open-door",
       "title": "Fairness × access",
@@ -58,7 +70,7 @@
     }
   ],
   "researchDek": "What runs through every paper here. I want this work to be useful where it matters, accessible to people who don't already have it, and meaningful enough to keep at for years.",
-  "projectsIntro": "Where the research meets real systems. Each one is a live collaboration with an actual partner (Gradient Networks, Tencent, MeetaVista). Most are still in motion.",
+  "projectsIntro": "Where the research meets real systems. Some are live collaborations (Gradient Networks, Tencent, MeetaVista); others I build on my own time. Most are still in motion.",
   "businessCard": {
     "name": "Tony Yang",
     "nameZh": "杨童耘",

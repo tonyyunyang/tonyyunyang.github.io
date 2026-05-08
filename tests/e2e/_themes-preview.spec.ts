@@ -97,7 +97,9 @@ test.describe("themes preview", () => {
         "tokens",
         "eye",
         "heartbeat",
-        "chip (NEW)",
+        "chip",
+        "market-trend (NEW)",
+        "interface (NEW)",
         "open-door",
       ];
       glyphs.forEach((g, i) => {
