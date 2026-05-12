@@ -46,11 +46,8 @@
     <path d="M100 146 L96 150 L100 154" stroke-width="0.5" opacity="0.6"/>
     <path d="M184 146 L188 150 L184 154" stroke-width="0.5" opacity="0.6"/>
 
-    <!-- 3.2× badge -->
-    <rect x="124" y="48" width="68" height="20" rx="3" fill="#0E5347" stroke="#0E5347"/>
-    <text x="158" y="62" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="#FAF1D8" stroke="none" font-weight="700" letter-spacing="0.06em">3.2× FASTER</text>
-
-    <!-- Caption -->
-    <text x="120" y="192" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="6.5" fill="#4A5159" stroke="none" letter-spacing="0.08em">DIFFUSION FORECAST · ACL '26</text>
+    <!-- 3.2× badge — widened so "3.2× FASTER" fits comfortably -->
+    <rect x="116" y="46" width="84" height="22" rx="3" fill="#0E5347" stroke="#0E5347"/>
+    <text x="158" y="61" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="#FAF1D8" stroke="none" font-weight="700" letter-spacing="0.04em">3.2× FASTER</text>
   </g>
 </svg>
