@@ -1,0 +1,13 @@
+---
+title: "Diffusion Weights"
+period: "Jan 2026"
+status: "in-progress"
+statusDetail: "Under review · ACL '26"
+topics: ["llms"]
+summary: "Reframing fine-tuning as generative parameter prediction. A U-Net diffusion model forecasts future weight states from early checkpoints; short, medium, and long-horizon forecasts merge into the final model, yielding 3.2× wall-clock speedup with downstream performance held."
+thumbnail: "/projects/diffusion-weights.svg"
+sortKey: 30
+links: {}
+---
+
+Explored whether neural network fine-tuning can be reframed as a generative parameter-prediction problem instead of step-by-step SGD. A U-Net diffusion model forecasts future weight states from early checkpoints; predictions across short, medium, and long horizons are merged into the final model. On MMLU, OpenBookQA, and WMT16 the method delivered 3.2× end-to-end speedup with downstream performance comparable to full fine-tuning.

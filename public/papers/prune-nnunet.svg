@@ -42,8 +42,9 @@
     <!-- Skip connections — most pruned (dashed), one kept (solid) -->
     <path d="M60 82 L180 82" stroke-width="0.7" stroke-dasharray="2.5 3" opacity="0.45"/>
     <path d="M68 105 L180 105" stroke-width="0.7" stroke-dasharray="2.5 3" opacity="0.45"/>
-    <!-- Kept skip (solid, deep) -->
-    <path d="M74 126 Q120 116 188 126" stroke-width="1.3"/>
+    <!-- Kept skip (solid, deep) — terminates at the LEFT edge of D2
+         so the line connects to the box instead of running through it. -->
+    <path d="M74 126 Q123 116 172 126" stroke-width="1.3"/>
     <path d="M78 145 L162 145" stroke-width="0.7" stroke-dasharray="2.5 3" opacity="0.45"/>
 
     <!-- Pruned-edge × marks (smaller, less dominant) -->
