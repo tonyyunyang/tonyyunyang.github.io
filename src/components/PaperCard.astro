@@ -58,6 +58,9 @@ const bibtex = getBibtex(data);
         data.links.code && (
           <a href={data.links.code} target="_blank" rel="noopener noreferrer">code</a>
         ),
+        data.links.project && (
+          <a href={data.links.project} target="_blank" rel="noopener noreferrer">site</a>
+        ),
         (
           <button
             type="button"

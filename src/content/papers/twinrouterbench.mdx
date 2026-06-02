@@ -1,0 +1,34 @@
+---
+title: "TwinRouterBench: Fast Static and Live Dynamic Evaluation for Realistic Agentic LLM Routing"
+venue: "ACM CAIS"
+venueExtra: "RLEval Workshop"
+year: 2026
+date: "2026-05-26"
+authors:
+  - { name: "Pei Yang", equalContrib: true }
+  - { name: "Wanyi Chen", equalContrib: true }
+  - { name: "Tongyun Yang", isMe: true }
+  - { name: "Pengbin Feng" }
+  - { name: "Jiarong Xing" }
+  - { name: "Wentao Guo" }
+  - { name: "Yuhang Yao" }
+  - { name: "Yuhang Han" }
+  - { name: "Hanchen Li" }
+  - { name: "Xu Wang" }
+  - { name: "Zeyu Wang" }
+  - { name: "Jie Xiao" }
+  - { name: "Anjie Yang" }
+  - { name: "Liang Tian" }
+  - { name: "Lynn Ai" }
+  - { name: "Eric Yang" }
+  - { name: "Tianyu Shi" }
+topics: ["llms"]
+summary: "A step-level benchmark for agentic LLM routing: at each call, pick the cheapest model tier that still resolves the task from the prefix seen so far. A fast static track of 970 execution-verified labels across five workloads pairs with a live dynamic track on SWE-bench Verified, where a trained router matches unrouted Opus 4.6 while cutting API cost by 53%."
+thumbnail: "/papers/twinrouterbench.svg"
+links:
+  paper: "https://openreview.net/forum?id=UWvHJtnmc2"
+  code: "https://github.com/CommonstackAI/TwinRouterBench"
+  project: "https://commonstackai.github.io/TwinRouterBench/"
+---
+
+A step-level benchmark for choosing the cheapest sufficient model tier at each LLM call in a multi-step agent, conditioned only on the prefix visible before that call. The fast static track exposes 970 router-visible prefixes from 520 instances across SWE-bench, BFCL, mtRAG, QMSum, and PinchBench, with execution-verified tier labels and deterministic scoring over label correctness, trajectory membership, and token cost. The live dynamic track runs routers end-to-end on SWE-bench Verified and reports official resolution alongside realized API spend, so offline router gains can be tested without confirming them with a live harness.
