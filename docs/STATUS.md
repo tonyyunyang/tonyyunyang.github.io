@@ -11,6 +11,33 @@ _Last updated: 2026-05-03 (after iteration 19 — iPhone Pro Max-specific fixes:
 - Pages source is `workflow` (GitHub Actions, NOT Jekyll). `public/.nojekyll` is a defensive marker.
 - Visit analytics wired up: ClustrMaps script in `Base.astro` inside an sr-only off-screen wrapper. No visible widget. Stats: `https://clustrmaps.com/site/1c7hs`.
 
+## Branch `converged-positioning` (pushed to origin, NOT merged to `main`)
+
+The live site is unchanged; this work lives on the branch awaiting review. Two
+batches:
+
+1. **Converged positioning** (earlier): retired the 8-card research compass for
+   the `Diptych` ("Two directions") and reframed §00 as "A letter from the desk".
+2. **Unify + humanize pass (2026-06-03)**: a focused response to two notes from
+   Tony, "make it feel like one artist made it" and "write like a human, not
+   fancy". Highlights:
+   - §00 letter collapsed into one voice (same Inter face/size, bold lead-ins),
+     tighter and plainer; the diptych restated as a straight numbered `1` / `2`.
+   - One CTA mark (`spark`) + emerald stadium shared by the hero and the
+     business card; wordmarks upright, every other heading italic; body +
+     card summaries + Studio notes all upright Inter.
+   - One radius scale (thumb 6 / card 12 / pill), one date dialect (mono, no
+     brackets), one `§` numbering grammar, plate sequence fixed (Studio = II).
+   - Voice rewrites across the hero credo, contact, taglines, deks, the two
+     densest paper summaries, two project summaries, footer, 404, Studio notes,
+     and the social meta description.
+   - Perf: `Profile.jpg` 2.7MB to 152KB, `scholarhighlights.png` 1.3MB to 273KB
+     (resized to display size; ~2.6MB off the homepage).
+   - Verified: build + unit tests green, WCAG AA/AAA contrast, responsive
+     360 to 1440, command palette + Studio panel interactive, zero em-dashes.
+   - Commits: `d0cbdc8`, `46a627c`, `5635f53`, `9b9fcd1`, `9c853e8`, `58a8299`,
+     `fc5e281`, `16aa87a`, `6ae1861`. To ship: merge then push (auto-deploys).
+
 ## Polish iterations shipped (all on `main`)
 
 ```
