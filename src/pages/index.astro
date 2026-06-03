@@ -53,6 +53,7 @@ const runningHeadSections = [
       title="Research"
       dek={siteConfig.researchDek}
       id="research"
+      icon="scholar"
       dekWide
     />
     <div class="grid-list">
@@ -66,6 +67,7 @@ const runningHeadSections = [
       title="Projects"
       dek={siteConfig.projectsIntro}
       id="projects"
+      icon="branch"
       dekWide
     />
     <div class="grid-list">
@@ -79,6 +81,7 @@ const runningHeadSections = [
       title="Writing"
       dek="Notes on research, taste, and the boring parts of building AI."
       id="writing"
+      icon="document"
     />
     {recentPosts.length === 0 ? (
       <div class="writing-empty">
@@ -106,7 +109,7 @@ const runningHeadSections = [
   </section>
 
   <section class="max-content" aria-label="News">
-    <SectionHeader num="04" title="News" id="news" />
+    <SectionHeader num="04" title="News" id="news" icon="star" />
     {NewsBody && (
       <div class="news-body">
         <NewsBody />
@@ -115,7 +118,7 @@ const runningHeadSections = [
   </section>
 
   <section class="max-content" aria-label="Teaching">
-    <SectionHeader num="05" title="Teaching" id="teaching" />
+    <SectionHeader num="05" title="Teaching" id="teaching" icon="door" />
     {TeachingBody && (
       <div class="teaching-body">
         <TeachingBody />
@@ -129,6 +132,7 @@ const runningHeadSections = [
       title="Contact"
       dek={siteConfig.contactInvitation}
       id="contact"
+      icon="envelope"
       dekWide
     />
     <BusinessCard />

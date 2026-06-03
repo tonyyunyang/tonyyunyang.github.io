@@ -1,4 +1,6 @@
 ---
+import Icon from "./Icon.astro";
+
 interface Props {
   num: string;
   title: string;
@@ -6,9 +8,10 @@ interface Props {
   id?: string;
   total?: string;
   dekWide?: boolean;
+  icon?: string;
 }
 
-const { num, title, dek, id, total = "06", dekWide = false } = Astro.props;
+const { num, title, dek, id, total = "06", dekWide = false, icon } = Astro.props;
 const slugId = id ?? title.toLowerCase().replace(/\s+/g, "-");
 
 // Folio reads as a running head: "PROJECTS · 02 / 06". Stronger
@@ -28,6 +31,9 @@ const underlineWidth = 32 + (parseInt(num, 10) - 1) * 5;
       <span class="label">{title}</span>
     </p>
     <span class="folio" aria-hidden="true">
+      {icon && (
+        <span class="folio-glyph"><Icon name={icon} size={15} strokeWidth={1.3} /></span>
+      )}
       <span class="folio-name">{folioName}</span>
       <span class="folio-sep" aria-hidden="true">·</span>
       <span class="folio-count">{num} / {total}</span>
@@ -95,6 +101,17 @@ const underlineWidth = 32 + (parseInt(num, 10) - 1) * 5;
     /* Lined + tabular figures so the count "02 / 06" stays a grid. */
     font-feature-settings: "lnum", "tnum";
     font-variant-numeric: tabular-nums lining-nums;
+  }
+
+  /* Small per-section sketch glyph leading the folio. A touch of hand-drawn
+     character in the decorative print-furniture, kept subtle (ink-soft, 15px)
+     so the section titles stay the focus. */
+  .folio-glyph {
+    display: inline-flex;
+    align-items: center;
+    color: var(--color-ink-soft);
+    margin-right: 4px;
+    transform: translateY(2px);
   }
 
   .folio-sep {

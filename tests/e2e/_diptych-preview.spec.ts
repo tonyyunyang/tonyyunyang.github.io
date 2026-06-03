@@ -60,6 +60,17 @@ test.describe("converged positioning preview (hi-dpi)", () => {
     await page.locator(".diptych").screenshot({ path: `${OUT}/CP-06-diptych-2x.png` });
   });
 
+  test("section headers 2x", async ({ page }) => {
+    await page.goto("/");
+    await page.waitForLoadState("networkidle");
+    await page.locator("#research").scrollIntoViewIfNeeded();
+    await page.waitForTimeout(400);
+    await page.locator("#research").screenshot({ path: `${OUT}/CP-12-header-research.png` });
+    await page.locator("#contact").scrollIntoViewIfNeeded();
+    await page.waitForTimeout(400);
+    await page.locator("#contact").screenshot({ path: `${OUT}/CP-13-header-contact.png` });
+  });
+
   test("letter opening 2x (pill inline)", async ({ page }) => {
     await page.goto("/");
     await page.waitForLoadState("networkidle");
@@ -68,6 +79,39 @@ test.describe("converged positioning preview (hi-dpi)", () => {
     await page.locator(".intro__opening").screenshot({ path: `${OUT}/CP-10-opening-2x.png` });
     await page.locator(".intro__belief").screenshot({ path: `${OUT}/CP-11-belief-2x.png` });
   });
+});
+
+test.describe("mobile audit", () => {
+  for (const w of [430, 390]) {
+    test(`hero ${w}`, async ({ page }) => {
+      await page.setViewportSize({ width: w, height: 920 });
+      await page.goto("/");
+      await page.waitForLoadState("networkidle");
+      await page.waitForTimeout(700);
+      await page.screenshot({ path: `${OUT}/CP-M-${w}-hero.png`, fullPage: false });
+    });
+    test(`letter ${w}`, async ({ page }) => {
+      await page.setViewportSize({ width: w, height: 920 });
+      await page.goto("/");
+      await page.locator("#currently").scrollIntoViewIfNeeded();
+      await page.waitForTimeout(500);
+      await page.locator(".intro").screenshot({ path: `${OUT}/CP-M-${w}-letter.png` });
+    });
+    test(`diptych ${w}`, async ({ page }) => {
+      await page.setViewportSize({ width: w, height: 920 });
+      await page.goto("/");
+      await page.locator(".diptych").scrollIntoViewIfNeeded();
+      await page.waitForTimeout(500);
+      await page.locator(".diptych").screenshot({ path: `${OUT}/CP-M-${w}-diptych.png` });
+    });
+    test(`research header ${w}`, async ({ page }) => {
+      await page.setViewportSize({ width: w, height: 920 });
+      await page.goto("/");
+      await page.locator("#research").scrollIntoViewIfNeeded();
+      await page.waitForTimeout(400);
+      await page.locator("#research").screenshot({ path: `${OUT}/CP-M-${w}-header.png` });
+    });
+  }
 });
 
 test.describe("icon zoom", () => {
