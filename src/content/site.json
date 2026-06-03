@@ -13,20 +13,26 @@
     "AMSTERDAM · 2026"
   ],
   "dateline": "INDEPENDENT AI RESEARCHER · AMSTERDAM · 2026",
-  "heroSpecialtyLine": "I work on the hard, useful parts of AI. The kind that still works when data is scarce, and stays cheap enough for people to actually use.",
+  "heroSpecialtyLine": "I work on the hard, useful parts of AI. I want to build AI that serves people broadly, with fairness and real access for everyone.",
   "letter": {
     "paragraphs": [
       {
         "lead": "I've spent a while exploring all over AI",
-        "rest": ", from emotion recognition and medical imaging to LLM routing and agent benchmarks. This spring I left my PhD fellowship. It was a hard call, but also a sobering dose, and now I finally know what I want to do next."
+        "rest": ", from emotion recognition and medical imaging to LLM routing and agent benchmarks. This spring I left my PhD fellowship. It was a hard call, but also a sobering dose, and now I have a clearer mind on what I want to do next.",
+        "highlight": "",
+        "restAfter": ""
       },
       {
         "lead": "I believe",
-        "rest": " AI is shifting from a scaling race to a systems race. Bigger models still matter, but they are not enough. What counts is how we train, route, compress, and ship them. I want AI that is capable, efficient, and genuinely useful."
+        "rest": " AI is shifting from a scaling race to a systems race. Bigger models still matter, but they are not enough. What counts is how we train, route, compress, and ship them. I want AI that is capable, efficient, and genuinely useful.",
+        "highlight": "",
+        "restAfter": ""
       },
       {
         "lead": "I'm an independent AI researcher in Amsterdam",
-        "rest": ", working with industry and academia. Right now I'm waiting for the next opportunity. Prior to this, Marie Skłodowska-Curie Fellow, AI research engineer at TU Delft Imaging Physics, and an MSc from TU Delft."
+        "rest": ", working with industry and academia. ",
+        "highlight": "Right now I'm reaching out and looking for the right next role.",
+        "restAfter": " Prior to this, Marie Skłodowska-Curie Fellow, AI research engineer at TU Delft Imaging Physics, and an MSc from TU Delft."
       }
     ]
   },
@@ -38,12 +44,12 @@
       {
         "num": "1",
         "title": "When data is scarce, design matters more",
-        "blurb": "When data is sensitive or scarce, you can't just scale your way to a good model. The gains come from better architecture and smarter methods. That's the work I enjoy most, building where there isn't much to learn from yet."
+        "blurb": "When data is sensitive or scarce, you can't just scale your way to a good model. The gains come from better architecture and smarter methods."
       },
       {
         "num": "2",
-        "title": "Frontier performance people can actually use",
-        "blurb": "You don't always need a frontier model to get frontier performance. I work on reaching that bar with models small and cheap enough that people can actually run them. There's a lot more worth building than another chatbot."
+        "title": "Powerful. But how useful, really?",
+        "blurb": "By now we all know AI is powerful. The harder part is making it useful for your actual work. Will it hold up when you depend on it? Can it slot into what you already do? The chatbot was just the first shape. I want to find the rest."
       }
     ]
   },
@@ -54,7 +60,7 @@
     "nameZh": "杨童耘",
     "role": "Independent AI Researcher",
     "looking": "Open to research · academia or industry",
-    "tagline": "Hard problems where data is scarce · frontier performance people can use",
+    "tagline": "Hard problems where data is scarce · AI that's actually useful",
     "locations": ["Amsterdam (current)", "Shanghai", "Shenzhen"],
     "languages": [
       { "lang": "Mandarin", "level": "native" },

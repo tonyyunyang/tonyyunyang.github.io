@@ -35,7 +35,9 @@ const letter = siteConfig.letter;
       <div class="intro__letter">
         {letter.paragraphs.map((p) => (
           <p class="intro__para">
-            <strong class="intro__lead">{p.lead}</strong>{p.rest}
+            <strong class="intro__lead">{p.lead}</strong>{p.rest}{p.highlight && (
+              <mark class="intro__highlight">{p.highlight}</mark>
+            )}{p.restAfter}
           </p>
         ))}
       </div>
@@ -171,6 +173,46 @@ const letter = siteConfig.letter;
   .intro__lead {
     font-weight: 600;
     color: var(--color-ink);
+  }
+
+  /* The one line meant to catch the eye: an emerald highlighter swipe that
+     softly breathes, so "right now I'm waiting for the next opportunity"
+     reads as the live status the reader should notice. Stays inside the
+     7-token palette (accent + featured tint). */
+  .intro__highlight {
+    color: var(--color-accent);
+    background-color: var(--color-featured);
+    font-weight: 600;
+    padding: 1px 7px;
+    margin: 0 1px;
+    border-radius: 6px;
+    box-shadow:
+      0 0 0 1px rgba(14, 83, 71, 0.16),
+      0 0 14px -3px rgba(14, 83, 71, 0.3);
+    /* Sit the swipe a hair off the baseline so the rounded fill doesn't
+       crowd the lines above and below in the running paragraph. */
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+    animation: introHighlightGlow 4.8s ease-in-out infinite;
+  }
+
+  @keyframes introHighlightGlow {
+    0%, 100% {
+      box-shadow:
+        0 0 0 1px rgba(14, 83, 71, 0.14),
+        0 0 10px -3px rgba(14, 83, 71, 0.2);
+    }
+    50% {
+      box-shadow:
+        0 0 0 1px rgba(14, 83, 71, 0.24),
+        0 0 22px -2px rgba(14, 83, 71, 0.42);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .intro__highlight {
+      animation: none;
+    }
   }
 
   /* ============ Contact strip ============ */
