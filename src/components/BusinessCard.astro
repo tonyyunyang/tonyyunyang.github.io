@@ -47,7 +47,7 @@ const [lookingLabel, lookingWhen] = card.looking
       <div class="card__head">
         <p class="card__looking">
           <span class="card__looking-mark" aria-hidden="true">
-            <Icon name="sparkles" size={14} strokeWidth={1.2} />
+            <Icon name="spark" size={14} strokeWidth={1.4} />
           </span>
           <span class="card__looking-text">
             <span class="card__looking-label">{lookingLabel}</span>
@@ -185,6 +185,9 @@ const [lookingLabel, lookingWhen] = card.looking
     align-items: start;
   }
 
+  /* Echoes the hero's "Open to research" pill: same spark mark, same
+     emerald stadium, so the repeated CTA reads as one hand. It is a
+     status badge here (no arrow) since the card already sits in §06. */
   .card__looking {
     margin: 0 0 10px;
     display: inline-flex;
@@ -195,10 +198,12 @@ const [lookingLabel, lookingWhen] = card.looking
     letter-spacing: 0.16em;
     text-transform: uppercase;
     color: var(--color-accent);
-    border: 1px solid var(--color-accent);
-    padding: 6px 12px 5px;
+    background: var(--color-paper);
+    border: 1.4px solid var(--color-accent);
+    padding: 9px 15px 8px;
     border-radius: 999px;
     max-width: 100%;
+    box-shadow: 0 1px 0 rgba(14, 83, 71, 0.06), 0 6px 18px -10px rgba(14, 83, 71, 0.4);
   }
 
   .card__looking-mark {
@@ -242,7 +247,10 @@ const [lookingLabel, lookingWhen] = card.looking
   }
 
   .card__name-en {
-    font-style: italic;
+    /* Upright EB Garamond, matching the hero wordmark exactly (same
+       name, one slant). The hero comment notes upright reads "elegant
+       + readable, not fancy"; the card follows. */
+    font-style: normal;
   }
 
   .card__name-zh {

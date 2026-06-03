@@ -73,9 +73,11 @@ const letter = siteConfig.letter;
 
   .intro__layout {
     display: grid;
-    grid-template-columns: clamp(320px, 28vw, 400px) minmax(0, 1fr);
+    grid-template-columns: clamp(300px, 26vw, 360px) minmax(0, 1fr);
     gap: 56px;
-    align-items: center;
+    /* Top-align: the portrait's top meets the letter's first line, so the
+       photo reads as seated beside the note rather than floating. */
+    align-items: start;
   }
 
   @media (max-width: 720px) {
@@ -157,7 +159,7 @@ const letter = siteConfig.letter;
   .intro__para {
     margin: 0;
     font-family: var(--font-sans);
-    font-size: 17px;
+    font-size: 16.5px;
     line-height: 1.62;
     color: var(--color-ink);
     max-width: 60ch;

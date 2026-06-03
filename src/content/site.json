@@ -3,17 +3,17 @@
   "shortName": "Tony Yang",
   "initials": "TY",
   "tagline": [
-    "The limits of language",
-    "mean the limits of the world?",
-    "Perhaps, yet we dwell",
-    "in more than we can name."
+    "I'd rather ship",
+    "something useful",
+    "than publish",
+    "something clever."
   ],
   "datelineLines": [
     "INDEPENDENT AI RESEARCHER",
     "AMSTERDAM · 2026"
   ],
   "dateline": "INDEPENDENT AI RESEARCHER · AMSTERDAM · 2026",
-  "heroSpecialtyLine": "Years spread across AI. Now narrowed to two directions I believe in.",
+  "heroSpecialtyLine": "I work on the hard, useful parts of AI: mostly LLM efficiency and low-data problems.",
   "letter": {
     "paragraphs": [
       {
@@ -46,21 +46,21 @@
       }
     ]
   },
-  "researchDek": "The work behind the two directions above. Each paper here is one of them in practice.",
-  "projectsIntro": "Where the research meets real systems. Some are live collaborations (Gradient Networks, Tencent, MeetaVista); others I build on my own time. Most are still in motion.",
+  "researchDek": "These are the papers behind the two directions above. Each one is an idea put into practice.",
+  "projectsIntro": "This is where the research turns into real systems. Some are live collaborations (Gradient Networks, Tencent, MeetaVista); the rest I build on my own time. Most are still in motion.",
   "businessCard": {
     "name": "Tony Yang",
     "nameZh": "杨童耘",
     "role": "Independent AI Researcher",
     "looking": "Open to research · academia or industry",
-    "tagline": "Sensitive, scarce-data AI · frontier models made shippable",
+    "tagline": "Hard, low-data problems · frontier models people actually use",
     "locations": ["Amsterdam (current)", "Shanghai", "Shenzhen"],
     "languages": [
       { "lang": "Mandarin", "level": "native" },
       { "lang": "English", "level": "near-native, professional", "note": "raised in English-speaking environments · IELTS 8.0" }
     ]
   },
-  "contactInvitation": "I read everything. Reach out about research, collaboration, supervision, or just to say hi. I answer faster than is professional, and I bring my whole self to the conversation.",
+  "contactInvitation": "I read every message. Write to me about research, working together, supervision, or just to say hi. I usually reply within a day, and I am easy to talk to.",
   "contact": {
     "email": "tonyyunyang@outlook.com",
     "scholar": "https://scholar.google.com/citations?hl=en&user=rIFdBYAAAAAJ",
