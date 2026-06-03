@@ -13,38 +13,40 @@
     "AMSTERDAM · 2026"
   ],
   "dateline": "INDEPENDENT AI RESEARCHER · AMSTERDAM · 2026",
-  "heroSpecialtyLine": "Years across AI. Now I build in two places, on purpose.",
-  "openingHeadline": "For years I roamed across AI, from emotion recognition and medical imaging to LLM routing and agentic benchmarking. Then I left my PhD fellowship on purpose. It landed like a sobering dose, and the haze burned off into one clear answer: I knew exactly what I wanted to build.",
-  "beliefKicker": "What I believe",
-  "belief1": "I want to build AI that is not only capable, but efficient, reliable, and useful.",
-  "belief2": "AI is moving from a scaling race to a systems race. Larger models will still matter, but they are not enough. What matters is how we train, route, compress, deploy, and apply them under real constraints.",
-  "currentlyHeadline": "Day-to-day",
-  "currently": "An independent AI researcher in Amsterdam. I collaborate with industry and academia on cost-efficient large language models, optimization-as-reasoning, and world models. Earlier roles include Marie Skłodowska-Curie Fellow, AI Research Engineer at TU Delft Imaging Physics, and an MSc from TU Delft.",
-  "intro": "Open to research, in academia or industry. What pulls me is meaning more than topic.",
-  "diptych": {
-    "heading": "Two directions",
-    "thesis": "Two bets, one belief: build where data is sensitive and scarce, and turn frontier models into products people can actually use.",
-    "belief": "I believe these two pave the next paradigm of AI.",
-    "directions": [
+  "heroSpecialtyLine": "Years spread across AI. Now narrowed to two directions I believe in.",
+  "letter": {
+    "paragraphs": [
       {
-        "kicker": "Direction I",
-        "icon": "build-data",
-        "iconSize": 30,
-        "iconStroke": 1.4,
-        "title": "When the data doesn't exist, I build it",
-        "blurb": "I am drawn to the rooms public data never reaches, where it is sensitive, scarce, and costly to get wrong. Building there, from the ground up, is the work I love most."
+        "lead": "I've spent years all over AI",
+        "rest": ": emotion recognition, medical imaging, LLM routing, agent benchmarks. Last year I left my PhD fellowship on purpose. It was a hard call, but it made one thing clear: I finally know what I want to build."
       },
       {
-        "kicker": "Direction II",
-        "icon": "paper-plane",
-        "iconSize": 32,
-        "iconStroke": 1.7,
-        "title": "Frontier capability, made cheap enough to ship",
-        "blurb": "Frontier models are astonishing, and almost no one can afford to run them well. Closing that gap, until real people can actually use them, is the puzzle I keep coming back to."
+        "lead": "What I believe",
+        "rest": ": AI is shifting from a scaling race to a systems race. Bigger models still matter, but they are not enough. What counts is how we train, route, compress, and ship them. I want AI that is capable, efficient, and genuinely useful."
+      },
+      {
+        "lead": "Day to day",
+        "rest": ", I'm an independent AI researcher in Amsterdam, working with industry and academia. Before this: Marie Skłodowska-Curie Fellow, AI research engineer at TU Delft Imaging Physics, and an MSc from TU Delft."
       }
     ]
   },
-  "researchDek": "The receipts behind the two directions. Every paper here is one of those bets made concrete.",
+  "intro": "Open to research, in academia or industry. What pulls me is meaning more than topic.",
+  "diptych": {
+    "heading": "Two directions",
+    "directions": [
+      {
+        "num": "1",
+        "title": "When data is scarce, design matters more",
+        "blurb": "In sensitive, low-data problems, you can't scale your way to a solution. The gains come from better architecture and smarter methods. That is the work I enjoy most: building where there isn't much to learn from yet."
+      },
+      {
+        "num": "2",
+        "title": "Frontier models people actually want to use",
+        "blurb": "Raw capability isn't the product. I work on turning frontier models into things people genuinely want to use, efficient enough to ship for real. There is a lot more worth building than another chatbot."
+      }
+    ]
+  },
+  "researchDek": "The work behind the two directions above. Each paper here is one of them in practice.",
   "projectsIntro": "Where the research meets real systems. Some are live collaborations (Gradient Networks, Tencent, MeetaVista); others I build on my own time. Most are still in motion.",
   "businessCard": {
     "name": "Tony Yang",

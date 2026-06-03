@@ -1,25 +1,14 @@
 ---
 import siteConfig from "~/content/site.json";
 import PillLink from "./PillLink.astro";
-import Icon from "./Icon.astro";
 import SectionHeader from "./SectionHeader.astro";
 
-// The §00 letter embeds a small hand-drawn pill icon right after the
-// "sobering dose" phrase. Split the opening around it so the mark sits inline.
-const opening = siteConfig.openingHeadline;
-const PILL_AFTER = "sobering dose,";
-const pillIdx = opening.indexOf(PILL_AFTER);
-const openingBefore = pillIdx >= 0 ? opening.slice(0, pillIdx + PILL_AFTER.length) : opening;
-const openingAfter = pillIdx >= 0 ? opening.slice(pillIdx + PILL_AFTER.length) : "";
-
-// §00 uses the same SectionHeader as §01-§06 so the title styling,
-// folio, underline, and entry animation are identical.
-//
-// Layout: portrait photo on the left fills the full height of the
-// right-column content (which contains everything: headline, opening
-// body, DAY-TO-DAY block, and the contact strip with email + pills).
-// The photo's source is already 3253×3978 portrait, so the tall crop
-// renders naturally with no obvious distortion.
+// §00, "A letter from the desk". A short personal note set as one unified
+// block: every paragraph is the same face and size (Inter), and a bold
+// lead-in phrase at the head of each paragraph does the guiding, so the
+// three beats (the turn, the belief, the day-to-day) read as one voice
+// rather than three differently-styled boxes.
+const letter = siteConfig.letter;
 ---
 
 <section class="intro" aria-label="Currently">
@@ -43,22 +32,12 @@ const openingAfter = pillIdx >= 0 ? opening.slice(pillIdx + PILL_AFTER.length) :
     </figure>
 
     <div class="intro__content">
-      <p class="intro__opening">
-        <span class="intro__opening-mark" aria-hidden="true">
-          <Icon name="sparkles" size={18} strokeWidth={1.2} />
-        </span>
-        <span class="intro__opening-text">{openingBefore}<Icon name="pill" size={22} strokeWidth={1.4} class="intro__pill" />{openingAfter}</span>
-      </p>
-
-      <div class="intro__belief">
-        <p class="intro__belief-kicker">{siteConfig.beliefKicker}</p>
-        <p class="intro__belief-line">{siteConfig.belief1}</p>
-        <p class="intro__belief-line">{siteConfig.belief2}</p>
-      </div>
-
-      <div class="intro__day">
-        <p class="intro__currently-label">{siteConfig.currentlyHeadline}</p>
-        <p class="intro__currently">{siteConfig.currently}</p>
+      <div class="intro__letter">
+        {letter.paragraphs.map((p) => (
+          <p class="intro__para">
+            <strong class="intro__lead">{p.lead}</strong>{p.rest}
+          </p>
+        ))}
       </div>
 
       <div class="intro__contact-row">
@@ -90,25 +69,20 @@ const openingAfter = pillIdx >= 0 ? opening.slice(pillIdx + PILL_AFTER.length) :
     padding: 24px;
   }
 
-  /* ============ Layout: photo (left, fills column height) + content (right) ============ */
+  /* ============ Layout: photo (left) + content (right) ============ */
 
   .intro__layout {
     display: grid;
-    /* Wider section width gives the photo more presence and the right
-       column more line length. Photo: 360-440px, content: rest. */
-    grid-template-columns: clamp(340px, 30vw, 440px) minmax(0, 1fr);
-    gap: 48px;
-    /* Start-aligned: photo sits at the top of its column at its
-       natural aspect, the right column extends as far as its prose
-       takes it. No flex-stretch (that produced an extreme tall crop
-       that scaled the source up and made the face huge). */
-    align-items: start;
+    grid-template-columns: clamp(320px, 28vw, 400px) minmax(0, 1fr);
+    gap: 56px;
+    align-items: center;
   }
 
   @media (max-width: 720px) {
     .intro__layout {
       grid-template-columns: 1fr;
-      gap: 24px;
+      gap: 28px;
+      align-items: start;
     }
   }
 
@@ -121,10 +95,7 @@ const openingAfter = pillIdx >= 0 ? opening.slice(pillIdx + PILL_AFTER.length) :
   .intro__photo {
     position: relative;
     width: 100%;
-    /* Native source ratio is 3253x3978 ≈ 5:6, so use 5:6 for the
-       container too. The image fills without being scaled up to
-       cover an artificially tall box, so the face renders at a
-       natural size. */
+    /* Native source ratio is 3253x3978 ≈ 5:6. */
     aspect-ratio: 5 / 6;
     border-radius: 4px;
     overflow: hidden;
@@ -136,8 +107,6 @@ const openingAfter = pillIdx >= 0 ? opening.slice(pillIdx + PILL_AFTER.length) :
 
   @media (max-width: 720px) {
     .intro__photo {
-      /* Slightly less tall on phones (4:5) since vertical real estate
-         is precious; still longer than square. */
       aspect-ratio: 4 / 5;
       width: clamp(260px, 80vw, 360px);
       margin-inline: auto;
@@ -148,8 +117,6 @@ const openingAfter = pillIdx >= 0 ? opening.slice(pillIdx + PILL_AFTER.length) :
     width: 100%;
     height: 100%;
     object-fit: cover;
-    /* Native aspect now matches container, so this just centers the
-       composition. center 35% sits the face slightly above middle. */
     object-position: center 35%;
     display: block;
     border-radius: 4px;
@@ -164,151 +131,45 @@ const openingAfter = pillIdx >= 0 ? opening.slice(pillIdx + PILL_AFTER.length) :
     pointer-events: none;
   }
 
-  .intro__photo-corner--tl {
-    top: 8px;
-    left: 8px;
-    border-right: 0;
-    border-bottom: 0;
-  }
-
-  .intro__photo-corner--tr {
-    top: 8px;
-    right: 8px;
-    border-left: 0;
-    border-bottom: 0;
-  }
-
-  .intro__photo-corner--bl {
-    bottom: 8px;
-    left: 8px;
-    border-right: 0;
-    border-top: 0;
-  }
-
-  .intro__photo-corner--br {
-    bottom: 8px;
-    right: 8px;
-    border-left: 0;
-    border-top: 0;
-  }
+  .intro__photo-corner--tl { top: 8px; left: 8px; border-right: 0; border-bottom: 0; }
+  .intro__photo-corner--tr { top: 8px; right: 8px; border-left: 0; border-bottom: 0; }
+  .intro__photo-corner--bl { bottom: 8px; left: 8px; border-right: 0; border-top: 0; }
+  .intro__photo-corner--br { bottom: 8px; right: 8px; border-left: 0; border-top: 0; }
 
   /* ============ Right column ============ */
 
   .intro__content {
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 28px;
     min-width: 0;
   }
 
-  /* Opening headline. Upright EB Garamond 500 reads as a confident
-     direct statement rather than a literary quote. The sparkle mark
-     stays as a small print-tradition opener. */
-  .intro__opening {
-    margin: 0;
-    font-family: var(--font-display);
-    font-style: normal;
-    font-weight: 500;
-    font-size: clamp(22px, 2.4vw, 28px);
-    line-height: 1.28;
-    letter-spacing: -0.005em;
-    color: var(--color-ink);
-    display: flex;
-    align-items: baseline;
-    gap: 12px;
-    text-wrap: balance;
-  }
-
-  .intro__opening-mark {
-    color: var(--color-accent);
-    flex: 0 0 auto;
-    transform: translateY(2px);
-  }
-
-  .intro__opening-text {
-    flex: 1 1 auto;
-  }
-
-  .intro__opening-body {
-    margin: 0;
-    font-size: 16.5px;
-    line-height: 1.65;
-    color: var(--color-ink);
-    max-width: 64ch;
-    text-wrap: pretty;
-    hyphens: auto;
-    -webkit-hyphens: auto;
-  }
-
-  /* The cute pill mark sits inline right after "sobering dose". Emerald,
-     sized to sit comfortably within the display-size opening line. */
-  :global(.intro__pill) {
-    color: var(--color-accent);
-    margin: 0 0.04em 0 0.1em;
-    vertical-align: -0.04em;
-  }
-
-  /* WHAT I BELIEVE block: same body face + size as Day-to-day, distinguished
-     by treatment alone (emerald left rule + faint featured wash + mono kicker).
-     Reads as the conviction half of a matched pair with the plain Day-to-day
-     facts below it. The emerald rule echoes the diptych conviction line. */
-  .intro__belief {
-    border-left: 2px solid var(--color-accent);
-    background: var(--color-featured);
-    padding: 16px 22px 16px 18px;
-    border-radius: 0 6px 6px 0;
+  /* The letter itself: three paragraphs, one face, one size. Hierarchy
+     comes from the bold lead-in phrase alone, so the block reads as a
+     single unified voice. */
+  .intro__letter {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 16px;
   }
 
-  .intro__belief-kicker {
+  .intro__para {
     margin: 0;
-    font-family: var(--font-mono);
-    font-size: 11px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--color-ink-soft);
-  }
-
-  .intro__belief-line {
-    margin: 0;
-    font-size: 16px;
-    line-height: 1.6;
+    font-family: var(--font-sans);
+    font-size: 17px;
+    line-height: 1.62;
     color: var(--color-ink);
-    max-width: 72ch;
+    max-width: 60ch;
     text-wrap: pretty;
   }
 
-  /* DAY-TO-DAY block */
-
-  .intro__day {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
+  .intro__lead {
+    font-weight: 600;
+    color: var(--color-ink);
   }
 
-  .intro__currently-label {
-    margin: 0;
-    font-family: var(--font-mono);
-    font-size: 11px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--color-ink-soft);
-  }
-
-  .intro__currently {
-    margin: 0;
-    font-size: 16px;
-    line-height: 1.6;
-    color: var(--color-ink-soft);
-    max-width: 72ch;
-    text-wrap: pretty;
-  }
-
-  /* Contact: email row stacked above the pill links so the pills get
-     the full right-column width (plenty of room for all five). The
-     hairline rule above the block separates it from the prose. */
+  /* ============ Contact strip ============ */
 
   .intro__contact-row {
     margin-top: 4px;
@@ -367,10 +228,8 @@ const openingAfter = pillIdx >= 0 ? opening.slice(pillIdx + PILL_AFTER.length) :
     align-items: center;
   }
 
-  /* Tighter pill chrome inside the §00 contact row so all four
-     profile/CV pills fit on a single row inside the narrower right
-     column. Tap target stays at 40px (still comfortable on touch),
-     padding eased from 12/16 → 10/13. */
+  /* Tighter pill chrome so all four profile/CV pills fit one row inside
+     the right column. Tap target stays at 40px. */
   .intro__pills :global(.pill) {
     padding: 10px 13px;
     min-height: 40px;

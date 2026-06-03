@@ -1,15 +1,10 @@
 ---
 import siteConfig from "~/content/site.json";
-import Icon from "./Icon.astro";
 
-// The Diptych: the convergence stated with geometry. Two equal panels (the
-// two directions Tony has converged on, each with a hand-drawn sketch mark)
-// seated on one wordless "plinth" of layered strata, a broad foundation
-// beneath both bets, said without naming a single thing. A thesis band above
-// carries the conviction once. Replaces the retired 8-card "research compass".
-//
-// Built from the same seam recipe ResearchThemes used: a grid with a hairline
-// background showing through 1px gaps, so dividers are crisp print rules.
+// The two directions, stated plainly as a numbered pair. Two equal panels
+// seated on one wordless "plinth" of layered strata (a broad foundation
+// beneath both), with a large serif numeral marking each. No thesis band,
+// no editorializing: just 1 and 2.
 const d = siteConfig.diptych;
 ---
 
@@ -21,20 +16,11 @@ const d = siteConfig.diptych;
   </header>
 
   <div class="diptych__plate">
-    <!-- Thesis band: the conviction, stated exactly once. -->
-    <div class="diptych__thesis">
-      <p class="diptych__thesis-lead">{d.thesis}</p>
-      <p class="diptych__belief">{d.belief}</p>
-    </div>
-
-    <!-- The two converged directions, equal weight, each with a sketch mark. -->
+    <!-- The two directions, equal weight, each marked with a numeral. -->
     <div class="diptych__panels">
       {d.directions.map((dir) => (
         <article class="diptych__panel">
-          <span class="diptych__panel-glyph" aria-hidden="true">
-            <Icon name={dir.icon} size={dir.iconSize} strokeWidth={dir.iconStroke} />
-          </span>
-          <p class="diptych__kicker">{dir.kicker}</p>
+          <span class="diptych__num" aria-hidden="true">{dir.num}</span>
           <h3 class="diptych__title">{dir.title}</h3>
           <p class="diptych__blurb">{dir.blurb}</p>
         </article>
@@ -42,7 +28,7 @@ const d = siteConfig.diptych;
     </div>
 
     <!-- The plinth: a wordless band of strata. The broad foundation beneath
-         both bets, grounding the panels without naming any specific work. -->
+         both directions, grounding the panels without naming any work. -->
     <div class="diptych__plinth" aria-hidden="true">
       <svg
         class="diptych__strata"
@@ -64,14 +50,12 @@ const d = siteConfig.diptych;
 
 <style>
   .diptych {
-    /* Match the rail width + rhythm the compass section used so the page
-       cadence is unchanged. */
     max-width: var(--content-with-rail);
     margin: 80px auto 32px;
     padding: 24px;
   }
 
-  /* ============ HEADER (reused furniture: rule · italic label · rule) ============ */
+  /* ============ HEADER (rule · italic label · rule) ============ */
 
   .diptych__header {
     margin: 0 0 28px;
@@ -104,51 +88,12 @@ const d = siteConfig.diptych;
 
   .diptych__plate {
     display: grid;
-    grid-template-rows: auto auto auto;
+    grid-template-rows: auto auto;
     gap: 1px;
     background: var(--color-hairline);
     border: 1px solid var(--color-hairline);
     border-radius: 12px;
     overflow: hidden;
-  }
-
-  /* ---- Thesis band ---- */
-
-  .diptych__thesis {
-    background: var(--color-featured);
-    padding: clamp(26px, 3.4vw, 42px) clamp(24px, 5vw, 72px);
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-  }
-
-  .diptych__thesis-lead {
-    margin: 0;
-    max-width: 62ch;
-    font-family: var(--font-display);
-    font-style: normal;
-    font-weight: 500;
-    font-size: clamp(18px, 1.75vw, 23px);
-    line-height: 1.42;
-    letter-spacing: -0.005em;
-    color: var(--color-ink-soft);
-    text-wrap: balance;
-  }
-
-  /* The belief: the one loud conviction, set apart as an emerald pull-line. */
-  .diptych__belief {
-    margin: 0;
-    max-width: 30ch;
-    font-family: var(--font-display);
-    font-style: italic;
-    font-weight: 500;
-    font-size: clamp(22px, 2.3vw, 30px);
-    line-height: 1.24;
-    letter-spacing: -0.006em;
-    color: var(--color-accent);
-    text-wrap: balance;
   }
 
   /* ---- The two panels ---- */
@@ -158,9 +103,6 @@ const d = siteConfig.diptych;
     grid-template-columns: 1fr 1fr;
     gap: 1px;
     background: var(--color-hairline);
-    /* Cast a soft shadow downward onto the plinth so the two panels read as
-       columns resting on a base, not a third stacked band. Clipped to the
-       plate by its overflow:hidden, so only the seam onto the plinth shows. */
     position: relative;
     z-index: 1;
     box-shadow: 0 7px 11px -8px rgba(15, 20, 23, 0.22);
@@ -168,7 +110,7 @@ const d = siteConfig.diptych;
 
   .diptych__panel {
     background: var(--color-paper-shade);
-    padding: clamp(24px, 2.6vw, 36px);
+    padding: clamp(28px, 3vw, 44px);
     display: flex;
     flex-direction: column;
     gap: 14px;
@@ -179,42 +121,16 @@ const d = siteConfig.diptych;
     background: var(--color-paper);
   }
 
-  .diptych__panel-glyph {
-    color: var(--color-ink);
-    height: 34px;
-    display: flex;
-    align-items: center;
-    transition: color 160ms ease-out;
-  }
-
-  .diptych__panel:hover .diptych__panel-glyph {
-    color: var(--color-accent);
-  }
-
-  /* Micro-interactions: the marks come alive when you visit a panel. Motion on
-     intent only (hover), never constant, so the reading stays calm. The plane
-     lifts and banks as if sent; the vessel hops as if filling. */
-  .diptych__panel-glyph :global(.icon) {
-    transition: transform 320ms cubic-bezier(0.22, 0.72, 0.16, 1);
-    transform-origin: center;
-  }
-
-  .diptych__panel:hover :global(.icon-paper-plane) {
-    transform: translate(3px, -4px) rotate(-7deg) scale(1.04);
-  }
-
-  .diptych__panel:hover :global(.icon-build-data) {
-    transform: translateY(-3px) scale(1.05);
-  }
-
-  .diptych__kicker {
-    margin: 0;
-    font-family: var(--font-mono);
-    font-size: 12px;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--color-accent);
+  /* The numeral: a large serif drop-figure, the plain "1" and "2". Sits
+     just above the title as the panel's index and only visual mark. */
+  .diptych__num {
+    font-family: var(--font-display);
+    font-style: normal;
     font-weight: 500;
+    font-size: clamp(40px, 4.4vw, 60px);
+    line-height: 0.9;
+    color: var(--color-accent);
+    letter-spacing: -0.01em;
   }
 
   .diptych__title {
@@ -243,8 +159,6 @@ const d = siteConfig.diptych;
     position: relative;
     background: var(--color-paper-shade);
     height: clamp(84px, 9vw, 108px);
-    /* A soft inset shadow at the top so the panels above read as resting ON
-       the plinth like load-bearing stone (no new color: low-alpha ink). */
     box-shadow: inset 0 8px 14px -10px rgba(15, 20, 23, 0.32);
     overflow: hidden;
   }
@@ -260,8 +174,6 @@ const d = siteConfig.diptych;
 
   /* ============ RESPONSIVE ============ */
 
-  /* Phone: panels stack. The plate's hairline gaps keep them visually seated
-     on the plinth, so the bottom-to-top "standing on" read survives. */
   @media (max-width: 560px) {
     .diptych {
       margin-top: 56px;
@@ -278,13 +190,8 @@ const d = siteConfig.diptych;
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .diptych__panel,
-    .diptych__panel-glyph :global(.icon) {
+    .diptych__panel {
       transition: none;
-    }
-    .diptych__panel:hover :global(.icon-paper-plane),
-    .diptych__panel:hover :global(.icon-build-data) {
-      transform: none;
     }
   }
 </style>
