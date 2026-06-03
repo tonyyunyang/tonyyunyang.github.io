@@ -96,6 +96,18 @@ test.describe("iteration preview", () => {
     await page.locator("section.intro").screenshot({ path: `${OUT}/IT-p360-letter.png` });
   });
 
+  test("iphone pro max 430", async ({ page }) => {
+    // Tony's actual phone (iPhone 17 Pro Max @ 430 CSS px) — historically the
+    // width that surfaces real bugs others miss. Capture every key surface.
+    await page.setViewportSize({ width: 430, height: 932 });
+    await page.goto("/");
+    await settle(page);
+    await page.locator("section.hero").screenshot({ path: `${OUT}/IT-p430-hero.png` });
+    await page.locator("section.intro").screenshot({ path: `${OUT}/IT-p430-letter.png` });
+    await page.locator("section.diptych").screenshot({ path: `${OUT}/IT-p430-diptych.png` });
+    await page.locator('section[aria-label="Contact"]').first().screenshot({ path: `${OUT}/IT-p430-contact.png` });
+  });
+
   test("mobile full + sections", async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto("/");
