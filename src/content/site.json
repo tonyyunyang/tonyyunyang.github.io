@@ -13,70 +13,44 @@
     "AMSTERDAM · 2026"
   ],
   "dateline": "INDEPENDENT AI RESEARCHER · AMSTERDAM · 2026",
-  "openingHeadline": "Built across LLMs, vision, world models, and medical AI. Now I want to go deeper, with passion and faith.",
-  "openingBody": "I've shipped research with Tencent, Gradient Networks, MeetaVista, TU Delft, McGill, Tsinghua, and IMDEA. The throughline I care about: useful, durable AI, especially where access and reliability matter.",
+  "heroSpecialtyLine": "Years across AI, from LLM routing to medical imaging. Now I build in two places, and I know exactly why.",
+  "openingHeadline": "I spent years moving across AI, from LLM routing to medical imaging. Then I left a fellowship on purpose, because I finally knew what I wanted to build.",
+  "openingBody": "The breadth was not indecision, it was reconnaissance. It showed me where the work that matters actually lives, and where I can do it best. So I converged on two: building where data is sensitive and scarce, and turning frontier models into systems people can actually use.",
   "currentlyHeadline": "Day-to-day",
   "currently": "An independent AI researcher in Amsterdam. I currently collaborate with industry (Tencent, Gradient Networks, MeetaVista) and academia (TU Delft, McGill, Tsinghua) on cost-efficient large language models, optimization-as-reasoning, and intent-aware world models. Earlier roles include Marie Skłodowska-Curie Fellow, AI Research Engineer at TU Delft Imaging Physics, and an MSc degree from TU Delft.",
   "intro": "Open to research, in academia or industry. What pulls me is meaning more than topic.",
-  "researchThemesIntro": "Two things drive this work: pushing AI beyond text into perception and action, and making those systems fairer and more reachable in practice.",
-  "researchThemes": [
-    {
-      "id": "world-models",
-      "icon": "world-model",
-      "title": "World models",
-      "blurb": "Systems that perceive a scene and imagine what happens next. The bridge from describing the world to acting in it."
-    },
-    {
-      "id": "llms",
-      "icon": "tokens",
-      "title": "Large language models",
-      "blurb": "Making capable models cheap, dependable, and useful enough to actually deploy. Routing, optimization, and agent design."
-    },
-    {
-      "id": "vision",
-      "icon": "eye",
-      "title": "Computer vision",
-      "blurb": "Vision as a channel for human signal, not just object detection. Reading emotion, intent, and attention from what people see."
-    },
-    {
-      "id": "medical-ai",
-      "icon": "heartbeat",
-      "title": "AI for medicine",
-      "blurb": "Models that work in the real clinic, not only on the leaderboard. Smaller, faster, and fair across patient populations."
-    },
-    {
-      "id": "on-device-models",
-      "icon": "chip",
-      "title": "On-device models",
-      "blurb": "Perception and language models that run locally, not in the cloud. Distillation, quantization, and the craft of keeping small systems capable."
-    },
-    {
-      "id": "social-econ",
-      "icon": "market-trend",
-      "title": "Social & economic behavior",
-      "blurb": "How crowds price information, shift positions, and reveal preferences over time. Reading collective signal from messy human data."
-    },
-    {
-      "id": "hci",
-      "icon": "interface",
-      "title": "Human-computer interaction",
-      "blurb": "Where AI stops being a model and becomes a tool. Designing systems that fit how people actually think, type, and decide."
-    },
-    {
-      "id": "fairness-access",
-      "icon": "open-door",
-      "title": "Fairness × access",
-      "blurb": "A motivation, not a sub-field. Anything I build should reach the people who need it most, not the people who already have everything."
-    }
-  ],
-  "researchDek": "What runs through every paper here. I want this work to be useful where it matters, accessible to people who don't already have it, and meaningful enough to keep at for years.",
+  "diptych": {
+    "heading": "Two directions",
+    "thesis": "Two bets, one belief: build where data is sensitive and scarce, and turn frontier models into products people can actually use.",
+    "belief": "I believe these two pave the next paradigm of AI.",
+    "directions": [
+      {
+        "kicker": "Direction I",
+        "title": "When the data doesn't exist, I build it",
+        "blurb": "The work that matters most happens where public data barely reaches and mistakes are costly: the clinic, the headset, the device, the closed enterprise. Reverse Imaging segments cardiac MRI it has never seen. Pruning nnU-Net removes over 80% of a medical network with quality intact. Through the Eyes of Emotion is the first public VR eye-tracking dataset, built because none existed. This is AI for the people a leaderboard forgets."
+      },
+      {
+        "kicker": "Direction II",
+        "title": "Frontier capability, made cheap enough to ship",
+        "blurb": "Frontier models are astonishing, and almost no one can afford to run them well. MERA holds 87.3% router accuracy at 51.8% of always-large-model cost. TwinRouterBench matches unrouted Opus 4.6 on SWE-bench Verified for 53% less. The LLM Router cut cost by over 90% at the same quality. Capable is the start. Useful is the work."
+      }
+    ],
+    "breadthLine": "On the ground beneath both: a wide spectrum of AI, from LLM routing to medical imaging, across Tencent, Gradient Networks, MeetaVista, TU Delft, McGill, Tsinghua, and IMDEA. The range is what earned the convergence.",
+    "ledger": [
+      "80% of a net pruned",
+      "1st public VR dataset",
+      "53% cheaper, Opus-level",
+      "1 shipped extension"
+    ]
+  },
+  "researchDek": "The receipts behind the two directions. Every paper here is one of those bets made concrete.",
   "projectsIntro": "Where the research meets real systems. Some are live collaborations (Gradient Networks, Tencent, MeetaVista); others I build on my own time. Most are still in motion.",
   "businessCard": {
     "name": "Tony Yang",
     "nameZh": "杨童耘",
     "role": "Independent AI Researcher",
     "looking": "Open to research · academia or industry",
-    "tagline": "World models · LLMs · vision · medical AI · on‑device AI",
+    "tagline": "Sensitive, scarce-data AI · frontier models made shippable",
     "locations": ["Amsterdam (current)", "Shanghai", "Shenzhen"],
     "languages": [
       { "lang": "Mandarin", "level": "native" },

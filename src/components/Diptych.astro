@@ -1,0 +1,335 @@
+---
+import siteConfig from "~/content/site.json";
+
+// The Diptych: the convergence stated with geometry. Two equal panels (the
+// two value-driven directions Tony has converged on) seated on one wide
+// "plinth" (the breadth that earned the convergence). Reads bottom-to-top as
+// foundation → two deliberate directions, with a single thesis band above
+// carrying the conviction once. Replaces the retired 8-card "research compass".
+//
+// Built from the same seam recipe ResearchThemes used: a grid with a hairline
+// background showing through 1px gaps, so dividers are crisp print rules with
+// no extra borders.
+const d = siteConfig.diptych;
+---
+
+<section class="diptych" aria-label="Two directions">
+  <header class="diptych__header">
+    <span class="diptych__rule" aria-hidden="true"></span>
+    <h2 class="diptych__heading">{d.heading}</h2>
+    <span class="diptych__rule" aria-hidden="true"></span>
+  </header>
+
+  <div class="diptych__plate">
+    <!-- Thesis band: the conviction, stated exactly once. -->
+    <div class="diptych__thesis">
+      <p class="diptych__thesis-lead">{d.thesis}</p>
+      <p class="diptych__belief">{d.belief}</p>
+    </div>
+
+    <!-- The two converged directions, equal weight. -->
+    <div class="diptych__panels">
+      {d.directions.map((dir) => (
+        <article class="diptych__panel">
+          <p class="diptych__kicker">{dir.kicker}</p>
+          <h3 class="diptych__title">{dir.title}</h3>
+          <p class="diptych__blurb">{dir.blurb}</p>
+        </article>
+      ))}
+    </div>
+
+    <!-- The plinth: the wide-spectrum foundation both directions stand on. -->
+    <div class="diptych__plinth">
+      <svg
+        class="diptych__strata"
+        viewBox="0 0 1000 80"
+        preserveAspectRatio="none"
+        aria-hidden="true"
+        fill="none"
+        stroke="currentColor"
+        stroke-linecap="round"
+      >
+        <path d="M0 12 Q250 4 500 12 Q750 20 1000 12" stroke-width="1" opacity="0.5" />
+        <path d="M0 28 Q250 20 500 28 Q750 36 1000 28" stroke-width="0.8" opacity="0.4" />
+        <path d="M0 44 Q250 36 500 44 Q750 52 1000 44" stroke-width="0.6" opacity="0.3" />
+        <path d="M0 60 Q250 52 500 60 Q750 68 1000 60" stroke-width="0.5" opacity="0.2" />
+        <path d="M0 74 Q250 68 500 74 Q750 80 1000 74" stroke-width="0.4" opacity="0.12" />
+      </svg>
+
+      <div class="diptych__plinth-inner">
+        <div class="diptych__foundation">
+          <p class="diptych__kicker diptych__kicker--plinth">The range beneath</p>
+          <p class="diptych__breadth">{d.breadthLine}</p>
+        </div>
+        <ul class="diptych__ledger">
+          {d.ledger.map((fact) => (
+            <li class="diptych__ledger-item">{fact}</li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .diptych {
+    /* Match the rail width + rhythm the compass section used so the page
+       cadence is unchanged. */
+    max-width: var(--content-with-rail);
+    margin: 80px auto 32px;
+    padding: 24px;
+  }
+
+  /* ============ HEADER (reused furniture: rule · italic label · rule) ============ */
+
+  .diptych__header {
+    margin: 0 0 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+  }
+
+  .diptych__rule {
+    flex: 1 1 auto;
+    max-width: 180px;
+    height: 1px;
+    background: var(--color-hairline);
+  }
+
+  .diptych__heading {
+    margin: 0;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(24px, 3vw, 32px);
+    line-height: 1;
+    color: var(--color-ink);
+    letter-spacing: -0.005em;
+    white-space: nowrap;
+  }
+
+  /* ============ THE PLATE (one bordered print plate; hairline seams) ============ */
+
+  .diptych__plate {
+    display: grid;
+    grid-template-rows: auto auto auto;
+    gap: 1px;
+    background: var(--color-hairline);
+    border: 1px solid var(--color-hairline);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  /* ---- Thesis band ---- */
+
+  .diptych__thesis {
+    background: var(--color-featured);
+    padding: clamp(26px, 3.4vw, 42px) clamp(24px, 5vw, 72px);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .diptych__thesis-lead {
+    margin: 0;
+    max-width: 62ch;
+    font-family: var(--font-display);
+    font-style: normal;
+    font-weight: 500;
+    font-size: clamp(18px, 1.75vw, 23px);
+    line-height: 1.42;
+    letter-spacing: -0.005em;
+    color: var(--color-ink-soft);
+    text-wrap: balance;
+  }
+
+  /* The belief: the one loud conviction, set apart as an emerald pull-line. */
+  .diptych__belief {
+    margin: 0;
+    max-width: 30ch;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 500;
+    font-size: clamp(22px, 2.3vw, 30px);
+    line-height: 1.24;
+    letter-spacing: -0.006em;
+    color: var(--color-accent);
+    text-wrap: balance;
+  }
+
+  /* ---- The two panels ---- */
+
+  .diptych__panels {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--color-hairline);
+    /* Cast a soft shadow downward onto the plinth so the two panels read as
+       columns resting on a base, not a third stacked band. Clipped to the
+       plate by its overflow:hidden, so only the seam onto the plinth shows. */
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 7px 11px -8px rgba(15, 20, 23, 0.22);
+  }
+
+  .diptych__panel {
+    background: var(--color-paper-shade);
+    padding: clamp(24px, 2.6vw, 36px);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    transition: background 160ms ease-out;
+  }
+
+  .diptych__panel:hover {
+    background: var(--color-paper);
+  }
+
+  .diptych__kicker {
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    font-weight: 500;
+  }
+
+  .diptych__title {
+    margin: 0;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 500;
+    font-size: clamp(22px, 2.1vw, 28px);
+    line-height: 1.16;
+    color: var(--color-ink);
+    text-wrap: balance;
+  }
+
+  .diptych__blurb {
+    margin: 0;
+    font-family: var(--font-sans);
+    font-size: 15.5px;
+    line-height: 1.62;
+    color: var(--color-ink-soft);
+    text-wrap: pretty;
+  }
+
+  /* ---- The plinth (foundation) ---- */
+
+  .diptych__plinth {
+    position: relative;
+    background: var(--color-paper-shade);
+    padding: clamp(22px, 2.4vw, 30px) clamp(24px, 2.6vw, 36px);
+    /* A heavier seating-line + a soft inset shadow so the panels above read
+       as resting ON the plinth like load-bearing stone (no new color: the
+       shadow is a low-alpha ink). */
+    box-shadow: inset 0 8px 14px -10px rgba(15, 20, 23, 0.32);
+    overflow: hidden;
+  }
+
+  .diptych__strata {
+    position: absolute;
+    inset: auto 0 0 0;
+    width: 100%;
+    height: 64px;
+    color: var(--color-ink-soft);
+    pointer-events: none;
+  }
+
+  .diptych__plinth-inner {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: clamp(20px, 4vw, 56px);
+  }
+
+  .diptych__foundation {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-width: 62ch;
+  }
+
+  .diptych__kicker--plinth {
+    color: var(--color-ink-soft);
+  }
+
+  .diptych__breadth {
+    margin: 0;
+    font-family: var(--font-sans);
+    font-size: 14.5px;
+    line-height: 1.6;
+    color: var(--color-ink-soft);
+    text-wrap: pretty;
+  }
+
+  .diptych__ledger {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    text-align: right;
+  }
+
+  .diptych__ledger-item {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-ink);
+    white-space: nowrap;
+  }
+
+  .diptych__ledger-item::before {
+    content: "·";
+    color: var(--color-accent);
+    margin-right: 8px;
+  }
+
+  /* ============ RESPONSIVE ============ */
+
+  /* Tablet: keep both panels side by side; just relax the thesis padding. */
+  @media (max-width: 880px) {
+    .diptych__plinth-inner {
+      flex-direction: column;
+      gap: 18px;
+    }
+    .diptych__ledger {
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 6px 16px;
+      text-align: left;
+    }
+  }
+
+  /* Phone: panels stack. The plate's hairline gaps keep them visually seated
+     on the plinth, so the bottom-to-top "standing on" read survives. */
+  @media (max-width: 560px) {
+    .diptych {
+      margin-top: 56px;
+    }
+    .diptych__panels {
+      grid-template-columns: 1fr;
+    }
+    .diptych__title {
+      font-size: 22px;
+    }
+    .diptych__blurb {
+      font-size: 15px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .diptych__panel {
+      transition: none;
+    }
+  }
+</style>

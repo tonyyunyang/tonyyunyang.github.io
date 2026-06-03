@@ -3,7 +3,7 @@ import { getCollection, getEntry } from "astro:content";
 import Base from "~/layouts/Base.astro";
 import Hero from "~/components/Hero.astro";
 import Intro from "~/components/Intro.astro";
-import ResearchThemes from "~/components/ResearchThemes.astro";
+import Diptych from "~/components/Diptych.astro";
 import Toc from "~/components/Toc.astro";
 import SectionHeader from "~/components/SectionHeader.astro";
 import PaperCard from "~/components/PaperCard.astro";
@@ -31,7 +31,7 @@ const TeachingBody = teachingEntry ? (await teachingEntry.render()).Content : nu
 // Sections the running-head should track on the homepage. Each entry
 // corresponds to an id rendered on this page.
 const runningHeadSections = [
-  { id: "currently", num: "00", title: "Currently" },
+  { id: "currently", num: "00", title: "A letter from the desk" },
   { id: "research",  num: "01", title: "Research" },
   { id: "projects",  num: "02", title: "Projects" },
   { id: "writing",   num: "03", title: "Writing" },
@@ -45,7 +45,7 @@ const runningHeadSections = [
   <Hero />
   <Toc />
   <Intro />
-  <ResearchThemes />
+  <Diptych />
 
   <section class="max-content" aria-label="Research">
     <SectionHeader
