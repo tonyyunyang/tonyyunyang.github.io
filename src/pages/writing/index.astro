@@ -16,7 +16,7 @@ const posts = (await getCollection("posts", (p) => !p.data.draft)).sort(
     <SectionHeader num="03" title="Writing" id="writing" total="06" />
     {posts.length === 0 ? (
       <p class="empty">
-        First entry coming soon. <a href="/rss.xml">↗ subscribe via RSS</a>
+        No posts yet. The first one's coming, when it's actually worth reading. <a href="/rss.xml">↗ subscribe via RSS</a>
       </p>
     ) : (
       <ul class="post-list">
@@ -40,7 +40,6 @@ const posts = (await getCollection("posts", (p) => !p.data.draft)).sort(
     padding: 32px;
     border-radius: var(--radius-card);
     text-align: center;
-    font-style: italic;
     color: var(--color-ink-soft);
   }
   .post-list {
