@@ -108,17 +108,14 @@ const d = siteConfig.diptych;
     box-shadow: 0 7px 11px -8px rgba(15, 20, 23, 0.22);
   }
 
+  /* Static plate: the panels are not links, so they carry no hover state
+     (hover is reserved for genuinely clickable cards). */
   .diptych__panel {
     background: var(--color-paper-shade);
     padding: clamp(28px, 3vw, 44px);
     display: flex;
     flex-direction: column;
     gap: 14px;
-    transition: background 160ms ease-out;
-  }
-
-  .diptych__panel:hover {
-    background: var(--color-paper);
   }
 
   /* The numeral: a large serif drop-figure, the plain "1" and "2". Sits
@@ -186,12 +183,6 @@ const d = siteConfig.diptych;
     }
     .diptych__blurb {
       font-size: 15px;
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .diptych__panel {
-      transition: none;
     }
   }
 </style>

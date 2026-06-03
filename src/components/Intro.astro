@@ -129,7 +129,9 @@ const letter = siteConfig.letter;
     position: absolute;
     width: 22px;
     height: 22px;
-    border: 1.4px solid var(--color-ink);
+    /* Faint inked hairline, matching the engraving-plate chrome elsewhere,
+       rather than a heavy black bracket. */
+    border: 1px solid var(--color-ink-soft);
     pointer-events: none;
   }
 
@@ -159,7 +161,7 @@ const letter = siteConfig.letter;
   .intro__para {
     margin: 0;
     font-family: var(--font-sans);
-    font-size: 16.5px;
+    font-size: 16px;
     line-height: 1.62;
     color: var(--color-ink);
     max-width: 60ch;
@@ -185,6 +187,16 @@ const letter = siteConfig.letter;
   @media (max-width: 720px) {
     .intro__contact-row {
       padding-top: 18px;
+    }
+    /* On phones the four profile/CV pills read cleaner as a deliberate 2x2
+       than a ragged wrap, and get a full 44px tap target. */
+    .intro__pills {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+    .intro__pills :global(.pill) {
+      min-height: 44px;
+      justify-content: center;
     }
   }
 

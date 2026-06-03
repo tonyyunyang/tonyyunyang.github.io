@@ -137,7 +137,7 @@ const runningHeadSections = [
     />
     <BusinessCard />
     <p class="contact-footer">
-      built by hand in Amsterdam · <kbd>⌘K</kbd> to jump around · <a href="/world/">step into the studio ↘</a>
+      built by hand in Amsterdam · <span class="footer-hint">press <kbd>⌘K</kbd> to jump around · </span><a href="/world/">step into the studio ↘</a>
     </p>
   </section>
 </Base>
@@ -256,5 +256,13 @@ const runningHeadSections = [
   .contact-footer a:hover {
     color: var(--color-accent);
     border-color: var(--color-accent);
+  }
+
+  /* The ⌘K hint is desktop-only (no keyboard on a phone). Hide it on touch
+     widths so the footer doesn't advertise a shortcut visitors can't use. */
+  @media (max-width: 720px) {
+    .contact-footer .footer-hint {
+      display: none;
+    }
   }
 </style>
