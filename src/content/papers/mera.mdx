@@ -13,7 +13,7 @@ authors:
   - { name: "Jie Xiao" }
   - { name: "Tianyu Shi" }
 topics: ["llms"]
-summary: "A trace-driven framework that lets an agentic system evolve three tracks together: a SkillBook of recurring prompt signatures, a learned per-call router, and a small-model adapter, each update admitted only through verifier-backed joint replay. The Skill → LLM → Router schedule reaches 87.3% router accuracy and trims serving cost to 51.8% of always using the large model."
+summary: "A routing system for AI agents that learns from real usage traces. It pairs each call with the cheapest model that can handle it, reuses a library of recurring prompt patterns, and trains a small specialist to take over repeat work. The result: 87.3% routing accuracy at about half the cost of always calling the large model."
 thumbnail: "/papers/mera.svg"
 links:
   paper: "https://openreview.net/forum?id=6oyBiDMCHs"

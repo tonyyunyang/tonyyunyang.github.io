@@ -23,7 +23,7 @@ authors:
   - { name: "Eric Yang" }
   - { name: "Tianyu Shi" }
 topics: ["llms"]
-summary: "A step-level benchmark for agentic LLM routing: at each call, pick the cheapest model tier that still resolves the task from the prefix seen so far. A fast static track of 970 execution-verified labels across five workloads pairs with a live dynamic track on SWE-bench Verified, where a trained router matches unrouted Opus 4.6 while cutting API cost by 53%."
+summary: "A benchmark for LLM routing inside multi-step agents: at every step, can you pick the cheapest model that still gets the job done? It comes in two tracks, a fast offline test on 970 verified cases and a live run on SWE-bench. A trained router matched unrouted Opus 4.6 while cutting API cost by 53%."
 thumbnail: "/papers/twinrouterbench.svg"
 links:
   paper: "https://openreview.net/forum?id=UWvHJtnmc2"

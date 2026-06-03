@@ -137,7 +137,7 @@ const runningHeadSections = [
     />
     <BusinessCard />
     <p class="contact-footer">
-      built in studio mode · <kbd>⌘K</kbd> · <a href="/world/">step inside ↘</a>
+      built by hand in Amsterdam · <kbd>⌘K</kbd> to jump around · <a href="/world/">step into the studio ↘</a>
     </p>
   </section>
 </Base>
@@ -212,9 +212,12 @@ const runningHeadSections = [
     border-bottom: 1px solid var(--color-hairline);
   }
 
-  .news-body :global(strong) {
+  /* One date-stamp dialect: News and Teaching dates render as the same mono
+     caption as the cards (11px, ink-soft), not Inter bold. */
+  .news-body :global(strong),
+  .teaching-body :global(strong) {
     font-family: var(--font-mono);
-    font-size: 12px;
+    font-size: 11px;
     letter-spacing: 0.08em;
     color: var(--color-ink-soft);
     font-weight: 500;

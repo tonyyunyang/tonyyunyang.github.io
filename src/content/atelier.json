@@ -29,7 +29,7 @@
         "label": "Candle",
         "x": 64.0,
         "y": 64.5,
-        "note": "Lit when a paper is stuck. Useful as a focus timer, useful as an excuse to slow down."
+        "note": "Lit when a paper is stuck. Half focus timer, half permission to slow down."
       },
       {
         "id": "rings",
@@ -51,7 +51,7 @@
         "label": "Books",
         "x": 17.0,
         "y": 50.0,
-        "note": "Sartre on the desk. Boom Latinoamericano on the shelf, especially Borges. A short stack of paper drafts on top of everything."
+        "note": "Sartre on the desk. A lot of Latin American fiction on the shelf, Borges above all. A short stack of paper drafts on top of everything."
       },
       {
         "id": "medal",
@@ -90,7 +90,7 @@
         "shortLabel": "Wok",
         "x": 81.0,
         "y": 65.0,
-        "note": "I'm from Sichuan, so the spice is in the blood. No pot, no slow simmer: just the wok, high heat, garlic, chili, doubanjiang, the things that announce themselves on the first breath."
+        "note": "I'm from Sichuan, so spice is in the blood. No slow simmer here, just the wok on high heat: garlic, chili, doubanjiang, the stuff you smell from across the room."
       },
       {
         "id": "plant",
