@@ -60,6 +60,19 @@ test.describe("converged positioning preview (hi-dpi)", () => {
     await page.locator(".diptych").screenshot({ path: `${OUT}/CP-06-diptych-2x.png` });
   });
 
+  test("diptych hover", async ({ page }) => {
+    await page.goto("/");
+    await page.waitForLoadState("networkidle");
+    await page.locator(".diptych__panels").scrollIntoViewIfNeeded();
+    const panels = page.locator(".diptych__panel");
+    await panels.nth(0).hover();
+    await page.waitForTimeout(550);
+    await panels.nth(0).screenshot({ path: `${OUT}/CP-14-hover-build.png` });
+    await panels.nth(1).hover();
+    await page.waitForTimeout(550);
+    await panels.nth(1).screenshot({ path: `${OUT}/CP-15-hover-plane.png` });
+  });
+
   test("section headers 2x", async ({ page }) => {
     await page.goto("/");
     await page.waitForLoadState("networkidle");

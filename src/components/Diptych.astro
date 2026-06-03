@@ -191,6 +191,22 @@ const d = siteConfig.diptych;
     color: var(--color-accent);
   }
 
+  /* Micro-interactions: the marks come alive when you visit a panel. Motion on
+     intent only (hover), never constant, so the reading stays calm. The plane
+     lifts and banks as if sent; the vessel hops as if filling. */
+  .diptych__panel-glyph :global(.icon) {
+    transition: transform 320ms cubic-bezier(0.22, 0.72, 0.16, 1);
+    transform-origin: center;
+  }
+
+  .diptych__panel:hover :global(.icon-paper-plane) {
+    transform: translate(3px, -4px) rotate(-7deg) scale(1.04);
+  }
+
+  .diptych__panel:hover :global(.icon-build-data) {
+    transform: translateY(-3px) scale(1.05);
+  }
+
   .diptych__kicker {
     margin: 0;
     font-family: var(--font-mono);
@@ -262,8 +278,13 @@ const d = siteConfig.diptych;
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .diptych__panel {
+    .diptych__panel,
+    .diptych__panel-glyph :global(.icon) {
       transition: none;
+    }
+    .diptych__panel:hover :global(.icon-paper-plane),
+    .diptych__panel:hover :global(.icon-build-data) {
+      transform: none;
     }
   }
 </style>
