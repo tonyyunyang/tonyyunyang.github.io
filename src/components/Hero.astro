@@ -4,6 +4,10 @@ import Icon from "./Icon.astro";
 
 const taglineLines = siteConfig.tagline;
 
+// Render the quote as two stanzas (2 lines each).
+const stanza1 = taglineLines.slice(0, 2);
+const stanza2 = taglineLines.slice(2);
+
 const card = siteConfig.businessCard;
 ---
 
@@ -67,10 +71,14 @@ const card = siteConfig.businessCard;
         <circle cx="180" cy="16" r="1.4" fill="currentColor" stroke="none" />
       </svg>
 
-      <!-- Credo: the one italic-display line, set as a single block so the
-           antithesis reads as one sentence, not two fragments. -->
+      <!-- Quote: the one italic-display epigraph, two stanzas of two lines. -->
       <blockquote class="hero__quote">
-        {taglineLines.map((line) => <span class="hero__line">{line}</span>)}
+        <span class="hero__stanza">
+          {stanza1.map((line) => <span class="hero__line">{line}</span>)}
+        </span>
+        <span class="hero__stanza">
+          {stanza2.map((line) => <span class="hero__line">{line}</span>)}
+        </span>
       </blockquote>
     </div>
 
@@ -577,7 +585,13 @@ const card = siteConfig.businessCard;
     color: var(--color-ink-soft);
     display: flex;
     flex-direction: column;
+    gap: 0.5em;
     max-width: 24ch;
+  }
+
+  .hero__stanza {
+    display: flex;
+    flex-direction: column;
   }
 
   .hero__line {

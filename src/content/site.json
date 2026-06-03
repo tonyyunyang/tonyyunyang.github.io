@@ -3,58 +3,58 @@
   "shortName": "Tony Yang",
   "initials": "TY",
   "tagline": [
-    "I'd rather ship",
-    "something useful",
-    "than publish",
-    "something clever."
+    "The limits of language",
+    "mean the limits of the world?",
+    "Perhaps, yet we dwell",
+    "in more than we can name."
   ],
   "datelineLines": [
     "INDEPENDENT AI RESEARCHER",
     "AMSTERDAM · 2026"
   ],
   "dateline": "INDEPENDENT AI RESEARCHER · AMSTERDAM · 2026",
-  "heroSpecialtyLine": "I work on the hard, useful parts of AI: mostly LLM efficiency and low-data problems.",
+  "heroSpecialtyLine": "I work on the hard, useful parts of AI. The kind that still works when data is scarce, and stays cheap enough for people to actually use.",
   "letter": {
     "paragraphs": [
       {
-        "lead": "I've spent years all over AI",
-        "rest": ": emotion recognition, medical imaging, LLM routing, agent benchmarks. This spring I left my research fellowship on purpose. It was a hard call, but it made one thing clear: I finally know what I want to build."
+        "lead": "I've spent a while exploring all over AI",
+        "rest": ", from emotion recognition and medical imaging to LLM routing and agent benchmarks. This spring I left my PhD fellowship. It was a hard call, but also a sobering dose, and now I finally know what I want to do next."
       },
       {
-        "lead": "What I believe",
-        "rest": ": AI is shifting from a scaling race to a systems race. Bigger models still matter, but they are not enough. What counts is how we train, route, compress, and ship them. I want AI that is capable, efficient, and genuinely useful."
+        "lead": "I believe",
+        "rest": " AI is shifting from a scaling race to a systems race. Bigger models still matter, but they are not enough. What counts is how we train, route, compress, and ship them. I want AI that is capable, efficient, and genuinely useful."
       },
       {
-        "lead": "Day to day",
-        "rest": ", I'm an independent AI researcher in Amsterdam, working with industry and academia. Before this: Marie Skłodowska-Curie Fellow, AI research engineer at TU Delft Imaging Physics, and an MSc from TU Delft."
+        "lead": "I'm an independent AI researcher in Amsterdam",
+        "rest": ", working with industry and academia. Right now I'm waiting for the next opportunity. Prior to this, Marie Skłodowska-Curie Fellow, AI research engineer at TU Delft Imaging Physics, and an MSc from TU Delft."
       }
     ]
   },
   "intro": "Open to research, in academia or industry. I care more about whether the work matters than which field it sits in.",
-  "currently": "Independent AI researcher in Amsterdam, working on LLM efficiency and low-data problems.",
+  "currently": "Independent AI researcher in Amsterdam, open to what's next.",
   "diptych": {
     "heading": "Two directions",
     "directions": [
       {
         "num": "1",
         "title": "When data is scarce, design matters more",
-        "blurb": "In sensitive, low-data problems, you can't scale your way to a solution. The gains come from better architecture and smarter methods. That is the work I enjoy most: building where there isn't much to learn from yet."
+        "blurb": "When data is sensitive or scarce, you can't just scale your way to a good model. The gains come from better architecture and smarter methods. That's the work I enjoy most, building where there isn't much to learn from yet."
       },
       {
         "num": "2",
-        "title": "Frontier models people actually want to use",
-        "blurb": "Raw capability isn't the product. I work on turning frontier models into things people genuinely want to use, efficient enough to ship for real. There is a lot more worth building than another chatbot."
+        "title": "Frontier performance people can actually use",
+        "blurb": "You don't always need a frontier model to get frontier performance. I work on reaching that bar with models small and cheap enough that people can actually run them. There's a lot more worth building than another chatbot."
       }
     ]
   },
-  "researchDek": "These are the papers behind the two directions above. Each one took an idea and tried it for real.",
-  "projectsIntro": "Here the research becomes systems people can actually run. Some are live collaborations (Gradient Networks, Tencent, MeetaVista); the rest I build on my own time. Most are still in motion.",
+  "researchDek": "The research I've worked on so far.",
+  "projectsIntro": "Where the research turns into real systems. Some are live collaborations (Gradient Networks, Tencent, MeetaVista). The rest I build on my own time.",
   "businessCard": {
     "name": "Tony Yang",
     "nameZh": "杨童耘",
     "role": "Independent AI Researcher",
     "looking": "Open to research · academia or industry",
-    "tagline": "Hard, low-data problems · frontier models people actually use",
+    "tagline": "Hard problems where data is scarce · frontier performance people can use",
     "locations": ["Amsterdam (current)", "Shanghai", "Shenzhen"],
     "languages": [
       { "lang": "Mandarin", "level": "native" },
