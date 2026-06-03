@@ -888,8 +888,9 @@ const card = siteConfig.businessCard;
       margin-bottom: 10px;
     }
     .hero__hint {
-      bottom: 24px;
-      right: 24px;
+      /* Desktop-only shortcut: no keyboard on a phone, and no visible tap
+         trigger here, so hide the hint on touch (matches the footer). */
+      display: none;
     }
     .hero__cue {
       bottom: 24px;

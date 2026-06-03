@@ -34,6 +34,66 @@ test.describe("iteration preview", () => {
     await diptych.scrollIntoViewIfNeeded();
     await page.waitForTimeout(300);
     await diptych.screenshot({ path: `${OUT}/IT-diptych.png` });
+
+    for (const [name, sel] of [
+      ["hero", "section.hero"],
+      ["research", 'section[aria-label="Research"]'],
+      ["projects", 'section[aria-label="Projects"]'],
+      ["writing", 'section[aria-label="Writing"]'],
+      ["contact", 'section[aria-label="Contact"]'],
+    ] as const) {
+      const el = page.locator(sel).first();
+      await el.scrollIntoViewIfNeeded();
+      await page.waitForTimeout(250);
+      await el.screenshot({ path: `${OUT}/IT-${name}.png` });
+    }
+  });
+
+  test("world page", async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await page.goto("/world/");
+    await settle(page);
+    await page.screenshot({ path: `${OUT}/IT-world-full.png`, fullPage: true });
+  });
+
+  test("writing page", async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await page.goto("/writing/");
+    await settle(page);
+    await page.screenshot({ path: `${OUT}/IT-writing-full.png`, fullPage: true });
+  });
+
+  test("world panel open", async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await page.goto("/world/");
+    await settle(page);
+    // Open an object panel so the note typography is visible.
+    const hotspot = page.locator(".atelier__hotspot").first();
+    await hotspot.click();
+    await page.waitForTimeout(500);
+    await page.screenshot({ path: `${OUT}/IT-world-panel.png`, fullPage: false });
+  });
+
+  test("tablet breakpoints", async ({ page }) => {
+    for (const w of [768, 834, 1024]) {
+      await page.setViewportSize({ width: w, height: 1000 });
+      await page.goto("/");
+      await settle(page);
+      await page.locator("section.intro").scrollIntoViewIfNeeded();
+      await page.waitForTimeout(200);
+      await page.locator("section.intro").screenshot({ path: `${OUT}/IT-t${w}-letter.png` });
+      await page.locator("section.diptych").scrollIntoViewIfNeeded();
+      await page.waitForTimeout(200);
+      await page.locator("section.diptych").screenshot({ path: `${OUT}/IT-t${w}-diptych.png` });
+    }
+  });
+
+  test("narrow phone 360", async ({ page }) => {
+    await page.setViewportSize({ width: 360, height: 780 });
+    await page.goto("/");
+    await settle(page);
+    await page.locator("section.hero").screenshot({ path: `${OUT}/IT-p360-hero.png` });
+    await page.locator("section.intro").screenshot({ path: `${OUT}/IT-p360-letter.png` });
   });
 
   test("mobile full + sections", async ({ page }) => {
