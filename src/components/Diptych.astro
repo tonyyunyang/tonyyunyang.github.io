@@ -1,15 +1,15 @@
 ---
 import siteConfig from "~/content/site.json";
+import Icon from "./Icon.astro";
 
 // The Diptych: the convergence stated with geometry. Two equal panels (the
-// two value-driven directions Tony has converged on) seated on one wide
-// "plinth" (the breadth that earned the convergence). Reads bottom-to-top as
-// foundation → two deliberate directions, with a single thesis band above
-// carrying the conviction once. Replaces the retired 8-card "research compass".
+// two directions Tony has converged on, each with a hand-drawn sketch mark)
+// seated on one wordless "plinth" of layered strata, a broad foundation
+// beneath both bets, said without naming a single thing. A thesis band above
+// carries the conviction once. Replaces the retired 8-card "research compass".
 //
 // Built from the same seam recipe ResearchThemes used: a grid with a hairline
-// background showing through 1px gaps, so dividers are crisp print rules with
-// no extra borders.
+// background showing through 1px gaps, so dividers are crisp print rules.
 const d = siteConfig.diptych;
 ---
 
@@ -27,10 +27,13 @@ const d = siteConfig.diptych;
       <p class="diptych__belief">{d.belief}</p>
     </div>
 
-    <!-- The two converged directions, equal weight. -->
+    <!-- The two converged directions, equal weight, each with a sketch mark. -->
     <div class="diptych__panels">
       {d.directions.map((dir) => (
         <article class="diptych__panel">
+          <span class="diptych__panel-glyph" aria-hidden="true">
+            <Icon name={dir.icon} size={dir.iconSize} strokeWidth={dir.iconStroke} />
+          </span>
           <p class="diptych__kicker">{dir.kicker}</p>
           <h3 class="diptych__title">{dir.title}</h3>
           <p class="diptych__blurb">{dir.blurb}</p>
@@ -38,35 +41,23 @@ const d = siteConfig.diptych;
       ))}
     </div>
 
-    <!-- The plinth: the wide-spectrum foundation both directions stand on. -->
-    <div class="diptych__plinth">
+    <!-- The plinth: a wordless band of strata. The broad foundation beneath
+         both bets, grounding the panels without naming any specific work. -->
+    <div class="diptych__plinth" aria-hidden="true">
       <svg
         class="diptych__strata"
         viewBox="0 0 1000 80"
         preserveAspectRatio="none"
-        aria-hidden="true"
         fill="none"
         stroke="currentColor"
         stroke-linecap="round"
       >
-        <path d="M0 12 Q250 4 500 12 Q750 20 1000 12" stroke-width="1" opacity="0.5" />
-        <path d="M0 28 Q250 20 500 28 Q750 36 1000 28" stroke-width="0.8" opacity="0.4" />
-        <path d="M0 44 Q250 36 500 44 Q750 52 1000 44" stroke-width="0.6" opacity="0.3" />
-        <path d="M0 60 Q250 52 500 60 Q750 68 1000 60" stroke-width="0.5" opacity="0.2" />
-        <path d="M0 74 Q250 68 500 74 Q750 80 1000 74" stroke-width="0.4" opacity="0.12" />
+        <path d="M0 14 Q250 5 500 14 Q750 23 1000 14" stroke-width="1" opacity="0.5" />
+        <path d="M0 30 Q250 21 500 30 Q750 39 1000 30" stroke-width="0.9" opacity="0.42" />
+        <path d="M0 46 Q250 37 500 46 Q750 55 1000 46" stroke-width="0.7" opacity="0.34" />
+        <path d="M0 61 Q250 53 500 61 Q750 69 1000 61" stroke-width="0.6" opacity="0.26" />
+        <path d="M0 74 Q250 68 500 74 Q750 80 1000 74" stroke-width="0.5" opacity="0.18" />
       </svg>
-
-      <div class="diptych__plinth-inner">
-        <div class="diptych__foundation">
-          <p class="diptych__kicker diptych__kicker--plinth">The range beneath</p>
-          <p class="diptych__breadth">{d.breadthLine}</p>
-        </div>
-        <ul class="diptych__ledger">
-          {d.ledger.map((fact) => (
-            <li class="diptych__ledger-item">{fact}</li>
-          ))}
-        </ul>
-      </div>
     </div>
   </div>
 </section>
@@ -188,6 +179,18 @@ const d = siteConfig.diptych;
     background: var(--color-paper);
   }
 
+  .diptych__panel-glyph {
+    color: var(--color-ink);
+    height: 34px;
+    display: flex;
+    align-items: center;
+    transition: color 160ms ease-out;
+  }
+
+  .diptych__panel:hover .diptych__panel-glyph {
+    color: var(--color-accent);
+  }
+
   .diptych__kicker {
     margin: 0;
     font-family: var(--font-mono);
@@ -218,15 +221,14 @@ const d = siteConfig.diptych;
     text-wrap: pretty;
   }
 
-  /* ---- The plinth (foundation) ---- */
+  /* ---- The plinth (wordless foundation: layered strata only) ---- */
 
   .diptych__plinth {
     position: relative;
     background: var(--color-paper-shade);
-    padding: clamp(22px, 2.4vw, 30px) clamp(24px, 2.6vw, 36px);
-    /* A heavier seating-line + a soft inset shadow so the panels above read
-       as resting ON the plinth like load-bearing stone (no new color: the
-       shadow is a low-alpha ink). */
+    height: clamp(84px, 9vw, 108px);
+    /* A soft inset shadow at the top so the panels above read as resting ON
+       the plinth like load-bearing stone (no new color: low-alpha ink). */
     box-shadow: inset 0 8px 14px -10px rgba(15, 20, 23, 0.32);
     overflow: hidden;
   }
@@ -235,80 +237,12 @@ const d = siteConfig.diptych;
     position: absolute;
     inset: auto 0 0 0;
     width: 100%;
-    height: 64px;
+    height: 100%;
     color: var(--color-ink-soft);
     pointer-events: none;
   }
 
-  .diptych__plinth-inner {
-    position: relative;
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: clamp(20px, 4vw, 56px);
-  }
-
-  .diptych__foundation {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    max-width: 62ch;
-  }
-
-  .diptych__kicker--plinth {
-    color: var(--color-ink-soft);
-  }
-
-  .diptych__breadth {
-    margin: 0;
-    font-family: var(--font-sans);
-    font-size: 14.5px;
-    line-height: 1.6;
-    color: var(--color-ink-soft);
-    text-wrap: pretty;
-  }
-
-  .diptych__ledger {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    flex: 0 0 auto;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    text-align: right;
-  }
-
-  .diptych__ledger-item {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--color-ink);
-    white-space: nowrap;
-  }
-
-  .diptych__ledger-item::before {
-    content: "·";
-    color: var(--color-accent);
-    margin-right: 8px;
-  }
-
   /* ============ RESPONSIVE ============ */
-
-  /* Tablet: keep both panels side by side; just relax the thesis padding. */
-  @media (max-width: 880px) {
-    .diptych__plinth-inner {
-      flex-direction: column;
-      gap: 18px;
-    }
-    .diptych__ledger {
-      flex-direction: row;
-      flex-wrap: wrap;
-      gap: 6px 16px;
-      text-align: left;
-    }
-  }
 
   /* Phone: panels stack. The plate's hairline gaps keep them visually seated
      on the plinth, so the bottom-to-top "standing on" read survives. */

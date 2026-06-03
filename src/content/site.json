@@ -13,11 +13,13 @@
     "AMSTERDAM · 2026"
   ],
   "dateline": "INDEPENDENT AI RESEARCHER · AMSTERDAM · 2026",
-  "heroSpecialtyLine": "Years across AI, from LLM routing to medical imaging. Now I build in two places, and I know exactly why.",
-  "openingHeadline": "I spent years moving across AI, from LLM routing to medical imaging. Then I left a fellowship on purpose, because I finally knew what I wanted to build.",
-  "openingBody": "The breadth was not indecision, it was reconnaissance. It showed me where the work that matters actually lives, and where I can do it best. So I converged on two: building where data is sensitive and scarce, and turning frontier models into systems people can actually use.",
+  "heroSpecialtyLine": "Years across AI. Now I build in two places, on purpose.",
+  "openingHeadline": "For years I roamed across AI, from emotion recognition and medical imaging to LLM routing and agentic benchmarking. Then I left my PhD fellowship on purpose. It landed like a sobering dose, and the haze burned off into one clear answer: I knew exactly what I wanted to build.",
+  "beliefKicker": "What I believe",
+  "belief1": "I want to build AI that is not only capable, but efficient, reliable, and useful.",
+  "belief2": "AI is moving from a scaling race to a systems race. Larger models will still matter, but they are not enough. What matters is how we train, route, compress, deploy, and apply them under real constraints.",
   "currentlyHeadline": "Day-to-day",
-  "currently": "An independent AI researcher in Amsterdam. I currently collaborate with industry (Tencent, Gradient Networks, MeetaVista) and academia (TU Delft, McGill, Tsinghua) on cost-efficient large language models, optimization-as-reasoning, and intent-aware world models. Earlier roles include Marie Skłodowska-Curie Fellow, AI Research Engineer at TU Delft Imaging Physics, and an MSc degree from TU Delft.",
+  "currently": "An independent AI researcher in Amsterdam. I collaborate with industry and academia on cost-efficient large language models, optimization-as-reasoning, and world models. Earlier roles include Marie Skłodowska-Curie Fellow, AI Research Engineer at TU Delft Imaging Physics, and an MSc from TU Delft.",
   "intro": "Open to research, in academia or industry. What pulls me is meaning more than topic.",
   "diptych": {
     "heading": "Two directions",
@@ -26,21 +28,20 @@
     "directions": [
       {
         "kicker": "Direction I",
+        "icon": "build-data",
+        "iconSize": 30,
+        "iconStroke": 1.4,
         "title": "When the data doesn't exist, I build it",
-        "blurb": "The work that matters most happens where public data barely reaches and mistakes are costly: the clinic, the headset, the device, the closed enterprise. Reverse Imaging segments cardiac MRI it has never seen. Pruning nnU-Net removes over 80% of a medical network with quality intact. Through the Eyes of Emotion is the first public VR eye-tracking dataset, built because none existed. This is AI for the people a leaderboard forgets."
+        "blurb": "I am drawn to the rooms public data never reaches, where it is sensitive, scarce, and costly to get wrong. Building there, from the ground up, is the work I love most."
       },
       {
         "kicker": "Direction II",
+        "icon": "paper-plane",
+        "iconSize": 32,
+        "iconStroke": 1.7,
         "title": "Frontier capability, made cheap enough to ship",
-        "blurb": "Frontier models are astonishing, and almost no one can afford to run them well. MERA holds 87.3% router accuracy at 51.8% of always-large-model cost. TwinRouterBench matches unrouted Opus 4.6 on SWE-bench Verified for 53% less. The LLM Router cut cost by over 90% at the same quality. Capable is the start. Useful is the work."
+        "blurb": "Frontier models are astonishing, and almost no one can afford to run them well. Closing that gap, until real people can actually use them, is the puzzle I keep coming back to."
       }
-    ],
-    "breadthLine": "On the ground beneath both: a wide spectrum of AI, from LLM routing to medical imaging, across Tencent, Gradient Networks, MeetaVista, TU Delft, McGill, Tsinghua, and IMDEA. The range is what earned the convergence.",
-    "ledger": [
-      "80% of a net pruned",
-      "1st public VR dataset",
-      "53% cheaper, Opus-level",
-      "1 shipped extension"
     ]
   },
   "researchDek": "The receipts behind the two directions. Every paper here is one of those bets made concrete.",

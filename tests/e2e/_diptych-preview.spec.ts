@@ -59,4 +59,29 @@ test.describe("converged positioning preview (hi-dpi)", () => {
     await page.waitForTimeout(700);
     await page.locator(".diptych").screenshot({ path: `${OUT}/CP-06-diptych-2x.png` });
   });
+
+  test("letter opening 2x (pill inline)", async ({ page }) => {
+    await page.goto("/");
+    await page.waitForLoadState("networkidle");
+    await page.locator("#currently").scrollIntoViewIfNeeded();
+    await page.waitForTimeout(400);
+    await page.locator(".intro__opening").screenshot({ path: `${OUT}/CP-10-opening-2x.png` });
+    await page.locator(".intro__belief").screenshot({ path: `${OUT}/CP-11-belief-2x.png` });
+  });
+});
+
+test.describe("icon zoom", () => {
+  test.use({ viewport: { width: 1440, height: 1300 }, deviceScaleFactor: 4 });
+
+  test("glyphs and pill", async ({ page }) => {
+    await page.goto("/");
+    await page.waitForLoadState("networkidle");
+    await page.locator(".diptych__panels").scrollIntoViewIfNeeded();
+    await page.waitForTimeout(400);
+    await page.locator(".diptych__panel-glyph").nth(0).screenshot({ path: `${OUT}/CP-07-glyph-build.png` });
+    await page.locator(".diptych__panel-glyph").nth(1).screenshot({ path: `${OUT}/CP-08-glyph-frontier.png` });
+    await page.locator(".intro__opening").scrollIntoViewIfNeeded();
+    await page.waitForTimeout(300);
+    await page.locator(".intro__pill").screenshot({ path: `${OUT}/CP-09-pill.png` });
+  });
 });

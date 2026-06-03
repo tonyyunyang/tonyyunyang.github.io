@@ -4,6 +4,14 @@ import PillLink from "./PillLink.astro";
 import Icon from "./Icon.astro";
 import SectionHeader from "./SectionHeader.astro";
 
+// The §00 letter embeds a small hand-drawn pill icon right after the
+// "sobering dose" phrase. Split the opening around it so the mark sits inline.
+const opening = siteConfig.openingHeadline;
+const PILL_AFTER = "sobering dose,";
+const pillIdx = opening.indexOf(PILL_AFTER);
+const openingBefore = pillIdx >= 0 ? opening.slice(0, pillIdx + PILL_AFTER.length) : opening;
+const openingAfter = pillIdx >= 0 ? opening.slice(pillIdx + PILL_AFTER.length) : "";
+
 // §00 uses the same SectionHeader as §01-§06 so the title styling,
 // folio, underline, and entry animation are identical.
 //
@@ -39,9 +47,14 @@ import SectionHeader from "./SectionHeader.astro";
         <span class="intro__opening-mark" aria-hidden="true">
           <Icon name="sparkles" size={18} strokeWidth={1.2} />
         </span>
-        <span class="intro__opening-text">{siteConfig.openingHeadline}</span>
+        <span class="intro__opening-text">{openingBefore}<Icon name="pill" size={22} strokeWidth={1.4} class="intro__pill" />{openingAfter}</span>
       </p>
-      <p class="intro__opening-body">{siteConfig.openingBody}</p>
+
+      <div class="intro__belief">
+        <p class="intro__belief-kicker">{siteConfig.beliefKicker}</p>
+        <p class="intro__belief-line">{siteConfig.belief1}</p>
+        <p class="intro__belief-line">{siteConfig.belief2}</p>
+      </div>
 
       <div class="intro__day">
         <p class="intro__currently-label">{siteConfig.currentlyHeadline}</p>
@@ -225,6 +238,46 @@ import SectionHeader from "./SectionHeader.astro";
     text-wrap: pretty;
     hyphens: auto;
     -webkit-hyphens: auto;
+  }
+
+  /* The cute pill mark sits inline right after "sobering dose". Emerald,
+     sized to sit comfortably within the display-size opening line. */
+  :global(.intro__pill) {
+    color: var(--color-accent);
+    margin: 0 0.04em 0 0.1em;
+    vertical-align: -0.04em;
+  }
+
+  /* WHAT I BELIEVE block: same body face + size as Day-to-day, distinguished
+     by treatment alone (emerald left rule + faint featured wash + mono kicker).
+     Reads as the conviction half of a matched pair with the plain Day-to-day
+     facts below it. The emerald rule echoes the diptych conviction line. */
+  .intro__belief {
+    border-left: 2px solid var(--color-accent);
+    background: var(--color-featured);
+    padding: 16px 22px 16px 18px;
+    border-radius: 0 6px 6px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .intro__belief-kicker {
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-ink-soft);
+  }
+
+  .intro__belief-line {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--color-ink);
+    max-width: 72ch;
+    text-wrap: pretty;
   }
 
   /* DAY-TO-DAY block */

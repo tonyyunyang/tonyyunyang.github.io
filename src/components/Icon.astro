@@ -103,6 +103,21 @@ const PATHS: Record<string, string> = {
   // Door (sketchbook entry)
   door:
     "M6 21 V4 Q6 3 7 3 H17 Q18 3 18 4 V21 M6 21 H18 M16 12 m-0.5 0 a 0.5 0.5 0 1 0 1 0 a 0.5 0.5 0 1 0 -1 0",
+  // Capsule pill (the "sobering dose"): a lozenge on a gentle diagonal with a
+  // single seam splitting it in two. Inline charm mark in the §00 letter.
+  pill:
+    "M7 17 A5 5 0 0 1 7 7 L14 7 A5 5 0 0 1 14 17 Z M10.5 7 V17",
+  // Build-data (Direction I): an open vessel filling with hand-made tally
+  // marks near the base. "When the data doesn't exist, I build it."
+  "build-data":
+    "M6 5 V17 Q6 19 8 19 H16 Q18 19 18 17 V5 M9 15 V12 M12 15 V10 M15 15 V13",
+  // Paper plane (Direction II): an origami dart with a center keel fold. The
+  // "made cheap enough to ship" mark.
+  "paper-plane":
+    "M2 12 L22 2 L12 22 L10 14 Z M10 14 L22 2",
+  // Anchor (reserve): steady, held conviction. Held back unless a zone is bare.
+  anchor:
+    "M12 4 m-2 0 a2 2 0 1 0 4 0 a2 2 0 1 0 -4 0 M12 6 V19 M6 13 Q6 19 12 19 Q18 19 18 13 M4 13 H8 M16 13 H20",
 };
 
 const path = PATHS[name] ?? PATHS.plus;
