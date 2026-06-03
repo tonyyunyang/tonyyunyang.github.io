@@ -34,6 +34,13 @@
   --content-max: 880px;
   --content-with-rail: 1080px;
 
+  /* Radius scale. Three tokens so every card, plate, thumb, and pill speaks
+     one shape language instead of the old ad-hoc 4/6/12/14/16px spread.
+     thumb = inner art frames + photos; card = cards/plates/panels; pill. */
+  --radius-thumb: 6px;
+  --radius-card: 12px;
+  --radius-pill: 999px;
+
   /* 3-tier motion system. Use these vars so every component speaks the
      same rhythm. tap = direct manipulation feedback (hover, focus,
      active). warm = state shifts (border-color, theme tints, link-ink

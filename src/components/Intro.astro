@@ -99,7 +99,7 @@ const letter = siteConfig.letter;
     width: 100%;
     /* Native source ratio is 3253x3978 ≈ 5:6. */
     aspect-ratio: 5 / 6;
-    border-radius: 4px;
+    border-radius: var(--radius-thumb);
     overflow: hidden;
     background: var(--color-paper-shade);
     box-shadow:
@@ -121,7 +121,7 @@ const letter = siteConfig.letter;
     object-fit: cover;
     object-position: center 35%;
     display: block;
-    border-radius: 4px;
+    border-radius: var(--radius-thumb);
   }
 
   /* Hand-drawn corner crops, like a printed plate or a polaroid */
