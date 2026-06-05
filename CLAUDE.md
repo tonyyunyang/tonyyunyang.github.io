@@ -37,7 +37,7 @@ first; brainstorm an extension if it doesn't.
 - **Pagefind** for client-side fuzzy search (powers `⌘K`)
 - **Vitest** for unit tests, **Playwright** for E2E + visual screenshots
 - **GitHub Actions** for build + deploy to Pages
-- **ClustrMaps** for silent visit analytics (hidden in `Base.astro`)
+- **MapMyVisitors** (the rebrand of ClustrMaps) for silent visit analytics (hidden in `Base.astro`)
 
 No React/Vue/Svelte. Tiny vanilla TypeScript "islands" power the workbench,
 command palette, and atelier scene.
@@ -102,7 +102,7 @@ src/
 │   └── Workbench.astro       not currently mounted; ResearchThemes
 │                              replaced it on the homepage
 ├── layouts/Base.astro        main layout (CommandPalette +
-│                              SketchbookButton + hidden ClustrMaps tracker)
+│                              SketchbookButton + hidden MapMyVisitors tracker)
 ├── layouts/Post.astro        blog post layout
 ├── pages/
 │   ├── index.astro           homepage (single long scroll)
@@ -171,7 +171,7 @@ Motion budget: hover 180ms ease-out, default 240ms ease-out, iris reveal
   `atelier.json` are kept only to avoid churn; their contents read "Studio".
 - **Don't remove or comment out the visit tracker** in `Base.astro`
   (the hidden `<div class="visit-tracker">` block). It's an off-screen
-  ClustrMaps script that pings analytics without rendering a visible
+  MapMyVisitors script that pings analytics without rendering a visible
   widget.
 - **Don't make body deks italic display.** They were italic EB Garamond
   in earlier rounds and read as "fancy and distracting". They're upright

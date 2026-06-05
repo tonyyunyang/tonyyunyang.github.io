@@ -212,9 +212,9 @@ When the blog grows, generate per-post `og:image` at build time using `@vercel/o
 
 Out of scope. Lightest path: a `<a href="mailto:tonyyunyang@outlook.com">` reply prompt at the bottom of each post, or self-hosted Giscus.
 
-### 13. Analytics beyond ClustrMaps
+### 13. Analytics beyond MapMyVisitors
 
-ClustrMaps is wired up silently in `Base.astro` and reports at `https://clustrmaps.com/site/1c7hs`. If deeper analytics are wanted later, add Plausible (privacy-respecting) — ~2 lines in `Base.astro`.
+MapMyVisitors (the rebrand of the old ClustrMaps service) is wired up silently in `Base.astro` and reports at `https://mapmyvisitors.com/web/1c555`. If deeper analytics are wanted later, add Plausible (privacy-respecting), about 2 lines in `Base.astro`.
 
 ### 14. Newsletter signup
 

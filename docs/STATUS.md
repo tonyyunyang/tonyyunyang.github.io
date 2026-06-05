@@ -9,7 +9,7 @@ _Last updated: 2026-05-03 (after iteration 19 — iPhone Pro Max-specific fixes:
 - Local git identity for this project: `tony / tonyyunyang@outlook.com` (project-scoped via `git config --local`, NOT global).
 - Auto-deploy: every push to `main` triggers `.github/workflows/deploy.yml` → builds Astro → uploads `dist/` → `actions/deploy-pages@v4` → live in ~45 s.
 - Pages source is `workflow` (GitHub Actions, NOT Jekyll). `public/.nojekyll` is a defensive marker.
-- Visit analytics wired up: ClustrMaps script in `Base.astro` inside an sr-only off-screen wrapper. No visible widget. Stats: `https://clustrmaps.com/site/1c7hs`.
+- Visit analytics wired up: MapMyVisitors script (`map.js`, the rebrand of ClustrMaps) in `Base.astro` inside an sr-only off-screen wrapper. No visible widget. Stats: `https://mapmyvisitors.com/web/1c555`.
 
 ## Branch `converged-positioning` (pushed to origin, NOT merged to `main`)
 
