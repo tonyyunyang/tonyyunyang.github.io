@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 420" role="img">
+  <title>Two Axes of Scaling</title>
+  <desc>A scatter plot with two perpendicular axes: x-axis represents train-time compute (bigger model and more data) and y-axis represents test-time compute (more reasoning and search per query). Two points are plotted: "base model" at low x and low y, and "reasoning model" at low-to-mid x and high y. A note explains that reasoning models trade latency for accuracy via long chains-of-thought, search, and verification.</desc>
+
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#1f2733"/>
+    </marker>
+    <marker id="arrow-blue" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#2563eb"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="400" y="38" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="19" font-weight="700" fill="#1f2733">Two Axes of Scaling</text>
+
+  <!-- Chart area: origin at (140, 340), x-axis goes right to 660, y-axis goes up to 80 -->
+
+  <!-- Y-axis -->
+  <line x1="140" y1="340" x2="140" y2="75" stroke="#1f2733" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- X-axis -->
+  <line x1="140" y1="340" x2="685" y2="340" stroke="#1f2733" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Y-axis label -->
+  <text transform="translate(48, 210) rotate(-90)" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="13" font-weight="600" fill="#1f2733">Test-time compute</text>
+  <text transform="translate(82, 210) rotate(-90)" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" fill="#56616f">(more reasoning / search per query)</text>
+
+  <!-- X-axis label -->
+  <text x="412" y="380" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="13" font-weight="600" fill="#1f2733">Train-time compute</text>
+  <text x="412" y="396" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" fill="#56616f">(bigger model &amp; more data)</text>
+
+  <!-- Origin label -->
+  <text x="126" y="358" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" fill="#94a3b8">0</text>
+
+  <!-- Grid lines (subtle) -->
+  <line x1="140" y1="207" x2="680" y2="207" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4 4"/>
+  <line x1="412" y1="340" x2="412" y2="80" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4 4"/>
+
+  <!-- Low / High axis tick labels -->
+  <text x="195" y="358" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" fill="#94a3b8">low</text>
+  <text x="645" y="358" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" fill="#94a3b8">high</text>
+  <text x="122" y="312" text-anchor="end" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" fill="#94a3b8">low</text>
+  <text x="122" y="112" text-anchor="end" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" fill="#94a3b8">high</text>
+
+  <!-- BASE MODEL point: low x (~220), low y (~305) -->
+  <circle cx="220" cy="305" r="9" fill="#e8f0fe" stroke="#2563eb" stroke-width="2"/>
+  <!-- Label box for base model -->
+  <rect x="230" y="284" width="92" height="30" rx="6" fill="#f7f8fa" stroke="#94a3b8" stroke-width="1.5"/>
+  <text x="276" y="301" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="13" font-weight="600" fill="#1f2733">base model</text>
+
+  <!-- REASONING MODEL point: mid x (~320), high y (~110) -->
+  <circle cx="320" cy="110" r="9" fill="#e8f0fe" stroke="#2563eb" stroke-width="2.5"/>
+  <!-- Label box for reasoning model -->
+  <rect x="336" y="90" width="134" height="30" rx="6" fill="#e8f0fe" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="403" y="107" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="13" font-weight="600" fill="#2563eb">reasoning model</text>
+
+  <!-- Dashed lines from base model showing axes -->
+  <line x1="220" y1="305" x2="220" y2="340" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="140" y1="305" x2="220" y2="305" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <line x1="320" y1="110" x2="320" y2="340" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="140" y1="110" x2="320" y2="110" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <!-- Arrow indicating the shift from base to reasoning (up the y-axis) -->
+  <line x1="255" y1="296" x2="306" y2="128" stroke="#2563eb" stroke-width="1.5" stroke-dasharray="5 3" marker-end="url(#arrow-blue)"/>
+  <text x="292" y="220" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" fill="#2563eb" transform="rotate(-72, 292, 220)">scale up</text>
+
+  <!-- Note box at bottom right -->
+  <rect x="440" y="140" width="300" height="96" rx="10" fill="#f7f8fa" stroke="#94a3b8" stroke-width="1.5"/>
+  <text x="590" y="163" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#1f2733">Key insight</text>
+  <text x="590" y="182" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" fill="#56616f">Reasoning models trade latency</text>
+  <text x="590" y="198" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" fill="#56616f">for accuracy via long chains-of-</text>
+  <text x="590" y="214" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" fill="#56616f">thought, search, and verification</text>
+  <text x="590" y="230" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" fill="#56616f">(independent of model size)</text>
+
+</svg>

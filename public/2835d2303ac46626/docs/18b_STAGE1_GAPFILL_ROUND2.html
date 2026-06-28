@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en" data-pagefind-ignore="all">
+<head>
+<meta name="robots" content="noindex, nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gap-Fill: Round 2 · eBay Prep</title>
+<script>try{if(localStorage.getItem('ebayprep-theme')==='dark')document.documentElement.classList.add('dark');}catch(e){}</script>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<button id="menu" class="menu-btn" aria-label="Menu">☰</button>
+<button id="theme" class="theme-btn" aria-label="Toggle theme">◐</button>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+<div class="brand"><a href="../index.html">eBay Prep</a><div class="brand-sub">Stage 1 · Yannick Versley</div></div>
+<div class="search"><input id="q" type="search" placeholder="Search the pack…" autocomplete="off"><div id="results"></div></div>
+<nav class="nav">
+<div class="nav-group"><div class="nav-group-title">Start Here</div><ul>
+<li><a href="7DAY_SPRINT_PLAN.html">7-Day Sprint Plan</a></li>
+<li><a href="21_KILL_LIST.html">⚠ Kill List — Never Say These</a></li>
+<li><a href="00_MASTER_INDEX_AND_STUDY_PLAN.html">Master Index &amp; Study Plan</a></li>
+<li><a href="SESSION2_READINESS_REPORT.html">Readiness Report</a></li>
+</ul></div>
+<div class="nav-group"><div class="nav-group-title">Stage 1 — Core</div><ul>
+<li><a href="03_INTERVIEWER_YANNICK_VERSLEY.html">Interviewer: Yannick Versley</a></li>
+<li><a href="02_STAGE1_ML_LLM_NLP_MASTERDOC.html">Stage-1 ML/LLM/NLP Master Doc</a></li>
+<li><a href="20_OWN_PAPERS_GROUND_TRUTH.html">★ Own Papers — Ground-Truth Defense</a></li>
+<li><a href="04_PUBLICATIONS_PROJECTS_DEFENSE.html">Publications &amp; Projects Defense</a></li>
+<li><a href="05_QUESTION_BANK_THIS_ROLE.html">Question Bank (This Role)</a></li>
+<li><a href="06_ML_LLM_NLP_FUNDAMENTALS_STUDYGUIDE.html">ML/LLM/NLP Fundamentals</a></li>
+<li><a href="12_MOCK_INTERVIEW_FULL.html">Full Mock Interview</a></li>
+</ul></div>
+<div class="nav-group"><div class="nav-group-title">Stage 1 — Deep Dives</div><ul>
+<li><a href="18_STAGE1_GAPFILL_DEEP_ANSWERS.html">Gap-Fill: Deep Answers</a></li>
+<li class="active"><a href="18b_STAGE1_GAPFILL_ROUND2.html">Gap-Fill: Round 2</a></li>
+<li><a href="19_ADAPTIVE_MOCK_SESSIONS.html">Adaptive Mock Sessions</a></li>
+<li><a href="13_GENERATIVE_MODELS_BEYOND_LLMS.html">Generative Models Beyond LLMs</a></li>
+<li><a href="14_CLASSICAL_NLP_AND_MT_DEEP_DIVE.html">Classical NLP &amp; MT Deep Dive</a></li>
+<li><a href="15_SOTA_2026_CURRENT_AWARENESS.html">SOTA 2026 Current Awareness</a></li>
+<li><a href="16_EXPERTISE_DEEP_DIVE_EFFICIENCY.html">Expertise Deep Dive: Efficiency</a></li>
+<li><a href="17_RAPID_FIRE_BREADTH_BANK.html">Rapid-Fire Breadth Bank</a></li>
+</ul></div>
+<div class="nav-group"><div class="nav-group-title">eBay &amp; Why eBay</div><ul>
+<li><a href="07_EBAY_COMPANY_AI_DOSSIER.html">eBay Company AI Dossier</a></li>
+</ul></div>
+<div class="nav-group"><div class="nav-group-title">Later Stages (2 &amp; 3)</div><ul>
+<li><a href="08_ML_SYSTEM_DESIGN_PLAYBOOK.html">ML System Design Playbook</a></li>
+<li><a href="09_CODING_CODESIGNAL_PREP.html">Coding / CodeSignal Prep</a></li>
+<li><a href="10_PROJECT_MGMT_RETROSPECTIVE_STAR.html">Project Mgmt &amp; STAR Stories</a></li>
+<li><a href="11_TEAM_FIT_CAREER.html">Team Fit &amp; Career</a></li>
+</ul></div>
+<div class="nav-group"><div class="nav-group-title">Logistics</div><ul>
+<li><a href="01_RECRUITER_RESPONSE_PACK.html">Recruiter Response Pack</a></li>
+</ul></div>
+</nav>
+  </aside>
+  <div class="scrim" id="scrim"></div>
+  <main class="content">
+    <article class="doc">
+      <div class="doc-meta"><span class="tag">Stage 1 — Deep Dives</span><span class="read">34 min read</span></div>
+      <h1 id="18b-stage-1-gap-fill-round-2-residual-deep-answers">18b — Stage-1 Gap-Fill Round 2 (residual deep answers)</h1>
+<p>Verified, source-grounded deep answers for the residual gaps identified after Stage-1 round 1.</p>
+<h2 id="vocabulary-size-two-opposite-failure-modes-sequence-length-vs-embedding-gradient-sparsity">Vocabulary size: two opposite failure modes (sequence length vs. embedding gradient sparsity)</h2>
+<p>Vocabulary size is the single hyperparameter that simultaneously sets sequence length, embedding-table parameter count, and the granularity at which rare morphology is represented. Getting it wrong breaks things in two opposite directions, and interviewers test whether you can hold both failure modes in mind at once.</p>
+<h3 id="the-mechanism">The mechanism</h3>
+<p>Every token in the vocabulary gets a row in the embedding matrix <strong>E</strong> of shape <code>V × d_model</code>. The final projection (the LM head) is typically the transpose of the same matrix. So total parameters in the embedding layer alone scale as <code>2 × V × d_model</code>. For LLaMA-3 (d_model ≈ 4096, V = 128k), that is roughly <strong>1 billion parameters</strong> just in the embedding — a non-trivial fraction of the model.</p>
+<p>At the same time, vocabulary size controls how aggressively BPE (or SentencePiece/tiktoken) merges byte pairs into longer units. A larger vocabulary produces shorter token sequences for the same text. Because self-attention cost scales as <strong>O(L²)</strong> in sequence length L, compressing sequences reduces both memory and compute quadratically. This is why GPT-4's cl100k tokenizer (≈100k tokens) can attend to roughly twice the text as GPT-3's 50k tokenizer for the same context window.</p>
+<h3 id="the-two-failure-modes">The two failure modes</h3>
+<table>
+<thead>
+<tr>
+<th>Too small (e.g., 8–16k)</th>
+<th>Too large (e.g., &gt;256k)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>High fertility: words split into many subword fragments</td>
+<td>Sparse embedding updates: rare tokens trained on almost no examples</td>
+</tr>
+<tr>
+<td>Long sequences → quadratic attention cost</td>
+<td>Huge embedding matrix → memory overhead, large softmax denominator</td>
+</tr>
+<tr>
+<td>Morphologically rich languages degrade most</td>
+<td>Embedding rows for rare tokens barely converge</td>
+</tr>
+<tr>
+<td>Good OOV handling via composition</td>
+<td>Marginal perplexity gains at heavy cost</td>
+</tr>
+</tbody>
+</table>
+<p>Empirical sweet spots: going from 8k to 32k gives a large perplexity drop; going beyond ~100k yields diminishing returns. Research on vocabulary sizes 32k, 64k, 128k, and 256k found <strong>128k to be the most balanced</strong>, with 256k adding only marginal quality improvement while doubling embedding size. eBay's own LiLiuM models used a <strong>custom 65k-token vocabulary</strong> trained on multilingual e-commerce data (English, Spanish, French, German, Italian), achieving up to a <strong>34% decoding speedup</strong> on eBay-specific tasks relative to LLaMA-2's 32k vocabulary — the gain coming almost entirely from shorter sequences.</p>
+<h3 id="domain-and-multilingual-corrections">Domain and multilingual corrections</h3>
+<p>For domain-specific or multilingual systems, the baseline heuristic of 32k–100k needs two adjustments:</p>
+<ol>
+<li><strong>Domain jargon</strong>: e-commerce product titles contain model numbers, part codes, and brand tokens that a general tokenizer fragments heavily. A domain-adapted vocabulary reduces fertility for these tokens, shortening sequences and improving attention efficiency — exactly what LiLiuM validated.</li>
+<li><strong>Multilingual coverage</strong>: vocabulary space must be allocated across scripts. The rule of thumb is 3–8× more capacity than a monolingual English model to maintain comparable fertility and near-zero OOV rates across languages. XLM-V showed that aggressive vocabulary expansion (to 1M tokens) can push 77% of model parameters into the embedding table alone — a warning sign for tight compute budgets.</li>
+</ol>
+<h3 id="likely-follow-ups">Likely follow-ups</h3>
+<ul>
+<li><em>"How would you pick V in practice?"</em> — Profile fertility (average tokens per word) on your domain corpus across several V settings; target fertility close to 1.0 for high-frequency domain terms and sequence lengths that fit your context budget.</li>
+<li><em>"What happens to rare tokens with a large vocab?"</em> — They receive very few gradient updates; embeddings remain near-random. Mitigation: subword regularization, dropout over rare token embeddings, or pruning unused vocabulary entries post-training.</li>
+<li><em>"Does vocab size affect fine-tuning differently from pre-training?"</em> — Yes. Continued pre-training on domain data benefits most from vocabulary expansion. For task-specific fine-tuning on a frozen backbone, changing the vocab requires retraining the entire embedding table, which is expensive and often not worth it.</li>
+</ul>
+<hr />
+<blockquote>
+<p><strong>How to say it in the room</strong></p>
+<p>"Vocabulary size is a three-way tension: it sets sequence length (which drives attention cost quadratically), embedding-table size (which drives memory and parameter count linearly), and how faithfully rare or domain-specific tokens are represented. The practical sweet spot for general English is around 32k–128k tokens — eBay's own LiLiuM used 65k for five languages and saw a 34% inference speedup over LLaMA-2's 32k. Below that range you pay in long sequences and fragmented domain terms; above it you pay in sparse embedding updates and a bloated softmax. I'd start by measuring fertility on the target corpus, set a sequence-length budget from my context window and latency constraints, and let those two numbers bound the vocabulary."</p>
+</blockquote>
+<hr />
+<p><strong>Trap to avoid:</strong> Treating vocabulary size purely as a quality knob ("bigger is always better") without mentioning the embedding-table cost or the softmax denominator at inference time. Interviewers at eBay — where multilingual, latency-sensitive ranking and generation are the core use cases — will immediately probe the compute side. Frame it as a three-way constraint (sequence length, parameter budget, token coverage) and anchor your answer with a real number, such as LiLiuM's 65k choice or the empirical finding that 128k is the current practical ceiling for most production deployments.</p>
+<hr />
+<h2 id="coverage-of-stated-interview-theme-beyond-tokenizer">Coverage of stated interview theme beyond tokenizer</h2>
+<p><strong>Theme recap (Versley's implicit thread):</strong> Data pipeline, dedup, quality filtering, training stability, loss spikes, schedule design, eval-at-scale.</p>
+<hr />
+<h3 id="mechanism-what-you-need-to-know">Mechanism / what you need to know</h3>
+<p><strong>Data pipeline and dedup.</strong>
+Modern pretraining pipelines (FineWeb, Dolma, RedPajama) run a multi-stage funnel: URL blocklist → language-ID filter → base heuristics → deduplication → model-based quality scoring. Deduplication is non-trivial at scale. FineWeb uses MinHash over 5-grams with 112 hash functions split into 14 buckets targeting ≥75% Jaccard similarity — a design that yields, for example, 92% detection probability at 0.8 similarity. Critically, FineWeb deduplicates <em>within</em> each Common Crawl snapshot rather than globally: global dedup collapsed 36 trillion tokens to roughly 4 trillion and degraded model quality because it upsampled older, lower-quality crawls. Per-snapshot dedup retains ~20 trillion tokens from the same 36 trillion base, preserving diversity.</p>
+<p><strong>Quality filtering.</strong>
+Beyond heuristics (line-length ratios, punctuation density, symbol rates, KenLM perplexity), production pipelines now add lightweight model-based classifiers — regression heads trained on LLM judgements — to score documents. FineWeb's three custom heuristic filters alone removed ~22% of post-dedup tokens while lifting aggregate benchmark scores roughly 1 point. A 2025 NVIDIA finding adds nuance: standard heuristic filters discard ~18% of tokens already rated high-quality by classifiers, so the state of the art is to <em>skip</em> heuristics for documents scoring above a classifier threshold.</p>
+<p><strong>Training stability and loss spikes.</strong>
+Loss spikes during pretraining arise from four main sources: bad data batches (schema drift, corrupted shards, rare-token surges), learning rate misconfiguration (ramp-up too fast before optimizer moments stabilize), embedding gradient pathologies (rarely-updated rows accumulate stale moments and fire with outsized updates), and numeric precision issues (FP16 loss-scale overflow). The standard first response is to roll back to a checkpoint ~100 steps before the spike and skip 200–500 data batches. For prevention: gradient norm clipping (global threshold typically 1.0), BF16 over FP16 (wider dynamic range), and monitoring per-module gradient norms rather than just the global norm. Newer adaptive methods like ZClip (2025) track gradient norm statistics via EMA and apply z-score gating instead of a fixed clip threshold; SPAM adds momentum reset on detected spikes.</p>
+<p><strong>Schedule design.</strong>
+The dominant 2024–2025 pattern is Warmup-Stable-Decay (WSD), introduced in MiniCPM. Training is split into three phases: linear warmup (optimizer moments and activations stabilize), a long stable plateau at peak LR (the bulk of compute), and a short decay of ~10% of total steps. WSD's practical advantage over cosine is that you do not need to fix the total step count in advance; you can branch a stable-phase checkpoint, add new domain data in the decay window, and match full-cosine quality — enabling continual pretraining without full restarts.</p>
+<p><strong>Eval at scale.</strong>
+Inline evaluation during pretraining typically means perplexity on held-out slices and cheap benchmark proxies (HellaSwag, ARC-e, MMLU) run on small intermediate checkpoints. The contamination problem is real: benchmarks that appear in Common Crawl can inflate scores by up to 13 accuracy points (GSM8K clean-mirror results, Mistral family). Best practice is to (a) decontaminate training data against eval sets before training, (b) track benchmark perplexity as a contamination signal, and (c) use dynamic or held-out benchmarks cut after the training data date.</p>
+<hr />
+<h3 id="likely-follow-ups_1">Likely follow-ups</h3>
+<ul>
+<li><em>"How do you decide when dedup is too aggressive?"</em> — You monitor downstream benchmark scores on held-out eval slices; FineWeb showed global dedup hurt performance despite extreme compression.</li>
+<li><em>"What's your go-to signal for catching a bad data shard before it kills a run?"</em> — Per-module gradient norm surge (5–10× baseline) and per-step loss variance; automated alerts on these trigger shard inspection.</li>
+<li><em>"Why WSD over cosine?"</em> — Cosine requires fixing total steps upfront; WSD decouples stable-phase training from the decay window, enabling mid-training data swaps and cheaper scaling-law studies on stable-phase checkpoints.</li>
+<li><em>"How do you handle benchmark contamination at eBay-scale?"</em> — Decontaminate crawl data against eval set n-grams before training; cross-check with perplexity-based contamination estimators post hoc.</li>
+</ul>
+<hr />
+<blockquote>
+<p><strong>How to say it in the room</strong></p>
+<p>"For dedup we run MinHash per snapshot rather than globally — global dedup looks appealing for compression but empirically hurts quality by overweighting older crawls. On stability, the first line of defense for a loss spike is per-module gradient norm monitoring; when you see a module blow up 5–10x, you roll back and audit the offending shard rather than just clipping harder. For scheduling we moved to WSD: warmup, long stable plateau, then a short ~10% decay window — this lets you branch a stable checkpoint for domain adaptation without restarting. Eval is tricky because contamination can swing benchmark numbers by double digits; we decontaminate training data against eval sets proactively and verify with perplexity-based contamination checks."</p>
+</blockquote>
+<hr />
+<p><strong>Trap to avoid:</strong> Treating dedup as a one-time preprocessing checkbox. Interviewers at eBay will probe whether you understand the <em>interaction</em> between dedup strategy (global vs. per-snapshot), data quality (older crawls vs. recent), and downstream eval — the FineWeb finding that maximum compression <em>hurts</em> is counterintuitive and is a common gotcha. Do not claim that "more dedup is always better" or conflate exact-match dedup with near-duplicate fuzzy matching; the two remove different failure modes and interact with scale differently.</p>
+<hr />
+<h2 id="ablation-design-coherence-frozen-encoder-connector-swap">Ablation design coherence — frozen encoder + connector swap</h2>
+<h3 id="the-mechanism_1">The mechanism</h3>
+<p>In this class of ablation, both experimental variants share an identical, frozen vision encoder (e.g., CLIP ViT-L/14). The only thing that changes between the two arms is the <strong>connector</strong> — the lightweight projection module (linear layer, two-layer MLP, resampler, dense channel integrator, etc.) that maps the encoder's fixed visual token representations into the LLM's input embedding space.</p>
+<p>Because the encoder is frozen, <strong>it produces exactly the same feature vectors for any given image in both variants</strong>. No gradient flows back through it; its weights never update. The raw visual information entering the system is therefore held constant as an independent variable.</p>
+<p>What the ablation is actually measuring is <strong>how well each connector architecture translates those fixed visual features into a representation the language model can use</strong>. Concretely:</p>
+<ul>
+<li>Does the connector preserve spatial or fine-grained detail (e.g., dense multi-layer aggregation vs. a single-layer average pool)?</li>
+<li>Does the connector create a projection that sits inside the LLM's text-embedding manifold, so the LLM can reason over it without distributional mismatch?</li>
+<li>Does a more expressive connector (MLP with GELU non-linearity) recover structure that a linear projection loses — or does added capacity hurt convergence on limited data?</li>
+</ul>
+<p>The LLM weights are either also frozen (pre-training stage) or shared and identical across arms (fine-tuning stage), so any downstream benchmark difference is attributable entirely to the connector's ability to mediate the modality gap. This is a well-controlled, single-variable design: <strong>encoder quality is not on trial; alignment quality is</strong>.</p>
+<hr />
+<h3 id="likely-follow-ups-from-the-interviewer">Likely follow-ups from the interviewer</h3>
+<table>
+<thead>
+<tr>
+<th>Follow-up</th>
+<th>One-sentence answer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>"So what would you need to change to test the encoder?"</td>
+<td>Unfreeze or swap the encoder while holding the connector architecture fixed.</td>
+</tr>
+<tr>
+<td>"Why freeze the encoder at all?"</td>
+<td>The encoder's pretraining (e.g., CLIP contrastive objective) gives it strong visual semantics; fine-tuning it on modest instruction data typically degrades those features via catastrophic forgetting.</td>
+</tr>
+<tr>
+<td>"Could a better connector fully compensate for a weaker encoder?"</td>
+<td>No — the connector can only remap features that already exist in the frozen representation; it cannot recover information the encoder never extracted.</td>
+</tr>
+<tr>
+<td>"Why not just unfreeze everything?"</td>
+<td>Joint fine-tuning adds tens of millions of parameters to the training problem, requires far more data and compute, and often hurts rather than helps at the scales most ablation studies run at.</td>
+</tr>
+<tr>
+<td>"What metric tells you the connector is the bottleneck, not the LLM?"</td>
+<td>Compare cross-modal alignment loss (training) alongside downstream task accuracy (eval); if connector-A converges faster and to a lower alignment loss without touching LLM accuracy, the projection is the culprit.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<blockquote>
+<p><strong>How to say it in the room</strong></p>
+<p>"Because the encoder is identical and frozen in both arms, every visual token going into the connector is byte-for-byte the same. The only degree of freedom is how the connector re-encodes those tokens before the LLM sees them. So what we're measuring is purely the connector's ability to close the modality gap — not the quality of the visual features themselves. It's a deliberate single-variable design."</p>
+</blockquote>
+<hr />
+<h3 id="the-trap-to-avoid">The trap to avoid</h3>
+<p>Do not say the ablation "tests whether the encoder is good enough." That framing inverts the logic. The frozen encoder is the <strong>control</strong>; the connector is the <strong>treatment</strong>. If you claim the ablation evaluates encoder quality, Versley (or any follow-up interviewer) will immediately point out that both variants use the same encoder — so how could encoder quality possibly differ between them? The answer is: it can't, and that's the point. Conceding otherwise signals you don't understand the controlled-variable structure of your own experiment. Keep the framing clean: frozen encoder = fixed visual signal; connector swap = the thing under test.</p>
+<hr />
+<h2 id="classification-vs-contextual-bandit-rl-framing">Classification vs. contextual bandit / RL framing</h2>
+<h3 id="the-core-mechanism">The core mechanism</h3>
+<p>In a supervised classification setup, the model learns a mapping from (user, item, context) features to a binary or multi-class label — typically an engagement event such as a click, add-to-cart, or purchase — drawn from logged historical data. The i.i.d. assumption is that each training example is an independent draw from the same distribution the model will score at serving time.</p>
+<p>A contextual bandit, by contrast, treats each recommendation as an action, observes a scalar reward after the action is taken, and must trade off exploration against exploitation. Full RL extends this to sequences of actions with delayed, cumulative reward. Both move the learning signal from "did the label match?" to "did the downstream outcome improve?"</p>
+<p>Classification dominates in large-scale production systems for three concrete reasons, each well-attested in the literature:</p>
+<ol>
+<li>
+<p><strong>Scale of labeled data.</strong> Production e-commerce logs contain hundreds of millions of click/purchase events per day. Supervised learning can exploit this directly; bandit methods require an exploration policy to generate on-policy feedback, which is expensive when the action space is a catalog of hundreds of millions of items.</p>
+</li>
+<li>
+<p><strong>Exploration cost.</strong> Bandits must deliberately serve suboptimal items to reduce uncertainty. At eBay's scale, even a small exploration fraction touching low-confidence items can affect measurable GMV. Research from Twitter found that greedy classifiers achieved high PR-AUC but underperformed bandit policies on live CTR — the inverse of what you'd expect — because the greedy policy exploited biased historical rankings and missed high-reward unexplored items. This is a known risk, not a reason to avoid exploration entirely, but it raises the bar for justifying bandit deployment.</p>
+</li>
+<li>
+<p><strong>Credit assignment.</strong> Sequential RL requires attributing a final purchase back through a chain of recommendation steps — a hard credit-assignment problem with noisy, sparse signals. Classification pins the label directly to the observed event, making gradient computation tractable.</p>
+</li>
+</ol>
+<h3 id="does-the-iid-classification-objective-actually-track-task-level-success">Does the i.i.d. classification objective actually track task-level success?</h3>
+<p>This is the honest tension the question is probing. The answer is: <em>it tracks it imperfectly, and the gaps are known</em>.</p>
+<p><strong>Where the proxy holds.</strong> Empirical work in e-commerce search shows that when classification labels are constructed from conversion-weighted engagement signals — rather than raw clicks — offline ranking metrics (NDCG, AUC) move in the same direction as online conversion. A unified learning-to-rank study on e-commerce reported that adding engagement features raised offline NDCG@8 from 0.7169 to 0.7799, and the same model change produced +2.38% online conversion in A/B test. Conversion-weighted labels pushed NDCG@8 further to 0.7994 and online conversion to +2.85%. This monotonic relationship is the empirical justification for the proxy.</p>
+<p><strong>Where it breaks.</strong> The i.i.d. assumption is violated by position bias (higher-ranked items receive more clicks regardless of true relevance), exposure bias (only shown items can be labeled positive), and feedback loops (the ranker's own past decisions shape what gets labeled). The survey "Bias and Debias in Recommender System" (ACM TOIS) documents all three as endemic to implicit-feedback classifiers. Research from eugeneyan.com cites Twitter's finding explicitly: greedy classifiers can evaluate well on biased logged data and still underperform on live CTR. The RewardRank line of work argues that traditional offline proxy objectives "fail to improve true counterfactual utilities when evaluated in online tests."</p>
+<p>The practitioner answer, then, is: classification works when (a) labels are designed to approximate the downstream reward (weight by purchase value, not raw clicks), (b) debiasing techniques like inverse propensity scoring or position-aware training are applied, and (c) the system is validated by online A/B test rather than offline AUC alone.</p>
+<hr />
+<h3 id="likely-follow-up-questions">Likely follow-up questions</h3>
+<table>
+<thead>
+<tr>
+<th>Follow-up</th>
+<th>Answer to prepare</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>"How do you debias click labels?"</td>
+<td>Inverse propensity scoring (IPS) re-weights each training example by 1/P(shown), breaking the feedback loop. Position-aware models learn a separate position-bias factor and regularize it out.</td>
+</tr>
+<tr>
+<td>"What's your evidence the AUC gap matters in production?"</td>
+<td>Industry rule of thumb: a 0.001 AUC lift on a large-scale CTR model is considered meaningful at scale; the eBay or domain-specific threshold should be calibrated from A/B history.</td>
+</tr>
+<tr>
+<td>"Why not just use RL end-to-end?"</td>
+<td>Credit assignment across a session is still an open research problem at this scale. Practically, RL is applied to policy optimization in two-tower retrieval or re-ranking, often on top of a classification-pretrained backbone, not as a replacement.</td>
+</tr>
+<tr>
+<td>"When would you switch to bandits?"</td>
+<td>Cold-start for new item categories, or where the catalog is small enough that exploration cost is acceptable and the reward signal is fast (e.g., immediate click vs. multi-day purchase).</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<blockquote>
+<p><strong>How to say it in the room</strong></p>
+<p>"Classification is the right default because we have dense logged labels at catalog scale and exploration has a real GMV cost at eBay's volume. The i.i.d. framing is a simplification — we know position bias and exposure bias corrupt raw click labels. The fix isn't to abandon classification; it's to build the label correctly: weight by downstream conversion value, apply IPS or a position-aware correction, and then validate offline metric gains against online A/B results before trusting them. If I saw an AUC gain that didn't reproduce in A/B, that's exactly the signal to look harder at label quality or dataset shift."</p>
+</blockquote>
+<hr />
+<h3 id="the-trap-to-avoid_1">The trap to avoid</h3>
+<p>Do not say "the classification objective is equivalent to task-level success." The question is precisely testing whether you know it is not. The correct position is: classification is a <em>well-controlled proxy</em> that is empirically predictive of business outcomes <em>when labels are designed carefully</em> and <em>when debiasing is applied</em> — and the discipline to verify that with online experiments is what makes it defensible over more principled but harder-to-deploy alternatives like bandits or RL.</p>
+<hr />
+<p>I now have sufficient verified data from peer-reviewed papers (SANE/arXiv:2406.09997, HyperDiffusion/ICCV 2023, RPG/arXiv:2501.11587, Hyper Diffusion Avatars/arXiv:2509.04145, NNiT/arXiv:2603.00180, p-diff/arXiv:2402.13144) to write the section accurately without inventing numbers.</p>
+<hr />
+<h2 id="tokenization-scheme-and-u-net-inductive-bias-coherence">Tokenization scheme and U-Net inductive bias coherence</h2>
+<h3 id="the-mechanism_2">The mechanism</h3>
+<p>Tokenizing weight segments is a two-decision problem: (1) what is a "segment", and (2) what shape does the resulting token sequence have when it enters the model?</p>
+<p><strong>Defining the segments.</strong>
+Across the literature three strategies appear, and they sit on a spectrum from coarser to finer granularity.</p>
+<ul>
+<li>
+<p><strong>Layer-wise (one token per layer).</strong> Flatten each layer's weights and biases into a single vector. Hyper Diffusion Avatars (arXiv:2509.04145) uses exactly this: for each convolutional layer, the kernel weights are flattened and the biases concatenated to form one token, yielding L tokens for a network with L layers. The rationale is explicit in the paper: layer-wise partitioning <em>preserves the hierarchical structure of the network</em>, which helps the backbone capture the complex weight space.</p>
+</li>
+<li>
+<p><strong>Layer-then-chunk (fixed-size blocks inside each layer).</strong> SANE (arXiv:2406.09997, ICML 2024) reshapes each layer's weight tensor to a 2D matrix of shape (c_out × c_r), then slices it row-wise along the outgoing channel dimension and divides each row into chunks of a global token size d_t (289 for CNN experiments). The result is a token matrix of shape (n_l × d_t) per layer. Tokens from all layers are concatenated into one sequence of shape (N × d_t) with a 3D positional encoding (global index, layer index, within-layer position).</p>
+</li>
+<li>
+<p><strong>Uniform chunk across the whole flattened parameter vector.</strong> Recurrent Parameter Generation (arXiv:2501.11587) normalises each layer independently, then cuts it into contiguous chunks of size 8,192. A 2D sinusoidal positional encoding tags each chunk with its layer index and its position within that layer.</p>
+</li>
+</ul>
+<p><strong>Arranging tokens as U-Net input.</strong>
+Once you have a sequence of tokens, the backbone sees a 1D sequence—not a 2D spatial map. The diffusion backbone (whether a 1D U-Net, a 1D CNN, or a transformer) operates over this sequence. p-diff (arXiv:2402.13144) makes this explicit: it uses "pure 1D convolutions instead of 2D convolution because neural network parameters generally lack spatial structure." The encoder-decoder (U-Net-shaped) structure is then applied along the sequence dimension, not along height/width.</p>
+<h3 id="why-the-u-net-shape-is-coherent-with-weight-space-structure">Why the U-Net shape is coherent with weight-space structure</h3>
+<p>A U-Net brings three inductive biases that happen to fit weight sequences well even though they are not images:</p>
+<ol>
+<li>
+<p><strong>Locality.</strong> Convolutional kernels attend to nearby tokens, which maps onto nearby parameters in the same layer or consecutive chunks sharing the same outgoing channel.</p>
+</li>
+<li>
+<p><strong>Hierarchical compression with skip connections.</strong> The encoder progressively down-samples the sequence; skip connections route fine-grained local token information straight to the decoder. For weight sequences this mirrors how low-level per-channel statistics and high-level cross-layer correlations both need to be preserved during denoising.</p>
+</li>
+<li>
+<p><strong>1D translation equivariance.</strong> If the token ordering convention is consistent (always layer 0 → layer L), convolutional filters learn position-independent motifs—for example, that weight magnitudes tend to be correlated across adjacent channels—regardless of where in the sequence a particular layer falls.</p>
+</li>
+</ol>
+<p>The practical consequence: a 1D U-Net can denoise a 8,192-element chunk sequence at roughly 20 GB memory for 200M-parameter models (RPG), whereas a full transformer over the same length would require quadratic attention.</p>
+<hr />
+<h3 id="likely-follow-up-questions_1">Likely follow-up questions</h3>
+<table>
+<thead>
+<tr>
+<th>Follow-up</th>
+<th>One-line answer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Why not use a 2D U-Net?</td>
+<td>Weights have no native spatial grid; treating them as a 2D image would impose a false spatial prior. 1D convolution is the natural choice.</td>
+</tr>
+<tr>
+<td>How do you handle layers of different widths?</td>
+<td>Either zero-padding to a global max length (model-wise) or chunk-based slicing that makes all tokens the same length (SANE, RPG).</td>
+</tr>
+<tr>
+<td>What does the positional encoding carry?</td>
+<td>At minimum a layer index; richer schemes add a within-layer position and a global sequence index (SANE's 3D encoding: global n, layer l, within-layer k).</td>
+</tr>
+<tr>
+<td>Why not just flatten everything without layer boundaries?</td>
+<td>You lose the information that certain parameters belong to the same layer, which empirically hurts generation quality—Hyper Diffusion Avatars and SANE both ablate this.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<blockquote>
+<p><strong>How to say it in the room</strong></p>
+<p>"We segment weights layer by layer. For each layer we flatten the kernel weights and concatenate the bias to form one token—or, if the layer is large, we further chunk each row into fixed-size blocks of d_t dimensions. All tokens are then concatenated into a 1D sequence with a positional encoding that carries the layer index and the within-layer position. That sequence goes into a 1D U-Net. The U-Net is appropriate because its convolutional filters capture local correlations among adjacent channels, its encoder-decoder structure compresses and then reconstructs at multiple resolution levels, and its skip connections preserve per-token fine structure throughout the denoising trajectory—all without imposing the false 2D spatial prior that a standard image U-Net would."</p>
+</blockquote>
+<hr />
+<h3 id="the-trap-to-avoid_2">The trap to avoid</h3>
+<p><strong>Do not say the U-Net processes weight tensors as 2D spatial maps.</strong> A common mistake is to describe weight tokenization as "like image patches"—treating (height × width) of a weight matrix as a spatial grid and running a 2D U-Net over it. Several papers explicitly reject this: p-diff uses 1D convolutions precisely because parameters lack spatial structure, and NNiT (arXiv:2603.00180) applies patch-based processing only after a Graph HyperNetwork has explicitly induced local correlation in weight space. Unless that alignment step has been performed, calling it "2D" will signal a conceptual error to an expert interviewer.</p>
+<hr />
+<h2 id="window-length-temporal-depth-and-linear-extrapolation-ablation">Window length, temporal depth, and linear extrapolation ablation</h2>
+<h3 id="the-mechanism-in-brief">The mechanism in brief</h3>
+<p>Checkpoint-window methods such as LAWA (Latest Weight Averaging) maintain a first-in-first-out queue of the <strong>k most recent saved checkpoints</strong> and output their uniform mean as the deployed model. Two hyperparameters jointly define the "temporal depth" of that window:</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Symbol</th>
+<th>Typical value in published work</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Window length (number of checkpoints kept)</td>
+<td>k</td>
+<td><strong>5</strong> (default in LAWA; stable for k ≥ 3, degrades for k &gt; 16)</td>
+</tr>
+<tr>
+<td>Temporal spacing between consecutive saves</td>
+<td>ν</td>
+<td><strong>1 000–3 000 gradient steps</strong> for LLM pre-training (e.g., ν = 3 K for Pythia-scale runs)</td>
+</tr>
+</tbody>
+</table>
+<p>These numbers come from ablations in Kaddour et al. (2023, "Early Weight Averaging meets High Learning Rates for LLM Pre-training," arXiv 2306.03241): varying k at fixed ν = 1 K shows that performance is roughly flat for k ∈ {3, 5, 8} but drops for k = 1 or k ≥ 16; varying ν at fixed k = 5 shows that <em>smaller</em> ν (more recent checkpoints) outperforms <em>larger</em> ν (stale checkpoints), contrary to the intuition that broader temporal coverage always helps. The product k × ν therefore sets the effective temporal horizon: roughly <strong>5 000–15 000 steps</strong> in practice.</p>
+<h3 id="the-linear-extrapolation-baseline-question">The linear extrapolation baseline question</h3>
+<p>This is the gap the interviewer is probing. Checkpoint-averaging papers compare against EMA (exponential moving average) and SWA (stochastic weight averaging), <strong>not</strong> against a linear extrapolation of weights. A linear extrapolation baseline would project the next parameter vector as:</p>
+<blockquote>
+<p>θ̂<em t_1="t−1">(t+1) = θ_t + (θ_t − θ</em>)</p>
+</blockquote>
+<p>i.e., assume the trajectory continues in the direction it was already moving. This is meaningful because averaging recent weights implicitly pulls the estimate <em>back</em> along the trajectory, while extrapolation pushes it <em>forward</em>. Separate work on RLVR training dynamics (arXiv 2601.04537) shows that weight-space linear extrapolation from early checkpoints achieves a ~6× training speedup and outperforms the interpolation/averaging regime in that setting, suggesting the linear extrapolation baseline is non-trivial. However, <strong>no checkpoint-averaging paper to date runs a head-to-head ablation</strong> comparing window-averaged weights against their linear extrapolation counterpart on the same held-out benchmark.</p>
+<p>If you have not run this comparison yourself, the honest answer is: the linear extrapolation baseline has not been ablated in your current work. You can frame this as a concrete next step, citing the RLVR evidence as motivation.</p>
+<hr />
+<h3 id="likely-follow-up-questions_2">Likely follow-up questions</h3>
+<ol>
+<li>
+<p><strong>"Why k = 5 and not k = 10?"</strong> — The ablation in 2306.03241 shows diminishing returns and slight degradation beyond k ≈ 8. With ν = 1 K steps, k = 10 incorporates weights from 10 K steps ago, introducing parameter drift that noise-averages out the useful signal near convergence.</p>
+</li>
+<li>
+<p><strong>"Does ν matter more than k?"</strong> — Yes, for LLM pre-training: smaller ν (denser, more recent saves) consistently wins. This is because loss landscapes near convergence are not flat; stale checkpoints from high-lr phases add variance without useful signal.</p>
+</li>
+<li>
+<p><strong>"Couldn't extrapolation beat averaging since it goes beyond the training frontier?"</strong> — Possibly, but averaging is variance-reducing; extrapolation is variance-amplifying. In noisy regimes (large batch, high lr) extrapolation can overshoot. The right answer depends on the learning-rate schedule at the time of merging.</p>
+</li>
+<li>
+<p><strong>"Have you considered EMA instead of uniform window averaging?"</strong> — EMA decays exponentially so it implicitly weights recent checkpoints more, achieving a similar effect to small ν without requiring a discrete queue. Both are defensible; EMA has one scalar to tune instead of two (k, ν).</p>
+</li>
+</ol>
+<hr />
+<h3 id="how-to-say-it-in-the-room">How to say it in the room</h3>
+<blockquote>
+<p>"We use a sliding window of k = 5 checkpoints spaced 1 000–3 000 gradient steps apart, giving an effective temporal horizon of roughly 5 K to 15 K steps. Ablations show performance is stable for k between 3 and 8 but deteriorates at either extreme, and that closer spacing — more recent weights — consistently outperforms wider spacing. On the linear extrapolation baseline: we have not run that head-to-head comparison yet. Extrapolation pushes weights forward along the trajectory, averaging pulls them back; recent work on RLVR dynamics suggests extrapolation can win in noisy reward settings, so it is a concrete gap we would want to close in follow-up experiments."</p>
+</blockquote>
+<hr />
+<h3 id="the-trap-to-avoid_3">The trap to avoid</h3>
+<p>Do not claim that window averaging <em>always</em> outperforms linear extrapolation — the literature does not support this. The trap is conflating <strong>interpolation</strong> (averaging past weights, which is well-studied) with <strong>extrapolation</strong> (projecting beyond the last checkpoint, which is studied separately and sometimes wins). Saying "averaging is better than extrapolation by definition" will immediately signal to a researcher like Versley that you have not thought through the two-sided nature of trajectory-based model combination.</p>
+<hr />
+<h2 id="de-circularizing-the-32x-speedup-claim">De-circularizing the 3.2x speedup claim</h2>
+<p><strong>The mechanism in one sentence.</strong> A claimed speedup of this kind measures how much faster a model converges to a target loss <em>starting from</em> an existing checkpoint, compared with training the same target from a random initialization — it does not count the compute already spent generating that checkpoint.</p>
+<p><strong>Why the accounting is split that way.</strong> Warmstarting and online-learning papers routinely partition cost into two phases: (1) producing the "trajectory" — the sequence of checkpoints saved during upstream or prior-period training — and (2) the downstream adaptation that uses those checkpoints as a head start. The speedup figure lives entirely in phase 2. As the 2024 warmstarting paper (arXiv:2411.07340) from Google DeepMind states plainly, the base-model tuning budget "can be omitted from this analysis" precisely because both the baseline and the warmstarted run share that cost equally, making it irrelevant to the relative comparison. The 3.2x number answers the question: <em>given that the trajectory exists, how much wall-clock do you save?</em></p>
+<p><strong>When the split is defensible.</strong> The conditional framing is legitimate whenever the trajectory is reused across many downstream tasks or time periods. If you save a sequence of 50 daily checkpoints and use them to warmstart 50 nightly fine-tuning jobs, the amortized fraction of trajectory cost per job is 1/50. At that ratio the conditional speedup closely approximates the end-to-end speedup. The more tasks share the trajectory, the smaller the gap between the two numbers.</p>
+<p><strong>When the split is misleading.</strong> If the trajectory is used exactly once — one source model, one target task, never reused — the phase-1 cost is not amortized at all. Total compute might be higher than training from scratch, even if the target-phase wall-clock is 3.2x shorter. The warmstarting literature confirms this: the same paper notes that repeated warmstarting across scales leads to higher overall token consumption without proportional final-loss improvement, leaving "open questions about practical end-to-end cost-effectiveness."</p>
+<hr />
+<p><strong>Likely follow-ups and crisp answers</strong></p>
+<table>
+<thead>
+<tr>
+<th>Follow-up</th>
+<th>Answer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>"So is the 3.2x end-to-end or conditional?"</td>
+<td>Conditional — it measures only the adaptation phase after the trajectory is in hand.</td>
+</tr>
+<tr>
+<td>"What's the end-to-end number?"</td>
+<td>It depends on reuse frequency. With high reuse (many downstream tasks per trajectory), end-to-end approaches the conditional figure. For single-use, subtract nothing — total compute may be flat or worse.</td>
+</tr>
+<tr>
+<td>"How many reuses does it take to break even?"</td>
+<td>If trajectory generation costs T and the per-task saving is S, break-even is T/S tasks. That's the number you'd want to have estimated.</td>
+</tr>
+<tr>
+<td>"Is this a fair comparison to report?"</td>
+<td>Yes, as long as the denominator (trajectory cost, reuse cadence) is disclosed alongside the speedup. It's the standard framing in the literature; omitting it is the problem, not the framing itself.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<blockquote>
+<p><strong>How to say it in the room</strong></p>
+<p>"The 3.2x is a conditional speedup — it measures the gain inside the adaptation window, assuming the checkpoint sequence from prior training is already available. That's the right denominator if the trajectory is shared across many tasks or time periods, because the generation cost amortizes to near-zero per task. If this is a one-shot use, the honest number is smaller — you'd need to add back the upstream training time. In our setup, [characterize your reuse frequency here], so the amortization is [strong / partial / absent], and the effective end-to-end figure is [X]."</p>
+</blockquote>
+<hr />
+<p><strong>The trap to avoid.</strong> Do not defend the 3.2x as if it were an end-to-end wall-clock saving without checking reuse frequency first. Interviewers asking this question are probing whether you understand the difference between <em>conditional efficiency</em> (how fast is phase 2 given phase 1 is done?) and <em>total efficiency</em> (does the whole pipeline use less compute than the alternative?). Conflating the two is the exact error the question is designed to catch. Equally, do not overcorrect and disavow the number — conditional speedup is a real and useful metric when reuse is high; acknowledge both what it measures and what it omits.</p>
+<hr />
+<h2 id="sdrt-vs-drt-level-of-description-for-bridging">SDRT vs. DRT: level of description for bridging</h2>
+<h3 id="the-question-and-the-core-answer">The question and the core answer</h3>
+<p>Suppose the discourse is: <em>"I walked into the office. The chair was uncomfortable."</em> Is <em>the chair</em> an identity anaphor, a bridging anaphor, or something else?</p>
+<p>It is a <strong>bridging anaphor</strong> — not an identity anaphor. No chair has been mentioned before. The definite article cannot be resolved by finding a co-referential antecedent in the discourse model. Instead, it is licensed by an <em>associative inference</em>: offices canonically contain chairs, so the hearer enriches the discourse to introduce a new discourse referent — the chair of that office — via world knowledge. Clark (1975), who introduced the term, called this an "indirect" or "bridging" reference, as opposed to "direct" co-reference. Modern usage excludes the identity case entirely from bridging; the distinction is now clean.</p>
+<h3 id="the-inference-mechanism-step-by-step">The inference mechanism, step by step</h3>
+<ol>
+<li><em>"The office"</em> introduces a discourse referent <code>x</code> (office) into the DRS.</li>
+<li><em>"The chair"</em> contains a uniqueness presupposition (Russellian iota): there is a unique chair most salient in the current context.</li>
+<li>No prior chair referent exists to bind it by identity. Binding fails.</li>
+<li><strong>Accommodation</strong>: the system must introduce a new referent <code>y</code> (chair) and anchor it to <code>x</code> via a lexically licensed relation — here a <strong>meronymic / part-whole</strong> relation: <code>part-of(y, x)</code> or, more precisely, a functional-associative relation (offices have characteristic chairs).</li>
+<li>The uniqueness condition on the definite is satisfied locally: given <code>x</code>, there is a unique most salient chair in <code>x</code>.</li>
+</ol>
+<p>This is <strong>associative bridging</strong> with a <strong>functional/meronymic</strong> link. The license is not syntactic; it is <strong>encyclopaedic / world-knowledge entailment</strong>.</p>
+<h3 id="where-drt-and-sdrt-diverge">Where DRT and SDRT diverge</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>DRT (Kamp &amp; Reyle; van der Sandt)</th>
+<th>SDRT (Asher &amp; Lascarides)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Level of description</strong></td>
+<td>Sentence-level DRS construction + presupposition accommodation</td>
+<td>Hierarchical discourse structure with explicit rhetorical relations</td>
+</tr>
+<tr>
+<td><strong>Mechanism for bridging</strong></td>
+<td>Presupposition of the definite NP fails to bind; triggers <em>global accommodation</em> — a new referent is added with an implicit relational constraint</td>
+<td>Bridging is a <strong>byproduct of computing the coherence relation</strong> between discourse segments (e.g., <em>Elaboration</em>); the relation itself generates the inferential path</td>
+</tr>
+<tr>
+<td><strong>Where the relation lives</strong></td>
+<td>Implicit; often an unspecified "association" annotation in the DRS</td>
+<td>Explicit; the discourse relation (e.g., <em>Elaboration</em>) logically entails that the second segment's entities are sub-parts or aspects of the first</td>
+</tr>
+<tr>
+<td><strong>Constraint on anaphora</strong></td>
+<td>Accessibility via DRS box structure</td>
+<td>Accessibility governed additionally by the <strong>Right Frontier Constraint</strong> on the discourse tree</td>
+</tr>
+</tbody>
+</table>
+<p>The key SDRT insight (Asher &amp; Lascarides, <em>Logics of Conversation</em>, 2003): bridging is not an independent process of accommodation — it is <strong>derivable from the discourse relation</strong>. If segment B elaborates segment A, the logic of Elaboration generates a sub-part / sub-event constraint on B's entities, which is exactly what licenses <em>the chair</em> as a part of the office. DRT, by contrast, handles it at the level of the NP's presupposition alone, without formalising the discourse-structural trigger.</p>
+<h3 id="annotation-scheme-you-would-use">Annotation scheme you would use</h3>
+<p>For an annotation task today, the standard choice is <strong>ARRAU</strong> (Anaphoric Resolution in Unrestricted Text). ARRAU uses nine bridging subtypes; the relevant one here is:</p>
+<ul>
+<li><strong><code>poss</code> (possessive/meronymic part-whole)</strong>: <em>the chair</em> is a functional part of <em>the office</em>.</li>
+</ul>
+<p>If the project follows the <strong>information-status approach</strong> (ISNotes / GUM), the label is simply <strong><code>bridging</code></strong> with the antecedent marked as <em>the office</em>, no subtype required. For fine-grained NLP work, ARRAU subtypes are preferred. For a theoretical linguistics argument, framing it as a <strong>functional-associative bridge</strong> (not merely possessive-meronymic, since "the chair of an office" is role-defined rather than physical-part-defined) can add precision.</p>
+<hr />
+<blockquote>
+<p><strong>How to say it in the room</strong></p>
+<p>"This is a bridging anaphor, not identity coreference — <em>the chair</em> introduces a new discourse referent anchored to <em>the office</em> by a functional part-whole inference licensed by world knowledge. In DRT terms, the presupposition of the definite fails to bind, so we accommodate a new referent with an implicit association to the office referent. SDRT goes a level up: it predicts the same result but derives it from the discourse relation — if sentence 2 <em>elaborates</em> sentence 1, the Elaboration axiom logically entails that the entities in sentence 2 are sub-parts or aspects of sentence 1's entities, which is precisely what underwrites <em>the chair</em>. For annotation I would use ARRAU's <code>poss</code>/meronymic subtype, or the ISNotes <code>bridging</code> label with <em>the office</em> as the associative antecedent."</p>
+</blockquote>
+<hr />
+<h3 id="likely-follow-ups-from-versley">Likely follow-ups from Versley</h3>
+<ul>
+<li><strong>"Could it be a scalar or accommodation case rather than bridging?"</strong> No. Scalar anaphora involves degree comparisons; accommodation in the Lewis/Heim sense would introduce the referent into the common ground without an anchoring antecedent, whereas here the antecedent (<em>the office</em>) is explicit — making it bridging by definition.</li>
+<li><strong>"What if the context already established a chair?"</strong> Then it resolves by identity coreference, not bridging — the definite binds the prior referent directly. The distinction collapses, and the annotation changes to a standard coreference link.</li>
+<li><strong>"Why does SDRT matter if the result is the same?"</strong> The theoretical payoff is explanatory: DRT treats the accommodation as an arbitrary repair, while SDRT explains <em>why</em> it is licensed — the discourse relation constrains which associative inferences are even available. SDRT also makes different predictions for cases where the discourse relation is Contrast or Narration rather than Elaboration.</li>
+</ul>
+<h3 id="trap-to-avoid">Trap to avoid</h3>
+<p>Do not call this a <strong>presupposition failure</strong> and leave it there. Interviewers at the Versley level will expect you to distinguish <em>failed binding</em> (the presupposition cannot be resolved via an accessible discourse referent) from <em>accommodation</em> (a new referent is introduced), and to specify <em>which</em> accommodation strategy applies — global accommodation with a relational anchor, not free-floating accommodation. Conflating "the definite failed to bind" with "it's just pragmatic inference" misses the formal structure that DRT and SDRT are designed to capture.</p>
+<hr />
+<p><strong>Sources:</strong>
+- <a href="https://homepages.inf.ed.ac.uk/alex/papers/bridging_proc.pdf">Bridging — Asher &amp; Lascarides (homepages.inf.ed.ac.uk)</a>
+- <a href="https://arxiv.org/html/2410.01170">Unifying Bridging Anaphora Types: ARRAU and GUM (arxiv.org)</a>
+- <a href="https://aclanthology.org/2020.coling-main.331.pdf">Bridging Resolution: A Survey of the State of the Art (aclanthology.org)</a>
+- <a href="https://arxiv.org/pdf/2506.07297">Subjectivity in the Annotation of Bridging Anaphora (arxiv.org)</a>
+- <a href="https://homepages.inf.ed.ac.uk/alex/sdrt.html">SDRT overview — Alex Lascarides (homepages.inf.ed.ac.uk)</a>
+- <a href="https://plato.stanford.edu/entries/discourse-representation-theory/">Discourse Representation Theory — Stanford Encyclopedia of Philosophy</a>
+- <a href="https://books.google.com/books/about/Logics_of_Conversation.html?id=VD-8yisFhBwC">Logics of Conversation — Asher &amp; Lascarides (Google Books)</a></p>
+      <nav class="prevnext"><a class="pn prev" href="18_STAGE1_GAPFILL_DEEP_ANSWERS.html">‹ <span>Gap-Fill: Deep Answers</span></a><a class="pn next" href="19_ADAPTIVE_MOCK_SESSIONS.html"><span>Adaptive Mock Sessions</span> ›</a></nav>
+    </article>
+    <aside class="toc"><div class="toc-title">On this page</div><ul>
+<li><a href="#vocabulary-size-two-opposite-failure-modes-sequence-length-vs-embedding-gradient-sparsity">Vocabulary size: two opposite failure modes (sequence length vs. embedding gradient sparsity)</a></li>
+<li><a href="#coverage-of-stated-interview-theme-beyond-tokenizer">Coverage of stated interview theme beyond tokenizer</a></li>
+<li><a href="#ablation-design-coherence-frozen-encoder-connector-swap">Ablation design coherence — frozen encoder + connector swap</a></li>
+<li><a href="#classification-vs-contextual-bandit-rl-framing">Classification vs. contextual bandit / RL framing</a></li>
+<li><a href="#tokenization-scheme-and-u-net-inductive-bias-coherence">Tokenization scheme and U-Net inductive bias coherence</a></li>
+<li><a href="#window-length-temporal-depth-and-linear-extrapolation-ablation">Window length, temporal depth, and linear extrapolation ablation</a></li>
+<li><a href="#de-circularizing-the-32x-speedup-claim">De-circularizing the 3.2x speedup claim</a></li>
+<li><a href="#sdrt-vs-drt-level-of-description-for-bridging">SDRT vs. DRT: level of description for bridging</a></li>
+</ul></aside>
+  </main>
+</div>
+<script>window.SEARCH_JSON="../assets/../search-index.json";</script>
+<script src="../assets/search-data.js"></script>
+<script src="../assets/app.js"></script>
+</body>
+</html>

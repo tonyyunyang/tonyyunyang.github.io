@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 380" role="img">
+  <title>Tokenizer Fertility Tradeoff</title>
+  <desc>Same phrase "vintage camera lens" tokenized two ways: a general vocabulary splits it into ~8 small subword tokens, while a custom e-commerce vocabulary produces only ~3 tokens — fewer tokens means shorter sequences, fewer decode steps, and roughly 34% faster inference (LiLiuM).</desc>
+
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#94a3b8"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="400" y="38" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="19" font-weight="700" fill="#1f2733">Tokenizer Fertility Tradeoff</text>
+  <text x="400" y="58" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="13" fill="#56616f">Same phrase — two vocabularies — very different token counts</text>
+
+  <!-- ── ROW 1: General vocab ── -->
+  <!-- Row label -->
+  <text x="20" y="106" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="13" font-weight="600" fill="#1f2733">General</text>
+  <text x="20" y="122" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="13" font-weight="600" fill="#1f2733">vocab</text>
+
+  <!-- Phrase label -->
+  <text x="108" y="99" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" fill="#56616f" font-style="italic">"vintage camera lens"</text>
+
+  <!-- 8 subword token boxes for general vocab -->
+  <!-- Token 1: "vin" -->
+  <rect x="108" y="108" width="44" height="32" rx="6" fill="#f7f8fa" stroke="#94a3b8" stroke-width="1.5"/>
+  <text x="130" y="129" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" fill="#1f2733">vin</text>
+
+  <!-- Token 2: "tage" -->
+  <rect x="157" y="108" width="44" height="32" rx="6" fill="#f7f8fa" stroke="#94a3b8" stroke-width="1.5"/>
+  <text x="179" y="129" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" fill="#1f2733">tage</text>
+
+  <!-- Token 3: "▁cam" -->
+  <rect x="206" y="108" width="50" height="32" rx="6" fill="#f7f8fa" stroke="#94a3b8" stroke-width="1.5"/>
+  <text x="231" y="129" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" fill="#1f2733">▁cam</text>
+
+  <!-- Token 4: "era" -->
+  <rect x="261" y="108" width="42" height="32" rx="6" fill="#f7f8fa" stroke="#94a3b8" stroke-width="1.5"/>
+  <text x="282" y="129" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" fill="#1f2733">era</text>
+
+  <!-- Token 5: "▁len" -->
+  <rect x="308" y="108" width="46" height="32" rx="6" fill="#f7f8fa" stroke="#94a3b8" stroke-width="1.5"/>
+  <text x="331" y="129" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" fill="#1f2733">▁len</text>
+
+  <!-- Token 6: "s" -->
+  <rect x="359" y="108" width="30" height="32" rx="6" fill="#f7f8fa" stroke="#94a3b8" stroke-width="1.5"/>
+  <text x="374" y="129" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" fill="#1f2733">s</text>
+
+  <!-- Token 7: extra subword -->
+  <rect x="394" y="108" width="36" height="32" rx="6" fill="#f7f8fa" stroke="#94a3b8" stroke-width="1.5"/>
+  <text x="412" y="129" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" fill="#1f2733">##s</text>
+
+  <!-- Token 8: extra subword -->
+  <rect x="435" y="108" width="36" height="32" rx="6" fill="#f7f8fa" stroke="#94a3b8" stroke-width="1.5"/>
+  <text x="453" y="129" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" fill="#1f2733">##e</text>
+
+  <!-- Token count badge -->
+  <rect x="480" y="108" width="62" height="32" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="511" y="125" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" font-weight="700" fill="#92400e">8 tokens</text>
+  <text x="511" y="136" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="10" fill="#92400e">high fertility</text>
+
+  <!-- ── Divider ── -->
+  <line x1="20" y1="168" x2="780" y2="168" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="4 3"/>
+
+  <!-- ── ROW 2: Custom e-commerce vocab ── -->
+  <!-- Row label -->
+  <text x="20" y="210" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="13" font-weight="600" fill="#2563eb">Custom</text>
+  <text x="20" y="226" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="13" font-weight="600" fill="#2563eb">e-commerce</text>
+  <text x="20" y="242" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="13" font-weight="600" fill="#2563eb">vocab</text>
+
+  <!-- Phrase label -->
+  <text x="108" y="203" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" fill="#56616f" font-style="italic">"vintage camera lens"</text>
+
+  <!-- 3 token boxes for custom vocab -->
+  <!-- Token 1: "vintage" -->
+  <rect x="108" y="212" width="90" height="34" rx="6" fill="#e8f0fe" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="153" y="234" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="13" font-weight="600" fill="#1e3a8a">vintage</text>
+
+  <!-- Token 2: "camera" -->
+  <rect x="205" y="212" width="88" height="34" rx="6" fill="#e8f0fe" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="249" y="234" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="13" font-weight="600" fill="#1e3a8a">camera</text>
+
+  <!-- Token 3: "lens" -->
+  <rect x="300" y="212" width="70" height="34" rx="6" fill="#e8f0fe" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="335" y="234" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="13" font-weight="600" fill="#1e3a8a">lens</text>
+
+  <!-- Token count badge -->
+  <rect x="380" y="212" width="62" height="34" rx="6" fill="#dcfce7" stroke="#15803d" stroke-width="1.5"/>
+  <text x="411" y="230" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" font-weight="700" fill="#14532d">3 tokens</text>
+  <text x="411" y="241" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="10" fill="#14532d">low fertility</text>
+
+  <!-- ── Right-side annotation panel ── -->
+  <rect x="560" y="88" width="218" height="186" rx="10" fill="#f7f8fa" stroke="#94a3b8" stroke-width="1.5"/>
+
+  <text x="669" y="112" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#1f2733">Why it matters</text>
+
+  <!-- Arrow chain -->
+  <text x="580" y="136" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" fill="#1f2733">fewer tokens</text>
+  <line x1="660" y1="133" x2="672" y2="133" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="676" y="136" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" fill="#56616f">shorter</text>
+  <text x="676" y="150" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" fill="#56616f">sequence</text>
+
+  <line x1="669" y1="158" x2="669" y2="168" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <text x="580" y="183" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" fill="#1f2733">fewer decode</text>
+  <text x="580" y="197" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" fill="#1f2733">steps</text>
+
+  <line x1="669" y1="205" x2="669" y2="218" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Result highlight -->
+  <rect x="572" y="222" width="194" height="38" rx="6" fill="#e8f0fe" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="669" y="237" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#2563eb">~34% faster inference</text>
+  <text x="669" y="252" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" fill="#56616f">(LiLiuM, eBay)</text>
+
+  <!-- ── Bottom note: fertility definition ── -->
+  <text x="400" y="302" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" fill="#56616f">Token fertility = avg tokens per word. Lower fertility means the vocabulary better covers domain terms as single tokens.</text>
+
+  <!-- ── Connecting arrow from token rows to annotation ── -->
+  <line x1="548" y1="176" x2="558" y2="176" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="3 2" marker-end="url(#arrow)"/>
+
+</svg>

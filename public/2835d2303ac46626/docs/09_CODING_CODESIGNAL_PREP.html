@@ -1,0 +1,2487 @@
+<!DOCTYPE html>
+<html lang="en" data-pagefind-ignore="all">
+<head>
+<meta name="robots" content="noindex, nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Coding / CodeSignal Prep · eBay Prep</title>
+<script>try{if(localStorage.getItem('ebayprep-theme')==='dark')document.documentElement.classList.add('dark');}catch(e){}</script>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<button id="menu" class="menu-btn" aria-label="Menu">☰</button>
+<button id="theme" class="theme-btn" aria-label="Toggle theme">◐</button>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+<div class="brand"><a href="../index.html">eBay Prep</a><div class="brand-sub">Stage 1 · Yannick Versley</div></div>
+<div class="search"><input id="q" type="search" placeholder="Search the pack…" autocomplete="off"><div id="results"></div></div>
+<nav class="nav">
+<div class="nav-group"><div class="nav-group-title">Start Here</div><ul>
+<li><a href="7DAY_SPRINT_PLAN.html">7-Day Sprint Plan</a></li>
+<li><a href="21_KILL_LIST.html">⚠ Kill List — Never Say These</a></li>
+<li><a href="00_MASTER_INDEX_AND_STUDY_PLAN.html">Master Index &amp; Study Plan</a></li>
+<li><a href="SESSION2_READINESS_REPORT.html">Readiness Report</a></li>
+</ul></div>
+<div class="nav-group"><div class="nav-group-title">Stage 1 — Core</div><ul>
+<li><a href="03_INTERVIEWER_YANNICK_VERSLEY.html">Interviewer: Yannick Versley</a></li>
+<li><a href="02_STAGE1_ML_LLM_NLP_MASTERDOC.html">Stage-1 ML/LLM/NLP Master Doc</a></li>
+<li><a href="20_OWN_PAPERS_GROUND_TRUTH.html">★ Own Papers — Ground-Truth Defense</a></li>
+<li><a href="04_PUBLICATIONS_PROJECTS_DEFENSE.html">Publications &amp; Projects Defense</a></li>
+<li><a href="05_QUESTION_BANK_THIS_ROLE.html">Question Bank (This Role)</a></li>
+<li><a href="06_ML_LLM_NLP_FUNDAMENTALS_STUDYGUIDE.html">ML/LLM/NLP Fundamentals</a></li>
+<li><a href="12_MOCK_INTERVIEW_FULL.html">Full Mock Interview</a></li>
+</ul></div>
+<div class="nav-group"><div class="nav-group-title">Stage 1 — Deep Dives</div><ul>
+<li><a href="18_STAGE1_GAPFILL_DEEP_ANSWERS.html">Gap-Fill: Deep Answers</a></li>
+<li><a href="18b_STAGE1_GAPFILL_ROUND2.html">Gap-Fill: Round 2</a></li>
+<li><a href="19_ADAPTIVE_MOCK_SESSIONS.html">Adaptive Mock Sessions</a></li>
+<li><a href="13_GENERATIVE_MODELS_BEYOND_LLMS.html">Generative Models Beyond LLMs</a></li>
+<li><a href="14_CLASSICAL_NLP_AND_MT_DEEP_DIVE.html">Classical NLP &amp; MT Deep Dive</a></li>
+<li><a href="15_SOTA_2026_CURRENT_AWARENESS.html">SOTA 2026 Current Awareness</a></li>
+<li><a href="16_EXPERTISE_DEEP_DIVE_EFFICIENCY.html">Expertise Deep Dive: Efficiency</a></li>
+<li><a href="17_RAPID_FIRE_BREADTH_BANK.html">Rapid-Fire Breadth Bank</a></li>
+</ul></div>
+<div class="nav-group"><div class="nav-group-title">eBay &amp; Why eBay</div><ul>
+<li><a href="07_EBAY_COMPANY_AI_DOSSIER.html">eBay Company AI Dossier</a></li>
+</ul></div>
+<div class="nav-group"><div class="nav-group-title">Later Stages (2 &amp; 3)</div><ul>
+<li><a href="08_ML_SYSTEM_DESIGN_PLAYBOOK.html">ML System Design Playbook</a></li>
+<li class="active"><a href="09_CODING_CODESIGNAL_PREP.html">Coding / CodeSignal Prep</a></li>
+<li><a href="10_PROJECT_MGMT_RETROSPECTIVE_STAR.html">Project Mgmt &amp; STAR Stories</a></li>
+<li><a href="11_TEAM_FIT_CAREER.html">Team Fit &amp; Career</a></li>
+</ul></div>
+<div class="nav-group"><div class="nav-group-title">Logistics</div><ul>
+<li><a href="01_RECRUITER_RESPONSE_PACK.html">Recruiter Response Pack</a></li>
+</ul></div>
+</nav>
+  </aside>
+  <div class="scrim" id="scrim"></div>
+  <main class="content">
+    <article class="doc">
+      <div class="doc-meta"><span class="tag">Later Stages (2 &amp; 3)</span><span class="read">60 min read</span></div>
+      <h1 id="codesignal-ml-assessment-prep-ebay-mle-interview">CodeSignal &amp; ML Assessment Prep — eBay MLE Interview</h1>
+<p><strong>Priority / How to Use:</strong> This is your no-AI raw-skill rebuild document. Stage 2 is proctored — no Claude Code, no autocomplete, no browser. Work through sections 2–4 first (highest exam weight), run the 7-day drill plan in section 6, and rehearse typing every code block cold in a plain text editor before exam day.</p>
+<hr />
+<h2 id="table-of-contents">TABLE OF CONTENTS</h2>
+<ol>
+<li><a href="#1-codesignal-format-and-strategy">CodeSignal Format and Strategy</a></li>
+<li><a href="#2-dsa-pattern-checklist-with-canonical-python-snippets">DS&amp;A Pattern Checklist with Canonical Python Snippets</a></li>
+<li><a href="#3-from-scratch-ml-implementations">From-Scratch ML Implementations</a></li>
+<li><a href="#4-probability-and-statistics--worked-problems">Probability and Statistics — Worked Problems</a></li>
+<li><a href="#5-ml-concept-mcq-style-qa">ML Concept MCQ-Style Q&amp;A</a></li>
+<li><a href="#6-7-day-drill-plan-and-curated-practice-list">7-Day Drill Plan and Curated Practice List</a></li>
+<li><a href="#7-python-without-ai-tips-and-idioms">Python-Without-AI Tips and Idioms</a></li>
+</ol>
+<hr />
+<h2 id="1-codesignal-format-and-strategy">1. CodeSignal Format and Strategy</h2>
+<h3 id="1a-general-coding-assessment-gca">1A. General Coding Assessment (GCA)</h3>
+<p><strong>What eBay likely sends for Stage 2:</strong>
+- 70 minutes, 4 questions, strictly increasing difficulty
+- Webcam proctoring, full-screen lock, keystroke logging
+- No AI tools, no external lookup, no screen switching
+- Python strongly recommended for ML roles (fastest to write, fewest ceremony)
+- New score scale (2026): <strong>200–600</strong> replacing the old 300–850</p>
+<p><strong>Question ladder:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Question</th>
+<th>Time budget</th>
+<th>Difficulty</th>
+<th>Typical content</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Q1</td>
+<td>5–8 min</td>
+<td>Easy</td>
+<td>Loops, string ops, basic array manipulation</td>
+</tr>
+<tr>
+<td>Q2</td>
+<td>20 min</td>
+<td>Medium</td>
+<td>Hash maps, binary search, simple BFS</td>
+</tr>
+<tr>
+<td>Q3</td>
+<td>25 min</td>
+<td>Medium-Hard</td>
+<td>DP, graphs, sliding window</td>
+</tr>
+<tr>
+<td>Q4</td>
+<td>remaining</td>
+<td>Hard</td>
+<td>Complex DP, graph optimization, advanced combinatorics</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Score targets:</strong>
+- 475–525 = strong competitive candidate
+- 525+ = elite signal
+- Partial credit is real and meaningful: a brute-force Q4 attempt that passes 3/10 test cases is worth far more than a blank</p>
+<p><strong>Mental model for scoring:</strong> Questions are weighted by difficulty. A perfect Q1–Q3 with a brute-force Q4 attempt scores significantly higher than stopping after Q3. Never leave Q4 blank.</p>
+<hr />
+<h3 id="1b-ml-data-science-assessment-role-specific-variant">1B. ML / Data Science Assessment (Role-Specific Variant)</h3>
+<p>Some eBay tracks use this instead of (or after) the GCA. Structure:</p>
+<p><strong>Duration:</strong> 70–90 minutes, auto-timed modules (cannot go back)</p>
+<table>
+<thead>
+<tr>
+<th>Module</th>
+<th>Time</th>
+<th>Format</th>
+<th>Content</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Module 1 — Probability &amp; Stats</td>
+<td>~20 min</td>
+<td>10–15 MCQ</td>
+<td>Bayes, distributions, expected value, CLT, hypothesis testing</td>
+</tr>
+<tr>
+<td>Module 2 — ML Concepts</td>
+<td>~20 min</td>
+<td>5–10 MCQ</td>
+<td>Overfitting, regularization, AUC, loss functions, ensembles</td>
+</tr>
+<tr>
+<td>Module 3 — Python Coding</td>
+<td>~35 min</td>
+<td>2–3 coding Qs</td>
+<td>pandas/numpy data wrangling, sklearn pipelines, sometimes from-scratch ML</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Key constraints you must respect:</strong>
+- Python only in coding module; numpy, pandas, sklearn available
+- No screen switching whatsoever — memorize the pandas and sklearn APIs you'll need
+- Modules auto-advance, cannot return to previous module
+- Some variants include SQL (GROUP BY, window functions); prepare but treat as secondary</p>
+<p><strong>Common coding tasks in Module 3:</strong>
+- Load CSV → clean nulls → encode categoricals → groupby aggregation
+- Train sklearn LogisticRegression or RandomForestClassifier → compute accuracy/F1
+- Implement gradient descent loop from scratch
+- Compute precision/recall/F1 from raw TP/FP/FN counts without sklearn</p>
+<hr />
+<h3 id="1c-time-management-strategy">1C. Time Management Strategy</h3>
+<p><strong>For GCA:</strong>
+1. Read all four problem statements in the first 3 minutes. Know what you're walking into.
+2. Q1: solve in ≤8 min, check one edge case (empty input, single element, negatives)
+3. Q2: pattern-match first (hashmap? two-pointer? BFS?). Code in ≤20 min. O(n) or O(n log n).
+4. Q3: spend 5 min identifying the pattern before coding. Aim for O(n log n) or O(n²) if n is small.
+5. Q4: with 12–15 min left, code a brute-force or partial solution. Any passing test cases = free points. Submit even if wrong.</p>
+<p><strong>For ML Assessment:</strong>
+1. Burn through MCQs fast (Modules 1+2); aim for 1.5 min/question maximum.
+2. Do not overthink probability questions; the answer is almost always Bayes or CLT.
+3. For Module 3 coding: read the full question, plan on paper/scratch before typing.
+4. Use sklearn when allowed (faster); only write from scratch if explicitly asked.</p>
+<p><strong>AI-native candidate's specific threat:</strong> You have built muscular memory for delegating to Claude Code. Your biggest risk is blank-screen anxiety when the autocomplete disappears. The antidote is daily cold-coding practice with zero IDE assistance — raw Python in a text editor or repl.it with autocomplete disabled.</p>
+<hr />
+<h2 id="2-dsa-pattern-checklist-with-canonical-python-snippets">2. DS&amp;A Pattern Checklist with Canonical Python Snippets</h2>
+<p>Each pattern includes: when to use it, the core Python template, and complexity.</p>
+<hr />
+<h3 id="pattern-1-arrays-strings-hashmaps">Pattern 1: Arrays / Strings / Hashmaps</h3>
+<p><strong>When:</strong> Frequency counting, duplicate detection, grouping, two-sum family, substring problems.</p>
+<p><strong>Core structures:</strong> <code>dict</code>, <code>set</code>, <code>collections.Counter</code>, <code>collections.defaultdict</code></p>
+<p><strong>Two Sum (canonical hashmap problem):</strong></p>
+<pre><code class="language-python">def two_sum(nums, target):
+    seen = {}  # value -&gt; index
+    for i, n in enumerate(nums):
+        complement = target - n
+        if complement in seen:
+            return [seen[complement], i]
+        seen[n] = i
+    return []
+</code></pre>
+<p><strong>Group Anagrams:</strong></p>
+<pre><code class="language-python">from collections import defaultdict
+
+def group_anagrams(strs):
+    groups = defaultdict(list)
+    for s in strs:
+        key = tuple(sorted(s))   # canonical form
+        groups[key].append(s)
+    return list(groups.values())
+</code></pre>
+<p><strong>Longest Consecutive Sequence (O(n)):</strong></p>
+<pre><code class="language-python">def longest_consecutive(nums):
+    num_set = set(nums)
+    best = 0
+    for n in num_set:
+        if n - 1 not in num_set:   # only start from sequence head
+            length = 1
+            while n + length in num_set:
+                length += 1
+            best = max(best, length)
+    return best
+</code></pre>
+<p><strong>Complexity:</strong> O(n) time, O(n) space for all three.</p>
+<hr />
+<h3 id="pattern-2-two-pointers">Pattern 2: Two Pointers</h3>
+<p><strong>When:</strong> Sorted array, palindrome check, pair-sum problems, Dutch flag partition, removing duplicates.</p>
+<p><strong>Valid Palindrome:</strong></p>
+<pre><code class="language-python">def is_palindrome(s):
+    s = ''.join(c.lower() for c in s if c.isalnum())
+    l, r = 0, len(s) - 1
+    while l &lt; r:
+        if s[l] != s[r]:
+            return False
+        l += 1; r -= 1
+    return True
+</code></pre>
+<p><strong>Container With Most Water:</strong></p>
+<pre><code class="language-python">def max_area(height):
+    l, r = 0, len(height) - 1
+    res = 0
+    while l &lt; r:
+        res = max(res, min(height[l], height[r]) * (r - l))
+        if height[l] &lt; height[r]:
+            l += 1
+        else:
+            r -= 1
+    return res
+</code></pre>
+<p><strong>3Sum (sort + two pointers):</strong></p>
+<pre><code class="language-python">def three_sum(nums):
+    nums.sort()
+    result = []
+    for i in range(len(nums) - 2):
+        if i &gt; 0 and nums[i] == nums[i-1]:
+            continue                   # skip duplicate
+        l, r = i + 1, len(nums) - 1
+        while l &lt; r:
+            s = nums[i] + nums[l] + nums[r]
+            if s == 0:
+                result.append([nums[i], nums[l], nums[r]])
+                while l &lt; r and nums[l] == nums[l+1]: l += 1
+                while l &lt; r and nums[r] == nums[r-1]: r -= 1
+                l += 1; r -= 1
+            elif s &lt; 0:
+                l += 1
+            else:
+                r -= 1
+    return result
+</code></pre>
+<p><strong>Complexity:</strong> O(n) two-pointer; O(n²) for 3Sum (sort + scan).</p>
+<hr />
+<h3 id="pattern-3-sliding-window">Pattern 3: Sliding Window</h3>
+<p><strong>When:</strong> Contiguous subarray/substring with condition (max sum, longest without repeat, count chars, minimum window).</p>
+<p><strong>Template (variable window):</strong></p>
+<pre><code class="language-python">def sliding_window(s):
+    left = 0
+    window = {}       # or Counter()
+    res = 0
+    for right in range(len(s)):
+        # ---- EXPAND ----
+        c = s[right]
+        window[c] = window.get(c, 0) + 1
+
+        # ---- SHRINK condition ----
+        while &lt;invalid&gt;:
+            out = s[left]
+            window[out] -= 1
+            if window[out] == 0:
+                del window[out]
+            left += 1
+
+        # ---- RECORD ----
+        res = max(res, right - left + 1)
+    return res
+</code></pre>
+<p><strong>Longest Substring Without Repeating Characters:</strong></p>
+<pre><code class="language-python">def length_of_longest_substring(s):
+    seen = {}
+    left = res = 0
+    for right, c in enumerate(s):
+        if c in seen and seen[c] &gt;= left:
+            left = seen[c] + 1
+        seen[c] = right
+        res = max(res, right - left + 1)
+    return res
+</code></pre>
+<p><strong>Minimum Window Substring:</strong></p>
+<pre><code class="language-python">from collections import Counter
+
+def min_window(s, t):
+    need = Counter(t)
+    missing = len(t)
+    best = &quot;&quot;
+    left = 0
+    for right, c in enumerate(s):
+        if need[c] &gt; 0:
+            missing -= 1
+        need[c] -= 1
+        if missing == 0:
+            # shrink from left
+            while need[s[left]] &lt; 0:
+                need[s[left]] += 1
+                left += 1
+            window = s[left:right+1]
+            if not best or len(window) &lt; len(best):
+                best = window
+            # move left one step to resume search
+            need[s[left]] += 1
+            missing += 1
+            left += 1
+    return best
+</code></pre>
+<p><strong>Complexity:</strong> O(n) time, O(k) space (k = distinct chars in window).</p>
+<hr />
+<h3 id="pattern-4-stack-monotonic-stack">Pattern 4: Stack / Monotonic Stack</h3>
+<p><strong>When:</strong> Matching brackets, expression evaluation, "next greater/smaller element", histogram areas.</p>
+<p><strong>Valid Parentheses:</strong></p>
+<pre><code class="language-python">def is_valid(s):
+    stack = []
+    pairs = {')': '(', '}': '{', ']': '['}
+    for c in s:
+        if c in '({[':
+            stack.append(c)
+        elif not stack or stack[-1] != pairs[c]:
+            return False
+        else:
+            stack.pop()
+    return not stack
+</code></pre>
+<p><strong>Daily Temperatures (next greater to the right):</strong></p>
+<pre><code class="language-python">def daily_temperatures(temperatures):
+    stack = []   # indices of pending temperatures
+    result = [0] * len(temperatures)
+    for i, t in enumerate(temperatures):
+        while stack and temperatures[stack[-1]] &lt; t:
+            j = stack.pop()
+            result[j] = i - j
+        stack.append(i)
+    return result
+</code></pre>
+<p><strong>Largest Rectangle in Histogram:</strong></p>
+<pre><code class="language-python">def largest_rectangle_area(heights):
+    stack = []    # monotonically increasing stack of indices
+    max_area = 0
+    heights = heights + [0]   # sentinel
+    for i, h in enumerate(heights):
+        start = i
+        while stack and heights[stack[-1]] &gt;= h:
+            j = stack.pop()
+            width = i - (stack[-1] if stack else -1) - 1
+            max_area = max(max_area, heights[j] * width)
+            start = j
+        stack.append(i)
+    return max_area
+</code></pre>
+<p><strong>Complexity:</strong> O(n) time, O(n) stack space for all.</p>
+<hr />
+<h3 id="pattern-5-queues-and-deques">Pattern 5: Queues and Deques</h3>
+<p><strong>When:</strong> BFS, sliding window maximum, task scheduling, round-robin problems.</p>
+<p><strong>Sliding Window Maximum (deque = O(n)):</strong></p>
+<pre><code class="language-python">from collections import deque
+
+def max_sliding_window(nums, k):
+    dq = deque()   # stores indices; front always holds max for current window
+    result = []
+    for i, n in enumerate(nums):
+        # remove elements outside window
+        while dq and dq[0] &lt; i - k + 1:
+            dq.popleft()
+        # remove smaller elements from the back
+        while dq and nums[dq[-1]] &lt; n:
+            dq.pop()
+        dq.append(i)
+        if i &gt;= k - 1:
+            result.append(nums[dq[0]])
+    return result
+</code></pre>
+<p><strong>Complexity:</strong> O(n) time, O(k) space.</p>
+<hr />
+<h3 id="pattern-6-linked-lists">Pattern 6: Linked Lists</h3>
+<p><strong>When:</strong> Explicitly given a linked list; in-place reversal; cycle detection; merge operations.</p>
+<p><strong>Node definition + Reverse:</strong></p>
+<pre><code class="language-python">class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+def reverse_list(head):
+    prev = None
+    curr = head
+    while curr:
+        nxt = curr.next
+        curr.next = prev
+        prev = curr
+        curr = nxt
+    return prev
+</code></pre>
+<p><strong>Floyd's Cycle Detection:</strong></p>
+<pre><code class="language-python">def has_cycle(head):
+    slow = fast = head
+    while fast and fast.next:
+        slow = slow.next
+        fast = fast.next.next
+        if slow is fast:
+            return True
+    return False
+</code></pre>
+<p><strong>Merge Two Sorted Lists:</strong></p>
+<pre><code class="language-python">def merge_two_lists(l1, l2):
+    dummy = ListNode()
+    cur = dummy
+    while l1 and l2:
+        if l1.val &lt;= l2.val:
+            cur.next = l1; l1 = l1.next
+        else:
+            cur.next = l2; l2 = l2.next
+        cur = cur.next
+    cur.next = l1 or l2
+    return dummy.next
+</code></pre>
+<hr />
+<h3 id="pattern-7-trees-bfs-and-dfs">Pattern 7: Trees — BFS and DFS</h3>
+<p><strong>When:</strong> Any tree/binary tree problem. BFS for level-by-level; DFS for path problems, subtree values, recursive structure.</p>
+<p><strong>TreeNode definition:</strong></p>
+<pre><code class="language-python">class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+</code></pre>
+<p><strong>Recursive DFS — Max Depth:</strong></p>
+<pre><code class="language-python">def max_depth(root):
+    if not root:
+        return 0
+    return 1 + max(max_depth(root.left), max_depth(root.right))
+</code></pre>
+<p><strong>Iterative DFS (preorder with stack):</strong></p>
+<pre><code class="language-python">def preorder(root):
+    if not root: return []
+    stack, result = [root], []
+    while stack:
+        node = stack.pop()
+        result.append(node.val)
+        if node.right: stack.append(node.right)   # right first so left processed first
+        if node.left:  stack.append(node.left)
+    return result
+</code></pre>
+<p><strong>BFS (level order):</strong></p>
+<pre><code class="language-python">from collections import deque
+
+def level_order(root):
+    if not root: return []
+    queue = deque([root])
+    result = []
+    while queue:
+        level = []
+        for _ in range(len(queue)):
+            node = queue.popleft()
+            level.append(node.val)
+            if node.left:  queue.append(node.left)
+            if node.right: queue.append(node.right)
+        result.append(level)
+    return result
+</code></pre>
+<p><strong>Validate BST (in-order + prev tracking):</strong></p>
+<pre><code class="language-python">def is_valid_bst(root):
+    prev = [float('-inf')]
+    def inorder(node):
+        if not node: return True
+        if not inorder(node.left): return False
+        if node.val &lt;= prev[0]: return False
+        prev[0] = node.val
+        return inorder(node.right)
+    return inorder(root)
+</code></pre>
+<p><strong>Lowest Common Ancestor (BST):</strong></p>
+<pre><code class="language-python">def lca(root, p, q):
+    while root:
+        if p.val &lt; root.val and q.val &lt; root.val:
+            root = root.left
+        elif p.val &gt; root.val and q.val &gt; root.val:
+            root = root.right
+        else:
+            return root
+    return None
+</code></pre>
+<p><strong>Complexity:</strong> O(n) time, O(h) space (h = height; worst O(n) skewed, O(log n) balanced).</p>
+<hr />
+<h3 id="pattern-8-graphs-bfs-dfs-union-find-topological-sort">Pattern 8: Graphs — BFS / DFS / Union-Find / Topological Sort</h3>
+<p><strong>When:</strong> Connectivity, shortest path (unweighted), cycle detection, scheduling, islands.</p>
+<p><strong>Adjacency list + BFS:</strong></p>
+<pre><code class="language-python">from collections import defaultdict, deque
+
+def bfs(graph, start):
+    visited = {start}
+    queue = deque([start])
+    order = []
+    while queue:
+        node = queue.popleft()
+        order.append(node)
+        for neighbor in graph[node]:
+            if neighbor not in visited:
+                visited.add(neighbor)
+                queue.append(neighbor)
+    return order
+</code></pre>
+<p><strong>DFS iterative:</strong></p>
+<pre><code class="language-python">def dfs(graph, start):
+    visited = set()
+    stack = [start]
+    while stack:
+        node = stack.pop()
+        if node not in visited:
+            visited.add(node)
+            stack.extend(graph[node])
+</code></pre>
+<p><strong>Number of Islands (grid DFS):</strong></p>
+<pre><code class="language-python">def num_islands(grid):
+    if not grid: return 0
+    rows, cols = len(grid), len(grid[0])
+    count = 0
+
+    def dfs(r, c):
+        if r &lt; 0 or r &gt;= rows or c &lt; 0 or c &gt;= cols or grid[r][c] != '1':
+            return
+        grid[r][c] = '0'    # mark visited in-place
+        for dr, dc in [(0,1),(0,-1),(1,0),(-1,0)]:
+            dfs(r+dr, c+dc)
+
+    for r in range(rows):
+        for c in range(cols):
+            if grid[r][c] == '1':
+                dfs(r, c)
+                count += 1
+    return count
+</code></pre>
+<p><strong>Topological Sort (Kahn's BFS — for Course Schedule):</strong></p>
+<pre><code class="language-python">from collections import deque, defaultdict
+
+def can_finish(num_courses, prerequisites):
+    graph = defaultdict(list)
+    in_degree = [0] * num_courses
+    for a, b in prerequisites:
+        graph[b].append(a)
+        in_degree[a] += 1
+    queue = deque(i for i in range(num_courses) if in_degree[i] == 0)
+    completed = 0
+    while queue:
+        node = queue.popleft()
+        completed += 1
+        for neighbor in graph[node]:
+            in_degree[neighbor] -= 1
+            if in_degree[neighbor] == 0:
+                queue.append(neighbor)
+    return completed == num_courses
+</code></pre>
+<p><strong>Union-Find (with path compression + union by rank):</strong></p>
+<pre><code class="language-python">class UnionFind:
+    def __init__(self, n):
+        self.parent = list(range(n))
+        self.rank = [0] * n
+
+    def find(self, x):
+        while self.parent[x] != x:
+            self.parent[x] = self.parent[self.parent[x]]   # path compression (halving)
+            x = self.parent[x]
+        return x
+
+    def union(self, a, b):
+        ra, rb = self.find(a), self.find(b)
+        if ra == rb: return False
+        if self.rank[ra] &lt; self.rank[rb]:
+            ra, rb = rb, ra
+        self.parent[rb] = ra
+        if self.rank[ra] == self.rank[rb]:
+            self.rank[ra] += 1
+        return True
+</code></pre>
+<p><strong>Complexity:</strong> BFS/DFS O(V+E); Union-Find O(α(n)) amortized ≈ O(1) in practice.</p>
+<hr />
+<h3 id="pattern-9-heaps-priority-queue">Pattern 9: Heaps / Priority Queue</h3>
+<p><strong>When:</strong> k-th largest/smallest, top-K elements, merge K sorted lists, streaming median, task scheduling.</p>
+<p><strong>Python heapq is a min-heap. For max-heap, negate values.</strong></p>
+<p><strong>Kth Largest Element:</strong></p>
+<pre><code class="language-python">import heapq
+
+def find_kth_largest(nums, k):
+    # maintain a min-heap of size k
+    heap = []
+    for n in nums:
+        heapq.heappush(heap, n)
+        if len(heap) &gt; k:
+            heapq.heappop(heap)
+    return heap[0]   # k-th largest = min of top-k heap
+</code></pre>
+<p><strong>Top K Frequent Elements:</strong></p>
+<pre><code class="language-python">from collections import Counter
+import heapq
+
+def top_k_frequent(nums, k):
+    freq = Counter(nums)
+    # heap of (freq, num); min-heap → pop least frequent
+    heap = []
+    for num, count in freq.items():
+        heapq.heappush(heap, (count, num))
+        if len(heap) &gt; k:
+            heapq.heappop(heap)
+    return [num for count, num in heap]
+</code></pre>
+<p><strong>Merge K Sorted Lists:</strong></p>
+<pre><code class="language-python">import heapq
+
+def merge_k_lists(lists):
+    heap = []
+    dummy = ListNode()
+    cur = dummy
+    for i, node in enumerate(lists):
+        if node:
+            heapq.heappush(heap, (node.val, i, node))
+    while heap:
+        val, i, node = heapq.heappop(heap)
+        cur.next = node
+        cur = cur.next
+        if node.next:
+            heapq.heappush(heap, (node.next.val, i, node.next))
+    return dummy.next
+</code></pre>
+<p><strong>Complexity:</strong> heappush/pop O(log n); heapify O(n); nlargest(k, iter) O(n log k).</p>
+<hr />
+<h3 id="pattern-10-binary-search">Pattern 10: Binary Search</h3>
+<p><strong>When:</strong> Sorted array, monotonic condition ("find minimum valid X"), "find boundary" problems.</p>
+<p><strong>Classic binary search:</strong></p>
+<pre><code class="language-python">def binary_search(arr, target):
+    lo, hi = 0, len(arr) - 1
+    while lo &lt;= hi:
+        mid = (lo + hi) // 2
+        if arr[mid] == target:
+            return mid
+        elif arr[mid] &lt; target:
+            lo = mid + 1
+        else:
+            hi = mid - 1
+    return -1
+</code></pre>
+<p><strong>Find leftmost position (lower bound):</strong></p>
+<pre><code class="language-python">def lower_bound(arr, target):
+    lo, hi = 0, len(arr)
+    while lo &lt; hi:
+        mid = (lo + hi) // 2
+        if arr[mid] &lt; target:
+            lo = mid + 1
+        else:
+            hi = mid
+    return lo   # first index where arr[lo] &gt;= target
+</code></pre>
+<p><strong>Search in Rotated Sorted Array:</strong></p>
+<pre><code class="language-python">def search_rotated(nums, target):
+    lo, hi = 0, len(nums) - 1
+    while lo &lt;= hi:
+        mid = (lo + hi) // 2
+        if nums[mid] == target:
+            return mid
+        # left half sorted
+        if nums[lo] &lt;= nums[mid]:
+            if nums[lo] &lt;= target &lt; nums[mid]:
+                hi = mid - 1
+            else:
+                lo = mid + 1
+        # right half sorted
+        else:
+            if nums[mid] &lt; target &lt;= nums[hi]:
+                lo = mid + 1
+            else:
+                hi = mid - 1
+    return -1
+</code></pre>
+<p><strong>Binary search on answer (Capacity to Ship in D Days):</strong></p>
+<pre><code class="language-python">def ship_within_days(weights, days):
+    def can_ship(capacity):
+        ships, load = 1, 0
+        for w in weights:
+            if load + w &gt; capacity:
+                ships += 1; load = 0
+            load += w
+        return ships &lt;= days
+
+    lo, hi = max(weights), sum(weights)
+    while lo &lt; hi:
+        mid = (lo + hi) // 2
+        if can_ship(mid):
+            hi = mid
+        else:
+            lo = mid + 1
+    return lo
+</code></pre>
+<p><strong>bisect module (use in timed exams — saves time):</strong></p>
+<pre><code class="language-python">import bisect
+a = [1, 3, 5, 7, 9]
+bisect.bisect_left(a, 5)    # 2 (first pos where 5 could go keeping sorted)
+bisect.bisect_right(a, 5)   # 3 (after all 5s)
+bisect.insort(a, 6)         # inserts 6, list stays sorted
+</code></pre>
+<p><strong>Complexity:</strong> O(log n) time, O(1) space.</p>
+<hr />
+<h3 id="pattern-11-recursion-backtracking">Pattern 11: Recursion / Backtracking</h3>
+<p><strong>When:</strong> Exhaustive search, permutations, combinations, constraint satisfaction (Sudoku, N-Queens, word search).</p>
+<p><strong>Template:</strong></p>
+<pre><code class="language-python">def backtrack(start, path, result, candidates, target):
+    if &lt;base case / goal reached&gt;:
+        result.append(path[:])   # copy!
+        return
+    for i in range(start, len(candidates)):
+        if &lt;pruning condition&gt;:
+            continue
+        path.append(candidates[i])
+        backtrack(i + 1, path, result, candidates, target)  # i+1 = no reuse; i = reuse
+        path.pop()                                            # undo choice
+</code></pre>
+<p><strong>Subsets:</strong></p>
+<pre><code class="language-python">def subsets(nums):
+    result = []
+    def backtrack(start, path):
+        result.append(path[:])
+        for i in range(start, len(nums)):
+            path.append(nums[i])
+            backtrack(i + 1, path)
+            path.pop()
+    backtrack(0, [])
+    return result
+</code></pre>
+<p><strong>Combination Sum (reuse allowed):</strong></p>
+<pre><code class="language-python">def combination_sum(candidates, target):
+    result = []
+    candidates.sort()
+    def backtrack(start, path, remaining):
+        if remaining == 0:
+            result.append(path[:])
+            return
+        for i in range(start, len(candidates)):
+            if candidates[i] &gt; remaining:
+                break   # pruning
+            path.append(candidates[i])
+            backtrack(i, path, remaining - candidates[i])   # i not i+1 = reuse
+            path.pop()
+    backtrack(0, [], target)
+    return result
+</code></pre>
+<p><strong>Word Search (grid backtracking):</strong></p>
+<pre><code class="language-python">def exist(board, word):
+    rows, cols = len(board), len(board[0])
+
+    def dfs(r, c, idx):
+        if idx == len(word): return True
+        if r &lt; 0 or r &gt;= rows or c &lt; 0 or c &gt;= cols: return False
+        if board[r][c] != word[idx]: return False
+        tmp = board[r][c]
+        board[r][c] = '#'   # mark visited
+        found = any(dfs(r+dr, c+dc, idx+1) for dr, dc in [(0,1),(0,-1),(1,0),(-1,0)])
+        board[r][c] = tmp   # restore
+        return found
+
+    return any(dfs(r, c, 0) for r in range(rows) for c in range(cols))
+</code></pre>
+<p><strong>Complexity:</strong> O(b^d) worst case (b = branching factor, d = depth). Pruning is what makes it practical.</p>
+<hr />
+<h3 id="pattern-12-dynamic-programming">Pattern 12: Dynamic Programming</h3>
+<p><strong>When:</strong> Overlapping subproblems + optimal substructure; max/min/count across choices.</p>
+<p><strong>Approaches:</strong>
+- Top-down: recursive + <code>@functools.lru_cache(maxsize=None)</code> — write naturally, memoize automatically
+- Bottom-up: explicit table — better control over space optimization (rolling array)</p>
+<p><strong>Coin Change (1D DP — minimum coins):</strong></p>
+<pre><code class="language-python">def coin_change(coins, amount):
+    dp = [float('inf')] * (amount + 1)
+    dp[0] = 0
+    for a in range(1, amount + 1):
+        for c in coins:
+            if c &lt;= a:
+                dp[a] = min(dp[a], dp[a - c] + 1)
+    return dp[amount] if dp[amount] != float('inf') else -1
+</code></pre>
+<p><strong>Longest Common Subsequence (2D DP):</strong></p>
+<pre><code class="language-python">def lcs(text1, text2):
+    m, n = len(text1), len(text2)
+    dp = [[0] * (n + 1) for _ in range(m + 1)]
+    for i in range(1, m + 1):
+        for j in range(1, n + 1):
+            if text1[i-1] == text2[j-1]:
+                dp[i][j] = 1 + dp[i-1][j-1]
+            else:
+                dp[i][j] = max(dp[i-1][j], dp[i][j-1])
+    return dp[m][n]
+</code></pre>
+<p><strong>Edit Distance:</strong></p>
+<pre><code class="language-python">def min_distance(word1, word2):
+    m, n = len(word1), len(word2)
+    dp = [[0]*(n+1) for _ in range(m+1)]
+    for i in range(m+1): dp[i][0] = i
+    for j in range(n+1): dp[0][j] = j
+    for i in range(1, m+1):
+        for j in range(1, n+1):
+            if word1[i-1] == word2[j-1]:
+                dp[i][j] = dp[i-1][j-1]
+            else:
+                dp[i][j] = 1 + min(dp[i-1][j],    # delete
+                                    dp[i][j-1],    # insert
+                                    dp[i-1][j-1])  # replace
+    return dp[m][n]
+</code></pre>
+<p><strong>0/1 Knapsack:</strong></p>
+<pre><code class="language-python">def knapsack(weights, values, capacity):
+    n = len(weights)
+    dp = [0] * (capacity + 1)
+    for i in range(n):
+        for w in range(capacity, weights[i] - 1, -1):   # reverse to avoid reuse
+            dp[w] = max(dp[w], dp[w - weights[i]] + values[i])
+    return dp[capacity]
+</code></pre>
+<p><strong>Memoized top-down with lru_cache:</strong></p>
+<pre><code class="language-python">import functools
+
+def longest_increasing_subsequence(nums):
+    @functools.lru_cache(maxsize=None)
+    def dp(i):
+        return 1 + max((dp(j) for j in range(i) if nums[j] &lt; nums[i]), default=0)
+    return max(dp(i) for i in range(len(nums)))
+</code></pre>
+<p><strong>Complexity:</strong> Usually O(n²) time, O(n) or O(n²) space depending on problem.</p>
+<hr />
+<h3 id="pattern-13-intervals">Pattern 13: Intervals</h3>
+<p><strong>When:</strong> Scheduling, range overlap, calendar conflicts, sweep line.</p>
+<p><strong>Merge Intervals:</strong></p>
+<pre><code class="language-python">def merge(intervals):
+    intervals.sort(key=lambda x: x[0])
+    merged = [intervals[0]]
+    for start, end in intervals[1:]:
+        if start &lt;= merged[-1][1]:
+            merged[-1][1] = max(merged[-1][1], end)
+        else:
+            merged.append([start, end])
+    return merged
+</code></pre>
+<p><strong>Meeting Rooms II — minimum rooms needed:</strong></p>
+<pre><code class="language-python">import heapq
+
+def min_meeting_rooms(intervals):
+    intervals.sort(key=lambda x: x[0])
+    heap = []    # stores end times of active meetings
+    for start, end in intervals:
+        if heap and heap[0] &lt;= start:
+            heapq.heapreplace(heap, end)
+        else:
+            heapq.heappush(heap, end)
+    return len(heap)
+</code></pre>
+<hr />
+<h3 id="pattern-14-greedy">Pattern 14: Greedy</h3>
+<p><strong>When:</strong> Locally optimal choices yield global optimum; activity selection, jump games, task scheduling, coin change (canonical denominations).</p>
+<p><strong>Proof pattern:</strong> Exchange argument — assume optimal differs from greedy; show swap to greedy choice does not make things worse.</p>
+<p><strong>Jump Game:</strong></p>
+<pre><code class="language-python">def can_jump(nums):
+    max_reach = 0
+    for i, jump in enumerate(nums):
+        if i &gt; max_reach:
+            return False
+        max_reach = max(max_reach, i + jump)
+    return True
+</code></pre>
+<p><strong>Task Scheduler:</strong></p>
+<pre><code class="language-python">from collections import Counter
+
+def least_interval(tasks, n):
+    freq = sorted(Counter(tasks).values(), reverse=True)
+    max_freq = freq[0]
+    max_count = freq.count(max_freq)
+    # formula: max slots needed
+    intervals = (max_freq - 1) * (n + 1) + max_count
+    return max(intervals, len(tasks))
+</code></pre>
+<hr />
+<h3 id="big-o-quick-reference">Big-O Quick Reference</h3>
+<table>
+<thead>
+<tr>
+<th>Structure / Algorithm</th>
+<th>Best</th>
+<th>Average</th>
+<th>Worst</th>
+<th>Space</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Array access</td>
+<td>O(1)</td>
+<td>O(1)</td>
+<td>O(1)</td>
+<td>O(n)</td>
+</tr>
+<tr>
+<td>Array search (unsorted)</td>
+<td>O(1)</td>
+<td>O(n)</td>
+<td>O(n)</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Array insert / delete</td>
+<td>O(1) end</td>
+<td>O(n)</td>
+<td>O(n)</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Hash table insert / search</td>
+<td>O(1)</td>
+<td>O(1)</td>
+<td>O(n) amort.</td>
+<td>O(n)</td>
+</tr>
+<tr>
+<td>Binary search</td>
+<td>O(1)</td>
+<td>O(log n)</td>
+<td>O(log n)</td>
+<td>O(1)</td>
+</tr>
+<tr>
+<td>Heap push / pop</td>
+<td>—</td>
+<td>O(log n)</td>
+<td>O(log n)</td>
+<td>O(n)</td>
+</tr>
+<tr>
+<td>Heap build (heapify)</td>
+<td>—</td>
+<td>O(n)</td>
+<td>O(n)</td>
+<td>—</td>
+</tr>
+<tr>
+<td>BST search / insert (balanced)</td>
+<td>O(log n)</td>
+<td>O(log n)</td>
+<td>O(n)</td>
+<td>O(n)</td>
+</tr>
+<tr>
+<td>Quicksort</td>
+<td>O(n log n)</td>
+<td>O(n log n)</td>
+<td>O(n²)</td>
+<td>O(log n)</td>
+</tr>
+<tr>
+<td>Mergesort</td>
+<td>O(n log n)</td>
+<td>O(n log n)</td>
+<td>O(n log n)</td>
+<td>O(n)</td>
+</tr>
+<tr>
+<td>BFS / DFS on graph</td>
+<td>—</td>
+<td>O(V+E)</td>
+<td>O(V+E)</td>
+<td>O(V)</td>
+</tr>
+<tr>
+<td>Union-Find (with PC+rank)</td>
+<td>O(1)</td>
+<td>O(α(n))</td>
+<td>O(α(n))</td>
+<td>O(n)</td>
+</tr>
+<tr>
+<td>1D DP</td>
+<td>—</td>
+<td>O(n)</td>
+<td>O(n)</td>
+<td>O(n)</td>
+</tr>
+<tr>
+<td>2D DP</td>
+<td>—</td>
+<td>O(n²)</td>
+<td>O(n²)</td>
+<td>O(n²)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="3-from-scratch-ml-implementations">3. From-Scratch ML Implementations</h2>
+<p>These are the implementations you must be able to type cold under exam conditions. Study the docstring of each — it tells you what the examiner expects you to explain.</p>
+<hr />
+<h3 id="3a-k-means-clustering">3A. k-Means Clustering</h3>
+<pre><code class="language-python">import math
+import random
+
+
+def euclidean(a, b):
+    return math.sqrt(sum((x - y) ** 2 for x, y in zip(a, b)))
+
+
+def k_means(data, k, max_iter=100, seed=42):
+    &quot;&quot;&quot;
+    Lloyd's algorithm for k-means.
+    - data: list of d-dimensional points (list of lists)
+    - k: number of clusters
+    Returns: (labels, centroids)
+
+    Key facts to state:
+    - Time complexity: O(n * k * d * max_iter)
+    - Assumes spherical, similarly-sized clusters
+    - Sensitive to scale: normalize features first
+    - k-means++ init reduces bad convergence probability
+    - Inertia (WCSS) = sum of squared distances to nearest centroid
+    &quot;&quot;&quot;
+    random.seed(seed)
+    centroids = random.sample(data, k)
+
+    for _ in range(max_iter):
+        # ASSIGN each point to nearest centroid
+        clusters = [[] for _ in range(k)]
+        for point in data:
+            dists = [euclidean(point, c) for c in centroids]
+            clusters[dists.index(min(dists))].append(point)
+
+        # UPDATE centroids to cluster means
+        new_centroids = []
+        for i, cluster in enumerate(clusters):
+            if cluster:
+                d = len(cluster[0])
+                new_c = [sum(p[dim] for p in cluster) / len(cluster) for dim in range(d)]
+                new_centroids.append(new_c)
+            else:
+                new_centroids.append(random.choice(data))   # empty cluster: reinit
+
+        # CONVERGENCE check
+        if all(euclidean(centroids[i], new_centroids[i]) &lt; 1e-6 for i in range(k)):
+            break
+        centroids = new_centroids
+
+    labels = [min(range(k), key=lambda i: euclidean(p, centroids[i])) for p in data]
+    return labels, centroids
+
+
+# --- k-means++ initialization (bonus if you have time) ---
+def kmeans_plus_plus_init(data, k, seed=42):
+    random.seed(seed)
+    centroids = [random.choice(data)]
+    for _ in range(k - 1):
+        dists = [min(euclidean(p, c) for c in centroids) for p in data]
+        total = sum(dists)
+        r = random.uniform(0, total)
+        cumsum = 0
+        for p, d in zip(data, dists):
+            cumsum += d
+            if cumsum &gt;= r:
+                centroids.append(p)
+                break
+    return centroids
+</code></pre>
+<hr />
+<h3 id="3b-k-nearest-neighbors-knn">3B. k-Nearest Neighbors (kNN)</h3>
+<pre><code class="language-python">import numpy as np
+from collections import Counter
+
+
+class KNN:
+    &quot;&quot;&quot;
+    k-Nearest Neighbors for classification (and optionally regression).
+
+    Key facts:
+    - Lazy learner: no training, O(n*d) per prediction
+    - Small k = high variance (overfits); large k = high bias (underfits)
+    - Sensitive to feature scale: normalize before using
+    - Curse of dimensionality: distance concentrates in high d
+    - For regression: return np.mean(k_labels) instead of majority vote
+    &quot;&quot;&quot;
+
+    def __init__(self, k=3):
+        self.k = k
+        self.X_train = None
+        self.y_train = None
+
+    def fit(self, X, y):
+        self.X_train = np.array(X, dtype=float)
+        self.y_train = np.array(y)
+
+    def _distance(self, a, b):
+        return np.sqrt(np.sum((a - b) ** 2))
+
+    def predict(self, X):
+        return np.array([self._predict_one(x) for x in np.array(X, dtype=float)])
+
+    def _predict_one(self, x):
+        dists = [self._distance(x, xt) for xt in self.X_train]
+        k_indices = np.argsort(dists)[:self.k]
+        k_labels = self.y_train[k_indices]
+        return Counter(k_labels).most_common(1)[0][0]   # classification
+
+
+# numpy-vectorized version (much faster; use this if numpy available)
+class KNNVectorized:
+    def __init__(self, k=3):
+        self.k = k
+
+    def fit(self, X, y):
+        self.X_train = np.array(X, dtype=float)
+        self.y_train = np.array(y)
+
+    def predict(self, X):
+        X = np.array(X, dtype=float)
+        # Euclidean distance via broadcasting: (n_test, n_train)
+        diff = X[:, np.newaxis, :] - self.X_train[np.newaxis, :, :]
+        dists = np.sqrt((diff ** 2).sum(axis=-1))
+        k_idx = np.argsort(dists, axis=1)[:, :self.k]
+        k_labels = self.y_train[k_idx]
+        # majority vote
+        return np.array([Counter(row).most_common(1)[0][0] for row in k_labels])
+</code></pre>
+<hr />
+<h3 id="3c-linear-regression-with-gradient-descent">3C. Linear Regression with Gradient Descent</h3>
+<pre><code class="language-python">import numpy as np
+
+
+class LinearRegression:
+    &quot;&quot;&quot;
+    Ordinary least squares via gradient descent.
+
+    Loss: MSE = (1/n) * ||Xw + b - y||^2
+    Gradient w.r.t. w: (2/n) * X^T (Xw + b - y)
+    Gradient w.r.t. b: (2/n) * sum(Xw + b - y)
+
+    Analytical solution (Normal Equations): w = (X^T X)^{-1} X^T y
+      - Use when n is manageable (&lt; ~10k samples)
+      - O(n*d^2 + d^3); gradient descent O(n*d) per iteration
+    &quot;&quot;&quot;
+
+    def __init__(self, lr=0.01, n_iter=1000):
+        self.lr = lr
+        self.n_iter = n_iter
+        self.w = None
+        self.b = None
+
+    def fit(self, X, y):
+        X, y = np.array(X, dtype=float), np.array(y, dtype=float)
+        n, d = X.shape
+        self.w = np.zeros(d)
+        self.b = 0.0
+        for _ in range(self.n_iter):
+            y_pred = X @ self.w + self.b
+            error = y_pred - y
+            dw = (2 / n) * X.T @ error
+            db = (2 / n) * np.sum(error)
+            self.w -= self.lr * dw
+            self.b  -= self.lr * db
+
+    def predict(self, X):
+        return np.array(X, dtype=float) @ self.w + self.b
+
+    @staticmethod
+    def normal_equations(X, y):
+        &quot;&quot;&quot;Analytical solution via normal equations.&quot;&quot;&quot;
+        X = np.array(X, dtype=float)
+        y = np.array(y, dtype=float)
+        # Add bias column
+        X_b = np.column_stack([np.ones(len(X)), X])
+        # w = (X^T X)^{-1} X^T y
+        return np.linalg.lstsq(X_b, y, rcond=None)[0]
+</code></pre>
+<hr />
+<h3 id="3d-logistic-regression-with-gradient-descent">3D. Logistic Regression with Gradient Descent</h3>
+<pre><code class="language-python">import numpy as np
+
+
+class LogisticRegression:
+    &quot;&quot;&quot;
+    Binary logistic regression via gradient descent.
+
+    Model: p = sigmoid(Xw + b)
+    Loss: Binary cross-entropy = -(1/n) * sum(y*log(p) + (1-y)*log(1-p))
+    Gradient w.r.t. w: (1/n) * X^T (p - y)     &lt;- same form as linear!
+    Gradient w.r.t. b: (1/n) * sum(p - y)
+
+    L2 regularization: add (lambda/n)*w to dw (do NOT regularize bias)
+    Multi-class: use softmax + cross-entropy (see Section 3F)
+    &quot;&quot;&quot;
+
+    def __init__(self, lr=0.01, n_iter=1000, lambda_=0.0):
+        self.lr = lr
+        self.n_iter = n_iter
+        self.lambda_ = lambda_
+        self.w = None
+        self.b = None
+
+    @staticmethod
+    def _sigmoid(z):
+        return 1.0 / (1.0 + np.exp(-np.clip(z, -500, 500)))   # clip: numerical stability
+
+    def fit(self, X, y):
+        X, y = np.array(X, dtype=float), np.array(y, dtype=float)
+        n, d = X.shape
+        self.w = np.zeros(d)
+        self.b = 0.0
+        for _ in range(self.n_iter):
+            z = X @ self.w + self.b
+            p = self._sigmoid(z)
+            dw = (1 / n) * X.T @ (p - y) + (self.lambda_ / n) * self.w
+            db = (1 / n) * np.sum(p - y)
+            self.w -= self.lr * dw
+            self.b  -= self.lr * db
+
+    def predict_proba(self, X):
+        return self._sigmoid(np.array(X, dtype=float) @ self.w + self.b)
+
+    def predict(self, X, threshold=0.5):
+        return (self.predict_proba(X) &gt;= threshold).astype(int)
+
+    def log_loss(self, X, y):
+        &quot;&quot;&quot;Compute binary cross-entropy loss on (X, y).&quot;&quot;&quot;
+        p = np.clip(self.predict_proba(X), 1e-12, 1 - 1e-12)
+        y = np.array(y)
+        return -np.mean(y * np.log(p) + (1 - y) * np.log(1 - p))
+</code></pre>
+<hr />
+<h3 id="3e-traintest-split-and-evaluation-metrics">3E. Train/Test Split and Evaluation Metrics</h3>
+<pre><code class="language-python">import numpy as np
+
+
+def train_test_split(X, y, test_size=0.2, seed=42):
+    &quot;&quot;&quot;Shuffle and split into train/test.&quot;&quot;&quot;
+    X, y = np.array(X), np.array(y)
+    np.random.seed(seed)
+    idx = np.random.permutation(len(X))
+    split = int(len(X) * (1 - test_size))
+    train_idx, test_idx = idx[:split], idx[split:]
+    return X[train_idx], X[test_idx], y[train_idx], y[test_idx]
+
+
+def accuracy(y_true, y_pred):
+    return float(np.mean(np.array(y_true) == np.array(y_pred)))
+
+
+def confusion_matrix_counts(y_true, y_pred):
+    y_true, y_pred = np.array(y_true), np.array(y_pred)
+    TP = int(np.sum((y_pred == 1) &amp; (y_true == 1)))
+    FP = int(np.sum((y_pred == 1) &amp; (y_true == 0)))
+    FN = int(np.sum((y_pred == 0) &amp; (y_true == 1)))
+    TN = int(np.sum((y_pred == 0) &amp; (y_true == 0)))
+    return TP, FP, FN, TN
+
+
+def precision_recall_f1(y_true, y_pred):
+    &quot;&quot;&quot;
+    Precision = TP / (TP + FP)  &lt;- &quot;of what we predicted positive, how many were right?&quot;
+    Recall    = TP / (TP + FN)  &lt;- &quot;of all actual positives, how many did we find?&quot;
+    F1        = harmonic mean of P and R  &lt;- balanced metric; prefer over accuracy when imbalanced
+    &quot;&quot;&quot;
+    TP, FP, FN, TN = confusion_matrix_counts(y_true, y_pred)
+    p  = TP / (TP + FP) if (TP + FP) &gt; 0 else 0.0
+    r  = TP / (TP + FN) if (TP + FN) &gt; 0 else 0.0
+    f1 = 2 * p * r / (p + r) if (p + r) &gt; 0 else 0.0
+    return p, r, f1
+
+
+def roc_auc(y_true, y_scores):
+    &quot;&quot;&quot;
+    AUC-ROC = probability that a random positive is ranked above a random negative.
+    AUC = 0.5: random; AUC = 1.0: perfect; AUC &lt; 0.5: worse than random.
+    Threshold-independent — use when class imbalance exists.
+    &quot;&quot;&quot;
+    y_true = np.array(y_true)
+    y_scores = np.array(y_scores)
+    order = np.argsort(-y_scores)
+    y_sorted = y_true[order]
+    P = np.sum(y_true)
+    N = len(y_true) - P
+    if P == 0 or N == 0:
+        return 0.0
+    tps, fps = 0, 0
+    tpr_list = [0.0]
+    fpr_list = [0.0]
+    for label in y_sorted:
+        if label == 1:
+            tps += 1
+        else:
+            fps += 1
+        tpr_list.append(tps / P)
+        fpr_list.append(fps / N)
+    # Trapezoidal rule
+    auc = float(np.trapz(tpr_list, fpr_list))
+    return abs(auc)
+
+
+# --- k-fold cross validation scaffold ---
+def k_fold_cross_val(model_class, X, y, k=5, model_kwargs=None):
+    &quot;&quot;&quot;Returns list of fold accuracies.&quot;&quot;&quot;
+    model_kwargs = model_kwargs or {}
+    X, y = np.array(X), np.array(y)
+    n = len(X)
+    indices = np.random.permutation(n)
+    fold_size = n // k
+    scores = []
+    for fold in range(k):
+        val_idx = indices[fold * fold_size:(fold + 1) * fold_size]
+        train_idx = np.concatenate([indices[:fold * fold_size], indices[(fold + 1) * fold_size:]])
+        model = model_class(**model_kwargs)
+        model.fit(X[train_idx], y[train_idx])
+        preds = model.predict(X[val_idx])
+        scores.append(accuracy(y[val_idx], preds))
+    return scores
+</code></pre>
+<hr />
+<h3 id="3f-softmax-and-cross-entropy-loss">3F. Softmax and Cross-Entropy Loss</h3>
+<pre><code class="language-python">import numpy as np
+
+
+def softmax(logits):
+    &quot;&quot;&quot;
+    Numerically stable softmax via LogSumExp trick: subtract max before exp.
+    Without this: exp(1000) = inf in float32/64.
+
+    Formula: softmax(z)_i = exp(z_i) / sum_j exp(z_j)
+    Shaped for batches: logits shape (n, C)
+    &quot;&quot;&quot;
+    shifted = logits - np.max(logits, axis=-1, keepdims=True)
+    exp_vals = np.exp(shifted)
+    return exp_vals / np.sum(exp_vals, axis=-1, keepdims=True)
+
+
+def cross_entropy_loss(logits, labels):
+    &quot;&quot;&quot;
+    labels: integer class indices, shape (n,)
+    Returns scalar mean loss.
+
+    Loss = -(1/n) * sum_i log( softmax(logits_i)[labels_i] )
+    Equivalently: NLL of the categorical distribution.
+    &quot;&quot;&quot;
+    probs = softmax(logits)
+    n = logits.shape[0]
+    # index into each row to get the probability of the true class
+    true_probs = probs[np.arange(n), labels]
+    log_probs = -np.log(np.clip(true_probs, 1e-12, 1.0))
+    return float(np.mean(log_probs))
+
+
+def softmax_cross_entropy_gradient(logits, labels):
+    &quot;&quot;&quot;
+    d(CE) / d(logits) = (softmax(logits) - one_hot(labels)) / n
+    This is the elegant combined gradient; no need to separate softmax gradient.
+    &quot;&quot;&quot;
+    probs = softmax(logits)
+    n = logits.shape[0]
+    probs[np.arange(n), labels] -= 1
+    return probs / n
+
+
+# One-hot encoding helper
+def one_hot(labels, num_classes):
+    n = len(labels)
+    oh = np.zeros((n, num_classes))
+    oh[np.arange(n), labels] = 1
+    return oh
+</code></pre>
+<hr />
+<h3 id="3g-tiny-mlp-forward-and-backward-pass">3G. Tiny MLP — Forward and Backward Pass</h3>
+<pre><code class="language-python">import numpy as np
+
+
+def relu(x):
+    return np.maximum(0, x)
+
+
+def relu_grad(x):
+    return (x &gt; 0).astype(float)
+
+
+class TinyMLP:
+    &quot;&quot;&quot;
+    2-layer MLP: input -&gt; hidden (ReLU) -&gt; output (softmax + CE loss).
+
+    Architecture:
+        z1 = X @ W1 + b1        (n, hidden_dim)
+        a1 = relu(z1)            (n, hidden_dim)
+        z2 = a1 @ W2 + b2       (n, num_classes)
+        loss = CE(z2, labels)
+
+    Backprop:
+        dL/dz2 = (softmax(z2) - one_hot) / n    [gradient of CE + softmax combined]
+        dL/dW2 = a1.T @ dz2
+        dL/db2 = sum(dz2, axis=0)
+        dL/da1 = dz2 @ W2.T
+        dL/dz1 = da1 * relu_grad(z1)            [chain rule through ReLU]
+        dL/dW1 = X.T @ dz1
+        dL/db1 = sum(dz1, axis=0)
+    &quot;&quot;&quot;
+
+    def __init__(self, input_dim, hidden_dim, num_classes, lr=0.01):
+        # Xavier initialization
+        self.W1 = np.random.randn(input_dim, hidden_dim) * np.sqrt(2.0 / input_dim)
+        self.b1 = np.zeros(hidden_dim)
+        self.W2 = np.random.randn(hidden_dim, num_classes) * np.sqrt(2.0 / hidden_dim)
+        self.b2 = np.zeros(num_classes)
+        self.lr = lr
+
+    def forward(self, X):
+        &quot;&quot;&quot;Returns (logits, cache) where cache has intermediate values for backward.&quot;&quot;&quot;
+        z1 = X @ self.W1 + self.b1
+        a1 = relu(z1)
+        z2 = a1 @ self.W2 + self.b2
+        cache = (X, z1, a1, z2)
+        return z2, cache
+
+    def backward(self, cache, labels):
+        X, z1, a1, z2 = cache
+        n = X.shape[0]
+
+        # Gradient of CE + softmax combined
+        probs = softmax(z2)
+        dz2 = probs.copy()
+        dz2[np.arange(n), labels] -= 1
+        dz2 /= n
+
+        dW2 = a1.T @ dz2
+        db2 = dz2.sum(axis=0)
+
+        da1 = dz2 @ self.W2.T
+        dz1 = da1 * relu_grad(z1)    # chain rule: ReLU gate
+
+        dW1 = X.T @ dz1
+        db1 = dz1.sum(axis=0)
+
+        # Gradient descent update
+        self.W2 -= self.lr * dW2
+        self.b2 -= self.lr * db2
+        self.W1 -= self.lr * dW1
+        self.b1 -= self.lr * db1
+
+    def train_step(self, X, labels):
+        logits, cache = self.forward(X)
+        loss = cross_entropy_loss(logits, labels)
+        self.backward(cache, labels)
+        return loss
+
+    def predict(self, X):
+        logits, _ = self.forward(X)
+        return np.argmax(logits, axis=1)
+
+
+def softmax(logits):
+    shifted = logits - np.max(logits, axis=-1, keepdims=True)
+    e = np.exp(shifted)
+    return e / e.sum(axis=-1, keepdims=True)
+
+
+def cross_entropy_loss(logits, labels):
+    probs = softmax(logits)
+    n = logits.shape[0]
+    return float(-np.mean(np.log(np.clip(probs[np.arange(n), labels], 1e-12, 1.0))))
+</code></pre>
+<hr />
+<h3 id="3h-scaled-dot-product-attention">3H. Scaled Dot-Product Attention</h3>
+<pre><code class="language-python">import numpy as np
+
+
+def scaled_dot_product_attention(Q, K, V, mask=None):
+    &quot;&quot;&quot;
+    Core attention operation (Vaswani et al. 2017).
+
+    Formula: Attention(Q, K, V) = softmax(Q K^T / sqrt(d_k)) * V
+
+    Args:
+        Q: (..., seq_q, d_k)
+        K: (..., seq_k, d_k)
+        V: (..., seq_k, d_v)
+        mask: bool/int mask; 0 positions are masked (set to -inf before softmax)
+
+    Returns: output (..., seq_q, d_v), attn_weights (..., seq_q, seq_k)
+
+    Key facts:
+    - sqrt(d_k) scaling: dot products grow O(d_k) in expectation, pushing softmax
+      into saturation (near-zero gradients). Dividing by sqrt(d_k) normalizes variance.
+    - Causal mask (decoder self-attention): mask upper triangle -&gt; -1e9 before softmax
+      so each position only attends to past positions.
+    - Multi-head: project Q/K/V into h sub-spaces, run attention in parallel,
+      concatenate outputs: MultiHead(Q,K,V) = Concat(head_1, ..., head_h) W_O
+    - Complexity: O(n^2 * d_k) per head -&gt; quadratic in sequence length.
+      Motivation for FlashAttention (IO-aware tiling), linear attention, GQA, MLA.
+    - GQA (LLaMA 3, Mistral): G groups share K/V heads -&gt; reduce KV cache G-fold.
+    &quot;&quot;&quot;
+    d_k = Q.shape[-1]
+    # (..., seq_q, seq_k)
+    scores = Q @ K.swapaxes(-2, -1) / np.sqrt(d_k)
+
+    if mask is not None:
+        # Where mask == 0, set to large negative (zeroed after softmax)
+        scores = np.where(mask == 0, -1e9, scores)
+
+    # Numerically stable softmax over key dimension
+    scores = scores - np.max(scores, axis=-1, keepdims=True)
+    exp_scores = np.exp(scores)
+    attn_weights = exp_scores / (np.sum(exp_scores, axis=-1, keepdims=True) + 1e-9)
+
+    output = attn_weights @ V
+    return output, attn_weights
+
+
+def make_causal_mask(seq_len):
+    &quot;&quot;&quot;Lower-triangular mask: position i can only attend to j &lt;= i.&quot;&quot;&quot;
+    return np.tril(np.ones((seq_len, seq_len), dtype=int))
+
+
+def multi_head_attention(Q, K, V, W_Q, W_K, W_V, W_O, n_heads, mask=None):
+    &quot;&quot;&quot;
+    Minimal multi-head attention.
+    Q/K/V: (batch, seq, d_model)
+    W_Q/W_K/W_V: (d_model, d_model)  -- projects then splits into heads
+    W_O: (d_model, d_model)
+    &quot;&quot;&quot;
+    batch, seq, d_model = Q.shape
+    d_head = d_model // n_heads
+
+    def split_heads(x):
+        x = x @ (W_Q if x is Q else (W_K if x is K else W_V))
+        x = x.reshape(batch, seq, n_heads, d_head)
+        return x.transpose(0, 2, 1, 3)   # (batch, heads, seq, d_head)
+
+    Q_ = (Q @ W_Q).reshape(batch, seq, n_heads, d_head).transpose(0, 2, 1, 3)
+    K_ = (K @ W_K).reshape(batch, seq, n_heads, d_head).transpose(0, 2, 1, 3)
+    V_ = (V @ W_V).reshape(batch, seq, n_heads, d_head).transpose(0, 2, 1, 3)
+
+    out, weights = scaled_dot_product_attention(Q_, K_, V_, mask=mask)
+    # (batch, heads, seq, d_head) -&gt; (batch, seq, d_model)
+    out = out.transpose(0, 2, 1, 3).reshape(batch, seq, d_model)
+    return out @ W_O, weights
+</code></pre>
+<hr />
+<h3 id="3i-minimal-bpe-tokenizer">3I. Minimal BPE Tokenizer</h3>
+<pre><code class="language-python">from collections import Counter
+from collections import deque
+
+
+class BPETokenizer:
+    &quot;&quot;&quot;
+    Byte-Pair Encoding tokenizer (Sennrich et al. 2016 style, byte-level like GPT-2).
+
+    Algorithm:
+    1. Start with all 256 UTF-8 byte IDs as initial vocabulary.
+    2. Count all adjacent pairs in the current token sequence.
+    3. Merge the most frequent pair -&gt; assign it a new ID.
+    4. Repeat until vocab_size is reached.
+
+    Key facts:
+    - Merge ORDER is critical; encoding must replay merges in the same sequence.
+    - Byte-level BPE = zero OOV tokens (any text is valid UTF-8 bytes).
+    - Larger vocab_size: shorter sequences (cheaper attention) but larger embedding matrices.
+    - eBay's LiLiuM uses a custom vocabulary tuned for e-commerce terms -&gt; 34% speedup.
+    - Used in GPT-2/3/4, LLaMA 3 (128k vocab), Qwen 3.
+    - Alternative: SentencePiece Unigram (used in Gemma, mT5) - probabilistic, no whitespace assumption.
+    &quot;&quot;&quot;
+
+    def __init__(self, vocab_size=500):
+        self.vocab_size = vocab_size
+        self.merges = {}    # (id1, id2) -&gt; new_id; ordered dict preserves merge order
+        self.vocab = {}     # id -&gt; bytes
+
+    def _get_pair_freqs(self, ids):
+        return Counter(zip(ids, ids[1:]))
+
+    def _merge_pair(self, ids, pair, new_id):
+        dq = deque(ids)
+        result = []
+        while dq:
+            cur = dq.popleft()
+            if dq and (cur, dq[0]) == pair:
+                result.append(new_id)
+                dq.popleft()        # consume the second element of the pair
+            else:
+                result.append(cur)
+        return result
+
+    def train(self, text):
+        &quot;&quot;&quot;Train BPE on raw text string.&quot;&quot;&quot;
+        ids = list(text.encode('utf-8'))
+        # Init vocab with all 256 bytes
+        self.vocab = {i: bytes([i]) for i in range(256)}
+        next_id = 256
+
+        while next_id &lt; self.vocab_size:
+            pair_freqs = self._get_pair_freqs(ids)
+            if not pair_freqs:
+                break
+            best_pair = max(pair_freqs, key=pair_freqs.get)
+            self.merges[best_pair] = next_id
+            self.vocab[next_id] = self.vocab[best_pair[0]] + self.vocab[best_pair[1]]
+            ids = self._merge_pair(ids, best_pair, next_id)
+            next_id += 1
+
+    def encode(self, text):
+        &quot;&quot;&quot;Encode text to list of token IDs by replaying merges in order.&quot;&quot;&quot;
+        ids = list(text.encode('utf-8'))
+        for pair, new_id in self.merges.items():
+            ids = self._merge_pair(ids, pair, new_id)
+        return ids
+
+    def decode(self, ids):
+        &quot;&quot;&quot;Decode list of token IDs back to string.&quot;&quot;&quot;
+        byte_seq = b''.join(self.vocab[i] for i in ids)
+        return byte_seq.decode('utf-8', errors='replace')
+
+    def token_count(self, text):
+        return len(self.encode(text))
+</code></pre>
+<hr />
+<h2 id="4-probability-and-statistics-worked-problems">4. Probability and Statistics — Worked Problems</h2>
+<p>Modules 1 and 2 of the ML assessment test these directly. Master these five problem types.</p>
+<hr />
+<h3 id="4a-bayes-theorem">4A. Bayes' Theorem</h3>
+<p><strong>Formula:</strong> P(A|B) = P(B|A) * P(A) / P(B)</p>
+<p>where P(B) = P(B|A)<em>P(A) + P(B|not A)</em>P(not A)</p>
+<p><strong>Canonical diagnostic test problem:</strong></p>
+<blockquote>
+<p>A disease has prevalence 1%. A test has 99% sensitivity (TP rate) and 99% specificity (TN rate). If someone tests positive, what is P(they have the disease)?</p>
+</blockquote>
+<pre><code>P(D) = 0.01,   P(+|D) = 0.99,   P(+|no D) = 1 - specificity = 0.01
+
+P(D|+) = P(+|D) * P(D) / [P(+|D)*P(D) + P(+|no D)*P(no D)]
+       = (0.99 * 0.01) / (0.99*0.01 + 0.01*0.99)
+       = 0.0099 / 0.0198
+       = 0.50 = 50%
+</code></pre>
+<p><strong>Counterintuitive takeaway:</strong> Even a 99%-accurate test produces 50% false positive rate when disease is rare (prevalence = 1%). The prior probability dominates when it is extreme. This is the base rate fallacy — a classic MCQ trap.</p>
+<p><strong>Coin variant (FAANG standard):</strong></p>
+<blockquote>
+<p>Pick uniformly between a fair coin and a two-heads coin. Flip 5 times, all heads. P(two-heads coin)?</p>
+</blockquote>
+<pre><code>P(H5|fair) = (1/2)^5 = 1/32
+P(H5|unfair) = 1
+P(each) = 0.5
+
+P(unfair|H5) = 1*0.5 / (1*0.5 + 1/32 * 0.5) = 0.5 / (0.5 + 0.015625) ≈ 0.970
+</code></pre>
+<hr />
+<h3 id="4b-expected-value-and-recursive-conditioning">4B. Expected Value and Recursive Conditioning</h3>
+<p><strong>Expected coin flips until HH (two consecutive heads):</strong></p>
+<p>Let E = expected number of flips. Condition on first two outcomes:</p>
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Prob</th>
+<th>Outcome</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>T (first flip tails)</td>
+<td>1/2</td>
+<td>Must restart after 1 flip: 1 + E</td>
+</tr>
+<tr>
+<td>HT (heads then tails)</td>
+<td>1/4</td>
+<td>Must restart after 2 flips: 2 + E</td>
+</tr>
+<tr>
+<td>HH (success)</td>
+<td>1/4</td>
+<td>Done in 2 flips: 2</td>
+</tr>
+</tbody>
+</table>
+<pre><code>E = (1/2)(1 + E) + (1/4)(2 + E) + (1/4)(2)
+E = 1/2 + E/2 + 1/2 + E/4 + 1/2
+E - E/2 - E/4 = 3/2
+E/4 = 3/2
+E = 6
+</code></pre>
+<p><strong>Expected rolls of a die to get all 6 faces (Coupon Collector):</strong></p>
+<p>When k faces already seen, expected rolls to see a new face = 6/(6-k).</p>
+<pre><code>E[total] = 6/6 + 6/5 + 6/4 + 6/3 + 6/2 + 6/1
+         = 1 + 1.2 + 1.5 + 2 + 3 + 6 = 14.7
+</code></pre>
+<p>Formula: E[T] = n * H_n where H_n is the n-th harmonic number.</p>
+<p><strong>Expected value from game with restart:</strong></p>
+<blockquote>
+<p>You roll a die. If you roll 6, you win $10. Otherwise pay $1 and roll again. What's the expected cost?</p>
+</blockquote>
+<p>Let E = expected cost (not counting final win).</p>
+<pre><code>P(6) = 1/6: pay $0 in cost, win $10 (treat cost as 0)
+P(not 6) = 5/6: pay $1, then face same problem: E[cost] = 1 + E
+
+E = (5/6)(1 + E) + (1/6)(0)
+E = 5/6 + 5E/6
+E/6 = 5/6
+E = 5    (expected cost = $5 before winning)
+</code></pre>
+<hr />
+<h3 id="4c-combinatorics-and-counting">4C. Combinatorics and Counting</h3>
+<p><strong>Chords on a circle:</strong></p>
+<blockquote>
+<p>4 points on a circle, randomly partitioned into 2 chords. P(chords intersect)?</p>
+</blockquote>
+<p>Label points A, B, C, D in order around circle. Three ways to pair them:
+- (AB, CD) — no intersection
+- (AC, BD) — intersect
+- (AD, BC) — no intersection</p>
+<p>P(intersect) = <strong>1/3</strong></p>
+<p>Key insight: of all possible pairings, exactly 1/3 lead to crossing. Generalizes: 2n points, n random chords → P(all chords cross each other) involves Catalan numbers.</p>
+<p><strong>Birthday Problem:</strong></p>
+<blockquote>
+<p>In a group of n people, P(at least 2 share birthday)?</p>
+</blockquote>
+<p>P(no shared birthday in n people) = (365/365) * (364/365) * ... * ((365-n+1)/365)</p>
+<p>At n=23: P(match) ≈ 50.7%. At n=70: P(match) ≈ 99.9%.</p>
+<p>Python simulation check:</p>
+<pre><code class="language-python">import math
+def birthday_prob(n):
+    prob_no_match = 1.0
+    for i in range(n):
+        prob_no_match *= (365 - i) / 365
+    return 1 - prob_no_match
+</code></pre>
+<p><strong>Binomial coefficient C(n,k):</strong></p>
+<pre><code class="language-python">import math
+math.comb(10, 3)   # 120 — use this in Python 3.8+; no need to implement
+</code></pre>
+<hr />
+<h3 id="4d-hypothesis-testing-and-clt">4D. Hypothesis Testing and CLT</h3>
+<p><strong>Hypothesis test on coin flips:</strong></p>
+<blockquote>
+<p>You flip a coin 1000 times and get 550 heads. Is the coin fair? (alpha = 0.05)</p>
+</blockquote>
+<pre><code>H0: p = 0.5   H1: p != 0.5
+
+Under H0:
+  E[X] = 500
+  std  = sqrt(1000 * 0.5 * 0.5) = 15.81
+
+z = (550 - 500) / 15.81 = 3.16
+
+P(|Z| &gt; 3.16) = 2 * P(Z &gt; 3.16) ≈ 2 * 0.0008 = 0.0016 &lt; 0.05
+</code></pre>
+<p>Conclusion: reject H0 at 5% significance. Coin is likely biased.</p>
+<p><strong>Key CLT facts for MCQs:</strong>
+- For n independent X_i with mean μ and variance σ²: (X̄ - μ) / (σ/√n) → N(0,1) as n→∞
+- Rule of thumb: CLT applies when n ≥ 30
+- Standard error of mean = σ/√n (gets smaller as n grows)
+- 95% confidence interval: X̄ ± 1.96 * σ/√n</p>
+<hr />
+<h3 id="4e-distribution-quick-reference">4E. Distribution Quick Reference</h3>
+<table>
+<thead>
+<tr>
+<th>Distribution</th>
+<th>PMF / PDF</th>
+<th>Mean</th>
+<th>Variance</th>
+<th>Typical use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Bernoulli(p)</td>
+<td>P(X=1)=p</td>
+<td>p</td>
+<td>p(1-p)</td>
+<td>Single binary trial; sigmoid output</td>
+</tr>
+<tr>
+<td>Binomial(n,p)</td>
+<td>C(n,k)p^k(1-p)^(n-k)</td>
+<td>np</td>
+<td>np(1-p)</td>
+<td>k successes in n trials</td>
+</tr>
+<tr>
+<td>Geometric(p)</td>
+<td>(1-p)^(k-1)p</td>
+<td>1/p</td>
+<td>(1-p)/p²</td>
+<td>Trials until first success</td>
+</tr>
+<tr>
+<td>Poisson(λ)</td>
+<td>λ^k e^{-λ}/k!</td>
+<td>λ</td>
+<td>λ</td>
+<td>Rare events per unit time; mean = variance</td>
+</tr>
+<tr>
+<td>Uniform(a,b)</td>
+<td>1/(b-a)</td>
+<td>(a+b)/2</td>
+<td>(b-a)²/12</td>
+<td>Equal probability over interval</td>
+</tr>
+<tr>
+<td>Normal(μ,σ²)</td>
+<td>(2πσ²)^{-½} exp(-(x-μ)²/2σ²)</td>
+<td>μ</td>
+<td>σ²</td>
+<td>CLT; activations; weight init</td>
+</tr>
+<tr>
+<td>Exponential(λ)</td>
+<td>λe^{-λx}</td>
+<td>1/λ</td>
+<td>1/λ²</td>
+<td>Time between Poisson events; memoryless</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Common MCQ pitfalls with distributions:</strong>
+- Poisson: mean = variance always. If variance &gt;&gt; mean, not Poisson.
+- Geometric is memoryless: P(X &gt; s+t | X &gt; s) = P(X &gt; t).
+- Binomial(1, p) = Bernoulli(p).
+- If X ~ Poisson(λ), sum of n independent Poisson(λ) ~ Poisson(nλ).</p>
+<hr />
+<h3 id="4f-ab-testing-basics-common-in-ml-mcq">4F. A/B Testing Basics (common in ML MCQ)</h3>
+<p><strong>Setup:</strong> Control group (A) with n_A users, conversion rate p_A. Treatment group (B) with n_B users, conversion rate p_B.</p>
+<p><strong>Test statistic:</strong></p>
+<pre><code>z = (p_B - p_A) / sqrt(p_pool*(1-p_pool) * (1/n_A + 1/n_B))
+where p_pool = (x_A + x_B) / (n_A + n_B)
+</code></pre>
+<p><strong>Common MCQ traps:</strong>
+1. "We ran the test until significance." -&gt; peeking problem; inflates false positive rate.
+2. "Test ran 3 days, got p=0.04." -&gt; insufficient time (day-of-week effects, novelty effect).
+3. "Both tests are independent." -&gt; verify: same time period, no user overlap, no spillover.
+4. "Multiple testing on 10 metrics." -&gt; need Bonferroni correction: use α/10 per test.</p>
+<hr />
+<h2 id="5-ml-concept-mcq-style-qa">5. ML Concept MCQ-Style Q&amp;A</h2>
+<p>For Module 2 of the ML assessment. Read each question, formulate your answer mentally, then check the model answer.</p>
+<hr />
+<h3 id="q1-what-does-an-auc-roc-of-05-mean">Q1. What does an AUC-ROC of 0.5 mean?</h3>
+<p><strong>A:</strong> The model performs identically to random chance — for any threshold, TPR = FPR. This means the model has learned no useful discriminative pattern. AUC &lt; 0.5 means the model is anti-correlated with the truth (flip predictions to get AUC = 1 - original).</p>
+<hr />
+<h3 id="q2-training-accuracy-99-test-accuracy-65-what-is-wrong-how-do-you-fix-it">Q2. Training accuracy 99%, test accuracy 65%. What is wrong? How do you fix it?</h3>
+<p><strong>A:</strong> Overfitting (high variance). The model memorizes training data but fails to generalize. Fixes: (1) more training data, (2) L1/L2 regularization, (3) dropout, (4) simpler model (fewer parameters), (5) early stopping on validation loss, (6) data augmentation.</p>
+<hr />
+<h3 id="q3-both-training-accuracy-and-test-accuracy-are-60-on-a-binary-classification-problem-where-baseline-majority-class-is-58-what-is-wrong">Q3. Both training accuracy and test accuracy are 60% on a binary classification problem where baseline (majority class) is 58%. What is wrong?</h3>
+<p><strong>A:</strong> High bias (underfitting). The model lacks capacity to learn the data patterns. Fixes: (1) increase model complexity, (2) add features, (3) reduce regularization, (4) train longer, (5) use non-linear model.</p>
+<hr />
+<h3 id="q4-when-would-you-use-f1-score-over-accuracy">Q4. When would you use F1 score over accuracy?</h3>
+<p><strong>A:</strong> When class distribution is imbalanced. Example: fraud detection where 99% of transactions are non-fraud. A model that always predicts non-fraud gets 99% accuracy but 0% recall for fraud. F1 = 2<em>P</em>R/(P+R) penalizes both missing positives (low recall) and false alarms (low precision). Use F1 when both error types matter and classes are imbalanced.</p>
+<hr />
+<h3 id="q5-what-is-the-difference-between-l1-and-l2-regularization">Q5. What is the difference between L1 and L2 regularization?</h3>
+<p><strong>A:</strong> 
+- L1 (Lasso): adds |w| penalty; optimization landscape has corners at zero → drives some weights to exactly 0 → sparse models → effective for feature selection when many features are irrelevant.
+- L2 (Ridge): adds w² penalty; gradient is 2λw; shrinks weights proportionally but rarely to 0; closed-form solution exists; handles multicollinearity by distributing weight across correlated features.
+- Elastic Net: combines both; controls sparsity and group selection simultaneously.</p>
+<hr />
+<h3 id="q6-explain-the-bias-variance-tradeoff">Q6. Explain the bias-variance tradeoff.</h3>
+<p><strong>A:</strong> Total expected error = Bias² + Variance + Irreducible noise.
+- Bias: systematic error from wrong model assumptions (underfitting). Fixed by more capacity.
+- Variance: sensitivity to training data noise (overfitting). Fixed by regularization, more data.
+- Tradeoff: reducing bias usually increases variance, and vice versa. The optimal model complexity minimizes their sum on the validation set.
+- As model size grows: bias decreases monotonically; variance first increases then (for large overparameterized models like deep nets) can decrease again — the double-descent phenomenon.</p>
+<hr />
+<h3 id="q7-random-forest-vs-gradient-boosting-when-to-use-each">Q7. Random Forest vs. Gradient Boosting — when to use each?</h3>
+<p><strong>A:</strong>
+- <strong>Random Forest (bagging):</strong> trains N trees in parallel on bootstrap samples with random feature subsets; averages/votes. Reduces variance. Fast to train. Robust to hyperparameters. Good baseline.
+- <strong>Gradient Boosting (XGBoost/LightGBM):</strong> trains trees sequentially; each tree fits residuals of the previous. Reduces bias. Slower (sequential). More sensitive to hyperparameters. Usually higher accuracy with tuning. Use when you have time to tune and need best performance.
+- Prefer Random Forest when: fast training matters, data is noisy, you need a solid out-of-box baseline.
+- Prefer XGBoost/LightGBM when: accuracy is paramount, data is tabular, you will tune hyperparameters.</p>
+<hr />
+<h3 id="q8-what-happens-when-the-learning-rate-is-too-high-too-low">Q8. What happens when the learning rate is too high? Too low?</h3>
+<p><strong>A:</strong>
+- Too high: loss oscillates or diverges; gradient steps overshoot the minimum. Symptom: loss spikes or goes NaN.
+- Too low: training converges extremely slowly; model may get stuck in a suboptimal region; wastes compute.
+- Standard practice: warmup (ramp up from 0 to target LR over 1k–2k steps) + cosine decay. For LLM pretraining (Versley's domain), this is the universal recipe. Adam's adaptive per-parameter rates reduce sensitivity to global LR but it still matters.</p>
+<hr />
+<h3 id="q9-what-is-log-loss-cross-entropy-and-why-prefer-it-over-accuracy-for-classification">Q9. What is log-loss (cross-entropy) and why prefer it over accuracy for classification?</h3>
+<p><strong>A:</strong>
+- Log-loss = -(1/n) * Σ [y<em>log(p) + (1-y)</em>log(1-p)] for binary; -(1/n)<em>Σ y_i</em>log(p_i) for multi-class.
+- Penalizes confident wrong predictions heavily (log(p) → -inf as p→0 for a true class).
+- Differentiable and convex → amenable to gradient-based optimization.
+- Measures probabilistic calibration, not just correctness. A model that says "60% confident" every time for all correct predictions has 100% accuracy but poor log-loss.
+- Prefer log-loss when: you care about calibration (probability outputs matter, e.g., medical risk); you're comparing models at the training/validation level.</p>
+<hr />
+<h3 id="q10-what-is-the-curse-of-dimensionality-and-how-does-it-affect-knn">Q10. What is the curse of dimensionality and how does it affect kNN?</h3>
+<p><strong>A:</strong> In high-dimensional spaces (large d), data becomes extremely sparse. Key effects:
+1. All pairwise distances become roughly equal as d→∞ (distance concentration). kNN can no longer distinguish "near" from "far" neighbors reliably.
+2. Exponentially more data needed to maintain the same coverage density (sampling density falls as O(n^{-1/d})).
+3. For kNN: distances become meaningless → neighbors are essentially random → classifier degrades toward random guessing.
+Fix: dimensionality reduction (PCA, t-SNE, UMAP), feature selection, or switch to a model that handles high-d better (SVM with kernel, tree ensembles, neural nets).</p>
+<hr />
+<h3 id="q11-explain-dropout">Q11. Explain dropout.</h3>
+<p><strong>A:</strong> During training, randomly zero out each activation with probability p (dropout rate). The effective network varies per forward pass → acts like training an ensemble of 2^n subnetworks (one per possible mask pattern). At inference, scale activations by (1-p) or equivalently use inverted dropout (scale training activations by 1/(1-p) → no change at test time). Reduces co-adaptation of neurons. Improves generalization. Typical rates: 0.1–0.2 in Transformer attention layers; 0.5 for fully-connected layers in older architectures.</p>
+<hr />
+<h3 id="q12-why-do-we-normalize-features-what-happens-if-we-dont-for-gradient-descent">Q12. Why do we normalize features? What happens if we don't for gradient descent?</h3>
+<p><strong>A:</strong> If features have very different scales (e.g., age in [0–100] and salary in [0–1,000,000]), the loss surface is elongated/elliptical. Gradient descent oscillates in the large-scale dimension while barely moving in the small-scale dimension. Learning rate that works for one feature blows up for another. Normalization (z-score or min-max) makes the loss surface more spherical → faster, more stable convergence. kNN and SVMs are also explicitly distance-based and require normalization.</p>
+<hr />
+<h3 id="q13-what-is-the-difference-between-parameters-and-hyperparameters">Q13. What is the difference between parameters and hyperparameters?</h3>
+<p><strong>A:</strong>
+- <strong>Parameters</strong>: learned from data during training. Example: weights W and bias b in a linear layer, embedding vectors.
+- <strong>Hyperparameters</strong>: set before training, not learned by gradient descent. Example: learning rate, batch size, number of layers, hidden dimension, dropout rate, k in kNN, C in SVM, n_estimators in Random Forest.
+- Hyperparameter tuning strategies: grid search (exhaustive), random search (usually better for same budget), Bayesian optimization (models p(metric|hyperparams)), population-based training.</p>
+<hr />
+<h3 id="q14-explain-class-imbalance-and-three-ways-to-handle-it">Q14. Explain class imbalance and three ways to handle it.</h3>
+<p><strong>A:</strong> When one class is far more frequent than others (e.g., 99% negative, 1% positive), models can achieve high accuracy by always predicting negative while being useless.</p>
+<p>Solutions:
+1. <strong>Resampling:</strong> oversample minority class (SMOTE = synthetic minority oversampling) or undersample majority class. Risk: overfitting with oversampling; information loss with undersampling.
+2. <strong>Class weights:</strong> penalize misclassification of minority class more heavily during training (weight = n_majority/n_minority). Built into sklearn with class_weight='balanced'.
+3. <strong>Threshold adjustment:</strong> move the classification threshold from 0.5 to lower value to increase recall for minority class. Then optimize threshold on validation precision-recall curve.
+4. Bonus: use AUC-PR (precision-recall AUC) instead of AUC-ROC as evaluation metric — more informative when positive class is rare.</p>
+<hr />
+<h2 id="6-7-day-drill-plan-and-curated-practice-list">6. 7-Day Drill Plan and Curated Practice List</h2>
+<h3 id="mindset-for-this-drill">Mindset for This Drill</h3>
+<p>You are rebuilding muscle memory that Claude Code has been handling for you. The goal is not deep understanding (you already have that from your research work) but speed and syntax recall under zero-assistance conditions. Two sessions per day, each 30–45 min, with zero autocomplete.</p>
+<p><strong>Environment setup:</strong> Use a plain text editor (Sublime Text, VS Code with all extensions disabled) or repl.it without AI features. No GitHub Copilot. No tab completion for imports. Time yourself.</p>
+<hr />
+<h3 id="day-1-arrays-strings-hashmaps-two-pointers">Day 1: Arrays, Strings, Hashmaps, Two Pointers</h3>
+<p><strong>Theory review (15 min):</strong> Re-read Pattern 1 and 2 above. Trace through Two Sum and 3Sum by hand.</p>
+<p><strong>Coding problems (60 min, timed):</strong>
+1. <a href="https://leetcode.com/problems/two-sum/">Two Sum</a> — 5 min target
+2. <a href="https://leetcode.com/problems/valid-anagram/">Valid Anagram</a> — 5 min
+3. <a href="https://leetcode.com/problems/group-anagrams/">Group Anagrams</a> — 10 min
+4. <a href="https://leetcode.com/problems/longest-consecutive-sequence/">Longest Consecutive Sequence</a> — 15 min
+5. <a href="https://leetcode.com/problems/3sum/">3Sum</a> — 20 min (sort + two pointers)</p>
+<p><strong>Cold-type exercise:</strong> Write the <code>train_test_split</code> function from scratch without looking at Section 3E.</p>
+<hr />
+<h3 id="day-2-sliding-window-stack-heap">Day 2: Sliding Window + Stack + Heap</h3>
+<p><strong>Theory review (15 min):</strong> Read Patterns 3, 4, 9. Trace Minimum Window Substring manually.</p>
+<p><strong>Coding problems:</strong>
+1. <a href="https://leetcode.com/problems/longest-substring-without-repeating-characters/">Longest Substring Without Repeating Characters</a> — 10 min
+2. <a href="https://leetcode.com/problems/minimum-window-substring/">Minimum Window Substring</a> — 20 min
+3. <a href="https://leetcode.com/problems/daily-temperatures/">Daily Temperatures</a> — 10 min
+4. <a href="https://leetcode.com/problems/kth-largest-element-in-an-array/">Kth Largest Element</a> — 10 min
+5. <a href="https://leetcode.com/problems/top-k-frequent-elements/">Top K Frequent Elements</a> — 15 min</p>
+<p><strong>Cold-type exercise:</strong> Write logistic regression <code>fit()</code> and <code>predict_proba()</code> from scratch.</p>
+<hr />
+<h3 id="day-3-trees-and-graphs">Day 3: Trees and Graphs</h3>
+<p><strong>Theory review (15 min):</strong> Read Patterns 7 and 8. Trace BFS level-order and topological sort.</p>
+<p><strong>Coding problems:</strong>
+1. <a href="https://leetcode.com/problems/maximum-depth-of-binary-tree/">Maximum Depth of Binary Tree</a> — 5 min
+2. <a href="https://leetcode.com/problems/binary-tree-level-order-traversal/">Binary Tree Level Order Traversal</a> — 10 min
+3. <a href="https://leetcode.com/problems/validate-binary-search-tree/">Validate Binary Search Tree</a> — 15 min
+4. <a href="https://leetcode.com/problems/number-of-islands/">Number of Islands</a> — 15 min
+5. <a href="https://leetcode.com/problems/course-schedule/">Course Schedule</a> — 20 min (topological sort)</p>
+<p><strong>Cold-type exercise:</strong> Write <code>k_means()</code> from scratch, including convergence check.</p>
+<hr />
+<h3 id="day-4-binary-search-dp">Day 4: Binary Search + DP</h3>
+<p><strong>Theory review (15 min):</strong> Read Patterns 10 and 12. Trace coin change and LCS.</p>
+<p><strong>Coding problems:</strong>
+1. <a href="https://leetcode.com/problems/binary-search/">Binary Search</a> — 5 min (warm-up)
+2. <a href="https://leetcode.com/problems/search-in-rotated-sorted-array/">Search in Rotated Sorted Array</a> — 15 min
+3. <a href="https://leetcode.com/problems/capacity-to-ship-packages-within-d-days/">Capacity to Ship Packages Within D Days</a> — 20 min
+4. <a href="https://leetcode.com/problems/coin-change/">Coin Change</a> — 15 min
+5. <a href="https://leetcode.com/problems/longest-common-subsequence/">Longest Common Subsequence</a> — 20 min</p>
+<p><strong>Cold-type exercise:</strong> Write <code>precision_recall_f1()</code> and <code>roc_auc()</code> from scratch.</p>
+<hr />
+<h3 id="day-5-ml-implementations-day">Day 5: ML Implementations Day</h3>
+<p><strong>Focus:</strong> No LeetCode today. Type every implementation in Section 3 from scratch.</p>
+<p><strong>Session 1 (60 min):</strong> KNN, linear regression, logistic regression. Type them cold. No peeking. Then compare against Section 3 for differences.</p>
+<p><strong>Session 2 (60 min):</strong> Softmax + CE loss, tiny MLP forward/backward. Verify the gradient formula derivation on paper: start from CE loss, apply chain rule through softmax, arrive at (p-y)/n.</p>
+<p><strong>Probability drill (30 min):</strong> Work through all four worked problems in Section 4 without looking at the answers. Verify afterward.</p>
+<hr />
+<h3 id="day-6-probability-stats-and-ml-concepts-mcq">Day 6: Probability, Stats, and ML Concepts MCQ</h3>
+<p><strong>Session 1 (45 min):</strong> Read through all 14 MCQ questions in Section 5. For each, cover the answer and state it aloud or write it before revealing.</p>
+<p><strong>Session 2 (45 min):</strong> Find a full CodeSignal ML assessment practice set:
+- <a href="https://codesignal.com/learn/courses/introduction-to-probability-and-statistics-for-machine-learning">CodeSignal ML Framework practice</a>
+- Work through at least 20 probability MCQs at DataLemur or StrataScratch</p>
+<p><strong>Session 3 (30 min):</strong> Cold-type scaled dot-product attention and BPE tokenizer from scratch.</p>
+<hr />
+<h3 id="day-7-full-timed-mock">Day 7: Full Timed Mock</h3>
+<p><strong>GCA mock (70 min, strict):</strong> Open 4 LeetCode problems simultaneously. Set a 70-minute timer. No looking anything up. Attempt all four even if Q3 is unfinished.</p>
+<p>Suggested mock set:
+1. <a href="https://leetcode.com/problems/valid-parentheses/">Valid Parentheses</a> — Easy
+2. <a href="https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/">Find Minimum in Rotated Sorted Array</a> — Medium
+3. <a href="https://leetcode.com/problems/longest-increasing-subsequence/">Longest Increasing Subsequence</a> — Medium
+4. <a href="https://leetcode.com/problems/word-break/">Word Break</a> — Medium-Hard</p>
+<p><strong>Review (30 min):</strong> For any problem you did not finish or got wrong, trace through the optimal solution and understand why your approach failed.</p>
+<p><strong>ML assessment mock (30 min):</strong> Write 10 Bayes and EV problems on paper. Work through the distribution table in Section 4E without referring to it.</p>
+<hr />
+<h3 id="curated-practice-list-by-difficulty">Curated Practice List by Difficulty</h3>
+<p><strong>Essential (must complete before exam):</strong></p>
+<table>
+<thead>
+<tr>
+<th>Problem</th>
+<th>Pattern</th>
+<th>Target time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Two Sum</td>
+<td>Hashmap</td>
+<td>5 min</td>
+</tr>
+<tr>
+<td>Valid Parentheses</td>
+<td>Stack</td>
+<td>5 min</td>
+</tr>
+<tr>
+<td>Merge Two Sorted Lists</td>
+<td>Linked list</td>
+<td>8 min</td>
+</tr>
+<tr>
+<td>Max Depth of Binary Tree</td>
+<td>DFS</td>
+<td>5 min</td>
+</tr>
+<tr>
+<td>Coin Change</td>
+<td>1D DP</td>
+<td>15 min</td>
+</tr>
+<tr>
+<td>Longest Substring No Repeat</td>
+<td>Sliding window</td>
+<td>10 min</td>
+</tr>
+<tr>
+<td>Binary Search</td>
+<td>Binary search</td>
+<td>5 min</td>
+</tr>
+<tr>
+<td>Number of Islands</td>
+<td>Graph DFS</td>
+<td>15 min</td>
+</tr>
+<tr>
+<td>Kth Largest Element</td>
+<td>Heap</td>
+<td>10 min</td>
+</tr>
+<tr>
+<td>3Sum</td>
+<td>Two pointers</td>
+<td>20 min</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Recommended (do if time permits):</strong></p>
+<table>
+<thead>
+<tr>
+<th>Problem</th>
+<th>Pattern</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Minimum Window Substring</td>
+<td>Sliding window (hard)</td>
+</tr>
+<tr>
+<td>Longest Common Subsequence</td>
+<td>2D DP</td>
+</tr>
+<tr>
+<td>Word Break</td>
+<td>DP + backtracking</td>
+</tr>
+<tr>
+<td>Course Schedule II</td>
+<td>Topological sort</td>
+</tr>
+<tr>
+<td>Merge k Sorted Lists</td>
+<td>Heap</td>
+</tr>
+<tr>
+<td>Largest Rectangle in Histogram</td>
+<td>Monotonic stack</td>
+</tr>
+<tr>
+<td>Capacity to Ship Packages</td>
+<td>Binary search on answer</td>
+</tr>
+<tr>
+<td>Trapping Rain Water</td>
+<td>Two pointers or monotonic stack</td>
+</tr>
+<tr>
+<td>Edit Distance</td>
+<td>2D DP</td>
+</tr>
+<tr>
+<td>Clone Graph</td>
+<td>BFS + hash</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="7-python-without-ai-tips-and-idioms">7. Python-Without-AI Tips and Idioms</h2>
+<p>This section covers the stdlib patterns you cannot Google on exam day. Memorize these exactly.</p>
+<hr />
+<h3 id="7a-collections-module">7A. Collections Module</h3>
+<pre><code class="language-python">from collections import Counter, defaultdict, deque, OrderedDict
+
+# ----- Counter -----
+c = Counter(&quot;mississippi&quot;)
+# Counter({'s': 4, 'i': 4, 'p': 2, 'm': 1})
+
+c.most_common(2)              # [('s', 4), ('i', 4)]  — top 2 by frequency
+c['x']                         # 0  — no KeyError on missing key
+c1 = Counter(&quot;abc&quot;); c2 = Counter(&quot;bcd&quot;)
+c1 + c2                        # Counter({'b': 2, 'c': 2, 'a': 1, 'd': 1})
+c1 &amp; c2                        # intersection (min counts): Counter({'b': 1, 'c': 1})
+c1 - c2                        # difference (only positive): Counter({'a': 1})
+
+# ----- defaultdict -----
+graph = defaultdict(list)
+graph['A'].append('B')         # no need to init 'A' key first
+word_counts = defaultdict(int)
+word_counts['hello'] += 1      # auto-inits to 0
+
+# ----- deque -----
+q = deque([1, 2, 3])
+q.appendleft(0)                # O(1) — adds to front
+q.popleft()                    # O(1) — removes from front
+q.append(4)                    # O(1) — adds to back
+q.pop()                        # O(1) — removes from back
+q.rotate(1)                    # rotate right: last element moves to front
+q.rotate(-1)                   # rotate left
+
+# maxlen deque — useful for sliding windows
+dq = deque(maxlen=3)
+for x in range(6): dq.append(x)
+# dq = deque([3, 4, 5])        — auto-discards old elements
+</code></pre>
+<hr />
+<h3 id="7b-heapq-module-min-heap-only">7B. heapq Module (min-heap only)</h3>
+<pre><code class="language-python">import heapq
+
+# Build heap
+heap = [3, 1, 4, 1, 5, 9, 2]
+heapq.heapify(heap)            # in-place, O(n)
+
+heapq.heappush(heap, 0)       # O(log n)
+smallest = heapq.heappop(heap) # O(log n) — removes and returns smallest
+
+# Top-k shortcuts
+heapq.nlargest(3, heap)       # [9, 5, 4] — O(n log k)
+heapq.nsmallest(3, heap)      # [0, 1, 1]
+
+# MAX-HEAP trick: negate values
+max_heap = []
+heapq.heappush(max_heap, -5)
+heapq.heappush(max_heap, -3)
+heapq.heappush(max_heap, -8)
+max_val = -heapq.heappop(max_heap)   # 8
+
+# Heap of tuples (sort by first element)
+events = [(3, 'c'), (1, 'a'), (2, 'b')]
+heapq.heapify(events)
+heapq.heappop(events)          # (1, 'a')
+
+# heapreplace: faster than heappop + heappush
+heapq.heapreplace(heap, 7)    # pops smallest, pushes 7 atomically — O(log n)
+</code></pre>
+<hr />
+<h3 id="7c-bisect-module-sorted-lists">7C. bisect Module (sorted lists)</h3>
+<pre><code class="language-python">import bisect
+
+a = [1, 3, 5, 7, 9]
+
+bisect.bisect_left(a, 5)      # 2  — index of leftmost position to insert 5
+bisect.bisect_right(a, 5)     # 3  — index of rightmost position to insert 5
+
+# Use case: find number of elements &lt; target
+count_less = bisect.bisect_left(a, 5)     # 2 elements less than 5
+
+# Use case: floor/ceiling
+def floor_val(a, x):
+    i = bisect.bisect_right(a, x) - 1
+    return a[i] if i &gt;= 0 else None
+
+def ceiling_val(a, x):
+    i = bisect.bisect_left(a, x)
+    return a[i] if i &lt; len(a) else None
+
+# Insert while maintaining sorted order
+bisect.insort(a, 6)            # O(n) due to list insert, but search is O(log n)
+</code></pre>
+<hr />
+<h3 id="7d-itertools-module">7D. itertools Module</h3>
+<pre><code class="language-python">from itertools import (combinations, permutations, product,
+                        groupby, accumulate, chain, islice)
+
+# Combinations and permutations
+list(combinations([1,2,3], 2))       # [(1,2),(1,3),(2,3)] — order doesn't matter
+list(combinations_with_replacement([1,2], 2))  # [(1,1),(1,2),(2,2)]
+list(permutations([1,2,3], 2))       # [(1,2),(1,3),(2,1),(2,3),(3,1),(3,2)]
+
+# Cartesian product
+list(product([0,1], repeat=3))       # 8 binary 3-tuples
+list(product([1,2],[3,4]))           # [(1,3),(1,4),(2,3),(2,4)]
+
+# Prefix sums
+list(accumulate([1,2,3,4]))          # [1, 3, 6, 10]
+list(accumulate([1,2,3,4], max))     # [1, 2, 3, 4] — running max
+
+# groupby (input must be sorted by key)
+data = sorted([('a',1),('b',2),('a',3)], key=lambda x: x[0])
+for key, group in groupby(data, key=lambda x: x[0]):
+    print(key, list(group))          # a [('a',1),('a',3)], b [('b',2)]
+
+# chain: flatten nested iterables
+list(chain([1,2],[3,4],[5]))         # [1,2,3,4,5]
+
+# islice: lazy slice without materializing
+list(islice(range(1000000), 5))      # [0,1,2,3,4]
+</code></pre>
+<hr />
+<h3 id="7e-functools-module">7E. functools Module</h3>
+<pre><code class="language-python">from functools import lru_cache, reduce, partial
+
+# Memoization — the most important one for competitive programming
+@lru_cache(maxsize=None)             # None = unbounded cache
+def fib(n):
+    if n &lt; 2: return n
+    return fib(n-1) + fib(n-2)
+
+# Inside a method: use functools.cache (Python 3.9+)
+import functools
+class Solution:
+    def solve(self, n):
+        @functools.cache
+        def dp(i):
+            if i &lt;= 0: return 0
+            return dp(i-1) + dp(i-2)
+        return dp(n)
+
+# reduce
+reduce(lambda a,b: a*b, [1,2,3,4,5])   # 120
+
+# partial: pre-fill arguments
+def power(base, exp): return base ** exp
+square = partial(power, exp=2)
+square(5)                               # 25
+</code></pre>
+<hr />
+<h3 id="7f-string-and-list-idioms">7F. String and List Idioms</h3>
+<pre><code class="language-python"># String operations
+s = &quot;Hello, World!&quot;
+s.lower()                    # &quot;hello, world!&quot;
+s.upper()                    # &quot;HELLO, WORLD!&quot;
+s.strip()                    # remove leading/trailing whitespace
+s.split(&quot;, &quot;)                # ['Hello', 'World!']
+&quot;, &quot;.join(['a', 'b', 'c'])  # &quot;a, b, c&quot;
+s.replace(&quot;World&quot;, &quot;Tony&quot;)  # &quot;Hello, Tony!&quot;
+s.startswith(&quot;Hello&quot;)        # True
+s.endswith(&quot;!&quot;)              # True
+s.count(&quot;l&quot;)                 # 3
+s.find(&quot;World&quot;)              # 7 (index; -1 if not found)
+s[::-1]                      # reverse string &quot;!dlroW ,olleH&quot;
+&quot;&quot;.join(reversed(s))         # same as above
+
+# Check character type
+&quot;abc&quot;.isalpha()              # True
+&quot;123&quot;.isdigit()              # True
+&quot;abc123&quot;.isalnum()           # True
+
+# List operations
+a = [3, 1, 4, 1, 5, 9, 2]
+sorted(a)                    # new sorted list; original unchanged
+a.sort()                     # in-place; returns None
+a.sort(reverse=True)         # descending
+sorted(a, key=lambda x: -x) # equivalent descending
+
+# Sort by multiple keys
+pairs = [(1, 'b'), (1, 'a'), (2, 'c')]
+sorted(pairs, key=lambda x: (x[0], x[1]))   # sort by first then second
+
+# Enumerate and zip
+for i, val in enumerate(['a', 'b', 'c']):
+    print(i, val)                            # 0 a, 1 b, 2 c
+
+for x, y in zip([1,2,3], ['a','b','c']):
+    print(x, y)                              # 1 a, 2 b, 3 c
+
+# List comprehensions
+squares = [x**2 for x in range(10)]
+even_sq = [x**2 for x in range(10) if x % 2 == 0]
+flat = [val for row in [[1,2],[3,4]] for val in row]   # [1,2,3,4]
+
+# Dict/set comprehensions
+freq = {c: s.count(c) for c in set(s)}
+unique_squares = {x**2 for x in range(-5, 6)}
+</code></pre>
+<hr />
+<h3 id="7g-numpy-patterns-for-ml-coding">7G. numpy Patterns for ML Coding</h3>
+<pre><code class="language-python">import numpy as np
+
+# Array creation
+a = np.array([1, 2, 3], dtype=float)
+b = np.zeros((3, 4))
+c = np.ones((2, 3))
+d = np.eye(4)                          # identity matrix
+e = np.random.randn(100, 5)            # standard normal
+f = np.arange(10)                      # [0..9]
+g = np.linspace(0, 1, 100)            # 100 evenly spaced in [0,1]
+
+# Indexing and slicing
+X = np.random.randn(100, 10)
+X[0]                                   # first row
+X[:, 3]                                # all rows, column 3
+X[np.arange(10), np.arange(10)]       # diagonal elements (fancy indexing)
+
+# Operations
+X.shape                                # (100, 10)
+X.T                                    # transpose (10, 100)
+X.reshape(10, 100)                     # reshape
+X.flatten()                            # 1D copy
+np.sum(X)                              # sum all elements
+np.sum(X, axis=0)                      # sum over rows -&gt; shape (10,)
+np.sum(X, axis=1)                      # sum over cols -&gt; shape (100,)
+np.mean(X, axis=0)
+np.std(X, axis=0)
+
+# Matrix multiplication
+A = np.random.randn(3, 4)
+B = np.random.randn(4, 5)
+C = A @ B                              # (3, 5) — use @ not np.dot for clarity
+C = np.dot(A, B)                       # same
+
+# Broadcasting
+X = np.ones((100, 10))
+mean = X.mean(axis=0)                  # (10,)
+X_centered = X - mean                  # broadcasts: (100, 10) - (10,) = (100, 10)
+
+# Useful math
+np.clip(x, -1, 1)                      # clip values to [-1, 1]
+np.argmax(X, axis=1)                   # index of max per row
+np.argsort(X, axis=1)                  # argsort per row
+np.unique(y)                           # unique values
+np.where(X &gt; 0, 1, 0)                 # conditional element-wise
+np.random.seed(42)                     # reproducibility
+idx = np.random.permutation(100)       # shuffle indices
+
+# Linear algebra
+np.linalg.norm(v)                      # L2 norm
+np.linalg.inv(A)                       # matrix inverse
+np.linalg.eig(A)                       # eigenvalues, eigenvectors
+U, S, Vt = np.linalg.svd(A)          # SVD
+</code></pre>
+<hr />
+<h3 id="7h-pandas-essentials-for-ml-assessment-module-3">7H. pandas Essentials (for ML Assessment Module 3)</h3>
+<pre><code class="language-python">import pandas as pd
+import numpy as np
+
+# Read data
+df = pd.read_csv('data.csv')
+df.head()                              # first 5 rows
+df.shape                               # (rows, cols)
+df.info()                              # dtypes and non-null counts
+df.describe()                          # statistics
+
+# Select
+df['col']                              # Series (single column)
+df[['col1', 'col2']]                  # DataFrame (multiple columns)
+df.iloc[0]                             # first row by integer position
+df.loc[0, 'col']                      # row label 0, column 'col'
+df[df['age'] &gt; 25]                    # boolean filter
+
+# Clean
+df.isnull().sum()                      # count nulls per column
+df.dropna()                            # drop rows with any null
+df.fillna(0)                           # fill nulls with 0
+df.fillna(df.mean())                   # fill with column mean
+df.drop_duplicates()                   # remove duplicate rows
+df.drop(columns=['col'])              # drop a column
+
+# Transform
+df['col'].astype(int)                 # cast type
+df['col'] = df['col'].apply(lambda x: x * 2)   # apply function
+pd.get_dummies(df['category'])        # one-hot encode categorical column
+pd.cut(df['age'], bins=[0,18,35,60,100], labels=['child','young','middle','senior'])
+
+# Aggregate
+df.groupby('category')['value'].mean()   # mean value per category
+df.groupby('category').agg({'value': ['mean', 'std', 'count']})
+df.pivot_table(values='sales', index='region', columns='month', aggfunc='sum')
+
+# Sort and rank
+df.sort_values('col', ascending=False)
+df['rank'] = df['col'].rank(ascending=False)
+
+# Merge / join
+merged = pd.merge(df1, df2, on='key', how='inner')   # inner join
+merged = pd.merge(df1, df2, on='key', how='left')    # left join
+pd.concat([df1, df2], axis=0)                         # stack rows
+
+# sklearn interop (Module 3 shortcut)
+from sklearn.preprocessing import StandardScaler, LabelEncoder
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score, f1_score, classification_report
+
+X = df[['age', 'salary']].values
+y = df['label'].values
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(X)
+
+model = LogisticRegression(max_iter=1000)
+model.fit(X_scaled[:80], y[:80])
+preds = model.predict(X_scaled[80:])
+print(accuracy_score(y[80:], preds))
+print(classification_report(y[80:], preds))
+</code></pre>
+<hr />
+<h3 id="7i-exam-day-checklist">7I. Exam-Day Checklist</h3>
+<p>Before starting each coding question:
+1. Read the full problem statement. Identify input type, output type, constraints (n=?).
+2. Check edge cases: empty input, single element, all same, negatives, overflow risk.
+3. Identify the pattern: array/hashmap? two-pointer? sliding window? tree? DP?
+4. State your approach and complexity before coding (even silently).
+5. Write the skeleton first (function signature, base cases) then fill in logic.
+6. Test with the given example, then one edge case, before submitting.</p>
+<p><strong>Common bugs to avoid:</strong>
+- Off-by-one in binary search: <code>while lo &lt;= hi</code> vs <code>while lo &lt; hi</code>
+- Not copying when appending to result in backtracking: <code>result.append(path[:])</code> not <code>result.append(path)</code>
+- Using <code>list</code> as default argument in function definition (it persists across calls): use <code>None</code> and init inside
+- Integer overflow: Python handles big ints automatically, but if the problem requires modular arithmetic, apply <code>% MOD</code> inside the loop
+- Forgetting to handle empty arrays/trees: always check <code>if not arr</code> or <code>if not root</code>
+- Modifying a list while iterating over it: iterate over a copy or use indices carefully</p>
+<p><strong>Complexity sanity checks:</strong>
+- n ≤ 10^6: O(n) or O(n log n) required
+- n ≤ 10^4: O(n²) acceptable
+- n ≤ 10^2: O(n³) or brute-force OK
+- n ≤ 20: exponential O(2^n) or O(n!) feasible</p>
+<hr />
+<h2 id="sources">Sources</h2>
+<ul>
+<li>CodeSignal GCA format details: <a href="https://www.lodely.com/blog/codesignal-gca">Lodely CodeSignal 2026 guide</a>, <a href="https://support.codesignal.com/hc/en-us/articles/360040370853">CodeSignal Knowledge Base</a></li>
+<li>ML assessment structure: <a href="https://www.linkjob.ai/interview-questions/how-i-aced-bcg-x-codesignal-assessment-in-2025/">BCG X CodeSignal 2025</a>, <a href="https://www.glassdoor.com/Interview/First-round-CodeSignal-17-questions-2-simple-Python-data-manipulation-SQL-queries-qs-Python-ML-implementation-SQL-M-QTN_4971310.htm">Roblox variant (Glassdoor)</a></li>
+<li>CodeSignal ML Framework: <a href="https://codesignal.com/resource/machine-learning-framework/">codesignal.com/resource/machine-learning-framework</a></li>
+<li>BPE from scratch: <a href="https://sebastianraschka.com/blog/2025/bpe-from-scratch.html">Sebastian Raschka blog</a></li>
+<li>Self-attention from scratch: <a href="https://sebastianraschka.com/blog/2023/self-attention-from-scratch.html">Sebastian Raschka blog</a></li>
+<li>k-means from scratch: <a href="https://www.rohan-paul.com/p/ml-interview-q-series-implement-k">Rohan Paul</a></li>
+<li>kNN from scratch: <a href="https://www.python-engineer.com/courses/mlfromscratch/01_knn/">Python Engineer course</a></li>
+<li>Logistic regression from scratch: <a href="https://www.geeksforgeeks.org/machine-learning/implementation-of-logistic-regression-from-scratch-using-python/">GeeksforGeeks</a></li>
+<li>LeetCode DS&amp;A patterns: <a href="https://www.designgurus.io/blog/top-lc-patterns">DesignGurus top-10 patterns</a></li>
+<li>Probability Q&amp;A: <a href="https://www.nicksingh.com/posts/40-probability-statistics-data-science-interview-questions-asked-by-fang-wall-street">NickSingh.com 40 questions</a>, <a href="https://www.stratascratch.com/blog/30-probability-and-statistics-interview-questions-for-data-scientists">StrataScratch</a></li>
+<li>ML concept questions: <a href="https://datalemur.com/blog/machine-learning-interview-questions">DataLemur ML interview questions</a>, <a href="https://tensorgym.com/blog/ml-interview-preparation">TensorGym prep guide</a></li>
+<li>Python CP patterns: <a href="https://github.com/peterlamar/python-cp-cheatsheet">Peter Lamar GitHub cheatsheet</a></li>
+<li>eBay LiLiuM tokenizer details: <a href="https://arxiv.org/abs/2406.12023">LiLiuM paper arXiv 2406.12023</a></li>
+<li>CodeSignal scoring scale 2026: <a href="https://practicetestgeeks.com/codesignal-test">PracticeTestGeeks</a>, <a href="https://www.aceround.app/blog/codesignal-interview-tips-ai/">AceRound blog</a></li>
+</ul>
+      <nav class="prevnext"><a class="pn prev" href="08_ML_SYSTEM_DESIGN_PLAYBOOK.html">‹ <span>ML System Design Playbook</span></a><a class="pn next" href="10_PROJECT_MGMT_RETROSPECTIVE_STAR.html"><span>Project Mgmt &amp; STAR Stories</span> ›</a></nav>
+    </article>
+    <aside class="toc"><div class="toc-title">On this page</div><ul>
+<li><a href="#table-of-contents">TABLE OF CONTENTS</a></li>
+<li><a href="#1-codesignal-format-and-strategy">1. CodeSignal Format and Strategy</a></li>
+<li><a href="#2-dsa-pattern-checklist-with-canonical-python-snippets">2. DS&amp;amp;A Pattern Checklist with Canonical Python Snippets</a></li>
+<li><a href="#3-from-scratch-ml-implementations">3. From-Scratch ML Implementations</a></li>
+<li><a href="#4-probability-and-statistics-worked-problems">4. Probability and Statistics — Worked Problems</a></li>
+<li><a href="#5-ml-concept-mcq-style-qa">5. ML Concept MCQ-Style Q&amp;amp;A</a></li>
+<li><a href="#6-7-day-drill-plan-and-curated-practice-list">6. 7-Day Drill Plan and Curated Practice List</a></li>
+<li><a href="#7-python-without-ai-tips-and-idioms">7. Python-Without-AI Tips and Idioms</a></li>
+<li><a href="#sources">Sources</a></li>
+</ul></aside>
+  </main>
+</div>
+<script>window.SEARCH_JSON="../assets/../search-index.json";</script>
+<script src="../assets/search-data.js"></script>
+<script src="../assets/app.js"></script>
+</body>
+</html>

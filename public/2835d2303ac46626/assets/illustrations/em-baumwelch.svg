@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 420" role="img">
+  <title>EM / Baum-Welch Algorithm</title>
+  <desc>A loop diagram showing the EM / Baum-Welch algorithm: Initialize params → E-step (expected counts via forward-backward) → M-step (re-estimate params) → back to E-step. Side note: likelihood increases monotonically and converges to a local optimum.</desc>
+
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#2563eb" />
+    </marker>
+    <marker id="arrow-gray" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#56616f" />
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="400" y="38" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="19" font-weight="700" fill="#1f2733">EM / Baum-Welch Algorithm</text>
+
+  <!-- Box 1: Initialize params (left) -->
+  <rect x="50" y="150" width="160" height="64" rx="10" fill="#f7f8fa" stroke="#94a3b8" stroke-width="2"/>
+  <text x="130" y="177" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="13" font-weight="600" fill="#1f2733">Initialize</text>
+  <text x="130" y="196" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="13" fill="#1f2733">Parameters θ⁰</text>
+
+  <!-- Arrow: Init → E-step -->
+  <line x1="210" y1="182" x2="276" y2="182" stroke="#2563eb" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Box 2: E-step (center) -->
+  <rect x="278" y="130" width="244" height="104" rx="10" fill="#e8f0fe" stroke="#2563eb" stroke-width="2"/>
+  <text x="400" y="157" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="14" font-weight="700" fill="#2563eb">E-step</text>
+  <text x="400" y="177" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="13" fill="#1f2733">Compute expected counts</text>
+  <text x="400" y="196" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="13" fill="#1f2733">via forward-backward</text>
+  <text x="400" y="215" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" fill="#56616f">(posterior over hidden states)</text>
+
+  <!-- Arrow: E-step → M-step -->
+  <line x1="522" y1="182" x2="588" y2="182" stroke="#2563eb" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Box 3: M-step (right) -->
+  <rect x="590" y="130" width="160" height="104" rx="10" fill="#e8f0fe" stroke="#2563eb" stroke-width="2"/>
+  <text x="670" y="157" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="14" font-weight="700" fill="#2563eb">M-step</text>
+  <text x="670" y="177" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="13" fill="#1f2733">Re-estimate θ</text>
+  <text x="670" y="196" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="13" fill="#1f2733">maximize expected</text>
+  <text x="670" y="215" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="13" fill="#1f2733">complete-data likelihood</text>
+
+  <!-- Loop-back arrow: M-step → E-step (curved path below) -->
+  <!-- From bottom of M-step box down, left across, up to bottom of E-step box -->
+  <path d="M 670 234 L 670 298 L 400 298 L 400 234" fill="none" stroke="#2563eb" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="536" y="320" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" fill="#56616f">repeat until convergence</text>
+
+  <!-- Side note box -->
+  <rect x="50" y="340" width="700" height="54" rx="10" fill="#f7f8fa" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <text x="400" y="362" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" font-weight="600" fill="#56616f">Note:</text>
+  <text x="430" y="362" text-anchor="start" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" fill="#56616f">likelihood increases monotonically with each EM iteration;</text>
+  <text x="400" y="382" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" fill="#56616f">algorithm converges to a local optimum (sensitive to initialisation)</text>
+</svg>

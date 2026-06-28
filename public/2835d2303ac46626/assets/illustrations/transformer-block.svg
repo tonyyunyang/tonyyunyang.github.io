@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img">
+  <title>Transformer Block (pre-norm)</title>
+  <desc>Vertical stack showing a pre-norm transformer block: input feeds into LayerNorm, then Multi-Head Attention, then a residual add (+), then LayerNorm, then Feed-Forward (SwiGLU MLP), then a residual add (+), producing output. Two residual skip connections curve around the attention sub-layer and the FFN sub-layer respectively.</desc>
+
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#1f2733"/>
+    </marker>
+    <marker id="arrow-res" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#2563eb"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="400" y="38" text-anchor="middle"
+        font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
+        font-size="19" font-weight="700" fill="#1f2733">Transformer Block (pre-norm)</text>
+
+  <!-- ── INPUT ── y=60..104 -->
+  <rect x="300" y="60" width="200" height="44" rx="10" fill="#f7f8fa" stroke="#94a3b8" stroke-width="2"/>
+  <text x="400" y="87" text-anchor="middle"
+        font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
+        font-size="14" fill="#1f2733">Input x</text>
+
+  <!-- Input → LN1 -->
+  <line x1="400" y1="104" x2="400" y2="124" stroke="#1f2733" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- ── LAYERNORM 1 ── y=126..170 -->
+  <rect x="285" y="126" width="230" height="44" rx="10" fill="#e8f0fe" stroke="#2563eb" stroke-width="2"/>
+  <text x="400" y="153" text-anchor="middle"
+        font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
+        font-size="14" fill="#1f2733">LayerNorm</text>
+
+  <!-- LN1 → MHA -->
+  <line x1="400" y1="170" x2="400" y2="190" stroke="#1f2733" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- ── MULTI-HEAD ATTENTION ── y=192..246 -->
+  <rect x="250" y="192" width="300" height="54" rx="10" fill="#e8f0fe" stroke="#2563eb" stroke-width="2"/>
+  <text x="400" y="224" text-anchor="middle"
+        font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
+        font-size="14" fill="#1f2733">Multi-Head Attention</text>
+
+  <!-- MHA → Add1 -->
+  <line x1="400" y1="246" x2="400" y2="272" stroke="#1f2733" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- ── RESIDUAL ADD 1 ── centre (400, 292) r=20 -->
+  <circle cx="400" cy="292" r="20" fill="#f7f8fa" stroke="#94a3b8" stroke-width="2"/>
+  <text x="400" y="299" text-anchor="middle"
+        font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
+        font-size="20" font-weight="700" fill="#1f2733">+</text>
+
+  <!-- SKIP 1: right side of Input box (500, 82) → curve right → right side of Add1 (420, 292) -->
+  <path d="M 500 82 C 610 82 610 292 420 292"
+        fill="none" stroke="#2563eb" stroke-width="2" stroke-dasharray="6 3"
+        marker-end="url(#arrow-res)"/>
+  <text x="645" y="188" text-anchor="middle"
+        font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
+        font-size="11" fill="#2563eb">skip</text>
+
+  <!-- Add1 → LN2 -->
+  <line x1="400" y1="312" x2="400" y2="332" stroke="#1f2733" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- ── LAYERNORM 2 ── y=334..378 -->
+  <rect x="285" y="334" width="230" height="44" rx="10" fill="#e8f0fe" stroke="#2563eb" stroke-width="2"/>
+  <text x="400" y="361" text-anchor="middle"
+        font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
+        font-size="14" fill="#1f2733">LayerNorm</text>
+
+  <!-- LN2 → FFN -->
+  <line x1="400" y1="378" x2="400" y2="398" stroke="#1f2733" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- ── FEED-FORWARD (SwiGLU) ── y=400..460 -->
+  <rect x="240" y="400" width="320" height="60" rx="10" fill="#e8f0fe" stroke="#2563eb" stroke-width="2"/>
+  <text x="400" y="427" text-anchor="middle"
+        font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
+        font-size="14" fill="#1f2733">Feed-Forward</text>
+  <text x="400" y="447" text-anchor="middle"
+        font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
+        font-size="11" fill="#56616f">(SwiGLU MLP)</text>
+
+  <!-- FFN → Add2 -->
+  <line x1="400" y1="460" x2="400" y2="486" stroke="#1f2733" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- ── RESIDUAL ADD 2 ── centre (400, 506) r=20 -->
+  <circle cx="400" cy="506" r="20" fill="#f7f8fa" stroke="#94a3b8" stroke-width="2"/>
+  <text x="400" y="513" text-anchor="middle"
+        font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
+        font-size="20" font-weight="700" fill="#1f2733">+</text>
+
+  <!-- SKIP 2: left side of Add1 (380, 292) → curve left → left side of Add2 (380, 506) -->
+  <path d="M 380 292 C 155 292 155 506 380 506"
+        fill="none" stroke="#2563eb" stroke-width="2" stroke-dasharray="6 3"
+        marker-end="url(#arrow-res)"/>
+  <text x="120" y="400" text-anchor="middle"
+        font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
+        font-size="11" fill="#2563eb">skip</text>
+
+  <!-- Add2 → Output -->
+  <line x1="400" y1="526" x2="400" y2="556" stroke="#1f2733" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- ── OUTPUT ── y=558..596 -->
+  <rect x="300" y="558" width="200" height="38" rx="10" fill="#f7f8fa" stroke="#94a3b8" stroke-width="2"/>
+  <text x="400" y="582" text-anchor="middle"
+        font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
+        font-size="14" fill="#1f2733">Output</text>
+
+</svg>

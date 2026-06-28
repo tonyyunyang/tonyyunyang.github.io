@@ -1,0 +1,216 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 612" role="img">
+  <title>Diffusion Weights mechanism</title>
+  <desc>Three-stage Diffusion Weights pipeline: a beta-VAE encodes current weights into a latent, a permutation-invariant data encoder and an LLM form task conditioning, and a conditional attention U-Net runs a diffusion reverse chain whose x0 target is the future-epoch latent, decoded back to predicted future weights.</desc>
+
+  <defs>
+    <marker id="arw" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#2563eb"/>
+    </marker>
+    <marker id="arwg" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#94a3b8"/>
+    </marker>
+  </defs>
+
+  <g font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif">
+
+    <!-- Title + subtitle -->
+    <text x="480" y="30" text-anchor="middle" font-size="19" font-weight="700" fill="#1f2733">Diffusion Weights: three-stage future-weight prediction</text>
+    <text x="480" y="50" text-anchor="middle" font-size="12" fill="#56616f">&#946;-VAE latent compression &#8594; task conditioning &#8594; conditional U-Net diffusion (x&#8320; target = future-epoch latent)</text>
+
+    <!-- ===== Region backgrounds ===== -->
+    <rect x="24" y="70" width="232" height="250" rx="10" fill="#f7f8fa" stroke="#94a3b8" stroke-width="1" stroke-dasharray="5 4"/>
+    <rect x="272" y="70" width="470" height="250" rx="10" fill="#f7f8fa" stroke="#94a3b8" stroke-width="1" stroke-dasharray="5 4"/>
+    <rect x="758" y="70" width="178" height="250" rx="10" fill="#f7f8fa" stroke="#94a3b8" stroke-width="1" stroke-dasharray="5 4"/>
+    <rect x="152" y="382" width="658" height="204" rx="10" fill="#f7f8fa" stroke="#94a3b8" stroke-width="1" stroke-dasharray="5 4"/>
+
+    <!-- ============================================================ -->
+    <!-- STAGE 1 -->
+    <!-- ============================================================ -->
+    <text x="140" y="90" text-anchor="middle" font-size="13" font-weight="700" fill="#1f2733">Stage 1: &#946;-VAE compression</text>
+    <text x="140" y="105" text-anchor="middle" font-size="11" fill="#56616f">(latent space)</text>
+
+    <!-- weights stack -->
+    <rect x="128" y="116" width="46" height="26" rx="3" fill="#e8f0fe" stroke="#2563eb" stroke-width="1.5"/>
+    <rect x="121" y="122" width="46" height="26" rx="3" fill="#e8f0fe" stroke="#2563eb" stroke-width="1.5"/>
+    <rect x="114" y="128" width="46" height="26" rx="3" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/>
+    <line x1="129" y1="128" x2="129" y2="154" stroke="#94a3b8" stroke-width="0.6"/>
+    <line x1="144" y1="128" x2="144" y2="154" stroke="#94a3b8" stroke-width="0.6"/>
+    <text x="144" y="170" text-anchor="middle" font-size="11" font-weight="600" fill="#1f2733">&#952;<tspan dy="3" font-size="9">&#964;</tspan><tspan dy="-3" font-size="11"> (current weights)</tspan></text>
+    <text x="144" y="183" text-anchor="middle" font-size="9" fill="#56616f">e.g. GPT-2 MLP layers</text>
+
+    <!-- vectorize arrow -->
+    <line x1="144" y1="190" x2="144" y2="212" stroke="#2563eb" stroke-width="2" marker-end="url(#arw)"/>
+    <rect x="96" y="195" width="96" height="13" fill="#f7f8fa"/>
+    <text x="144" y="205" text-anchor="middle" font-size="9" fill="#2563eb">vectorize &#183; pad &#183; chunk</text>
+
+    <!-- encoder trapezoid -->
+    <polygon points="98,214 190,224 190,242 98,252" fill="#e8f0fe" stroke="#2563eb" stroke-width="2"/>
+    <text x="144" y="235" text-anchor="middle" font-size="10" font-weight="600" fill="#2563eb">&#946;-VAE Encoder E</text>
+
+    <line x1="144" y1="252" x2="144" y2="269" stroke="#2563eb" stroke-width="2" marker-end="url(#arw)"/>
+
+    <!-- latent z_tau squares -->
+    <rect x="113" y="271" width="13" height="13" rx="2" fill="#e8f0fe" stroke="#2563eb" stroke-width="1.5"/>
+    <rect x="130" y="271" width="13" height="13" rx="2" fill="#e8f0fe" stroke="#2563eb" stroke-width="1.5"/>
+    <rect x="147" y="271" width="13" height="13" rx="2" fill="#e8f0fe" stroke="#2563eb" stroke-width="1.5"/>
+    <rect x="164" y="271" width="13" height="13" rx="2" fill="#e8f0fe" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="145" y="298" text-anchor="middle" font-size="11" font-weight="600" fill="#1f2733">latent z<tspan dy="3" font-size="9">&#964;</tspan></text>
+    <text x="140" y="310" text-anchor="middle" font-size="9" fill="#56616f">in latent space, not raw weights</text>
+    <text x="140" y="318" text-anchor="middle" font-size="9" fill="#56616f">(tractable on 1 RTX 4090)</text>
+
+    <!-- z_tau -> U-Net conditioning connector -->
+    <path d="M177,278 C 260,278 360,235 444,210" fill="none" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arwg)"/>
+    <rect x="256" y="244" width="92" height="13" fill="#f7f8fa"/>
+    <text x="302" y="254" text-anchor="middle" font-size="9" fill="#56616f">z<tspan dy="3" font-size="8">&#964;</tspan><tspan dy="-3" font-size="9"> &#8594; condition</tspan></text>
+
+    <!-- ============================================================ -->
+    <!-- STAGE 3 -->
+    <!-- ============================================================ -->
+    <text x="507" y="90" text-anchor="middle" font-size="13" font-weight="700" fill="#1f2733">Stage 3: conditional U-Net diffusion</text>
+    <text x="507" y="105" text-anchor="middle" font-size="11" fill="#56616f">(real diffusion reverse chain, in latent space)</text>
+
+    <text x="358" y="151" text-anchor="middle" font-size="11" fill="#2563eb">reverse chain (DDPM / DDIM)</text>
+
+    <!-- tile 1: pure noise (TV static) -->
+    <rect x="288" y="170" width="40" height="40" rx="3" fill="#eef1f5" stroke="#94a3b8" stroke-width="1.5"/>
+    <g fill="#94a3b8">
+      <rect x="292" y="174" width="4" height="4"/><rect x="300" y="182" width="4" height="4"/>
+      <rect x="296" y="196" width="4" height="4"/><rect x="312" y="176" width="4" height="4"/>
+      <rect x="320" y="190" width="4" height="4"/><rect x="304" y="202" width="4" height="4"/>
+      <rect x="316" y="200" width="4" height="4"/><rect x="292" y="202" width="4" height="4"/>
+      <rect x="308" y="188" width="4" height="4"/><rect x="322" y="178" width="4" height="4"/>
+      <rect x="300" y="172" width="4" height="4"/><rect x="318" y="204" width="4" height="4"/>
+      <rect x="294" y="188" width="4" height="4"/><rect x="310" y="196" width="4" height="4"/>
+    </g>
+    <text x="308" y="224" text-anchor="middle" font-size="10" fill="#1f2733">x<tspan dy="3" font-size="8">T</tspan><tspan dy="-3" font-size="10"> ~ N(0,I)</tspan></text>
+    <text x="308" y="235" text-anchor="middle" font-size="8.5" fill="#56616f">pure noise</text>
+
+    <line x1="328" y1="190" x2="339" y2="190" stroke="#2563eb" stroke-width="2" marker-end="url(#arw)"/>
+
+    <!-- tile 2: mid -->
+    <rect x="341" y="170" width="40" height="40" rx="3" fill="#e8f0fe" stroke="#94a3b8" stroke-width="1.5"/>
+    <g fill="#94a3b8">
+      <rect x="347" y="178" width="4" height="4"/><rect x="361" y="186" width="4" height="4"/>
+      <rect x="353" y="198" width="4" height="4"/><rect x="369" y="176" width="4" height="4"/>
+      <rect x="359" y="204" width="4" height="4"/>
+    </g>
+    <text x="361" y="224" text-anchor="middle" font-size="9" fill="#56616f">denoising&#8230;</text>
+
+    <line x1="381" y1="190" x2="392" y2="190" stroke="#2563eb" stroke-width="2" marker-end="url(#arw)"/>
+
+    <!-- tile 3: cleaner -->
+    <rect x="394" y="170" width="40" height="40" rx="3" fill="#e8f0fe" stroke="#2563eb" stroke-width="1.5"/>
+    <line x1="399" y1="183" x2="429" y2="183" stroke="#2563eb" stroke-width="0.8"/>
+    <line x1="399" y1="197" x2="429" y2="197" stroke="#2563eb" stroke-width="0.8"/>
+    <rect x="412" y="189" width="4" height="4" fill="#94a3b8"/>
+    <text x="414" y="224" text-anchor="middle" font-size="9" fill="#56616f">cleaner</text>
+
+    <line x1="434" y1="190" x2="445" y2="188" stroke="#2563eb" stroke-width="2" marker-end="url(#arw)"/>
+
+    <!-- U-Net glyph -->
+    <rect x="446" y="172" width="24" height="18" rx="2" fill="#e8f0fe" stroke="#2563eb" stroke-width="1.5"/>
+    <rect x="461" y="194" width="20" height="16" rx="2" fill="#e8f0fe" stroke="#2563eb" stroke-width="1.5"/>
+    <rect x="474" y="214" width="16" height="14" rx="2" fill="#e8f0fe" stroke="#2563eb" stroke-width="1.5"/>
+    <rect x="506" y="214" width="16" height="14" rx="2" fill="#e8f0fe" stroke="#2563eb" stroke-width="1.5"/>
+    <rect x="512" y="194" width="20" height="16" rx="2" fill="#e8f0fe" stroke="#2563eb" stroke-width="1.5"/>
+    <rect x="519" y="172" width="24" height="18" rx="2" fill="#e8f0fe" stroke="#2563eb" stroke-width="1.5"/>
+    <line x1="490" y1="221" x2="506" y2="221" stroke="#2563eb" stroke-width="1.5"/>
+    <line x1="470" y1="181" x2="519" y2="181" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3 3"/>
+    <line x1="481" y1="202" x2="512" y2="202" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3 3"/>
+    <rect x="438" y="246" width="110" height="26" fill="#f7f8fa"/>
+    <text x="490" y="256" text-anchor="middle" font-size="11" font-weight="600" fill="#2563eb">attention U-Net F<tspan dy="3" font-size="9">&#968;</tspan></text>
+    <text x="490" y="268" text-anchor="middle" font-size="10" fill="#56616f">(denoiser)</text>
+
+    <line x1="543" y1="185" x2="563" y2="185" stroke="#2563eb" stroke-width="2" marker-end="url(#arw)"/>
+
+    <!-- CRUCIAL CALLOUT (orange) -->
+    <rect x="565" y="152" width="176" height="94" rx="10" fill="#ffedd5" stroke="#ea580c" stroke-width="2"/>
+    <text x="653" y="170" text-anchor="middle" font-size="10" font-weight="700" fill="#ea580c">THE KEY TWIST</text>
+    <text x="653" y="188" text-anchor="middle" font-size="11" font-weight="700" fill="#1f2733">x<tspan dy="3" font-size="8">0</tspan><tspan dy="-3" font-size="11">-prediction targets the</tspan></text>
+    <text x="653" y="205" text-anchor="middle" font-size="11" font-weight="700"><tspan fill="#ea580c">FUTURE</tspan><tspan fill="#1f2733">-epoch latent z</tspan><tspan dy="3" font-size="9" fill="#1f2733">&#964;+&#948;</tspan></text>
+    <text x="653" y="223" text-anchor="middle" font-size="10.5" fill="#1f2733"><tspan font-weight="700">NOT</tspan> the clean input</text>
+    <text x="653" y="237" text-anchor="middle" font-size="9" fill="#56616f">(a forecaster, not a reconstructor)</text>
+
+    <!-- ============================================================ -->
+    <!-- FINAL: decode -->
+    <!-- ============================================================ -->
+    <text x="847" y="90" text-anchor="middle" font-size="13" font-weight="700" fill="#1f2733">Decode &#8594; weights</text>
+    <text x="847" y="105" text-anchor="middle" font-size="11" fill="#56616f">(latent &#8594; parameters)</text>
+
+    <!-- callout -> decoder -->
+    <line x1="741" y1="197" x2="781" y2="200" stroke="#2563eb" stroke-width="2" marker-end="url(#arw)"/>
+
+    <!-- decoder trapezoid (widening right) -->
+    <polygon points="782,182 858,170 858,234 782,222" fill="#e8f0fe" stroke="#2563eb" stroke-width="2"/>
+    <text x="820" y="206" text-anchor="middle" font-size="11" font-weight="600" fill="#2563eb">Decoder D</text>
+
+    <line x1="858" y1="202" x2="874" y2="202" stroke="#2563eb" stroke-width="2" marker-end="url(#arw)"/>
+
+    <!-- output weights stack -->
+    <rect x="890" y="182" width="44" height="26" rx="3" fill="#e8f0fe" stroke="#2563eb" stroke-width="1.5"/>
+    <rect x="883" y="189" width="44" height="26" rx="3" fill="#e8f0fe" stroke="#2563eb" stroke-width="1.5"/>
+    <rect x="876" y="196" width="44" height="26" rx="3" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="897" y="242" text-anchor="middle" font-size="12" font-weight="600" fill="#1f2733">&#952;&#770;<tspan dy="3" font-size="9">&#964;+&#948;</tspan></text>
+    <text x="897" y="256" text-anchor="middle" font-size="9.5" fill="#56616f">predicted <tspan fill="#ea580c">future</tspan></text>
+    <text x="897" y="268" text-anchor="middle" font-size="9.5" fill="#56616f">weights</text>
+
+    <!-- ============================================================ -->
+    <!-- STAGE 2: task conditioning -->
+    <!-- ============================================================ -->
+    <text x="481" y="403" text-anchor="middle" font-size="13" font-weight="700" fill="#1f2733">Stage 2: task conditioning</text>
+    <text x="481" y="418" text-anchor="middle" font-size="11" fill="#56616f">two encoders &#8594; fused conditioning y &#8594; U-Net (ControlNet-style)</text>
+
+    <!-- branch a: data set -->
+    <g fill="#2563eb">
+      <circle cx="208" cy="441" r="3"/><circle cx="219" cy="438" r="3"/><circle cx="227" cy="447" r="3"/>
+      <circle cx="210" cy="452" r="3"/><circle cx="223" cy="456" r="3"/><circle cx="215" cy="448" r="3"/>
+      <circle cx="231" cy="440" r="3"/>
+    </g>
+    <text x="218" y="474" text-anchor="middle" font-size="9" fill="#56616f">data points (a set)</text>
+    <line x1="240" y1="448" x2="302" y2="448" stroke="#2563eb" stroke-width="2" marker-end="url(#arw)"/>
+
+    <rect x="304" y="430" width="150" height="40" rx="8" fill="#e8f0fe" stroke="#2563eb" stroke-width="2"/>
+    <text x="379" y="447" text-anchor="middle" font-size="11" font-weight="600" fill="#2563eb">set encoder T<tspan dy="3" font-size="9">&#969;</tspan></text>
+    <text x="379" y="461" text-anchor="middle" font-size="9" fill="#56616f">(permutation-invariant)</text>
+
+    <line x1="454" y1="450" x2="482" y2="450" stroke="#2563eb" stroke-width="2" marker-end="url(#arw)"/>
+    <rect x="484" y="434" width="66" height="32" rx="8" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+    <text x="517" y="449" text-anchor="middle" font-size="11" font-weight="600" fill="#1f2733">z<tspan dy="3" font-size="8">D</tspan></text>
+    <text x="517" y="461" text-anchor="middle" font-size="8" fill="#56616f">dataset emb.</text>
+
+    <!-- branch b: instruction -->
+    <rect x="190" y="508" width="92" height="38" rx="10" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+    <polygon points="208,546 220,546 206,557" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+    <text x="236" y="531" text-anchor="middle" font-size="10" fill="#1f2733">task instruction c</text>
+    <line x1="283" y1="527" x2="302" y2="527" stroke="#2563eb" stroke-width="2" marker-end="url(#arw)"/>
+
+    <rect x="304" y="508" width="150" height="38" rx="8" fill="#e8f0fe" stroke="#2563eb" stroke-width="2"/>
+    <text x="379" y="531" text-anchor="middle" font-size="12" font-weight="600" fill="#2563eb">LLM L</text>
+
+    <line x1="454" y1="527" x2="482" y2="527" stroke="#2563eb" stroke-width="2" marker-end="url(#arw)"/>
+    <rect x="484" y="511" width="66" height="32" rx="8" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+    <text x="517" y="526" text-anchor="middle" font-size="11" font-weight="600" fill="#1f2733">z<tspan dy="3" font-size="8">c</tspan></text>
+    <text x="517" y="538" text-anchor="middle" font-size="8" fill="#56616f">language emb.</text>
+
+    <!-- fuse node -->
+    <rect x="566" y="460" width="86" height="54" rx="10" fill="#e8f0fe" stroke="#2563eb" stroke-width="2"/>
+    <text x="609" y="484" text-anchor="middle" font-size="12" font-weight="600" fill="#2563eb">Fuse</text>
+    <text x="609" y="501" text-anchor="middle" font-size="11" fill="#1f2733">&#8594; y</text>
+    <line x1="550" y1="450" x2="566" y2="470" stroke="#2563eb" stroke-width="2" marker-end="url(#arw)"/>
+    <line x1="550" y1="527" x2="566" y2="505" stroke="#2563eb" stroke-width="2" marker-end="url(#arw)"/>
+
+    <!-- dashed conditioning arrow up into U-Net -->
+    <path d="M609,460 C 590,400 540,300 491,234" fill="none" stroke="#94a3b8" stroke-width="1.8" stroke-dasharray="6 4" marker-end="url(#arwg)"/>
+    <rect x="468" y="346" width="162" height="28" fill="#f7f8fa"/>
+    <text x="549" y="357" text-anchor="middle" font-size="10" font-weight="600" fill="#2563eb">ControlNet-style conditioning</text>
+    <text x="549" y="369" text-anchor="middle" font-size="9" fill="#56616f">(cross-attention into U-Net)</text>
+
+    <!-- InfoNCE note -->
+    <rect x="664" y="452" width="140" height="72" rx="8" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4 3"/>
+    <text x="734" y="472" text-anchor="middle" font-size="9.5" font-weight="600" fill="#1f2733">Contrastive Task-</text>
+    <text x="734" y="486" text-anchor="middle" font-size="9.5" font-weight="600" fill="#1f2733">Conditioning (InfoNCE)</text>
+    <text x="734" y="502" text-anchor="middle" font-size="9" fill="#56616f">aligns data &#8596; weights</text>
+    <text x="734" y="515" text-anchor="middle" font-size="8" fill="#56616f">(pulls matching pairs together)</text>
+
+  </g>
+</svg>

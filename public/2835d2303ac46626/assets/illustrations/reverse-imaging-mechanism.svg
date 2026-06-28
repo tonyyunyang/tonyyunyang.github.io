@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 916 504" role="img">
+  <title>Reverse Imaging: invert one image into spin maps, then re-render any sequence</title>
+  <desc>One observed image is inverted by guided reverse diffusion with a spin prior into sequence-invariant spin maps z = (PD, T1, T2), which any Bloch forward model can re-render into a new sequence such as bSSFP, GRE, or MOLLI.</desc>
+
+  <defs>
+    <!-- Reverse (orange) arrowhead -->
+    <marker id="rev" markerWidth="11" markerHeight="8" refX="9.5" refY="4" orient="auto">
+      <polygon points="0 0, 11 4, 0 8" fill="#ea580c"/>
+    </marker>
+    <!-- Forward (teal) arrowhead -->
+    <marker id="fwd" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#0d9488"/>
+    </marker>
+  </defs>
+
+  <!-- Title + subtitle -->
+  <text x="458" y="32" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="19" font-weight="700" fill="#1f2733">Reverse Imaging: one image in, spin maps out, any sequence re-rendered</text>
+  <text x="458" y="54" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12.5" fill="#56616f">Recover sequence-invariant spin properties from a single observed image, then forward-render new sequences.</text>
+
+  <!-- ============================ LEFT ZONE: observed image ============================ -->
+  <rect x="36" y="128" width="152" height="170" rx="10" fill="#f7f8fa" stroke="#94a3b8" stroke-width="2"/>
+  <!-- stylized cardiac short-axis cross-section -->
+  <circle cx="112" cy="194" r="40" fill="#e8f0fe" stroke="#2563eb" stroke-width="2"/>
+  <circle cx="112" cy="194" r="21" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+  <circle cx="105" cy="190" r="2.6" fill="#94a3b8"/>
+  <circle cx="118" cy="200" r="2.6" fill="#94a3b8"/>
+  <text x="112" y="262" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="14" font-weight="600" fill="#1f2733">Observed image</text>
+  <text x="112" y="280" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" fill="#56616f">x_i (e.g. MOLLI)</text>
+
+  <!-- ============================ REVERSE step ============================ -->
+  <!-- reverse formula labels -->
+  <text x="300" y="100" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#ea580c">REVERSE (inference)</text>
+  <text x="300" y="119" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12.5" fill="#1f2733">p(z | x_i) &#8733; p(x_i | z) &#183; p(z)</text>
+
+  <!-- bold curved reverse arrow: observed image -> z -->
+  <path d="M 188 192 C 252 168, 360 168, 424 200" fill="none" stroke="#ea580c" stroke-width="3.5" marker-end="url(#rev)"/>
+
+  <!-- cog / loop icon sitting on the reverse arrow -->
+  <circle cx="305" cy="176" r="14" fill="#ffffff"/>
+  <path d="M 305 165 A 11 11 0 1 1 296 184" fill="none" stroke="#ea580c" stroke-width="2.4" marker-end="url(#rev)"/>
+  <circle cx="305" cy="176" r="2" fill="#ea580c"/>
+
+  <!-- DPS detail box (cog label) -->
+  <rect x="192" y="214" width="222" height="92" rx="10" fill="#fff4ed" stroke="#ea580c" stroke-width="2"/>
+  <text x="303" y="234" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="700" fill="#ea580c">Guided reverse diffusion (DPS)</text>
+  <text x="303" y="253" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" fill="#1f2733">score &#8711; log p(z_t) + data-consistency:</text>
+  <text x="303" y="271" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" fill="#1f2733">&#958; &#183; &#8711; &#8214; f_i(Tweedie z_0) &#8722; x_i &#8214;&#178;</text>
+  <text x="303" y="291" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" fill="#56616f">&#958; = 400 &#183; 200 reverse steps</text>
+
+  <!-- spin prior box feeds up into the loop -->
+  <rect x="192" y="322" width="222" height="58" rx="10" fill="#f7f8fa" stroke="#94a3b8" stroke-width="2"/>
+  <text x="303" y="345" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" font-weight="600" fill="#1f2733">Diffusion spin prior p(z)</text>
+  <text x="303" y="363" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" fill="#56616f">DDPM trained on mSASHA T1 / T2 maps</text>
+  <!-- arrow up into the loop -->
+  <line x1="303" y1="322" x2="303" y2="308" stroke="#ea580c" stroke-width="2" marker-end="url(#rev)"/>
+
+  <!-- ============================ CENTER ZONE: spin maps z ============================ -->
+  <rect x="430" y="130" width="104" height="184" rx="12" fill="#f7f8fa" stroke="#2563eb" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="482" y="150" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="700" fill="#1f2733">z = spin maps</text>
+  <!-- three map tiles -->
+  <rect x="444" y="160" width="76" height="38" rx="8" fill="#e8f0fe" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="482" y="184" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="14" font-weight="700" fill="#1f2733">PD</text>
+  <rect x="444" y="204" width="76" height="38" rx="8" fill="#e8f0fe" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="482" y="228" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="14" font-weight="700" fill="#1f2733">T1</text>
+  <rect x="444" y="248" width="76" height="38" rx="8" fill="#e8f0fe" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="482" y="272" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="14" font-weight="700" fill="#1f2733">T2</text>
+  <text x="482" y="303" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="10.5" fill="#56616f">sequence-invariant</text>
+
+  <!-- ============================ RIGHT ZONE: forward re-render ============================ -->
+  <text x="660" y="112" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="700" fill="#0d9488">FORWARD (re-render): apply Bloch model f_j</text>
+
+  <!-- three forward arrows fanning out -->
+  <line x1="538" y1="200" x2="756" y2="173" stroke="#0d9488" stroke-width="2" marker-end="url(#fwd)"/>
+  <line x1="538" y1="210" x2="756" y2="263" stroke="#0d9488" stroke-width="2" marker-end="url(#fwd)"/>
+  <line x1="538" y1="222" x2="756" y2="353" stroke="#0d9488" stroke-width="2" marker-end="url(#fwd)"/>
+
+  <!-- per-arrow Bloch labels -->
+  <text x="652" y="176" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" fill="#0d9488">f_bSSFP</text>
+  <text x="652" y="228" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" fill="#0d9488">f_GRE</text>
+  <text x="652" y="303" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" fill="#0d9488">f_MOLLI</text>
+
+  <!-- output sequence boxes -->
+  <rect x="760" y="150" width="120" height="46" rx="10" fill="#f7f8fa" stroke="#0d9488" stroke-width="2"/>
+  <text x="820" y="178" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="14" font-weight="600" fill="#1f2733">bSSFP</text>
+  <rect x="760" y="240" width="120" height="46" rx="10" fill="#f7f8fa" stroke="#0d9488" stroke-width="2"/>
+  <text x="820" y="268" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="14" font-weight="600" fill="#1f2733">GRE</text>
+  <rect x="760" y="330" width="120" height="46" rx="10" fill="#f7f8fa" stroke="#0d9488" stroke-width="2"/>
+  <text x="820" y="358" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="14" font-weight="600" fill="#1f2733">MOLLI</text>
+
+  <!-- ============================ Footnote strip ============================ -->
+  <rect x="36" y="430" width="844" height="44" rx="8" fill="#f7f8fa" stroke="#94a3b8" stroke-width="1"/>
+  <text x="458" y="457" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" font-weight="600" fill="#1f2733">one image in &#8594; physics inverted &#8594; any sequence out &#183; no target-domain data</text>
+</svg>

@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 320" role="img">
+  <title>LLM Pretraining Data Pipeline</title>
+  <desc>A left-to-right pipeline showing the stages of LLM pretraining data processing: Raw web + e-commerce → Dedup (MinHash LSH) → Quality filter (heuristics + perplexity) → Language ID → PII scrub → Domain mix (e.g. 50/50) → Tokenize (custom vocab) → Training.</desc>
+
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="3.5" orient="auto">
+      <polygon points="0 0, 8 3.5, 0 7" fill="#94a3b8"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="450" y="36" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="19" font-weight="700" fill="#1f2733">LLM Pretraining Data Pipeline</text>
+
+  <!-- 8 boxes, h=70, top=110, bottom=180, center y=145. Gaps ~13. Left margin 10. -->
+
+  <!-- Box 1: Raw web + e-commerce -->
+  <rect x="10" y="110" width="96" height="70" rx="10" fill="#e8f0fe" stroke="#2563eb" stroke-width="2"/>
+  <text x="58" y="141" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" font-weight="600" fill="#1f2733">Raw web +</text>
+  <text x="58" y="156" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" font-weight="600" fill="#1f2733">e-commerce</text>
+  <text x="58" y="172" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" fill="#56616f">CommonCrawl</text>
+
+  <!-- Arrow 1→2 -->
+  <line x1="106" y1="145" x2="118" y2="145" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Box 2: Dedup -->
+  <rect x="119" y="110" width="96" height="70" rx="10" fill="#f7f8fa" stroke="#94a3b8" stroke-width="2"/>
+  <text x="167" y="141" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" font-weight="600" fill="#1f2733">Dedup</text>
+  <text x="167" y="156" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" fill="#56616f">MinHash LSH</text>
+
+  <!-- Arrow 2→3 -->
+  <line x1="215" y1="145" x2="227" y2="145" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Box 3: Quality filter -->
+  <rect x="228" y="110" width="110" height="70" rx="10" fill="#f7f8fa" stroke="#94a3b8" stroke-width="2"/>
+  <text x="283" y="135" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" font-weight="600" fill="#1f2733">Quality filter</text>
+  <text x="283" y="150" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" fill="#56616f">heuristics +</text>
+  <text x="283" y="164" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" fill="#56616f">perplexity</text>
+
+  <!-- Arrow 3→4 -->
+  <line x1="338" y1="145" x2="350" y2="145" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Box 4: Language ID -->
+  <rect x="351" y="110" width="96" height="70" rx="10" fill="#f7f8fa" stroke="#94a3b8" stroke-width="2"/>
+  <text x="399" y="141" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" font-weight="600" fill="#1f2733">Language ID</text>
+  <text x="399" y="157" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" fill="#56616f">fastText / LID</text>
+
+  <!-- Arrow 4→5 -->
+  <line x1="447" y1="145" x2="459" y2="145" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Box 5: PII scrub -->
+  <rect x="460" y="110" width="96" height="70" rx="10" fill="#f7f8fa" stroke="#94a3b8" stroke-width="2"/>
+  <text x="508" y="141" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" font-weight="600" fill="#1f2733">PII scrub</text>
+  <text x="508" y="157" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" fill="#56616f">regex + NER</text>
+
+  <!-- Arrow 5→6 -->
+  <line x1="556" y1="145" x2="568" y2="145" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Box 6: Domain mix -->
+  <rect x="569" y="110" width="96" height="70" rx="10" fill="#f7f8fa" stroke="#94a3b8" stroke-width="2"/>
+  <text x="617" y="135" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" font-weight="600" fill="#1f2733">Domain mix</text>
+  <text x="617" y="150" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" fill="#56616f">e.g. 50 / 50</text>
+  <text x="617" y="165" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" fill="#56616f">web / domain</text>
+
+  <!-- Arrow 6→7 -->
+  <line x1="665" y1="145" x2="677" y2="145" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Box 7: Tokenize -->
+  <rect x="678" y="110" width="100" height="70" rx="10" fill="#f7f8fa" stroke="#94a3b8" stroke-width="2"/>
+  <text x="728" y="135" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" font-weight="600" fill="#1f2733">Tokenize</text>
+  <text x="728" y="150" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" fill="#56616f">custom vocab</text>
+  <text x="728" y="165" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" fill="#56616f">BPE / Unigram</text>
+
+  <!-- Arrow 7→8 -->
+  <line x1="778" y1="145" x2="790" y2="145" stroke="#2563eb" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Box 8: Training (accent) -->
+  <rect x="791" y="110" width="96" height="70" rx="10" fill="#2563eb" stroke="#2563eb" stroke-width="2"/>
+  <text x="839" y="150" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="14" font-weight="700" fill="#ffffff">Training</text>
+
+  <!-- Stage labels below boxes -->
+  <text x="450" y="230" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" fill="#56616f">Stages: collection → deduplication → quality → language routing → privacy → sampling → tokenization → GPU training</text>
+</svg>

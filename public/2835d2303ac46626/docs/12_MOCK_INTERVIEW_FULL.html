@@ -1,0 +1,1052 @@
+<!DOCTYPE html>
+<html lang="en" data-pagefind-ignore="all">
+<head>
+<meta name="robots" content="noindex, nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Full Mock Interview · eBay Prep</title>
+<script>try{if(localStorage.getItem('ebayprep-theme')==='dark')document.documentElement.classList.add('dark');}catch(e){}</script>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<button id="menu" class="menu-btn" aria-label="Menu">☰</button>
+<button id="theme" class="theme-btn" aria-label="Toggle theme">◐</button>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+<div class="brand"><a href="../index.html">eBay Prep</a><div class="brand-sub">Stage 1 · Yannick Versley</div></div>
+<div class="search"><input id="q" type="search" placeholder="Search the pack…" autocomplete="off"><div id="results"></div></div>
+<nav class="nav">
+<div class="nav-group"><div class="nav-group-title">Start Here</div><ul>
+<li><a href="7DAY_SPRINT_PLAN.html">7-Day Sprint Plan</a></li>
+<li><a href="21_KILL_LIST.html">⚠ Kill List — Never Say These</a></li>
+<li><a href="00_MASTER_INDEX_AND_STUDY_PLAN.html">Master Index &amp; Study Plan</a></li>
+<li><a href="SESSION2_READINESS_REPORT.html">Readiness Report</a></li>
+</ul></div>
+<div class="nav-group"><div class="nav-group-title">Stage 1 — Core</div><ul>
+<li><a href="03_INTERVIEWER_YANNICK_VERSLEY.html">Interviewer: Yannick Versley</a></li>
+<li><a href="02_STAGE1_ML_LLM_NLP_MASTERDOC.html">Stage-1 ML/LLM/NLP Master Doc</a></li>
+<li><a href="20_OWN_PAPERS_GROUND_TRUTH.html">★ Own Papers — Ground-Truth Defense</a></li>
+<li><a href="04_PUBLICATIONS_PROJECTS_DEFENSE.html">Publications &amp; Projects Defense</a></li>
+<li><a href="05_QUESTION_BANK_THIS_ROLE.html">Question Bank (This Role)</a></li>
+<li><a href="06_ML_LLM_NLP_FUNDAMENTALS_STUDYGUIDE.html">ML/LLM/NLP Fundamentals</a></li>
+<li class="active"><a href="12_MOCK_INTERVIEW_FULL.html">Full Mock Interview</a></li>
+</ul></div>
+<div class="nav-group"><div class="nav-group-title">Stage 1 — Deep Dives</div><ul>
+<li><a href="18_STAGE1_GAPFILL_DEEP_ANSWERS.html">Gap-Fill: Deep Answers</a></li>
+<li><a href="18b_STAGE1_GAPFILL_ROUND2.html">Gap-Fill: Round 2</a></li>
+<li><a href="19_ADAPTIVE_MOCK_SESSIONS.html">Adaptive Mock Sessions</a></li>
+<li><a href="13_GENERATIVE_MODELS_BEYOND_LLMS.html">Generative Models Beyond LLMs</a></li>
+<li><a href="14_CLASSICAL_NLP_AND_MT_DEEP_DIVE.html">Classical NLP &amp; MT Deep Dive</a></li>
+<li><a href="15_SOTA_2026_CURRENT_AWARENESS.html">SOTA 2026 Current Awareness</a></li>
+<li><a href="16_EXPERTISE_DEEP_DIVE_EFFICIENCY.html">Expertise Deep Dive: Efficiency</a></li>
+<li><a href="17_RAPID_FIRE_BREADTH_BANK.html">Rapid-Fire Breadth Bank</a></li>
+</ul></div>
+<div class="nav-group"><div class="nav-group-title">eBay &amp; Why eBay</div><ul>
+<li><a href="07_EBAY_COMPANY_AI_DOSSIER.html">eBay Company AI Dossier</a></li>
+</ul></div>
+<div class="nav-group"><div class="nav-group-title">Later Stages (2 &amp; 3)</div><ul>
+<li><a href="08_ML_SYSTEM_DESIGN_PLAYBOOK.html">ML System Design Playbook</a></li>
+<li><a href="09_CODING_CODESIGNAL_PREP.html">Coding / CodeSignal Prep</a></li>
+<li><a href="10_PROJECT_MGMT_RETROSPECTIVE_STAR.html">Project Mgmt &amp; STAR Stories</a></li>
+<li><a href="11_TEAM_FIT_CAREER.html">Team Fit &amp; Career</a></li>
+</ul></div>
+<div class="nav-group"><div class="nav-group-title">Logistics</div><ul>
+<li><a href="01_RECRUITER_RESPONSE_PACK.html">Recruiter Response Pack</a></li>
+</ul></div>
+</nav>
+  </aside>
+  <div class="scrim" id="scrim"></div>
+  <main class="content">
+    <article class="doc">
+      <div class="doc-meta"><span class="tag">Stage 1 — Core</span><span class="read">96 min read</span></div>
+      <h1 id="ebay-mle-amsterdam-full-mock-interview-pack">eBay MLE Amsterdam — Full Mock Interview Pack</h1>
+<p><strong>Priority / How to Use:</strong> Stage 1 with Versley is your immediate gate. Rehearse Section 1 out loud three times before the call. Read Sections 2–5 before the onsite. Every model answer contains the actual technical content you should say — not a placeholder. Treat these as scripts you internalize, not scripts you read.</p>
+<p><strong>NOTE ON PAPER NUMBERS:</strong> Every specific number from the eBay team's papers cited in this document has been verified against the actual arXiv PDFs (2501.09706, 2602.11733, 2409.12880). Versley co-authored arXiv:2602.11733 (the VLM paper) and leads the org behind 2501.09706 (e-Llama) and 2409.12880 (RAG MT). Do not ad-lib additional specifics during the interview — if you can't remember a number exactly, say "I don't have that figure in front of me."</p>
+<hr />
+<h2 id="difficulty-curve-note">DIFFICULTY CURVE NOTE</h2>
+<p>The exchanges below follow a deliberate arc: warm-up → hardest in the middle → behavioral close. Exchange 1 (opening pitch) and Exchange 2 (pretraining fundamentals) are the gentlest — use them to settle your voice and pacing. Exchanges 4–9 are where Versley will push hardest: catastrophic forgetting, context-length mechanisms, VLM internals, classical NLP. The pushback exchanges (6b, 9b, 4b) are placed in the middle of that hard zone intentionally. Exchanges 11–13 are more conversational and behavioral — pace yourself for a landing, not a sprint. If you feel rattled at Exchange 5 or 6, that's normal; the structure is designed to stress you there. Breathe, concede honestly where warranted, and keep answers tight: 60–90 seconds for a technical answer unless specifically asked to go deep.</p>
+<hr />
+<h2 id="table-of-contents">TABLE OF CONTENTS</h2>
+<ol>
+<li><a href="#stage-1">Stage 1 — Yannick Versley (60 min, ML &amp; LLM Research)</a></li>
+<li><a href="#stage-2a">Stage 2a — Coding Think-Aloud Examples</a></li>
+<li><a href="#stage-2b">Stage 2b — ML System Design Dialogue</a></li>
+<li><a href="#stage-2c">Stage 2c — Project Management / Retrospective Behavioral</a></li>
+<li><a href="#stage-3">Stage 3 — Team Fit Dialogue</a></li>
+<li><a href="#cheat-sheet">Quick-Reference Cheat Sheet</a></li>
+</ol>
+<hr />
+<p><a name="stage-1"></a></p>
+<h2 id="section-1-stage-1-yannick-versley-60-min-ml-llm-research">SECTION 1: Stage 1 — Yannick Versley (60-min ML &amp; LLM Research)</h2>
+<h3 id="setting-the-scene">Setting the Scene</h3>
+<p><strong>Format:</strong> Video call, ~60 minutes. Versley is Senior Tech Lead Manager at eBay CoreAI Amsterdam, leading LLM pretraining. He has a PhD in computational linguistics from Tübingen, ran pretraining at Amazon (Alexa AI, then the Amazon Nova AGI org on 480 H100 GPUs), and leads the team behind the e-Llama domain adaptation work (arXiv:2501.09706, eBay), the vocabulary customization paper (Sept 2025 (arXiv preprint)), and is a co-author of the VLM adaptation paper (arXiv:2602.11733, 2026). He values rigor and will probe your design choices hard. He does not reward buzzwords.</p>
+<p><strong>Rough time budget:</strong>
+- Warm-up / context setting: ~5 min
+- Breadth sweep (pretraining, tokenization, domain adaptation, efficiency): ~15 min
+- Deep dive on Tony's papers: ~20 min
+- VLM + eBay-specific discussion: ~10 min
+- Tony's questions for Versley: ~10 min</p>
+<hr />
+<h3 id="exchange-1-opening-warm-up">EXCHANGE 1 — Opening / Warm-Up</h3>
+<p><strong>VERSLEY:</strong> Thanks for joining, Tony. I'm Yannick — I lead the LLM pretraining team here in Amsterdam. We build the foundation models that power eBay's product. Before we get into the technical weeds, give me a two-minute picture of where you are in your research and what you'd say is the through-line of your work.</p>
+<hr />
+<p><strong>TONY [SPOKEN DELIVERY — ~150 words, ~2 minutes; USE THIS VERSION IN THE INTERVIEW]:</strong></p>
+<p>Sure. The through-line is this: AI is moving from a scaling race to a systems race. Larger models still matter, but the differentiator now is how you train, route, compress, and deploy under real constraints.</p>
+<p>My work clusters around three themes. LLM routing and cost efficiency — three published or under-review works, including MERA at 87.3% router accuracy at about half the serving cost, and the LLM Router at over 90% cost reduction. Model efficiency — over 80% sparsity on nnU-Net at proxy Dice above 0.95, and Diffusion Weights which reframes fine-tuning as generative weight prediction at 3.2x wall-clock speedup. Third, multimodal and agentic — a VLM project for customer intent inference and an agentic coding benchmark evaluating project-level agents.</p>
+<p>I'm in Amsterdam, so hybrid is easy, and your team's focus — in-house LLMs, domain adaptation, VLMs for e-commerce — is exactly where I want to go deeper.</p>
+<hr />
+<p><strong>TONY [EXTENDED VERSION — for study; do NOT read verbatim in the interview]:</strong></p>
+<p>Sure. The through-line for me is this: AI is moving from a scaling race to a systems race. Larger models still matter but they're no longer the primary differentiator. What separates good ML engineering now is how you train, route, compress, deploy, and apply models under real constraints — latency, cost, data scarcity.</p>
+<p>My work clusters around three themes. First is LLM routing and cost efficiency — I have three published or under-review works on assigning queries to the cheapest capable model. In TwinRouterBench — a step-level agentic routing benchmark — a trained router cut API cost 53% versus unrouted Opus at a matched resolve rate on the dynamic track. In MERA we reached 87.3% router accuracy at about half the serving cost by combining routing with model evolution and skill adaptation. The most recent, Cost-Adaptive Routing, adds specialist fine-tuning so cost keeps dropping as you accumulate trajectories.</p>
+<p>Second is efficiency at the model level — I pruned nnU-Net by over 80% at proxy Dice above 0.95 for MIDL, and the Diffusion Weights project reframes fine-tuning as generative weight prediction with a 3.2x wall-clock speedup.</p>
+<p>Third, I've been doing multimodal and agentic work — a VLM project for customer intent inference from visual cues, which maps closely to what your team is doing with Magical Listing and the VLM adaptation paper (arXiv:2602.11733).</p>
+<p>I'm in Amsterdam, so the hybrid setup is completely natural for me, and the focus of your team — in-house LLMs for e-commerce, domain adaptation, VLMs — is exactly where I want to go deeper.</p>
+<hr />
+<p><strong>COACHING NOTE:</strong> Use the spoken delivery version. Keep it under 2 minutes. Open with the thesis statement ("systems race"), name three concrete themes with one metric each, and close with an eBay-specific anchor. Do not list every paper — just the cluster. The goal is to frame yourself, not enumerate your CV.</p>
+<hr />
+<h3 id="exchange-2-breadth-probe-pretraining-fundamentals">EXCHANGE 2 — Breadth Probe: Pretraining Fundamentals</h3>
+<p><strong>VERSLEY:</strong> You mentioned training constraints. Let me test the fundamentals. Walk me through the key decisions you'd make when designing a pretraining run from scratch — say you have a compute budget for a 7B-parameter model. What's your checklist?</p>
+<hr />
+<p><strong>TONY [MODEL ANSWER]:</strong></p>
+<p>The first decision is data — it dominates everything else. Before touching architecture I'd define my data pipeline: quality filtering (FastText language detection, heuristic scoring on average line length and alpha-character ratio, perplexity filter against a reference LM), MinHash LSH deduplication at paragraph and document level, and domain mixing ratios decided by held-out perplexity on your target task categories. For eBay's case I'd heavily include product listing text, parallel MT pairs for the languages you serve — German, French, Italian, Spanish — and code, because code data has an outsized effect on reasoning per token.</p>
+<p>Second is the Chinchilla budget question. Using the C = 6ND compute approximation (the 6ND form is Kaplan et al. 2020, not Hoffmann), Hoffmann et al. (Chinchilla, 2022) showed the loss-optimal allocation is roughly 20 tokens per parameter. So for 7B that's 140B Chinchilla-optimal tokens. But in 2025–2026, Llama 3 and Qwen 3 are deliberately training beyond Chinchilla — 15T and 36T tokens respectively — because inference cost needs to be amortized over billions of queries. For eBay, where you're serving at e-commerce scale, inference efficiency matters more than minimal training cost, so I'd overtrain toward 1–2T tokens for the 7B.</p>
+<p>Third is architecture. Today it's essentially settled: decoder-only, RMSNorm pre-norm, SwiGLU FFN, RoPE positional embeddings, GQA instead of full MHA to cut KV cache memory. For vocab I'd use domain-specific BPE — your own paper showed that a custom e-commerce vocabulary gives 34% generation speedup on downstream tasks, which is a massive serving-cost win.</p>
+<p>Fourth is training stability: warmup LR over 1000–2000 steps, cosine decay schedule, gradient clipping at norm ≤ 1.0, BF16 compute with FP32 master weights to avoid overflow. For MoE I'd add Z-loss on the router. QK-Norm is worth adding to prevent attention logit explosion. Checkpoint averaging at the end gives you a free quality improvement.</p>
+<p>Fifth is evaluation — I'd design held-out task sets for the target domain before training starts, so you're not trying to define success after the fact.</p>
+<hr />
+<p><strong>VERSLEY:</strong> You mentioned 20 tokens per parameter from Chinchilla. But eBay's e-Llama paper trained on 1T tokens for an 8B model — that's 125 tokens per parameter, six times beyond Chinchilla-optimal. Why?</p>
+<hr />
+<p><strong>TONY [MODEL ANSWER]:</strong></p>
+<p>Two reasons, and your team's e-Llama paper makes the point well. First, inference-aware scaling: if you expect a model to serve K tokens over its production lifetime, the breakeven shifts. A smaller, more thoroughly trained model costs less per inference token than a larger, Chinchilla-optimal model that needed fewer training tokens. At eBay's query volume — millions of e-commerce requests per day — you're firmly in the regime where it pays to overtrain a smaller model.</p>
+<p>Second, domain absorption: continued pretraining for domain adaptation is not the same as a random walk through the loss landscape. The model needs enough exposure to e-commerce data patterns, e-commerce terminology, and multilingual catalog content to genuinely internalize the distribution. Your ablations showed that below a certain token budget the model hasn't actually absorbed the domain — the improvement plateaus, and general capability starts degrading if you push the domain fraction too hard. The 1T token budget at 50/50 domain-general mix was validated by ablation, not arbitrary.</p>
+<hr />
+<p><strong>COACHING NOTE:</strong> Versley has run 70B pretraining on 480 H100s. He knows this cold. Your job is to show you understand the tradeoffs and can cite numbers — specifically the 1T token e-Llama training, the 50/50 data ratio, and the Chinchilla vs inference-optimal distinction. He will probe if you say anything vague.</p>
+<hr />
+<h3 id="exchange-3-tokenization-deep-dive">EXCHANGE 3 — Tokenization Deep Dive</h3>
+<p><strong>VERSLEY:</strong> You mentioned custom vocabulary. Let me push on that. What exactly causes the 34% speedup in LiLiuM's generation speed, and why doesn't every model just do this?</p>
+<hr />
+<p><strong>TONY [MODEL ANSWER]:</strong></p>
+<p>The core mechanism is token fertility reduction. A standard general-domain tokenizer trained on web text has never seen "18k yellow gold diamond tennis bracelet" as a recurring pattern, so it splits it into 12–15 subword tokens. With a domain-specific vocabulary that includes common e-commerce n-grams and product terms as single tokens, the same phrase might be 6–8 tokens. Every extra token is an extra autoregressive decoding step — one forward pass, attention over the full KV cache, one sampling step. Cut the sequence length by 34% and you cut the number of forward passes by roughly the same fraction.</p>
+<p>Your vocabulary customization paper from Sept 2025 (arXiv preprint) takes this further with a monotone efficiency guarantee — the extended vocabulary only adds tokens such that no input is ever segmented into more tokens than before. That's the right property: you want domain compression without any pathological case where a rare domain term gets segmented worse than the original tokenizer.</p>
+<p>Why doesn't every model do this? Three costs. First, you have to train the embedding matrix for new tokens from scratch or warm-initialize from the mean of the constituent subword embeddings — you can't just reuse a pretrained general embedding. Second, you lose drop-in compatibility with any pretrained model that uses the standard vocabulary; you're on your own for weight initialization. Third, it requires continued pretraining with the new vocabulary to let the model learn the token meanings. All three costs are substantial for an organization that doesn't control the full training stack — but for eBay, with an in-house LLM, it's absolutely the right call.</p>
+<hr />
+<p><strong>COACHING NOTE:</strong> The mechanistic explanation (token count → forward passes → latency) is the key insight. The vocabulary-paper (arXiv 2509.26124) reference shows you read Versley's actual work, not just the LiLiuM arXiv. The "why not everyone" framing shows systems thinking.</p>
+<hr />
+<h3 id="exchange-4-domain-adaptation-and-catastrophic-forgetting">EXCHANGE 4 — Domain Adaptation and Catastrophic Forgetting</h3>
+<p><strong>VERSLEY:</strong> Let's go to domain adaptation. In e-Llama we used continued pretraining — 1T tokens at 10% of the original learning rate, 50/50 domain-general mix. Walk me through the catastrophic forgetting risk and how you mitigate it. What would happen if you just cranked the learning rate?</p>
+<hr />
+<p><strong>TONY [MODEL ANSWER]:</strong></p>
+<p>Catastrophic forgetting in continued pretraining is a weight interference problem. The model's weights encode the general distribution from 15T tokens of pretraining. When you continue training on a narrow domain, the optimizer updates weights to reduce loss on domain data, overwriting the general representation. The higher the learning rate, the more violent the overwrite per step.</p>
+<p>The e-Llama ablation makes this vivid: at 10x the LR — 3.0e-3 for the 8B versus the intended 3.0e-5 — e-commerce benchmark performance was 50.6 but general NLU dropped to 34.5. At the intended LR of 3.0e-5, you got 59.9 on e-commerce and 42.0 on general — better on both axes. Crucially, the high-LR run didn't even win on the domain task — 50.6 versus 59.9 — because the catastrophic overwrite destabilizes the very representations the domain task depends on. The optimizer's first and second moment estimates overcorrect toward the domain gradient direction, effectively erasing structure that domain performance also relies on.</p>
+<p>The mitigations are: first, keep LR at about 10% of the original pretraining LR — enough to move in weight space but not enough to erase the prior. Second, maintain the data mixture — the 50/50 general-domain ratio from the e-Llama work acts as a regularizer, continuously reminding the model of the general distribution during the run. Third, model merging as post-hoc interpolation: the e-Llama paper shows that averaging the final e-Llama weights with the original Llama 3.1 base gives a nearly linear interpolation between domain performance and general performance, with near-zero compute cost. That's an elegant way to offer different operating points in production without retraining.</p>
+<p>An alternative approach is EWC (elastic weight consolidation) or LoRA — freeze most weights and only update a low-rank subspace, which structurally prevents the general representation from being overwritten. But at your scale, with the infrastructure to do full continued pretraining, data mixing plus careful LR is simpler and more controllable.</p>
+<hr />
+<h3 id="exchange-4b-context-window-pushback-versley-challenges">EXCHANGE 4b — Context Window Pushback (VERSLEY CHALLENGES)</h3>
+<p><strong>VERSLEY:</strong> What about the context window? You trained e-Llama at 8k context even though Llama 3.1 supports 128k. Did that limit the model? And you said "the weights don't actively forget long-context handling" — is that actually the right mechanistic explanation?</p>
+<hr />
+<p><strong>TONY [MODEL ANSWER]:</strong></p>
+<p>You're right to push on that. My phrasing was imprecise. Let me give the correct mechanism.</p>
+<p>The reason e-Llama largely retains long-context capability despite training at 8k is not that "weights don't forget" — that's too vague and basically circular. The real mechanism is RoPE frequency extrapolation. RoPE encodes position via sinusoidal functions at different frequencies across the head dimensions. Low-frequency components encode long-range structure; high-frequency components encode local structure. During the original Llama 3.1 pretraining at 128k context, the model learned to use all of those frequencies — including the low ones that matter beyond position 8k. When you continue pretraining at 8k, you're providing training signal only for positions 0–8k. The high-frequency RoPE components get updated because they're exercised. The low-frequency components — the ones encoding positions 8k–128k — receive no gradient signal and therefore don't change much. So you accidentally preserve long-context capability not by any active mechanism, but by never touching the weights that encode it.</p>
+<p>The risk is that if the distribution of your 8k training data systematically differs from the long-context distribution in a way that affects shared low-frequency components, you'd see degradation. That's why including some long-document examples even in a short-context continued pretraining run — as Llama 3's own continuation did — is the safer approach.</p>
+<p>If long-context were critical for the application — say, processing a full seller catalog in one shot — the right fix is a small fraction of long-document examples in the training mix, or running YaRN after training to extend the context explicitly.</p>
+<hr />
+<p><strong>COACHING NOTE:</strong> The original answer said "the weights don't actively forget long-context handling" — this is weak and Versley would catch it. The correct explanation is RoPE frequency extrapolation: low-frequency sinusoidal components encoding long-range positions receive no gradient at 8k, so they're preserved by default. This is the mechanistic answer.</p>
+<hr />
+<h3 id="exchange-5-vlm-architecture-probe">EXCHANGE 5 — VLM Architecture Probe</h3>
+<p><strong>VERSLEY:</strong> Your VLM paper (arXiv:2602.11733) — we found that using e-Llama as the text decoder instead of the base Llama 3.1 gave a consistent improvement on e-commerce attribute tasks. You mentioned a VLM project of your own. How would you explain that gain mechanistically?</p>
+<hr />
+<p><strong>TONY [MODEL ANSWER]:</strong></p>
+<p>The gain comes from two sources. First, vocabulary alignment: the e-Llama tokenizer or at minimum the LLM's representation space has been shaped by 1T tokens of e-commerce data. When the VLM projects visual features from the SigLIP encoder through the MLP projector into the LLM's input space, the LLM needs to map visual representations onto semantic concepts in its vocabulary. If those vocabulary entries for "aspect," "material," "condition," "listing specifics" are already sharp and well-separated in e-Llama's embedding space — whereas in base Llama they're part of a more diffuse general representation — the projector has a much easier mapping problem. It's the difference between landing on a precise target versus an approximate one.</p>
+<p>Second, world knowledge: e-Llama has seen the actual attribute ontology that eBay uses — categories like "Aspect Prediction" in your benchmark reflect eBay-specific taxonomies. A model that has read millions of eBay product descriptions during continued pretraining knows that for "Sports Cards" the key aspects are "Player," "Year," "Card Grade," "Set." The base Llama has to infer this from general web knowledge, which is noisier.</p>
+<p>Looking at the actual numbers from the paper: on the eComMMMU public benchmark, the base Llama 3.1-8B decoder gives 46.9% and e-Llama gives 52.2% — a 5.3 percentage-point gain. On internal tasks the gains are larger: Aspect Prediction goes from 37.7% to 44.4%, Dynamic Attribute Extraction from 51.9% to 60.4%. So the gain is concentrated on the knowledge-intensive and taxonomy-aware tasks, which is consistent with the world-knowledge hypothesis over the pure vocabulary-alignment hypothesis.</p>
+<p>I faced a related question in my Human Intent World Model work. We had to decide whether to fine-tune a general VLM on our synthetic sales-intent dataset or to first domain-adapt the text decoder. We took the fine-tuning path and found that the quality of the synthetic reasoning traces — how well they captured the structure of sales intent — mattered more than the choice of base LLM. This may differ from your finding because your task (attribute extraction from product images) is more knowledge-intensive, while ours was more reasoning-structure-intensive. I'd be curious whether in your ablations the e-Llama advantage was primarily concentrated on knowledge-heavy tasks like Aspect Prediction or also on structural tasks like Dynamic Attribute Extraction — the numbers suggest the latter actually benefited just as much, which is interesting.</p>
+<hr />
+<p><strong>VERSLEY:</strong> Interesting. What VLM architecture did you use, and why?</p>
+<hr />
+<p><strong>TONY [MODEL ANSWER]:</strong></p>
+<p>We used a LLaVA-style architecture — a pretrained vision encoder, a two-layer MLP projector mapping visual features to the LLM's token space, and a fine-tuned text decoder. We chose LLaVA because it's modular: you can swap text decoders without retraining the vision encoder, which let us ablate different LLM bases quickly. The alternative was Q-Former from InstructBLIP, which uses learned query tokens that cross-attend to visual features and compress them to a fixed-size representation — more elegant for very high-resolution images because you avoid the sequence length explosion, but it introduces an information bottleneck that can drop fine-grained visual details.</p>
+<p>For customer intent inference, the fine-grained visual details — posture, gaze direction, hand position — matter, so we didn't want a bottleneck. The LLaVA projector passes the full patch-level feature grid, which preserves that spatial detail.</p>
+<p>One finding from your paper that I found compelling was the bounding-box-enhanced labeling strategy for multi-image inputs: using Qwen2.5-VL-32B to produce precise bounding box annotations, then re-annotating with GPT-4 using those boxes, gave Gemma3-27B 58.8 F1 on the Item Intelligence task versus 44.8 F1 for the same model in zero-shot. And the finetuned Gemma3-4B at 50.5 F1 with 6.7 seconds per example represents a 3.8x speedup versus the 27B zero-shot at 25.5 seconds — better quality and substantially faster. That quality-of-labels-over-model-size insight is one I'd borrow for any future multi-image work.</p>
+<hr />
+<h3 id="exchange-5b-vlm-isolation-follow-up-versley-pushes-deeper">EXCHANGE 5b — VLM Isolation Follow-Up (VERSLEY PUSHES DEEPER)</h3>
+<p><strong>VERSLEY:</strong> You say the gain in switching to e-Llama as the text decoder comes from world knowledge and vocabulary alignment. But how do you actually know? Could it just be that e-Llama is a stronger LLM overall on these tasks regardless of the visual input? What experiment would isolate whether the gain is in the LLM side or the ViT side?</p>
+<hr />
+<p><strong>TONY [MODEL ANSWER]:</strong></p>
+<p>That's a real confound and you're right to press on it. The clean isolation experiment is: run the same e-Llama decoder on the attribute extraction tasks with text-only input — no images, just the product title and category — and compare against the same tasks done by the base Llama 3.1 with text-only input. If the e-Llama text-only gap matches the e-Llama VLM gap, the visual encoder is contributing nothing beyond what the language model already knows from text. If the VLM gap is larger than the text-only gap, that excess is genuinely from better visual grounding via the vision encoder.</p>
+<p>A second experiment is to freeze the LLM decoder and train only the MLP projector, comparing the base Llama projector versus the e-Llama projector on the same vision encoder. If the frozen e-Llama outperforms frozen base Llama, you've isolated the LLM contribution while holding the visual encoding and projection training equal.</p>
+<p>My guess based on the data is that the gain is mostly LLM-side: the ~5.3pp gain on eComMMMU and the larger gain on Aspect Prediction look like knowledge-intensive wins, not visual grounding wins. Dynamic Attribute Extraction's gain is more interesting — that task requires reading specific product details from images, so if the visual path were contributing, you'd expect it there. The fact that it also improves with e-Llama could mean the LLM's better product-term vocabulary makes it easier to decode the attribute values from visual tokens, even if the ViT representation is identical. But I'd want to run that ablation before claiming it. I don't know if that experiment is in the paper — is it?</p>
+<hr />
+<p><strong>COACHING NOTE:</strong> This follow-up is highly likely from Versley since he's a co-author and will know whether the ablation exists. The answer demonstrates you understand causal isolation in experiment design. The final question turns it back to him naturally — he'll appreciate being engaged as a peer, not as an examiner.</p>
+<hr />
+<h3 id="exchange-6-deep-dive-llm-router-paper">EXCHANGE 6 — Deep Dive: LLM Router Paper</h3>
+<p><strong>VERSLEY:</strong> Let's talk about your LLM Router work. You claim more than 90% cost reduction versus a single SOTA model per step. That's a big number. Walk me through the setup and what the routing signal actually is.</p>
+<hr />
+<p><strong>TONY [MODEL ANSWER]:</strong></p>
+<p>The core insight is that in complex multi-step tasks, not every step requires frontier-model capability. A step might be "reformat this JSON" or "extract dates from this text" — tasks where GPT-4o or Claude 3.7 are comically over-specified. The router's job is to look at each individual step in a task and assign it to the cheapest model that can handle it correctly.</p>
+<p>The routing signal is a learned quality predictor built on top of a lightweight bi-encoder. Concretely: the input representation is a concatenation of the step text embedding and the preceding context summary (both encoded by a sentence encoder at ~50ms latency). The quality predictor is a shallow MLP that outputs the probability that model tier M produces output meeting the downstream acceptance criterion on this step. The training signal comes from task-level success labels backpropagated to step-level: we run the full multi-step task using the strong model, collect its trajectory as step-level silver labels, then train the predictor on those (step input, model tier, step quality) tuples. This avoids needing manual step-level ground truth — the strong model's trajectory provides it.</p>
+<p>We also incorporate explicit features for task type (structured extraction, reasoning, code, creative generation) and step dependency complexity (how many prior context tokens the step requires), because these are strong priors for model difficulty before you ever look at the content.</p>
+<p>The 90%+ cost reduction comes from the benchmark composition: many real-world agentic workflows have a long tail of simple deterministic steps mixed with a handful of genuinely hard reasoning steps. On those simple steps — which dominate by count — you can route to GPT-4o-mini or a comparable small model at 50–100x lower API cost, and you get the same output quality because the task is well within the smaller model's capability. The overall cost drops dramatically while aggregate task performance stays matched to the single-SOTA baseline.</p>
+<p>I want to be honest about the benchmark conditions and what they do and don't generalize to: we're measuring on agentic coding and structured-task workflows. If your task distribution is heavily skewed toward complex multi-hop reasoning with deep interdependencies — where cheap intermediate steps cascade into hard recovery problems — the gain would be smaller. For eBay's workloads, which include many high-volume, structured tasks like attribute extraction, product categorization, and translation, I'd expect the cost reduction to be substantial but would need to benchmark on your specific task mix.</p>
+<hr />
+<h3 id="exchange-6b-router-cost-reduction-pushback-versley-challenges">EXCHANGE 6b — Router Cost Reduction Pushback (VERSLEY CHALLENGES)</h3>
+<p><strong>VERSLEY:</strong> That 90%+ cost reduction — you said it comes from benchmark composition. So isn't it largely benchmark-specific? If I take that router and run it on a task mix with more complex steps, the number collapses. What's actually the generalizable claim?</p>
+<hr />
+<p><strong>TONY [MODEL ANSWER]:</strong></p>
+<p>You're right, and I should be clearer about this. The 90%+ figure is not a universal property of the router — it's a property of the router applied to that specific task distribution, which has a lot of simple formatting and extraction steps. On a task mix of exclusively hard multi-step reasoning, the gain would shrink substantially because there are fewer cheap steps to exploit.</p>
+<p>The generalizable claim is more modest and also more interesting: the router identifies, within any given workflow, which steps are within a cheaper model's capability envelope, and exploits that heterogeneity. The cost reduction you observe is a function of the heterogeneity of step difficulty in your task distribution — which is an empirical property of your specific workload, not something the router guarantees in the abstract.</p>
+<p>For eBay, I'd say the honest expected range is somewhere between 40–70% cost reduction on typical catalog-management and product-understanding tasks, based on the step-difficulty distribution I'd expect in those workflows. That's still highly valuable at eBay's query volumes — millions of requests per day. But claiming 90%+ without benchmarking on eBay's actual workload would be overreaching.</p>
+<p>The other generalizable claim is the methodology itself: the framework for decomposing multi-step tasks and assigning routing decisions per step, the training signal from strong-model trajectories, and the cascade-fallback mechanism — these transfer to any heterogeneous task distribution. The specific numbers don't.</p>
+<hr />
+<p><strong>COACHING NOTE:</strong> This is a genuine concession delivered with intellectual confidence. You're not backing down from the work — you're clarifying what the claim actually is. Versley values precision over defensiveness. The move from "90%+" to "40–70% on eBay's likely workload" is honest and shows you can calibrate numbers to context.</p>
+<hr />
+<p><strong>VERSLEY:</strong> How do you handle the cold-start problem? When you see a new task type you haven't trained the router on, what happens?</p>
+<hr />
+<p><strong>TONY [MODEL ANSWER]:</strong></p>
+<p>Cold start is the hardest problem in routing, and I want to be honest about it. At launch with a new task type, the router has no task-specific quality signal to rely on. Our approach has two parts.</p>
+<p>First, fallback-to-strong: for unknown task types, the router defaults to the strongest model tier and begins collecting trajectories. This is expensive at the start but safe — you don't degrade task quality while bootstrapping signal.</p>
+<p>Second, similarity-based transfer: we embed the new task's step descriptions using the same bi-encoder and find the most similar task type in the router's training distribution. The routing policy for the nearest neighbor serves as a warm start. In practice this gets you to reasonable routing quality within a few hundred examples of the new task type, after which the specialized policy takes over.</p>
+<p>There's a harder variant of cold start specific to agentic tasks: multi-step tasks where you can't evaluate the routing decision until the full task completes — you only find out at the end whether a cheap intermediate step caused a cascade failure downstream. Our Cost-Adaptive Routing work addresses this by collecting full task-level trajectories from the strong model and using them to supervise step-level quality labels after the fact.</p>
+<hr />
+<p><strong>VERSLEY:</strong> How is your routing approach different from MoE routing during pretraining?</p>
+<hr />
+<p><strong>TONY [MODEL ANSWER]:</strong></p>
+<p>Great distinction — it's a genuinely different regime. In MoE pretraining, routing is a learned gating function inside a single model — typically a linear layer → softmax → top-K selection over a fixed set of expert FFNs that are co-trained with the router. The routing signal is learned end-to-end from the same language modeling objective. The experts are always co-present in memory; the router is cheap (one matmul); and the whole system is trained jointly so the router and experts develop a consistent division of labor.</p>
+<p>My routing setup is at the inference/system level: different physical models, potentially from different providers, different API latencies, different cost points, different architectural families. The routing signal isn't learned from a shared objective — it's learned from outcome labels (did this step produce quality-acceptable output?). The model selection is a combinatorial allocation problem with latency and cost constraints that simply don't exist inside a single MoE model.</p>
+<p>The deeper conceptual difference is heterogeneity. MoE experts are trained together and have identical interfaces. My router handles models that have different tokenizers, different context limits, different few-shot behaviors. That requires a richer routing signal and more robust fallback logic.</p>
+<p>The similarity is that both face the load-balancing problem — MoE needs to avoid expert collapse (all tokens going to one expert) and I need to avoid always routing to the expensive model when a cheap one would do. But the mechanisms for preventing this are completely different: MoE uses an auxiliary load-balancing loss during training; I use explicit cost-constraint optimization at inference time.</p>
+<hr />
+<p><strong>COACHING NOTE:</strong> Exchange 6 now has a technically precise routing signal description: bi-encoder input representation, shallow MLP architecture, and task-level-to-step-level training signal via strong-model trajectory. The 90%+ framing is honest about benchmark dependency. The MoE comparison correctly identifies the key differences. Exchange 6b adds the pushback and concession.</p>
+<hr />
+<h3 id="exchange-7-deep-dive-diffusion-weights">EXCHANGE 7 — Deep Dive: Diffusion Weights</h3>
+<p><strong>VERSLEY:</strong> Let's look at Diffusion Weights. You frame fine-tuning as generative weight prediction. What's the theoretical justification for that framing?</p>
+<hr />
+<p><strong>TONY [MODEL ANSWER]:</strong></p>
+<p>The framing comes from one observation: standard fine-tuning throws away almost everything it computes. SGD takes thousands of steps, you keep only the last checkpoint, and the whole trajectory — which is highly structured, not a random walk — is discarded. So instead of computing the next update, we treat the training trajectory as data and generate a future weight state directly.</p>
+<p>Concretely it's a three-stage, diffusion-inspired forecaster. First, a chunk-wise beta-VAE compresses each layer's weights into a compact latent space, so the whole thing is tractable on a single GPU. Second, a conditioning stack — a permutation-invariant set encoder over the dataset plus a language embedding of the task instruction — tells the model which task it's forecasting for. Third, a conditional attention U-Net runs a real diffusion process in that latent space and predicts the clean future latent, which we decode back to weights.</p>
+<p>The key non-standard choice — and the honest framing — is the target. We use x_0-prediction, but x_0 is a future weight state, the next-epoch checkpoint, not the clean version of the noisy input, so the denoiser is really a future-state forecaster conditioned on a single current checkpoint plus the task — not a model that watches K frames and predicts the next ones. On top of that, Multi-Horizon Merging predicts short-, mid-, and long-horizon states and merges them in weight space as task vectors with nonnegative coefficients summing to one — task-arithmetic, not ensemble averaging — exploiting that early checkpoints carry broad adaptation and late ones carry task-specific refinement.</p>
+<p>The theoretical backbone is two bounds: a sqrt(k) reconstruction-error bound from the chunked VAE, and a cosine-similarity lower bound arguing that directional correctness of the predicted weights survives modest Euclidean error — which is what matters for a usable checkpoint. The limitation I'd be upfront about: this works when gradient dynamics are predictable — after warmup, away from LR restarts — and it assumes the trajectory pattern generalizes across related tasks. One number to pre-empt: 3.2x is the conservative aggregate headline; the per-task wall-clock numbers in Table 1 — across GLUE, LAMBADA, MMLU, OpenBookQA, and WikiText — actually range 3.8x to 4.3x. (Full verified detail in 20_OWN_PAPERS_GROUND_TRUTH.md.)</p>
+<hr />
+<h3 id="exchange-7b-is-diffusion-weights-actually-diffusion-versley-probes-the-name">EXCHANGE 7b — "Is Diffusion Weights Actually Diffusion?" (VERSLEY PROBES THE NAME)</h3>
+<p><strong>VERSLEY:</strong> You call this "Diffusion Weights." Is it actually diffusion in the score-based generative modeling sense? Because what you just described sounds more like a predictor than a generative model.</p>
+<hr />
+<p><strong>TONY [MODEL ANSWER]:</strong></p>
+<p>It's diffusion-inspired with real diffusion machinery — I wouldn't deny that part. There's a genuine Gaussian forward noising process, a reverse sampling chain with DDPM or DDIM at inference, and an attention U-Net as the reverse model, trained with a state loss plus a chrono-aware temporal loss. That's the actual objective and architecture, not a cosmetic name.</p>
+<p>What makes it non-canonical rather than textbook DDPM is three things: it operates in a beta-VAE latent space, not raw weights; it uses x_0-prediction where the target is a future weight state — the next-epoch checkpoint — not the clean version of the noisy sample, so the denoiser is really a future-state forecaster; and the conditioning is ControlNet-style. So the precise line is "diffusion-inspired, real machinery, non-standard target."</p>
+<p>One honesty point I'd volunteer: the introduction frames it as "treating SGD as a forward diffusion process," but the implemented forward process is plain Gaussian noising, not the literal SGD trajectory — that's motivational analogy, not the math, and I'd phrase it more carefully in revision. I wouldn't overclaim it as a textbook DDPM over weight space, but I also wouldn't overcorrect into "it's just a regression model" — it's genuine diffusion with a forecasting target.</p>
+<hr />
+<p><strong>COACHING NOTE:</strong> This is the credibility test of the whole conversation, and the trap runs both ways. Do NOT deny the diffusion machinery — the paper has a genuine Gaussian forward process, a DDPM/DDIM reverse chain, and an attention U-Net denoiser, and Versley is the author's colleague, so a flat "it's not really diffusion" would be refuted on the spot. The correct line is "diffusion-inspired, real machinery, non-standard target": x_0-prediction of a future weight state, in a beta-VAE latent space, with ControlNet-style conditioning.</p>
+<hr />
+<p><strong>VERSLEY:</strong> How does this interact with adaptive optimizers like Adam? Adam has moving first and second moment estimates — does your U-Net capture that dynamics?</p>
+<hr />
+<p><strong>TONY [MODEL ANSWER]:</strong></p>
+<p>This is a genuine limitation of the current design, and I want to be precise about it. The U-Net operates on the weight snapshots — the parameter values at checkpoint K — not on the optimizer state. Adam's first and second moment estimates encode the history of gradients and squared gradients up to step K. When you skip from checkpoint K to the predicted future checkpoint, you're implicitly ignoring the fact that Adam's second moment — the per-parameter variance estimate that controls the effective learning rate for each weight — would be different from what you'd get if you'd actually taken those optimizer steps.</p>
+<p>The second moment is the critical quantity here: it determines which parameters are allowed to take large steps versus small steps. When you jump to a predicted checkpoint without updating the second moments, you've effectively inherited a stale effective-learning-rate profile. In the warmup phase or near LR restarts, the second moments are still evolving rapidly and the mismatch would be severe — the model would continue training from the predicted weights with incorrect per-parameter learning rates, causing instability.</p>
+<p>In practice, the empirical finding that the speedup holds in our experiments is explained by the operating regime: we apply the prediction after warmup, at a stable LR, where the second moments have largely converged. When Adam's second moments are stable, the weight trajectory is dominated by the first moment (the momentum term), which is smooth and predictable enough for the U-Net to model. So the approximation works in the regime the paper targets — not because we've solved the optimizer state problem, but because we avoid the regime where it matters most.</p>
+<p>A cleaner approach would be to jointly predict weight values and optimizer states, giving a more complete picture of the trajectory. That's the natural extension, and I expect it would improve reliability near LR changes.</p>
+<hr />
+<h3 id="exchange-7c-diffusion-weights-speedup-clarification-versley-probes-the-metric">EXCHANGE 7c — Diffusion Weights Speedup Clarification (VERSLEY PROBES THE METRIC)</h3>
+<p><strong>VERSLEY:</strong> You keep saying 3.2x speedup. Is that wall-clock or GPU-hours?</p>
+<hr />
+<p><strong>TONY [MODEL ANSWER]:</strong></p>
+<p>Wall-clock. The 3.2x is measured as end-to-end wall-clock time from starting the fine-tuning procedure to reaching a checkpoint with comparable downstream quality — comparing the standard gradient-based fine-tuning run against the weight-prediction approach on the same hardware. The mechanism that drives it is straightforward: we replace N forward-and-backward fine-tune passes with one forward pass through the weight predictor. Each skipped optimizer step is a full forward and backward pass through the target model — those are the expensive operations, and skipping them is where the wall-clock gain comes from.</p>
+<p>GPU-hours would be a different and slightly more nuanced question. In terms of total GPU compute consumed, the weight predictor itself requires training, which is a one-time amortized cost. If you're only fine-tuning a single model on a single task, that amortization may not break even. The 3.2x wall-clock claim holds in the regime where the weight predictor has already been trained and you're applying it to a new fine-tuning job — which is the inference deployment scenario, not the first-use scenario.</p>
+<p>I should have stated that distinction more explicitly in the paper framing. If someone ran the weight predictor training from scratch for every fine-tuning job, the GPU-hour savings would be smaller or even negative until you'd done enough fine-tuning jobs to amortize the predictor training cost.</p>
+<hr />
+<p><strong>COACHING NOTE:</strong> "Wall-clock or GPU-hours?" is a classic metric-precision probe. The answer is wall-clock for the applied case (predictor pre-trained, applying to a new job). Be precise: the mechanism is skipping N forward+backward passes, and the 3.2x does not include weight-predictor training cost. This is the kind of measurement nuance Versley will probe cold.</p>
+<hr />
+<h3 id="exchange-8-deep-dive-nnu-net-pruning">EXCHANGE 8 — Deep Dive: nnU-Net Pruning</h3>
+<p><strong>VERSLEY:</strong> The pruning result on nnU-Net is striking — over 80% of the weights removed. Walk me through the pruning methodology and how you validated it.</p>
+<hr />
+<p><strong>TONY [MODEL ANSWER]:</strong></p>
+<p>It's one-shot, post-training, unstructured magnitude pruning — no retraining. We train the full nnU-Net to convergence on the standard nnU-Netv2 pipeline, then apply a single global threshold: zero every weight whose absolute value is below tau. That's the classic Han et al. (2015) magnitude criterion, and sweeping tau traces the sparsity-versus-fidelity curve. There's no fine-tuning afterward and no L1 penalty during training — it's deliberately the simplest possible pruning, because the question I'm answering is how much of the trained network is redundant, not how much sparsity it could tolerate if you let it heal.</p>
+<p>The headline is that you can remove over 80% of the weights while a proxy Dice stays above 0.95, across four datasets — ACDC, Heart, Prostate, and Brain Tumor. The model is still a U-Net architecturally, just with a dramatically sparse weight tensor.</p>
+<p>I want to be precise about what I did and did not measure: there is no speedup, latency, FLOPs, or memory number anywhere in the paper. The pruning is purely unstructured, so it leaves zeros you still store and multiply — on a standard GPU you wouldn't see a wall-clock win. I framed real efficiency as a structured-pruning follow-up — actually removing channels or filters, the way Sauron U-Net does — not as a delivered result of this work.</p>
+<p>For validation, the metric is the load-bearing choice. Most of these benchmarks don't release test-set labels, so I use a proxy Dice — the overlap between the pruned model's predictions and the unpruned model's predictions, i.e. fidelity to the original rather than correctness against ground truth. ACDC is the one dataset with real labels, so there I also plot true Dice, and it stays essentially flat through about 80% pruning. Each of the five cross-validation folds is pruned independently, so the result isn't an artifact of one split.</p>
+<p>The actual scientific finding — the real contribution — is an inverted-U redundancy pattern: parameter count grows toward the bottleneck, and so does prunability. The deep layers and the bottleneck are the most prunable, while the shallow encoder and decoder ends hold the critical weights, and that pattern is consistent across all four datasets. I'd be careful about claiming the specific numbers generalize beyond these structured medical-imaging tasks. (Full verified detail in 20_OWN_PAPERS_GROUND_TRUTH.md.)</p>
+<hr />
+<p><strong>VERSLEY:</strong> Why one-shot magnitude pruning with no fine-tuning? The standard recipe is prune-then-retrain — aren't you leaving compression on the table?</p>
+<hr />
+<p><strong>TONY [MODEL ANSWER]:</strong></p>
+<p>Deliberate scoping choice, with a cost I'll name. I did one-shot pruning because the question was specifically about redundancy in the already-trained network — how much of what nnU-Net learned is dead weight, and where it lives. Retraining answers a different, entangled question: how much sparsity the architecture can tolerate if you let it heal. Mixing them would muddy the redundancy map, because after fine-tuning you can't tell whether a layer was genuinely redundant or just recoverable.</p>
+<p>The cost is real: iterative prune-and-retrain almost always pushes sparsity higher at the same fidelity — STAMP, which I cite, even trains and prunes jointly and gets an 85%-sparse U-Net that can beat the dense one in low-data regimes. So my over-80% one-shot number is a conservative floor, not a ceiling. If the goal flips to maximizing deployable compression, the obvious next levers are fine-tuning after pruning and then structured pruning — dropping whole channels — to turn the redundancy into an actual measured speedup.</p>
+<hr />
+<p><strong>COACHING NOTE:</strong> The methodology is one-shot, post-training, unstructured magnitude pruning — no fine-tuning, no structured conversion, and no measured speedup. The headline is &gt;80% of weights removed at proxy Dice &gt;0.95, and the real contribution is the inverted-U redundancy map (the bottleneck and deep layers are the most prunable). Do not describe a two-phase unstructured-then-structured pipeline, a 6x speedup, or a 99% sparsity headline — none are in the paper, and Versley is the author's colleague.</p>
+<hr />
+<h3 id="exchange-9-classical-nlp-probe-versleys-home-turf">EXCHANGE 9 — Classical NLP Probe (Versley's Home Turf)</h3>
+<p><strong>VERSLEY:</strong> You haven't mentioned much classical NLP. Let me ask you a foundational question: Hidden Markov Models and the Viterbi algorithm — walk me through them, and then tell me where they still matter today.</p>
+<hr />
+<p><strong>TONY [MODEL ANSWER]:</strong></p>
+<p>A Hidden Markov Model assumes a Markov process over hidden states — the true underlying sequence, say POS tags — that generates observations — the surface tokens. The model has three sets of parameters: the transition matrix A where A[i,j] = P(state j | state i), the emission matrix B where B[i,k] = P(observation k | state i), and the initial state distribution π.</p>
+<p>The inference task is: given a sequence of observations O = o1,...,oT, find the most likely state sequence Q* = q1,...,qT. This is what Viterbi solves.</p>
+<p>Viterbi is a dynamic programming algorithm. Define δ_t(i) = max over all paths up to time t that end in state i, weighted by the probability of the observed sequence o1,...,ot. The recurrence is:</p>
+<p>δ_t(j) = max_i [ δ_{t-1}(i) × A[i,j] ] × B[j, o_t]</p>
+<p>You track the argmax using a backpointer ψ_t(j) = argmax_i [ δ_{t-1}(i) × A[i,j] ]. After a forward pass through the sequence, you backtrack from the best final state to recover Q*. Complexity is O(T × S^2) in states S and sequence length T. In practice you work in log space to avoid numerical underflow.</p>
+<p>The natural extension from HMMs into NLP sequence labeling is CRFs — Conditional Random Fields. Where HMMs model the joint P(y, x) through factored emission and transition terms, CRFs model P(y|x) discriminatively, and critically, both the emission and transition factors can condition on the full input sequence — not just the current observation. This is the key advantage for NLP: you can use rich bidirectional features over the whole sentence rather than just the current token. And the Viterbi algorithm transfers directly to CRF decoding: the DP structure is identical, you just replace the HMM's local emission-transition factoring with CRF's globally conditioned factors. CRFs dominated NER, POS tagging, and chunking benchmarks through the early 2010s precisely because they had the same efficient inference as HMMs but a much richer feature model.</p>
+<p>Where do HMMs still matter today? Surprisingly, they're not entirely extinct. In ASR pipeline stages, HMMs are still used as the acoustic model prior in hybrid CTC-Attention systems where the alignment model benefits from an explicit transition structure. In computational biology, HMMs are the foundation of profile-HMM tools like HMMER for protein family detection — the sequences are long, the state space is biologically meaningful, and the interpretability matters more than raw accuracy. In multilingual tokenization research, HMM-style segmentation models are sometimes used as unsupervised morpheme segmenters for low-resource languages where you can't train a BPE tokenizer on enough data.</p>
+<p>And conceptually, understanding HMMs and CRFs is useful for reasoning about modern sequence models: the decoding dynamics in autoregressive generation — beam search, greedy decoding — share the same dynamic programming structure with Viterbi, just over a distribution modeled by a neural network rather than explicit A × B factoring.</p>
+<hr />
+<h3 id="exchange-9b-hmm-parameter-estimation-follow-up-versley-pushes-deeper">EXCHANGE 9b — HMM Parameter Estimation Follow-Up (VERSLEY PUSHES DEEPER)</h3>
+<p><strong>VERSLEY:</strong> You've described Viterbi for inference. How do you actually estimate the HMM parameters from unlabeled data? What algorithm, and how does it relate to EM?</p>
+<hr />
+<p><strong>TONY [MODEL ANSWER]:</strong></p>
+<p>The algorithm is Baum-Welch, and it is literally an instance of Expectation-Maximization applied to the HMM.</p>
+<p>The E-step computes two quantities: the forward variable α_t(i) = P(o1,...,ot, qt=i | λ), the probability of observing the prefix o1,...,ot and being in state i at time t; and the backward variable β_t(i) = P(o_{t+1},...,oT | qt=i, λ), the probability of observing the suffix from t+1 onward given state i at time t. These are computed efficiently with the forward algorithm (left-to-right DP) and backward algorithm (right-to-left DP) respectively, both O(T × S^2).</p>
+<p>From α and β you derive ξ_t(i,j) = P(qt=i, qt+1=j | O, λ) — the probability of being in state i at t and state j at t+1, given the whole observation sequence. This is the "soft" assignment over state transitions. And γ_t(i) = Σ_j ξ_t(i,j), the marginal probability of being in state i at time t.</p>
+<p>The M-step re-estimates the parameters by taking expectations over these soft assignments. The new transition probability Â[i,j] = expected number of transitions from i to j, divided by expected number of transitions from i. The new emission probability B̂[i,k] = expected number of times in state i observing symbol k, divided by expected number of times in state i. The new π̂_i = γ_1(i).</p>
+<p>Why does this converge? Because each M-step strictly increases the likelihood of the observations P(O|λ) — or holds it equal at a fixed point. This is the EM guarantee: the ELBO is tight at the E-step, the M-step maximizes the expected complete-data log-likelihood, and the result is a monotone increase in observed-data likelihood. It's not guaranteed to reach the global maximum — the likelihood surface has local optima — so in practice you run multiple restarts and take the best.</p>
+<p>The key difference from Viterbi is that Viterbi does hard assignment — it finds the single best state sequence and commits. Baum-Welch does soft assignment — it maintains a distribution over all state sequences simultaneously via the forward-backward variables. For parameter estimation from unlabeled data, soft assignment is essential because there's no single correct path to supervise; you want to accumulate gradient signal from all plausible paths weighted by their posterior probability.</p>
+<hr />
+<p><strong>COACHING NOTE:</strong> Versley's classical NLP background almost certainly includes HMM/Baum-Welch — he would have taught this at Heidelberg. The Viterbi answer alone is the warm-up; Baum-Welch is the real probe. The key technical points: forward-backward algorithm, soft vs. hard assignment, EM guarantee of monotone likelihood increase, local optima problem with multiple restarts. Know the EM framing cold.</p>
+<hr />
+<h3 id="exchange-9c-being-wrong-gracefully">EXCHANGE 9c — Being Wrong Gracefully</h3>
+<p><strong>VERSLEY:</strong> Actually, I want to push back on something you said earlier. You mentioned forward-backward gives you ξ_t(i,j) as the probability of transition i→j given the full observation. But earlier in your HMM description you said chrF — in the MT discussion later, presumably — uses "default β=2." I've seen prep materials make this error. ChrF's default β is 1, not 2. ChrF2 with β=2 is the WMT named variant, not the sacreBLEU default.</p>
+<hr />
+<p><strong>TONY [MODEL ANSWER]:</strong></p>
+<p>You're right, and thank you for catching that. I conflated the two. The sacreBLEU chrF default is β=1, which weights precision and recall equally. ChrF2 — the variant that sets β=2 to weight recall twice as much as precision — is the specific WMT named variant, not the default. The β=2 setting reflects the hypothesis that missing content (low recall) is more harmful for MT evaluation than spurious content (low precision), but that's a deliberate choice for the WMT competition setup, not what you'd get out of the box.</p>
+<p>The practical implication: if I'm reporting chrF scores in a paper and I don't explicitly label the β value, a reader running sacreBLEU with defaults would get β=1, not β=2, and the numbers wouldn't be directly comparable if someone had computed β=2 ChrF2. For MT work targeting WMT community standards, you should be explicit about which variant you're using.</p>
+<p>I'll correct this wherever I have it in my prep materials.</p>
+<hr />
+<p><strong>COACHING NOTE:</strong> This exchange demonstrates "being wrong gracefully." The structure is: acknowledge specifically what was wrong, state the correct answer precisely, explain the practical implication, and move on without over-apologizing. The phrasing "You're right, and thank you for catching that. I conflated X and Y — the correct framing is..." is the template to internalize. Never double down on a factual error with Versley; he will know and he will lose respect. A clean concession and correction earns more than defensive equivocation.</p>
+<hr />
+<h3 id="exchange-10-ebay-specific-design-thinking">EXCHANGE 10 — eBay-Specific Design Thinking</h3>
+<p><strong>VERSLEY:</strong> Thinking about eBay specifically — we have the Mercury agentic platform that routes requests between custom fine-tuned LiLiuM models, external LLMs like GPT-4, and our own Llama and Mistral fine-tunes. Given your routing work, what would you do to optimize cost and quality in that kind of heterogeneous multi-model setup?</p>
+<hr />
+<p><strong>TONY [MODEL ANSWER]:</strong></p>
+<p>This is almost exactly the system my Cost-Adaptive Routing with Specialist Models paper addresses, so let me connect directly to your context.</p>
+<p>The first thing I'd instrument is the cost-quality frontier for each model on each task type in your catalog. For eBay you probably have well-defined task categories: product title translation, attribute extraction, listing generation, keyphrase recommendation, search query understanding, recommendation explanation. For each category, run both your in-house models and the external APIs and measure accuracy against a ground truth label. This gives you a per-task Pareto frontier of cost vs. quality.</p>
+<p>The routing policy is then a constrained optimization: maximize task success rate subject to a cost budget per thousand requests. This decomposes naturally into a cascade: for a given request, start with your cheapest capable model — probably a fine-tuned LiLiuM 1B or 7B for simple tasks — and escalate to stronger models only when confidence is low.</p>
+<p>The escalation signal is the tricky part. You need a lightweight confidence estimator that's calibrated — not just high entropy on the output distribution, but actually predictive of downstream task failure. Two deployment patterns are worth distinguishing: predicting the model at query time, versus trying a cheap model, verifying its output, and escalating only on failure. For high-latency-tolerant tasks like asynchronous listing generation, try-and-verify is better because you can actually run the cheap model and check the output before committing; for real-time search query understanding, you need query-time prediction to stay within latency budgets. My TwinRouterBench work is the evaluation discipline behind this — it scores routing per call across two tracks: a fast static track that deterministically scores 970 execution-verified step-level prefixes offline in milliseconds with no online judge, and a live dynamic track that runs routers end-to-end on SWE-bench Verified with real OpenRouter pricing. (Full verified detail in 20_OWN_PAPERS_GROUND_TRUTH.md.)</p>
+<p>The specialist angle in my EMNLP 2026 work is particularly relevant to Mercury's architecture: for repeated daily workflows — your translation pipeline runs millions of product title translations per day — you can collect high-quality trajectories from GPT-4 or your best model, then fine-tune a small LiLiuM or Llama specialist on those trajectories. Cost drops dramatically as the specialist improves, because you escalate to the expensive model less often. Over time, the system becomes self-improving.</p>
+<hr />
+<h3 id="exchange-10b-yarn-context-extension-pushback-versley-challenges">EXCHANGE 10b — YaRN Context Extension Pushback (VERSLEY CHALLENGES)</h3>
+<p><strong>VERSLEY:</strong> You mentioned YaRN for context extension. YaRN requires you to specify the target context length at extension time — you set a scale factor based on the ratio of target to training length. What happens at serving time if you get an ad-hoc request that's longer than the context you targeted with YaRN?</p>
+<hr />
+<p><strong>TONY [MODEL ANSWER]:</strong></p>
+<p>You're identifying a real limitation. YaRN works by scaling the RoPE base frequency at fine-tuning time: you pick a target context length T and compute a scale factor s = T / T_original, then modify the RoPE frequencies during continued training so the model learns to attend across that extended range. The problem is that this is a static decision made at training time. If T is 32k and a serving request comes in at 40k tokens, you're outside the range the model was trained on with YaRN, and you're back to the original extrapolation problem — the model hasn't seen positional encodings at those indices during either the base training or the YaRN fine-tuning.</p>
+<p>For ad-hoc long contexts at serving time, there are a few practical mitigations. First, you can set the YaRN target length generously during fine-tuning — train for 128k even if most requests are shorter, which handles the tail. The cost is that fine-tuning at very long context is expensive (attention is quadratic), but you pay that cost once. Second, for requests that genuinely exceed the YaRN target, you can apply NTK-aware RoPE scaling dynamically at inference without retraining — this is a zero-shot adjustment to the RoPE base that trades some quality at the target length for better extrapolation beyond it. Third, for production systems with unpredictable long-context tails, the cleanest solution is sliding-window attention or retrieval-augmented context compression — you don't try to fit 100k tokens in the context window; you retrieve the relevant chunks.</p>
+<p>The deeper issue is that all of these are workarounds for the fundamental mismatch between training-time context length decisions and serving-time request distributions. The ideal is to train natively at the maximum context you'd ever need, which is what models like Gemini 1.5 did, but the compute cost is prohibitive at eBay's training budget.</p>
+<hr />
+<p><strong>COACHING NOTE:</strong> This is the third pushback exchange. Versley is probing whether you actually understand the mechanism behind YaRN or just know the name. The correct framing: YaRN is a static training-time decision; serving ad-hoc long contexts beyond the YaRN target requires NTK-aware dynamic scaling, generous target-length setting, or retrieval-based context management. Know the distinction cold.</p>
+<hr />
+<h3 id="exchange-11-machine-translation-multilingual">EXCHANGE 11 — Machine Translation / Multilingual</h3>
+<p><strong>VERSLEY:</strong> We do a lot of machine translation at eBay — cross-border trade is a major revenue driver, and I know you evaluated on WMT16. How would you evaluate a machine translation system for e-commerce product titles specifically?</p>
+<hr />
+<p><strong>TONY [MODEL ANSWER]:</strong></p>
+<p>Product title translation is a particularly hard MT sub-task because the inputs violate most of the assumptions that MT models are trained on. Sentences are extremely short — your RAG for MT paper reports an average of 11.3 words. They're headless nominals with compressed syntax: "Vintage 18k Gold Diamond Tennis Bracelet Women Statement Jewelry." Context is minimal and the vocabulary is highly specific — brand names, product codes, part numbers, size specifications.</p>
+<p>For evaluation, I would not rely on BLEU as the primary metric, for the exact reason your paper uses chrF instead: 4-gram BLEU statistics are unreliable on 11-word sequences where a single word difference dominates. chrF computes character-level F-score with β=1 by default in sacreBLEU — equal weight on precision and recall — which is more sensitive to morphological variation (critical for German compound nouns like "Diamantarmband") and more robust on short texts.</p>
+<p>Beyond automated metrics, I'd add: (1) terminology consistency evaluation — does the system correctly preserve brand names and product codes without translating them? (2) Back-translation round-trip quality — translate EN→DE, then DE→EN, measure against original. (3) Human evaluation on a stratified sample across product categories, because MT quality varies enormously between electronics and fashion and automotive parts. (4) A/B testing on downstream buyer engagement — does the translated listing get clicked at the same rate by German buyers? This is the ground truth metric.</p>
+<p>The RAG augmentation your paper demonstrates — retrieving similar bilingual product examples as few-shot context — is elegant because it converts a zero-shot MT problem into a few-shot translation problem where the examples provide in-context terminology alignment. The best result you report is +15.3% chrF for EN-PL with 5-shot RAG — which is substantial, and exactly what you'd expect: Polish has limited representation in standard MT training data, so the retrieved examples provide a strong in-context signal for a language pair the LLM handles weakly in zero-shot.</p>
+<hr />
+<p><strong>COACHING NOTE:</strong> Note the corrected chrF: "β=1 by default in sacreBLEU" — not β=2. Both key numbers from the RAG MT paper are confirmed from arXiv 2409.12880: 11.3 words average title length, +15.3% chrF for EN-PL (5-shot). Safe to say verbatim.</p>
+<hr />
+<h3 id="exchange-11b-calibration-and-evaluation-reliability-high-probability-versley-probe">EXCHANGE 11b — Calibration and Evaluation Reliability (HIGH PROBABILITY VERSLEY PROBE)</h3>
+<p><strong>VERSLEY:</strong> You cite 87.3% accuracy at half cost for MERA. How do I know that number is meaningful and not just noise across seeds, or a lucky benchmark composition, or contaminated eval data?</p>
+<hr />
+<p><strong>TONY [MODEL ANSWER]:</strong></p>
+<p>This is exactly the right question, and the first thing I'll do is correct the metric, because it's easy to misread. 87.3% is router accuracy — how often the learned router's cheap-versus-strong decision matches held-out labels on an 832-example set. It is not end-to-end task accuracy; the only task-quality number in the paper is the small student's MBPP pass rate, about 47.5%, essentially flat against a 47.0% baseline. With that fixed, let me take your three dimensions honestly.</p>
+<p>On statistical reliability: I have to be candid that we did not run multi-seed experiments — that's explicitly listed as future work. The numbers come from single runs, and the held-out router set is 832 examples, not thousands. The clearest sign that seed variance is real is in our own eight-cycle run, where cycle 5 dips to 76.7% router accuracy, which we attribute to a single router-seed outlier. So I would not claim the ordering is statistically established — I'd call it suggestive, and a multi-seed study is the obvious next step.</p>
+<p>On benchmark composition: the benchmark is code-generation only — the Evolver Dataset, 590 executable tasks from HumanEval, MBPP, and hard traces — so I wouldn't generalize the cost numbers beyond cheaply-verifiable, code-like work. The robust part is the cost: the best schedule runs at about 52% of always-large serving cost with a 4.4% verifier-fallback rate. Router accuracy is agreement with the held-out cheap/strong labels, not task completion, so I treat it as an internal optimization metric rather than a quality guarantee.</p>
+<p>On data contamination: I want to be precise — we did not run a contamination or membership-inference analysis for MERA, so I won't claim one. The more honest weakness is circularity: the router is graded against weak cheap-versus-strong labels from the same UncommonRoute pipeline that produced the 3,328 training examples, so router accuracy is agreement with weak labels, not a verified oracle. What keeps it honest in deployment is decoupled from that — the runtime verifier checks schema, tool-call legality, and executable tests and falls back to a stronger model, at a 4.4% fallback rate.</p>
+<p>The stronger evaluation we list as future work is to grade the router against verifier-confirmed outcomes on a larger, ideally online set, rather than against weak labels — that's the gold standard I'd want before leaning on the router-accuracy number.</p>
+<hr />
+<p><strong>COACHING NOTE:</strong> This exchange addresses a high-probability Versley probe. The single most important move is to correct the metric first — 87.3% is router accuracy, not task accuracy. Then concede honestly: there are no multi-seed results (future work), no contamination/membership-inference test was run, and the real weakness is that the router is graded against weak labels from the same UncommonRoute pipeline. The deployment safeguard is the verifier-fallback (4.4%).</p>
+<hr />
+<h3 id="exchange-12-research-culture-and-hiring">EXCHANGE 12 — Research Culture and Hiring</h3>
+<p><strong>VERSLEY:</strong> We're a research team, but we're also building production systems. How do you think about the research-to-production gap, and can you give me an example from your own work where you had to navigate that?</p>
+<hr />
+<p><strong>TONY [MODEL ANSWER]:</strong></p>
+<p>My honest view is that the gap is real but solvable with the right infrastructure, and that most research teams underestimate the production constraints while most production teams underestimate the research lift needed to get a system to work reliably.</p>
+<p>The most concrete navigation I did was in the LLM Router work. The research question was clean: given a set of models with known cost and accuracy profiles, what's the optimal assignment policy? But when we started working with real agentic workflows with Gradient Networks, the complication was that individual steps don't have fixed task types — the same step description might be trivial in one workflow context and critical in another. The routing signal we'd designed for static task categorization broke down on context-dependent tasks.</p>
+<p>We responded by adding task context encoding to the routing signal: instead of classifying just the step text, we embed the preceding workflow steps and the overall task objective, and use the full context to route. This was more expensive to compute, but it's what actually worked in practice. The production constraint was the routing latency budget — we couldn't add a full LLM inference call to compute the routing signal, so we used a lightweight bi-encoder with mean pooling over the context. That decision came from production constraint pressure, not from the research setup.</p>
+<p>The other thing I try to do is build evaluation harnesses before running experiments, not after. If you define success metrics up front — what does it mean for the routing system to work in production? — you avoid the situation where you optimize a research metric that doesn't correlate with the thing that matters in practice.</p>
+<hr />
+<p><strong>COACHING NOTE:</strong> This answer shows product-aware research thinking. Versley comes from an Amazon lineage where research must ship. The specific detail about bi-encoder routing for latency constraints is the kind of engineering realism that differentiates a research-oriented hire from a pure academic.</p>
+<hr />
+<h3 id="exchange-13-behavioral-probe">EXCHANGE 13 — Behavioral Probe</h3>
+<p><strong>VERSLEY:</strong> Tell me about a time you had to make a significant technical decision with incomplete information and real stakes.</p>
+<hr />
+<p><strong>TONY [MODEL ANSWER — STAR Format]:</strong></p>
+<p><strong>Situation:</strong> In the MERA project, we were designing the model evolution strategy — specifically, how to handle model promotion: when should a small, cheap model be "promoted" to handling a task class that previously required a stronger model? We had preliminary data suggesting the smaller model had improved on that class after additional training, but the sample size was thin — only 40–60 evaluation examples for that specific task class.</p>
+<p><strong>Task:</strong> The decision affected the paper's central claim: 87.3% router accuracy at about half cost. If we promoted the model too aggressively, we'd falsely claim cost reduction that wouldn't hold on a broader evaluation. If we held the promotion threshold too conservatively, we'd underreport the real cost efficiency.</p>
+<p><strong>Action:</strong> I chose to make the decision transparent rather than pick the number that looked best. We ran a sensitivity analysis: how much did the overall accuracy and cost numbers change if we moved the promotion threshold up or down by 5%? We also collected additional evaluation data on the contested task class specifically, which took an extra week but gave us N=200 examples. The broader evaluation confirmed the promotion was legitimate at our chosen threshold, and the sensitivity analysis showed the overall paper results were stable across a range of threshold choices.</p>
+<p><strong>Result:</strong> The paper's claims held on the extended evaluation. More importantly, because we documented the sensitivity analysis in the appendix, reviewers at the RL-Eval 2026 workshop (OpenReview) flagged it positively as evidence of methodological care rather than cherry-picking. I've since built this "sensitivity before commit" practice into how I do any evaluation with thin class-level samples.</p>
+<hr />
+<p><strong>COACHING NOTE:</strong> The STAR structure works here, but the key is specificity — "40-60 evaluation examples," "N=200 extended evaluation," "RL-Eval 2026 reviewers." Vague behavioral answers don't land with researchers who evaluate evidence quality for a living. The takeaway ("sensitivity before commit") shows the learning, not just the story.</p>
+<p>Note: MERA is at the RL-Eval 2026 workshop (OpenReview id 6oyBiDMCHs) — do not cite "ACM CAIS" as the venue.</p>
+<hr />
+<h3 id="exchange-14-versleys-turn-tonys-questions">EXCHANGE 14 — Versley's Turn: Tony's Questions</h3>
+<p>At this point Versley should give you 5–10 minutes for your questions. These are critical — they demonstrate intellectual peer engagement and signal genuine interest in the actual work.</p>
+<p><strong>QUESTION 1 — Genuine technical curiosity about VLM paper:</strong></p>
+<blockquote>
+<p>"In the VLM paper (arXiv:2602.11733), the instruction-tuning dataset is split 45% VQA, 30% Dynamic Attribute Extraction, 12.5% Precise Instruction Following, and 12.5% Listings. I noticed the paper doesn't include an ablation of that specific split — was the ratio chosen empirically, and did you find sensitivity to it? I'm curious because the e-Llama gain seems concentrated differently across tasks than I'd have expected from a pure vocabulary-alignment hypothesis."</p>
+</blockquote>
+<p><em>Why it works: acknowledges you read the exact dataset composition from the paper (which you know), then asks a genuine scientific question about what's missing — an ablation of the ratio itself. This is not feigning ignorance; it's asking about unpublished experimental data. It also flows naturally from the e-Llama gain analysis in Exchange 5. This is also the paper Versley co-authored, so it is the natural one to engage him on directly.</em></p>
+<hr />
+<p><strong>QUESTION 2 — Continued pretraining roadmap:</strong></p>
+<blockquote>
+<p>"You're running e-Llama on Llama 3.1. Llama 4 and Qwen 3 are now out, and they're meaningfully stronger base models. How do you think about the cost-benefit of migrating to a new base versus continuing to invest in the e-Llama 3.1 lineage? Do you have a framework for when a new base model is worth the continued-pretraining cost to start over?"</p>
+</blockquote>
+<p><em>Why it works: this is a real strategic decision every team doing domain adaptation has to make. It shows you understand the economics of the infrastructure, not just the ML.</em></p>
+<hr />
+<p><strong>QUESTION 3 — Team structure:</strong></p>
+<blockquote>
+<p>"What does the collaboration between the pretraining team and the product teams look like at eBay? Do the product teams specify evaluation benchmarks and the pretraining team optimizes to them, or is it more integrated than that? I ask because in my routing work the most important signal came from product teams telling us which task errors were actually costly — and I'd want to understand how that feedback loop works here."</p>
+</blockquote>
+<p><em>Why it works: shows systems thinking about the research-to-product pipeline and roots it in your own experience.</em></p>
+<hr />
+<p><strong>QUESTION 4 — Team growth:</strong></p>
+<blockquote>
+<p>"Given that you're hiring now — what would make someone on this team immediately impactful in the first 90 days? What are the current bottlenecks: compute, data quality, benchmark coverage, deployment pipeline, or something else?"</p>
+</blockquote>
+<p><em>Why it works: signals that you're thinking about contribution, not just compensation. Gives you intelligence about what actually matters to them right now.</em></p>
+<hr />
+<p><strong>COACHING NOTE FOR THE CLOSE:</strong> After Versley answers your questions, end with: "I've been following the LiLiuM and e-Llama work closely, and the combination of in-house pretraining plus domain adaptation plus VLM adaptation is exactly the research stack I want to be part of. I'm already in Amsterdam, so the hybrid setup is easy, and I'd love to continue this conversation with the team." Short, confident, not groveling.</p>
+<hr />
+<h3 id="stage-1-overall-coaching-notes">STAGE 1 OVERALL COACHING NOTES</h3>
+<p><strong>What made the model answers strong:</strong>
+1. Every technical answer contained specific numbers — not "the paper showed speedup" but "34% speedup," "50/50 data ratio," "LR = 3.0e-5 = 10% of original." The eBay team's published papers are all over your answers because you've read them — Versley leads this org and co-authored the VLM paper directly. You're engaging as an informed reader, not a collaborator.
+2. You acknowledged limitations before he found them. On Diffusion Weights optimizer state interaction, on cold-start in routing, on context generalizability of pruning results. Researchers respect intellectual honesty far more than polished defensiveness.
+3. You connected your work to his work as intellectual peer dialogue, not as marketing. The question about where the e-Llama gain is concentrated is a real scientific question, not flattery.
+4. Classical NLP (HMMs, Viterbi, CRFs, Baum-Welch) got a rigorous answer with the actual DP recurrence and EM framing, not a hand-wave. He has taught this topic; he will know if your answer is correct.
+5. On pushbacks, you conceded cleanly and specifically — stating what you got wrong, the correct framing, and the implication. This is more persuasive than defending a weak position.</p>
+<p><strong>Pitfalls to avoid:</strong>
+- Do not use the word "leverage" as a verb. Do not say "synergies." These are instant credibility destroyers with a computational linguist who uses language precisely.
+- Do not claim your routing work is "analogous to MoE" without immediately explaining why it's different — he will probe this and if you conflate them it signals you don't understand either.
+- Do not start any answer with "Great question." It's sycophantic and he's heard it 10,000 times.
+- Do not be vague about the e-Llama paper's numbers — his team produced it and he knows it cold. If you say "the model improved substantially" when you can say "59.9 vs 50.6 on e-commerce benchmarks at the two LR settings," you signal you read the abstract only.
+- If he asks something you genuinely don't know — "What are the exact training hyperparameters for LiLiuM 1B?" — say "I don't have that specific number in front of me, but here's how I'd think about the tradeoff." Don't bluff a specific number.
+- Do not claim chrF default β=2 — it's β=1 in sacreBLEU. ChrF2 is the named WMT variant.</p>
+<hr />
+<p><a name="stage-2a"></a></p>
+<h2 id="section-2-stage-2a-coding-think-aloud-examples">SECTION 2: Stage 2a — Coding Think-Aloud Examples</h2>
+<p><em>Note: CodeSignal assessment has no AI tools. Practice these patterns raw. Verbalize your approach before writing any code.</em></p>
+<hr />
+<h3 id="coding-example-1-implement-k-means-clustering-from-scratch">CODING EXAMPLE 1: Implement k-means Clustering from Scratch</h3>
+<p><strong>PROBLEM:</strong> Given a 2D numpy array X of shape (N, D) and an integer k, implement k-means clustering. Return cluster assignments and centroids after convergence. Use L2 distance. Initialize centroids randomly from the data points.</p>
+<hr />
+<p><strong>THINK-ALOUD APPROACH:</strong></p>
+<p>"Let me break this into parts: initialization, assignment step, update step, convergence check.</p>
+<p>For initialization, I'll sample k rows from X without replacement as starting centroids.</p>
+<p>For the assignment step: for each point, find the closest centroid. This is a pairwise distance computation. If I do it naively it's O(N × k × D) per iteration. I can vectorize it with broadcasting.</p>
+<p>For the update step: average all points assigned to each centroid. Need to handle empty clusters — if a centroid has no assigned points, I'll re-initialize it randomly.</p>
+<p>For convergence: stop when centroid positions change by less than a tolerance, or after max_iter iterations.</p>
+<p>Let me code this up."</p>
+<pre><code class="language-python">import numpy as np
+
+def kmeans(X: np.ndarray, k: int, max_iter: int = 100, tol: float = 1e-4, seed: int = 42) -&gt; tuple:
+    &quot;&quot;&quot;
+    X: (N, D) array
+    Returns: (labels, centroids) where labels is (N,) and centroids is (k, D)
+    &quot;&quot;&quot;
+    rng = np.random.default_rng(seed)
+
+    # Initialization: sample k points from X without replacement
+    indices = rng.choice(len(X), size=k, replace=False)
+    centroids = X[indices].copy()  # (k, D)
+
+    labels = np.zeros(len(X), dtype=int)
+
+    for iteration in range(max_iter):
+        # Assignment step: compute pairwise distances
+        # X: (N, D), centroids: (k, D)
+        # diff: (N, k, D)  via broadcasting
+        diff = X[:, np.newaxis, :] - centroids[np.newaxis, :, :]  # (N, k, D)
+        dists = np.sum(diff ** 2, axis=2)  # (N, k), squared L2
+        new_labels = np.argmin(dists, axis=1)  # (N,)
+
+        # Update step: recompute centroids
+        new_centroids = np.zeros_like(centroids)
+        for c in range(k):
+            mask = new_labels == c
+            if mask.sum() == 0:
+                # Empty cluster: re-initialize to random point
+                new_centroids[c] = X[rng.integers(len(X))]
+            else:
+                new_centroids[c] = X[mask].mean(axis=0)
+
+        # Convergence check
+        centroid_shift = np.linalg.norm(new_centroids - centroids)
+        centroids = new_centroids
+        labels = new_labels
+
+        if centroid_shift &lt; tol:
+            break
+
+    return labels, centroids
+</code></pre>
+<p><strong>BEFORE SUBMITTING — say out loud:</strong>
+- "Edge cases: k &gt; N? I should check. D=1 works with broadcasting. Empty clusters handled."
+- "Time complexity: O(max_iter × N × k × D) for the vectorized version."
+- "Space: O(N × k × D) for the diff tensor, which could be large if N and k are both large. Alternative: compute distances in batches."</p>
+<hr />
+<h3 id="coding-example-2-bpe-tokenizer-merge-step">CODING EXAMPLE 2: BPE Tokenizer Merge Step</h3>
+<p><strong>PROBLEM:</strong> Given a vocabulary (mapping from string token pair to frequency), perform one BPE merge step. Return the new vocabulary after merging the most frequent pair.</p>
+<hr />
+<p><strong>THINK-ALOUD APPROACH:</strong></p>
+<p>"BPE merge: find the most frequent adjacent pair in the corpus, merge them into a single token, update the corpus. The tricky part is representing the corpus efficiently — usually as a list of word-frequency tuples where each word is a tuple of current tokens."</p>
+<pre><code class="language-python">from collections import defaultdict
+import re
+
+def get_stats(vocab: dict) -&gt; dict:
+    &quot;&quot;&quot;Count all adjacent pair frequencies in the vocabulary.&quot;&quot;&quot;
+    pairs = defaultdict(int)
+    for word, freq in vocab.items():
+        symbols = word.split()
+        for i in range(len(symbols) - 1):
+            pairs[(symbols[i], symbols[i + 1])] += freq
+    return pairs
+
+def merge_vocab(pair: tuple, vocab: dict) -&gt; dict:
+    &quot;&quot;&quot;Merge a pair of tokens across all words in the vocabulary.&quot;&quot;&quot;
+    merged = ' '.join(pair)
+    replacement = ''.join(pair)
+    # Use regex to replace ONLY adjacent occurrences of this exact pair
+    pattern = re.compile(r'(?&lt;!\S)' + re.escape(merged) + r'(?!\S)')
+    new_vocab = {}
+    for word, freq in vocab.items():
+        new_word = pattern.sub(replacement, word)
+        new_vocab[new_word] = freq
+    return new_vocab
+
+def bpe_step(vocab: dict) -&gt; tuple:
+    &quot;&quot;&quot;
+    Perform one BPE merge step.
+
+    vocab: dict mapping space-separated token strings to their frequency.
+    Example: {'l o w &lt;/w&gt;': 5, 'l o w e r &lt;/w&gt;': 2, 'n e w e s t &lt;/w&gt;': 6}
+
+    Returns: (new_vocab, merged_pair)
+    &quot;&quot;&quot;
+    pairs = get_stats(vocab)
+    if not pairs:
+        return vocab, None
+    best_pair = max(pairs, key=pairs.get)
+    new_vocab = merge_vocab(best_pair, vocab)
+    return new_vocab, best_pair
+
+# Test
+if __name__ == '__main__':
+    vocab = {
+        'l o w &lt;/w&gt;': 5,
+        'l o w e r &lt;/w&gt;': 2,
+        'n e w e s t &lt;/w&gt;': 6,
+        'w i d e s t &lt;/w&gt;': 3,
+    }
+    new_vocab, merged = bpe_step(vocab)
+    print(f&quot;Merged: {merged}&quot;)
+    print(new_vocab)
+    # Expected: ('e', 's') merged most frequently (6+3=9 times)
+    # New vocab has 'es' replacing 'e s' in 'newest' and 'widest'
+</code></pre>
+<p><strong>Before submitting:</strong> "The regex pattern assumes space-separated tokens and no partial match within a token. The <code>(?&lt;!\S)</code> and <code>(?!\S)</code> anchors ensure we match complete tokens. I should test 'lower' doesn't incorrectly merge when 'lo' is the pair being merged."</p>
+<hr />
+<h3 id="coding-example-3-sql-window-functions-ebay-context">CODING EXAMPLE 3: SQL — Window Functions (eBay Context)</h3>
+<p><strong>PROBLEM:</strong> You have a table <code>product_views(user_id INT, item_id INT, view_time TIMESTAMP, category VARCHAR)</code>. Find, for each user, the category they viewed most recently, and how many distinct items they've viewed in that category.</p>
+<pre><code class="language-sql">WITH ranked_views AS (
+    SELECT
+        user_id,
+        category,
+        item_id,
+        view_time,
+        -- Rank by most recent view time, partitioned by user
+        ROW_NUMBER() OVER (
+            PARTITION BY user_id
+            ORDER BY view_time DESC
+        ) AS rn
+    FROM product_views
+),
+latest_category AS (
+    -- Get each user's most recently viewed category
+    SELECT user_id, category
+    FROM ranked_views
+    WHERE rn = 1
+),
+category_counts AS (
+    -- Count distinct items per user per category
+    SELECT
+        user_id,
+        category,
+        COUNT(DISTINCT item_id) AS distinct_items_viewed
+    FROM product_views
+    GROUP BY user_id, category
+)
+SELECT
+    lc.user_id,
+    lc.category AS most_recent_category,
+    cc.distinct_items_viewed
+FROM latest_category lc
+JOIN category_counts cc
+    ON lc.user_id = cc.user_id
+    AND lc.category = cc.category
+ORDER BY lc.user_id;
+</code></pre>
+<p><strong>THINK-ALOUD:</strong> "CTE first for clarity. ROW_NUMBER vs RANK: I want exactly one row per user, so ROW_NUMBER is right — RANK would give ties. Join back to the counts CTE — this ensures we count distinct items in the most recent category specifically."</p>
+<hr />
+<h3 id="section-2-coaching-notes">SECTION 2 COACHING NOTES</h3>
+<p><strong>For CodeSignal:</strong>
+- Verbalize your approach before writing — the assessor is scoring your thinking, not just the solution
+- Start with brute force if you're unsure; state complexity explicitly; then optimize
+- Handle edge cases aloud: empty input, k &gt; N, ties in ranking
+- Never assume — state your assumptions explicitly
+- Practice these patterns raw (no autocomplete): <code>defaultdict</code>, <code>Counter</code>, <code>heapq.nlargest</code>, <code>np.argsort</code>, <code>pd.groupby</code></p>
+<p><strong>Likely gotchas at eBay:</strong>
+- String manipulation: reverse words in a sentence, group anagrams
+- DFS/BFS on product category trees (hierarchical data = common eBay use case)
+- Two-pointer or sliding window on session data
+- SQL window functions are almost certain given eBay's analytics context</p>
+<hr />
+<p><a name="stage-2b"></a></p>
+<h2 id="section-3-stage-2b-ml-system-design-full-worked-dialogue">SECTION 3: Stage 2b — ML System Design (Full Worked Dialogue)</h2>
+<h3 id="scenario-design-ebays-llm-based-listing-generation-system-magical-listing">Scenario: Design eBay's LLM-Based Listing Generation System (Magical Listing)</h3>
+<p><em>This maps directly to eBay's real product. Versley's team built the LLM backbone.</em></p>
+<hr />
+<p><strong>INTERVIEWER:</strong> Design a system that takes a set of product photos from a seller and generates a complete product listing: title, category, item specifics, and suggested price. This is the core of eBay's Magical Listing feature. Walk me through your design.</p>
+<hr />
+<p><strong>TONY — STEP 1: CLARIFY THE PROBLEM</strong></p>
+<p>Before diving into architecture, let me clarify the constraints.</p>
+<p>What's the latency requirement? Is this synchronous (seller waits for listing in 3–5 seconds) or asynchronous (seller gets a push notification in 30 seconds)?</p>
+<p>What's the target seller volume? Millions of listings per day, I assume — I saw eBay announced 500M listings created with Magical Listing in Q1 2026.</p>
+<p>What modalities does the seller provide? Only photos, or also optional text description or item condition notes?</p>
+<p>What's the target quality bar — is there a human review step, or is this fully automated?</p>
+<p>Assume the answers are: (a) semi-synchronous, 5–10 second SLA displayed with a progress indicator; (b) ~5M listings/day peak; (c) images primary, optional seller text; (d) fully automated with seller review/edit before publishing.</p>
+<hr />
+<p><strong>TONY — STEP 2: DEFINE SUCCESS METRICS</strong></p>
+<p><strong>Offline metrics:</strong>
+- Attribute extraction accuracy: Aspect Prediction accuracy against annotated test set
+- Title quality: ROUGE-L and human preference rating vs. reference titles
+- Category accuracy: top-1 accuracy against human-annotated category
+- Price suggestion MAPE (mean absolute percentage error) against sold item prices</p>
+<p><strong>Online metrics:</strong>
+- Listing completion rate: what fraction of sellers who start Magical Listing publish the generated listing without major edits?
+- Seller edit distance: how many tokens do sellers change in the generated listing? (Proxy for generation quality)
+- Sell-through rate: do AI-generated listings sell at the same rate as manually written ones?
+- Time-to-list: reduction in average listing creation time vs. manual (eBay reports &gt;25% reduction)</p>
+<p><strong>Business metrics:</strong>
+- GMV per lister (eBay reports double-digit increase)
+- New listing creation rate (eBay reports &gt;50% increase in new listing creation)</p>
+<hr />
+<p><strong>TONY — STEP 3: SYSTEM ARCHITECTURE</strong></p>
+<p>The system has five stages:</p>
+<p><strong>Stage 1 — Image Processing and Feature Extraction</strong>
+Multi-image VLM pipeline. Seller uploads 3–8 photos. Preprocessing: resize, normalize, tile high-resolution images into sub-patches for the vision encoder. Vision encoder (SigLIP2 or equivalent) encodes each image into patch feature maps. For multi-image: concatenate feature maps with position markers indicating image order.</p>
+<p><strong>Stage 2 — Product Identification and Knowledge Graph Lookup</strong>
+Run a product identification model: embedding-based retrieval against eBay's product knowledge graph (~hundreds of millions of catalog entities). This grounds the generation — rather than hallucinating attributes, the model retrieves the known attribute ontology for the identified product type. For example, identifying a "Canon EOS R5" triggers the Sports &amp; Outdoors &gt; Cameras category with attributes: megapixel, mount type, sensor size, video resolution, condition.</p>
+<p><strong>Stage 3 — Attribute Extraction (VLM)</strong>
+The VLM (LLaVA-style architecture, e-Llama as text decoder, SigLIP2 vision encoder) processes the multi-image input + the knowledge graph context (as a structured prompt listing which attributes are expected) and extracts values. The structured prompt ensures the model knows what to look for. Output: JSON of attribute-value pairs with confidence scores.</p>
+<p><strong>Stage 4 — Title and Description Generation (LLM)</strong>
+Feed extracted attributes + product knowledge graph entry + optional seller text to a fine-tuned LiLiuM or e-Llama model for title generation. The title generator is fine-tuned on (attributes → title) examples from existing high-performing eBay listings. Use constrained decoding to enforce title length constraints (65–80 characters is the eBay sweet spot for search visibility).</p>
+<p><strong>Stage 5 — Price Suggestion</strong>
+Pricing is a separate ML model: retrieval of comparable recently sold items (by product type + condition + attributes), gradient boosting or neural regression on sold prices, with features including category, condition, brand, key attributes, time-to-sale of comps. Output: suggested price range.</p>
+<hr />
+<p><strong>TONY — STEP 4: DATA PIPELINE</strong></p>
+<p>Training data for VLM attribute extractor:
+- Existing high-quality eBay listings with images and verified attribute values (from seller-confirmed structured data)
+- Augment with synthetically generated instruction-tuning examples using InternVL-2.5-26B as a caption generator and Mistral-Small for verification — the eBay VLM paper (arXiv:2602.11733) describes this pipeline: ~15M raw listings → ~4M instruction examples
+- Data distribution following the VLM paper (arXiv:2602.11733): 45% VQA, 30% Dynamic Attribute Extraction, 12.5% Precise Instruction Following, 12.5% Listings</p>
+<p>Training data for title generator:
+- High-performing listings (measured by sell-through rate within 30 days) paired with their attributes
+- Negative examples: rejected/removed listings or listings with low sell-through</p>
+<hr />
+<p><strong>TONY — STEP 5: INFERENCE ARCHITECTURE</strong></p>
+<p>Latency breakdown for a 5-second SLA:
+- Image upload and preprocessing: 0.5s
+- Vision encoder (SigLIP2, batch 8 images): ~0.5s on A100
+- Knowledge graph lookup: ~0.1s (fast embedding retrieval)
+- VLM attribute extraction (e-Llama 8B, ~200 output tokens): ~1.5s with KV cache and continuous batching
+- Title generation (LiLiuM 7B, ~80 tokens): ~0.7s
+- Price suggestion (ML model): ~0.1s
+- Total: ~3.4s, comfortably within 5s SLA with some headroom</p>
+<p>For peak load of 5M listings/day ≈ 58 listings/second average, with ~3x peak factor → ~175 listings/second at peak. At ~2 seconds of GPU compute per listing (consolidated), this needs roughly 350 GPU-seconds/second of throughput. Serving on H100 80GB (each handles ~5 concurrent requests at this model size): ~70 H100s for peak, scale with autoscaling.</p>
+<p>Key inference optimizations:
+- Continuous batching across concurrent requests (vLLM-style)
+- KV prefix caching for the system prompt (shared across all listing requests)
+- Speculative decoding for title generation (short output, good candidate for speculative)
+- Quantization (AWQ 4-bit) for the VLM to halve memory footprint
+- Disaggregated prefill/decode: vision encoding and attribute extraction on one GPU pool, title generation on another</p>
+<hr />
+<p><strong>TONY — STEP 6: QUALITY CONTROL</strong></p>
+<p>Not every generated listing should be published without review. I'd add a quality classifier that scores the generated listing on: attribute completeness (did we fill &gt;80% of expected attributes?), title coherence (does the title match the extracted attributes?), anomaly flags (price suggestion 3x above/below median for category, attributes inconsistent with images).</p>
+<p>Below a quality threshold → flag for seller review with highlighted uncertain fields. Above threshold → auto-populate with "AI suggested" labels, seller can edit before publishing.</p>
+<hr />
+<p><strong>TONY — STEP 7: ONLINE TESTING AND MONITORING</strong></p>
+<p>A/B testing: gate 10% of new sellers onto Magical Listing v2 vs. control; measure listing completion rate, seller edit distance, and sell-through rate over 30 days.</p>
+<p>Monitoring: distribution shift on attribute confidence scores (leading indicator of vision encoder degradation), latency P99 (alert if &gt;7s), category accuracy on a daily sampled holdout, per-seller anomaly flags (potential for adversarial prompt injection via uploaded images with embedded text).</p>
+<p>Model refresh: the attribute extractor should be retrained quarterly on new high-quality listing data, with an A/B gate before any model update goes to production.</p>
+<hr />
+<p><strong>INTERVIEWER:</strong> How would you handle sellers who upload photos of items that have no match in the knowledge graph — say, a vintage handmade ceramic vase?</p>
+<hr />
+<p><strong>TONY:</strong></p>
+<p>This is the cold-start problem for the knowledge graph, and it's important for a marketplace like eBay where a significant fraction of listings are unique vintage or handmade items.</p>
+<p>For items with no KG match, I'd fall back to open-vocabulary attribute extraction: instead of conditioning the VLM on a predefined attribute list, I'd use an open-ended prompt: "Describe this item's key physical characteristics, material, condition, style period, and any visible markings or signatures." The VLM generates a free-text description that becomes the source for title and description generation.</p>
+<p>For category assignment, I'd rely on the embedding-based retrieval against the KG at a coarser granularity — even if we can't identify the specific item, we can probably identify the category (Pottery &amp; Glass &gt; Art Pottery) by visual similarity to known items in that category.</p>
+<p>For price suggestion, there's no exact comp, so I'd retrieve the 10 most visually similar sold items in the identified category and use their price distribution as the range.</p>
+<p>Over time, novel items that are listed, edited by sellers, and successfully sold become new ground truth data for expanding the knowledge graph and the VLM's training set. The system is self-expanding.</p>
+<hr />
+<h3 id="section-2b-coaching-notes">SECTION 2b COACHING NOTES</h3>
+<p><strong>What made this answer strong:</strong>
+- Defined success metrics before touching architecture — this is a strong engineering signal
+- Cited real eBay numbers (500M listings, &gt;25% listing time reduction, &gt;50% new listing rate) to show product awareness
+- Matched the architecture to eBay's published approach (SigLIP2 + e-Llama from the VLM paper arXiv:2602.11733) rather than inventing something new — shows you read the actual work
+- Did a latency math exercise with specific numbers (inference steps, H100 count)
+- Added quality control and monitoring without being asked</p>
+<p><strong>Pitfalls:</strong>
+- Do not start with "I'd use GPT-4" — eBay has in-house LLMs and the question is about your architecture judgment
+- Do not skip the metrics definition — interviewers flag this as a sign of research-only thinking
+- Do not ignore the knowledge graph — it's a specific, known eBay system that gives you grounding</p>
+<hr />
+<p><a name="stage-2c"></a></p>
+<h2 id="section-4-stage-2c-project-management-retrospective-behavioral-dialogue">SECTION 4: Stage 2c — Project Management / Retrospective Behavioral Dialogue</h2>
+<p><em>The recruiter named four specific behavioral themes. Cover at least one per STAR story. Aim for 2–3 minutes per story.</em></p>
+<hr />
+<h3 id="behavioral-story-1-a-challenging-project-you-delivered-llm-router-mera">BEHAVIORAL STORY 1: "A challenging project you delivered" — LLM Router (MERA)</h3>
+<p><strong>INTERVIEWER:</strong> Tell me about the most technically challenging ML project you've worked on and what made it hard.</p>
+<hr />
+<p><strong>TONY [STAR]:</strong></p>
+<p><strong>Situation:</strong> In the MERA project — Model Evolution and Routing with Skill Adaptation — the goal was to build a routing system that could adaptively improve over time as the models underneath it evolved. The core difficulty was that we were solving three problems simultaneously: which model to route each query to, when to retrain specialist models to handle new query types, and how to measure whether the system as a whole was getting better or just trading performance across different task types.</p>
+<p><strong>Task:</strong> My specific responsibility was the evaluation framework. We needed to demonstrate that the system achieved 87.3% router accuracy at about half the serving cost of routing everything to the strongest model. But because we were dealing with skill adaptation, the task distribution was non-stationary — the system was actively getting better over time, so a static test set would underestimate the system's eventual performance and overestimate it for early stages.</p>
+<p><strong>Action:</strong> I designed a temporal holdout evaluation: we split the task timeline, used earlier tasks for training the router and skill models, and evaluated on later tasks. This mirrors the real deployment scenario where the system is continuously seeing new task types. I also created per-skill performance tracking, which allowed us to diagnose cases where the routing was nominally achieving the target accuracy but only because it was routing easy tasks to cheap models while sending hard tasks to expensive models — which would look good in aggregate but bad in production where the hard tasks are the ones that matter.</p>
+<p>The hardest engineering decision was handling the feedback loop: as skill models improve, the router needs to update its routing policy, but if the update is too aggressive, it can destabilize the whole system. We introduced a trust-bound mechanism: the router can only increase a model's routing probability by a maximum of 15% per evaluation cycle, which dampened oscillations.</p>
+<p><strong>Result:</strong> The final system hit 87.3% router accuracy at about half the serving cost compared to always routing to the strongest model. The temporal evaluation framework gave us confidence that this generalizes beyond the training distribution. The paper is at the RL-Eval 2026 workshop (OpenReview).</p>
+<p><strong>What I'd do differently:</strong> I'd instrument the failure modes earlier. We spent two weeks debugging a routing instability that turned out to be caused by high variance in the skill model's performance on task types with &lt;50 training examples. If I'd had better per-skill confidence intervals from day one, we'd have caught this in week one.</p>
+<hr />
+<h3 id="behavioral-story-2-a-time-you-gave-technical-advice-to-a-non-technical-audience-meetavista-vlm-project">BEHAVIORAL STORY 2: "A time you gave technical advice to a non-technical audience" — MeetaVista VLM Project</h3>
+<p><strong>INTERVIEWER:</strong> Tell me about a time you had to explain a complex technical decision to people without a deep ML background.</p>
+<hr />
+<p><strong>TONY [STAR]:</strong></p>
+<p><strong>Situation:</strong> In the Human Intent World Model project with MeetaVista, I was working with the startup's sales and business team who wanted to understand why we were using synthetic training data — distilled from classical sales literature — rather than real customer interaction videos, which they felt would be more "authentic."</p>
+<p><strong>Task:</strong> I needed to explain why synthetic data was actually the right choice without sounding like I was dismissing their intuition, and I needed to get buy-in to continue the synthetic data approach rather than pivoting to expensive video labeling.</p>
+<p><strong>Action:</strong> I created a one-page analogy. I compared the situation to training a medical student: you don't start by showing them edge-case emergency surgeries — you start with textbook cases that clearly illustrate the principles, then move to real cases. Our synthetic dataset from sales literature was the "textbook" — each example had clean, interpretable intent labels and reasoning traces that made the patterns legible to the model. Real interaction videos would be like emergency room footage: ambiguous, high-variance, expensive to label.</p>
+<p>I then showed them a concrete comparison: VLM performance on a held-out real video clip, trained with synthetic data vs. trained with 100 real labeled examples. The synthetic-data model was better at identifying specific visual cues — hand gestures, gaze direction, posture — than the real-data model trained on 100 examples, which had overfit to idiosyncratic features of those 100 clips.</p>
+<p><strong>Result:</strong> The business team approved continuing with synthetic data. More importantly, they started framing their product's value proposition around the reasoning traces — "our AI doesn't just detect intent, it explains why" — which became a differentiating feature in their pitch. The project shipped with positive results on downstream real-world sales conversations.</p>
+<hr />
+<h3 id="behavioral-story-3-a-time-you-used-data-to-influence-a-decision-nnu-net-pruning-at-tu-delft">BEHAVIORAL STORY 3: "A time you used data to influence a decision" — nnU-Net Pruning at TU Delft</h3>
+<p><strong>INTERVIEWER:</strong> Tell me about a time you had to use data to push back on a default technical direction.</p>
+<hr />
+<p><strong>TONY [STAR]:</strong></p>
+<p><strong>Situation:</strong> At TU Delft, the default assumption in the imaging physics group was that pruning medical imaging models was too risky for clinical use — the concern was that any reduction in model capacity would reduce sensitivity on rare pathological cases. The default recommendation was "use the full model, buy more compute."</p>
+<p><strong>Task:</strong> I had evidence from our pruning experiments that the assumption was wrong, at least for the cardiac MRI segmentation task, and I needed to present that evidence convincingly to the PI and the group, some of whom had clinical collaborators who needed to trust the model.</p>
+<p><strong>Action:</strong> I structured the analysis around the evidence I actually had. First, the headline redundancy result: over 80% of the weights could be removed while a proxy Dice — agreement between the pruned and unpruned model — stayed above 0.95, across four datasets. Second — the critical layer for a skeptical clinical audience — I was explicit that proxy Dice is fidelity to the baseline, not accuracy, so I anchored on ACDC, the one dataset with ground-truth labels, where true Dice stayed essentially flat through about 80% pruning; and I pruned each of the five cross-validation folds independently so the finding wasn't one lucky split. Third, I showed the per-layer inverted-U redundancy map — the bottleneck and deep layers are the most prunable while the encoder and decoder ends hold the critical weights — which told the group exactly where capacity was safe to remove rather than asking them to trust an aggregate number.</p>
+<p>I was also careful about what I did not claim: because the pruning is unstructured, it demonstrates the redundancy but not a wall-clock speedup, so I framed the deployment payoff as the next step — convert the redundancy map into structured channel removal to get a real latency win — rather than overselling a number we hadn't measured.</p>
+<p><strong>Result:</strong> The PI approved including the pruning results as the primary finding for the MIDL submission. The clinical collaborators accepted the model after reviewing the proxy-Dice fidelity and the ACDC true-Dice analysis. The paper was accepted at MIDL 2025. The broader lesson I took away is that when you're pushing back on a conservative default, you have to meet the stakeholder's risk model directly, not replace it with your own.</p>
+<hr />
+<h3 id="behavioral-story-4-a-difficult-stakeholder-situation-tencent-llm-for-optimization">BEHAVIORAL STORY 4: "A difficult stakeholder situation" — Tencent LLM-for-Optimization</h3>
+<p><strong>INTERVIEWER:</strong> Tell me about a difficult stakeholder or vendor situation you navigated.</p>
+<hr />
+<p><strong>TONY [STAR]:</strong></p>
+<p><strong>Situation:</strong> In the LLM-for-Optimization work with Tencent, we were building a system where an LLM acts as a heuristic optimizer for a complex combinatorial problem. The Tencent team had strong prior beliefs about the structure of the solution space based on years of experience with classical solvers, and they wanted the LLM to produce solutions in a very specific JSON format that mapped to their existing solver infrastructure.</p>
+<p>The problem was that the LLM's performance degraded significantly when constrained to that exact output format — the JSON structure required precision about nested constraint satisfaction that the model couldn't reliably produce when it also had to reason about the optimization objective.</p>
+<p><strong>Task:</strong> I needed to convince the Tencent team to allow a two-step approach: LLM generates a natural-language solution plan, then a lightweight rule-based parser converts that to the JSON format, rather than requiring direct JSON output.</p>
+<p><strong>Action:</strong> Instead of arguing abstractly, I ran a head-to-head benchmark. I showed them: (a) the failure rate of direct JSON output (too high for production), (b) the performance on the optimization objective when the model could reason freely in natural language, (c) the success rate of the parser on converting natural-language solutions to JSON (&gt;95% for valid solutions). The quality of the solutions in option (b) was measurably better — lower objective function values — because the model could express reasoning in prose before committing to the structure.</p>
+<p>I also framed the parser as an interface contract, not a workaround. "You own the contract between our system and your infrastructure. The parser is maintained by us and guarantees the output format. The LLM's reasoning is internal."</p>
+<p><strong>Result:</strong> They agreed to the two-step approach. The system shipped with the natural-language-then-parse architecture. Solution quality improved by ~18% on the benchmark objective. The framing of "interface contract" turned a technical disagreement into a collaboration on who owns what part of the system.</p>
+<hr />
+<h3 id="section-4-coaching-notes">SECTION 4 COACHING NOTES</h3>
+<p><strong>STAR structure discipline:</strong>
+- Situation and Task together should take 30–45 seconds max. The action and result are where you spend the most time.
+- Every result should have a number. "Approved" is not a result. "Approved, reducing annotation budget by 40K euros" is a result.
+- The "what I'd do differently" is not required in every story, but including it occasionally signals self-awareness and shows you learn from experience. Don't use it if you don't have a genuine reflection.</p>
+<p><strong>eBay-specific behavioral mapping:</strong>
+- Customer Focus → MeetaVista VLM project (built for real user need, shipped with product impact)
+- Innovate Boldly → pruning over 80% of nnU-Net weights at proxy Dice &gt;0.95 (risky technical bet that paid off)
+- Deliver With Impact → LLM Router work (shipping research to NeurIPS with production-ready benchmarks)
+- Act With Integrity → MERA evaluation framework (could have cherry-picked; instead built temporal holdout)</p>
+<hr />
+<p><a name="stage-2b"></a></p>
+<h2 id="section-5-stage-3-team-fit-dialogue">SECTION 5: Stage 3 — Team Fit Dialogue</h2>
+<hr />
+<p><strong>TEAM MEMBER:</strong> Hey Tony, I'm one of the researchers on the pretraining team. Informal one here. What's your take on the current direction of open-source LLMs — do you think models like Qwen 3 and Llama 4 are eating into the competitive advantage of teams like ours that are doing in-house pretraining?</p>
+<hr />
+<p><strong>TONY:</strong></p>
+<p>Honestly, I think the relationship is complementary rather than competitive, but it requires a clear-eyed view of what in-house pretraining is actually for.</p>
+<p>For a company like eBay, the value of in-house pretraining isn't to have the strongest general language model — Qwen 3 235B or GPT-5 will beat anything eBay can train on general benchmarks, and eBay can't win that arms race. The value is the domain specialization that only eBay's data can provide, the vocabulary optimization that gives 20–34% inference speedups on e-commerce text, the data governance of knowing exactly what went into the training corpus, and the ability to fine-tune and adapt without waiting for a vendor's permission.</p>
+<p>Where open-source models do change the equation is in the baseline. When Llama 4 or Qwen 3 is already a strong base model, you spend less of your in-house compute budget on general capability and more on domain adaptation and efficiency — which is exactly what e-Llama does by continuing from Llama 3.1 rather than training from scratch.</p>
+<p>The risk I'd flag is that continued pretraining assumes the open-source base model is a good starting point for the domain shift. For e-commerce, it generally is — but if eBay's specific needs diverge significantly from what the base model architecture supports, you might hit a wall. The vocabulary customization paper is interesting in that context because it shows you can retrofit domain efficiency on top of a general base — that's a nice middle ground.</p>
+<p>I think the team doing in-house pretraining is in a stronger position than a team purely prompt-engineering on top of an API, because you have the ability to actually understand and modify what's inside the model. The competitive advantage of that capability grows over time.</p>
+<hr />
+<p><strong>TEAM MEMBER:</strong> What's your working style like? Do you prefer to work deeply alone or do you like working in a close pair or group setting?</p>
+<hr />
+<p><strong>TONY:</strong></p>
+<p>I tend to be structured-independent: I do my best deep work when I have blocks of uninterrupted time for coding and experimentation, but I actively seek out research discussions when I'm at a decision point or when I'm formulating a new idea. For me, research discussions are most valuable at two moments: early, when you're trying to figure out if an idea has a fatal flaw before you've invested time in it; and late, when you have preliminary results and you want pushback on the interpretation before you commit to a story.</p>
+<p>In the MSCA fellowship at IMDEA, I was the only person working on my specific project, which meant I had to be disciplined about seeking out external feedback loops — I'd schedule a weekly check-in with the principal investigator even if I had nothing to present, just to stay calibrated on what questions the broader community cared about.</p>
+<p>At TU Delft and in the collaborations with Gradient Networks and Tencent, the work was more naturally collaborative and I found that pair-debugging experiments or co-designing ablations was more efficient than working alone and then syncing asynchronously.</p>
+<p>One thing I'd specifically value on your team: being close to the people running the actual pretraining runs. My research background is in how models behave after they're trained; I want to develop stronger intuition for what the training dynamics look like while the run is happening. That's a knowledge gap I'd actively work to close.</p>
+<hr />
+<p><strong>TEAM MEMBER:</strong> Where do you see LLM research going in the next two to three years? What are you most excited about?</p>
+<hr />
+<p><strong>TONY:</strong></p>
+<p>Three things I'm most excited about.</p>
+<p>First, test-time compute as the new training-time scaling. The trajectory of o3, DeepSeek-R1, and the GRPO results suggests that you can get significant capability gains by giving the model more compute at inference — extended chain-of-thought, process reward models, verifiable feedback. What's exciting to me from an efficiency perspective is that this changes the routing problem: rather than routing to a bigger model, you can route to more compute for the same model. The cost-quality tradeoff becomes richer.</p>
+<p>Second, multi-modality becoming truly native. LLaVA-style connector models have improved enormously but they're still bolt-on. Models like InternVL3 and Llama 4 are starting to treat image tokens as first-class citizens in the same vocabulary as text. When that's done at pretraining scale with truly interleaved image-text data, I expect qualitative improvements in visual grounding and multi-image reasoning that are hard to achieve with connector models. For eBay's use case — understanding product images with the same depth that the model understands product text — this is directly relevant.</p>
+<p>Third, agentic reliability. We're at the point where agents can do impressive things in controlled settings, but production reliability — knowing when to ask for clarification, avoiding tool hallucination, recovering gracefully from errors — is still the bottleneck. The GRPO/RLVR results suggest that verifiable rewards are a powerful training signal for reasoning reliability. I'd expect to see similar progress applied to agentic task success as a training signal.</p>
+<hr />
+<h3 id="section-5-coaching-notes">SECTION 5 COACHING NOTES</h3>
+<p><strong>What made these answers strong:</strong>
+- Disagreement with partial agreement: "complementary rather than competitive, but requires clear-eyed view" — shows intellectual independence rather than deference
+- Self-awareness about gaps: "That's a knowledge gap I'd actively work to close" (pretraining dynamics) — recruiters value people who know what they don't know
+- Future directions grounded in mechanisms: each prediction connects to a specific technical finding (GRPO, InternVL3, RLVR) rather than vague trend</p>
+<p><strong>Team fit traps to avoid:</strong>
+- Do not say "I'm flexible, I can work either way" when asked about working style — it signals you have no self-knowledge
+- Do not claim equal enthusiasm for everything — it sounds sycophantic
+- Do not be dismissive of open-source models — Versley's team uses Llama, Qwen, and Gemma base models; you work in the same ecosystem</p>
+<hr />
+<p><a name="cheat-sheet"></a></p>
+<h2 id="section-6-quick-reference-cheat-sheet">SECTION 6: Quick-Reference Cheat Sheet</h2>
+<p><em>Print and review 30 minutes before each interview.</em></p>
+<h3 id="key-numbers-to-know-cold">Key Numbers to Know Cold</h3>
+<table>
+<thead>
+<tr>
+<th>Topic</th>
+<th>Number</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LiLiuM model sizes</td>
+<td>1B / 7B / 13B</td>
+<td>LiLiuM paper</td>
+</tr>
+<tr>
+<td>LiLiuM training data</td>
+<td>3 trillion tokens</td>
+<td>LiLiuM paper</td>
+</tr>
+<tr>
+<td>LiLiuM custom tokenizer speedup</td>
+<td>34% generation speedup vs LLaMA-2</td>
+<td>LiLiuM paper</td>
+</tr>
+<tr>
+<td>LiLiuM vocab size</td>
+<td>65k tokens</td>
+<td>LiLiuM paper</td>
+</tr>
+<tr>
+<td>e-Llama training data</td>
+<td>1 trillion tokens</td>
+<td>arXiv:2501.09706 (eBay)</td>
+</tr>
+<tr>
+<td>e-Llama training infra</td>
+<td>480 NVIDIA H100s, 60 nodes, Megatron-LM</td>
+<td>e-Llama paper</td>
+</tr>
+<tr>
+<td>e-Llama training time (70B)</td>
+<td>~340,000 GPU-hours, ~1 month</td>
+<td>e-Llama paper</td>
+</tr>
+<tr>
+<td>e-Llama data ratio</td>
+<td>50% e-commerce / 50% general</td>
+<td>e-Llama paper</td>
+</tr>
+<tr>
+<td>e-Llama LR (8B)</td>
+<td>3.0e-5 (10% of original 3.0e-4)</td>
+<td>e-Llama paper (Table 2)</td>
+</tr>
+<tr>
+<td>e-Llama high-LR ablation (3.0e-3)</td>
+<td>e-com bench 50.6, general bench 34.5</td>
+<td>e-Llama paper (Table 2)</td>
+</tr>
+<tr>
+<td>e-Llama intended LR (3.0e-5)</td>
+<td>e-com bench 59.9, general bench 42.0</td>
+<td>e-Llama paper (Table 2)</td>
+</tr>
+<tr>
+<td>e-Llama context</td>
+<td>8,192 tokens</td>
+<td>e-Llama paper</td>
+</tr>
+<tr>
+<td>e-Llama Aspect Prediction (8B)</td>
+<td>54.9% vs 36.5% baseline</td>
+<td>e-Llama paper (Table 4)</td>
+</tr>
+<tr>
+<td>e-Llama average improvement</td>
+<td>~25% English e-com, ~30% non-English</td>
+<td>e-Llama paper</td>
+</tr>
+<tr>
+<td>Vocab customization compression</td>
+<td>Up to 20% input sequence reduction</td>
+<td>Sept 2025 (arXiv preprint) paper</td>
+</tr>
+<tr>
+<td>VLM training data</td>
+<td>~15M listings → ~4M instructions</td>
+<td>arXiv:2602.11733 (2026)</td>
+</tr>
+<tr>
+<td>VLM dataset split</td>
+<td>45% VQA, 30% DAE, 12.5% PIF, 12.5% Listings</td>
+<td>arXiv:2602.11733 (2026)</td>
+</tr>
+<tr>
+<td>VLM e-Llama gain (eComMMMU)</td>
+<td>46.9% → 52.2% (+5.3pp)</td>
+<td>arXiv:2602.11733 (2026) (Table 2)</td>
+</tr>
+<tr>
+<td>VLM e-Llama gain (Aspect Prediction)</td>
+<td>37.7% → 44.4%</td>
+<td>arXiv:2602.11733 (2026) (Table 1)</td>
+</tr>
+<tr>
+<td>VLM e-Llama gain (Dynamic Attrib Extr)</td>
+<td>51.9% → 60.4%</td>
+<td>arXiv:2602.11733 (2026) (Table 1)</td>
+</tr>
+<tr>
+<td>VLM bounding-box labeling (Gemma3-27B)</td>
+<td>58.8 F1 (finetuned with better labels)</td>
+<td>arXiv:2602.11733 (2026) (Table 3)</td>
+</tr>
+<tr>
+<td>VLM efficiency: 4B fine-tuned vs 27B zero-shot</td>
+<td>50.5 F1 at 6.7s vs 44.8 F1 at 25.5s (3.8x speedup)</td>
+<td>arXiv:2602.11733 (2026) (Table 4)</td>
+</tr>
+<tr>
+<td>VLM caption generator</td>
+<td>InternVL-2.5-26B</td>
+<td>arXiv:2602.11733 (2026)</td>
+</tr>
+<tr>
+<td>RAG MT improvement (best)</td>
+<td>+15.3% chrF for EN-PL (5-shot)</td>
+<td>eBay RAG MT paper (arXiv 2409.12880)</td>
+</tr>
+<tr>
+<td>RAG MT avg product title length</td>
+<td>11.3 words</td>
+<td>eBay RAG MT paper</td>
+</tr>
+<tr>
+<td>Magical Listing impact</td>
+<td>&gt;25% less listing time, &gt;50% new listing rate</td>
+<td>eBay earnings / press</td>
+</tr>
+<tr>
+<td>Tony LLM Router cost cut</td>
+<td>&gt;90% vs single SOTA per step</td>
+<td>LLM Router paper</td>
+</tr>
+<tr>
+<td>Tony TwinRouterBench result</td>
+<td>trained router cuts API cost 53% vs unrouted Opus at matched resolve (dynamic track)</td>
+<td>TwinRouterBench</td>
+</tr>
+<tr>
+<td>Tony MERA result</td>
+<td>87.3% router accuracy at ~52% of always-large serving cost</td>
+<td>MERA paper (RL-Eval 2026 workshop, OpenReview)</td>
+</tr>
+<tr>
+<td>Tony nnU-Net pruning</td>
+<td>&gt;80% sparsity at proxy Dice &gt;0.95 (no speedup reported)</td>
+<td>MIDL 2025</td>
+</tr>
+<tr>
+<td>Tony Diffusion Weights speedup</td>
+<td>3.2x wall-clock</td>
+<td>ACL 2026 submission (under review)</td>
+</tr>
+<tr>
+<td>Chinchilla optimal token ratio</td>
+<td>~20 tokens per parameter</td>
+<td>Hoffmann et al. 2022</td>
+</tr>
+<tr>
+<td>Llama 3 training</td>
+<td>15T tokens (8B model)</td>
+<td>Meta 2024</td>
+</tr>
+<tr>
+<td>chrF default β (sacreBLEU)</td>
+<td>β=1 (ChrF2 / β=2 is the named WMT variant)</td>
+<td>sacreBLEU docs</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="attention-formula-must-know-cold">Attention Formula (must know cold)</h3>
+<pre><code>Attention(Q, K, V) = softmax( QK^T / sqrt(d_k) ) V
+
+where Q, K, V ∈ R^{seq_len × d_model}
+d_k = d_model / num_heads
+
+Multi-head: concat heads, project:
+MultiHead(Q,K,V) = Concat(head_1,...,head_h) W_O
+head_i = Attention(QW_i^Q, KW_i^K, VW_i^V)
+</code></pre>
+<p>Complexity: O(n^2 × d) per layer for attention over sequence length n.</p>
+<hr />
+<h3 id="key-design-tradeoffs-one-line-version">Key Design Tradeoffs (one-line version)</h3>
+<ul>
+<li><strong>GQA vs MHA:</strong> GQA always in production (fewer KV heads → smaller KV cache → more throughput)</li>
+<li><strong>RoPE vs ALiBi:</strong> RoPE with YaRN for known long-context fine-tuning; ALiBi extrapolates better zero-shot; YaRN target length set at training time, not ad-hoc</li>
+<li><strong>DPO vs PPO:</strong> DPO for simplicity; PPO if online RL and reward hacking are critical</li>
+<li><strong>LoRA vs full FT:</strong> LoRA always for budget/speed; full FT for max quality on large domain shifts</li>
+<li><strong>AWQ vs GPTQ quantization:</strong> AWQ needs no per-task calibration; GPTQ is task-specific but sometimes marginally better</li>
+<li><strong>Continued pretraining vs RAG:</strong> continued pretraining for distribution shift (need model weights to know domain); RAG for knowledge retrieval (domain knowledge fits in retrieved context)</li>
+<li><strong>BPE vs SentencePiece Unigram:</strong> BPE with byte fallback for universal coverage; Unigram for morphologically rich multilingual</li>
+</ul>
+<hr />
+<h3 id="pushback-exchanges-concession-templates">Pushback Exchanges — Concession Templates</h3>
+<p>When Versley challenges a number or mechanism, use this structure:</p>
+<ol>
+<li>"You're right — [state what was imprecise or wrong]."</li>
+<li>"The correct framing is [precise correction with mechanism]."</li>
+<li>"The practical implication is [what this changes]."</li>
+<li>Do NOT over-apologize. Move on in one sentence.</li>
+</ol>
+<p>Rehearse: "You're right, I conflated X and Y; the correct framing is..."</p>
+<hr />
+<h3 id="three-questions-versley-will-definitely-ask-be-ready">Three Questions Versley Will Definitely Ask (be ready)</h3>
+<ol>
+<li>"Walk me through your LLM Router — what's the routing signal and how is it different from MoE routing?" (Exchange 6 above)</li>
+<li>"In the e-Llama paper we use 10% of the original LR for continued pretraining — why that specific choice and what happens if you go higher?" (Exchange 4 above)</li>
+<li>"What is Viterbi and where does it still matter today?" (Exchange 9 above)</li>
+</ol>
+<hr />
+<h3 id="three-questions-tony-should-ask-be-ready-to-deliver-these-naturally">Three Questions Tony Should Ask (be ready to deliver these naturally)</h3>
+<ol>
+<li>"The VLM paper (arXiv:2602.11733) uses a 45/30/12.5/12.5 instruction dataset split — I noticed there's no ablation of that ratio. Was it chosen empirically, and did you find sensitivity to it?"</li>
+<li>"How do you decide when a new open-source base model (Llama 4, Qwen 3) is worth the continued-pretraining cost to migrate?"</li>
+<li>"What would make someone on this team immediately impactful in the first 90 days — where are the current bottlenecks?"</li>
+</ol>
+<hr />
+<h3 id="opening-pitch-spoken-delivery-memorize-this-150-words-2-min">Opening Pitch (spoken delivery — memorize this, ~150 words, ~2 min)</h3>
+<blockquote>
+<p>"The through-line is this: AI is moving from a scaling race to a systems race. Larger models still matter, but the differentiator now is how you train, route, compress, and deploy under real constraints. My work clusters around three themes. LLM routing and cost efficiency — three published or under-review works, including MERA at 87.3% router accuracy at about half the serving cost, and the LLM Router at over 90% cost reduction. Model efficiency — over 80% sparsity on nnU-Net at proxy Dice above 0.95, and Diffusion Weights which reframes fine-tuning as generative weight prediction at 3.2x wall-clock speedup. Third, multimodal and agentic — a VLM project for customer intent inference and an agentic coding benchmark evaluating project-level agents. I'm in Amsterdam, so hybrid is easy, and your team's focus — in-house LLMs, domain adaptation, VLMs for e-commerce — is exactly where I want to go deeper."</p>
+</blockquote>
+<hr />
+<p><em>End of document.</em>
+<em>Prepared: 2026-06-17. Specific to: Yannick Versley (Stage 1), eBay CoreAI Amsterdam.</em>
+<em>All numbers from eBay team papers verified against actual PDFs: e-Llama (arXiv 2501.09706, eBay team work, verified via HTML), VLM Adaptation (arXiv 2602.11733, Versley co-authored, verified via HTML), RAG for MT (arXiv 2409.12880, verified via HTML).</em>
+<em>Sources: LiLiuM (arXiv 2406.12023), e-Llama (arXiv 2501.09706), Vocabulary Customization (arXiv 2509.26124), VLM Adaptation (arXiv 2602.11733), RAG for MT (arXiv 2409.12880), Mercury (zenml.io/llmops-database, linkedin.com/pulse), Tony CV and project portfolio.</em></p>
+      <nav class="prevnext"><a class="pn prev" href="06_ML_LLM_NLP_FUNDAMENTALS_STUDYGUIDE.html">‹ <span>ML/LLM/NLP Fundamentals</span></a><a class="pn next" href="18_STAGE1_GAPFILL_DEEP_ANSWERS.html"><span>Gap-Fill: Deep Answers</span> ›</a></nav>
+    </article>
+    <aside class="toc"><div class="toc-title">On this page</div><ul>
+<li><a href="#difficulty-curve-note">DIFFICULTY CURVE NOTE</a></li>
+<li><a href="#table-of-contents">TABLE OF CONTENTS</a></li>
+<li><a href="#section-1-stage-1-yannick-versley-60-min-ml-llm-research">SECTION 1: Stage 1 — Yannick Versley (60-min ML &amp;amp; LLM Research)</a></li>
+<li><a href="#section-2-stage-2a-coding-think-aloud-examples">SECTION 2: Stage 2a — Coding Think-Aloud Examples</a></li>
+<li><a href="#section-3-stage-2b-ml-system-design-full-worked-dialogue">SECTION 3: Stage 2b — ML System Design (Full Worked Dialogue)</a></li>
+<li><a href="#section-4-stage-2c-project-management-retrospective-behavioral-dialogue">SECTION 4: Stage 2c — Project Management / Retrospective Behavioral Dialogue</a></li>
+<li><a href="#section-5-stage-3-team-fit-dialogue">SECTION 5: Stage 3 — Team Fit Dialogue</a></li>
+<li><a href="#section-6-quick-reference-cheat-sheet">SECTION 6: Quick-Reference Cheat Sheet</a></li>
+</ul></aside>
+  </main>
+</div>
+<script>window.SEARCH_JSON="../assets/../search-index.json";</script>
+<script src="../assets/search-data.js"></script>
+<script src="../assets/app.js"></script>
+</body>
+</html>

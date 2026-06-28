@@ -1,0 +1,193 @@
+/* eBay interview prep — clean docs theme (light default + dark toggle) */
+:root{
+  --bg:#ffffff; --bg-soft:#f7f8fa; --bg-card:#ffffff;
+  --ink:#1f2733; --ink-soft:#56616f; --ink-faint:#6b7480;
+  --line:#e6e9ef; --line-soft:#eef1f5;
+  --accent:#2563eb; --accent-soft:#e8f0fe; --accent-ink:#1d4ed8;
+  --warn:#b45309; --warn-bg:#fff7ed; --warn-line:#fed7aa;
+  --good:#15803d; --good-bg:#f0fdf4;
+  --code-bg:#f6f8fa; --code-ink:#24292f;
+  --sidebar-w:280px; --maxread:780px;
+  --serif:"Iowan Old Style",Georgia,"Times New Roman",serif;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --mono:"SF Mono",ui-monospace,"Menlo","Consolas",monospace;
+}
+html.dark{
+  --bg:#0f141b; --bg-soft:#141b24; --bg-card:#161e29;
+  --ink:#e4e9f0; --ink-soft:#a3afbf; --ink-faint:#8a96a8;
+  --line:#243140; --line-soft:#1c2734;
+  --accent:#60a5fa; --accent-soft:#16243b; --accent-ink:#93c5fd;
+  --warn:#fbbf24; --warn-bg:#2a1f10; --warn-line:#5b4413;
+  --good:#4ade80; --good-bg:#10241a;
+  --code-bg:#0c1118; --code-ink:#cdd6e2;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--bg); color:var(--ink);
+  font-family:var(--sans); font-size:16.5px; line-height:1.7;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--accent-ink); text-decoration:none}
+a:hover{text-decoration:underline}
+
+.layout{display:flex; align-items:flex-start}
+
+/* ---------- sidebar ---------- */
+.sidebar{
+  width:var(--sidebar-w); flex:0 0 var(--sidebar-w);
+  height:100vh; position:sticky; top:0; overflow-y:auto;
+  background:var(--bg-soft); border-right:1px solid var(--line);
+  padding:22px 16px 60px;
+}
+.brand a{font-family:var(--serif); font-size:21px; font-weight:700; color:var(--ink)}
+.brand-sub{font-size:12px; color:var(--ink-faint); margin-top:2px; letter-spacing:.02em}
+.search{position:relative; margin:16px 0 10px}
+.search input{
+  width:100%; padding:9px 12px; border:1px solid var(--line);
+  border-radius:9px; background:var(--bg); color:var(--ink); font-size:14px;
+}
+.search input:focus{outline:none; border-color:var(--accent); box-shadow:0 0 0 3px var(--accent-soft)}
+#results{
+  position:absolute; left:0; right:0; top:42px; z-index:30;
+  background:var(--bg-card); border:1px solid var(--line); border-radius:10px;
+  box-shadow:0 10px 30px rgba(0,0,0,.12); max-height:60vh; overflow-y:auto; display:none;
+}
+#results.show{display:block}
+#results a{display:block; padding:9px 12px; border-bottom:1px solid var(--line-soft); color:var(--ink)}
+#results a:hover{background:var(--accent-soft); text-decoration:none}
+#results .r-title{font-weight:600; font-size:14px}
+#results .r-sub{font-size:12px; color:var(--ink-faint)}
+#results .r-empty{padding:12px; color:var(--ink-faint); font-size:13px}
+
+.nav-group{margin-top:16px}
+.nav-group-title{
+  font-size:11.5px; font-weight:700; text-transform:uppercase; letter-spacing:.06em;
+  color:var(--ink-faint); margin:0 6px 6px;
+}
+.nav ul{list-style:none; margin:0; padding:0}
+.nav li a{
+  display:block; padding:6px 10px; margin:1px 0; border-radius:7px;
+  color:var(--ink-soft); font-size:14px; line-height:1.35;
+}
+.nav li a:hover{background:var(--accent-soft); color:var(--accent-ink); text-decoration:none}
+.nav li.active a{background:var(--accent-soft); color:var(--accent-ink); font-weight:600}
+
+/* ---------- content ---------- */
+.content{flex:1 1 auto; min-width:0; display:flex; gap:34px; padding:46px 48px 90px; justify-content:center}
+.doc{max-width:var(--maxread); width:100%}
+.doc-meta{display:flex; gap:10px; align-items:center; margin-bottom:18px}
+.tag{font-size:12px; font-weight:600; color:var(--accent-ink); background:var(--accent-soft); padding:3px 10px; border-radius:20px}
+.read{font-size:12.5px; color:var(--ink-faint)}
+
+/* headings */
+.doc h1{font-family:var(--serif); font-size:33px; line-height:1.2; margin:.2em 0 .5em; letter-spacing:-.01em}
+.doc h2{font-family:var(--serif); font-size:25px; margin:1.7em 0 .5em; padding-top:.3em; border-top:1px solid var(--line-soft)}
+.doc h3{font-size:19.5px; margin:1.4em 0 .4em; color:var(--ink)}
+.doc h4{font-size:16.5px; margin:1.2em 0 .3em; color:var(--ink-soft); text-transform:uppercase; letter-spacing:.03em}
+.doc p{margin:.7em 0}
+.doc strong{color:var(--ink)}
+.doc ul,.doc ol{padding-left:1.4em; margin:.6em 0}
+.doc li{margin:.28em 0}
+.doc hr{border:none; border-top:1px solid var(--line); margin:2em 0}
+
+/* blockquote -> callout */
+.doc blockquote{
+  margin:1.1em 0; padding:.7em 1.1em; background:var(--accent-soft);
+  border-left:4px solid var(--accent); border-radius:0 8px 8px 0; color:var(--ink);
+}
+.doc blockquote p{margin:.35em 0}
+/* warning callouts (Do NOT say…) read amber, distinct from blue answer-quotes */
+.doc blockquote.warn{background:var(--warn-bg); border-left-color:var(--warn)}
+.doc blockquote.warn strong{color:var(--warn)}
+
+/* code */
+.doc code{font-family:var(--mono); font-size:.86em; background:var(--code-bg); color:var(--code-ink); padding:.12em .4em; border-radius:5px}
+.doc pre{background:var(--code-bg); border:1px solid var(--line); border-radius:10px; padding:14px 16px; overflow-x:auto; margin:1em 0}
+.doc pre code{background:none; padding:0; font-size:13.5px; line-height:1.55}
+
+/* tables */
+.doc table{border-collapse:collapse; width:100%; margin:1.1em 0; font-size:14.5px; display:block; overflow-x:auto}
+.doc th,.doc td{border:1px solid var(--line); padding:8px 12px; text-align:left; vertical-align:top}
+.doc thead th{background:var(--bg-soft); font-weight:600; color:var(--ink)}
+.doc tbody tr:nth-child(even){background:var(--bg-soft)}
+
+/* figures / diagrams */
+.diagram{margin:1.6em 0; text-align:center}
+.diagram img{
+  width:100%; max-width:720px; height:auto; background:#fff;
+  border:1px solid var(--line); border-radius:12px; padding:14px;
+  box-shadow:0 1px 3px rgba(0,0,0,.05);
+}
+.diagram figcaption{margin-top:8px; font-size:13px; color:var(--ink-faint); font-style:italic}
+/* soften the forced-white diagram card in dark mode to reduce glare */
+html.dark .diagram img{background:#f4f6f9}
+
+/* prev / next */
+.prevnext{display:flex; justify-content:space-between; gap:14px; margin-top:48px; padding-top:22px; border-top:1px solid var(--line)}
+.pn{flex:1 1 0; padding:12px 16px; border:1px solid var(--line); border-radius:10px; font-size:14px; color:var(--ink-soft); background:var(--bg-card)}
+.pn:hover{border-color:var(--accent); color:var(--accent-ink); text-decoration:none}
+.pn.next{text-align:right}
+.pn.ghost{border:none; background:none; pointer-events:none}
+.pn span{display:block; font-weight:600; color:var(--ink)}
+
+/* on this page */
+.toc{position:sticky; top:46px; align-self:flex-start; width:210px; flex:0 0 210px; font-size:13.5px}
+.toc-title{font-size:11.5px; text-transform:uppercase; letter-spacing:.06em; color:var(--ink-faint); font-weight:700; margin-bottom:8px}
+.toc ul{list-style:none; margin:0; padding:0; border-left:2px solid var(--line)}
+.toc li a{display:block; padding:4px 12px; color:var(--ink-soft); border-left:2px solid transparent; margin-left:-2px}
+.toc li a:hover{color:var(--accent-ink); border-left-color:var(--accent); text-decoration:none}
+.toc li.sub a{padding-left:22px; font-size:12.5px; color:var(--ink-faint)}
+
+/* ---------- landing ---------- */
+.hero{padding:8px 0 6px}
+.hero h1{font-family:var(--serif); font-size:40px; line-height:1.12; margin:0 0 .3em; letter-spacing:-.015em}
+.lede{font-size:18px; color:var(--ink-soft); max-width:680px}
+.hero-cta{display:flex; flex-wrap:wrap; gap:12px; margin-top:22px}
+.btn{display:inline-block; padding:11px 18px; border-radius:10px; border:1px solid var(--line); background:var(--bg-card); color:var(--ink); font-weight:600; font-size:15px}
+.btn:hover{border-color:var(--accent); color:var(--accent-ink); text-decoration:none}
+.btn.primary{background:var(--accent); border-color:var(--accent); color:#fff}
+.btn.primary:hover{background:var(--accent-ink); color:#fff}
+/* dark mode: the light accent (#60a5fa) is illegible under white text, use a saturated blue */
+html.dark .btn.primary{background:#2563eb; border-color:#2563eb; color:#fff}
+html.dark .btn.primary:hover{background:#1d4ed8; border-color:#1d4ed8; color:#fff}
+html.dark .card-badge{background:#2563eb; color:#fff}
+
+.callout{margin:30px 0; padding:18px 22px; border-radius:12px; border:1px solid var(--line)}
+.callout.warn{background:var(--warn-bg); border-color:var(--warn-line)}
+.callout-title{font-weight:700; color:var(--warn); margin-bottom:4px}
+.callout p{margin:.3em 0}
+
+.numbers{margin:30px 0}
+.num-title{font-size:12px; text-transform:uppercase; letter-spacing:.06em; color:var(--ink-faint); font-weight:700; margin-bottom:12px}
+.num-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:12px}
+.num{background:var(--bg-card); border:1px solid var(--line); border-radius:12px; padding:14px 16px}
+.num b{display:block; font-family:var(--serif); font-size:24px; color:var(--accent-ink)}
+.num span{font-size:13px; color:var(--ink-soft)}
+
+.group{margin:38px 0}
+.group h2{font-family:var(--serif); font-size:23px; margin:0 0 14px}
+.cards{display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:14px}
+.card{display:block; background:var(--bg-card); border:1px solid var(--line); border-radius:12px; padding:16px 18px; color:var(--ink)}
+.card:hover{border-color:var(--accent); box-shadow:0 6px 20px rgba(37,99,235,.10); text-decoration:none; transform:translateY(-1px); transition:.12s}
+.card-h{font-weight:700; font-size:16px; margin-bottom:5px}
+.card-b{font-size:13.5px; color:var(--ink-soft); line-height:1.5}
+.card-badge{font-size:11px; color:#fff; background:var(--accent); padding:1px 7px; border-radius:10px; margin-left:6px; vertical-align:middle}
+
+/* ---------- buttons (floating) ---------- */
+.menu-btn,.theme-btn{position:fixed; top:14px; z-index:50; width:40px; height:40px; border-radius:10px; border:1px solid var(--line); background:var(--bg-card); color:var(--ink); font-size:18px; cursor:pointer; box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.theme-btn{right:16px}
+.menu-btn{left:16px; display:none}
+.menu-btn:hover,.theme-btn:hover{border-color:var(--accent); color:var(--accent-ink)}
+.scrim{display:none}
+
+/* ---------- responsive ---------- */
+@media (max-width:1280px){ .toc{display:none} }
+@media (max-width:860px){
+  .menu-btn{display:block}
+  .content{padding:70px 22px 80px}
+  .sidebar{position:fixed; left:0; top:0; z-index:45; transform:translateX(-100%); transition:transform .2s; box-shadow:0 0 40px rgba(0,0,0,.2)}
+  .sidebar.open{transform:translateX(0)}
+  .scrim.show{display:block; position:fixed; inset:0; background:rgba(0,0,0,.4); z-index:40}
+  .hero h1{font-size:30px}
+}

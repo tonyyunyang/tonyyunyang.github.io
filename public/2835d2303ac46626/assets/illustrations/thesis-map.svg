@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 420" role="img">
+  <title>The 'Systems Race' Thesis</title>
+  <desc>Mind-map showing the Systems Race thesis at the center with four branches: Route (LLM routing — Router, TwinRouterBench, MERA), Compress (pruning), Train efficiently (Diffusion Weights), and Apply (VLM for customer intent).</desc>
+
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#94a3b8"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="410" y="32" text-anchor="middle"
+        font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
+        font-size="19" font-weight="700" fill="#1f2733">The 'Systems Race' Thesis</text>
+
+  <!-- ── Center node ── -->
+  <rect x="240" y="158" width="340" height="70" rx="10" fill="#e8f0fe" stroke="#2563eb" stroke-width="2"/>
+  <text x="410" y="183" text-anchor="middle"
+        font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
+        font-size="13" font-weight="700" fill="#2563eb">Systems race, not scaling race:</text>
+  <text x="410" y="201" text-anchor="middle"
+        font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
+        font-size="13" font-weight="600" fill="#2563eb">do more under real constraints</text>
+  <text x="410" y="219" text-anchor="middle"
+        font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
+        font-size="11" fill="#56616f">Route · Compress · Train Efficiently · Apply</text>
+
+  <!-- ── Branch 1: Route (top-left) ── -->
+  <line x1="248" y1="170" x2="172" y2="110" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)"/>
+  <!-- verb pill -->
+  <rect x="90" y="83" width="80" height="32" rx="10" fill="#f7f8fa" stroke="#94a3b8" stroke-width="2"/>
+  <text x="130" y="104" text-anchor="middle"
+        font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
+        font-size="14" font-weight="700" fill="#1f2733">Route</text>
+  <!-- detail lines — left-aligned from x=10, lowered to clear the branch arrow -->
+  <text x="10" y="136" text-anchor="start"
+        font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
+        font-size="11" fill="#56616f">LLM routing</text>
+  <text x="10" y="151" text-anchor="start"
+        font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
+        font-size="11" fill="#56616f">Router · TwinRouterBench · MERA</text>
+
+  <!-- ── Branch 2: Compress (bottom-left) ── -->
+  <line x1="242" y1="210" x2="170" y2="283" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)"/>
+  <rect x="90" y="277" width="106" height="32" rx="10" fill="#f7f8fa" stroke="#94a3b8" stroke-width="2"/>
+  <text x="143" y="297" text-anchor="middle"
+        font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
+        font-size="14" font-weight="700" fill="#1f2733">Compress</text>
+  <text x="143" y="321" text-anchor="middle"
+        font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
+        font-size="11" fill="#56616f">pruning</text>
+
+  <!-- ── Branch 3: Train efficiently (top-right) ── -->
+  <line x1="578" y1="177" x2="644" y2="117" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)"/>
+  <rect x="644" y="83" width="130" height="32" rx="10" fill="#f7f8fa" stroke="#94a3b8" stroke-width="2"/>
+  <text x="709" y="104" text-anchor="middle"
+        font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
+        font-size="13" font-weight="700" fill="#1f2733">Train efficiently</text>
+  <text x="810" y="128" text-anchor="end"
+        font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
+        font-size="11" fill="#56616f">Diffusion Weights</text>
+
+  <!-- ── Branch 4: Apply (bottom-right) ── -->
+  <line x1="578" y1="210" x2="644" y2="283" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)"/>
+  <rect x="644" y="277" width="76" height="32" rx="10" fill="#f7f8fa" stroke="#94a3b8" stroke-width="2"/>
+  <text x="682" y="297" text-anchor="middle"
+        font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
+        font-size="14" font-weight="700" fill="#1f2733">Apply</text>
+  <text x="810" y="321" text-anchor="end"
+        font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
+        font-size="11" fill="#56616f">VLM for customer intent</text>
+
+</svg>

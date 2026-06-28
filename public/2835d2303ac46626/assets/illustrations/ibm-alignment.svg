@@ -1,0 +1,128 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 420" role="img">
+  <title>IBM Alignment → Attention</title>
+  <desc>A word-alignment matrix showing source words as columns (le, chat, noir) and target words as rows (the, black, cat), with cells shaded by soft alignment probability. Illustrates how IBM Model 1/2 soft alignments are the ancestor of neural attention.</desc>
+
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#2563eb"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="400" y="38" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="19" font-weight="700" fill="#1f2733">IBM Alignment → Attention</text>
+
+  <!-- Subtitle / axis labels -->
+  <!-- Source label (columns) -->
+  <text x="400" y="68" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="13" fill="#56616f">Source (French)</text>
+
+  <!-- Target label (rows) - rotated -->
+  <text x="96" y="230" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="13" fill="#56616f" transform="rotate(-90, 96, 230)">Target (English)</text>
+
+  <!-- Grid parameters:
+       Columns: le (col 0), chat (col 1), noir (col 2)
+       Rows: the (row 0), black (row 1), cat (row 2)
+       Grid origin: x=160, y=85
+       Cell size: 110 x 80
+  -->
+
+  <!-- Column headers (source words) -->
+  <text x="215" y="82" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#1f2733">le</text>
+  <text x="325" y="82" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#1f2733">chat</text>
+  <text x="435" y="82" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#1f2733">noir</text>
+
+  <!-- Row headers (target words) -->
+  <text x="148" y="140" text-anchor="end" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#1f2733">the</text>
+  <text x="148" y="220" text-anchor="end" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#1f2733">black</text>
+  <text x="148" y="300" text-anchor="end" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#1f2733">cat</text>
+
+  <!--
+    Alignment probabilities (illustrative):
+    Row "the":   le=0.85, chat=0.10, noir=0.05
+    Row "black": le=0.05, chat=0.10, noir=0.85
+    Row "cat":   le=0.05, chat=0.88, noir=0.07
+
+    Color: white (#ffffff) = 0.0, dark blue (#1e40af) = 1.0
+    Intermediate: mix via opacity on a blue rect over white bg
+    opacity ≈ probability value
+  -->
+
+  <!-- Grid background (white cells) -->
+  <!-- Row 0 (the), Col 0 (le) -->
+  <rect x="160" y="90" width="110" height="80" rx="4" fill="#f7f8fa" stroke="#94a3b8" stroke-width="1.5"/>
+  <!-- Shading overlay: high (0.85) -->
+  <rect x="160" y="90" width="110" height="80" rx="4" fill="#2563eb" opacity="0.85"/>
+
+  <!-- Row 0 (the), Col 1 (chat) -->
+  <rect x="270" y="90" width="110" height="80" rx="4" fill="#f7f8fa" stroke="#94a3b8" stroke-width="1.5"/>
+  <!-- Shading overlay: low (0.10) -->
+  <rect x="270" y="90" width="110" height="80" rx="4" fill="#2563eb" opacity="0.10"/>
+
+  <!-- Row 0 (the), Col 2 (noir) -->
+  <rect x="380" y="90" width="110" height="80" rx="4" fill="#f7f8fa" stroke="#94a3b8" stroke-width="1.5"/>
+  <!-- Shading overlay: very low (0.05) -->
+  <rect x="380" y="90" width="110" height="80" rx="4" fill="#2563eb" opacity="0.05"/>
+
+  <!-- Row 1 (black), Col 0 (le) -->
+  <rect x="160" y="170" width="110" height="80" rx="4" fill="#f7f8fa" stroke="#94a3b8" stroke-width="1.5"/>
+  <rect x="160" y="170" width="110" height="80" rx="4" fill="#2563eb" opacity="0.05"/>
+
+  <!-- Row 1 (black), Col 1 (chat) -->
+  <rect x="270" y="170" width="110" height="80" rx="4" fill="#f7f8fa" stroke="#94a3b8" stroke-width="1.5"/>
+  <rect x="270" y="170" width="110" height="80" rx="4" fill="#2563eb" opacity="0.10"/>
+
+  <!-- Row 1 (black), Col 2 (noir) -->
+  <rect x="380" y="170" width="110" height="80" rx="4" fill="#f7f8fa" stroke="#94a3b8" stroke-width="1.5"/>
+  <rect x="380" y="170" width="110" height="80" rx="4" fill="#2563eb" opacity="0.85"/>
+
+  <!-- Row 2 (cat), Col 0 (le) -->
+  <rect x="160" y="250" width="110" height="80" rx="4" fill="#f7f8fa" stroke="#94a3b8" stroke-width="1.5"/>
+  <rect x="160" y="250" width="110" height="80" rx="4" fill="#2563eb" opacity="0.05"/>
+
+  <!-- Row 2 (cat), Col 1 (chat) -->
+  <rect x="270" y="250" width="110" height="80" rx="4" fill="#f7f8fa" stroke="#94a3b8" stroke-width="1.5"/>
+  <rect x="270" y="250" width="110" height="80" rx="4" fill="#2563eb" opacity="0.88"/>
+
+  <!-- Row 2 (cat), Col 2 (noir) -->
+  <rect x="380" y="250" width="110" height="80" rx="4" fill="#f7f8fa" stroke="#94a3b8" stroke-width="1.5"/>
+  <rect x="380" y="250" width="110" height="80" rx="4" fill="#2563eb" opacity="0.07"/>
+
+  <!-- Probability labels inside cells -->
+  <!-- Row 0 (the) -->
+  <text x="215" y="135" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="13" font-weight="600" fill="#ffffff">0.85</text>
+  <text x="325" y="135" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="13" fill="#56616f">0.10</text>
+  <text x="435" y="135" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="13" fill="#56616f">0.05</text>
+
+  <!-- Row 1 (black) -->
+  <text x="215" y="215" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="13" fill="#56616f">0.05</text>
+  <text x="325" y="215" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="13" fill="#56616f">0.10</text>
+  <text x="435" y="215" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="13" font-weight="600" fill="#ffffff">0.85</text>
+
+  <!-- Row 2 (cat) -->
+  <text x="215" y="295" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="13" fill="#56616f">0.05</text>
+  <text x="325" y="295" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="13" font-weight="600" fill="#ffffff">0.88</text>
+  <text x="435" y="295" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="13" fill="#56616f">0.07</text>
+
+  <!-- Legend -->
+  <rect x="530" y="130" width="200" height="110" rx="10" fill="#f7f8fa" stroke="#94a3b8" stroke-width="1.5"/>
+  <text x="630" y="152" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" font-weight="600" fill="#1f2733">Soft Alignment p(a=i|j)</text>
+  <!-- Legend gradient: low to high -->
+  <rect x="550" y="162" width="160" height="22" rx="4" fill="#f7f8fa" stroke="#94a3b8" stroke-width="1"/>
+  <rect x="550" y="162" width="26" height="22" rx="4" fill="#2563eb" opacity="0.05"/>
+  <rect x="576" y="162" width="27" height="22" fill="#2563eb" opacity="0.25"/>
+  <rect x="603" y="162" width="27" height="22" fill="#2563eb" opacity="0.45"/>
+  <rect x="630" y="162" width="26" height="22" fill="#2563eb" opacity="0.65"/>
+  <rect x="656" y="162" width="27" height="22" fill="#2563eb" opacity="0.85"/>
+  <rect x="683" y="162" width="27" height="22" rx="4" fill="#2563eb" opacity="0.95"/>
+  <text x="550" y="200" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" fill="#56616f">low</text>
+  <text x="710" y="200" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" fill="#56616f">high</text>
+  <text x="630" y="230" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" fill="#56616f">darker = higher probability</text>
+
+  <!-- Arrow pointing toward attention label -->
+  <line x1="510" y1="185" x2="538" y2="185" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+  <!-- Caption -->
+  <rect x="80" y="348" width="640" height="52" rx="10" fill="#e8f0fe" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="400" y="368" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="13" font-weight="600" fill="#2563eb">IBM Model 1/2 learn alignments via EM</text>
+  <text x="400" y="388" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" fill="#1f2733">this soft alignment matrix is the direct ancestor of neural attention (α_{ti})</text>
+
+</svg>

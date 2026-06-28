@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en" data-pagefind-ignore="all">
+<head>
+<meta name="robots" content="noindex, nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Generative Models Beyond LLMs · eBay Prep</title>
+<script>try{if(localStorage.getItem('ebayprep-theme')==='dark')document.documentElement.classList.add('dark');}catch(e){}</script>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<button id="menu" class="menu-btn" aria-label="Menu">☰</button>
+<button id="theme" class="theme-btn" aria-label="Toggle theme">◐</button>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+<div class="brand"><a href="../index.html">eBay Prep</a><div class="brand-sub">Stage 1 · Yannick Versley</div></div>
+<div class="search"><input id="q" type="search" placeholder="Search the pack…" autocomplete="off"><div id="results"></div></div>
+<nav class="nav">
+<div class="nav-group"><div class="nav-group-title">Start Here</div><ul>
+<li><a href="7DAY_SPRINT_PLAN.html">7-Day Sprint Plan</a></li>
+<li><a href="21_KILL_LIST.html">⚠ Kill List — Never Say These</a></li>
+<li><a href="00_MASTER_INDEX_AND_STUDY_PLAN.html">Master Index &amp; Study Plan</a></li>
+<li><a href="SESSION2_READINESS_REPORT.html">Readiness Report</a></li>
+</ul></div>
+<div class="nav-group"><div class="nav-group-title">Stage 1 — Core</div><ul>
+<li><a href="03_INTERVIEWER_YANNICK_VERSLEY.html">Interviewer: Yannick Versley</a></li>
+<li><a href="02_STAGE1_ML_LLM_NLP_MASTERDOC.html">Stage-1 ML/LLM/NLP Master Doc</a></li>
+<li><a href="20_OWN_PAPERS_GROUND_TRUTH.html">★ Own Papers — Ground-Truth Defense</a></li>
+<li><a href="04_PUBLICATIONS_PROJECTS_DEFENSE.html">Publications &amp; Projects Defense</a></li>
+<li><a href="05_QUESTION_BANK_THIS_ROLE.html">Question Bank (This Role)</a></li>
+<li><a href="06_ML_LLM_NLP_FUNDAMENTALS_STUDYGUIDE.html">ML/LLM/NLP Fundamentals</a></li>
+<li><a href="12_MOCK_INTERVIEW_FULL.html">Full Mock Interview</a></li>
+</ul></div>
+<div class="nav-group"><div class="nav-group-title">Stage 1 — Deep Dives</div><ul>
+<li><a href="18_STAGE1_GAPFILL_DEEP_ANSWERS.html">Gap-Fill: Deep Answers</a></li>
+<li><a href="18b_STAGE1_GAPFILL_ROUND2.html">Gap-Fill: Round 2</a></li>
+<li><a href="19_ADAPTIVE_MOCK_SESSIONS.html">Adaptive Mock Sessions</a></li>
+<li class="active"><a href="13_GENERATIVE_MODELS_BEYOND_LLMS.html">Generative Models Beyond LLMs</a></li>
+<li><a href="14_CLASSICAL_NLP_AND_MT_DEEP_DIVE.html">Classical NLP &amp; MT Deep Dive</a></li>
+<li><a href="15_SOTA_2026_CURRENT_AWARENESS.html">SOTA 2026 Current Awareness</a></li>
+<li><a href="16_EXPERTISE_DEEP_DIVE_EFFICIENCY.html">Expertise Deep Dive: Efficiency</a></li>
+<li><a href="17_RAPID_FIRE_BREADTH_BANK.html">Rapid-Fire Breadth Bank</a></li>
+</ul></div>
+<div class="nav-group"><div class="nav-group-title">eBay &amp; Why eBay</div><ul>
+<li><a href="07_EBAY_COMPANY_AI_DOSSIER.html">eBay Company AI Dossier</a></li>
+</ul></div>
+<div class="nav-group"><div class="nav-group-title">Later Stages (2 &amp; 3)</div><ul>
+<li><a href="08_ML_SYSTEM_DESIGN_PLAYBOOK.html">ML System Design Playbook</a></li>
+<li><a href="09_CODING_CODESIGNAL_PREP.html">Coding / CodeSignal Prep</a></li>
+<li><a href="10_PROJECT_MGMT_RETROSPECTIVE_STAR.html">Project Mgmt &amp; STAR Stories</a></li>
+<li><a href="11_TEAM_FIT_CAREER.html">Team Fit &amp; Career</a></li>
+</ul></div>
+<div class="nav-group"><div class="nav-group-title">Logistics</div><ul>
+<li><a href="01_RECRUITER_RESPONSE_PACK.html">Recruiter Response Pack</a></li>
+</ul></div>
+</nav>
+  </aside>
+  <div class="scrim" id="scrim"></div>
+  <main class="content">
+    <article class="doc">
+      <div class="doc-meta"><span class="tag">Stage 1 — Deep Dives</span><span class="read">41 min read</span></div>
+      <h1 id="13-generative-models-beyond-llms">13 — Generative Models Beyond LLMs</h1>
+<blockquote>
+<p><strong>How to use:</strong> Read top-to-bottom once, then drill the Q→Model Answer→Hard Follow-up triples aloud. The final section "Is Diffusion Weights Actually Diffusion?" is the one Versley WILL ask — rehearse that answer until it is reflexive. Math notation follows standard ML convention; equations use LaTeX-style for clarity.</p>
+</blockquote>
+<hr />
+<h2 id="1-ddpm-denoising-diffusion-probabilistic-models">1. DDPM — Denoising Diffusion Probabilistic Models</h2>
+<figure class="diagram">
+  <img src="../assets/illustrations/ddpm.svg" alt="DDPM: Forward and Reverse">
+  <figcaption>Forward adds Gaussian noise step by step; a learned reverse process denoises. Training = predict the noise (denoising score matching).</figcaption>
+</figure>
+
+<h3 id="11-conceptual-backbone">1.1 Conceptual Backbone</h3>
+<p>DDPM (Ho et al., NeurIPS 2020) defines a <strong>Markov chain that progressively corrupts data</strong> with Gaussian noise over T steps, then learns to reverse that corruption. The key insight is that reversing a small, well-characterized Gaussian perturbation is a tractable supervised regression problem, even though reversing corruption all at once (directly generating an image from noise) is not.</p>
+<h3 id="12-forward-process-q">1.2 Forward Process q</h3>
+<p>The forward process is fixed (no learnable parameters):</p>
+<pre><code>q(x_t | x_{t-1}) = N(x_t ; sqrt(1 - beta_t) * x_{t-1}, beta_t * I)
+</code></pre>
+<p>where <code>beta_1, ..., beta_T</code> is a <strong>noise schedule</strong> (typically monotonically increasing, e.g., <code>beta_1 = 1e-4</code>, <code>beta_T = 0.02</code> for linear schedule with T=1000).</p>
+<p><strong>Key reparameterization (marginal in closed form):</strong> Define <code>alpha_t = 1 - beta_t</code> and <code>alpha_bar_t = prod_{s=1}^{t} alpha_s</code>. Then the marginal at any timestep can be sampled directly without iterating:</p>
+<pre><code>q(x_t | x_0) = N(x_t ; sqrt(alpha_bar_t) * x_0, (1 - alpha_bar_t) * I)
+</code></pre>
+<p>This means <code>x_t = sqrt(alpha_bar_t) * x_0 + sqrt(1 - alpha_bar_t) * epsilon</code>, where <code>epsilon ~ N(0, I)</code>. This is critical: during training you can instantly sample any corruption level from the clean image, without running T Markov steps.</p>
+<p>As <code>t -&gt; T</code>, <code>alpha_bar_T -&gt; 0</code> so <code>q(x_T | x_0) ≈ N(0, I)</code> — pure noise. This is the prior from which sampling begins at inference.</p>
+<h3 id="13-reverse-process-p_theta">1.3 Reverse Process p_theta</h3>
+<p>The reverse process is <strong>also a Markov chain</strong>, but parameterized with a neural network:</p>
+<pre><code>p_theta(x_{t-1} | x_t) = N(x_{t-1} ; mu_theta(x_t, t), Sigma_theta(x_t, t))
+</code></pre>
+<p>Ho et al. fix <code>Sigma_theta = sigma_t^2 * I</code> (not learned) and only learn the mean <code>mu_theta</code>. This already works well in practice; Nichol &amp; Dhariwal (DDPM++/improved DDPM, ICML 2021) later learn <code>Sigma_theta</code> via an interpolation in log-space parameterization.</p>
+<h3 id="14-elbo-the-training-objective">1.4 ELBO — The Training Objective</h3>
+<p>The variational lower bound on log p_theta(x_0):</p>
+<pre><code>L = E_q[ -log p_theta(x_0 | x_1) ]                          (reconstruction)
+  + sum_{t=2}^{T} E_q[ KL(q(x_{t-1}|x_t, x_0) || p_theta(x_{t-1}|x_t)) ]   (denoising terms)
+  + KL(q(x_T|x_0) || p(x_T))                                (prior matching, ~0 by design)
+</code></pre>
+<p>The middle KL terms are tractable because <code>q(x_{t-1}|x_t, x_0)</code> is Gaussian in closed form (Bayesian posterior of the forward process):</p>
+<pre><code>q(x_{t-1} | x_t, x_0) = N(x_{t-1} ; tilde_mu_t(x_t, x_0), tilde_beta_t * I)
+</code></pre>
+<p>where <code>tilde_mu_t(x_t, x_0) = [sqrt(alpha_bar_{t-1}) * beta_t / (1 - alpha_bar_t)] * x_0 + [sqrt(alpha_t) * (1 - alpha_bar_{t-1}) / (1 - alpha_bar_t)] * x_t</code>.</p>
+<p><strong>Simplified epsilon-prediction objective:</strong> Ho et al. reparameterize <code>mu_theta</code> to predict the noise <code>epsilon</code> rather than the mean:</p>
+<pre><code>mu_theta(x_t, t) = (1/sqrt(alpha_t)) * (x_t - (beta_t / sqrt(1 - alpha_bar_t)) * epsilon_theta(x_t, t))
+</code></pre>
+<p>This yields the simplified loss (after dropping constant prefactors from the KL):</p>
+<pre><code>L_simple = E_{t, x_0, epsilon} [ || epsilon - epsilon_theta(sqrt(alpha_bar_t) * x_0 + sqrt(1 - alpha_bar_t) * epsilon, t) ||^2 ]
+</code></pre>
+<p>This is just mean-squared error between the true injected noise <code>epsilon</code> and the network's prediction of it. Remarkably simple and highly effective.</p>
+<h3 id="15-connection-to-score-matching-and-langevin-dynamics">1.5 Connection to Score Matching and Langevin Dynamics</h3>
+<p><strong>Score function:</strong> The score of a distribution is <code>s(x) = nabla_x log p(x)</code>. Score-based models (Song &amp; Ermon, NeurIPS 2019) train a neural network <code>s_theta(x, sigma)</code> to match this score at multiple noise levels sigma.</p>
+<p><strong>Tweedie's formula</strong> connects noise prediction to score estimation:</p>
+<pre><code>nabla_{x_t} log q_t(x_t) = - epsilon / sqrt(1 - alpha_bar_t)
+</code></pre>
+<p>So <code>epsilon_theta / sqrt(1 - alpha_bar_t)</code> is precisely an estimate of the <strong>negative score</strong> at noise level <code>alpha_bar_t</code>. DDPM and score-based models are equivalent — just two parameterizations of the same underlying objective.</p>
+<p><strong>Annealed Langevin MCMC:</strong> Given a score estimate, you can sample via:</p>
+<pre><code>x_{k+1} = x_k + (delta/2) * s_theta(x_k, sigma) + sqrt(delta) * z_k,   z_k ~ N(0, I)
+</code></pre>
+<p>This stochastic gradient descent on the log-density converges (under Langevin diffusion theory) to samples from the target distribution as <code>delta -&gt; 0, K -&gt; inf</code>. DDPM's reverse process is a discrete-time, learned approximation of this.</p>
+<h3 id="16-ddim-deterministic-sampling">1.6 DDIM — Deterministic Sampling</h3>
+<p><strong>Problem with DDPM:</strong> Reverse process requires T=1000 stochastic steps for high-quality samples (~1000 neural network evals). Impractical.</p>
+<p>Song et al. (ICLR 2021) show you can derive a family of <strong>non-Markovian</strong> forward processes with the same marginals <code>q(x_t | x_0)</code> as DDPM but different joint <code>q(x_{t-1} | x_t, x_0)</code>. One limiting case is deterministic:</p>
+<pre><code>x_{t-1} = sqrt(alpha_bar_{t-1}) * x_hat_0(x_t, t)                               (predicted x_0 component)
+         + sqrt(1 - alpha_bar_{t-1} - sigma_t^2) * epsilon_theta(x_t, t)          (direction to x_t)
+         + sigma_t * epsilon                                                        (stochastic)
+</code></pre>
+<p>Setting <code>sigma_t = 0</code> for all t gives <strong>DDIM</strong>: a <strong>deterministic ODE integration</strong> of the reverse process. Now you can skip time steps — evaluating only a subset {T, T-delta, ..., 0} — yielding high-quality samples in 20-50 steps (~50× speedup). The "deterministic" property also means DDIM is <strong>invertible</strong>: you can encode a real image into latent noise and reconstruct it faithfully, enabling image editing.</p>
+<h3 id="17-classifier-free-guidance-cfg">1.7 Classifier-Free Guidance (CFG)</h3>
+<p>Ho &amp; Salimans (NeurIPS 2022 workshop) avoid the need for a separate classifier at inference. During training, the conditioning signal (text, class, etc.) is randomly dropped (set to null) ~10-20% of the time. At inference, the denoising prediction is:</p>
+<pre><code>epsilon_guided = epsilon_theta(x_t, t, null) + w * (epsilon_theta(x_t, t, c) - epsilon_theta(x_t, t, null))
+</code></pre>
+<p>where <code>w</code> is the <strong>guidance scale</strong> (typically 3-15). Setting <code>w=0</code> gives unconditional generation; <code>w=1</code> gives standard conditional generation; <code>w&gt;1</code> "amplifies" conditioning at the cost of diversity (trades recall for precision). CFG is now universal in text-to-image models.</p>
+<h3 id="18-noise-schedules">1.8 Noise Schedules</h3>
+<ul>
+<li><strong>Linear schedule (Ho et al.):</strong> <code>beta_t</code> linearly interpolated from <code>beta_1=1e-4</code> to <code>beta_T=0.02</code>. Problem: at low t, corruption is very slight (poor sample diversity); at very low <code>alpha_bar_t</code>, the image is already pure noise before T is reached — wasted steps.</li>
+<li><strong>Cosine schedule (Nichol &amp; Dhariwal, 2021):</strong> <code>alpha_bar_t = cos^2(pi/2 * (t/T + s)/(1+s))</code>. Smoother decay near t=0, avoids near-zero <code>alpha_bar</code> until very late. Better FID, especially on lower-resolution images.</li>
+<li><strong>EDM schedule (Karras et al., NeurIPS 2022):</strong> Reframes the problem in terms of continuous noise level <code>sigma</code> rather than discrete <code>t</code>. Enables continuous-time training, logarithmic weighting of loss terms, and second-order ODE solvers (Heun's method) at inference.</li>
+</ul>
+<h3 id="19-latent-diffusion-stable-diffusion-vs-pixel-space">1.9 Latent Diffusion (Stable Diffusion) vs Pixel-Space</h3>
+<p><strong>Problem:</strong> Running a 1000-step diffusion chain on 512x512 RGB images is extremely expensive. Each step costs one U-Net forward pass on a 3×512×512 tensor.</p>
+<p><strong>Solution (Rombach et al., CVPR 2022 — LDM / Stable Diffusion):</strong> Train a <strong>VQ-VAE or KL-VAE</strong> (see VAE section) to compress images into a much smaller latent space (e.g., 4×64×64 for a 512×512 image — 48× compression by pixel count). Run the diffusion process entirely in this latent space. The decoder reconstructs the final image from the denoised latent.</p>
+<p><strong>Why this works:</strong> The VAE first removes perceptual redundancy (local texture regularity, smooth backgrounds, etc.) — the "imperceptible details" that DDPM would waste many steps on. The latent space is semantically structured, so diffusion over it is more efficient per step.</p>
+<p><strong>Text conditioning in SD:</strong> A frozen CLIP text encoder converts the prompt to embeddings; these are fed to the U-Net via <strong>cross-attention layers</strong> (inserted into each resolution block). The U-Net architecture: encoder downsampling path (ResNet blocks + attention), bottleneck, decoder upsampling path with skip connections — hence "U-Net."</p>
+<p><strong>Pixel-space vs latent:</strong> Pixel-space (DDPM, DALL-E 2 prior, some SR models) requires more NFEs to converge and is computationally heavier, but avoids the VAE "bottleneck" artifacts and reconstruction loss. Latent diffusion is now dominant for high-resolution generation; pixel-space is retained for specialized tasks (medical, scientific imaging).</p>
+<hr />
+<h2 id="2-score-based-sde-view-song-et-al-2021">2. Score-Based SDE View — Song et al. 2021</h2>
+<p>Song et al. (NeurIPS 2021, "Score-Based Generative Modeling through Stochastic Differential Equations") unify DDPM, NCSN/SMLD (score-based), and their continuous-time extensions into one <strong>SDE framework</strong>.</p>
+<h3 id="21-the-forward-sde">2.1 The Forward SDE</h3>
+<pre><code>dx = f(x, t) dt + g(t) dW
+</code></pre>
+<p>where <code>f</code> (drift) and <code>g</code> (diffusion coefficient) determine what kind of noise is added. Special cases:
+- <strong>VP-SDE</strong> (Variance-Preserving): <code>f(x,t) = -beta(t)/2 * x</code>, <code>g(t) = sqrt(beta(t))</code>. Corresponds to DDPM in the continuous limit.
+- <strong>VE-SDE</strong> (Variance-Exploding): <code>f = 0</code>, <code>g(t) = sqrt(d[sigma^2(t)]/dt)</code>. Corresponds to NCSN (Song &amp; Ermon 2019).
+- <strong>sub-VP-SDE</strong>: A modified VP with better likelihood.</p>
+<h3 id="22-the-reverse-time-sde">2.2 The Reverse-Time SDE</h3>
+<p>Anderson (1982) showed the reverse-time SDE (going from t=T to t=0) is:</p>
+<pre><code>dx = [f(x, t) - g(t)^2 * nabla_x log p_t(x)] dt + g(t) dW_bar
+</code></pre>
+<p>The only unknown is the <strong>score function</strong> <code>nabla_x log p_t(x)</code>, estimated by the neural network <code>s_theta(x, t)</code>. This is trained by:</p>
+<pre><code>L = E_{t, x_0, x_t} [ lambda(t) || s_theta(x_t, t) - nabla_{x_t} log q(x_t | x_0) ||^2 ]
+</code></pre>
+<p>where <code>nabla_{x_t} log q(x_t | x_0) = -(x_t - sqrt(alpha_bar_t) * x_0) / (1 - alpha_bar_t) = -epsilon / sqrt(1 - alpha_bar_t)</code> (for VP-SDE). This recovers DDPM's loss.</p>
+<h3 id="23-probability-flow-ode">2.3 Probability Flow ODE</h3>
+<p>The SDE framework also reveals a deterministic <strong>probability flow ODE</strong> with identical marginals:</p>
+<pre><code>dx = [f(x, t) - (1/2) * g(t)^2 * nabla_x log p_t(x)] dt
+</code></pre>
+<p>This enables: (a) exact likelihood computation via the continuous normalizing flow instantaneous change-of-variables formula, (b) deterministic generation (like DDIM but in continuous time), (c) faster ODE solvers (DPM-Solver, Karras et al. EDM).</p>
+<h3 id="24-why-this-framework-matters">2.4 Why This Framework Matters</h3>
+<p>It gives a principled mathematical foundation for:
+1. Designing new noise processes beyond Gaussian
+2. Deriving fast samplers as ODE integrators with controllable step size
+3. Estimating exact log-likelihoods (important for model comparison)
+4. Conditional generation via Bayes' theorem in score space: <code>nabla log p(x|y) = nabla log p(x) + nabla log p(y|x)</code> — the basis for classifier guidance</p>
+<hr />
+<p><strong>Q: Walk me through how DDPM trains and generates.</strong></p>
+<p><strong>Model answer:</strong> Training: sample a clean image x_0, a random timestep t from U[1,T], and Gaussian noise epsilon. Construct the corrupted image x_t = sqrt(alpha_bar_t) * x_0 + sqrt(1-alpha_bar_t) * epsilon using the closed-form marginal. Pass (x_t, t) through a U-Net and regress to predict epsilon. That's the simplified L_simple objective. Generation: start from x_T ~ N(0,I), then run the reverse Markov chain for T steps, at each step predicting epsilon_theta(x_t, t), computing the predicted x_0, then resampling x_{t-1} from the reverse posterior. With DDIM you can skip 95% of those steps deterministically.</p>
+<p><strong>Hardest follow-up:</strong> "Why does predicting epsilon work better than directly predicting x_0?"</p>
+<p>Empirically, predicting epsilon yields better training signal at high noise levels where predicting x_0 would require denoising a heavily corrupted image in one shot (high variance). Additionally, the score function perspective shows epsilon-prediction is estimating the score <code>nabla log p</code>, which has consistent magnitude across t. Predicting x_0 directly corresponds to estimating the posterior mean — at high t, many x_0 values are compatible with x_t so the target has very high variance, worsening the loss landscape. Karras et al. (EDM, 2022) show that an optimal weighting scheme transitions between epsilon-prediction at high noise and x_0-prediction at low noise.</p>
+<hr />
+<h2 id="3-variational-autoencoders-vae">3. Variational Autoencoders (VAE)</h2>
+<figure class="diagram">
+  <img src="../assets/illustrations/vae.svg" alt="Variational Autoencoder">
+  <figcaption>Encoder maps x→q(z|x); sample z via the reparameterization trick; decoder reconstructs. Loss = reconstruction − KL.</figcaption>
+</figure>
+
+<h3 id="31-setup">3.1 Setup</h3>
+<p>VAE (Kingma &amp; Welling, ICLR 2014) trains a generative model <code>p_theta(x)</code> with a latent variable <code>z</code>:</p>
+<pre><code>p_theta(x) = integral p_theta(x|z) p(z) dz
+</code></pre>
+<p>where <code>p(z) = N(0, I)</code> is the prior. Direct maximum likelihood is intractable (the integral). Instead, introduce an approximate posterior (encoder) <code>q_phi(z|x)</code>.</p>
+<h3 id="32-elbo">3.2 ELBO</h3>
+<p>By Jensen's inequality or the EM argument:</p>
+<pre><code>log p_theta(x) &gt;= E_{z~q_phi(z|x)}[log p_theta(x|z)] - KL(q_phi(z|x) || p(z))
+                = ELBO(theta, phi; x)
+</code></pre>
+<p>The ELBO decomposes into:
+- <strong>Reconstruction term:</strong> <code>E_{q_phi}[log p_theta(x|z)]</code> — how well the decoder reconstructs x from z. If p_theta(x|z) is Gaussian, this is just negative MSE.
+- <strong>KL regularizer:</strong> <code>KL(q_phi(z|x) || N(0,I))</code> — pushes the approximate posterior toward the prior, preventing trivial encoding (z = x) and enforcing a smooth, interpolable latent space.</p>
+<p>For a Gaussian encoder <code>q_phi(z|x) = N(mu_phi(x), diag(sigma_phi^2(x)))</code>, the KL has a closed form:</p>
+<pre><code>KL = (1/2) * sum_j [ sigma_j^2 + mu_j^2 - 1 - log(sigma_j^2) ]
+</code></pre>
+<p>where j indexes latent dimensions.</p>
+<h3 id="33-reparameterization-trick">3.3 Reparameterization Trick</h3>
+<p>The expectation <code>E_{z~q_phi(z|x)}[log p_theta(x|z)]</code> requires sampling z from the encoder — but you cannot backpropagate through a stochastic sample. The reparameterization trick rewrites <code>z = mu_phi(x) + sigma_phi(x) * epsilon</code> where <code>epsilon ~ N(0,I)</code> is sampled independently. Now z is a deterministic function of (phi, x, epsilon), so gradients flow through mu and sigma during backprop. The sampled epsilon is treated as a constant in the computation graph.</p>
+<h3 id="34-posterior-collapse">3.4 Posterior Collapse</h3>
+<p><strong>Problem:</strong> With powerful decoders (e.g., PixelCNN, autoregressive), the decoder learns to ignore z entirely — the reconstruction term can be minimized without using z, and the KL term is minimized by q(z|x) = p(z) (encoder collapses to prior). This is <strong>posterior collapse</strong>: z carries no information about x.</p>
+<p><strong>Why:</strong> The KL term creates a pressure toward zero KL (uninformative z), and if the decoder is expressive enough to model p(x) without conditioning, the gradient from the reconstruction term provides no pressure to keep z informative.</p>
+<p><strong>Fixes:</strong>
+1. <strong>beta-VAE (Higgins et al., ICLR 2017):</strong> <code>ELBO_beta = Recon - beta * KL</code>, with <code>beta &gt; 1</code>. This increases regularization at the expense of reconstruction quality, but forces the latent to be structured and disentangled. Used in Stable Diffusion's KL-VAE.
+2. <strong>KL annealing:</strong> Start training with beta=0 (pure reconstruction), linearly increase to 1. The decoder first learns a good reconstruction signal over z, making collapse harder to reach.
+3. <strong>Free bits (Kingma et al.):</strong> Set a minimum KL per dimension; any dimension below the threshold gets a KL gradient of 0 — prevents premature collapse of useful dimensions.
+4. <strong>Deterministic encoders + VAE-GAN:</strong> Use adversarial loss on decoder outputs to improve reconstruction, reducing pressure on the encoder to collapse.</p>
+<h3 id="35-vq-vae">3.5 VQ-VAE</h3>
+<p>Van den Oord et al. (NeurIPS 2017) replace the continuous Gaussian latent with a <strong>discrete codebook</strong>. The encoder maps x to continuous embeddings <code>z_e</code>; each is then quantized to the nearest codebook vector <code>e_k</code>:</p>
+<pre><code>z_q = argmin_k || z_e - e_k ||_2
+</code></pre>
+<p>The training loss has three parts: (1) reconstruction from z_q, (2) commitment loss <code>|| sg[z_e] - e_k ||^2</code> (moving codebook toward encoder outputs), (3) encoder commitment loss <code>|| z_e - sg[e_k] ||^2</code> (moving encoder toward codebook). sg = stop-gradient.</p>
+<p>Since argmin is not differentiable, gradients are copied from decoder's input to encoder's output (<strong>straight-through estimator</strong>). VQ-VAE avoids posterior collapse entirely (no KL term) and produces highly compressed, structured representations. VQ-VAE-2 (Razavi et al., NeurIPS 2019) stacks two VQ-VAEs hierarchically and uses a PixelCNN prior — achieving image quality competitive with GANs at the time. VQ-VAE is also the foundation of many audio codecs (EnCodec, SoundStream).</p>
+<hr />
+<p><strong>Q: What problem does the reparameterization trick solve and why does it work?</strong></p>
+<p><strong>Model answer:</strong> The VAE encoder samples z from q_phi(z|x), a stochastic node in the computation graph. Standard backprop cannot propagate gradients through sampling because it is not a deterministic operation. The reparameterization trick rewrites z as a deterministic transformation of the distribution parameters (mu, sigma) and an independent noise source epsilon. Now the gradient of the loss with respect to phi flows through mu_phi and sigma_phi as if z were a deterministic function, while epsilon is treated as a constant. The trick applies whenever the distribution can be expressed as z = g(phi, epsilon) for some differentiable g.</p>
+<p><strong>Hardest follow-up:</strong> "When does the reparameterization trick fail or not apply?"</p>
+<p>It fails for discrete distributions (categorical, Bernoulli) because there is no differentiable g. Approximate solutions include the Gumbel-Softmax / concrete distribution trick (Maddison et al., Jang et al., ICLR 2017) which provides a temperature-annealed soft approximation. For VQ-VAE the straight-through estimator bypasses the non-differentiability by passing gradients unchanged through the argmin. For complex distributions (flow-transformed, normalizing flow posteriors) the trick applies if the flow is differentiable and invertible.</p>
+<hr />
+<h2 id="4-generative-adversarial-networks-gan">4. Generative Adversarial Networks (GAN)</h2>
+<figure class="diagram">
+  <img src="../assets/illustrations/gan.svg" alt="Generative Adversarial Network">
+  <figcaption>Generator and discriminator play a minimax game; G learns to fool D. Failure mode: mode collapse.</figcaption>
+</figure>
+
+<h3 id="41-minimax-objective">4.1 Minimax Objective</h3>
+<p>Goodfellow et al. (NeurIPS 2014) frame generation as a two-player game:</p>
+<pre><code>min_G max_D V(D, G) = E_{x~p_data}[log D(x)] + E_{z~p_z}[log(1 - D(G(z)))]
+</code></pre>
+<p>The discriminator D maximizes its ability to distinguish real (high D(x)) from fake (low D(G(z))). The generator G minimizes D's ability, i.e., maximizes log(D(G(z))) (in practice, avoids the vanishing gradient region of log(1-D)).</p>
+<p><strong>Optimal discriminator:</strong> <code>D*(x) = p_data(x) / (p_data(x) + p_G(x))</code>. Under the optimal discriminator, the generator objective reduces to minimizing the <strong>Jensen-Shannon divergence</strong> <code>JSD(p_data || p_G)</code>. The global minimum is at <code>p_G = p_data</code> with <code>D* = 0.5</code> everywhere.</p>
+<h3 id="42-mode-collapse">4.2 Mode Collapse</h3>
+<p><strong>Problem:</strong> The generator learns to produce a small set of highly discriminative samples (all dogs look the same, or even just one dog) that fool D, rather than covering the full data distribution.</p>
+<p><strong>Why:</strong> The generator only needs to fool D, which is a local discriminator. If one mode is easy to generate convincingly, G can overfit to it. JS-divergence is insensitive to mass not covered by p_G (since it equals 1 bit when supports are disjoint).</p>
+<p><strong>Diagnostics:</strong> Precision (quality of individual samples) is high; recall (coverage of real distribution) collapses.</p>
+<p><strong>Fixes:</strong> minibatch discrimination (D looks at feature statistics across a minibatch to detect mode collapse), training with replay buffers of past generations, diversity penalties, unrolled GANs.</p>
+<h3 id="43-training-instability">4.3 Training Instability</h3>
+<p>The discriminator and generator have competing objectives, so training can oscillate: D becomes too strong (G gradients vanish), or G overpowers D (D accuracy collapses to 50%). Balance is inherently fragile and hyperparameter-sensitive.</p>
+<h3 id="44-wgan-and-wgan-gp">4.4 WGAN and WGAN-GP</h3>
+<p><strong>WGAN (Arjovsky et al., ICML 2017):</strong> Replace JS-divergence with <strong>Wasserstein-1 distance</strong> (Earth Mover's Distance):</p>
+<pre><code>W(p_r, p_g) = sup_{||f||_L &lt;= 1} E_{x~p_r}[f(x)] - E_{x~p_g}[f(x)]
+</code></pre>
+<p>where the sup is over all 1-Lipschitz functions f. The critic (no longer a probabilistic discriminator) is trained to maximize <code>E[f(x_real)] - E[f(x_fake)]</code>, clipping weights to [-c, c] to enforce the Lipschitz constraint. This gives:
+1. <strong>Meaningful gradient everywhere</strong>, even when p_r and p_g have disjoint supports.
+2. <strong>Loss is correlated with sample quality</strong> (Wasserstein distance is a proper distance; JS is not when supports don't overlap).
+3. No mode collapse by JS insensitivity.</p>
+<p><strong>WGAN-GP (Gulrajani et al., NeurIPS 2017):</strong> Weight clipping is a poor Lipschitz enforcer (leads to capacity underuse). Replace with a <strong>gradient penalty</strong> on interpolated samples:</p>
+<pre><code>L_GP = lambda * E_{x_hat ~ p_x_hat} [ (|| nabla_{x_hat} D(x_hat) ||_2 - 1)^2 ]
+</code></pre>
+<p>where x_hat = t * x_real + (1-t) * x_fake for t ~ U[0,1]. This directly penalizes gradients deviating from unit norm along data-interpolation paths. WGAN-GP became the standard for stable GAN training.</p>
+<h3 id="45-spectral-normalization">4.5 Spectral Normalization</h3>
+<p>Miyato et al. (ICLR 2018) normalize each weight matrix W by its <strong>spectral norm</strong> (largest singular value): <code>W_SN = W / sigma(W)</code>, where sigma(W) = max singular value estimated via power iteration. This ensures each layer is 1-Lipschitz, enforcing the WGAN critic constraint without gradient penalty. Computationally cheaper than WGAN-GP and widely adopted (BigGAN, StyleGAN).</p>
+<hr />
+<p><strong>Q: What makes GANs fundamentally different from VAEs and diffusion models as generative models?</strong></p>
+<p><strong>Model answer:</strong> GANs are trained via an <strong>adversarial game</strong> — there is no likelihood objective, no ELBO, no explicit density estimate. The generator never sees the data directly; it only receives gradient signal from the discriminator. This yields extremely sharp, high-perceptual-quality samples (precision) but notoriously poor density coverage (recall) and no tractable likelihood. VAEs directly maximize a lower bound on log-likelihood, giving tractable inference and smooth latent space but often blurrier samples (the MSE reconstruction objective averages modes). Diffusion models optimize an ELBO/score-matching objective and achieve state-of-the-art sample diversity and quality but are slow at inference. GANs in a single forward pass; diffusion needs hundreds of steps.</p>
+<p><strong>Hardest follow-up:</strong> "WGAN minimizes Wasserstein distance — why is Wasserstein a better objective than JS-divergence for generation?"</p>
+<p>JS-divergence is 0 when p_r = p_g and log 2 (~0.693) when the supports are disjoint — regardless of how far apart they are geometrically. So JS provides zero gradient information when the generated distribution does not yet overlap the real data distribution, which happens throughout early training. Wasserstein-1 (Earth Mover's Distance) instead measures the minimum cost of transporting mass from p_g to p_r, and this varies smoothly with the geometric separation of the distributions even when supports don't overlap. This gives informative gradients throughout training, enabling a smoother convergence landscape.</p>
+<hr />
+<h2 id="5-flow-matching-and-rectified-flow-2025-2026-sota">5. Flow Matching and Rectified Flow (2025-2026 SOTA)</h2>
+<figure class="diagram">
+  <img src="../assets/illustrations/flow-matching.svg" alt="Flow Matching">
+  <figcaption>Learn a velocity field transporting noise to data along near-straight OT paths — fewer sampling steps than DDPM.</figcaption>
+</figure>
+
+<h3 id="51-motivation">5.1 Motivation</h3>
+<p>DDPM generates by reversing a stochastic process — the paths from noise to data are curved (they follow an Ornstein-Uhlenbeck-like trajectory). Each point on the path requires an NFE. Can we find <strong>straight-line paths</strong> from noise distribution to data distribution, dramatically reducing NFEs?</p>
+<h3 id="52-normalizing-flows-brief-background">5.2 Normalizing Flows (Brief Background)</h3>
+<p>Classical normalizing flows (NICE, RealNVP, Glow) define exact invertible transformations <code>x = f_theta(z)</code> where z ~ N(0,I). Likelihood is exactly tractable via the change-of-variables formula:</p>
+<pre><code>log p(x) = log p_z(f^{-1}(x)) + log |det J_{f^{-1}}(x)|
+</code></pre>
+<p>The constraint: f must be invertible and the Jacobian determinant must be cheap to compute. This severely limits architecture choice (coupling layers, autoregressive flows). Sample quality and scalability lagged behind GANs and diffusion.</p>
+<p><strong>Continuous normalizing flows (CNF, Chen et al. 2018):</strong> Parameterize the flow as an ODE <code>dx/dt = v_theta(x, t)</code>. The log-density change is the <strong>instantaneous change-of-variables</strong> (Liouville's theorem):</p>
+<pre><code>d log p / dt = - Tr(nabla_x v_theta)
+</code></pre>
+<p>This requires computing the trace of the Jacobian — expensive (O(d^2) naive) but approximable via Hutchinson's trace estimator. Training minimizes maximum likelihood. But CNFs are slow to train (ODE integration inside training loop).</p>
+<h3 id="53-flow-matching-lipman-et-al-iclr-2023-albergo-vanden-eijnden-2022">5.3 Flow Matching (Lipman et al., ICLR 2023; Albergo &amp; Vanden-Eijnden 2022)</h3>
+<p>Flow matching trains a CNF <strong>without simulating the ODE during training</strong>. Define a conditional vector field <code>u_t(x|x_1)</code> that, for a single data sample x_1, moves probability mass along simple paths. The flow matching objective is:</p>
+<pre><code>L_FM = E_{t, x_0, x_1} [ || v_theta(x_t, t) - u_t(x_t | x_1) ||^2 ]
+</code></pre>
+<p>The key insight: although <code>v_t(x)</code> (the marginal vector field) is intractable, the <strong>conditional</strong> vector field <code>u_t(x|x_1)</code> is analytically available for simple path choices. Training on the conditional objective gives the same gradients as training on the marginal objective (unbiased estimation under mild conditions — Lipman et al. Theorem 1).</p>
+<p><strong>Optimal Transport (OT) Conditional Paths:</strong> The simplest choice is linear interpolation:</p>
+<pre><code>x_t = (1 - t) * x_0 + t * x_1,   t in [0, 1]
+</code></pre>
+<p>where x_0 ~ N(0,I) is noise, x_1 is a data sample. The conditional velocity field is just the constant:</p>
+<pre><code>u_t(x_t | x_0, x_1) = x_1 - x_0
+</code></pre>
+<p>This yields <strong>straight-line trajectories</strong> in expectation. The velocity objective:</p>
+<pre><code>L = E_{t, x_0 ~ N(0,I), x_1 ~ p_data} [ || v_theta(x_t, t) - (x_1 - x_0) ||^2 ]
+</code></pre>
+<p>This is trivially simple: predict the direction from your current noise sample to the target data sample.</p>
+<h3 id="54-rectified-flow-liu-et-al-iclr-2023">5.4 Rectified Flow (Liu et al., ICLR 2023)</h3>
+<p>Rectified flow independently proposes the <strong>same linear interpolation objective</strong>. The additional contribution is <strong>reflow</strong> (Rectified Flow 2.0): after training a flow, sample pairs (x_0, x_1) along learned trajectories and retrain. Reflow iteratively straightens the trajectories, approaching true straight lines. Theoretically, after k reflows, trajectories converge to OT-aligned straight lines with one-step generation (consistency).</p>
+<h3 id="55-why-flow-matching-trains-faster-than-ddpm">5.5 Why Flow Matching Trains Faster than DDPM</h3>
+<ol>
+<li><strong>No curved SDE paths to reverse:</strong> DDPM's score estimation at each t requires modeling high-frequency details of the data manifold. Flow matching only needs to predict the velocity direction (x_1 - x_0), which varies smoothly with t.</li>
+<li><strong>Conditioning on data sample:</strong> The conditional flow matching target is analytically known (no need to estimate it via a separate network or approximation); gradients are lower-variance.</li>
+<li><strong>Fewer NFEs at inference:</strong> Because trajectories are near-straight, a few (e.g., 5-10) Euler steps suffice vs. 100-1000 for DDPM. First-order Euler step: <code>x_{t+dt} = x_t + v_theta(x_t, t) * dt</code>.</li>
+<li><strong>Uniform loss weighting over t:</strong> DDPM's simplified loss upweights high-noise timesteps due to the score magnitude; flow matching naturally balances all t.</li>
+</ol>
+<h3 id="56-stable-diffusion-3-and-flux">5.6 Stable Diffusion 3 and FLUX</h3>
+<p><strong>Stable Diffusion 3 (Esser et al., 2024):</strong> First major text-to-image model to use flow matching (specifically Multimodal Diffusion Transformer — MMDiT architecture), replacing U-Net with a transformer where image and text tokens are processed jointly with full bidirectional attention. Uses RF (Rectified Flow) training objective. Achieves superior image-text alignment vs. SD-XL.</p>
+<p><strong>FLUX.1 (Black Forest Labs, 2024):</strong> Built by the Stable Diffusion creators after leaving Stability AI. Uses flow matching + MMDiT variant with decoupled parallel attention streams. FLUX.1-dev is 12B parameters. State of the art as of 2024-2025 for photorealistic text-to-image.</p>
+<p><strong>Video generation:</strong> SORA (OpenAI, 2024 preview), Wan2.1, CogVideoX — all use flow matching / DiT architectures for video. The velocity field trivially extends to video tokens (spacetime).</p>
+<hr />
+<p><strong>Q: Why did the field move from DDPM to flow matching for production image generation?</strong></p>
+<p><strong>Model answer:</strong> Three reasons. First, training efficiency: flow matching's linear-interpolation velocity target is lower-variance than DDPM's epsilon-prediction at high noise levels, yielding better convergence per gradient step. Second, inference speed: DDPM's reverse SDE requires 50-1000 NFEs even with DDIM acceleration, because its probability paths are curved. Flow matching trajectories are nearly straight, so 5-20 Euler steps achieve comparable quality — 5-20× faster at inference. Third, architecture fit: flow matching naturally combines with transformer-based DiTs (Peebles &amp; Xie 2023) via joint text-image attention (MMDiT), avoiding U-Net's skip-connection limitations for high-resolution and video. The empirical result is that SD3 and FLUX models achieve higher quality and better text-alignment at lower cost than equivalent diffusion models.</p>
+<p><strong>Hardest follow-up:</strong> "What is the connection between flow matching and optimal transport, and why does OT conditioning matter?"</p>
+<p>The linear coupling x_t = (1-t)x_0 + t<em>x_1 with x_0 ~ N(0,I) paired </em><em>independently</em><em> with x_1 ~ p_data creates non-OT paths — different noise samples pair with the same data point, so trajectories from different noise samples heading to the same target can cross, increasing curvature. Lipman et al. note that using the </em><em>OT coupling</em>* (the Monge map or its approximate discrete version, e.g., via the Sinkhorn algorithm) to match x_0 to x_1 minimizes path crossing and maximizes straightness. In practice, a mini-batch OT approximation (Tong et al. 2024, Minibatch OT Flow Matching) pairs nearest-noise to each data point within a mini-batch, significantly improving trajectory quality and reducing required NFEs to 1-4 for certain model sizes.</p>
+<hr />
+<h2 id="6-discrete-and-masked-diffusion-for-text">6. Discrete and Masked Diffusion for Text</h2>
+<h3 id="61-why-autoregressive-dominates-text">6.1 Why Autoregressive Dominates Text</h3>
+<p>Text is discrete — tokens from a vocabulary V. DDPM noise processes are inherently Gaussian (continuous). Early attempts to apply diffusion to text (e.g., Diffusion-LM, Li et al. 2022) embed discrete tokens into continuous space, add Gaussian noise, and denoise — but suffer from embedding discretization errors at inference and significantly worse performance vs. GPT-style autoregressive models.</p>
+<h3 id="62-discrete-diffusion-masked-diffusion">6.2 Discrete Diffusion / Masked Diffusion</h3>
+<p><strong>D3PM (Austin et al., NeurIPS 2021):</strong> Generalize DDPM to discrete state spaces. The forward process is a Markov chain on {1,...,V}^L (token sequences). Transition matrices Q_t define the corruption: uniform noise, absorbing state (all -&gt; MASK), etc. Masked diffusion (absorbing state) is the most practical: tokens are progressively replaced with [MASK].</p>
+<p><strong>Masked Diffusion (MDM, MDLM, etc.):</strong> Each token at position i is either revealed or masked with probability that varies over t:</p>
+<pre><code>q(x_t | x_0): each token independently masked with prob (1 - alpha_bar_t)
+</code></pre>
+<p>The reverse process learns to predict the original token at each masked position, conditioned on the revealed context and t. Training loss is a weighted cross-entropy over masked positions.</p>
+<h3 id="63-llada-llm-in-a-diffusion-action">6.3 LLaDA — LLM in a Diffusion Action</h3>
+<p>Nie et al. (2025, "LLaDA: Large Language Diffusion with mAsked Diffusion") scale masked diffusion to large language model pretraining, matching autoregressive LLMs on standard NLU benchmarks for the first time.</p>
+<p>Key properties vs. AR:
+- <strong>Parallel generation:</strong> All tokens can be denoised in parallel per step (no causal chain). Inference can be done in O(log L) passes with aggressive unmasking schedules.
+- <strong>Bidirectional context:</strong> At each denoising step, every masked position attends to ALL unmasked tokens (full attention, no causal mask). AR only has left-context.
+- <strong>Controllable generation:</strong> Infilling, constrained decoding, arbitrary token editing without tricks — natural to masked diffusion.
+- <strong>Weaknesses vs. AR:</strong> Prefix conditioning (system prompt, few-shot) less natural; does not support exact autoregressive KV-cache; perplexity computation requires marginalizing over all mask patterns (expensive); on generation benchmarks vs. GPT-4/Claude, still behind frontier AR models (as of 2025-2026).</p>
+<h3 id="64-relevance-to-llms">6.4 Relevance to LLMs</h3>
+<p>Masked diffusion represents a <strong>plausible path to parallel generation</strong> for language — potentially matching AR quality with fewer sequential steps. This matters for latency-sensitive applications (real-time dialogue). It also connects to BERT/masked language modeling (MLM) — BERT can be seen as a one-step denoising model; LLaDA is the multi-step extension. For eBay's product understanding pipeline, discrete diffusion could enable faster title generation and constrained attribute infilling.</p>
+<hr />
+<p><strong>Q: Why hasn't discrete diffusion displaced autoregressive LLMs despite their theoretical advantages?</strong></p>
+<p><strong>Model answer:</strong> Several compounding challenges. First, the training signal is weaker per token: AR models receive L cross-entropy losses per sequence (one per token), while masked diffusion losses are concentrated on masked positions — sparser gradients per sample unless masking ratio is high. Second, teacher-forcing in AR (always conditioning on ground-truth past tokens) gives a very strong training signal; masked diffusion must handle arbitrary patterns of known/unknown tokens. Third, inference is still multiple model forward passes (e.g., 10-20 unmasking steps), whereas AR generates tokens one at a time but with KV-cache — effective parallelism per step is already captured by batching. Fourth, quality gap: on generation quality benchmarks (MMLU, HumanEval, AlpacaEval) discrete diffusion models trained at equivalent scale still trail AR. The field is actively closing this gap but as of 2026 AR remains dominant for frontier models.</p>
+<p><strong>Hardest follow-up:</strong> "How would you adapt eBay's LLaMA-based infrastructure (e-Llama) to experiment with a masked diffusion approach for product title generation?"</p>
+<p>You would need to: (1) Replace the causal attention mask with full bidirectional attention — essentially changing e-Llama to a BERT-like encoder-decoder or full encoder architecture; this breaks KV-cache completely. (2) Modify the training data pipeline to apply random masking at the token level per sample, with varying mask rates per training step (e.g., rate ~ U[0,1] or a cosine schedule over training). (3) Replace cross-entropy over next-token with cross-entropy over masked-token predictions, weighted appropriately. (4) Inference requires iterative unmasking: start all output tokens as [MASK], run T denoising steps revealing tokens greedily or via confidence thresholding. The tradeoff vs. seq2seq AR: potentially faster parallel generation for long titles, but less natural for streaming/prefix conditioning (users expect real-time token streaming in chat).</p>
+<hr />
+<h2 id="7-autoregressive-image-models-var">7. Autoregressive Image Models — VAR</h2>
+<p><strong>Visual AutoRegressive modeling (VAR, Tian et al., NeurIPS 2024 best paper):</strong> generates images in a coarse-to-fine multi-scale order rather than raster-scan (pixel by pixel or token by token). Uses VQ-VAE with multi-scale tokenization (resolutions 1x1, 2x2, 4x4, ..., 16x16 or 32x32). At each scale, all tokens at that resolution are predicted in parallel (masked AR, not sequential AR). Claims: faster than diffusion at comparable quality; natural next-token prediction training; scaling laws apply.</p>
+<p><strong>Relation to DDPM:</strong> VAR is closer to AR than diffusion — it uses a standard cross-entropy training loss on discrete VQ tokens and autoregressive sampling across scale levels. It does not use score matching or a noisy diffusion chain. But the multi-scale structure superficially resembles U-Net's hierarchical resolution processing.</p>
+<hr />
+<h2 id="8-energy-based-models-ebm-brief">8. Energy-Based Models (EBM) — Brief</h2>
+<p>An EBM defines an unnormalized density:</p>
+<pre><code>p_theta(x) = exp(-E_theta(x)) / Z_theta
+</code></pre>
+<p>where Z_theta = integral exp(-E_theta(x)) dx is the intractable partition function. Training via contrastive divergence: decrease energy of real data, increase energy of samples generated by MCMC (Langevin dynamics from the model). EBMs are flexible (any architecture as energy function) but training is slow/unstable (MCMC sampling is expensive and MCMC must mix well). Not competitive at large scale. Historically important: RBMs, Hopfield networks, and as a theoretical basis for understanding score-based models (the score is -nabla E_theta(x)).</p>
+<hr />
+<h2 id="9-comparison-table-ar-vs-diffusion-vs-vae-vs-gan-vs-flow-matching">9. Comparison Table: AR vs Diffusion vs VAE vs GAN vs Flow Matching</h2>
+<table>
+<thead>
+<tr>
+<th>Dimension</th>
+<th>Autoregressive (GPT)</th>
+<th>Diffusion (DDPM)</th>
+<th>VAE</th>
+<th>GAN</th>
+<th>Flow Matching (FLUX, SD3)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Tractable likelihood</strong></td>
+<td>Yes (exact, by construction)</td>
+<td>ELBO lower bound</td>
+<td>ELBO lower bound</td>
+<td>No</td>
+<td>Yes (via ODE, approximation)</td>
+</tr>
+<tr>
+<td><strong>Training objective</strong></td>
+<td>Cross-entropy (next token)</td>
+<td>MSE noise prediction / score matching</td>
+<td>ELBO = recon − KL</td>
+<td>Minimax / Wasserstein</td>
+<td>MSE velocity matching</td>
+</tr>
+<tr>
+<td><strong>Training stability</strong></td>
+<td>Very stable</td>
+<td>Very stable</td>
+<td>Stable (posterior collapse risk)</td>
+<td>Notoriously unstable</td>
+<td>Very stable</td>
+</tr>
+<tr>
+<td><strong>Sample quality</strong></td>
+<td>SOTA for text; moderate for images</td>
+<td>High (images/audio/video)</td>
+<td>Lower (blurry)</td>
+<td>High perceptual quality</td>
+<td>SOTA for images/video</td>
+</tr>
+<tr>
+<td><strong>Mode coverage / Diversity</strong></td>
+<td>High (if temperature &gt; 0)</td>
+<td>Very high</td>
+<td>Moderate</td>
+<td>Low (mode collapse)</td>
+<td>Very high</td>
+</tr>
+<tr>
+<td><strong>Inference speed</strong></td>
+<td>O(L) sequential steps; KV-cache helps</td>
+<td>50-1000 NFEs (DDIM: 20-50)</td>
+<td>Single decoder forward pass</td>
+<td>Single forward pass</td>
+<td>5-20 NFEs (near-straight paths)</td>
+</tr>
+<tr>
+<td><strong>Latent space structure</strong></td>
+<td>None (tokens, not continuous latent)</td>
+<td>None explicit (denoises from Gaussian)</td>
+<td>Structured, smooth, continuous</td>
+<td>None (implicit)</td>
+<td>None explicit</td>
+</tr>
+<tr>
+<td><strong>Mode collapse risk</strong></td>
+<td>Low (diversity from sampling)</td>
+<td>Low</td>
+<td>Low</td>
+<td>High</td>
+<td>Low</td>
+</tr>
+<tr>
+<td><strong>Conditional generation</strong></td>
+<td>Natural (next-token conditioning)</td>
+<td>Classifier-free guidance</td>
+<td>Decoder conditioning</td>
+<td>Conditional GAN (cGAN)</td>
+<td>CFG (same as DDPM)</td>
+</tr>
+<tr>
+<td><strong>Best current use case</strong></td>
+<td>Text, code, audio tokens</td>
+<td>Images, audio, video, molecules</td>
+<td>Compression (SD latent), representation learning</td>
+<td>Adversarial augmentation, image editing, some stylization</td>
+<td>Text-to-image/video SOTA (SD3, FLUX, Wan2.1)</td>
+</tr>
+<tr>
+<td><strong>Scaling behavior</strong></td>
+<td>Excellent (GPT scaling laws)</td>
+<td>Good (DiT scales)</td>
+<td>Limited (bottleneck)</td>
+<td>Difficult (training instability)</td>
+<td>Excellent (MMDiT scales)</td>
+</tr>
+<tr>
+<td><strong>Model size at SOTA</strong></td>
+<td>70B-400B+ (LLMs)</td>
+<td>2-12B (DiT/UNet)</td>
+<td>80M-1B (VAE encoder only)</td>
+<td>100M-1B (BigGAN)</td>
+<td>2-12B (FLUX, SD3)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="10-key-section-is-diffusion-weights-actually-diffusion">10. KEY SECTION — Is "Diffusion Weights" Actually Diffusion?</h2>
+<h3 id="101-the-direct-question">10.1 The Direct Question</h3>
+<p><strong>Versley will ask this.</strong> "Your Diffusion Weights paper uses a U-Net and references diffusion — is it actually a diffusion model? What exactly is diffusion-adjacent vs. what is genuinely diffusion?"</p>
+<h3 id="102-crisp-honest-answer">10.2 Crisp Honest Answer</h3>
+<p><strong>Yes — Diffusion Weights genuinely uses diffusion machinery; the honest framing is "diffusion-inspired, with real diffusion machinery but a non-standard target."</strong> Do NOT walk in and deny it is diffusion — that is flatly contradicted by the paper, and Versley is the author's colleague. There is a real Gaussian forward noising process (eq 6), a real reverse sampling chain with DDPM/DDIM at inference, and an attention U-Net <code>F_psi</code> as the reverse/denoising model (eqs 7-8). What makes it <em>non-canonical</em> is three things: it runs in a <strong>beta-VAE latent space</strong> (not raw weights), it uses <strong>x_0-prediction where the target is a <em>future</em> weight state</strong> (the next-epoch checkpoint, not the clean version of the noisy input), and conditioning is <strong>ControlNet-style</strong>. So the "denoiser" is really a future-state <em>forecaster</em>. (Full verified detail in <code>20_OWN_PAPERS_GROUND_TRUTH.md</code>.)</p>
+<p>Here is the precise technical distinction — note the genuine diffusion components are shared, and only the target / space / conditioning differ:</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Canonical Diffusion (DDPM/Flow Matching)</th>
+<th>Diffusion Weights</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>What is modeled</strong></td>
+<td>A generative process over data samples (images, audio, etc.)</td>
+<td>A future weight state, synthesized in a latent space</td>
+</tr>
+<tr>
+<td><strong>Forward process</strong></td>
+<td>Stochastic Gaussian corruption chain</td>
+<td>Same — a genuine Gaussian forward noising process (eq 6)</td>
+</tr>
+<tr>
+<td><strong>Reverse/inference</strong></td>
+<td>Score/x_0 estimation + iterative denoising from a noise prior</td>
+<td>Same — reverse DDPM/DDIM chain from <code>x_T ~ N(0,I)</code>, then decode</td>
+</tr>
+<tr>
+<td><strong>Reverse model</strong></td>
+<td>U-Net (or DiT) denoiser</td>
+<td>Attention U-Net <code>F_psi</code> with ControlNet zero-conv + LayerEmb/TimeEmb/TextEmb</td>
+</tr>
+<tr>
+<td><strong>Training objective</strong></td>
+<td>MSE on noise (epsilon-pred) or velocity/x_0</td>
+<td><code>L_state</code> (x_0-prediction loss) <strong>+</strong> chrono-aware temporal loss <code>L_chrono</code></td>
+</tr>
+<tr>
+<td><strong>Target of prediction</strong></td>
+<td>The clean version of the noisy input</td>
+<td>A <em>future</em> weight state <code>x_0 := z_{tau+delta}</code> (the non-standard part)</td>
+</tr>
+<tr>
+<td><strong>Space</strong></td>
+<td>Pixels or a VAE latent of images</td>
+<td>beta-VAE latent of MLP weights</td>
+</tr>
+<tr>
+<td><strong>Latent prior</strong></td>
+<td>N(0, I) — pure noise</td>
+<td>N(0, I) — pure noise (same)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="103-what-diffusion-weights-actually-is">10.3 What Diffusion Weights Actually Is</h3>
+<p>Technically, it is a <strong>conditional latent diffusion model that forecasts a future weight state</strong>, in three stages (full verified detail in <code>20_OWN_PAPERS_GROUND_TRUTH.md</code>):</p>
+<ul>
+<li><strong>Stage 1 — beta-VAE compression (latent space, not raw weights).</strong> Each MLP layer's weights are row-major vectorized, padded to a multiple of a fixed chunk size, split into contiguous chunks, and compressed by a <em>shared chunk-wise beta-VAE</em> into compact latents <code>z_tau = s * E(vec(theta_tau))</code>. All diffusion happens in this latent space — you cannot run a diffusion U-Net over 1.5B raw weights on one 4090.</li>
+<li><strong>Stage 2 — dataset/task conditioning.</strong> A permutation-invariant set encoder <code>T_omega</code> produces a dataset embedding <code>z_D</code>; a language embedding <code>z_c = L(c)</code> from an instruction-tuned LLM encodes the task description. They are fused and injected via cross-attention / ControlNet-style modulation (with a CLIP-style InfoNCE contrastive loss aligning dataset and weight embeddings). This is how it knows <em>which</em> task it is forecasting for — it conditions on a single current state plus this task/dataset signal, <strong>not</strong> on a sequence of past checkpoints framed as video frames.</li>
+<li><strong>Stage 3 — conditional U-Net diffusion.</strong> The reverse model is the attention U-Net <code>F_psi</code>; with x_0-prediction it directly predicts the clean <em>future</em> latent <code>x_0 := z_{tau+delta}</code>, which is decoded back to weights <code>theta_hat = D(x_0)</code>. A <strong>Multi-Horizon Merging</strong> step then predicts short/mid/long-horizon states and fuses them in weight space (task-arithmetic / Model-Soup style).</li>
+</ul>
+<h3 id="104-the-u-net-is-the-real-reverse-model-not-a-naming-analogy">10.4 The U-Net Is the Real Reverse Model (Not a Naming Analogy)</h3>
+<p>The U-Net here is the genuine reverse/denoising model of the diffusion process, not a cosmetic borrowing. Concretely it is an <strong>attention U-Net <code>F_psi</code></strong> with a <strong>ControlNet-style zero-conv adapter</strong> for the conditions, plus <strong>LayerEmb / TimeEmb / TextEmb</strong> embeddings. It is <em>not</em> a transformer operating on flattened/tokenized weight segments standing in for a U-Net — the U-Net is the real architecture.</p>
+<p>It operates over the <strong>beta-VAE latents</strong> of the MLP weights, not over raw weight tensors. Scope note worth volunteering: the method predicts <strong>only MLP-layer weights</strong> — attention parameters are left to standard fine-tuning, a stated limitation — so it is wrong to describe it as predicting a 768×768 attention projection matrix or "full weight states." The multi-scale + skip-connection structure is a reasonable inductive bias over the chunked latent representation; what makes it diffusion-<em>inspired</em> rather than textbook DDPM is the <em>target</em> (a future weight state) and the <em>space</em> (a VAE latent), not whether real diffusion is happening — it is.</p>
+<h3 id="105-how-diffusion-weights-differs-from-maml-and-hypernetworks">10.5 How Diffusion Weights Differs from MAML and HyperNetworks</h3>
+<p><strong>MAML (Model-Agnostic Meta-Learning, Finn et al. 2017):</strong>
+- Learns a shared initialization (meta-weights) such that a few gradient steps on any task yield good performance.
+- Still requires explicit gradient steps at meta-test time (2nd-order optimization or 1st-order approximation).
+- Diffusion Weights replaces the gradient-step sequence with a predictor — no gradient computation at prediction time.
+- Key difference: MAML's "fast weights" emerge from real gradients on real task data; Diffusion Weights predicts what those weights would look like without computing them.</p>
+<p><strong>HyperNetworks (Ha et al. 2016; Zhmoginov et al. 2022):</strong>
+- A fixed small network generates the weights of a large target network from task embeddings.
+- Typically one-shot (task embedding → weights), not trajectory-based.
+- Diffusion Weights is <em>conditional generative</em>: it conditions on a single current weight state plus a dataset/task embedding and <em>samples</em> a future state via the reverse diffusion chain. So unlike a one-shot hypernetwork it is both task-conditioned and horizon-conditioned, and unlike MAML it needs no gradient steps at prediction time.</p>
+<p><strong>Framing to use:</strong> describe it as a <em>conditional latent diffusion forecaster over weights</em> — it shares its generative machinery (Gaussian forward process, reverse DDPM/DDIM chain, attention U-Net denoiser) with image diffusion models, but its target is a future weight state rather than a clean image. Avoid the "video prediction / sequence-to-sequence regression" analogy: it does not regress a deterministic next frame from a stack of past frames.</p>
+<h3 id="106-how-tony-should-defend-the-naming">10.6 How Tony Should Defend the Naming</h3>
+<ol>
+<li>
+<p><strong>Lead with the honest framing:</strong> "It's diffusion-inspired with real diffusion machinery — a genuine Gaussian forward noising process, a DDPM/DDIM reverse chain, and an attention U-Net denoiser. What makes it non-canonical is the target: I use x_0-prediction where x_0 is a <em>future</em> weight state, the next-epoch checkpoint, not the clean version of the noisy input. So the denoiser is really a future-state forecaster, operating in a beta-VAE latent space with ControlNet-style conditioning." (Do NOT deny the noise process / reverse chain / denoising objective — that is contradicted by the PDF.)</p>
+</li>
+<li>
+<p><strong>Explain the design choices:</strong> "We compress the MLP weights with a chunk-wise beta-VAE first, because you can't run a diffusion U-Net over 1.5B raw weights on a single 4090; the beta term gives a smoother, better-behaved diffusion target. We condition on a dataset embedding (a permutation-invariant set encoder) and a task-instruction embedding so the forecaster knows which task it's predicting for."</p>
+</li>
+<li>
+<p><strong>State what it genuinely achieves:</strong> "We show the fine-tuning weight trajectory is regular enough that, conditioned on a task, the model can <em>generate</em> an effective future weight state and skip the expensive iteration to get there. The ~3.2× wall-clock figure is the conservative headline — the Table 1 per-task numbers are actually 3.8–4.3× — and it's amortized: it pays off when you fine-tune many related tasks, not on the very first run."</p>
+</li>
+<li>
+<p><strong>Acknowledge the limitations and open questions:</strong> "Open questions include: whether the predictor generalizes out-of-distribution (to tasks very unlike the training fine-tuning jobs), whether it applies to continued pretraining (likely not — pretraining trajectories are much longer and less stereotyped than supervised fine-tuning), and the quality outcome at that speedup (the paper reports parity-or-improvement on its eval suite — e.g., WMT16 EN-DE TER reduced, OpenBookQA accuracy up — not a deficit)."</p>
+</li>
+<li>
+<p><strong>Bridge to eBay:</strong> "For eBay's use case, this is most relevant to the <strong>SFT / instruction-tuning phase</strong> of model development, not the 1-trillion-token continued pretraining of e-Llama. SFT runs have stereotyped convergence curves that a checkpoint predictor could plausibly model. The question is whether the predictor generalizes across eBay's diverse SFT domains (search, recommendation, MT)."</p>
+</li>
+</ol>
+<h3 id="107-anticipated-follow-up-exchange">10.7 Anticipated Follow-up Exchange</h3>
+<p><strong>Versley:</strong> "How does your predictor generalize to a completely new fine-tuning task it has never seen?"</p>
+<p><strong>Tony:</strong> "That is the core open question and the honest answer is: we do not yet have rigorous OOD experiments. The predictor was trained on fine-tuning trajectories for specific tasks; the explicit dataset/task conditioning (a permutation-invariant set encoder plus a task-instruction embedding) is exactly what is meant to let it generalize to a new task, so it should transfer best to tasks whose weight-evolution structure resembles the training trajectories. But for tasks that require very different parameter adaptations (e.g., code generation vs. machine translation), the predictor may extrapolate poorly. Practically, you would detect this by comparing the predictor's forecast weights against a single reference fine-tuning run on the new task — if divergence is large, fall back to standard fine-tuning. This is an important ablation we would add before any production deployment."</p>
+<p><strong>Versley:</strong> "Why not just use LoRA adapters — much cheaper than predicting full weight trajectories?"</p>
+<p><strong>Tony:</strong> "Valid and important comparison. LoRA is the dominant approach precisely because it constrains the weight update to low rank, making fine-tuning cheap. Diffusion Weights targets full-weight fine-tuning — relevant when LoRA's low-rank constraint would degrade quality (domain-specific layers, early-fusion heads). The 3.2× speedup is relative to full fine-tuning, not relative to LoRA. If LoRA suffices for the task, it wins on cost. If full fine-tuning is required — e.g., for specialized tokenizer layers, embedding adaptation, or architectures where low-rank adapters underperform — Diffusion Weights becomes competitive. The honest framing is that Diffusion Weights occupies a niche between LoRA efficiency and full fine-tuning quality, validated on specific benchmark tasks."</p>
+<hr />
+<h2 id="11-rapid-fire-review-key-equations-and-facts">11. Rapid-Fire Review — Key Equations and Facts</h2>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>Equation / Fact</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DDPM forward marginal</td>
+<td><code>q(x_t|x_0) = N(sqrt(alpha_bar_t) * x_0, (1-alpha_bar_t) * I)</code></td>
+</tr>
+<tr>
+<td>DDPM training loss</td>
+<td><code>E_{t,x_0,eps} [||eps - eps_theta(sqrt(alpha_bar_t)*x_0 + sqrt(1-alpha_bar_t)*eps, t)||^2]</code></td>
+</tr>
+<tr>
+<td>DDIM sampler</td>
+<td>Deterministic ODE, sigma_t=0; enables 20-50 step generation</td>
+</tr>
+<tr>
+<td>CFG guided noise</td>
+<td><code>eps_guided = eps_uncond + w*(eps_cond - eps_uncond)</code>, w ~ 3-10</td>
+</tr>
+<tr>
+<td>Score =</td>
+<td><code>s(x) = nabla_x log p(x)</code></td>
+</tr>
+<tr>
+<td>Relation epsilon to score</td>
+<td><code>eps / sqrt(1-alpha_bar) ≈ -score</code></td>
+</tr>
+<tr>
+<td>Langevin step</td>
+<td><code>x_{k+1} = x_k + (delta/2)*s_theta(x_k) + sqrt(delta)*z</code></td>
+</tr>
+<tr>
+<td>Flow matching loss</td>
+<td><code>E [||v_theta(x_t, t) - (x_1 - x_0)||^2]</code> where <code>x_t = (1-t)x_0 + t*x_1</code></td>
+</tr>
+<tr>
+<td>VAE ELBO</td>
+<td><code>E_q[log p(x|z)] - KL(q(z|x)||p(z))</code></td>
+</tr>
+<tr>
+<td>VAE KL (Gaussian)</td>
+<td><code>(1/2) sum [sigma_j^2 + mu_j^2 - 1 - log sigma_j^2]</code></td>
+</tr>
+<tr>
+<td>GAN minimax</td>
+<td><code>min_G max_D E[log D(x)] + E[log(1-D(G(z)))]</code></td>
+</tr>
+<tr>
+<td>WGAN objective</td>
+<td><code>max_{||f||_L&lt;=1} E[f(x_real)] - E[f(x_fake)]</code></td>
+</tr>
+<tr>
+<td>WGAN-GP penalty</td>
+<td><code>lambda * E[(||nabla D(x_hat)||_2 - 1)^2]</code></td>
+</tr>
+<tr>
+<td>VQ-VAE quantization</td>
+<td><code>z_q = argmin_k ||z_e - e_k||</code> with straight-through gradients</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="12-additional-qa-bank">12. Additional Q&amp;A Bank</h2>
+<p><strong>Q: What is the difference between DDPM and score-based models?</strong></p>
+<p>Mathematically equivalent: epsilon-prediction in DDPM recovers the score function at each noise level up to a scaling factor. DDPM uses a discrete Markov chain; score-based models (Song &amp; Ermon 2019) train directly on Denoising Score Matching at multiple sigma levels. Song et al. 2021 (SDE paper) unify them as special cases of the VP-SDE and VE-SDE families respectively.</p>
+<p><strong>Q: What is the FID score and what are its limitations?</strong></p>
+<p>Frechet Inception Distance measures the Wasserstein-2 distance between the Inception-v3 feature distributions of real and generated images. Lower = better. Limitations: (1) depends on Inception features (biased toward ImageNet concepts), (2) does not capture per-sample diversity within generated set, (3) insensitive to mode coverage for complex distributions, (4) requires ~50K samples for stability. CLIP-FID (using CLIP features) and FD (Frechet Distance with custom features) address some biases.</p>
+<p><strong>Q: What is classifier-free guidance doing from an information-theoretic perspective?</strong></p>
+<p>CFG amplifies the log-likelihood ratio <code>log p(c|x)</code> in the score estimate: <code>nabla log p(x|c) ∝ nabla log p(x) + w * nabla log p(c|x)</code>. Setting w &gt; 1 amplifies the discriminative signal — it pushes samples toward regions of high p(c|x) MORE than the standard Bayesian conditional. This improves precision (samples strongly match the condition) at the cost of diversity (fewer modes of the conditional are covered). It is essentially trading recall for precision in the conditional distribution.</p>
+<p><strong>Q: What happens to the latent space of a VAE vs. a flow model at generation time?</strong></p>
+<p>VAE: sample z ~ N(0,I), decode via p_theta(x|z). The latent is a structured, smooth Gaussian (if trained well) but z is in a compressed space; the decoder is highly nonlinear. Flow model: z ~ N(0,I), then x = f_theta(z) via a learned invertible map. The map is exact and invertible; the latent is in bijection with data space (same dimensionality). Flow models preserve full information; VAEs compress it.</p>
+<p><strong>Q: How would you apply a diffusion model to e-commerce product generation at eBay?</strong></p>
+<p>Several angles: (1) <strong>Product image completion:</strong> given partial listing photo (cropped, bad angle), inpaint or outpaint with a latent diffusion model conditioned on category/title. (2) <strong>Synthetic data generation for rare categories:</strong> generate synthetic product images for tail categories with few training examples, improving downstream model accuracy. (3) <strong>Style transfer / background removal:</strong> conditional diffusion to remove messy listing backgrounds and replace with clean studio backgrounds — relevant to Magical Listing. (4) <strong>Multi-modal product understanding:</strong> use the VQ-VAE encoder of a latent diffusion model as a pretrained visual feature extractor for downstream classification/recommendation. Key considerations: domain gap (consumer photos vs. model training on LAION/CC), latency requirements (inference at listing creation time), hallucination risk (generated images must accurately represent the product — legal/trust issue).</p>
+<hr />
+<p><em>End of document. The IS-diffusion-actually-diffusion section (§10) is the highest-priority rehearsal target.</em></p>
+      <nav class="prevnext"><a class="pn prev" href="19_ADAPTIVE_MOCK_SESSIONS.html">‹ <span>Adaptive Mock Sessions</span></a><a class="pn next" href="14_CLASSICAL_NLP_AND_MT_DEEP_DIVE.html"><span>Classical NLP &amp; MT Deep Dive</span> ›</a></nav>
+    </article>
+    <aside class="toc"><div class="toc-title">On this page</div><ul>
+<li><a href="#1-ddpm-denoising-diffusion-probabilistic-models">1. DDPM — Denoising Diffusion Probabilistic Models</a></li>
+<li><a href="#2-score-based-sde-view-song-et-al-2021">2. Score-Based SDE View — Song et al. 2021</a></li>
+<li><a href="#3-variational-autoencoders-vae">3. Variational Autoencoders (VAE)</a></li>
+<li><a href="#4-generative-adversarial-networks-gan">4. Generative Adversarial Networks (GAN)</a></li>
+<li><a href="#5-flow-matching-and-rectified-flow-2025-2026-sota">5. Flow Matching and Rectified Flow (2025-2026 SOTA)</a></li>
+<li><a href="#6-discrete-and-masked-diffusion-for-text">6. Discrete and Masked Diffusion for Text</a></li>
+<li><a href="#7-autoregressive-image-models-var">7. Autoregressive Image Models — VAR</a></li>
+<li><a href="#8-energy-based-models-ebm-brief">8. Energy-Based Models (EBM) — Brief</a></li>
+<li><a href="#9-comparison-table-ar-vs-diffusion-vs-vae-vs-gan-vs-flow-matching">9. Comparison Table: AR vs Diffusion vs VAE vs GAN vs Flow Matching</a></li>
+<li><a href="#10-key-section-is-diffusion-weights-actually-diffusion">10. KEY SECTION — Is &quot;Diffusion Weights&quot; Actually Diffusion?</a></li>
+<li><a href="#11-rapid-fire-review-key-equations-and-facts">11. Rapid-Fire Review — Key Equations and Facts</a></li>
+<li><a href="#12-additional-qa-bank">12. Additional Q&amp;amp;A Bank</a></li>
+</ul></aside>
+  </main>
+</div>
+<script>window.SEARCH_JSON="../assets/../search-index.json";</script>
+<script src="../assets/search-data.js"></script>
+<script src="../assets/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 420" role="img">
+  <title>Continued Pretraining vs Catastrophic Forgetting</title>
+  <desc>Diagram showing how continued pretraining transforms a base model into a domain-adapted model, with learning rate 10% of original (3.0e-5), 50/50 e-commerce/general data mix, and gauges showing e-commerce skill increasing while general skill slightly decreases due to forgetting.</desc>
+
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#2563eb" />
+    </marker>
+    <marker id="arrow-warn" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#f59e0b" />
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="400" y="36" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="19" font-weight="700" fill="#1f2733">Continued Pretraining vs. Catastrophic Forgetting</text>
+
+  <!-- Base model box -->
+  <rect x="40" y="80" width="180" height="80" rx="10" fill="#f7f8fa" stroke="#94a3b8" stroke-width="2"/>
+  <text x="130" y="113" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="14" font-weight="600" fill="#1f2733">Base Model</text>
+  <text x="130" y="133" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" fill="#56616f">(general knowledge)</text>
+
+  <!-- Arrow (routed below the label box) -->
+  <line x1="222" y1="140" x2="455" y2="140" stroke="#2563eb" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Arrow label: process -->
+  <rect x="245" y="62" width="212" height="56" rx="8" fill="#e8f0fe" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="351" y="82" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" font-weight="600" fill="#2563eb">continued pretraining</text>
+  <text x="351" y="98" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" fill="#2563eb">LR = 10% of original = 3.0e-5</text>
+  <text x="351" y="114" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" fill="#2563eb">50/50 e-comm / general mix</text>
+
+  <!-- Domain-adapted model box -->
+  <rect x="458" y="80" width="200" height="80" rx="10" fill="#e8f0fe" stroke="#2563eb" stroke-width="2"/>
+  <text x="558" y="113" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="14" font-weight="600" fill="#1f2733">Domain-Adapted Model</text>
+  <text x="558" y="133" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" fill="#56616f">(e-commerce specialist)</text>
+
+  <!-- Divider line -->
+  <line x1="40" y1="200" x2="760" y2="200" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4 4"/>
+
+  <!-- Gauge section label -->
+  <text x="400" y="225" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" fill="#56616f">skill changes after continued pretraining</text>
+
+  <!-- ===== Gauge 1: e-commerce skill UP ===== -->
+  <!-- gauge background arc (semi-circle) -->
+  <g transform="translate(190, 310)">
+    <!-- background track -->
+    <path d="M -75 0 A 75 75 0 0 1 75 0" fill="none" stroke="#e5e7eb" stroke-width="14" stroke-linecap="round"/>
+    <!-- filled arc: ~75% of semi-circle = green -->
+    <!-- 75% of 180deg = 135deg; arc from 180 to 45 (going clockwise = from left going right past top) -->
+    <!-- In SVG arc: start at (-75,0) rotate 135deg clockwise -->
+    <!-- Using stroke-dasharray trick: circumference of semi = pi*75 ~ 235.6; fill 75% = 176.7 -->
+    <path d="M -75 0 A 75 75 0 0 1 75 0" fill="none" stroke="#15803d" stroke-width="14" stroke-linecap="round"
+          stroke-dasharray="176 236"/>
+    <!-- needle at 75% => angle 180-135=45deg from left, meaning pointing upper-right -->
+    <!-- needle: center (0,0), tip at 75% position -->
+    <!-- 75% of 180deg arc means needle at 45deg above horizontal right = angle 45deg from +x axis -->
+    <line x1="0" y1="0" x2="53" y2="-53" stroke="#1f2733" stroke-width="3" stroke-linecap="round"/>
+    <circle cx="0" cy="0" r="5" fill="#1f2733"/>
+    <!-- gauge title -->
+    <text x="0" y="22" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="13" font-weight="600" fill="#15803d">e-commerce skill ↑</text>
+    <!-- lo/hi labels -->
+    <text x="-80" y="14" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="10" fill="#56616f">low</text>
+    <text x="80" y="14" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="10" fill="#56616f">high</text>
+  </g>
+
+  <!-- ===== Gauge 2: general skill slight DOWN ===== -->
+  <g transform="translate(560, 310)">
+    <!-- background track -->
+    <path d="M -75 0 A 75 75 0 0 1 75 0" fill="none" stroke="#e5e7eb" stroke-width="14" stroke-linecap="round"/>
+    <!-- filled arc: ~45% of semi-circle = amber -->
+    <!-- 45% of pi*75=235.6 => 106 -->
+    <path d="M -75 0 A 75 75 0 0 1 75 0" fill="none" stroke="#f59e0b" stroke-width="14" stroke-linecap="round"
+          stroke-dasharray="106 236"/>
+    <!-- needle at 45% => 45% of 180 = 81deg from left = 180-81=99deg from +x = pointing upper-left slightly -->
+    <!-- angle from +x axis: 180 - 81 = 99deg; x=cos(99°)*65, y=-sin(99°)*65 -->
+    <!-- cos(99°)≈-0.156, sin(99°)≈0.988 => x≈-10, y≈-64 -->
+    <line x1="0" y1="0" x2="-10" y2="-64" stroke="#1f2733" stroke-width="3" stroke-linecap="round"/>
+    <circle cx="0" cy="0" r="5" fill="#1f2733"/>
+    <!-- gauge title -->
+    <text x="0" y="22" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="13" font-weight="600" fill="#f59e0b">general skill slight ↓</text>
+    <text x="0" y="38" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" fill="#56616f">(forgetting)</text>
+    <!-- lo/hi labels -->
+    <text x="-80" y="14" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="10" fill="#56616f">low</text>
+    <text x="80" y="14" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="10" fill="#56616f">high</text>
+  </g>
+
+  <!-- Warning note box -->
+  <rect x="120" y="375" width="560" height="32" rx="8" fill="#fffbeb" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="400" y="393" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" fill="#92400e">
+    ⚠ LR too high overwrites general knowledge (catastrophic forgetting) — use 10% of original LR
+  </text>
+</svg>

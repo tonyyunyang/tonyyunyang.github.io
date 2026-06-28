@@ -1,0 +1,1906 @@
+<!DOCTYPE html>
+<html lang="en" data-pagefind-ignore="all">
+<head>
+<meta name="robots" content="noindex, nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ML System Design Playbook · eBay Prep</title>
+<script>try{if(localStorage.getItem('ebayprep-theme')==='dark')document.documentElement.classList.add('dark');}catch(e){}</script>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<button id="menu" class="menu-btn" aria-label="Menu">☰</button>
+<button id="theme" class="theme-btn" aria-label="Toggle theme">◐</button>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+<div class="brand"><a href="../index.html">eBay Prep</a><div class="brand-sub">Stage 1 · Yannick Versley</div></div>
+<div class="search"><input id="q" type="search" placeholder="Search the pack…" autocomplete="off"><div id="results"></div></div>
+<nav class="nav">
+<div class="nav-group"><div class="nav-group-title">Start Here</div><ul>
+<li><a href="7DAY_SPRINT_PLAN.html">7-Day Sprint Plan</a></li>
+<li><a href="21_KILL_LIST.html">⚠ Kill List — Never Say These</a></li>
+<li><a href="00_MASTER_INDEX_AND_STUDY_PLAN.html">Master Index &amp; Study Plan</a></li>
+<li><a href="SESSION2_READINESS_REPORT.html">Readiness Report</a></li>
+</ul></div>
+<div class="nav-group"><div class="nav-group-title">Stage 1 — Core</div><ul>
+<li><a href="03_INTERVIEWER_YANNICK_VERSLEY.html">Interviewer: Yannick Versley</a></li>
+<li><a href="02_STAGE1_ML_LLM_NLP_MASTERDOC.html">Stage-1 ML/LLM/NLP Master Doc</a></li>
+<li><a href="20_OWN_PAPERS_GROUND_TRUTH.html">★ Own Papers — Ground-Truth Defense</a></li>
+<li><a href="04_PUBLICATIONS_PROJECTS_DEFENSE.html">Publications &amp; Projects Defense</a></li>
+<li><a href="05_QUESTION_BANK_THIS_ROLE.html">Question Bank (This Role)</a></li>
+<li><a href="06_ML_LLM_NLP_FUNDAMENTALS_STUDYGUIDE.html">ML/LLM/NLP Fundamentals</a></li>
+<li><a href="12_MOCK_INTERVIEW_FULL.html">Full Mock Interview</a></li>
+</ul></div>
+<div class="nav-group"><div class="nav-group-title">Stage 1 — Deep Dives</div><ul>
+<li><a href="18_STAGE1_GAPFILL_DEEP_ANSWERS.html">Gap-Fill: Deep Answers</a></li>
+<li><a href="18b_STAGE1_GAPFILL_ROUND2.html">Gap-Fill: Round 2</a></li>
+<li><a href="19_ADAPTIVE_MOCK_SESSIONS.html">Adaptive Mock Sessions</a></li>
+<li><a href="13_GENERATIVE_MODELS_BEYOND_LLMS.html">Generative Models Beyond LLMs</a></li>
+<li><a href="14_CLASSICAL_NLP_AND_MT_DEEP_DIVE.html">Classical NLP &amp; MT Deep Dive</a></li>
+<li><a href="15_SOTA_2026_CURRENT_AWARENESS.html">SOTA 2026 Current Awareness</a></li>
+<li><a href="16_EXPERTISE_DEEP_DIVE_EFFICIENCY.html">Expertise Deep Dive: Efficiency</a></li>
+<li><a href="17_RAPID_FIRE_BREADTH_BANK.html">Rapid-Fire Breadth Bank</a></li>
+</ul></div>
+<div class="nav-group"><div class="nav-group-title">eBay &amp; Why eBay</div><ul>
+<li><a href="07_EBAY_COMPANY_AI_DOSSIER.html">eBay Company AI Dossier</a></li>
+</ul></div>
+<div class="nav-group"><div class="nav-group-title">Later Stages (2 &amp; 3)</div><ul>
+<li class="active"><a href="08_ML_SYSTEM_DESIGN_PLAYBOOK.html">ML System Design Playbook</a></li>
+<li><a href="09_CODING_CODESIGNAL_PREP.html">Coding / CodeSignal Prep</a></li>
+<li><a href="10_PROJECT_MGMT_RETROSPECTIVE_STAR.html">Project Mgmt &amp; STAR Stories</a></li>
+<li><a href="11_TEAM_FIT_CAREER.html">Team Fit &amp; Career</a></li>
+</ul></div>
+<div class="nav-group"><div class="nav-group-title">Logistics</div><ul>
+<li><a href="01_RECRUITER_RESPONSE_PACK.html">Recruiter Response Pack</a></li>
+</ul></div>
+</nav>
+  </aside>
+  <div class="scrim" id="scrim"></div>
+  <main class="content">
+    <article class="doc">
+      <div class="doc-meta"><span class="tag">Later Stages (2 &amp; 3)</span><span class="read">66 min read</span></div>
+      <h1 id="ml-system-design-playbook-ebay-mle-amsterdam">ML System Design Playbook — eBay MLE Amsterdam</h1>
+<p><strong>Priority / How to use:</strong> This is your Stage 2 (and late Stage 1) reference. Read Part 1 once to internalize the framework skeleton. Then drill each of the 5 eBay-flavored designs until you can narrate the full end-to-end story in 30–40 minutes, pushing back on constraints and proposing iterations. Part 3 gives you compact answers to curveballs — memorize the numbers.</p>
+<hr />
+<h1 id="part-1-reusable-ml-system-design-framework">PART 1: REUSABLE ML SYSTEM DESIGN FRAMEWORK</h1>
+<p>This 14-step skeleton applies to every ML system. In an interview, you adapt and trim. Always start by clarifying requirements before diving into model choices — interviewers penalize candidates who jump to architecture before understanding constraints.</p>
+<hr />
+<h2 id="step-0-problem-framing-and-clarification">Step 0: Problem Framing and Clarification</h2>
+<p>Before touching any design, ask:</p>
+<ol>
+<li><strong>What business objective does this serve?</strong> (Revenue, engagement, cost reduction, trust/safety)</li>
+<li><strong>Who are the users and what is the interaction pattern?</strong> (Buyer, seller, internal tool, API consumer; one-shot vs. session-based)</li>
+<li><strong>What is the scale?</strong> (Queries per second, catalog size, user base, data freshness)</li>
+<li><strong>What are the latency constraints?</strong> (p50 / p99 SLAs; synchronous vs. async; streaming vs. batch)</li>
+<li><strong>What is the cost budget?</strong> (GPU/hour, API cost ceiling, inference cost per query)</li>
+<li><strong>What data do we already have?</strong> (Logs, labels, proprietary catalog, third-party signals)</li>
+<li><strong>What does "success" look like in 6 months?</strong> (Quantified)</li>
+<li><strong>Are there regulatory or fairness constraints?</strong> (PII, GDPR in EU, bias, cross-border rules)</li>
+</ol>
+<p><strong>eBay-specific defaults to assume unless told otherwise:</strong>
+- Scale: 2B+ active listings, 135M monthly active users, hundreds of QPS on core ranking/search paths
+- Latency: 200–500 ms total page load; ML component budget ~50–150 ms
+- Multilingual: EN/DE/FR/ES/IT as primary markets
+- Cost sensitivity: very real — eBay invests heavily in efficiency (LiLiuM custom tokenizer 34% speedup is operational, not academic)</p>
+<hr />
+<h2 id="step-1-success-metrics">Step 1: Success Metrics</h2>
+<p>Define metrics in two layers before designing anything.</p>
+<h3 id="offline-metrics-trainingeval-signal">Offline Metrics (training/eval signal)</h3>
+<table>
+<thead>
+<tr>
+<th>Task Type</th>
+<th>Primary Metric</th>
+<th>Secondary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ranking / search</td>
+<td>NDCG@K, MRR</td>
+<td>MAP, Precision@K</td>
+</tr>
+<tr>
+<td>Classification (relevance, intent)</td>
+<td>AUC-ROC, F1</td>
+<td>PR-AUC when positives sparse</td>
+</tr>
+<tr>
+<td>Generation (MT, listing)</td>
+<td>chrF (MT), ROUGE (summarization)</td>
+<td>BERTScore, human eval</td>
+</tr>
+<tr>
+<td>Retrieval</td>
+<td>Recall@K, MRR</td>
+<td>Hit Rate@K</td>
+</tr>
+<tr>
+<td>Recommendation</td>
+<td>Recall@K, NDCG@K</td>
+<td>Catalog coverage, diversity</td>
+</tr>
+<tr>
+<td>Regression (price, CTR calibration)</td>
+<td>MAE, RMSE</td>
+<td>Calibration (ECE)</td>
+</tr>
+<tr>
+<td>LLM routing</td>
+<td>Cost at iso-quality</td>
+<td>% hard queries to strong model</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Metric selection rationale you must articulate:</strong>
+- NDCG@K is position-aware — top slots matter more on a search results page
+- chrF is character n-gram F-score; better than BLEU for short e-commerce titles (BLEU 4-gram statistics are too sparse for 11-word titles — eBay found this empirically, arXiv 2409.12880)
+- AUC-ROC is threshold-agnostic; prefer PR-AUC under heavy class imbalance (rare positives = relevant items)</p>
+<h3 id="online-metrics-production-ab-test-signal">Online Metrics (production A/B test signal)</h3>
+<table>
+<thead>
+<tr>
+<th>Business Goal</th>
+<th>Primary Online Metric</th>
+<th>Guardrail Metrics</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Search relevance</td>
+<td>Click-through rate (CTR), GMV per search</td>
+<td>Bounce rate, pogo-sticking</td>
+</tr>
+<tr>
+<td>Recommendations</td>
+<td>CTR, add-to-cart rate, conversion</td>
+<td>Session length, diversity</td>
+</tr>
+<tr>
+<td>Listing creation</td>
+<td>Listing rate, time-to-list</td>
+<td>Listing quality score, seller NPS</td>
+</tr>
+<tr>
+<td>Translation</td>
+<td>Buyer cross-border conversion</td>
+<td>Seller complaint rate</td>
+</tr>
+<tr>
+<td>LLM serving</td>
+<td>User satisfaction (thumbs up/down), task completion</td>
+<td>Latency p99, cost per query</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Key principle:</strong> Never optimize a single metric. eBay's Mercury platform explicitly balances relevance + business KPIs. Always name at least one guardrail metric to show you understand side effects.</p>
+<hr />
+<h2 id="step-2-data-and-labels">Step 2: Data and Labels</h2>
+<h3 id="data-sources-ebay-specific">Data Sources (eBay-specific)</h3>
+<ul>
+<li><strong>Implicit behavioral signals:</strong> clicks, purchases, dwell time, add-to-cart, saves, messages to sellers — massive volume, but biased toward popular items and position</li>
+<li><strong>Explicit editorial labels:</strong> human relevance judges (expensive; used sparingly for offline eval gold sets)</li>
+<li><strong>LLM-generated labels (LLM-as-judge):</strong> eBay uses LLM judgments for advertiser keyphrase relevance (arXiv 2505.04209); scales to billions of pairs but inherits LLM biases</li>
+<li><strong>Product knowledge graph:</strong> structured attributes (category, price, condition, item specifics) — ground truth for attribute extraction tasks</li>
+<li><strong>Seller-provided data:</strong> titles, descriptions, images, price history — noisy but comprehensive</li>
+<li><strong>Cross-lingual parallel data:</strong> eBay's MT training corpus (included in LiLiuM pretraining)</li>
+</ul>
+<h3 id="label-quality-issues-and-mitigations">Label Quality Issues and Mitigations</h3>
+<table>
+<thead>
+<tr>
+<th>Issue</th>
+<th>Manifestation</th>
+<th>Mitigation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Position bias</td>
+<td>Higher-ranked items get more clicks regardless of true relevance</td>
+<td>Inverse Propensity Score (IPS) weighting; randomized exploration experiments</td>
+</tr>
+<tr>
+<td>Selection bias</td>
+<td>Only shown items can be clicked</td>
+<td>Counterfactual evaluation; bandit logging</td>
+</tr>
+<tr>
+<td>Sparse positives</td>
+<td>&lt;1% of catalog appears in any given session</td>
+<td>Hard negative mining; BPR loss</td>
+</tr>
+<tr>
+<td>Stale labels</td>
+<td>User preferences shift; yesterday's popular = today's outdated</td>
+<td>Time-decayed weighting; recency features</td>
+</tr>
+<tr>
+<td>Feedback delay</td>
+<td>Purchase signal lags click by days/weeks</td>
+<td>Multi-task learning with click proxy + purchase target</td>
+</tr>
+</tbody>
+</table>
+<h3 id="data-volume-freshness-requirements">Data Volume / Freshness Requirements</h3>
+<ul>
+<li><strong>Pretraining-scale:</strong> 3T tokens for LiLiuM; 1T for e-Llama continued pretraining</li>
+<li><strong>Fine-tuning scale:</strong> 4M instruction examples for eBay VLM (arXiv 2602.11733); 10k–1M for task-specific SFT</li>
+<li><strong>Online serving:</strong> most ranking models need &lt;24h feature freshness; real-time models need &lt;1min (Mercury's near-real-time queue)</li>
+</ul>
+<hr />
+<h2 id="step-3-features">Step 3: Features</h2>
+<h3 id="feature-categories">Feature Categories</h3>
+<p><strong>Query features (search/ranking):</strong>
+- Raw query text, tokenized, character n-grams
+- Query embeddings (eBERT or LiLiuM encoder)
+- Query category prediction (soft taxonomy labels)
+- Historical query CTR, session context</p>
+<p><strong>Item features:</strong>
+- Title, description, category path (structured)
+- Visual embeddings (product images via ViT / SigLIP2)
+- Structured attributes: price, condition, seller rating, shipping speed, return policy
+- Historical item CTR/CVR, GMV, recency of listing</p>
+<p><strong>User features:</strong>
+- Browsing history embeddings (sequence of item IDs)
+- Purchase history, categories of interest
+- Demographic proxies (inferred from behavior, not stored directly for GDPR)
+- Session context: device, time of day, geo (country/language)</p>
+<p><strong>Cross features:</strong>
+- Query–item semantic similarity (cosine of embeddings)
+- Query–item category match score
+- User–item co-occurrence in sessions</p>
+<p><strong>Feature Engineering Principles:</strong>
+- Prefer learned representations (embeddings) over hand-crafted for semantic similarity
+- Keep exact-match signals (BM25 term overlap, category exact match) as separate features — neural does not always beat keyword matching for product IDs and brand names
+- Log-transform count features (CTR, views) to normalize skew
+- Normalize continuous features per-query for ranking models</p>
+<hr />
+<h2 id="step-4-candidate-generation-two-stage-architecture">Step 4: Candidate Generation (Two-Stage Architecture)</h2>
+<p>For any system with a very large item space (eBay: 2B listings), a two-stage retrieve-then-rank architecture is mandatory — you cannot run expensive models over the full catalog at query time.</p>
+<h3 id="stage-1-candidate-retrieval">Stage 1: Candidate Retrieval</h3>
+<p>Goal: Recall@K as high as possible from N candidates (K ≈ 100–1000, N = 2B)</p>
+<p><strong>Approaches:</strong>
+1. <strong>BM25 / Sparse retrieval (Lucene/Elasticsearch):</strong> fast, no GPU, excellent for exact-match (brand names, product IDs, UPC codes). eBay uses Lucene 8.11.3 with OKAPI BM25 for MT RAG retrieval.
+2. <strong>Dense retrieval (bi-encoder ANN):</strong> query and item encoded independently to fixed-dimension vectors; cosine similarity via ANN (FAISS HNSW or Vertex AI Vector Search). eBay uses Vertex AI Vector Search for recommendations (Google Cloud blog). Enables semantic matching.
+3. <strong>Hybrid:</strong> RRF (Reciprocal Rank Fusion) over BM25 and dense candidate lists. Typical eBay-scale setup. Dense catches semantics; BM25 catches exact product codes.
+4. <strong>Item-to-item collaborative filtering:</strong> given user's historical items, retrieve similar items via co-purchase matrix factorization (WALS / LightFM / two-tower trained on co-engagement).</p>
+<p><strong>ANN index choices:</strong>
+- FAISS HNSW: in-memory, low latency (~5ms), good for &lt;100M vectors
+- Vertex AI Vector Search (ScaNN): scalable to billions, managed, integrates with GCP (eBay is on GCP/Azure hybrid)
+- Cost of reindexing: embeddings must be re-computed when the encoder model changes — plan incremental indexing for real-time listings</p>
+<h3 id="stage-2-ranking">Stage 2: Ranking</h3>
+<p>Goal: NDCG@K precision over the retrieved candidate set</p>
+<p><strong>Model choices:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Model Type</th>
+<th>Latency</th>
+<th>Quality</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Gradient Boosted Trees (LightGBM/XGBoost)</td>
+<td>&lt;10ms</td>
+<td>Good on structured features</td>
+<td>Baseline; interpretable; handles missing values</td>
+</tr>
+<tr>
+<td>Linear model (logistic regression)</td>
+<td>&lt;1ms</td>
+<td>Baseline</td>
+<td>Great for rapid iteration, low latency</td>
+</tr>
+<tr>
+<td>Deep CTR (Wide &amp; Deep, DeepFM, DCN)</td>
+<td>20–50ms</td>
+<td>Better cross-feature learning</td>
+<td>Standard for production rankers</td>
+</tr>
+<tr>
+<td>Cross-encoder (BERT on query+item)</td>
+<td>100–500ms</td>
+<td>High quality</td>
+<td>Too slow for L1 ranking; use as L2 reranker on top-20</td>
+</tr>
+<tr>
+<td>LLM reranker (RankZephyr, eBay LLMDistill4Ads)</td>
+<td>200ms–2s</td>
+<td>Highest quality</td>
+<td>Teacher for distillation; not direct serving</td>
+</tr>
+</tbody>
+</table>
+<p><strong>eBay's distillation pipeline (from LLMDistill4Ads paper, arXiv 2508.03628):</strong>
+LLM teacher (high quality, slow) → cross-encoder assistant (medium) → bi-encoder EBR student (fast, production). This is the standard 3-stage distillation for production NLP ranking at eBay.</p>
+<hr />
+<h2 id="step-5-model-training">Step 5: Model Training</h2>
+<h3 id="loss-functions">Loss Functions</h3>
+<table>
+<thead>
+<tr>
+<th>Task</th>
+<th>Loss</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Pointwise ranking</td>
+<td>Binary cross-entropy</td>
+<td>Treats each item independently</td>
+</tr>
+<tr>
+<td>Pairwise ranking</td>
+<td>BPR / hinge loss</td>
+<td>Optimize relative order of positive vs. negative</td>
+</tr>
+<tr>
+<td>Listwise ranking</td>
+<td>ListNet / LambdaRank</td>
+<td>NDCG-optimized; used in production LTR</td>
+</tr>
+<tr>
+<td>LM pretraining</td>
+<td>Cross-entropy next-token prediction</td>
+<td>Autoregressive; eBay uses for LiLiuM/e-Llama</td>
+</tr>
+<tr>
+<td>Retrieval (two-tower)</td>
+<td>In-batch negatives + hard negatives</td>
+<td>Temperature-scaled contrastive loss</td>
+</tr>
+</tbody>
+</table>
+<h3 id="training-infrastructure">Training Infrastructure</h3>
+<ul>
+<li><strong>eBay pretraining scale:</strong> 480 H100 GPUs, 60 nodes, NVLink + InfiniBand; Megatron-LM with 3D parallelism; Flash-Attention-2 (from e-Llama paper, arXiv 2501.09706); well-tuned runs achieve ~40–47% MFU (model FLOP utilization) on H100 clusters</li>
+<li><strong>Fine-tuning scale:</strong> 8–64 A100/H100 GPUs; FSDP or DeepSpeed ZeRO-2/3; LoRA for PEFT</li>
+<li><strong>Ranking models:</strong> typically CPU-trainable with Spark/distributed gradient boosted trees for feature-heavy models; GPU for deep CTR</li>
+</ul>
+<h3 id="key-training-decisions-with-rationale">Key Training Decisions (with rationale)</h3>
+<p><strong>Learning rate for continued pretraining:</strong> Use 10% of original pretraining LR (e-Llama: 3.0e-5 for 8B). Higher LR causes catastrophic forgetting of general capabilities. eBay ablated this explicitly: LR=3.0e-3 dropped general score from 43.3 to 34.5 while e-commerce score barely moved.</p>
+<p><strong>Data mixing ratio for domain adaptation:</strong> 50% domain / 50% general is optimal in eBay's ablation. Above 50% domain shows diminishing e-commerce returns with increasing general degradation. The intuition is not just "general data as regularizer" — it's mechanistic: the model needs exposure to general-format instruction-following, reasoning, and in-context learning examples that only exist in general-domain corpora. A 100%-domain model loses those capabilities and becomes brittle on zero-shot tasks. See the Pretraining Data Curation section below for deeper treatment.</p>
+<p><strong>Batch size:</strong> LiLiuM / e-Llama used ~11.8M tokens per batch (critical for stable gradient estimates at pretraining scale). Larger batch = less noise but needs LR scaling (linear scaling rule or square-root rule).</p>
+<p><strong>Checkpoint averaging:</strong> Average parameters from last N checkpoints before deployment. Smooths out oscillations from late-stage training. Free quality boost, used in both LiLiuM and e-Llama.</p>
+<hr />
+<h2 id="step-5b-pretraining-data-curation-versleys-home-turf">Step 5B: Pretraining Data Curation — Versley's Home Turf</h2>
+<p>This section is specifically high-yield because Versley leads LLM pretraining at eBay. Expect depth here.</p>
+<h3 id="why-data-curation-matters-at-scale">Why Data Curation Matters at Scale</h3>
+<p>At 3T tokens, even a 1% contamination rate means 30B tokens of low-quality data. A 1% duplication rate means 30B wasted compute tokens. At eBay's e-Llama scale (340k H100 GPU-hours), bad data is expensive.</p>
+<h3 id="quality-filtering-pipeline">Quality Filtering Pipeline</h3>
+<p>Standard pipeline for web-scale pretraining data:</p>
+<pre><code>Raw web crawl
+  ↓
+1. Language detection (fastText, &lt;1ms per doc)
+   └─ Filter to target languages; proportional weighting for multilingual
+
+2. Heuristic cleaning
+   ├─ Min/max document length thresholds
+   ├─ Repetition filters (remove docs where N-gram repetition &gt; threshold)
+   ├─ Symbol/punctuation ratio (remove docs that are mostly code fragments or tables)
+   └─ URL/email density filter
+
+3. Perplexity-based quality filtering
+   ├─ Train a small KenLM 5-gram model on a high-quality seed corpus (Wikipedia, curated books)
+   ├─ Score each document: low-perplexity = high quality (fluent, well-structured text)
+   ├─ Set language-specific thresholds via manual inspection of perplexity percentiles
+   └─ Remove very high-perplexity outliers (garbled text, spam) and very low-perplexity documents
+      (templated machine-generated text that would cause memorization)
+
+4. PII scrubbing
+   └─ Named-entity detection → replace emails, phone numbers, credit card numbers
+
+5. Deduplication (most critical for model quality)
+   ├─ Exact deduplication: hash-based (MD5 over normalized text)
+   └─ Fuzzy deduplication: MinHash + LSH
+       ├─ Extract character or word n-grams from each document
+       ├─ Compute MinHash signature (B bands × R rows → target 75–85% Jaccard similarity threshold)
+       └─ LSH groups documents with similar signatures → remove near-duplicates
+</code></pre>
+<p><strong>Why deduplication matters beyond storage:</strong>
+1. <strong>Memorization:</strong> Models memorize training examples, especially those seen many times. Duplicated data = training the model to recite verbatim text, not generalize. This is a privacy risk (membership inference) and a quality risk.
+2. <strong>Train/test leakage:</strong> If benchmark tasks were web-scraped and are duplicated in training data, the model appears to generalize when it is actually memorizing. This is the benchmark contamination problem (see Step 6).
+3. <strong>Compute waste:</strong> Duplicated tokens contribute no new information gradient; they are pure compute waste at eBay's scale.</p>
+<p><strong>eBay-specific considerations for LiLiuM's 3T tokens:</strong>
+- Heavy e-commerce data (product listings, seller descriptions) has extreme duplication — many sellers list identical products with copy-pasted descriptions. MinHash fuzzy deduplication at product-description level is essential.
+- Cross-lingual duplicates: the same product title in EN and DE are not duplicates — do not over-deduplicate multilingual data.
+- The tension: you want enough domain data for terminology coverage but not so much that the model memorizes catalog entries.</p>
+<h3 id="data-mixing-strategy">Data Mixing Strategy</h3>
+<p>The 50/50 domain/general split (eBay's empirically optimal ratio for e-Llama) balances:</p>
+<table>
+<thead>
+<tr>
+<th>Concern</th>
+<th>Too much domain data</th>
+<th>Too much general data</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>E-commerce vocabulary</td>
+<td>Good</td>
+<td>Terminology gaps</td>
+</tr>
+<tr>
+<td>In-context learning</td>
+<td>Degraded</td>
+<td>Preserved</td>
+</tr>
+<tr>
+<td>Reasoning chains</td>
+<td>Degraded</td>
+<td>Preserved</td>
+</tr>
+<tr>
+<td>Instruction following</td>
+<td>Degraded</td>
+<td>Preserved</td>
+</tr>
+<tr>
+<td>Machine translation</td>
+<td>OK (MT-parallel in domain)</td>
+<td>Good (more linguistic variety)</td>
+</tr>
+<tr>
+<td>Generalization</td>
+<td>Brittle on OOD tasks</td>
+<td>Robust</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Multilingual data weighting:</strong> LiLiuM explicitly weights multilingual data to cover EN/DE/FR/ES/IT/NL proportionally to eBay's cross-border trade volume — not proportional to web crawl frequency (which would under-represent non-English markets).</p>
+<h3 id="benchmark-contamination-risk">Benchmark Contamination Risk</h3>
+<p>LiLiuM trained on 3T tokens — how do you know benchmark tasks weren't in the corpus?</p>
+<p><strong>Detection methods:</strong>
+1. <strong>N-gram overlap:</strong> check whether test-set answer strings or question preambles appear in training data (exact or fuzzy)
+2. <strong>Canary injection:</strong> insert known synthetic strings in training data; test whether model completes them — measures memorization rate
+3. <strong>Temporal splitting:</strong> prefer benchmarks whose test sets were published after the training data cutoff
+4. <strong>Dynamic benchmarks:</strong> LiveBench-style benchmarks release new questions monthly from post-cutoff sources; decontamination is built in by design</p>
+<p><strong>Practical response to "how do you know?":</strong> "We can't fully rule it out. We use temporal cutoffs so our training corpus predates the benchmark release dates where possible. For internally curated benchmarks like eComMMMU, the test set was held out from pretraining and only used for evaluation — no feedback loop. For public benchmarks, we report results with contamination caveats and prefer LiveBench-style dynamic evaluation for production quality tracking."</p>
+<hr />
+<h2 id="step-6-offline-evaluation">Step 6: Offline Evaluation</h2>
+<h3 id="evaluation-principles">Evaluation Principles</h3>
+<ol>
+<li><strong>Use a held-out test set that mirrors production distribution</strong> — not random split; temporal split is better (train on older data, test on newer) to avoid leakage</li>
+<li><strong>Evaluate the full pipeline, not just the model</strong> — a great ranker on a bad candidate set fails in production</li>
+<li><strong>Use the metric that corresponds to the serving scenario</strong> — if you serve top-5 results, measure NDCG@5, not NDCG@100</li>
+<li><strong>Compare against a strong baseline</strong> — random, BM25, or the existing production model</li>
+</ol>
+<h3 id="ebay-specific-evaluation-benchmarks">eBay-Specific Evaluation Benchmarks</h3>
+<ul>
+<li><strong>Aspect Prediction, AP Multiple Choice, Price Multiple Choice, Most Common Aspects, MCA Multiple Choice:</strong> e-commerce NLU benchmark tasks from eBay's e-Llama evaluation suite; baseline ~36–61 for Llama-3.1 8B; e-Llama 8B achieves ~54–75 (+25% average)</li>
+<li><strong>eComMMMU:</strong> public multimodal e-commerce understanding benchmark; the eBay VLM (e-Llama-8B based) achieves 58.3%</li>
+<li><strong>chrF for MT:</strong> eBay RAG-for-MT paper shows up to +15.3% chrF improvement for EN-PL pair with 5-shot RAG</li>
+<li><strong>LLM-as-judge:</strong> eBay uses LLM judges for advertiser keyphrase relevance at scale; must account for position bias (judge prefers answer A over B regardless of quality when A comes first), verbosity bias (longer answers rated higher), and self-enhancement bias (model prefers its own outputs)</li>
+</ul>
+<h3 id="llm-evaluation-why-benchmarks-lie-and-what-you-do-about-it">LLM Evaluation: Why Benchmarks Lie and What You Do About It</h3>
+<p><strong>The problem:</strong> Static benchmarks give a point estimate that conflates:
+- Genuine capability generalization
+- Memorization of training examples that overlap with test set
+- Format-matching to the benchmark's particular framing
+- In-context learning from the few-shot prompt, not model knowledge</p>
+<p><strong>What you do about it:</strong>
+1. <strong>Contamination audit:</strong> before reporting a number, check n-gram overlap between training data and benchmark. If &gt;5% test questions appear in training, caveat the result.
+2. <strong>Multiple benchmark agreement:</strong> if a model improves on MMLU but degrades on a held-out eBay internal benchmark, trust the internal benchmark — it's not contaminated.
+3. <strong>Capability elicitation vs. benchmark performance:</strong> a model may know the answer but fail the benchmark's specific format. Use chain-of-thought prompting and compare zero-shot vs. few-shot to disentangle.
+4. <strong>LLM-as-judge with calibration:</strong> when using LLM judges at scale, run human spot-checks on 2–5% of judgments to measure judge accuracy. If judge accuracy &lt; 80%, the judge is not reliable enough for training signal.
+5. <strong>Dynamic evaluation:</strong> for production quality monitoring, use a rolling held-out set drawn from recent eBay queries — never recycled into training. This mirrors real distribution drift.</p>
+<hr />
+<h2 id="step-7-serving-latency-and-cost-budgets">Step 7: Serving, Latency, and Cost Budgets</h2>
+<h3 id="latency-budget-decomposition">Latency Budget Decomposition</h3>
+<p>For a typical eBay search result page (200ms total budget):</p>
+<pre><code>Total budget: 200ms
+├─ Network + API gateway: 10ms
+├─ Candidate retrieval (ANN + BM25): 30ms
+│   ├─ Sparse BM25 (Lucene): ~5ms
+│   └─ Dense ANN (FAISS/Vertex AI): ~20ms
+│   └─ Merge + dedup: ~5ms
+├─ Feature assembly: 20ms
+├─ L1 Ranking (deep CTR or GBDT): 30ms
+├─ L2 Reranking (optional, cross-encoder on top-20): 50ms
+│   └─ (can be skipped if latency budget tight)
+├─ Business rules / filters: 10ms
+└─ Response serialization: ~10ms
+</code></pre>
+<p><strong>LLM-serving latency decomposition:</strong></p>
+<pre><code>GenAI features (e.g., Magical Listing, agentic response):
+├─ Prefill (prompt processing): 100–500ms (compute-bound)
+├─ Decode (token generation): 50–200ms per 100 tokens (bandwidth-bound)
+└─ Total: 300ms–2s depending on model and output length
+</code></pre>
+<h3 id="inference-optimization-techniques">Inference Optimization Techniques</h3>
+<p><strong>KV Cache:</strong> Stores past K and V tensors during autoregressive generation. Memory formula:</p>
+<pre><code>KV cache memory = 2 × num_layers × num_KV_heads × d_head × seq_len × batch_size × bytes_per_element
+</code></pre>
+<p>The leading <code>2</code> accounts for K and V tensors at each layer. Critically, use <strong>KV heads</strong> (not query heads) — this distinction matters enormously under GQA/MQA. A model using GQA with 8 KV heads vs. 32 query heads has 4× less KV cache memory than the naive formula would suggest. For LiLiuM-7B, the actual KV cache size depends on the KV head configuration which is not publicly documented — do not quote "30GB at 128k context" without confirming eBay's GQA configuration. A rough upper bound assuming full MHA (no GQA) would be higher; with GQA-8 it would be ~4× smaller. Always frame this: "the exact number depends on whether LiLiuM uses GQA and how many KV heads — I'd confirm the architecture spec before quoting a number."</p>
+<p>Use GQA (Grouped Query Attention) or MQA (Multi-Query Attention) to reduce KV size by 4–8×. vLLM's INT8 KV quantization halves memory again with ~0.5% quality loss.</p>
+<p><strong>PagedAttention (vLLM):</strong> Divides KV cache into pages (like OS virtual memory). No pre-reservation → eliminates 60–80% memory waste. Enables KV sharing for common prefixes (system prompt caching). Prefix caching is especially valuable for eBay's RAG scenarios where the product catalog retrieval result is identical across many queries.</p>
+<p><strong>Speculative Decoding — Correct Math:</strong></p>
+<p>The mechanism: a small draft model generates K draft tokens; the target (verifier) model checks all K+1 tokens in a single forward pass. If draft token i is accepted with probability α (the acceptance rate), the expected number of tokens produced per verification pass is:</p>
+<pre><code>E[tokens per pass] = (1 - α^(K+1)) / (1 - α)
+</code></pre>
+<p>This follows from a truncated geometric distribution. The theoretical speedup formula is:</p>
+<pre><code>speedup ≈ (1 - α^(K+1)) / ((1 - α) × (1 + K × cost_draft / cost_target))
+</code></pre>
+<p>where <code>cost_draft / cost_target</code> is the ratio of compute cost per forward pass between draft and target models.</p>
+<p><strong>Concrete example for eBay (LiLiuM-1B draft → LiLiuM-7B target, K=7):</strong>
+- Assume α=0.75 (reasonable for domain-matched draft; higher for in-distribution queries, lower for OOD)
+- E[tokens per pass] = (1 - 0.75^8) / (1 - 0.75) = (1 - 0.1) / 0.25 ≈ 3.6
+- cost_draft/cost_target ≈ 1/7 (roughly proportional to parameter count)
+- speedup ≈ 3.6 / (1 + 7 × 1/7) = 3.6 / 2.0 = 1.8×</p>
+<p>At α=0.85 and K=7: E[tokens] ≈ 5.3, speedup ≈ 5.3 / 2.0 ≈ 2.6×. This matches the empirically observed "2–3× speedup" range.</p>
+<p><strong>Critical constraint:</strong> Speculative decoding only improves <em>single-sequence throughput</em> when the target model is memory-bandwidth-bound (small batch size, ≤4 sequences). At large batch sizes (e.g., batch=64 in bulk translation), the target model is compute-bound and speculative decoding provides little benefit — you are better off with larger batches for throughput. This is the key operational insight: use speculative decoding for the real-time path (Magical Listing, agentic shopping, batch=1–4) and not for the bulk batch path (indexing translation, batch=512).</p>
+<p>Both models must share the same tokenizer — LiLiuM's custom tokenizer is an architectural advantage here since all LiLiuM sizes use it.</p>
+<p><strong>Continuous Batching:</strong> Dynamically insert new requests mid-batch. Eliminates head-of-line blocking. Standard in vLLM, TGI, SGLang. Critical for mixed-priority queue (agentic Magical Listing is async; product search is real-time).</p>
+<p><strong>Chunked Prefill:</strong> Split long prompts into chunks interleaved with decode steps. Reduces tail latency for streaming applications (streaming listing generation to seller UI).</p>
+<p><strong>Disaggregated Prefill/Decode:</strong> Separate GPU pools for prefill (compute-bound) and decode (memory-bandwidth-bound). Emerging eBay-scale pattern; prefill pool can be bursty, decode pool scales more smoothly.</p>
+<p><strong>Quantization:</strong>
+- AWQ 4-bit: production standard for throughput-critical paths; minimal quality loss, no per-task calibration
+- GPTQ 4-bit: good alternative; needs 128-sample calibration set
+- FP8 (H100 native): increasingly common for large models; better than INT8 for weight matrices
+- KV cache quantization: INT8 KV reduces memory 2× with ~0.5% quality loss on most tasks</p>
+<p><strong>Custom Tokenizer Speedup:</strong> LiLiuM's 65k vocabulary (vs. LLaMA-2's 32k) encodes e-commerce terms as fewer tokens → fewer autoregressive steps → 34% generation speedup on downstream tasks. The vocabulary customization follow-up paper (arXiv 2509.26124, Versley co-author) formalizes extending existing tokenizers with domain-specific BPE merges while guaranteeing sequences are never longer than with the original vocabulary — the "monotone efficiency guarantee." See the Tokenizer Design section below for full mechanism.</p>
+<h3 id="cost-budget-management">Cost Budget Management</h3>
+<table>
+<thead>
+<tr>
+<th>Model Size</th>
+<th>Typical GPU RAM</th>
+<th>Throughput (tokens/s/GPU)</th>
+<th>Cost Proxy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LiLiuM 1B</td>
+<td>&lt;4GB (BF16)</td>
+<td>~2000</td>
+<td>Very low</td>
+</tr>
+<tr>
+<td>LiLiuM 7B</td>
+<td>~14GB (BF16)</td>
+<td>~500</td>
+<td>Low</td>
+</tr>
+<tr>
+<td>LiLiuM 13B</td>
+<td>~26GB (BF16)</td>
+<td>~250</td>
+<td>Medium</td>
+</tr>
+<tr>
+<td>GPT-4 / Claude Opus (API)</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>Very high (~$10–20/M tokens)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Cost levers:</strong>
+1. <strong>Routing:</strong> send easy queries to small model, hard queries to large (Tony's primary work — &gt;90% cost reduction)
+2. <strong>Caching:</strong> semantic cache for repeated queries (cosine-similar queries share cached responses); especially effective for product attribute extraction where many sellers list the same product
+3. <strong>Batch processing:</strong> use async paths for non-latency-critical work (listing generation, translation) → larger batches → better GPU utilization
+4. <strong>Quantization:</strong> AWQ 4-bit halves model memory → 2× throughput on same hardware → 2× cost reduction
+5. <strong>Speculative decoding:</strong> 1.8–2.6× throughput with small draft model (memory-bandwidth-bound single-sequence path only)
+6. <strong>Vocabulary efficiency:</strong> 34% fewer decode steps = 34% lower compute cost at constant throughput</p>
+<hr />
+<h2 id="step-7b-tokenizer-design-versleys-co-authored-work">Step 7B: Tokenizer Design — Versley's Co-authored Work</h2>
+<p>This is high-yield because Versley co-authored arXiv 2509.26124. Know the mechanism, not just the number.</p>
+<h3 id="the-problem-vocabulary-mismatch">The Problem: Vocabulary Mismatch</h3>
+<p>A general-purpose tokenizer (LLaMA-3.1: 128k vocab, but tuned for English web text) handles e-commerce terms poorly:
+- "Damenschuhe" (German, "women's shoes") → multiple subword tokens
+- "iPhone15ProMax" → fragmented into many pieces
+- Product codes like "B087J4GRCL" → character-level splits</p>
+<p>Result: more tokens per sequence → more autoregressive steps → higher latency and cost → lower context utilization.</p>
+<h3 id="the-algorithm-bpe-vocabulary-extension-with-monotone-efficiency">The Algorithm: BPE Vocabulary Extension with Monotone Efficiency</h3>
+<p>Standard BPE (Byte-Pair Encoding) starts with a character-level vocabulary and iteratively merges the most frequent adjacent pair. To extend an existing tokenizer with domain vocabulary:</p>
+<pre><code>1. Collect domain corpus (eBay product titles, descriptions, bilingual pairs)
+2. Tokenize corpus with EXISTING tokenizer → get current segmentation
+3. Count frequency of adjacent token pairs in the domain corpus
+4. For each candidate new merge operation:
+   a. Add merged token to vocabulary
+   b. VERIFY: does this merge ever INCREASE token count for any string?
+      (It cannot, by construction — merging two adjacent tokens into one
+       can only reduce or maintain token count, never increase it)
+5. Select top-K most frequent domain-specific merges
+6. Initialize new token embeddings (random or from average of constituent tokens)
+7. Continue pretraining with updated tokenizer (short warm-up phase)
+</code></pre>
+<p><strong>Monotone efficiency guarantee (formal):</strong> For any string s, if the extended tokenizer applies a new merge operation, the resulting token count <code>|tok_new(s)| ≤ |tok_old(s)|</code>. This is guaranteed because new merges can only combine adjacent tokens, never split them. Corollary: the extended vocabulary never makes any sequence longer than the original vocabulary.</p>
+<p><strong>Result for eBay:</strong> up to 20% sequence length reduction for e-commerce text (arXiv 2509.26124). Combined with the original LiLiuM vocabulary advantage over LLaMA-2 (65k vs. 32k vocab → 34% speedup), the vocabulary-extended model further reduces latency.</p>
+<h3 id="multilingual-tokenizer-fertility">Multilingual Tokenizer Fertility</h3>
+<p>A natural Versley follow-up: "How does vocabulary coverage differ across scripts?"</p>
+<p><strong>Token fertility</strong> = average tokens per word (lower = better vocabulary coverage):</p>
+<table>
+<thead>
+<tr>
+<th>Language</th>
+<th>Latin script (EN)</th>
+<th>Germanic (DE)</th>
+<th>Romance (FR/ES)</th>
+<th>Korean</th>
+<th>Arabic</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LLaMA-2 32k</td>
+<td>~1.3</td>
+<td>~1.8</td>
+<td>~1.5</td>
+<td>~3.5</td>
+<td>~2.8</td>
+</tr>
+<tr>
+<td>LiLiuM 65k (estimated)</td>
+<td>~1.2</td>
+<td>~1.4</td>
+<td>~1.3</td>
+<td>~2.5</td>
+<td>~2.2</td>
+</tr>
+</tbody>
+</table>
+<p>High fertility means more tokens per word → more autoregressive steps → higher cost and worse attention span (the model "sees" fewer words in the same context window). For eBay's primary markets (DE/FR/ES/IT), LiLiuM's explicit inclusion of European language vocabulary in its 65k vocab directly addresses this. For expansion into Korean, Turkish, or Arabic, vocabulary extension via the arXiv 2509.26124 algorithm is the right intervention.</p>
+<hr />
+<h2 id="step-7c-alignment-pipeline-sft-reward-rlhfdpo">Step 7C: Alignment Pipeline — SFT → Reward → RLHF/DPO</h2>
+<p>Versley leads pretraining, but alignment is a natural adjacent topic for an ML/LLM research interview. A two-page treatment here.</p>
+<h3 id="why-sft-alone-is-insufficient">Why SFT Alone Is Insufficient</h3>
+<p>Supervised Fine-Tuning (SFT) on instruction-response pairs teaches the model to produce responses in the right format. It does not teach the model to prefer <em>better</em> responses over <em>worse</em> ones — because SFT training signal is identical regardless of response quality (all targets receive equal cross-entropy loss weight).</p>
+<p>Problem in e-commerce: a model SFT'd on "generate a product listing" might produce technically valid listings that are:
+- Misleading (exaggerated condition claims)
+- Keyword-stuffed (not readable)
+- Generic (same boilerplate for very different products)</p>
+<p>You need a preference signal to distinguish good from bad outputs.</p>
+<h3 id="reward-model-training">Reward Model Training</h3>
+<pre><code>1. Collect prompts (e.g., &quot;Generate a listing for this product photo&quot;)
+2. Sample multiple completions per prompt from the SFT model (e.g., N=4)
+3. Human raters (or LLM judges) rank completions: A &gt; B &gt; C &gt; D
+4. Train a reward model on preference pairs:
+   loss = -log(σ(r(prompt, A) - r(prompt, B)))  # Bradley-Terry model
+   where r(·) is the scalar reward output
+5. Reward model predicts &quot;how good is this response for this prompt&quot;
+</code></pre>
+<p><strong>eBay-specific reward signal design:</strong>
+- Seller satisfaction proxy: do sellers accept the AI output or heavily edit it? (edit rate per field)
+- Listing quality: does the generated listing lead to a sale within 30 days?
+- Compliance: does the output violate prohibited item policies?
+- Truthfulness: do generated attributes match what is visible in the product image?</p>
+<h3 id="ppo-vs-dpo">PPO vs. DPO</h3>
+<p><strong>PPO (Proximal Policy Optimization):</strong>
+- Online RL: sample from current policy, get reward from reward model, update policy
+- Requires 4 models in memory simultaneously: policy, reference policy (KL constraint), reward model, value model → high GPU memory requirement
+- Strong but complex; standard in GPT-4, Claude alignment pipelines
+- KL regularization: <code>R(x,y) = r(x,y) - β × KL(π_θ(y|x) || π_ref(y|x))</code> prevents policy from drifting too far from SFT initialization</p>
+<p><strong>DPO (Direct Preference Optimization):</strong>
+- Offline: re-uses preference pairs directly; no reward model needed
+- Collapses reward model + RL into a single cross-entropy loss over preference pairs
+- <code>L_DPO = -E[log σ(β log(π_θ(y_w|x)/π_ref(y_w|x)) - β log(π_θ(y_l|x)/π_ref(y_l|x)))]</code>
+  where <code>y_w</code> = preferred response, <code>y_l</code> = rejected response
+- Simpler to implement, no value model, lower memory footprint
+- Weakness: relies on offline preference data; cannot explore new responses during training</p>
+<p><strong>GRPO (Group Relative Policy Optimization — used in DeepSeek-R1):</strong>
+- Removes the value model from PPO by using group-normalized rewards within a batch
+- Each prompt: sample G responses, compute rewards, normalize within group → no critic needed
+- 2× less memory than PPO; increasingly popular for reasoning-heavy fine-tuning</p>
+<p><strong>eBay's likely path:</strong> SFT on curated instruction data → DPO on preference pairs collected from seller edit behavior and LLM-judge annotations → evaluate on internal listing quality benchmark. PPO reserved for agentic tasks where online exploration is needed (agentic shopping where reward = task completion).</p>
+<h3 id="reward-hacking-in-e-commerce">Reward Hacking in E-commerce</h3>
+<p>Reward hacking is when the model learns to maximize the proxy reward without improving the true objective.</p>
+<p><strong>E-commerce specific examples:</strong>
+- <strong>Seller gaming:</strong> sellers might provide feedback that inflates listing quality for items they want to push (adversarial preference data)
+- <strong>Keyword stuffing:</strong> model learns that listings with more keywords get higher automated quality scores → produces unreadable keyword soup
+- <strong>Fake confidence:</strong> model learns that definitive attribute claims get higher ratings than hedged ones → states attributes it cannot see in the image
+- <strong>Length bias:</strong> LLM judge rewards longer responses → model learns to pad descriptions</p>
+<p><strong>Mitigations:</strong>
+- Use multiple independent reward signals (seller edit rate + sold rate + image-attribute consistency) — harder to simultaneously game all three
+- Ensemble reward models trained on different data splits — high variance across ensemble = reward model uncertainty → fall back to conservative response
+- Constrain output format via structured JSON schema — limits degrees of freedom for gaming
+- Monitor reward distribution during RL training: if reward increases faster than downstream quality metrics, stop training earlier (early stopping on held-out quality eval)</p>
+<hr />
+<h2 id="step-8-scaling-laws-versleys-pretraining-lens">Step 8: Scaling Laws — Versley's Pretraining Lens</h2>
+<h3 id="chinchilla-compute-optimal-training">Chinchilla Compute-Optimal Training</h3>
+<p>Hoffmann et al. 2022 ("Chinchilla") established that for a fixed compute budget C (measured in FLOPs), the optimal allocation is roughly equal between model size N and training tokens D:</p>
+<pre><code>N_opt ∝ C^0.5
+D_opt ∝ C^0.5
+D_opt / N_opt ≈ 20 tokens per parameter
+</code></pre>
+<p>This means a 7B parameter model should be trained on ~140B tokens for compute-optimality. LiLiuM-7B trained on 3T tokens is trained on ~21× the Chinchilla-optimal token count.</p>
+<h3 id="inference-optimal-training-why-lilium-is-overdense">Inference-Optimal Training: Why LiLiuM Is "Overdense"</h3>
+<p>Chinchilla optimizes for one-shot training cost. When you account for inference cost (serving N requests), the optimal recipe shifts toward smaller models trained longer:</p>
+<pre><code>Total cost = training_cost + inference_cost × num_requests
+For large num_requests: minimize model size while maintaining quality
+→ Train smaller model on more tokens (inference-efficient)
+</code></pre>
+<p>This is why Llama-3-8B was trained on ~15T tokens (D/N ≈ 1875) and why LiLiuM-7B on 3T tokens (D/N ≈ 428) makes sense for eBay: the 7B model is cheap to serve, and training it longer improves quality without increasing inference cost. The 1B model at D/N ≈ 3000 is even more extreme — it is inference-optimal for eBay's highest-throughput use cases.</p>
+<p><strong>Connection to Tony's routing work:</strong> Overdense training of small models + intelligent routing is exactly the right strategy for eBay. The 1B model at 3T tokens may match the quality of a 7B model at 140B tokens on domain-specific tasks — and at 4× lower inference cost.</p>
+<h3 id="liliums-1b7b13b-implication-for-the-routing-stack">LiLiuM's 1B/7B/13B: Implication for the Routing Stack</h3>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Chinchilla-optimal D</th>
+<th>Actual D (3T)</th>
+<th>D/N ratio</th>
+<th>Inference cost</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LiLiuM-1B</td>
+<td>20B tokens</td>
+<td>3T tokens</td>
+<td>3000×</td>
+<td>Very low</td>
+</tr>
+<tr>
+<td>LiLiuM-7B</td>
+<td>140B tokens</td>
+<td>3T tokens</td>
+<td>428×</td>
+<td>Low</td>
+</tr>
+<tr>
+<td>LiLiuM-13B</td>
+<td>260B tokens</td>
+<td>3T tokens</td>
+<td>231×</td>
+<td>Medium</td>
+</tr>
+</tbody>
+</table>
+<p>All three are inference-optimal, not compute-optimal — eBay made an explicit architectural choice to optimize for serving cost.</p>
+<h3 id="reading-loss-curves">Reading Loss Curves</h3>
+<p>Pretraining loss curves tell you about data quality and model capacity:
+- <strong>Smooth monotonic decrease:</strong> training is healthy; data is diverse and well-mixed
+- <strong>Loss spike followed by recovery:</strong> numerical instability (LR too high, bad batch); common trigger for gradient norm explosion → fix with gradient clipping
+- <strong>Plateau after early steep drop:</strong> model has saturated capacity of the data — either add more data diversity or scale model
+- <strong>Loss oscillation (high variance):</strong> batch size too small; increase batch or accumulate gradients
+- <strong>Sudden loss increase:</strong> data pipeline bug introduced corrupted batches; investigate immediately</p>
+<p><strong>Evaluation during pretraining:</strong> eBay monitors both training loss and a set of held-out domain benchmarks (e-commerce NLU tasks) at regular checkpoints. If benchmark scores plateau while training loss continues to improve, the model is memorizing rather than generalizing.</p>
+<h3 id="mfu-as-a-training-efficiency-metric">MFU as a Training Efficiency Metric</h3>
+<p>Model FLOP Utilization (MFU) = actual tokens processed per second / theoretical peak tokens per second:</p>
+<pre><code>MFU = (tokens/s × FLOPs/token) / (num_GPUs × peak_FLOPs/GPU)
+</code></pre>
+<p>For a well-tuned H100 pretraining run with FlashAttention-2 and tensor parallelism: 40–47% MFU is typical. Below 30% indicates pipeline inefficiency (data loading bottleneck, poor TP placement, excessive PP bubble). Above 50% is excellent.</p>
+<p><strong>Why it matters:</strong> MFU is how Versley's team knows whether their 480-H100 cluster is being used efficiently. A 10% MFU improvement = 10% more model capacity or 10% less training cost for the same quality.</p>
+<hr />
+<h2 id="step-9-monitoring-and-drift-detection">Step 9: Monitoring and Drift Detection</h2>
+<h3 id="metrics-to-monitor-in-production">Metrics to Monitor in Production</h3>
+<table>
+<thead>
+<tr>
+<th>Signal</th>
+<th>What it catches</th>
+<th>Latency</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Model accuracy (online proxy)</td>
+<td>Quality degradation</td>
+<td>Real-time</td>
+</tr>
+<tr>
+<td>Feature distribution shift</td>
+<td>Data pipeline issues</td>
+<td>Minutes</td>
+</tr>
+<tr>
+<td>Output distribution</td>
+<td>Behavior change (longer/shorter, different categories)</td>
+<td>Minutes</td>
+</tr>
+<tr>
+<td>Latency p50/p99</td>
+<td>Performance regression</td>
+<td>Real-time</td>
+</tr>
+<tr>
+<td>Cost per query</td>
+<td>Budget overrun</td>
+<td>Hourly</td>
+</tr>
+<tr>
+<td>Error rate (timeouts, OOM)</td>
+<td>Infrastructure issues</td>
+<td>Real-time</td>
+</tr>
+<tr>
+<td>Business KPI (CTR, CVR)</td>
+<td>End-to-end impact</td>
+<td>Hourly/daily</td>
+</tr>
+</tbody>
+</table>
+<h3 id="drift-detection">Drift Detection</h3>
+<ul>
+<li><strong>Data drift:</strong> KS test or Population Stability Index (PSI) on feature distributions; alert if PSI &gt; 0.2</li>
+<li><strong>Concept drift:</strong> model accuracy degradation on held-out labels (rolling window evaluation)</li>
+<li><strong>Covariate shift:</strong> compare train vs. serving query distribution embeddings (via MMD or t-SNE visualization)</li>
+<li><strong>Temporal drift:</strong> e-commerce has strong seasonality (holiday, Prime-like events, end-of-season); model must be retrained seasonally or use time-aware features</li>
+</ul>
+<hr />
+<h2 id="step-10-feedback-loops-and-ab-testing">Step 10: Feedback Loops and A/B Testing</h2>
+<h3 id="feedback-loop-design">Feedback Loop Design</h3>
+<pre><code>User interaction → behavioral log → feature store update → model retrain trigger → new model → A/B test → gradual rollout
+</code></pre>
+<p><strong>Frequency:</strong> Daily incremental training for fast-moving signals (CTR); weekly full retraining for deep features; quarterly pretraining/domain adaptation for LLMs.</p>
+<p><strong>Feedback lag:</strong> Purchase signal has 3–7 day lag. Use surrogate metric (click-to-cart) for faster iteration; validate correlation with purchase on a subset.</p>
+<p><strong>Selection bias in feedback:</strong> Only shown items can be clicked. Mitigate via:
+- Inverse Propensity Score (IPS) weighting in training
+- Bandit exploration (epsilon-greedy or Thompson sampling on a fraction of traffic)
+- Counterfactual evaluation using propensity models</p>
+<p><strong>IPS in depth:</strong> The propensity <code>p(shown | item, position)</code> must itself be estimated — it is not a number you simply look up. In practice, eBay logs the score and rank from the existing production ranker for each displayed item. This logging policy defines the propensity. If the logging policy changes, historical propensities become stale. More robust: use <strong>doubly robust (DR) estimation</strong>, which combines a direct reward model with IPS:</p>
+<pre><code>DR_estimator(item) = direct_model(item) + (observed_reward - direct_model(item)) / propensity(item)
+</code></pre>
+<p>The DR estimator is unbiased if either the direct model or the propensity estimate is correct — more robust to misspecification in either alone. Exploration policy (e.g., epsilon-greedy at 5% of traffic) ensures some propensities are uniform and well-estimated, breaking the dependence on the logging policy.</p>
+<h3 id="ab-testing">A/B Testing</h3>
+<p><strong>Setup:</strong>
+- Randomize at user level (not session level) to avoid spillover
+- Pre-compute required sample size: <code>n = 2σ²(z_α + z_β)² / δ²</code> where δ = minimum detectable effect, σ = metric standard deviation
+- Run for minimum 2 full weeks to capture weekly seasonality
+- Report lift, confidence interval, and p-value (prefer Bayesian A/B if speed of decision is critical)</p>
+<p><strong>eBay-specific considerations:</strong>
+- Buyer-seller marketplace: intervention on buyer side can affect seller supply; test both
+- Cross-border: run separate analysis by market (DE, FR, ES, IT, US) — effects differ by country
+- New model rollout: start at 1% → 10% → 50% → 100% (canary pattern)</p>
+<hr />
+<h2 id="step-11-failure-modes">Step 11: Failure Modes</h2>
+<table>
+<thead>
+<tr>
+<th>Failure</th>
+<th>Root Cause</th>
+<th>Mitigation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Model catastrophic forgetting</td>
+<td>LR too high in continued pretraining</td>
+<td>Use 10% of original LR; monitor general benchmarks</td>
+</tr>
+<tr>
+<td>Reward hacking</td>
+<td>LLM optimizes easy-to-fool metric (e.g., length, keyword density)</td>
+<td>Ensemble reward models; use verifiable rewards; monitor reward vs. downstream quality correlation</td>
+</tr>
+<tr>
+<td>Feedback loop collapse</td>
+<td>System only shows items it already predicts as popular</td>
+<td>Diversity constraints; exploration budget; serendipity features</td>
+</tr>
+<tr>
+<td>Data poisoning</td>
+<td>Bad sellers inject adversarial titles/descriptions</td>
+<td>Anomaly detection on listing features; rate limiting; seller trust score</td>
+</tr>
+<tr>
+<td>Latency spike</td>
+<td>New model weights too large, GPU OOM</td>
+<td>Canary deployment; latency SLA gating before full rollout</td>
+</tr>
+<tr>
+<td>Index staleness</td>
+<td>New listings not indexed for hours</td>
+<td>Near-real-time indexing pipeline (stream processing); separate index for &lt;24h listings</td>
+</tr>
+<tr>
+<td>LLM refusal</td>
+<td>Domain-adapted model applies RLHF restrictions inappropriately</td>
+<td>Separate instruction-tuning with e-commerce-specific constitution; test with adversarial e-commerce prompts</td>
+</tr>
+<tr>
+<td>Router stale</td>
+<td>New query types not covered by router training data</td>
+<td>Monitor routing distribution; trigger router retraining when OOD queries spike</td>
+</tr>
+<tr>
+<td>Speculative decoding regression</td>
+<td>Draft model distribution drifts from target after target model update</td>
+<td>Re-validate acceptance rate on held-out queries after any model update; update draft model</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="step-12-iteration-strategy">Step 12: Iteration Strategy</h2>
+<h3 id="short-cycle-iteration-14-weeks">Short-Cycle Iteration (1–4 weeks)</h3>
+<ul>
+<li>Feature engineering: add new signals (seller response rate, return rate as trust signals)</li>
+<li>Loss function tuning: switch from BPR to BPR + diversity regularizer</li>
+<li>Threshold tuning: adjust score cutoffs for retrieval → reranking handoff</li>
+<li>Prompt engineering for LLM-based components</li>
+</ul>
+<h3 id="medium-cycle-iteration-13-months">Medium-Cycle Iteration (1–3 months)</h3>
+<ul>
+<li>Architecture change: add cross-features to ranking model; upgrade bi-encoder to cross-encoder for L2</li>
+<li>SFT on new curated instruction data</li>
+<li>RAG pipeline improvement: better chunking, new retrieval index, reranker upgrade</li>
+<li>Vocabulary customization for new product categories or new language markets</li>
+</ul>
+<h3 id="long-cycle-iteration-312-months">Long-Cycle Iteration (3–12 months)</h3>
+<ul>
+<li>Continued pretraining on new data snapshot</li>
+<li>New base model adoption (Llama 4 → e-Llama 4)</li>
+<li>Multi-task model: unify retrieval, ranking, generation into single architecture</li>
+<li>Cross-modal alignment: joint vision-language pretraining update</li>
+</ul>
+<hr />
+<h1 id="part-2-five-fully-worked-ebay-flavored-designs">PART 2: FIVE FULLY WORKED eBay-FLAVORED DESIGNS</h1>
+<hr />
+<h2 id="design-1-product-search-ranking-and-relevance-at-ebay-scale">Design 1: Product Search Ranking and Relevance at eBay Scale</h2>
+<h3 id="requirements-clarification">Requirements Clarification</h3>
+<p><strong>Scope:</strong> End-to-end search stack from query receipt to ranked results page. Covers query understanding, candidate retrieval, and multi-stage ranking.</p>
+<p><strong>Scale:</strong> ~100M searches/day; 2B active listings; p50 latency 200ms, p99 &lt;500ms.</p>
+<p><strong>Success:</strong> NDCG@10 on held-out editorial relevance labels; online: CTR on top-5 results, GMV per search, conversion rate.</p>
+<p><strong>Constraints:</strong> Must work in 7+ languages; must comply with EU GDPR (no PII-based targeting without consent); must be fair to sellers (no systematic suppression of small sellers).</p>
+<h3 id="architecture">Architecture</h3>
+<pre><code>Query
+  ↓
+Query Understanding Layer
+  ├─ Language detection (fastText, &lt;1ms)
+  ├─ Spelling correction (edit-distance + LM prior)
+  ├─ Query classification: category intent, specificity score
+  ├─ Query embedding (eBERT / LiLiuM encoder, BF16, ~5ms)
+  └─ Query expansion: narrow → broader recall candidates
+       (e.g., &quot;red dress&quot; → [&quot;red evening gown&quot;, &quot;burgundy maxi dress&quot;, &quot;crimson cocktail dress&quot;])
+       LLM-based expansion broadens recall; expansion is from specific to broader, not the reverse
+
+  ↓
+Candidate Retrieval (parallel)
+  ├─ BM25 retrieval (Elasticsearch, ~5ms) → 1000 candidates
+  ├─ Dense ANN (Vertex AI Vector Search, ~15ms) → 1000 candidates
+  └─ Merge + dedup by item ID → ~1500 candidates
+
+  ↓
+Feature Assembly (~20ms)
+  ├─ Item features: cached in Redis (title, category, price, seller score, CTR)
+  ├─ Query–item features: cosine similarity, BM25 score, category match
+  └─ User features: session history, long-term preferences (look-up in feature store)
+
+  ↓
+L1 Ranker: Deep CTR Model (~30ms for 1500 items)
+  ├─ Architecture: DCN-V2 (Deep and Cross Network) with embedding tables
+  ├─ Input: sparse (item ID, category, seller ID) + dense (price, CTR, similarity score)
+  ├─ Training: listwise LambdaRank loss on clicked vs. skipped items with IPS weighting
+  └─ Output: relevance score per item → filter to top-100
+
+  ↓
+L2 Reranker: Cross-Encoder BERT (~50ms for 100 items)
+  ├─ Input: concatenate [query, item title, category] as single sequence
+  ├─ Model: eBERT or distilled LiLiuM (rationale-guided distillation from LLM judge)
+  ├─ Training: pairwise preference data from editorial labels + LLM-as-judge signals
+  └─ Output: reranked top-20
+
+  ↓
+Business Rules Layer (~10ms)
+  ├─ Hard filters: NSFW content model, prohibited categories, user preferences
+  ├─ Diversity enforcement: no more than 3 results from same seller in top-10
+  ├─ Sponsored items insertion (paid ranking, clearly labeled)
+  └─ Personalization boost: user's preferred price range, condition preferences
+
+  ↓
+Results Page: ranked top-10/20
+</code></pre>
+<h3 id="key-model-choices-and-tradeoffs">Key Model Choices and Tradeoffs</h3>
+<p><strong>Why two-stage (L1 + L2) instead of one-stage cross-encoder over all candidates?</strong>
+A cross-encoder on 2B items at 50ms each = 100B ms = physically impossible. Two-stage: L1 is fast (GBDT or lightweight deep model) to narrow to 100; L2 applies expensive cross-attention only to manageable set. This is standard LTR practice, not just eBay's — same pattern at Google, Amazon, Airbnb.</p>
+<p><strong>Why BM25 + dense hybrid instead of dense-only?</strong>
+Dense captures semantic similarity but struggles with exact product codes, brand names, and model numbers (e.g., "Nike Air Max 90 size 10 Obsidian"). BM25 excels at exact token overlap. Hybrid consistently outperforms either alone on e-commerce benchmarks.</p>
+<p><strong>Why eBERT / LiLiuM encoder instead of generic BERT?</strong>
+Domain vocabulary — product titles use jargon, abbreviations, and specialized terms that general BERT often misrepresents. LiLiuM's 65k custom vocabulary encodes e-commerce terms as single tokens rather than multi-subword sequences, improving embedding quality and reducing encoding latency.</p>
+<h3 id="tonys-concrete-pushback">Tony's Concrete Pushback</h3>
+<p>"The L2 cross-encoder is the latency wildcard. If the L2 budget is 50ms, I'd monitor its p99 closely — a single long query+title pair can blow the budget. My first design choice is to cap input length at 128 tokens and use knowledge distillation to move quality from a full cross-encoder into a lighter model. The distillation pipeline eBay already uses (arXiv 2508.03628) is exactly this: LLM teacher → cross-encoder → bi-encoder student."</p>
+<hr />
+<h2 id="design-2-recommendations-item-to-item-and-personalized-homepage">Design 2: Recommendations — Item-to-Item and Personalized Homepage</h2>
+<h3 id="requirements-clarification_1">Requirements Clarification</h3>
+<p><strong>Scope:</strong> Two recommendation scenarios: (a) item-to-item (similar/complementary items on product detail page), (b) personalized homepage feed for returning buyers.</p>
+<p><strong>Scale:</strong> Homepage: ~30M active daily users see recommendations; product page: ~500M page views/day. Real-time p99 &lt; 100ms.</p>
+<p><strong>Success metrics (offline):</strong> Recall@20, NDCG@20 on held-out purchase/click data. Online: CTR on recommended items, add-to-cart rate, incremental GMV (A/B vs. no recommendations). Guardrail: session length (don't distract buyers from purchase intent), diversity (avoid filter bubble).</p>
+<h3 id="architecture_1">Architecture</h3>
+<h4 id="item-to-item-collaborative-filtering-content">Item-to-Item (Collaborative Filtering + Content)</h4>
+<pre><code>Anchor item (product page)
+  ↓
+Item Embedding Lookup
+  ├─ Content embedding: LiLiuM encoder on title + category + attributes
+  ├─ Visual embedding: SigLIP2 encoder on product images
+  └─ CF embedding: matrix factorization / two-tower trained on co-purchase graph
+
+  ↓
+ANN Retrieval: 3 parallel retrievers
+  ├─ Content ANN: top-50 by semantic similarity
+  ├─ Visual ANN: top-50 by visual similarity (important for fashion: &quot;Shop the Look&quot;)
+  └─ CF ANN: top-50 by co-purchase similarity
+
+  ↓
+Merge + Score (~10ms)
+  ├─ RRF fusion of three candidate lists → top-100
+  └─ Re-score with rank model:
+       - price compatibility (similar price range)
+       - seller score
+       - recency
+       - in-stock signal
+
+  ↓
+Business Rules
+  ├─ Filter same seller (avoid monopoly)
+  ├─ Filter exact same item
+  └─ Apply diversity: max 3 from same category in top-10
+
+  ↓
+Final 10–20 recommendations
+</code></pre>
+<h4 id="personalized-homepage-feed">Personalized Homepage Feed</h4>
+<pre><code>User Session Start
+  ↓
+User Representation
+  ├─ Long-term: embedding of purchase/view history (sequence model, last 180 days)
+  ├─ Short-term: session embedding (last 10 interactions, higher weight)
+  └─ Explicit preferences: fashion size filters, price range, saved searches
+
+  ↓
+Candidate Generation (parallel)
+  ├─ User-to-item CF: top-500 from learned user-item similarity
+  ├─ Trend signals: trending items in user's preferred categories (real-time, last 24h)
+  ├─ Re-engagement: items user viewed but did not buy (recency-ranked)
+  └─ Complementary to past purchases: item-to-item expansion from purchase history
+
+  ↓
+Ranking Model (Deep CTR over ~2000 candidates, ~50ms)
+  ├─ Architecture: DCN-V2 with user sequence encoder (GRU or Transformer on item history)
+  ├─ Features: user embedding, item embedding, user-item interaction features
+  ├─ Target: purchase probability (primary), click probability (auxiliary)
+  └─ Multi-objective: Pareto between engagement and conversion
+
+  ↓
+Diversity Enforcement
+  ├─ Maximum marginal relevance (MMR): balance relevance vs. redundancy
+  └─ Category cap: max 3 items from same category in first 20
+
+  ↓
+Personalized feed (20–50 items per page, infinite scroll)
+</code></pre>
+<h3 id="model-choices-and-tradeoffs">Model Choices and Tradeoffs</h3>
+<p><strong>Two-tower vs. cross-encoder for retrieval:</strong>
+Two-tower (bi-encoder) allows pre-computation of item embeddings and ANN indexing → O(1) retrieval at query time. Cross-encoder is accurate but O(N×query_time) — infeasible at 2B items. Two-tower with hard negative mining narrows the quality gap significantly.</p>
+<p><strong>Sequential user model (GRU vs. Transformer):</strong>
+GRU: O(T) memory, good for 180-day history compressed into a fixed vector. Transformer on full sequence: more expressive but O(T²) attention → limit to last 50 interactions. Production likely uses hybrid: Transformer on recent 20 interactions, compressed GRU hidden state for long-term history.</p>
+<p><strong>Shop the Look (fashion recommendations):</strong>
+Visual embedding is critical — buyers look for "complete the outfit" matching, which is stylistic and visual, not semantic. SigLIP2 visual encoder provides rich visual representations.</p>
+<h3 id="tonys-concrete-pushback-on-feedback-loop-risk">Tony's Concrete Pushback on Feedback Loop Risk</h3>
+<p>"At 10k QPS, if the feedback loop runs unchecked for 48 hours without exploration, you can observe the recommendation distribution concentrating to a 10× narrower item set than the catalog. I'd monitor the Gini coefficient of impressions across items daily — if it rises above 0.7, that's a feedback loop alarm. The exploration budget (5% random) is non-negotiable, and I'd use Thompson sampling over UCB because TS naturally adapts the exploration rate to uncertainty, not just item age."</p>
+<hr />
+<h2 id="design-3-llm-serving-and-routing-for-genai-features-at-scale-tonys-sweet-spot">Design 3: LLM Serving and Routing for GenAI Features at Scale (Tony's Sweet Spot)</h2>
+<h3 id="requirements-clarification_2">Requirements Clarification</h3>
+<p><strong>Scope:</strong> Unified LLM serving platform for all GenAI features at eBay: Magical Listing generation, product description improvement, MT, agentic shopping responses, seller Q&amp;A assistance, LLM-based search relevance scoring, keyphrase recommendations for ads.</p>
+<p><strong>Scale:</strong> Peak ~10k LLM requests/sec across all features; average output ~200 tokens; average input ~500 tokens. Some features are real-time (agentic search: &lt;2s), some are async (bulk listing generation: minutes ok).</p>
+<p><strong>Cost constraint:</strong> GPT-4 at $10/M output tokens × 10k req/s × 200 tokens = $20k/s = financially untenable. Must serve primarily with in-house models (LiLiuM family) and route to external APIs only for tasks that justify the cost.</p>
+<p><strong>Success:</strong> Quality parity with single-SOTA benchmark at &lt;30% of cost.</p>
+<h3 id="system-architecture">System Architecture</h3>
+<pre><code>Incoming LLM Request
+  ├─ Feature type tag: [listing_gen | MT | agentic | relevance | qa]
+  ├─ Priority: [realtime | async | batch]
+  └─ Cost ceiling (per-request budget)
+
+         ↓
+┌────────────────────────────────────────────┐
+│            ROUTER LAYER                     │
+│                                            │
+│  1. Complexity Estimator                   │
+│     ├─ Input: query embedding + feature tag│
+│     ├─ Model: lightweight classifier (MLP  │
+│     │   or DistilBERT, &lt;5ms inference)     │
+│     └─ Output: {easy, medium, hard}        │
+│                                            │
+│  2. Routing Policy                         │
+│     ├─ easy → LiLiuM-1B (local, &lt;50ms)   │
+│     ├─ medium → LiLiuM-7B (local, ~100ms) │
+│     ├─ hard → LiLiuM-13B (local, ~200ms) │
+│     └─ very_hard / specialized →          │
+│          GPT-4 / Claude (API, $$$, 1-2s)  │
+│                                            │
+│  3. Cost Accumulator                       │
+│     └─ Track per-feature, per-user, daily │
+│                                            │
+│  4. Fallback Logic                         │
+│     ├─ If small model fails quality check │
+│     │   → escalate to next tier           │
+│     └─ If budget exhausted → queue async  │
+└────────────────────────────────────────────┘
+
+         ↓
+┌────────────────────────────────────────────┐
+│           SERVING LAYER                     │
+│                                            │
+│  LiLiuM Serving Fleet (primary):          │
+│  ├─ vLLM V1 with PagedAttention           │
+│  ├─ Continuous batching                   │
+│  ├─ Speculative decoding (real-time path):│
+│  │   LiLiuM-1B (draft) → LiLiuM-7B (target) │
+│  │   K=7, α≈0.75-0.85 → 1.8-2.6× gain   │
+│  │   (memory-bandwidth-bound path only)   │
+│  ├─ Prefix caching for common prefixes    │
+│  │   (system prompt + RAG context)        │
+│  ├─ AWQ 4-bit quantization for 1B/7B     │
+│  └─ BF16 for 13B                         │
+│                                            │
+│  Disaggregated Prefill/Decode:            │
+│  ├─ Prefill pool: 4× H100 (compute-bound) │
+│  └─ Decode pool: 8× H100 (BW-bound)      │
+│                                            │
+│  External API Gateway:                    │
+│  ├─ OpenAI / Anthropic / Google          │
+│  ├─ Rate limiting + retry with backoff   │
+│  └─ Spend monitoring (daily budget caps) │
+└────────────────────────────────────────────┘
+
+         ↓
+┌────────────────────────────────────────────┐
+│           CACHING LAYER                    │
+│                                            │
+│  Semantic Cache:                          │
+│  ├─ Embed incoming query                  │
+│  ├─ ANN search in cache (FAISS, &lt;5ms)    │
+│  ├─ If cosine similarity &gt; 0.95 → return │
+│  │   cached response (zero LLM cost)     │
+│  └─ Cache eviction: LRU, TTL=24h         │
+│                                            │
+│  Prefix Cache (vLLM):                    │
+│  ├─ System prompt KV cache (shared)      │
+│  ├─ RAG context KV cache (per-query)     │
+│  └─ ~40-60% KV cache hit rate in practice│
+└────────────────────────────────────────────┘
+
+         ↓
+Output + Post-Processing
+  ├─ Output parsing / structured extraction
+  ├─ Quality gating (lightweight verifier)
+  └─ Logging for routing policy improvement
+</code></pre>
+<h3 id="router-design-deep-dive-tonys-core-work">Router Design (Deep Dive — Tony's Core Work)</h3>
+<h4 id="complexity-estimation-and-the-labeling-problem">Complexity Estimation and the Labeling Problem</h4>
+<p>The router must decide in &lt;5ms which tier to use. But before discussing the classifier, address the labeling problem honestly:</p>
+<p><strong>How do you get router training labels?</strong></p>
+<p>The naive approach is: label a query "hard" if the small model produced a low-quality output on it and "easy" if the small model matched the large model. But this is circular — you need to run the large model on all queries to generate labels, which defeats the cost-saving purpose.</p>
+<p><strong>Practical solutions:</strong>
+1. <strong>Offline label collection with amortized cost:</strong> run a one-time sweep of both models on a representative sample (e.g., 100k queries drawn from the full distribution). Use large-model output as reference. This is a one-time cost that pays off over months of inference savings.
+2. <strong>Continuous refinement with logging:</strong> in production, route according to the current policy, but log a small random sample (1%) to both small and large model and compare outputs. Use these comparisons as new training labels. The router improves incrementally without re-running the large model on everything.
+3. <strong>Synthetic difficulty features:</strong> use proxy features that correlate with difficulty without requiring large model inference: query length, syntactic complexity (parse tree depth), vocabulary rarity score, feature tag (agentic tasks are harder than structured attribute extraction). These features are imperfect but give the router a head start.
+4. <strong>MERA-style skill clustering (Tony's work):</strong> cluster queries into skill domains (e.g., "fashion attribute extraction," "electronic specification parsing," "multilingual title translation") using unsupervised clustering on query embeddings. For each skill cluster, measure small-model vs. large-model quality on a labeled subsample. Route based on cluster membership × per-cluster quality thresholds. This is more interpretable than a black-box classifier and easier to update when new skill clusters emerge.</p>
+<p><strong>Router calibration:</strong> Track expected vs. actual small-model success rate. If the router predicts 85% success rate for "easy" queries but actual quality check (edit rate, verifier score) shows only 70%, the router is over-confident. Calibrate using Platt scaling or isotonic regression on held-out data.</p>
+<h4 id="distribution-shift-when-the-router-goes-stale">Distribution Shift: When the Router Goes Stale</h4>
+<p>The router is trained on historical query distributions. eBay's distribution shifts seasonally (holiday products, new product categories, new language pairs):</p>
+<ul>
+<li><strong>New product category launch:</strong> queries for new electronics models have no router training examples → model uncertainty → default to conservative routing (send to larger model)</li>
+<li><strong>Seasonal events:</strong> queries surge for seasonal items (Halloween costumes, Christmas gifts) → difficulty distribution may shift because domain-specific vocabulary coverage differs</li>
+<li><strong>Monitoring signal:</strong> track the router's "hard tier" fraction by feature tag. If the fraction of queries routed to the large model spikes unexpectedly, it means the router is seeing OOD queries and escalating them correctly — but it also signals a retraining opportunity.</li>
+<li><strong>Trigger-based retraining:</strong> PSI on query embedding distribution. If PSI &gt; 0.2 vs. router's training distribution → trigger router retraining within 48 hours using the continuous logging data.</li>
+</ul>
+<h4 id="cascade-routing-honest-cost-model">Cascade Routing: Honest Cost Model</h4>
+<p>The cascade approach is the most production-ready, but it has a critical cost that the naive model ignores: <strong>double inference on misclassified queries</strong>.</p>
+<pre><code>True cost model (cascade):
+E[cost] = P(easy_correct) × cost(1B) 
+        + P(easy_misclassified → escalated) × (cost(1B) + cost(7B))   # double inference
+        + P(medium_correct) × (cost(1B) + cost(7B))                    # cascade down from cascade start
+        + P(hard) × (cost(1B) + cost(7B) + cost(13B))
+</code></pre>
+<p>If 5% of "easy" queries are misclassified and need escalation (the "escape rate"), and 10k QPS × 5% = 500 escalated queries/sec, each paying <code>cost(1B) + cost(7B)</code> instead of just <code>cost(7B)</code>, the wasted tokens are significant. At eBay scale:
+- 500 escalated queries/s × (1B call ≈ 0.5M tokens/s wasted)
+- Over 24 hours: ~43B extra tokens from escape rate alone</p>
+<p><strong>Tony's tracking metric:</strong> "I'd define the 'escape rate' as the fraction of small-model calls that fail the quality verifier and escalate. I'd track this per feature tag and per query cluster, and tune the quality verifier threshold to balance cost savings against escape rate. A 1% escape rate increase from 5% to 6% is acceptable; a jump to 15% signals either router degradation or distribution shift."</p>
+<p><strong>Approaches:</strong></p>
+<pre><code class="language-python"># Approach A: Embedding-based classifier
+query_emb = embed(query, model=&quot;distilbert-base&quot;)  # 768-dim
+difficulty = mlp_classifier(query_emb, feature_tag)  # 3-class
+# Training labels from amortized large-model labeling sweep
+
+# Approach B: MERA-style skill cluster routing
+cluster_id = cluster_model.predict(query_emb)         # offline-trained K-means
+threshold = per_cluster_threshold[cluster_id]          # quality threshold per skill
+model_tier = select_tier_by_cluster(cluster_id, threshold)
+
+# Approach C: Cascade with quality verifier
+output_1b = call_llm(query, model=&quot;LiLiuM-1B&quot;)
+quality = verifier(output_1b, query)                   # rule-based or learned scorer
+if quality &lt; threshold:
+    output_7b = call_llm(query, model=&quot;LiLiuM-7B&quot;)   # escalate; pay double cost
+    # log: query is &quot;hard&quot; → update router labels
+    return output_7b
+return output_1b
+</code></pre>
+<h4 id="feature-specific-routing-table">Feature-Specific Routing Table</h4>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Typical Tier</th>
+<th>Rationale</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Product title MT (short, high-resource pair EN-DE)</td>
+<td>LiLiuM-7B</td>
+<td>Well-studied; small model sufficient</td>
+</tr>
+<tr>
+<td>Product title MT (low-resource pair, EN-PL)</td>
+<td>LiLiuM-13B + RAG</td>
+<td>Limited in-model proficiency; needs context</td>
+</tr>
+<tr>
+<td>Listing attribute extraction (structured, rule-checkable)</td>
+<td>LiLiuM-1B</td>
+<td>Structured output; easy to verify</td>
+</tr>
+<tr>
+<td>Magical Listing full description generation</td>
+<td>LiLiuM-7B or 13B</td>
+<td>Creative, needs coherence</td>
+</tr>
+<tr>
+<td>Agentic shopping (complex multi-step)</td>
+<td>LiLiuM-13B or API</td>
+<td>Multi-hop reasoning; high value</td>
+</tr>
+<tr>
+<td>LLM-as-judge for relevance labels</td>
+<td>External API</td>
+<td>Batch, async, requires best judgment</td>
+</tr>
+<tr>
+<td>Seller Q&amp;A auto-response</td>
+<td>LiLiuM-7B</td>
+<td>Common patterns; fast response needed</td>
+</tr>
+</tbody>
+</table>
+<h4 id="specialist-model-path-tonys-emnlp26-work">Specialist Model Path (Tony's EMNLP26 work)</h4>
+<p>For repeated high-volume workflows (eBay runs MT for product titles at billions of requests):
+1. Collect trajectories from strong model (LiLiuM-13B or GPT-4) on representative queries
+2. Fine-tune small model (LiLiuM-1B or 7B) on these trajectories with LoRA
+3. Specialist model matches strong model quality on its trained domain at 1/13th the cost
+4. Routing adapts over time: as the specialist improves, the threshold for routing to it lowers → cost drops as usage data accrues</p>
+<h3 id="tonys-concrete-pushback_1">Tony's Concrete Pushback</h3>
+<p>"Most teams start with a single large model and retrofit routing after cost becomes untenable. From my LLM Router work, I know that &gt;90% of queries on mixed-difficulty benchmarks can be handled by smaller models — but the 10% that genuinely need escalation are the queries that matter most to user experience. The real engineering challenge is not building the router; it's measuring and controlling the escape rate. I'd instrument escape rate as a first-class metric from day one, with per-feature-tag breakdowns and a real-time alarm if it spikes more than 2× baseline. At eBay's 10k QPS, a 5% escape rate means 500 wasted double-inference calls per second — that's a cost worth tracking precisely."</p>
+<hr />
+<h2 id="design-4-genai-magical-listing-image-to-listing-via-vlm-knowledge-graph-agentic-flow">Design 4: GenAI Magical Listing — Image-to-Listing via VLM + Knowledge Graph + Agentic Flow</h2>
+<h3 id="requirements-clarification_3">Requirements Clarification</h3>
+<p><strong>Scope:</strong> Given one or more product photos from a seller, generate a complete, high-quality eBay listing: title, category, item specifics (structured attributes), description, suggested price, and shipping info.</p>
+<p><strong>Scale:</strong> &gt;500M listings created with Magical Listing (Q1 2026); need to handle burst of concurrent sellers. Async OK (seller can wait 5–30 seconds); near-real-time feedback for photo guidance.</p>
+<p><strong>Success metrics:</strong>
+- Offline: attribute accuracy (Precision/Recall on structured attributes vs. ground truth), title quality (human eval + ROUGE vs. human-written titles), category accuracy
+- Online: listing creation rate (&gt;50% increase vs. manual; eBay achieved this), time-to-list reduction (&gt;25% decrease; eBay achieved this), sold items per lister, GMV per lister
+- Quality: seller edit rate on AI-generated content (lower = better)</p>
+<h3 id="model-architecture-precise-naming">Model Architecture: Precise Naming</h3>
+<p><strong>Critical distinction (Versley will know this precisely):</strong></p>
+<p>eBay's VLM paper (arXiv 2602.11733) uses <strong>e-Llama 8B</strong> as the language decoder — this is Llama-3.1-8B continuously pretrained on 1T tokens of e-commerce data (from arXiv 2501.09706). It is <strong>not</strong> LiLiuM-7B or LiLiuM-8B (there is no LiLiuM-8B — LiLiuM sizes are 1B, 7B, and 13B). The VLM paper also experiments with a "LiLiuM-8B variant" but the primary production model uses e-Llama. Do not conflate these:</p>
+<ul>
+<li><strong>LiLiuM 1B/7B/13B:</strong> eBay-from-scratch in-house LLMs, 3T tokens training, custom e-commerce tokenizer (arXiv 2406.12023)</li>
+<li><strong>e-Llama 8B/70B:</strong> Llama-3.1 base + 1T token continued pretraining on e-commerce data (arXiv 2501.09706)</li>
+<li><strong>eBay VLM:</strong> SigLIP2 vision encoder + e-Llama-8B (or optionally a LiLiuM-8B variant) text decoder (arXiv 2602.11733)</li>
+</ul>
+<p>The VLM paper shows that <strong>e-commerce knowledge in the language decoder</strong> (e-Llama vs. base Llama-3.1) leads to better VLM adaptation outcomes — this is the key architectural motivation for using e-Llama as the backbone rather than a generic LLM.</p>
+<h3 id="three-stage-training-recipe-with-the-constraint-versley-will-ask-about">Three-Stage Training Recipe (with the Constraint Versley Will Ask About)</h3>
+<pre><code>Stage 1: Vision-Language Alignment
+  ├─ Freeze language model; train only vision projector (MLP bridge)
+  ├─ Data: BLIP-LAION 558k general image-caption pairs
+  ├─ Goal: map visual tokens into language model's embedding space
+  └─ Duration: short (vision projector has &lt;&lt;1% of total parameters)
+
+Stage 2: Mid-Stage Training
+  ├─ Unfreeze both vision encoder and language model
+  ├─ Data: filtered mixture of LLaVA-OneVision mid-stage data (general VQA, etc.)
+  ├─ Goal: develop multi-modal reasoning; avoid over-fitting to e-commerce format
+  └─ Data selection: redundant subsets removed to avoid degenerate solutions
+
+Stage 3: Visual Instruction Tuning
+  ├─ Full model fine-tuning
+  ├─ Data: ~4M internal e-commerce instructions
+  │   ├─ VQA: 45% (free-form, yes/no, image-only questions)
+  │   ├─ Dynamic Attribute Extraction: 30%
+  │   ├─ Precise Instruction Following: 12.5%
+  │   └─ Product Listings: 12.5%
+  └─ Multi-image items: 100k items sampled, median 5 images/item
+</code></pre>
+<p><strong>The key architectural question (Versley will ask): How does multi-image work if training used single images?</strong></p>
+<p>The answer is mechanistic, not hand-waving:</p>
+<ol>
+<li><strong>Visual token representation:</strong> SigLIP2 encodes each image independently into a fixed-length sequence of visual tokens (e.g., 256 tokens per image for a 336×336 image at ViT-L patch size 14).</li>
+<li><strong>Multi-image concatenation:</strong> for a 5-image item, the visual tokens are simply concatenated: <code>[img1_tokens | img2_tokens | img3_tokens | img4_tokens | img5_tokens | text_tokens]</code>. This is appended before the text tokens in the input sequence.</li>
+<li><strong>Positional encodings:</strong> within each image, 2D positional encodings are applied by SigLIP2 before projection. Across images, there is no explicit cross-image positional encoding — the sequence position in the transformer handles ordering. This means the model has no explicit mechanism to reason about "this is image 3 of 5"; it just sees a longer visual token sequence.</li>
+<li><strong>Context length pressure:</strong> 5 images × 256 tokens/image = 1280 visual tokens, plus the text prompt. For a context window of 8192 tokens, this is 15-20% of the window on visual tokens alone. At &gt;5 images, you risk exceeding context limits or degrading attention quality due to token dilution.</li>
+<li><strong>Generalization mechanism:</strong> the model trained on single images learns to extract attributes from visual context. When presented with multiple images of the same item (different angles, different lighting), the cross-attention mechanism naturally aggregates information across the concatenated sequence — this is not new capability, it is the same visual reasoning extended to a longer input.</li>
+<li><strong>Observed quality:</strong> the eBay VLM paper shows the model generalizes to multi-image input without multi-image training, but with some caveats: the model may fixate on the first image in the sequence (ordering matters) and may duplicate attributes seen in multiple images rather than synthesizing a single consolidated description.</li>
+</ol>
+<p><strong>Production implication:</strong> For Magical Listing, eBay likely applies a simple greedy strategy: select the best 2–3 images from the seller's upload (highest quality, least blur, most distinct angles) rather than feeding all 20 photos a seller might provide.</p>
+<h3 id="system-architecture_1">System Architecture</h3>
+<pre><code>Seller uploads 1–N photos
+         ↓
+┌───────────────────────────────────────────────────────────┐
+│  AGENT ORCHESTRATOR (Mercury-style)                       │
+│  - Manages multi-step agentic flow                        │
+│  - Tracks state: which steps complete, which failed       │
+│  - Handles retries, fallbacks, partial results            │
+└───────────────────────────────────────────────────────────┘
+         ↓
+Step 1: Photo Quality Assessment + Guidance
+  ├─ Lightweight CV model (MobileNet or ViT-S): detect
+  │   blur, poor lighting, background clutter
+  ├─ Output: quality score per photo, list of guidance tips
+  └─ Real-time feedback to seller via UI (&lt;500ms)
+
+         ↓
+Step 2: Product Recognition (eBay VLM — Primary Model)
+  ├─ Model: SigLIP2 vision encoder + e-Llama-8B text decoder
+  │   (eBay VLM from arXiv 2602.11733)
+  ├─ Three-stage training as above
+  ├─ Input: top 2–5 selected images (multi-image: visual tokens concatenated)
+  ├─ Output:
+  │   - Product type (&quot;Nike Air Max 90 sneaker&quot;)
+  │   - Visible attributes (&quot;Red, Size logo visible, Light sole wear&quot;)
+  │   - Condition assessment (&quot;Pre-owned, Light wear&quot;)
+  └─ Latency: ~1-2s for 8B model (streaming tokens to UI)
+
+         ↓
+Step 3: Knowledge Graph Lookup
+  ├─ Query product KG with product type from VLM
+  ├─ Retrieve: taxonomy category path, required item specifics schema,
+  │   typical price range (median sold, last 30 days),
+  │   common aspects/attributes for this product type
+  └─ Output: structured product template {category, required fields, price_range}
+
+         ↓
+Step 4: Attribute Completion (LiLiuM-7B with JSON schema enforcement)
+  ├─ Input: VLM raw attributes + KG product template
+  ├─ Task: fill all required item specifics; mark uncertain fields
+  ├─ Validation: check field values against KG allowed value sets
+  └─ Output: complete attribute dictionary
+
+         ↓
+Step 5: Title Generation (LiLiuM-7B, fine-tuned)
+  ├─ Constraints: 80 chars; keyword optimization; searchability
+  ├─ Generation: beam search, top-3 candidates → rank by predicted CTR
+  └─ Output: optimized title string
+
+         ↓
+Step 6: Description Generation (LiLiuM-7B or 13B, streamed)
+  └─ HTML or plain text; streamed in real-time to seller UI
+
+         ↓
+Step 7: Pricing Suggestion
+  └─ KG price range + regression model + LLM reasoning
+
+         ↓
+Step 8: Human Review Gate
+  ├─ Seller reviews all content; accept / edit / reject per field
+  ├─ Confidence indicators shown
+  └─ Seller confirms → listing published
+
+         ↓
+Feedback Logging
+  ├─ Which fields did seller edit? → quality signal per field
+  ├─ Was listing sold? → long-horizon quality signal
+  └─ Feeds back into: VLM fine-tuning, attribute completion, router policy
+</code></pre>
+<h3 id="efficiency-why-e-llama-8b-not-gpt-4v">Efficiency: Why e-Llama-8B, Not GPT-4V</h3>
+<p>The VLM paper (arXiv 2602.11733) shows: fine-tuned Gemma3-4B achieves <strong>3.8× inference speedup</strong> vs. zero-shot Gemma3-27B while <strong>improving F1 from 44.8% to 50.5%</strong>. This is Tony's thesis empirically demonstrated at eBay: domain-adapted small model &gt;&gt; generic large model for production e-commerce tasks.</p>
+<p>Using GPT-4V at 500M listings/year would cost orders of magnitude more and offer zero control over output format, knowledge graph integration, or multilingual behavior.</p>
+<h3 id="tonys-concrete-pushback_2">Tony's Concrete Pushback</h3>
+<p>"The most common mistake is treating the VLM as a monolithic oracle. The right architecture separates VLM (for unstructured perception: what is this product?) from KG (for structured validation: what are the allowed values for this attribute in this category?). Without the KG, the VLM might generate 'Size: 42 EU' for a US-market listing that expects 'Size: 9 US' — technically correct but unusable in eBay's search index. The agent orchestrator is what glues these together. When the KG lookup fails (network timeout), I'd have a fallback that still completes the VLM step and flags the attribute fields as 'requires manual completion' — seller always gets a partial, useful result rather than a complete failure."</p>
+<hr />
+<h2 id="design-5-machine-translation-and-multilingual-product-understanding-lilium-style">Design 5: Machine Translation and Multilingual Product Understanding (LiLiuM-Style)</h2>
+<h3 id="requirements-clarification_4">Requirements Clarification</h3>
+<p><strong>Scope:</strong> MT system for eBay cross-border trade: translate product titles and descriptions between 7 language pairs (EN↔DE, EN↔FR, EN↔ES, EN↔IT, EN↔NL, EN↔PL, IT↔DE). Also covers multilingual product understanding (category prediction, attribute extraction in non-English).</p>
+<p><strong>Scale:</strong> Billions of listing translations/year; real-time path for buyer-visible translation (~200ms); batch path for indexing new listings (throughput-optimized, latency not critical).</p>
+<p><strong>Success (offline):</strong> chrF score by language pair. Secondary: COMET (neural MT metric, better correlation with human judgments for full descriptions), BERTScore.</p>
+<p><strong>Build vs. Buy decision:</strong> Core eBay capability — build in-house for quality control, cost, data governance, iterability.</p>
+<h3 id="architecture_2">Architecture</h3>
+<pre><code>Source listing (title + description, source language)
+         ↓
+┌─────────────────────────────────────────────┐
+│  PREPROCESSING                              │
+│  ├─ Language detection (fastText, &lt;1ms)     │
+│  ├─ Term extraction: brand names, product   │
+│  │   IDs, model numbers (NOT to be trans.)  │
+│  ├─ Placeholder insertion: [BRAND], [SIZE]  │
+│  └─ Character normalization                 │
+└─────────────────────────────────────────────┘
+         ↓
+┌─────────────────────────────────────────────┐
+│  TRANSLATION PIPELINE (parallel paths)      │
+│                                             │
+│  Path A: High-resource pairs (EN-DE, EN-FR, │
+│  EN-ES, EN-IT) — LiLiuM-7B MT mode         │
+│  ├─ Direct zero-shot MT                     │
+│  └─ Latency: ~150ms                         │
+│                                             │
+│  Path B: Lower-resource pairs (EN-PL, EN-NL,│
+│  IT-DE) — RAG-augmented MT                 │
+│  ├─ Retrieve similar bilingual title pairs  │
+│  │   from catalog (BM25 over 10M+ pairs)   │
+│  ├─ Use as few-shot examples in prompt      │
+│  └─ LiLiuM-7B with 5-shot → +15.3% chrF   │
+│     on EN-PL (eBay paper arXiv 2409.12880) │
+└─────────────────────────────────────────────┘
+         ↓
+┌─────────────────────────────────────────────┐
+│  POST-PROCESSING                            │
+│  ├─ Placeholder restoration: [BRAND] → orig│
+│  ├─ Technical terminology check against KG │
+│  ├─ Length constraint (80-char eBay limit)  │
+│  └─ Quality confidence score               │
+└─────────────────────────────────────────────┘
+         ↓
+Translation stored in listing DB
++ Indexed in multilingual search index
+</code></pre>
+<h3 id="rag-for-mt-the-key-insight-with-honest-tradeoffs">RAG for MT — The Key Insight with Honest Tradeoffs</h3>
+<p>Standard MT treats each title independently. E-commerce MT benefits enormously from retrieval:</p>
+<pre><code>Title to translate: &quot;Nike Air Max 90 Retro OG White/Black Men Size 10&quot;
+BM25 retrieval returns:
+  - &quot;Nike Air Max 90 Retro OG Blanc/Noir Homme Taille 44&quot; [EN→FR existing]
+  - &quot;Nike Air Max 95 OG White/Black Men Size 11 → Weiß/Schwarz Herren Größe 44&quot; [EN→DE]
+These few-shot examples teach:
+  - &quot;White&quot; → &quot;Blanc&quot; (not &quot;Blanche&quot;)
+  - &quot;Men Size 10&quot; → &quot;Homme Taille 44&quot; (shoe size conversion + gender term)
+  - Brand names stay untranslated
+  - &quot;OG&quot; stays as &quot;OG&quot; (not localized)
+</code></pre>
+<p><strong>Why BM25 over dense retrieval for MT examples?</strong>
+For retrieval-augmented MT, you want Translation Memory (TM) behavior: near-exact surface matches for consistent terminology. Dense retrieval finds semantically similar items, which for MT can give you the wrong translation variant — "Red Evening Gown" and "Burgundy Cocktail Dress" are semantically similar but use different color terms. BM25 with lexical overlap finds "Red Evening Gown → Robe de soirée rouge" which is exactly the example you need for "Red Maxi Dress."</p>
+<p><strong>When BM25 fails (honest tradeoff):</strong> For a brand-new product category or a unique brand name with zero lexical overlap in the index, BM25 returns nothing. Dense retrieval degrades gracefully in this case by finding semantically similar items (even if different brand). <strong>Recommendation:</strong> hybrid retrieval with BM25 primary + dense fallback, where the few-shot examples are annotated with retrieval confidence — if BM25 confidence is low (few exact matches), fall back to zero-shot MT rather than using low-quality dense examples that might mislead the model.</p>
+<h3 id="custom-tokenizer-for-mt-full-mechanism">Custom Tokenizer for MT (Full Mechanism)</h3>
+<p>LiLiuM's 65k vocabulary benefits MT via:
+- "Damenschuhe" (German, "women's shoes") = single token, not "Damen" + "##schuhe"
+- Fewer decode steps → faster MT → lower cost at billions-of-requests scale
+- Better attribute-level fidelity: if "Damenschuhe" is a single token, the model learns clean alignment to "Women's Shoes"; fragmented subwords create alignment ambiguity</p>
+<p>The vocabulary customization paper (arXiv 2509.26124) extends this further: BPE merges specific to e-commerce terminology in all target languages, with the monotone efficiency guarantee ensuring no string becomes longer than before the extension.</p>
+<h3 id="multilingual-tokenizer-fertility-across-ebay-markets">Multilingual Tokenizer Fertility Across eBay Markets</h3>
+<p>For expansion to Korean or Turkish, the existing 65k vocab (even with European language emphasis) shows higher fertility for those scripts. The vocabulary extension algorithm (arXiv 2509.26124) is the right intervention: collect a sample of Korean product listings, run the extension algorithm, add the most frequent Korean n-gram merges. This reduces Korean token fertility and improves both quality and serving cost for any Korean market expansion.</p>
+<h3 id="evaluation">Evaluation</h3>
+<p><strong>chrF explained:</strong> Character n-gram F-score between hypothesis and reference. Better than BLEU for short texts:
+- Character n-grams are denser → non-zero recall even for short titles
+- Naturally handles morphological variation in DE/FR/ES (inflected forms)
+- Correlates better with human judgments for product titles</p>
+<p><strong>COMET:</strong> Neural MT metric (trained on human judgment data); better than chrF for overall quality of longer descriptions but requires GPU to compute. Use chrF for fast iteration, COMET for final evaluation.</p>
+<h3 id="tonys-insight">Tony's Insight</h3>
+<p>"The fundamental challenge in e-commerce MT is that product titles are not natural language sentences — they're sequences of keywords with implicit structure. Standard MT models try to translate grammatically, which breaks down for keyword sequences. The RAG approach is elegant: instead of teaching the model all e-commerce terminology, you show it similar titles that have already been translated correctly. It's in-context learning applied to a specialized domain, with retrieval doing the heavy lifting."</p>
+<hr />
+<h1 id="part-3-common-curveballs">PART 3: COMMON CURVEBALLS</h1>
+<hr />
+<h2 id="1-cold-start">1. Cold Start</h2>
+<p><strong>Q: How do you handle a brand new listing/user with no behavioral history?</strong></p>
+<p><strong>Three cold-start scenarios:</strong></p>
+<p><strong>New item (no behavioral data):</strong>
+1. Content-based signal immediately available: title, images, category, attributes, price, seller history
+2. VLM/encoder produces content embedding → ANN retrieval for similar established items → inherit approximate quality/CTR
+3. Boost in category: show new items with slight promotion boost until 100 impressions accumulated
+4. Seller reputation transfer: seller with 10,000 past transactions' new listing inherits higher initial trust
+5. Categorical popularity prior: P(click | category, price) as prior before item-level data</p>
+<p><strong>New user (no history):</strong>
+1. Cold-start UI: ask 3 preference questions at signup → seed initial recommendations
+2. Session bootstrap: first 3 interactions in session → immediately update real-time features
+3. Demographic proxy: geographic + device signals for category priors
+4. Collaborative filtering with similar new users</p>
+<p><strong>New language pair (MT):</strong>
+1. Bootstrap with zero-shot LiLiuM multilingual capability
+2. Collect bilingual pairs from existing inventory
+3. RAG with even small bilingual index dramatically helps (eBay showed +14% chrF from RAG alone for EN-SE)
+4. LoRA fine-tuning after 1000+ examples</p>
+<hr />
+<h2 id="2-feedback-loops-and-exposure-bias">2. Feedback Loops and Exposure Bias</h2>
+<p><strong>Q: Your recommendation model is trained on clicks, but clicks are biased by what's already shown. How do you handle this?</strong></p>
+<p><strong>The problem:</strong> Feedback loop: model shows item A → A gets clicked → model learns A is good → shows A more → A gets more clicks → ... Meanwhile item B, equally good but never shown, has zero training signal.</p>
+<p><strong>IPS Weighting (with the real engineering detail):</strong></p>
+<pre><code class="language-python"># p_shown must be ESTIMATED from the logging policy, not looked up
+# eBay logs the score and rank from the current production ranker for each displayed item
+# propensity = P(item shown at position k | query, user)
+
+# Doubly Robust estimator (more robust than IPS alone):
+def dr_loss(direct_model_pred, observed_reward, propensity):
+    # If propensity model is correct: unbiased even if direct_model is wrong
+    # If direct_model is correct: low variance even if propensity is wrong
+    return direct_model_pred + (observed_reward - direct_model_pred) / propensity
+
+# Exploration policy ensures some propensities are uniform (epsilon-greedy):
+# 5% of impressions are randomly selected → propensity = 1/catalog_size (known exactly)
+# These provide clean, unbiased training signal
+</code></pre>
+<p><strong>Exploration budget:</strong>
+- Reserve 5–10% of impressions for exploration (Thompson sampling or epsilon-greedy)
+- Thompson sampling: sample from posterior over item quality → naturally balances explore/exploit
+- UCB: <code>score = estimated_CTR + exploration_bonus(1/sqrt(impressions))</code></p>
+<p><strong>Diversity enforcement:</strong>
+- MMR: penalize items too similar to already-selected items in output set
+- Category cap: maximum 3 items from same subcategory in homepage feed
+- Gini coefficient monitoring: if Gini of impressions across items &gt; 0.7, diversity alarm</p>
+<hr />
+<h2 id="3-train-serve-skew">3. Train-Serve Skew</h2>
+<p><strong>Q: Your model performs great in offline eval but poorly in production. What's happening?</strong></p>
+<table>
+<thead>
+<tr>
+<th>Source</th>
+<th>Symptom</th>
+<th>Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Feature computation mismatch</td>
+<td>Different distribution at serve time</td>
+<td>Same feature pipeline code for train and serve; shadow mode testing</td>
+</tr>
+<tr>
+<td>Temporal leakage</td>
+<td>Trained on future data</td>
+<td>Strict temporal split; audit pipeline</td>
+</tr>
+<tr>
+<td>Null handling</td>
+<td>Training drops nulls; serving gets nulls</td>
+<td>Explicit null imputation; test with null injection</td>
+</tr>
+<tr>
+<td>Normalization</td>
+<td>Scaler fit on train; serve data out of range</td>
+<td>Clip and monitor feature ranges</td>
+</tr>
+<tr>
+<td>Data serialization</td>
+<td>String vs. numeric encoding differs</td>
+<td>Contract tests; schema validation</td>
+</tr>
+<tr>
+<td>Model staleness</td>
+<td>Online distribution shifted</td>
+<td>Fresher feature windows; more frequent retraining</td>
+</tr>
+<tr>
+<td>Label definition</td>
+<td>Training label = click; business metric = GMV</td>
+<td>Multi-task learning; calibrate click model to purchase</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="4-latency-budgets">4. Latency Budgets</h2>
+<p><strong>Q: You have a 200ms total latency budget for search. How do you allocate it?</strong></p>
+<pre><code>eBay Search — 200ms budget breakdown:
+├─ Load balancer + routing: 5ms
+├─ Query understanding: 20ms
+│   ├─ fastText language detect: &lt;1ms
+│   ├─ Spell check: 5ms
+│   └─ LiLiuM embedding (BF16, quantized): 15ms
+├─ Candidate retrieval: 30ms
+│   ├─ BM25 parallel: 10ms
+│   └─ Dense ANN: 20ms
+├─ Feature assembly: 20ms
+├─ L1 ranking (DCN-V2, 1500 items): 30ms
+├─ [Optional] L2 reranker (top-100): 50ms
+│   └─ Skip if remaining budget &lt; 50ms
+├─ Business rules + diversity: 10ms
+└─ Serialization + response: 10ms
+─────────────────────────────────
+Total: ~175ms (25ms headroom for variance)
+</code></pre>
+<p><strong>If over budget:</strong>
+1. Drop L2 reranker (50ms saved)
+2. Reduce candidate count to 500 (halves retrieval + L1 time)
+3. Switch to lighter query encoder
+4. Enable more aggressive caching for popular queries</p>
+<p>LLM features (Magical Listing, agentic) are always async — never on the synchronous search path.</p>
+<hr />
+<h2 id="5-cost-ceilings">5. Cost Ceilings</h2>
+<p><strong>Q: GenAI feature is over budget. What do you cut?</strong></p>
+<p><strong>Cost reduction levers in priority order (least quality impact first):</strong></p>
+<ol>
+<li><strong>Semantic cache:</strong> 0 quality impact for hit; 20–40% cost reduction for repetitive queries</li>
+<li><strong>Prefix caching (vLLM):</strong> 0 quality impact; 30–50% KV cache savings for common system prompts</li>
+<li><strong>Quantization (AWQ 4-bit):</strong> &lt;0.5% quality impact; 2× throughput</li>
+<li><strong>Speculative decoding (real-time path only):</strong> 0 quality impact; 1.8–2.6× throughput (memory-bandwidth-bound single-sequence; not effective for large batches)</li>
+<li><strong>Vocabulary customization:</strong> 0 quality impact; 20–34% fewer decode steps</li>
+<li><strong>Routing: small model for easy queries:</strong> ~5% quality impact on edge cases; 50–90% cost reduction</li>
+<li><strong>Batch async processing:</strong> larger batch sizes → better GPU utilization; 2–4× throughput</li>
+<li><strong>LoRA specialist:</strong> train small model on strong-model trajectories; 70–90% cost reduction post-training</li>
+<li><strong>Reduce generation length:</strong> cap max tokens; structured JSON output vs. free text</li>
+<li><strong>Off-peak scheduling:</strong> batch non-critical tasks to off-peak hours; spot instances</li>
+</ol>
+<p><strong>Example cost reduction waterfall for Magical Listing:</strong>
+- Baseline: LiLiuM-13B BF16, no cache → $0.005/listing
+- After AWQ 4-bit: $0.0025/listing (2× throughput)
+- After speculative decoding (1B draft): $0.001/listing (~2.5× gain on single-sequence path)
+- After semantic cache (25% hit rate): $0.00075/listing
+- After LoRA specialist for attribute extraction: $0.0004/listing
+- <strong>Total: ~12× cost reduction vs. baseline</strong></p>
+<hr />
+<h2 id="6-multilinguality">6. Multilinguality</h2>
+<p><strong>Q: How do you handle a new language market with minimal labeled data?</strong></p>
+<p><strong>Tier 1 — Zero-shot (week 0):</strong> LiLiuM multilingual pretraining handles 15+ languages out of the box.</p>
+<p><strong>Tier 2 — RAG bootstrap (weeks 1–4):</strong> Collect existing bilingual listing pairs, build BM25 index. 5-shot RAG MT: +10–15% chrF for low-resource pairs (eBay demonstrated for EN-PL, EN-SE).</p>
+<p><strong>Tier 3 — Targeted fine-tuning (months 1–3):</strong> LoRA fine-tuning on 1k–5k annotated examples from highest-value failure cases.</p>
+<p><strong>Tier 4 — Vocabulary extension (months 3–12):</strong> For non-Latin scripts (Korean, Arabic, Turkish), apply arXiv 2509.26124 vocabulary extension algorithm to reduce token fertility and improve throughput.</p>
+<hr />
+<h2 id="7-fairness-and-bias">7. Fairness and Bias</h2>
+<p><strong>Q: How do you ensure your search/recommendation system is fair to sellers, especially small ones?</strong></p>
+<p><strong>Supply-side (seller) fairness:</strong>
+- Large sellers dominate behavioral signals → small sellers suppressed
+- Mitigation: diversity enforcement (per-seller cap in top results); explore-exploit for new sellers; seller quality score as explicit feature
+- Audit: Gini coefficient of impressions across sellers; alert if concentration increases</p>
+<p><strong>Regulatory context (precise for EU):</strong>
+- <strong>Digital Services Act (DSA):</strong> directly applicable to eBay as a Very Large Online Platform (VLOP, &gt;45M monthly users in EU). Requires: (a) transparency on recommender system parameters in T&amp;C, (b) offering users at least one recommender that does not use profiling, (c) providing researchers access to data for algorithmic auditing. This is the most directly relevant regulation for eBay's ranking/recommendation systems.
+- <strong>EU AI Act (2024):</strong> primarily applies to high-risk AI systems (credit scoring, employment, biometrics, critical infrastructure). Marketplace recommendation is generally <em>not</em> high-risk under the AI Act. General-purpose AI systems (LiLiuM) have their own obligations (transparency, copyright compliance) under the GPAI provisions. Do not conflate DSA and AI Act obligations.
+- <strong>GDPR:</strong> applies to any processing of personal data for profiling; requires lawful basis (legitimate interest or consent) for behavioral targeting.</p>
+<p><strong>Practical monitoring:</strong>
+- Track NDCG@5 split by seller size, category, language market
+- Regular fairness audits: compare exposure for small-seller vs. large-seller items at the same quality level
+- Red-team: can adversarial sellers game the ranking via keyword stuffing or fake reviews?</p>
+<hr />
+<h2 id="8-privacy">8. Privacy</h2>
+<p><strong>Q: How do you handle personalization under GDPR?</strong></p>
+<table>
+<thead>
+<tr>
+<th>GDPR Principle</th>
+<th>ML Implication</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Purpose limitation</td>
+<td>Data for transactions cannot freely be repurposed for behavioral targeting without consent</td>
+</tr>
+<tr>
+<td>Data minimization</td>
+<td>Don't store raw click logs beyond retention period; aggregate/anonymize</td>
+</tr>
+<tr>
+<td>Right to erasure</td>
+<td>User deletion must propagate to training data, features, model contributions</td>
+</tr>
+<tr>
+<td>Consent for profiling</td>
+<td>Cross-session behavioral recommendations require explicit consent</td>
+</tr>
+<tr>
+<td>Transparency</td>
+<td>Users must know they see algorithmically ranked content (DSA reinforces this)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Technical implementations:</strong>
+- Differential privacy (DP) for model training: calibrated Gaussian noise on gradients → formal ε-DP guarantee
+- Anonymization pipeline: drop PII from logs before training; pseudonymous user IDs
+- Opt-out: if user opts out of personalization, serve popular/editorial recommendations without behavioral features
+- Model unlearning (emerging): gradient ascent on user's training data for approximate membership erasure</p>
+<hr />
+<h1 id="appendix-quick-reference-numbers">APPENDIX: QUICK-REFERENCE NUMBERS</h1>
+<table>
+<thead>
+<tr>
+<th>Fact</th>
+<th>Number</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>eBay active listings</td>
+<td>2B+</td>
+<td>eBay Q1 2026 earnings</td>
+</tr>
+<tr>
+<td>eBay MAU</td>
+<td>~135M</td>
+<td>eBay disclosures</td>
+</tr>
+<tr>
+<td>LiLiuM training tokens</td>
+<td>3T</td>
+<td>arXiv 2406.12023</td>
+</tr>
+<tr>
+<td>LiLiuM sizes</td>
+<td>1B, 7B, 13B</td>
+<td>arXiv 2406.12023</td>
+</tr>
+<tr>
+<td>LiLiuM vocab size</td>
+<td>65k</td>
+<td>arXiv 2406.12023</td>
+</tr>
+<tr>
+<td>LiLiuM generation speedup</td>
+<td>34%</td>
+<td>arXiv 2406.12023</td>
+</tr>
+<tr>
+<td>e-Llama training tokens</td>
+<td>1T</td>
+<td>arXiv 2501.09706</td>
+</tr>
+<tr>
+<td>e-Llama GPU budget</td>
+<td>480 H100, 340k GPU-hours</td>
+<td>arXiv 2501.09706</td>
+</tr>
+<tr>
+<td>e-Llama optimal LR</td>
+<td>10% of original (3.0e-5 for 8B)</td>
+<td>arXiv 2501.09706</td>
+</tr>
+<tr>
+<td>e-Llama optimal data ratio</td>
+<td>50% e-com / 50% general</td>
+<td>arXiv 2501.09706</td>
+</tr>
+<tr>
+<td>e-Llama e-com improvement</td>
+<td>~25% English, ~30% non-English</td>
+<td>arXiv 2501.09706</td>
+</tr>
+<tr>
+<td>Vocab customization sequence shortening</td>
+<td>up to 20%</td>
+<td>arXiv 2509.26124</td>
+</tr>
+<tr>
+<td>eBay VLM backbone</td>
+<td>SigLIP2 + e-Llama-8B (not LiLiuM-8B)</td>
+<td>arXiv 2602.11733</td>
+</tr>
+<tr>
+<td>eBay VLM fine-tuned vs. zero-shot</td>
+<td>Gemma3-4B fine-tuned: 3.8× speedup, +5.7% F1 vs. zero-shot 27B</td>
+<td>arXiv 2602.11733</td>
+</tr>
+<tr>
+<td>eBay VLM instruction tuning data</td>
+<td>4M examples</td>
+<td>arXiv 2602.11733</td>
+</tr>
+<tr>
+<td>RAG MT improvement EN-PL</td>
+<td>+15.3% chrF (5-shot)</td>
+<td>arXiv 2409.12880</td>
+</tr>
+<tr>
+<td>Magical Listing listings created</td>
+<td>500M+ (Q1 2026)</td>
+<td>eBay earnings</td>
+</tr>
+<tr>
+<td>Magical Listing time-to-list reduction</td>
+<td>&gt;25%</td>
+<td>eBay earnings</td>
+</tr>
+<tr>
+<td>Magical Listing listing creation rate</td>
+<td>&gt;50% increase</td>
+<td>eBay earnings</td>
+</tr>
+<tr>
+<td>Tony LLM Router cost reduction</td>
+<td>&gt;90% vs. single SOTA model on same-task routing</td>
+<td>NeurIPS26 under review</td>
+</tr>
+<tr>
+<td>Tony TwinRouterBench cost reduction</td>
+<td>53% (trained router vs unrouted Opus, matched resolve, dynamic track — not a benchmark headline)</td>
+<td>arXiv:2605.18859 preprint</td>
+</tr>
+<tr>
+<td>Tony MERA router accuracy / serving cost</td>
+<td>87.3% <strong>router</strong> accuracy (NOT task accuracy) at ~52% serving cost, 4.4% fallback</td>
+<td>RL-Eval 2026 workshop (OpenReview)</td>
+</tr>
+<tr>
+<td>Tony Diffusion Weights speedup</td>
+<td>~3.2× headline wall-clock (Table 1 per-task 3.8–4.3× across GLUE/LAMBADA/MMLU/OpenBookQA/WikiText)</td>
+<td>ACL submission under review</td>
+</tr>
+<tr>
+<td>Tony nnU-Net pruning</td>
+<td>&gt;80% of weights removed, proxy Dice &gt;0.95 (no speedup measured)</td>
+<td>MIDL25</td>
+</tr>
+<tr>
+<td>Speculative decoding speedup formula</td>
+<td>(1-α^(K+1)) / ((1-α)(1+K×c_draft/c_target))</td>
+<td>Leviathan et al. 2023</td>
+</tr>
+<tr>
+<td>Speculative decoding typical speedup (α=0.75-0.85, K=7)</td>
+<td>1.8–2.6× (memory-BW-bound, small batch)</td>
+<td>Literature</td>
+</tr>
+<tr>
+<td>Speculative decoding condition</td>
+<td>Only effective when target is memory-bandwidth-bound (small batch)</td>
+<td>Literature</td>
+</tr>
+<tr>
+<td>AWQ 4-bit memory reduction</td>
+<td>~65% vs. FP16</td>
+<td>AWQ paper</td>
+</tr>
+<tr>
+<td>vLLM PagedAttention memory waste reduction</td>
+<td>60–80%</td>
+<td>vLLM paper</td>
+</tr>
+<tr>
+<td>Chinchilla compute-optimal D/N ratio</td>
+<td>~20 tokens per parameter</td>
+<td>Hoffmann et al. 2022</td>
+</tr>
+<tr>
+<td>LiLiuM-7B D/N ratio (inference-optimal)</td>
+<td>3T/7B ≈ 428× (21× overdense vs. Chinchilla)</td>
+<td>Computed</td>
+</tr>
+<tr>
+<td>MFU on H100 pretraining (good)</td>
+<td>40–47%</td>
+<td>Megatron / literature</td>
+</tr>
+<tr>
+<td>MinHash LSH typical similarity threshold</td>
+<td>75–85% Jaccard</td>
+<td>Standard practice</td>
+</tr>
+<tr>
+<td>Megatron-LM 3D parallelism MFU</td>
+<td>up to 47% on H100 clusters</td>
+<td>NVIDIA technical blog</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><em>Sources: eBay research papers arXiv 2406.12023 (LiLiuM), 2501.09706 (e-Llama, arXiv preprint), 2602.11733 (VLM, arXiv preprint 2026), 2509.26124 (vocab customization/Sept 2025), 2409.12880 (RAG MT), 2505.04209 (LLM-as-judge ads), 2508.03628 (LLMDistill4Ads), 2512.13037 (search ranking/SIGIR2025); eBay Q1 2026 earnings; vLLM documentation; Vertex AI Vector Search (Google Cloud blog); Hoffmann et al. 2022 ("Chinchilla"); Leviathan et al. 2023 (speculative decoding); arXiv 2401.00448 (inference-optimal scaling); NVIDIA Megatron-LM technical blog; EU Digital Services Act (DSA 2022/2065); EU AI Act (2024/1689); Tony's own papers: LLM Router (NeurIPS26 under review), TwinRouterBench (arXiv:2605.18859 preprint), MERA (RL-Eval 2026 workshop, OpenReview), Diffusion Weights (ACL submission under review), Pruning nnU-Net (MIDL25). (Full verified detail in 20_OWN_PAPERS_GROUND_TRUTH.md.)</em></p>
+      <nav class="prevnext"><a class="pn prev" href="07_EBAY_COMPANY_AI_DOSSIER.html">‹ <span>eBay Company AI Dossier</span></a><a class="pn next" href="09_CODING_CODESIGNAL_PREP.html"><span>Coding / CodeSignal Prep</span> ›</a></nav>
+    </article>
+    <aside class="toc"><div class="toc-title">On this page</div><ul>
+<li><a href="#step-0-problem-framing-and-clarification">Step 0: Problem Framing and Clarification</a></li>
+<li><a href="#step-1-success-metrics">Step 1: Success Metrics</a></li>
+<li><a href="#step-2-data-and-labels">Step 2: Data and Labels</a></li>
+<li><a href="#step-3-features">Step 3: Features</a></li>
+<li><a href="#step-4-candidate-generation-two-stage-architecture">Step 4: Candidate Generation (Two-Stage Architecture)</a></li>
+<li><a href="#step-5-model-training">Step 5: Model Training</a></li>
+<li><a href="#step-5b-pretraining-data-curation-versleys-home-turf">Step 5B: Pretraining Data Curation — Versley&#x27;s Home Turf</a></li>
+<li><a href="#step-6-offline-evaluation">Step 6: Offline Evaluation</a></li>
+<li><a href="#step-7-serving-latency-and-cost-budgets">Step 7: Serving, Latency, and Cost Budgets</a></li>
+<li><a href="#step-7b-tokenizer-design-versleys-co-authored-work">Step 7B: Tokenizer Design — Versley&#x27;s Co-authored Work</a></li>
+<li><a href="#step-7c-alignment-pipeline-sft-reward-rlhfdpo">Step 7C: Alignment Pipeline — SFT → Reward → RLHF/DPO</a></li>
+<li><a href="#step-8-scaling-laws-versleys-pretraining-lens">Step 8: Scaling Laws — Versley&#x27;s Pretraining Lens</a></li>
+<li><a href="#step-9-monitoring-and-drift-detection">Step 9: Monitoring and Drift Detection</a></li>
+<li><a href="#step-10-feedback-loops-and-ab-testing">Step 10: Feedback Loops and A/B Testing</a></li>
+<li><a href="#step-11-failure-modes">Step 11: Failure Modes</a></li>
+<li><a href="#step-12-iteration-strategy">Step 12: Iteration Strategy</a></li>
+<li><a href="#design-1-product-search-ranking-and-relevance-at-ebay-scale">Design 1: Product Search Ranking and Relevance at eBay Scale</a></li>
+<li><a href="#design-2-recommendations-item-to-item-and-personalized-homepage">Design 2: Recommendations — Item-to-Item and Personalized Homepage</a></li>
+<li><a href="#design-3-llm-serving-and-routing-for-genai-features-at-scale-tonys-sweet-spot">Design 3: LLM Serving and Routing for GenAI Features at Scale (Tony&#x27;s Sweet Spot)</a></li>
+<li><a href="#design-4-genai-magical-listing-image-to-listing-via-vlm-knowledge-graph-agentic-flow">Design 4: GenAI Magical Listing — Image-to-Listing via VLM + Knowledge Graph + Agentic Flow</a></li>
+<li><a href="#design-5-machine-translation-and-multilingual-product-understanding-lilium-style">Design 5: Machine Translation and Multilingual Product Understanding (LiLiuM-Style)</a></li>
+<li><a href="#1-cold-start">1. Cold Start</a></li>
+<li><a href="#2-feedback-loops-and-exposure-bias">2. Feedback Loops and Exposure Bias</a></li>
+<li><a href="#3-train-serve-skew">3. Train-Serve Skew</a></li>
+<li><a href="#4-latency-budgets">4. Latency Budgets</a></li>
+<li><a href="#5-cost-ceilings">5. Cost Ceilings</a></li>
+<li><a href="#6-multilinguality">6. Multilinguality</a></li>
+<li><a href="#7-fairness-and-bias">7. Fairness and Bias</a></li>
+<li><a href="#8-privacy">8. Privacy</a></li>
+</ul></aside>
+  </main>
+</div>
+<script>window.SEARCH_JSON="../assets/../search-index.json";</script>
+<script src="../assets/search-data.js"></script>
+<script src="../assets/app.js"></script>
+</body>
+</html>

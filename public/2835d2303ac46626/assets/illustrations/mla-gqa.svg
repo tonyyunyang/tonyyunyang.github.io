@@ -1,0 +1,146 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 430" role="img">
+  <title>MHA → GQA/MQA → MLA: Attention KV-Cache Compression</title>
+  <desc>Three columns comparing Multi-Head Attention (MHA), Grouped/Multi-Query Attention (GQA/MQA), and Multi-head Latent Attention (MLA). MHA has one KV head per query head (large cache). GQA/MQA shares a few KV heads across many query heads (smaller cache). MLA compresses KV into a single low-rank latent vector, decompressed on use (smallest cache).</desc>
+
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#56616f"/>
+    </marker>
+    <marker id="arrow-blue" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#2563eb"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="400" y="36" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="19" font-weight="700" fill="#1f2733">MHA → GQA/MQA → MLA</text>
+  <text x="400" y="56" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="13" fill="#56616f">Attention KV-Cache Compression Strategies</text>
+
+  <!-- ───────────── COLUMN 1: MHA ───────────── -->
+  <text x="133" y="86" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="15" font-weight="700" fill="#1f2733">MHA</text>
+  <text x="133" y="101" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" fill="#56616f">Multi-Head Attention</text>
+
+  <!-- MHA: 4 Q heads, each with its own KV head -->
+  <!-- Row 1 -->
+  <rect x="60" y="118" width="44" height="28" rx="6" fill="#e8f0fe" stroke="#2563eb" stroke-width="2"/>
+  <text x="82" y="137" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" fill="#2563eb" font-weight="600">Q₁</text>
+  <rect x="162" y="118" width="44" height="28" rx="6" fill="#f7f8fa" stroke="#94a3b8" stroke-width="2"/>
+  <text x="184" y="137" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" fill="#1f2733">KV₁</text>
+  <line x1="104" y1="132" x2="160" y2="132" stroke="#56616f" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Row 2 -->
+  <rect x="60" y="162" width="44" height="28" rx="6" fill="#e8f0fe" stroke="#2563eb" stroke-width="2"/>
+  <text x="82" y="181" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" fill="#2563eb" font-weight="600">Q₂</text>
+  <rect x="162" y="162" width="44" height="28" rx="6" fill="#f7f8fa" stroke="#94a3b8" stroke-width="2"/>
+  <text x="184" y="181" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" fill="#1f2733">KV₂</text>
+  <line x1="104" y1="176" x2="160" y2="176" stroke="#56616f" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Row 3 -->
+  <rect x="60" y="206" width="44" height="28" rx="6" fill="#e8f0fe" stroke="#2563eb" stroke-width="2"/>
+  <text x="82" y="225" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" fill="#2563eb" font-weight="600">Q₃</text>
+  <rect x="162" y="206" width="44" height="28" rx="6" fill="#f7f8fa" stroke="#94a3b8" stroke-width="2"/>
+  <text x="184" y="225" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" fill="#1f2733">KV₃</text>
+  <line x1="104" y1="220" x2="160" y2="220" stroke="#56616f" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Row 4 -->
+  <rect x="60" y="250" width="44" height="28" rx="6" fill="#e8f0fe" stroke="#2563eb" stroke-width="2"/>
+  <text x="82" y="269" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" fill="#2563eb" font-weight="600">Q₄</text>
+  <rect x="162" y="250" width="44" height="28" rx="6" fill="#f7f8fa" stroke="#94a3b8" stroke-width="2"/>
+  <text x="184" y="269" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" fill="#1f2733">KV₄</text>
+  <line x1="104" y1="264" x2="160" y2="264" stroke="#56616f" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Q / KV labels -->
+  <text x="82" y="114" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" fill="#56616f">Q heads</text>
+  <text x="184" y="114" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" fill="#56616f">KV heads</text>
+
+  <!-- MHA cache label -->
+  <rect x="40" y="298" width="186" height="30" rx="8" fill="#fef3c7" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="133" y="318" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" fill="#92400e" font-weight="600">Cache: H × KV per token</text>
+  <text x="133" y="346" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" fill="#56616f">Large cache</text>
+
+  <!-- ───────────── COLUMN 2: GQA/MQA ───────────── -->
+  <text x="400" y="86" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="15" font-weight="700" fill="#1f2733">GQA / MQA</text>
+  <text x="400" y="101" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" fill="#56616f">Grouped / Multi-Query Attention</text>
+
+  <!-- GQA: 4 Q heads sharing 2 KV heads -->
+  <!-- Q heads -->
+  <rect x="320" y="118" width="44" height="28" rx="6" fill="#e8f0fe" stroke="#2563eb" stroke-width="2"/>
+  <text x="342" y="137" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" fill="#2563eb" font-weight="600">Q₁</text>
+  <rect x="320" y="162" width="44" height="28" rx="6" fill="#e8f0fe" stroke="#2563eb" stroke-width="2"/>
+  <text x="342" y="181" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" fill="#2563eb" font-weight="600">Q₂</text>
+  <rect x="320" y="206" width="44" height="28" rx="6" fill="#e8f0fe" stroke="#2563eb" stroke-width="2"/>
+  <text x="342" y="225" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" fill="#2563eb" font-weight="600">Q₃</text>
+  <rect x="320" y="250" width="44" height="28" rx="6" fill="#e8f0fe" stroke="#2563eb" stroke-width="2"/>
+  <text x="342" y="269" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" fill="#2563eb" font-weight="600">Q₄</text>
+
+  <!-- KV heads (shared) -->
+  <rect x="436" y="140" width="44" height="28" rx="6" fill="#f7f8fa" stroke="#94a3b8" stroke-width="2"/>
+  <text x="458" y="159" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" fill="#1f2733">KV₁</text>
+  <rect x="436" y="228" width="44" height="28" rx="6" fill="#f7f8fa" stroke="#94a3b8" stroke-width="2"/>
+  <text x="458" y="247" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" fill="#1f2733">KV₂</text>
+
+  <!-- Q1 and Q2 -> KV1 -->
+  <line x1="364" y1="132" x2="434" y2="152" stroke="#56616f" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="364" y1="176" x2="434" y2="160" stroke="#56616f" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <!-- Q3 and Q4 -> KV2 -->
+  <line x1="364" y1="220" x2="434" y2="240" stroke="#56616f" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="364" y1="264" x2="434" y2="248" stroke="#56616f" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Labels -->
+  <text x="342" y="114" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" fill="#56616f">Q heads</text>
+  <text x="458" y="114" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" fill="#56616f">KV heads</text>
+  <text x="430" y="200" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="10" fill="#56616f" font-style="italic">shared</text>
+
+  <!-- GQA cache label -->
+  <rect x="295" y="298" width="210" height="30" rx="8" fill="#dcfce7" stroke="#15803d" stroke-width="1.5"/>
+  <text x="400" y="318" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" fill="#14532d" font-weight="600">Cache: G × KV per token (G ≪ H)</text>
+  <text x="400" y="346" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" fill="#56616f">Smaller cache (~8× reduction)</text>
+
+  <!-- ───────────── COLUMN 3: MLA ───────────── -->
+  <text x="665" y="86" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="15" font-weight="700" fill="#1f2733">MLA</text>
+  <text x="665" y="101" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" fill="#56616f">Multi-head Latent Attention (DeepSeek-V2)</text>
+
+  <!-- MLA: 4 Q heads, all use a single compressed latent -->
+  <!-- Q heads -->
+  <rect x="572" y="118" width="44" height="28" rx="6" fill="#e8f0fe" stroke="#2563eb" stroke-width="2"/>
+  <text x="594" y="137" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" fill="#2563eb" font-weight="600">Q₁</text>
+  <rect x="572" y="162" width="44" height="28" rx="6" fill="#e8f0fe" stroke="#2563eb" stroke-width="2"/>
+  <text x="594" y="181" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" fill="#2563eb" font-weight="600">Q₂</text>
+  <rect x="572" y="206" width="44" height="28" rx="6" fill="#e8f0fe" stroke="#2563eb" stroke-width="2"/>
+  <text x="594" y="225" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" fill="#2563eb" font-weight="600">Q₃</text>
+  <rect x="572" y="250" width="44" height="28" rx="6" fill="#e8f0fe" stroke="#2563eb" stroke-width="2"/>
+  <text x="594" y="269" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" fill="#2563eb" font-weight="600">Q₄</text>
+
+  <!-- Low-rank latent KV box -->
+  <rect x="660" y="172" width="96" height="44" rx="10" fill="#f3e8ff" stroke="#7c3aed" stroke-width="2"/>
+  <text x="708" y="191" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" fill="#6d28d9" font-weight="700">c_KV</text>
+  <text x="708" y="207" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="10" fill="#7c3aed">low-rank latent</text>
+
+  <!-- All Q -> latent KV -->
+  <line x1="616" y1="132" x2="658" y2="188" stroke="#56616f" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="616" y1="176" x2="658" y2="192" stroke="#56616f" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="616" y1="220" x2="658" y2="202" stroke="#56616f" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="616" y1="264" x2="658" y2="206" stroke="#56616f" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- decompress note (below the latent box, fully inside canvas) -->
+  <text x="708" y="232" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="10" fill="#56616f">↑ decompressed on use</text>
+
+  <!-- Labels -->
+  <text x="594" y="114" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" fill="#56616f">Q heads</text>
+  <text x="708" y="114" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" fill="#56616f">KV store</text>
+
+  <!-- MLA cache label -->
+  <rect x="564" y="298" width="192" height="30" rx="8" fill="#ede9fe" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="660" y="318" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" fill="#4c1d95" font-weight="600">Cache: 1 latent vector/token</text>
+  <text x="660" y="346" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" fill="#56616f">Smallest cache (~5-13× reduction)</text>
+
+  <!-- Column dividers -->
+  <line x1="267" y1="80" x2="267" y2="370" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="533" y1="80" x2="533" y2="370" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <!-- Bottom note -->
+  <text x="400" y="395" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" fill="#56616f">MLA requires training from scratch; GQA/MQA needs architectural support at training time; both save HBM at serving.</text>
+
+  <!-- Progress arrow -->
+  <text x="267" y="72" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="14" fill="#94a3b8">→</text>
+  <text x="533" y="72" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="14" fill="#94a3b8">→</text>
+</svg>

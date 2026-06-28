@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif">
+  <title>RI-T2S vs RI-Aug: which side of the problem to invert</title>
+  <desc>Two usages of the same Reverse Imaging inverse problem. RI-T2S inverts the information-poor target at test time and underperforms; RI-Aug inverts the information-rich bSSFP source to synthesize training contrasts and wins.</desc>
+
+  <defs>
+    <marker id="ah-amber" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#d97706"/>
+    </marker>
+    <marker id="ah-green" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#16a34a"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="480" y="36" text-anchor="middle" font-size="19" font-weight="700" fill="#1f2733">RI-T2S vs RI-Aug: where you apply the inverse problem</text>
+
+  <!-- ===================== TOP LANE: RI-T2S ===================== -->
+  <rect x="24" y="58" width="912" height="182" rx="14" fill="#fdf4e8" stroke="#d97706" stroke-width="2"/>
+  <text x="40" y="80" font-size="13" font-weight="700" fill="#b45309">RI-T2S &#183; translate the target, then segment</text>
+
+  <!-- arrow labels -->
+  <text x="217" y="104" text-anchor="middle" font-size="10.5" fill="#92400e">Reverse Imaging (TEST time)</text>
+  <text x="384" y="104" text-anchor="middle" font-size="10.5" fill="#92400e">render bSSFP</text>
+  <text x="581" y="104" text-anchor="middle" font-size="10.5" fill="#92400e">segment</text>
+
+  <!-- arrows -->
+  <line x1="190" y1="142" x2="245" y2="142" stroke="#d97706" stroke-width="2" marker-end="url(#ah-amber)"/>
+  <line x1="357" y1="142" x2="412" y2="142" stroke="#d97706" stroke-width="2" marker-end="url(#ah-amber)"/>
+  <line x1="554" y1="142" x2="609" y2="142" stroke="#d97706" stroke-width="2" marker-end="url(#ah-amber)"/>
+  <line x1="741" y1="142" x2="796" y2="142" stroke="#d97706" stroke-width="2" marker-end="url(#ah-amber)"/>
+
+  <!-- boxes -->
+  <rect x="40" y="114" width="150" height="56" rx="10" fill="#ffffff" stroke="#d97706" stroke-width="2"/>
+  <text x="115" y="137" text-anchor="middle" font-size="13" font-weight="600" fill="#1f2733">Target image</text>
+  <text x="115" y="156" text-anchor="middle" font-size="11.5" fill="#56616f">MOLLI / GRE</text>
+
+  <rect x="247" y="114" width="110" height="56" rx="10" fill="#e8f0fe" stroke="#2563eb" stroke-width="2"/>
+  <text x="302" y="137" text-anchor="middle" font-size="13" font-weight="600" fill="#1f2733">spin maps z</text>
+  <text x="302" y="156" text-anchor="middle" font-size="10.5" fill="#56616f">(PD, T1, T2)</text>
+
+  <rect x="414" y="114" width="140" height="56" rx="10" fill="#ffffff" stroke="#d97706" stroke-width="2"/>
+  <text x="484" y="146" text-anchor="middle" font-size="13" font-weight="600" fill="#1f2733">bSSFP-like image</text>
+
+  <rect x="611" y="114" width="130" height="56" rx="10" fill="#ffffff" stroke="#d97706" stroke-width="2"/>
+  <text x="676" y="146" text-anchor="middle" font-size="12.5" font-weight="600" fill="#1f2733">baseline nnU-Net</text>
+
+  <rect x="798" y="114" width="120" height="56" rx="10" fill="#ffffff" stroke="#d97706" stroke-width="2"/>
+  <text x="858" y="146" text-anchor="middle" font-size="12.5" font-weight="600" fill="#1f2733">segmentation</text>
+
+  <!-- warning badge -->
+  <rect x="40" y="180" width="232" height="30" rx="8" fill="#fdebd0" stroke="#d97706" stroke-width="1"/>
+  <text x="156" y="199" text-anchor="middle" font-size="10" fill="#92400e">&#9888; GRE TE &#8776; 1.5 ms &#8594; little T2 info</text>
+
+  <!-- result tag -->
+  <rect x="596" y="178" width="322" height="42" rx="8" fill="#fdebd0" stroke="#d97706" stroke-width="1"/>
+  <text x="757" y="195" text-anchor="middle" font-size="11" font-weight="700" fill="#7c2d12">Device Dice 66 / 82 / 89</text>
+  <text x="757" y="211" text-anchor="middle" font-size="10" fill="#92400e">below baseline on MYO / LV</text>
+
+  <!-- ===================== MIDDLE ANNOTATION ===================== -->
+  <rect x="24" y="250" width="912" height="58" rx="10" fill="#f7f8fa" stroke="#94a3b8" stroke-width="1.5"/>
+  <text x="480" y="276" text-anchor="middle" font-size="13" font-weight="700" fill="#1f2733">Same inverse problem &#8212; the difference is WHERE you apply it</text>
+  <text x="480" y="296" text-anchor="middle" font-size="12"><tspan fill="#56616f">RI-T2S inverts the </tspan><tspan fill="#b45309" font-weight="700">TARGET (ill-conditioned)</tspan><tspan fill="#56616f">    vs    RI-Aug inverts the </tspan><tspan fill="#15803d" font-weight="700">SOURCE (well-conditioned)</tspan></text>
+
+  <!-- ===================== BOTTOM LANE: RI-Aug ===================== -->
+  <rect x="24" y="316" width="912" height="200" rx="14" fill="#ecfdf3" stroke="#16a34a" stroke-width="2"/>
+  <text x="40" y="338" font-size="13" font-weight="700" fill="#15803d">RI-Aug &#183; physics augmentation (synthesize contrasts for training)</text>
+
+  <!-- arrow labels -->
+  <text x="259" y="360" text-anchor="middle" font-size="10.5" fill="#166534">Reverse Imaging (SOURCE)</text>
+  <text x="465" y="360" text-anchor="middle" font-size="10.5" fill="#166534">synthesize MOLLI + GRE</text>
+  <text x="713" y="360" text-anchor="middle" font-size="10.5" fill="#166534">train nnU-Net</text>
+
+  <!-- arrows -->
+  <line x1="220" y1="401" x2="298" y2="401" stroke="#16a34a" stroke-width="2" marker-end="url(#ah-green)"/>
+  <!-- multiple synthesis arrows -->
+  <line x1="410" y1="389" x2="516" y2="389" stroke="#16a34a" stroke-width="1.5" marker-end="url(#ah-green)"/>
+  <line x1="410" y1="401" x2="516" y2="401" stroke="#16a34a" stroke-width="1.5" marker-end="url(#ah-green)"/>
+  <line x1="410" y1="413" x2="516" y2="413" stroke="#16a34a" stroke-width="1.5" marker-end="url(#ah-green)"/>
+  <line x1="668" y1="401" x2="758" y2="401" stroke="#16a34a" stroke-width="2" marker-end="url(#ah-green)"/>
+
+  <!-- boxes -->
+  <rect x="40" y="372" width="180" height="58" rx="10" fill="#ffffff" stroke="#16a34a" stroke-width="2"/>
+  <text x="130" y="396" text-anchor="middle" font-size="13" font-weight="600" fill="#1f2733">Source image</text>
+  <text x="130" y="415" text-anchor="middle" font-size="11" fill="#56616f">ACDC bSSFP (info-rich)</text>
+  <circle cx="210" cy="378" r="11" fill="#16a34a" stroke="#ffffff" stroke-width="1.5"/>
+  <text x="210" y="382" text-anchor="middle" font-size="11" font-weight="700" fill="#ffffff">&#10003;</text>
+
+  <rect x="300" y="372" width="110" height="58" rx="10" fill="#e8f0fe" stroke="#2563eb" stroke-width="2"/>
+  <text x="355" y="396" text-anchor="middle" font-size="13" font-weight="600" fill="#1f2733">spin maps z</text>
+  <text x="355" y="415" text-anchor="middle" font-size="10.5" fill="#56616f">(PD, T1, T2)</text>
+
+  <!-- synthetic training images stack -->
+  <rect x="534" y="370" width="138" height="48" rx="10" fill="#f0fbf4" stroke="#16a34a" stroke-width="1.5"/>
+  <rect x="527" y="376" width="138" height="48" rx="10" fill="#f0fbf4" stroke="#16a34a" stroke-width="1.5"/>
+  <rect x="520" y="382" width="138" height="48" rx="10" fill="#ffffff" stroke="#16a34a" stroke-width="2"/>
+  <text x="589" y="401" text-anchor="middle" font-size="11.5" font-weight="600" fill="#1f2733">synthetic</text>
+  <text x="589" y="418" text-anchor="middle" font-size="11.5" font-weight="600" fill="#1f2733">training images</text>
+
+  <rect x="760" y="372" width="140" height="58" rx="10" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+  <text x="830" y="396" text-anchor="middle" font-size="13" font-weight="700" fill="#1f2733">robust model</text>
+  <text x="830" y="415" text-anchor="middle" font-size="11" fill="#56616f">(generalizes)</text>
+
+  <!-- result tag -->
+  <rect x="520" y="440" width="380" height="42" rx="8" fill="#dcfce7" stroke="#16a34a" stroke-width="1"/>
+  <text x="710" y="458" text-anchor="middle" font-size="11" font-weight="700" fill="#14532d">Best on both sets: MOLLI LV 91.6 &#183; Device MYO 93.1</text>
+  <text x="710" y="473" text-anchor="middle" font-size="10" fill="#166534">all p&lt;0.05</text>
+</svg>

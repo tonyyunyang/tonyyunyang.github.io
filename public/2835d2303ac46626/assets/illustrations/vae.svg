@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 420" role="img">
+  <title>Variational Autoencoder (VAE)</title>
+  <desc>Flow diagram of a Variational Autoencoder: input x passes through Encoder q_φ(z|x) to produce μ and σ, then the reparameterization trick samples z = μ + σ⊙ε where ε~N(0,1), then Decoder p_θ(x|z) reconstructs x̂. The loss is reconstruction minus KL divergence.</desc>
+
+  <defs>
+    <marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto">
+      <path d="M1,1 L8,4.5 L1,8 Z" fill="#94a3b8" />
+    </marker>
+    <marker id="arrow-accent" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto">
+      <path d="M1,1 L8,4.5 L1,8 Z" fill="#2563eb" />
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="400" y="38" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="19" font-weight="700" fill="#1f2733">Variational Autoencoder (VAE)</text>
+
+  <!-- ── Box 1: Input x ── -->
+  <rect x="30" y="120" width="80" height="52" rx="10" fill="#f7f8fa" stroke="#94a3b8" stroke-width="2"/>
+  <text x="70" y="148" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="20" font-weight="700" fill="#1f2733">x</text>
+  <text x="70" y="163" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" fill="#56616f">input</text>
+
+  <!-- Arrow x → Encoder -->
+  <line x1="110" y1="146" x2="163" y2="146" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- ── Box 2: Encoder ── -->
+  <rect x="165" y="105" width="140" height="82" rx="10" fill="#e8f0fe" stroke="#2563eb" stroke-width="2"/>
+  <text x="235" y="136" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#1f2733">Encoder</text>
+  <text x="235" y="153" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" fill="#1f2733"><tspan font-style="italic" fill="#2563eb">q</tspan><tspan font-size="9" dy="3" fill="#2563eb">φ</tspan><tspan font-size="12" dy="-3">(z | x)</tspan></text>
+  <text x="235" y="174" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" fill="#56616f">neural network</text>
+
+  <!-- Arrow Encoder → (μ, σ) -->
+  <line x1="305" y1="146" x2="358" y2="146" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- ── Box 3: (μ, σ) ── -->
+  <rect x="360" y="110" width="90" height="72" rx="10" fill="#f7f8fa" stroke="#94a3b8" stroke-width="2"/>
+  <text x="405" y="138" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="16" fill="#1f2733">μ, σ</text>
+  <text x="405" y="158" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" fill="#56616f">latent params</text>
+  <text x="405" y="173" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" fill="#56616f">(mean, std)</text>
+
+  <!-- Arrow (μ, σ) → Reparam box -->
+  <line x1="450" y1="146" x2="503" y2="146" stroke="#2563eb" stroke-width="2" marker-end="url(#arrow-accent)"/>
+
+  <!-- ── Box 4: Reparameterization trick ── -->
+  <rect x="505" y="90" width="170" height="112" rx="10" fill="#e8f0fe" stroke="#2563eb" stroke-width="2"/>
+  <text x="590" y="116" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#1f2733">Reparameterization</text>
+  <text x="590" y="132" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" font-weight="600" fill="#2563eb">trick</text>
+  <text x="590" y="152" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="13" fill="#1f2733">z = μ + σ ⊙ ε</text>
+  <text x="590" y="170" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" fill="#56616f">ε ~ N(0, 1)</text>
+  <text x="590" y="192" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" fill="#56616f">enables backprop through z</text>
+
+  <!-- Arrow Reparam → Decoder (curves down then right using a path) -->
+  <!-- We route: from right of reparam box (675, 146) → right bend → then arc down to decoder -->
+  <!-- Simpler: route below the boxes -->
+  <!-- Reparam bottom center → down → right → Decoder -->
+  <path d="M590,202 L590,255 L660,255" stroke="#94a3b8" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+
+  <!-- ── Box 5: Decoder ── -->
+  <rect x="663" y="228" width="110" height="56" rx="10" fill="#e8f0fe" stroke="#2563eb" stroke-width="2"/>
+  <text x="718" y="253" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#1f2733">Decoder</text>
+  <text x="718" y="269" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" fill="#1f2733"><tspan font-style="italic" fill="#2563eb">p</tspan><tspan font-size="9" dy="3" fill="#2563eb">θ</tspan><tspan font-size="12" dy="-3">(x | z)</tspan></text>
+
+  <!-- Arrow Decoder → x̂ -->
+  <line x1="718" y1="284" x2="718" y2="325" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- ── Box 6: x̂ output ── -->
+  <rect x="676" y="327" width="84" height="50" rx="10" fill="#f7f8fa" stroke="#94a3b8" stroke-width="2"/>
+  <text x="718" y="355" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="20" font-weight="700" fill="#1f2733">x̂</text>
+  <text x="718" y="369" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" fill="#56616f">reconstruction</text>
+
+  <!-- "z" label on the path from reparam to decoder -->
+  <text x="625" y="248" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="14" font-weight="600" fill="#1f2733">z</text>
+
+  <!-- ── Loss box at bottom ── -->
+  <rect x="80" y="310" width="520" height="74" rx="10" fill="#f7f8fa" stroke="#94a3b8" stroke-width="2"/>
+  <text x="340" y="336" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#1f2733">ELBO Loss</text>
+  <text x="340" y="358" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="14" fill="#1f2733">ℒ = reconstruction − KL( q(z|x) ‖ N(0,1) )</text>
+  <text x="340" y="376" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" fill="#56616f">maximize ELBO = maximize reconstruction + minimize posterior deviation from prior</text>
+
+  <!-- Horizontal flow label -->
+  <text x="70" y="96" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" fill="#56616f">encode</text>
+  <text x="315" y="136" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" fill="#56616f">params</text>
+  <text x="455" y="136" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" fill="#2563eb">sample</text>
+</svg>

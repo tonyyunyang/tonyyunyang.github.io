@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="en" data-pagefind-ignore="all">
+<head>
+<meta name="robots" content="noindex, nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gap-Fill: Deep Answers · eBay Prep</title>
+<script>try{if(localStorage.getItem('ebayprep-theme')==='dark')document.documentElement.classList.add('dark');}catch(e){}</script>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<button id="menu" class="menu-btn" aria-label="Menu">☰</button>
+<button id="theme" class="theme-btn" aria-label="Toggle theme">◐</button>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+<div class="brand"><a href="../index.html">eBay Prep</a><div class="brand-sub">Stage 1 · Yannick Versley</div></div>
+<div class="search"><input id="q" type="search" placeholder="Search the pack…" autocomplete="off"><div id="results"></div></div>
+<nav class="nav">
+<div class="nav-group"><div class="nav-group-title">Start Here</div><ul>
+<li><a href="7DAY_SPRINT_PLAN.html">7-Day Sprint Plan</a></li>
+<li><a href="21_KILL_LIST.html">⚠ Kill List — Never Say These</a></li>
+<li><a href="00_MASTER_INDEX_AND_STUDY_PLAN.html">Master Index &amp; Study Plan</a></li>
+<li><a href="SESSION2_READINESS_REPORT.html">Readiness Report</a></li>
+</ul></div>
+<div class="nav-group"><div class="nav-group-title">Stage 1 — Core</div><ul>
+<li><a href="03_INTERVIEWER_YANNICK_VERSLEY.html">Interviewer: Yannick Versley</a></li>
+<li><a href="02_STAGE1_ML_LLM_NLP_MASTERDOC.html">Stage-1 ML/LLM/NLP Master Doc</a></li>
+<li><a href="20_OWN_PAPERS_GROUND_TRUTH.html">★ Own Papers — Ground-Truth Defense</a></li>
+<li><a href="04_PUBLICATIONS_PROJECTS_DEFENSE.html">Publications &amp; Projects Defense</a></li>
+<li><a href="05_QUESTION_BANK_THIS_ROLE.html">Question Bank (This Role)</a></li>
+<li><a href="06_ML_LLM_NLP_FUNDAMENTALS_STUDYGUIDE.html">ML/LLM/NLP Fundamentals</a></li>
+<li><a href="12_MOCK_INTERVIEW_FULL.html">Full Mock Interview</a></li>
+</ul></div>
+<div class="nav-group"><div class="nav-group-title">Stage 1 — Deep Dives</div><ul>
+<li class="active"><a href="18_STAGE1_GAPFILL_DEEP_ANSWERS.html">Gap-Fill: Deep Answers</a></li>
+<li><a href="18b_STAGE1_GAPFILL_ROUND2.html">Gap-Fill: Round 2</a></li>
+<li><a href="19_ADAPTIVE_MOCK_SESSIONS.html">Adaptive Mock Sessions</a></li>
+<li><a href="13_GENERATIVE_MODELS_BEYOND_LLMS.html">Generative Models Beyond LLMs</a></li>
+<li><a href="14_CLASSICAL_NLP_AND_MT_DEEP_DIVE.html">Classical NLP &amp; MT Deep Dive</a></li>
+<li><a href="15_SOTA_2026_CURRENT_AWARENESS.html">SOTA 2026 Current Awareness</a></li>
+<li><a href="16_EXPERTISE_DEEP_DIVE_EFFICIENCY.html">Expertise Deep Dive: Efficiency</a></li>
+<li><a href="17_RAPID_FIRE_BREADTH_BANK.html">Rapid-Fire Breadth Bank</a></li>
+</ul></div>
+<div class="nav-group"><div class="nav-group-title">eBay &amp; Why eBay</div><ul>
+<li><a href="07_EBAY_COMPANY_AI_DOSSIER.html">eBay Company AI Dossier</a></li>
+</ul></div>
+<div class="nav-group"><div class="nav-group-title">Later Stages (2 &amp; 3)</div><ul>
+<li><a href="08_ML_SYSTEM_DESIGN_PLAYBOOK.html">ML System Design Playbook</a></li>
+<li><a href="09_CODING_CODESIGNAL_PREP.html">Coding / CodeSignal Prep</a></li>
+<li><a href="10_PROJECT_MGMT_RETROSPECTIVE_STAR.html">Project Mgmt &amp; STAR Stories</a></li>
+<li><a href="11_TEAM_FIT_CAREER.html">Team Fit &amp; Career</a></li>
+</ul></div>
+<div class="nav-group"><div class="nav-group-title">Logistics</div><ul>
+<li><a href="01_RECRUITER_RESPONSE_PACK.html">Recruiter Response Pack</a></li>
+</ul></div>
+</nav>
+  </aside>
+  <div class="scrim" id="scrim"></div>
+  <main class="content">
+    <article class="doc">
+      <div class="doc-meta"><span class="tag">Stage 1 — Deep Dives</span><span class="read">58 min read</span></div>
+      <h1 id="18-stage-1-gap-fill-deeper-answers-adaptive-simulation-findings">18 — Stage-1 Gap-Fill &amp; Deeper Answers (Adaptive-Simulation Findings)</h1>
+<p>These sections were produced by running many adaptive Versley-style mock interviews and systematically identifying the spots where answers were thin, technically imprecise, or epistemically out of order. Each section below fills one of those gaps with verified technical grounding, follow-up scaffolding, and room-ready language. Read these as the precision layer on top of the master study documents.</p>
+<hr />
+<h2 id="table-of-contents">Table of Contents</h2>
+<ol>
+<li><a href="#j3-vlm-input-pathways-and-connector-architecture">J3. VLM Input Pathways and Connector Architecture</a></li>
+<li><a href="#applying-transformer-era-reasoning-to-bilstm-era-papers-lee-et-al-2017">Applying Transformer-era Reasoning to biLSTM-era Papers (Lee et al. 2017)</a></li>
+<li><a href="#llm-routing-moeensembling-distinction-compound-failure-rate-monitoring-cost-model">LLM Routing: MoE/Ensembling Distinction, Compound Failure Rate, Monitoring Cost Model</a></li>
+<li><a href="#generative-models-score-matching-bridge-flow-matching-gradient-balance-ot-coupling-gap">Generative Models: Score Matching Bridge, Flow Matching Gradient Balance, OT Coupling Gap</a></li>
+<li><a href="#inference-efficiency-kv-cache-quantization-mla-rope-decoupling-gqafa3">Inference Efficiency: KV Cache Quantization, MLA RoPE Decoupling, GQA/FA3</a></li>
+<li><a href="#sota-2026-currency-benchmark-fabrication-test-time-compute-axis-process-vs-outcome-reward">SOTA 2026 Currency: Benchmark Fabrication, Test-Time Compute Axis, Process vs Outcome Reward</a></li>
+<li><a href="#training-infrastructure-activation-checkpointing-zero-memory-arithmetic-lr-warmup">Training Infrastructure: Activation Checkpointing, ZeRO Memory Arithmetic, LR Warmup</a></li>
+<li><a href="#ebay-system-design-parallel-corpus-mining-lora-rank-selection-rag-vs-ensemble">eBay System Design: Parallel Corpus Mining, LoRA Rank Selection, RAG vs Ensemble</a></li>
+<li><a href="#dpo-offline-distribution-mismatch-and-zx-cancellation-preconditions">DPO: Offline Distribution Mismatch and Z(x) Cancellation Preconditions</a></li>
+<li><a href="#delivery--over-claim-coaching">Delivery &amp; Over-claim Coaching</a></li>
+</ol>
+<hr />
+<h2 id="j3-vlm-input-pathways-and-connector-architecture">J3. VLM Input Pathways and Connector Architecture</h2>
+<h3 id="the-core-mechanism">The Core Mechanism</h3>
+<p>In a LLaVA-style VLM, there are <strong>two entirely separate input pathways</strong> into the transformer residual stream. Keeping them distinct is the difference between a correct and a broken answer in this interview.</p>
+<p><strong>Pathway 1 — text tokens.</strong> A token ID (integer) indexes a row in the embedding matrix <code>W_E ∈ ℝ^{|V| × d_model}</code>. The result is a <code>d_model</code>-dimensional vector that enters the residual stream at position 0.</p>
+<p><strong>Pathway 2 — visual tokens.</strong> A frozen ViT encodes image patches into patch activations <code>H_vis ∈ ℝ^{N_patches × d_ViT}</code>. A learned connector (typically a 2-layer MLP) projects these directly into <code>d_model</code> space:</p>
+<pre><code>z_vis = MLP_connector(H_vis)    # shape: [N_patches, d_model]
+</code></pre>
+<p>These <code>z_vis</code> vectors are concatenated with the text token embeddings along the sequence dimension and fed into the transformer. <strong>They never pass through <code>W_E</code>.</strong> The embedding matrix is not involved at any point in the visual pathway. The connector is a standalone parameterized module with its own weights — it is not a row lookup, it is a learned linear/nonlinear map.</p>
+<hr />
+<h3 id="point-1-vocabulary-extension-vs-connector-separate-concerns">Point 1 — Vocabulary Extension vs Connector: Separate Concerns</h3>
+<p>Vocabulary extension adds new rows to <code>W_E</code> (input embedding matrix) and to <code>W_{LM head}</code> (output projection), covering new token IDs. This operation is entirely on the <strong>text pathway</strong>. The connector output pathway does not touch <code>W_E</code> at any step, so vocabulary extension has <strong>no direct effect</strong> on connector operation. The pathways are independent.</p>
+<hr />
+<h3 id="point-2-the-connector-is-not-transferable-across-decoder-sizes">Point 2 — The Connector Is Not Transferable Across Decoder Sizes</h3>
+<p>The connector's output dimension must equal the receiving LLM's <code>d_model</code>. A connector trained against a decoder with <code>d_model = 4096</code> (e.g., Llama-3.1-8B) produces vectors of shape <code>[*, 4096]</code>. A 70B decoder expects <code>d_model = 8192</code>. Dimension mismatch — the connector output literally cannot be inserted.</p>
+<p>Even when <code>d_model</code> happens to match between two decoders, the connector was optimized against the <strong>specific parameter geometry</strong> of the LLM it was trained with. Its learned projection reflects the internal representation structure of that particular decoder checkpoint; swapping the decoder invalidates that alignment. Connector transfer across decoder sizes is architecturally broken; across decoder checkpoints (same size, different training), it is empirically degraded.</p>
+<hr />
+<h3 id="point-3-the-vocabulary-extension-connector-transfer-subtlety">Point 3 — The Vocabulary Extension → Connector Transfer Subtlety</h3>
+<p>When e-Llama-3.1-8B was continued-pretrained with a custom e-commerce tokenizer (vocabulary extension + domain pretraining), two things happened simultaneously:</p>
+<ol>
+<li>New rows were added to <code>W_E</code> — text pathway change, <strong>irrelevant to the connector</strong>.</li>
+<li>The LLM's residual stream geometry shifted — all layer weights were updated via continued pretraining. This is the <strong>actual mechanism of domain adaptation</strong>.</li>
+</ol>
+<p>The correct answer has two parts, and they must not be collapsed: <strong>vocabulary extension itself does not break connector transfer</strong> (the pathways are separate and the connector never touches <code>W_E</code>). But <strong>the continued pretraining that accompanies vocabulary extension does shift the LLM's residual geometry</strong>, and a connector trained against the pre-adaptation geometry is now misaligned at the injection point.</p>
+<p>The degradation is largest precisely where domain gain is largest, because those are the token positions where the internal representation geometry changed most. So the argument "vocabulary extension breaks connector transfer" is technically imprecise; the correct argument is "continued pretraining breaks connector transfer, and vocabulary extension is typically inseparable from continued pretraining in practice."</p>
+<hr />
+<h3 id="point-4-the-4b-vs-27b-comparison-three-confounders-not-two">Point 4 — The 4B vs 27B Comparison: Three Confounders, Not Two</h3>
+<p><strong>Source:</strong> Table 4 of arXiv:2602.11733 (eBay, 2026), Multi-Image Item Intelligence task.</p>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Strategy</th>
+<th>F1</th>
+<th>Seconds/example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Gemma3-27B</td>
+<td>0-shot</td>
+<td>44.8</td>
+<td>25.5</td>
+</tr>
+<tr>
+<td>Gemma3-4B</td>
+<td>Finetuned</td>
+<td>50.5</td>
+<td>6.7</td>
+</tr>
+</tbody>
+</table>
+<p>This comparison is frequently cited as "4B finetuned beats 27B zero-shot." <strong>Three variables are simultaneously in motion:</strong></p>
+<p><strong>(a) LLM capacity.</strong> 4B vs 27B parameters — decoder scale.</p>
+<p><strong>(b) Training regime.</strong> The 4B is domain-finetuned on 100K e-commerce items with GPT-4-generated annotations. The 27B is zero-shot. This is not a capacity comparison; it is a training regime comparison.</p>
+<p><strong>(c) Connector.</strong> The finetuned 4B model has a connector retrained on domain data. The zero-shot 27B uses a connector from the original Gemma3 pretraining setup, without further adaptation. The connectors are not the same module evaluated in the same condition — they are different training states of different connectors.</p>
+<p><strong>Regarding the ViT encoder:</strong> Gemma3 uses a shared frozen SigLIP-400M encoder across the 4B, 12B, and 27B variants (confirmed by the Gemma3 Technical Report, arXiv:2503.19786). So the ViT encoder <em>is</em> held constant — one of the few things actually controlled. However, the connector projecting from that shared ViT into <code>d_model = 2048</code> (4B) vs a higher dimension (27B) must differ by construction. So even with the same ViT, there is no single connector being compared.</p>
+<p><strong>Citation discipline required in the room:</strong> Specify Table 4 of arXiv:2602.11733; absolute F1 baselines are 44.8 (Gemma3-27B, 0-shot) and 50.5 (Gemma3-4B, finetuned); the connector was retrained for the finetuned model; the ViT is shared and frozen across Gemma3 sizes, but connector output dimension and training state differ.</p>
+<hr />
+<h3 id="most-likely-versley-follow-ups">Most Likely Versley Follow-ups</h3>
+<p><strong>Q: Does vocabulary extension itself break connector transfer?</strong>
+No. Vocabulary extension modifies <code>W_E</code> on the text pathway. The connector injects into the residual stream directly, bypassing <code>W_E</code> entirely. What breaks connector transfer is the <strong>continued pretraining</strong> that typically accompanies vocabulary extension — that shifts the LLM's internal representation geometry, which the connector was trained to align with.</p>
+<p><strong>Q: You said the connector is misaligned where domain gain is largest — but didn't you just say vocabulary extension doesn't break the connector?</strong>
+Correct, and these are consistent. Vocabulary extension (the row addition to <code>W_E</code>) is harmless to the connector. The representation geometry shift caused by the continued pretraining objective is what degrades connector alignment. The two claims are about different mechanisms.</p>
+<p><strong>Q: Does the 4B vs 27B comparison hold the ViT encoder constant?</strong>
+Partially. The ViT backbone (SigLIP-400M) is the same and frozen across Gemma3 sizes. But the connector output dimensionality differs, and the 4B connector was retrained on domain data while the 27B was not. So the ViT is controlled; the connector is not.</p>
+<p><strong>Q: Which table, what baseline, and was the connector retrained?</strong>
+Table 4 of arXiv:2602.11733. Absolute F1: 44.8 for Gemma3-27B zero-shot, 50.5 for Gemma3-4B finetuned (Table 3 has the full breakdown; Table 4 adds the inference speed column). The connector was retrained as part of the finetuning pipeline for the 4B model.</p>
+<hr />
+<blockquote>
+<p><strong>How to say it in the room:</strong> "In LLaVA-style models, visual tokens and text tokens enter the residual stream through completely separate pathways — text goes through the embedding matrix lookup, visual tokens go through the MLP connector directly, they never touch the embedding matrix. So vocabulary extension, which adds rows to the embedding matrix, has no direct effect on the connector pathway. What actually degrades connector validity is the continued pretraining that shifts the LLM's internal geometry. On the 4B versus 27B comparison: the ViT backbone is the same and frozen across Gemma3 sizes, but the connector is different by construction — different output dimension, and critically, the 4B connector was retrained on domain data while the 27B was not, so you cannot use that comparison to isolate any single variable."</p>
+<p><strong>The one trap to avoid:</strong> Do not conflate the embedding matrix and the connector as "both being the interface between vision and language." They operate on different input types (integer token IDs vs floating-point ViT activations), at different positions in the forward pass (pre-residual-stream vs direct residual injection), and via different mechanisms (row lookup vs learned linear map).</p>
+</blockquote>
+<hr />
+<h2 id="applying-transformer-era-reasoning-to-bilstm-era-papers-lee-et-al-2017">Applying Transformer-era Reasoning to biLSTM-era Papers (Lee et al. 2017)</h2>
+<blockquote>
+<p><strong>TRAP / ARCHITECTURAL ANACHRONISM</strong> — Read this before answering any question that touches Lee et al. 2017 and span width, attention, or positional encoding. Conflating this model with SpanBERT or any Transformer-based system will be immediately visible to Versley.</p>
+</blockquote>
+<h3 id="the-architecture-precisely">The Architecture, Precisely</h3>
+<p>Lee et al. 2017 ("End-to-end Neural Coreference Resolution," EMNLP) is a <strong>pre-Transformer</strong> system built on three components:</p>
+<ol>
+<li><strong>Input representations</strong>: 300-d static GloVe + 50-d Turian embeddings + 8-d character-level CNN. No subword tokenization, no contextualized representations from any pretrained language model.</li>
+<li><strong>Encoder</strong>: a 2-layer <strong>biLSTM</strong> (hidden size 200 per direction). No sinusoidal positional encodings, no learned position embeddings, and no attention heads operating over the full sequence.</li>
+<li><strong>Span representation</strong>: for a candidate span (i, j), the model concatenates (a) the biLSTM hidden states at the boundary positions h_i and h_j, (b) a <strong>head-attention vector</strong> x*, and (c) a <strong>span-width feature</strong> φ(i,j).</li>
+</ol>
+<p>The <strong>head-attention vector</strong> is:</p>
+<pre><code>x* = Σ_{t=i}^{j}  α_t · x_t
+     where α_t ∝ exp( w · x_t )   [scalar weight per token, learned FFNN]
+</code></pre>
+<p>This is a <strong>learned scalar weighting over token embeddings inside the single span</strong> — not multi-head self-attention over the full document sequence. No query/key/value projections, no multiple heads, no cross-span interaction.</p>
+<p>The <strong>span-width feature φ(i,j)</strong> is a learned embedding vector looked up by the integer (j − i), with widths above the cap (max span width = 10 tokens) all mapped to the same maximum-index embedding. This is a small lookup table trained end-to-end — not hand-coded bins and not a positional encoding formula.</p>
+<p><strong>SpanBERT (Joshi et al. 2020)</strong> is the Transformer-based successor. Do not conflate the two when discussing 2017 model mechanics.</p>
+<hr />
+<h3 id="versley-follow-up-questions-with-model-answers">Versley Follow-up Questions with Model Answers</h3>
+<p><strong>Q: "Your argument about attention heads learning to subtract positions — does that even apply to this architecture?"</strong>
+No, it does not. Lee et al. 2017 has no attention heads in the encoder and no sinusoidal positional injection anywhere. The mechanism you would be invoking — where multi-head self-attention learns to encode or cancel out positional offsets — is a property of Transformer encoders. Any argument of that form is mechanistically inapplicable to this paper and should be replaced with a claim grounded in what biLSTMs actually do (recurrent hidden states that are sensitive to sequence position by construction of the recurrence).</p>
+<p><strong>Q: "Lee et al. actually use a learned embedding indexed by exact integer width, not hand-coded bins. Does that change your argument about φ(i,j) being redundant?"</strong>
+Yes, substantially. φ(i,j) is a full lookup table — one learned vector per integer width from 0 up to the cap (10), trained jointly with everything else. This means the model already has a clean, discrete, high-capacity channel for width information. The question of redundancy then becomes: does the biLSTM already encode width implicitly?</p>
+<p><strong>Q: "What's your actual evidence that span width lacks an implicit encoding path in this model?"</strong>
+The honest answer has two parts. Theoretically, there <em>is</em> an implicit path: the biLSTM processes from both ends and produces hidden states h_i and h_j at the span boundaries — the difference in processing depth is width-sensitive. So it is plausible by construction that the biLSTM states carry some implicit width signal.</p>
+<p>The empirical argument is more reliable: ablating φ(i,j) degrades recall on longer mentions in the ablation studies, which suggests the biLSTM's implicit width signal is imprecise or non-linear enough that an explicit discrete lookup adds a clean complementary signal. The correct framing is: the biLSTM <em>probably</em> encodes an implicit, graded width signal, but the explicit learned embedding adds a <strong>lossless, linear-scale discrete channel</strong> that the biLSTM is not guaranteed to represent in a form the FFNN scorer can easily use.</p>
+<hr />
+<blockquote>
+<p><strong>How to say it in the room:</strong> "Lee et al. 2017 uses a biLSTM on top of GloVe and character embeddings — there are no Transformer components, so any argument about attention heads or positional encodings is simply not applicable to this paper. The span head-attention is a learned scalar weighting within one span, not full-sequence self-attention. On the width features: φ(i,j) is a learned embedding lookup by exact integer width, not bins, so the real question is whether the biLSTM already encodes width implicitly — which it plausibly does through the recurrence, but imprecisely enough that the explicit embedding adds a clean discrete signal, which the ablations support."</p>
+<p><strong>The one trap to avoid:</strong> Do not reason from SpanBERT or BERT-based coreference systems and attribute those mechanisms to Lee et al. 2017. If you find yourself mentioning "attention heads," "sinusoidal positions," or "BERT's span representation" in a sentence about the 2017 paper, stop — you have crossed an architectural timeline and Versley will catch it immediately.</p>
+</blockquote>
+<hr />
+<h2 id="llm-routing-moeensembling-distinction-compound-failure-rate-monitoring-cost-model">LLM Routing: MoE/Ensembling Distinction, Compound Failure Rate, Monitoring Cost Model</h2>
+<h3 id="1-the-three-way-distinction-moe-ensembling-llm-routing">1. The Three-Way Distinction: MoE, Ensembling, LLM Routing</h3>
+<p>These are three different abstractions that operate at different granularities and serve different goals. Conflating them is a category error Versley will likely probe.</p>
+<table>
+<thead>
+<tr>
+<th>Dimension</th>
+<th>MoE (Mixture of Experts)</th>
+<th>Ensembling</th>
+<th>LLM Routing</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>What is selected</strong></td>
+<td>Subset of parameters (expert FFN blocks) within a single forward pass</td>
+<td>All models run in parallel; outputs aggregated</td>
+<td>Exactly one model per query</td>
+</tr>
+<tr>
+<td><strong>Training relationship</strong></td>
+<td>Router jointly trained end-to-end with the LM loss</td>
+<td>Models trained independently; no routing component trained</td>
+<td>Router independently trained; downstream model weights never touched</td>
+</tr>
+<tr>
+<td><strong>Compute per query</strong></td>
+<td>Subset of parameters activate, but all expert weights reside on co-located GPU memory</td>
+<td>All models queried — compute scales with ensemble size</td>
+<td>Exactly one model's inference cost incurred</td>
+</tr>
+<tr>
+<td><strong>API cost impact</strong></td>
+<td>No savings — all expert weights loaded regardless of activation</td>
+<td>Higher cost than any single model</td>
+<td>Cost-reducing — cheapest capable model selected per query</td>
+</tr>
+<tr>
+<td><strong>Conceptual role</strong></td>
+<td>Architectural capacity decomposition inside a model</td>
+<td>Output aggregation for variance reduction</td>
+<td>Meta-level model selection across a pool of independent models</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>Prepared spoken answer:</strong> "MoE routes subsets of parameters within a single forward pass — it is a training-time architectural choice, jointly optimized with the LM loss, and carries no API cost savings because all expert weights must reside on co-located GPUs. Ensembling queries all models and aggregates their outputs — it is the opposite of cost-efficient. LLM routing selects exactly one model per query, uses an independently trained router that never touches the downstream models' weights, and is the only one of the three that actually reduces API cost. Conflating them is a category error."</p>
+</blockquote>
+<hr />
+<h3 id="2-compound-failure-rate-in-agentic-tasks">2. Compound Failure Rate in Agentic Tasks</h3>
+<p><strong>Named formula</strong> — For a two-factor router cascade:</p>
+<pre><code>P(task failure) = P(router error) × P(cheap model fails | router error)
+</code></pre>
+<p><strong>Cascade depth trade-off.</strong> Per-step failure rates compound geometrically across agentic trajectory length. Let <code>p</code> be the per-step failure probability:</p>
+<pre><code>P(task-level failure) = 1 − (1 − p)^n
+</code></pre>
+<p>At p = 0.03 (3% per step):
+- n = 3 steps → <strong>8.7% task-level failure</strong> (often acceptable)
+- n = 10 steps → <strong>26% task-level failure</strong> (materially degrades)
+- n = 20 steps → <strong>46% task-level failure</strong> (system is effectively unreliable)</p>
+<p>This is the core argument for keeping agentic subtasks short or inserting <strong>verification checkpoints at stage boundaries</strong>, not only at trajectory end. Research on multi-agent systems (NeurIPS 2025 MAST taxonomy, validated across 1,600+ execution traces) confirms production multi-agent failure rates range from 41–87%, with cascading as a primary mechanism.</p>
+<hr />
+<h3 id="3-monitoring-cost-model-for-subjective-tasks">3. Monitoring Cost Model for Subjective Tasks</h3>
+<p><strong>The circularity problem.</strong> To verify routing works on subjective or open-ended tasks, you need an oracle — typically a stronger LLM judge — which is itself an API cost. The monitoring infrastructure partially cannibalizes the savings it is meant to protect.</p>
+<p><strong>Break-even condition</strong> (monitoring overhead erases savings):</p>
+<pre><code>f × m × c_cheap = α × (c_strong − c_cheap)
+</code></pre>
+<p>Where: <code>c_cheap</code> = cost per query to cheap model; <code>c_strong</code> = cost per query to strong model; <code>α</code> = fraction routed to cheap model; <code>f</code> = monitoring sample fraction; <code>m</code> = cost multiplier of judge relative to cheap model.</p>
+<p><strong>Example.</strong> If 60% of traffic routes to the cheap model (α = 0.6), strong model costs 5×, and judge costs 3×:
+- Gross savings per query: <code>0.6 × (5c − c) = 2.4c</code>
+- Monitoring overhead at f = 5%: <code>0.05 × 3c = 0.15c</code>
+- Net savings: <code>2.25c</code> — monitoring is well within bounds.</p>
+<p>But if the cheap model is nearly as good (c_strong = 1.5c), savings shrink to <code>0.3c</code>, and even f = 20% with a 3× judge produces overhead <code>0.6c &gt; 0.3c</code> — monitoring overhead exceeds routing savings.</p>
+<p><strong>Mitigations:</strong>
+- Monitor a random sample only.
+- Use lightweight heuristic proxies — format validation, length checks, self-consistency — as surrogates for expensive judge calls.
+- Reserve LLM judge calls for queries flagged by heuristics or lying in uncertain router confidence intervals.</p>
+<hr />
+<h3 id="4-twinrouterbench-disclosure-caveat">4. TwinRouterBench Disclosure Caveat</h3>
+<p><strong>Do NOT cite a "simulated 15pp task-type distribution shift" live-dynamic protocol.</strong> That whole mechanism — ~12,000 queries over a 30-day window, a 15pp/30pp/45pp distribution-shift sensitivity curve calibrated from enterprise API logs — is not in the paper, and reciting it to Versley (the author's colleague) is the single most dangerous thing you could do with this work. What the paper actually has are two tracks: a deterministic <strong>static</strong> track (970 execution-verified step-level prefixes scored by millisecond arithmetic over tier labels, no online judge) and a <strong>dynamic</strong> track that runs routers end-to-end on SWE-bench Verified — a 100-case held-out subset, not the full 500 — via mini-swe-agent v2.2.8 with live OpenRouter pricing. There is no streaming corpus, no 30-day window, no distribution-shift curve, no enterprise-log calibration. (Full verified detail in 20_OWN_PAPERS_GROUND_TRUTH.md.)</p>
+<blockquote>
+<p><strong>Verification note:</strong> TwinRouterBench is a real paper — arXiv:2605.18859v2 [cs.LG], code at github.com/CommonstackAI/TwinRouterBench. Cite it with confidence. The thing that must NOT be cited is the fabricated 15pp-distribution-shift / streaming-traffic mechanism above; that mechanism, not the paper, is what doesn't exist.</p>
+</blockquote>
+<hr />
+<blockquote class="warn">
+<p><strong>How to say it in the room:</strong> "MoE, ensembling, and LLM routing solve different problems at different levels — MoE is inside a single model's forward pass, ensembling runs all models and averages, routing picks exactly one model and is the only one that reduces cost. For agentic tasks the key insight is that per-step failure rates compound geometrically — a 3% step-level failure rate that is fine for a 3-step task becomes 26% failure at 10 steps, so verification checkpoints belong at stage boundaries, not just the end. And the monitoring cost model for subjective tasks is partially circular: verifying the router works requires an LLM judge — I treat managing that break-even as an open engineering problem, not a solved one."</p>
+<p><strong>The one trap to avoid:</strong> Do not say routing is "like MoE but at the model level." This implies the router is jointly trained with the downstream models, which it is not — and it blurs the critical distinction that MoE carries no API cost savings while routing is specifically cost-motivated.</p>
+</blockquote>
+<hr />
+<h2 id="generative-models-score-matching-bridge-flow-matching-gradient-balance-ot-coupling-gap">Generative Models: Score Matching Bridge, Flow Matching Gradient Balance, OT Coupling Gap</h2>
+<h3 id="1-the-score-matching-bridge-vincent-2011-song-ermon-2019">1. The Score Matching Bridge (Vincent 2011 / Song &amp; Ermon 2019)</h3>
+<p><strong>The problem.</strong> The denoising score matching objective you actually train is:</p>
+<pre><code>L_DSM = E_{x_0, x_t} [ || s_θ(x_t, t) - ∇_{x_t} log q(x_t | x_0) ||² ]
+</code></pre>
+<p>where the target <code>∇_{x_t} log q(x_t | x_0)</code> is the <em>conditional</em> score — analytically available under Gaussian noise as <code>-(x_t - √ᾱ_t · x_0) / (1 - ᾱ_t)</code>. But what you actually <em>want</em> to estimate is the <em>marginal</em> score <code>∇_{x_t} log q(x_t)</code>, because that is what appears in the reverse-time SDE / Langevin dynamics.</p>
+<p><strong>The bridge theorem (Vincent 2011, Proposition 1).</strong> The two objectives have the same minimizer because:</p>
+<pre><code>∇_{x_t} log q(x_t) = E_{x_0 | x_t} [ ∇_{x_t} log q(x_t | x_0) ]
+</code></pre>
+<p>The marginal score equals the <strong>posterior-weighted average</strong> of the conditional scores. Because the squared-error loss is consistent, minimizing the conditional objective over the training distribution <code>(x_0, x_t)</code> is equivalent to minimizing the marginal objective — the cross terms vanish in expectation. Song &amp; Ermon (2019, NeurIPS) extended this to multiple noise scales, which became the backbone of DDPM.</p>
+<p><strong>Practical consequence.</strong> The noise-prediction form <code>ε_θ</code> is just a linear reparameterization: <code>s_θ(x_t, t) = -ε_θ(x_t, t) / √(1 - ᾱ_t)</code>. Training <code>ε_θ</code> to predict the added noise is <em>exactly</em> training the marginal score, provided the bridge identity holds.</p>
+<hr />
+<h3 id="2-simplified-loss-vs-full-elbo-what-gets-dropped-and-min-snr">2. Simplified Loss vs. Full ELBO — What Gets Dropped and Min-SNR</h3>
+<p>The full ELBO for DDPM has per-timestep prefactors proportional to <code>SNR(t-1) - SNR(t)</code>. Ho et al. (2020) dropped these and used a uniform simplified loss <code>L_simple = E[||ε - ε_θ||²]</code>, claiming better sample quality in practice. The cost: <strong>the simplified loss causes gradient imbalance</strong>. High-noise timesteps dominate the gradient signal; low-noise timesteps (where fine details are learned) are systematically undertrained relative to their ELBO contribution.</p>
+<p><strong>Min-SNR-γ (Hang et al., ICCV 2023, arXiv 2303.09556)</strong> addresses this by capping the effective weight:</p>
+<pre><code>w_t = min(SNR(t), γ) / SNR(t)
+</code></pre>
+<p>with <code>γ = 5</code> as the recommended default. At high SNR (low noise), <code>w_t = γ/SNR(t)</code> — down-weighting high-detail timesteps. At low SNR (high noise), <code>w_t = 1</code>. The result is a clamped weighting that rebalances training signal across the noise schedule. Reported convergence gain: <strong>~3.4× on ImageNet 256×256</strong>.</p>
+<hr />
+<h3 id="3-flow-matching-the-uniform-t-is-balanced-overclaim">3. Flow Matching: The "Uniform t is Balanced" Overclaim</h3>
+<p>A common presentation says flow matching with uniform <code>t ~ Uniform(0,1)</code> produces a balanced gradient signal. <strong>This is partially retracted by practice.</strong></p>
+<p>Stable Diffusion 3 (Esser et al., 2024) uses <strong>logit-normal t-sampling</strong>:</p>
+<pre><code>t ~ logit-Normal(0, 1),    i.e.  t = σ(z),  z ~ N(0,1)
+</code></pre>
+<p>This concentrates samples away from <code>t=0</code> and <code>t=1</code> — the endpoints where the velocity field is trivially easy to fit — and pushes density toward the informative middle. Uniform <code>t</code> overweights these trivial boundary timesteps. The logit-normal schedule is empirically necessary for SD3-scale training, not merely a minor tweak.</p>
+<hr />
+<h3 id="4-ot-coupling-breaks-the-conditional-marginal-equivalence">4. OT Coupling Breaks the Conditional-Marginal Equivalence</h3>
+<p>Flow matching's core theoretical guarantee (Lipman et al. 2022, Theorem 1) holds when the coupling <code>π(x_0, x_1) = q_0(x_0) · q_1(x_1)</code> is a <strong>product measure</strong> — source and target drawn independently. Theorem 1's proof uses this independence to show the conditional FM loss is an unbiased estimator of the marginal FM loss.</p>
+<p><strong>OT coupling violates this.</strong> When you pair <code>x_0 ~ noise</code> with <code>x_1 ~ data</code> via an optimal transport plan (mini-batch OT, as used in FLUX and SD3), the coupling <code>π_OT</code> is <em>not</em> a product measure — paired samples are statistically dependent. The marginalization identity breaks. In FLUX/SD3 with mini-batch OT, this is accepted as an <strong>approximation</strong> — empirically it straightens trajectories and reduces sampling steps, but the theoretical gradient equivalence holds only in the large-batch limit. Recent work (arXiv 2605.12174, 2025) formalizes this and shows large-batch consistency, but finite-batch biases remain.</p>
+<hr />
+<h3 id="5-ddim-vs-probability-flow-ode-a-common-conflation">5. DDIM vs. Probability Flow ODE — A Common Conflation</h3>
+<p>Do not conflate these under "Song et al., deterministic ODE."</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>DDIM</th>
+<th>Probability Flow ODE</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Paper</strong></td>
+<td>Song et al., ICLR 2021</td>
+<td>Song et al., NeurIPS 2021</td>
+</tr>
+<tr>
+<td><strong>arXiv</strong></td>
+<td>2010.02502 (Oct 2020)</td>
+<td>2011.13456 (Nov 2020)</td>
+</tr>
+<tr>
+<td><strong>Formalism</strong></td>
+<td>Discrete-time, non-Markovian forward process</td>
+<td>Continuous-time, derived from reverse-time SDE via Fokker-Planck</td>
+</tr>
+<tr>
+<td><strong>Determinism</strong></td>
+<td>Sets <code>σ_t = 0</code> in the reverse step</td>
+<td>Neural ODE with the same marginals as the SDE</td>
+</tr>
+<tr>
+<td><strong>Likelihood</strong></td>
+<td>No exact likelihood</td>
+<td>Exact likelihood via change-of-variables</td>
+</tr>
+</tbody>
+</table>
+<p>DDIM achieves deterministic sampling by <em>redefining</em> the forward process to be non-Markovian while keeping the same training objective. The PF-ODE is derived mathematically from the continuous SDE. Both produce deterministic trajectories, but through different machinery in different formalisms published by the same first author one month apart.</p>
+<hr />
+<h3 id="likely-versley-follow-ups">Likely Versley Follow-ups</h3>
+<p><strong>Q: You said the simplified loss is equivalent to score matching — but now you're saying it drops ELBO weights. Which is it?</strong>
+Both are true at different levels. The <em>direction</em> of the gradient (which function minimizes the objective) is the same — the bridge theorem makes the simplified noise-prediction loss a valid score estimator. But the <em>magnitude and balance</em> of updates across timesteps changes when you drop the ELBO prefactors. The Vincent/Song result is about the estimator's target; Min-SNR addresses the optimizer's behavior in practice.</p>
+<p><strong>Q: What does the OT coupling actually buy you if the theory breaks?</strong>
+Straighter trajectories — OT tends to match noise vectors to nearby data points, so the interpolating path <code>x_t = (1-t)x_0 + t x_1</code> is shorter and requires fewer Euler steps at inference. The theoretical cost (broken marginalization identity) is accepted empirically. The approximation improves as batch size grows.</p>
+<p><strong>Q: Is Song 2020 and Song 2021 the same paper cited differently?</strong>
+No — and this is a frequent interview error. DDIM (2020) is a discrete-time non-Markovian construction. The PF-ODE (2021) is a continuous-time result from SDE theory. Different formalisms, different proofs, one month apart on arXiv.</p>
+<hr />
+<blockquote class="warn">
+<p><strong>How to say it in the room:</strong> "The training objective uses the conditional score because the noise is Gaussian and we know it analytically — but the Vincent 2011 theorem guarantees the marginal score is just the posterior expectation of those conditional scores, so minimizing the conditional loss gives you the right estimator. Ho's simplified loss drops the ELBO's per-timestep weights, which makes the estimator slightly easier to optimize but creates gradient imbalance — Min-SNR fixes that by clamping the effective weight to min of SNR and gamma. On the flow matching side, uniform t-sampling is a useful default but SD3 shows you need logit-normal in practice; and the OT coupling trick straightens trajectories but technically breaks the marginalization proof — it's an empirical approximation, not a theorem."</p>
+<p><strong>The one trap to avoid:</strong> Do not say "flow matching with OT is provably equivalent to training the marginal vector field." The Lipman theorem requires an independent product coupling. Once you use OT, you are in approximation territory. Claiming exact theoretical equivalence under OT coupling will get flagged by anyone who has read the paper carefully.</p>
+</blockquote>
+<hr />
+<h2 id="inference-efficiency-kv-cache-quantization-mla-rope-decoupling-gqafa3">Inference Efficiency: KV Cache Quantization, MLA RoPE Decoupling, GQA/FA3</h2>
+<h3 id="1-kv-cache-quantization-what-actually-gets-cached-and-why-int8-is-safe">1. KV Cache Quantization — What Actually Gets Cached and Why INT8 Is Safe</h3>
+<p><strong>The mechanism.</strong> During a forward pass, K and V are linear projections of the hidden state <strong>h_t</strong> upstream of softmax:</p>
+<pre><code>K = h_t · W_K      V = h_t · W_V
+</code></pre>
+<p>Softmax is applied to the <em>attention logits</em> <strong>QK^T / √d_k</strong> to produce attention <em>weights</em> — scalars bounded in [0, 1]. But those weights are <strong>not</strong> what goes into the KV cache. What is cached are the raw <strong>K and V tensors</strong> — projections of hidden states that have already passed through LayerNorm.</p>
+<p>LayerNorm normalizes <strong>h_t</strong> to approximately zero-mean and unit-scale <em>before</em> the projection. That upstream normalization makes the K and V tensors approximately well-behaved in magnitude, which is the real reason INT8 quantization of the KV cache is relatively safe — <strong>not post-softmax boundedness</strong> (a common wrong answer).</p>
+<p><strong>The real challenge: outlier activations.</strong> Quantization error is dominated by per-head and per-channel outlier activations. <strong>KVQuant (NeurIPS 2024)</strong> addresses this with per-channel scaling for Keys (one scale factor per head-dimension channel) and per-token scaling for Values (which show outlier tokens rather than outlier channels). <strong>KVTuner</strong> goes further with per-layer sensitivity analysis to assign INT4 to tolerant layers and INT8 to sensitive ones.</p>
+<p><strong>Memory math.</strong> Going from BF16 to INT8 halves KV cache memory; INT4 quarters it. For a 70B model with a 128k-token context, this is the difference between fitting one request and fitting several.</p>
+<hr />
+<h3 id="2-mla-mechanical-difference-from-gqa-and-rope-decoupling">2. MLA — Mechanical Difference from GQA and RoPE Decoupling</h3>
+<p><strong>GQA approach.</strong> Groups Q heads to share K and V heads: Llama 3 8B uses 32 Q heads / 8 KV heads (4× ratio); Llama 3 70B uses 64 Q heads / 8 KV heads (8× ratio). Both models share the same KV head count — the compression ratio differs because the Q-head count differs.</p>
+<p><strong>MLA approach (DeepSeek-V2/V3).</strong> Compresses the full KV representation into a single low-rank latent vector <strong>c_KV</strong> via a down-projection, caching only that vector. K and V are reconstructed at query time by up-projections:</p>
+<pre><code>c_KV = W^{DKV} · h_t          (cached: dimension d_c &lt;&lt; n_heads · d_head)
+K    = W^{UK}  · c_KV
+V    = W^{UV}  · c_KV
+</code></pre>
+<p>DeepSeek claims roughly <strong>5–13× KV cache reduction</strong> over MHA depending on configuration.</p>
+<p><strong>The RoPE compatibility problem and its solution.</strong> Standard RoPE rotates K and Q before the attention dot product. With MLA, K is reconstructed from c_KV after retrieval — you cannot apply a position-specific rotation before compression, because the rotation depends on the token's absolute position.</p>
+<p>DeepSeek's solution is to store a <em>second</em>, small <strong>decoupled RoPE key k^R</strong> alongside c_KV:</p>
+<pre><code>k^R = W^{KR} · h_t      (small, RoPE-rotated; one per head or shared)
+</code></pre>
+<p>The content keys (up-projected from c_KV) carry no positional encoding (NoPE). The decoupled k^R carries only the positional signal. During attention, the effective key per head concatenates the content key with k^R. This is the "<strong>RoPE decoupling</strong>" in MLA. It requires training from scratch — MLA cannot be retrofitted onto a standard MHA checkpoint.</p>
+<hr />
+<h3 id="3-flashattention-3-why-on-memory-and-what-fa3-actually-adds">3. FlashAttention-3 — Why O(n) Memory and What FA3 Actually Adds</h3>
+<p><strong>Memory reduction (FA1/FA2).</strong> Standard attention materializes the full <strong>N×N</strong> score matrix S = QK^T in HBM, requiring O(N²) memory. FlashAttention tiles Q, K, V into blocks that fit in on-chip SRAM, uses the <strong>online softmax trick</strong> (running max and running denominator) to accumulate partial results tile-by-tile, and never writes the N×N matrix to HBM. Memory is O(N), not O(N²).</p>
+<p><strong>FA3's primary contribution.</strong> The primary technical contribution is <strong>asynchronous warp-specialized execution on H100</strong>, specifically via <code>wgmma</code> (warp-group matrix multiply-accumulate) and <code>TMA</code> (Tensor Memory Accelerator) instructions. Producer warps issue TMA loads; consumer warps run wgmma GEMMs; the two pipelines overlap, hiding memory latency. FP8 arithmetic is a secondary benefit. FA3 achieves ~840 TFLOPs/s in BF16 (≈85% H100 utilization) and ~1.3 PFLOPs/s in FP8.</p>
+<p><strong>PagedAttention block table.</strong> PagedAttention maintains a per-sequence <strong>block table</strong> mapping logical KV block indices to physical block addresses in GPU memory. The attention kernel reads this table to locate scattered physical pages and treats them as a contiguous logical sequence — analogous to an OS page table. Memory waste occurs only in the last (partially filled) block, which vLLM's implementation reduces to under 4% in practice. It also enables copy-on-write sharing for parallel decoding (beam search, speculative decoding).</p>
+<hr />
+<h3 id="likely-versley-follow-ups_1">Likely Versley Follow-ups</h3>
+<p><strong>Q: "Why can't you just quantize KV values as aggressively as weights?"</strong>
+Weights are fixed at inference time; their outlier structure can be analyzed offline. KV tensors are dynamic — generated at runtime for each new token — so per-tensor statistics shift. Per-channel and per-token strategies capture the right granularity without requiring offline calibration data per request.</p>
+<p><strong>Q: "MLA stores c_KV — isn't that just a smaller version of GQA's KV heads?"</strong>
+Structurally different. GQA still caches full-rank K and V tensors, just fewer of them. MLA caches a <em>joint</em> latent c_KV and reconstructs K and V on the fly. GQA reduces the <em>count</em> of KV heads; MLA reduces the <em>dimensionality</em> of each cached unit. MLA also requires the decoupled k^R to handle RoPE — GQA has no equivalent complication.</p>
+<hr />
+<blockquote class="warn">
+<p><strong>How to say it in the room:</strong> "K and V are cached as raw projections of the hidden state, upstream of softmax — not downstream. LayerNorm makes them approximately well-behaved, which is why INT8 is reasonable. The real enemy is per-channel outliers, which per-channel quantization schemes like KVQuant specifically target. For MLA, the insight is that you cache a single compressed latent and reconstruct K and V on the fly, but RoPE breaks that because rotation is position-specific — so DeepSeek adds a second small key vector just for positional encoding, trained jointly from scratch."</p>
+<p><strong>The one trap to avoid:</strong> Do not say "KV cache values are bounded between 0 and 1 so they quantize easily." That conflates the attention <em>weights</em> (post-softmax, never cached) with the K and V <em>tensors</em> (pre-softmax projections, which are cached). Versley will catch this immediately.</p>
+</blockquote>
+<hr />
+<h2 id="sota-2026-currency-benchmark-fabrication-test-time-compute-axis-process-vs-outcome-reward">SOTA 2026 Currency: Benchmark Fabrication, Test-Time Compute Axis, Process vs Outcome Reward</h2>
+<h3 id="1-the-two-fundamental-scaling-axes">1. The Two Fundamental Scaling Axes</h3>
+<p>There are exactly two orthogonal axes along which frontier models improve, and conflating them is the most common analytical error in 2026 coverage.</p>
+<p><strong>Axis A — Training-time (capability frontier).</strong> Raw FLOP budget × data volume × architectural choices made before a single inference query runs. Decisions include MoE (routing specialists, not activating the full parameter count per token), MLA (caching a compressed KV projection rather than full K/V heads), and long-context pretraining curricula. Once training ends, weights are fixed and this axis is closed. Models like Claude Opus 4.x and GPT-5.5-base sit primarily on this axis.</p>
+<p><strong>Axis B — Test-time compute (inference-time search).</strong> What happens <em>given fixed weights</em> when you allocate more compute per query: extended chain-of-thought, best-of-N reranking, or MCTS guided by a process reward model. <strong>R1-class models</strong> (DeepSeek R1, its distillates) and <strong>OpenAI's o3/o4-mini family</strong> are the canonical examples — their primary differentiator is Axis B.</p>
+<p><strong>The conflation error:</strong> Extended thinking (Axis B) is what enables o3 to beat raw GPT-4-class models on hard math — but it is not the only thing that makes Opus 4.x or GPT-5.5 frontier. Those models occupy <em>both</em> axes: a large training investment AND extended thinking at inference. Saying "they're good because of extended thinking" misses the training-time ceiling difference entirely.</p>
+<p><strong>Benchmark fabrication caveat:</strong> Reported scores on AIME, MATH-500, and coding benchmarks are frequently inflated by test-set contamination, prompt-tuning to specific benchmark formats, and cherry-picked decoding temperatures. Anchor on directional claims rather than specific point estimates unless you can cite the exact evaluation protocol.</p>
+<hr />
+<h3 id="2-process-vs-outcome-rewards-best-of-n-mcts-and-reward-hacking">2. Process vs. Outcome Rewards, Best-of-N, MCTS, and Reward Hacking</h3>
+<p><strong>ORM (Outcome Reward Model):</strong> Assigns a single scalar to the complete trajectory — correct final answer = +1. Blind to intermediate reasoning quality.</p>
+<p><strong>PRM (Process Reward Model):</strong> Assigns a reward r_t to each reasoning step s_t. Requires step-level labels, which is where the annotation cost lives.</p>
+<p><strong>Best-of-N:</strong> Sample N independent completions. Score each with an ORM. Return the highest-scoring completion. No tree structure. Empirically outperforms MCTS under tight compute budgets. Gain scales roughly as O(log N) on pass@1 tasks.</p>
+<p><strong>MCTS with PRM:</strong> Treat each reasoning step as a node. At each node, expand by sampling candidate next steps. The PRM assigns a value V(s_t) to each node. Backpropagate via UCT:</p>
+<pre><code>UCT(s) = V(s) + c√(ln N_parent / N_s)
+</code></pre>
+<p>This is the mechanism that makes "thinking longer" yield <em>monotonically</em> better results on hard math. Best-of-N has no such monotonic guarantee beyond the saturation point.</p>
+<p><strong>PRM reward hacking:</strong> When the policy is trained against a fixed PRM, it learns to produce steps that score highly on the PRM's learned heuristics — clean format, confident hedging phrases — without actually reasoning correctly. Training reward saturates to ~1.0 while held-out accuracy collapses. Mitigations: periodic PRM retraining on policy-generated data, format constraints, ensemble scoring.</p>
+<p><strong>Annotation methods for PRM training:</strong>
+- <strong>Math-Shepherd / Monte Carlo rollout:</strong> For each intermediate step s_t, run K full completions to the final answer. The step's label is the fraction that reach the correct answer: <code>V(s_t) = (1/K) Σ 1[answer_k = y*]</code>. Expensive but low-noise. Best when compute is abundant and domain has a clear correctness signal.
+- <strong>LLM-as-judge:</strong> Use a strong LLM to label each step. Cost drops from O(N·K) to O(N) calls, but annotation noise increases. Best when budget is limited or domain lacks a clean terminal signal.</p>
+<hr />
+<h3 id="3-qk-norm-mechanism">3. QK-Norm Mechanism</h3>
+<p>When RMSNorm is applied to queries and keys before the dot product:</p>
+<pre><code>q̂_i = γ_q · (q_i / ||q_i||₂),    k̂_j = γ_k · (k_j / ||k_j||₂)
+</code></pre>
+<p>The <strong>learnable scalar γ</strong> (one per head, initialized to 1) is the standard RMSNorm <em>gain parameter</em> — it re-scales the unit-norm vector. Without it, forcing unit norm removes the model's ability to modulate attention sharpness across heads.</p>
+<p><strong>The mechanism preventing entropy collapse:</strong> Unbounded Q/K norms cause logits to grow during training, saturating softmax into near-one-hot distributions (attention collapse). QK-Norm caps the norm, keeping logits in a numerically stable range. The gain γ then provides a controlled degree of freedom to recover expressiveness. Models including <strong>OLMo 2, Qwen 3, Kimi K2, and Gemma 3</strong> all ship with QK-Norm as of 2025–2026.</p>
+<hr />
+<h3 id="4-gemini-technical-differentiator">4. Gemini Technical Differentiator</h3>
+<p>Gemini's distinguishing architectural claim is <strong>native multimodal pretraining from the token level</strong>: image patches and text tokens are embedded into the <em>same</em> embedding space from the first training step, not bridged by an adapter injected post-hoc into a text-pretrained backbone. The attention layers were trained to route across modalities throughout pretraining, which is why Gemini outperforms adapter-based VLMs on tight cross-modal tasks (OCR-in-context, video QA, interleaved document understanding).</p>
+<hr />
+<h3 id="likely-versley-follow-ups_2">Likely Versley Follow-Ups</h3>
+<p><strong>Q: "You said o3 and Opus 4 are both 'reasoning models' — what's the actual technical difference?"</strong>
+The distinction is which axis dominates. o3/o4-mini: the key engineering investment is the RL training procedure that teaches the model to use more inference compute productively. Opus 4.x: the primary investment is training-time scale (architecture, data, FLOP budget); extended thinking is an additional capability layered on top, not the primary differentiator.</p>
+<p><strong>Q: "If MCTS with PRM is so powerful, why isn't every production system using it?"</strong>
+Latency and cost. MCTS requires many sequential PRM evaluations per query — you cannot batch the tree expansion in the standard case. Best-of-N is embarrassingly parallel. For production latency SLAs (P95 &lt; 2s), best-of-N with ORM is more practical.</p>
+<hr />
+<blockquote class="warn">
+<p><strong>How to say it in the room:</strong> "I think the field conflates two separate things under 'scaling.' Training-time scaling is your FLOP budget and architecture choices — once the run ends, that ceiling is fixed. Test-time scaling is about spending more compute per query at inference: extended CoT, best-of-N reranking, or MCTS guided by a process reward model. The o-series models are primarily a test-time compute story. Opus 4 and GPT-5.5 are both — they have a higher training-time ceiling <em>and</em> they do extended thinking on top. Calling them equivalent because they both 'do reasoning' misses that the training investment is doing different work in each case."</p>
+<p><strong>The one trap to avoid:</strong> Do not say "extended thinking is what makes frontier models frontier." That statement is true for o3/o4-mini and R1, but wrong for Opus 4.x and GPT-5.5, where the training-time scale is the primary capability driver. Keep the two axes explicit and assign each model to the correct one.</p>
+</blockquote>
+<hr />
+<h2 id="training-infrastructure-activation-checkpointing-zero-memory-arithmetic-lr-warmup">Training Infrastructure: Activation Checkpointing, ZeRO Memory Arithmetic, LR Warmup</h2>
+<h3 id="1-activation-checkpointing-theoretical-vs-practical">1. Activation Checkpointing — Theoretical vs. Practical</h3>
+<p><strong>Why it exists.</strong> During a standard forward-backward pass, the framework must keep every layer's activations alive in GPU memory until the backward pass needs them to compute gradients. For a deep model this is the dominant memory cost.</p>
+<p><strong>Theoretical regime (Chen et al. 2016).</strong> If you divide an L-layer network into √L equally spaced recursive segments and checkpoint only the segment boundaries, you store O(√L) activation tensors instead of O(L). During backward, each segment is recomputed from its checkpoint, adding one full forward pass of overhead — roughly a 33% wall-clock increase.</p>
+<p><strong>Practical regime (PyTorch <code>gradient_checkpointing_enable()</code>).</strong> The HuggingFace/PyTorch default is <em>per-module</em> checkpointing, not the recursive-segment scheme. Each transformer block is treated as a checkpoint boundary: activations inside the block are discarded immediately after the forward pass and recomputed on demand during backward. Compute overhead is approximately <strong>20–33%</strong> (often closer to 20–25% on H100-class hardware).</p>
+<p><strong>Crisp distinction to know cold:</strong> Chen et al. = O(√L) memory, O(√L) recomputation, theoretical lower bound. PyTorch default = per-layer, O(1) activations retained per layer, ~20–33% compute overhead, practically dominant.</p>
+<hr />
+<h3 id="2-zero-memory-arithmetic-the-auditable-16-byte-breakdown">2. ZeRO Memory Arithmetic — The Auditable 16-Byte Breakdown</h3>
+<p>Mixed-precision Adam (fp16 forward, fp32 optimizer states) requires the following <em>per parameter</em>:</p>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Dtype</th>
+<th>Bytes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Model weights</td>
+<td>fp16</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Gradients</td>
+<td>fp16</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Master weight copy</td>
+<td>fp32</td>
+<td>4</td>
+</tr>
+<tr>
+<td>Adam first moment (m)</td>
+<td>fp32</td>
+<td>4</td>
+</tr>
+<tr>
+<td>Adam second moment (v)</td>
+<td>fp32</td>
+<td>4</td>
+</tr>
+<tr>
+<td><strong>Total</strong></td>
+<td></td>
+<td><strong>16</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Canonical figure from the ZeRO paper (Rajbhandari et al., SC 2020): <strong>2Ψ + 2Ψ + 12Ψ = 16Ψ bytes</strong>, where K=12 covers the three fp32 optimizer-state tensors. A 7B-parameter model needs roughly 7 × 10⁹ × 16 = <strong>112 GB</strong> of training state.</p>
+<p><strong>How each ZeRO stage reduces this:</strong>
+- <strong>ZeRO-1</strong>: shards only optimizer states (12 bytes). Per-GPU: 2 + 2 + 12/N bytes. At N=8: ~5.5 bytes/parameter.
+- <strong>ZeRO-2</strong>: additionally shards gradients. Per-GPU: 2 + 2/N + 12/N.
+- <strong>ZeRO-3 / FSDP</strong>: shards all three. Per-GPU: 16/N bytes. At N=64 a 7B model fits in ~12 GB per GPU.</p>
+<p><strong>DDP vs. ZeRO/FSDP in one sentence:</strong> DDP replicates the full 16 bytes per GPU and only shards <em>gradients during the AllReduce</em>; ZeRO/FSDP shards the tensors themselves and reconstructs them on demand.</p>
+<hr />
+<h3 id="3-lr-warmup-which-explanation-is-actually-primary">3. LR Warmup — Which Explanation Is Actually Primary</h3>
+<p>Both explanations circulate; the precise answer matters for Versley.</p>
+<ul>
+<li><strong>The gradient-noise story</strong> is intuitive but <strong>secondary</strong>: gradients are noisier early, so a smaller step size reduces risk of landing in a poor basin. Directionally true, but not the dominant mechanism.</li>
+<li><strong>The Adam second-moment story</strong> is <strong>closer but still incomplete</strong>: because v₀ = 0, the denominator of the Adam update is artificially small in the first few steps, producing abnormally large effective learning rates. Warmup compensates. Initializing v to a non-zero value can partially substitute for warmup.</li>
+<li><strong>The primary mechanism, per NeurIPS 2024 analysis (Ma et al., 2024):</strong> warmup allows the network to move toward better-conditioned regions of the loss landscape before the learning rate reaches its operating value. Large η in poorly conditioned early territory causes <strong>progressive sharpening</strong> of the loss Hessian; warmup suppresses this by keeping updates small while the geometry stabilizes. This is why warmup helps <em>all</em> optimizers, not just Adam.</li>
+</ul>
+<p><strong>One-liner answer:</strong> "Warmup primarily prevents the loss landscape from sharpening catastrophically before the model reaches a well-conditioned region; Adam's uninitialized second moment is a secondary compounding effect."</p>
+<hr />
+<h3 id="4-megatron-lm-parallelism-strategy-and-the-amazon-correction">4. Megatron-LM — Parallelism Strategy and the Amazon Correction</h3>
+<p>Megatron-LM (NVIDIA) implements <strong>tensor parallelism</strong> (splitting weight matrices column/row-wise across GPUs), <strong>pipeline parallelism</strong> (splitting layer depth across stages), and <strong>sequence parallelism</strong> (splitting the sequence dimension). It uses its own communication primitives, independent of PyTorch FSDP.</p>
+<p><strong>Amazon correction:</strong> Amazon's primary large-scale training stack runs on <strong>Trainium accelerators via the Neuron SDK</strong> (NxDT — Neuron Distributed Training Library), not on Megatron-LM. AWS does publish a Neuron-adapted port of Megatron for customer use, but this is a compatibility layer, not Amazon's internal training stack. Do not claim "Amazon uses Megatron" in the room; the accurate statement is that Megatron is dominant at Google (TPU-adjacent) and Microsoft (Azure), and was used for eBay's e-Llama.</p>
+<hr />
+<h3 id="likely-versley-follow-ups_3">Likely Versley Follow-ups</h3>
+<p><strong>Q: "If I checkpoint every layer, am I implementing Chen et al.?"</strong>
+No. Chen et al. checkpoint every √L layers in recursively sized segments. PyTorch's per-layer checkpointing is a simpler heuristic that works well for uniform transformer stacks but is not the same algorithm.</p>
+<p><strong>Q: "Why can't you just use ZeRO-3 for everything?"</strong>
+Communication cost. ZeRO-3 introduces all-gather and reduce-scatter operations on parameter shards before and after every forward/backward layer. At large N this dominates compute. ZeRO-1 or ZeRO-2 is often the sweet spot for well-fitted single-node jobs.</p>
+<hr />
+<blockquote>
+<p><strong>How to say it in the room:</strong> "Activation checkpointing trades compute for memory by discarding intermediates and recomputing them during backward. The theoretical optimum from Chen et al. is O(√L) memory with √L checkpoint boundaries, but PyTorch's default is per-layer — the overhead is around 20–30%. For distributed memory, ZeRO's canonical accounting is 16 bytes per parameter: 2 fp16 weights plus 2 fp16 gradients plus 12 bytes of fp32 optimizer state. Each ZeRO stage progressively shards those 16 bytes across GPUs; FSDP is essentially ZeRO-3 in native PyTorch. And on warmup — the dominant mechanism is loss-landscape conditioning: large updates into poorly conditioned early geometry cause sharpening, and warmup prevents that."</p>
+<p><strong>The one trap to avoid:</strong> Conflating the theoretical Chen et al. O(√L) scheme with "what activation checkpointing does" in practice. Know which claim you are making before you make it.</p>
+</blockquote>
+<hr />
+<h2 id="ebay-system-design-parallel-corpus-mining-lora-rank-selection-rag-vs-ensemble">eBay System Design: Parallel Corpus Mining, LoRA Rank Selection, RAG vs Ensemble</h2>
+<h3 id="1-parallel-corpus-mining-why-bm25-cannot-do-this-job">1. Parallel Corpus Mining — Why BM25 Cannot Do This Job</h3>
+<p>BM25 is a <strong>monolingual lexical scoring function</strong>. It ranks documents by weighted term-frequency overlap against a query. The moment source and target are in different languages — say English and German — there is essentially zero shared vocabulary, so BM25 scores are uniform noise.</p>
+<p><strong>The correct pipeline for mining parallel pairs from a bilingual corpus</strong> is two-stage:</p>
+<p><strong>Stage 1 — Language-ID gate</strong> (<code>fastText lid.176.bin</code>, &lt;1 ms per string, &gt;98.5% accuracy across 176 languages): confirm that each string is actually in the expected language. Catches encoding errors, copy-paste accidents, and adversarial noise immediately.</p>
+<p><strong>Stage 2 — Cross-lingual embedding similarity:</strong> embed both strings with <strong>LaBSE</strong> (Language-Agnostic BERT Sentence Embedding, Google 2020 — language-agnostic dual encoder trained on 100+ languages) or <strong>LASER</strong> (Facebook/Meta, 93 languages). Both produce embeddings in a shared semantic space regardless of surface language. Apply:
+- <strong>Cosine similarity threshold ≥ 0.7</strong> to accept a pair as a translation candidate (LaBSE achieves P@1 of ~94.4 in bitext mining benchmarks).
+- <strong>Length-ratio heuristic</strong>: <code>|len_src − len_tgt| / max(len_src, len_tgt) ≤ 0.4</code> — faithful translations of short product titles are rarely more than 40% shorter or longer than the source.</p>
+<p><strong>Critical distinction to make in the room:</strong> BM25 over a bilingual index is <em>correct and appropriate</em> for the <strong>RAG-for-MT retrieval step</strong> (retrieving the most similar already-translated title pairs as few-shot examples). There, both query and retrieved documents share the same source-language surface, so lexical overlap is meaningful for finding the closest Translation Memory entry. The error is using BM25 to <em>validate</em> whether a German string faithfully translates an English string — that is a cross-lingual faithfulness question requiring cross-lingual embeddings.</p>
+<hr />
+<h3 id="2-lora-rank-selection-always-run-a-sweep-never-commit-to-a-heuristic">2. LoRA Rank Selection — Always Run a Sweep, Never Commit to a Heuristic</h3>
+<p>The standard LoRA update is:</p>
+<pre><code>W' = W_0 + (α/r) · BA
+</code></pre>
+<p>Setting <strong>α = 2r</strong> (e.g., r=8, α=16; r=32, α=64) makes the effective learning-rate contribution of the adapter independent of r — the scaling factor is always 2 regardless of which rank you choose. Without this, increasing r accidentally changes the effective step size, confounding rank sensitivity experiments. Biderman et al. 2024 confirmed α=2r is optimal empirically for high-rank LoRA.</p>
+<p><strong>Rank sensitivity is task-specific:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Task</th>
+<th>Appropriate rank</th>
+<th>Reasoning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Style / tone adaptation (formal ↔ casual, brand voice)</td>
+<td>r = 4–8</td>
+<td>Update lies in a very low-dimensional subspace</td>
+</tr>
+<tr>
+<td>Cross-lingual domain adaptation (new language pair + e-commerce vocabulary)</td>
+<td>r = 32–64</td>
+<td>New vocabulary, morphology, and code-switching patterns need more representational capacity</td>
+</tr>
+<tr>
+<td>Catastrophic forgetting avoidance (LoRA as regularizer)</td>
+<td>r = 4–8</td>
+<td>Smaller update = less forgetting</td>
+</tr>
+</tbody>
+</table>
+<p><strong>The correct production procedure:</strong> Run a sweep over r ∈ {4, 8, 16, 32, 64}, holding α = 2r throughout, on a held-out dev set. Select the rank that maximizes chrF (or COMET) at minimum adapter memory footprint. If r=16 and r=32 achieve statistically equivalent chrF on dev, choose r=16. Never commit to a single rank without this sweep.</p>
+<hr />
+<h3 id="3-gpu-throughput-with-batch-size-anchoring-back-of-envelope-for-10m-listingsday">3. GPU Throughput With Batch-Size Anchoring — Back-of-Envelope for 10M Listings/Day</h3>
+<p><strong>Memory-bandwidth-bound (batch = 1, decode-dominant):</strong> A 7B model in BF16 holds ~14 GB of weights. An A100-80GB has ~2 TB/s HBM bandwidth. Practical decode throughput: <strong>50–100 tokens/s per sequence</strong> (single-sequence, no batching). Appropriate for real-time, low-latency paths (&lt;200ms SLA).</p>
+<p><strong>Compute-bound with continuous batching (batch = 32):</strong> Per LiLiuM-7B serving data: <strong>~500 tokens/s aggregate throughput per A100 GPU</strong> at batch=32 with continuous batching (vLLM or TGI). The number that matters for bulk indexing throughput.</p>
+<p><strong>Back-of-envelope for 10M German listings/day:</strong></p>
+<pre><code>Input tokens:  ~25 tokens/listing title (source)
+Output tokens: ~25 tokens/listing title (translation)
+Total:         ~50 tokens × 10M = 500M tokens/day
+
+Sustained rate: 500M / 86,400s ≈ 5,800 tokens/s
+
+LiLiuM-7B at batch=32 with continuous batching: ~500 tokens/s per GPU
+GPUs needed:   5,800 / 500 ≈ 12 A100s (sustained)
+
+Peak factor 3×: ~36 A100s
+
+Apply AWQ 4-bit quantization (1.5–2× throughput gain in this regime):
+~18–24 A100s at peak
+</code></pre>
+<p><strong>The honest answer</strong>: roughly <strong>20–40 A100 GPUs at peak</strong>, order-of-magnitude. Anchor to the batch regime explicitly when stating this — the number is meaningless without it. At batch=1, the same model needs ~5,800 GPUs; that is the naive mistake.</p>
+<hr />
+<h3 id="4-rag-as-fallback-vs-rag-as-ensemble-pick-one-and-cost-justify-it">4. RAG-as-Fallback vs RAG-as-Ensemble — Pick One and Cost-Justify It</h3>
+<p><strong>Fallback architecture:</strong> A confidence-based router decides <em>before generation</em> whether to use standard MT or retrieval-augmented MT. Retrieval is only invoked for low-confidence or OOD queries.</p>
+<pre><code>Cost = P(in-distribution) × cost(standard MT)
+     + P(OOD) × cost(retrieve + augmented MT)
+</code></pre>
+<p>If 80% of 10M daily listings are high-resource EN-DE/EN-FR, only 20% hit the retrieval path. Total retrieval overhead is bounded.</p>
+<p><strong>Ensemble architecture:</strong> Retrieval is always invoked. Every query pays the retrieval + augmented generation cost.</p>
+<pre><code>Cost = 1.0 × cost(retrieve + augmented MT)   [for every query]
+</code></pre>
+<p><strong>For eBay's bulk translation use case</strong> (10M listings/day, throughput-optimized): <strong>fallback is the right architecture</strong>. The eBay RAG-for-MT paper (arXiv 2409.12880) demonstrates the largest gains (+15.3% chrF) for <em>low-resource</em> pairs (EN-PL), not for EN-DE where the model already performs well zero-shot. Running retrieval on every query is expensive and unnecessary for high-resource pairs.</p>
+<p><strong>Ensemble is justified</strong> for a small subset of high-value cross-border listings where translation accuracy has direct GMV impact (luxury goods with specific terminology, legal-sensitive product categories). Gate it behind a business-value signal, not language pair alone.</p>
+<hr />
+<h3 id="likely-versley-follow-ups_4">Likely Versley Follow-ups</h3>
+<p><strong>Q: "You said BM25 is wrong for corpus mining but correct for RAG retrieval. Are you sure those aren't the same operation?"</strong>
+They look similar but the tasks differ fundamentally. In corpus mining, the question is: "Is this German string a faithful translation of this English string?" — that requires cross-lingual semantic alignment, which BM25 cannot provide. In RAG retrieval for MT, the question is: "Which previously translated English titles are most lexically similar to this new English title?" — that is a monolingual English-to-English retrieval task, so BM25's term-overlap signal is exactly what you want.</p>
+<p><strong>Q: "Why LaBSE over LASER for the mining step?"</strong>
+LaBSE achieves ~94.4 P@1 in bitext mining vs LASER's ~58% F₁ on held-out evals. LaBSE uses additive margin softmax training, making it more discriminative for near-duplicate detection. Both produce L2-normalised 768-dim embeddings; cosine similarity becomes a dot product, which is ANN-indexable.</p>
+<hr />
+<blockquote>
+<p><strong>How to say it in the room:</strong> "BM25 is the right tool for RAG retrieval inside the MT pipeline — it finds lexically similar previously-translated titles, which is exactly Translation Memory behavior. But for building the parallel corpus in the first place, BM25 can't tell you whether a German string faithfully translates an English string, because there's no shared vocabulary to score. That's a two-step job: fastText to confirm language identity, then LaBSE cosine similarity to confirm translational equivalence. On the RAG architecture question — fallback and ensemble are two different cost structures, and at ten million listings a day the ensemble math just doesn't close unless you can show the quality gain on the full traffic distribution, not just the low-resource tail."</p>
+<p><strong>The one trap to avoid:</strong> Do not describe the RAG-for-MT pipeline as "using BM25 to find parallel training data." BM25 operates over the <em>source-language side</em> of an already-verified bilingual index to find similar titles at query time. BM25 never evaluates cross-lingual faithfulness. Conflating "indexing bilingual pairs" with "validating that a pair is bilingual" is the exact mistake that prompts the follow-up.</p>
+</blockquote>
+<hr />
+<h2 id="dpo-offline-distribution-mismatch-and-zx-cancellation-preconditions">DPO: Offline Distribution Mismatch and Z(x) Cancellation Preconditions</h2>
+<figure class="diagram">
+  <img src="../assets/illustrations/rlhf-dpo.svg" alt="RLHF vs DPO">
+  <figcaption>RLHF trains a reward model then runs PPO; DPO optimizes the preference objective directly — no separate RM, no RL loop.</figcaption>
+</figure>
+
+<h3 id="the-core-mechanism-in-two-moves">The Core Mechanism in Two Moves</h3>
+<p><strong>Move 1 — The optimal policy form.</strong>
+The KL-regularized RL objective has a closed-form solution:</p>
+<p>$$\pi^<em>(y \mid x) = \frac{1}{Z(x)} \, \pi_\text{ref}(y \mid x) \exp!\left(\frac{r^</em>(x,y)}{\beta}\right)$$</p>
+<p>where Z(x) is a prompt-level partition function. Rearranging to express the reward in terms of the policy:</p>
+<p>$$r^<em>(x,y) = \beta \log \frac{\pi^</em>(y \mid x)}{\pi_\text{ref}(y \mid x)} + \beta \log Z(x)$$</p>
+<p><strong>Move 2 — Plugging into Bradley-Terry and watching Z(x) cancel.</strong>
+Under the Bradley-Terry preference model:</p>
+<p>$$p^<em>(y_w \succ y_l \mid x) = \sigma!\left(r^</em>(x,y_w) - r^*(x,y_l)\right)$$</p>
+<p>Because y_w and y_l are drawn from the <em>same prompt</em> x, both reward expressions share the identical <code>β log Z(x)</code> term, and it <strong>subtracts out exactly</strong>. The final training loss is a binary cross-entropy over preference pairs:</p>
+<p>$$\mathcal{L}<em _x_y_w_y_l_="(x,y_w,y_l)">\text{DPO} = -\mathbb{E}</em>!\left[\log \sigma!\left(\beta \log \frac{\pi_\theta(y_w|x)}{\pi_\text{ref}(y_w|x)} - \beta \log \frac{\pi_\theta(y_l|x)}{\pi_\text{ref}(y_l|x)}\right)\right]$$</p>
+<p>No reward model, no RL loop. This is why DPO "looks like a binary classification loss": it is one, trained on log-ratio differences.</p>
+<hr />
+<h3 id="precondition-1-zx-cancellation-requires-bradley-terry">Precondition 1 — Z(x) Cancellation Requires Bradley-Terry</h3>
+<p>The cancellation works <em>only</em> because Bradley-Terry assumes preferences depend solely on the scalar reward difference between the two responses given the same x. If the true human preference distribution has:
+- <strong>Position effects (Plackett-Luce)</strong>: the probability of preferring y_w depends on where each response appears in the list.
+- <strong>Inter-response dependencies</strong>: annotators compare verbosity or style <em>relative to</em> the other response.</p>
+<p>In either case, the true normalizer is not a constant shift that appears identically in both reward expressions, so it does not subtract out. The DPO loss then optimizes a <em>misspecified</em> surrogate — the model can increase L_DPO in the right direction while moving the actual human preference probability in the wrong direction.</p>
+<hr />
+<h3 id="precondition-2-offline-distribution-mismatch-is-the-central-practical-failure-mode">Precondition 2 — Offline Distribution Mismatch Is the Central Practical Failure Mode</h3>
+<p>The DPO implicit reward for response y is:</p>
+<p>$$\hat{r}<em>\theta(x, y) = \beta \log \frac{\pi</em>\theta(y \mid x)}{\pi_\text{ref}(y \mid x)}$$</p>
+<p>This log-ratio is meaningful only when y comes from a distribution <em>close to</em> π_ref. On a <strong>second or third DPO pass</strong>, π_θ has drifted from π_ref. The dataset still contains the same (x, y_w, y_l) pairs, but π_ref(y | x) may now assign near-zero probability to those responses — the log-ratio explodes, gradients become numerically unreliable, and the model can overfit to the offline pairs in pathological ways.</p>
+<p><strong>Iterative / online DPO as the fix:</strong> At each round, sample new (x, y_w, y_l) pairs from the <em>current</em> policy π_θ, score them, then run one DPO update. This keeps y on-distribution relative to π_ref, eliminating the log-ratio blow-up. The cost is that you need inference rollouts every round. Research from 2024–2025 (ICLR 2025 bootstrapping work) confirms online or iterative DPO consistently outperforms the single-pass offline variant.</p>
+<hr />
+<h3 id="precondition-3-length-bias-and-simpo">Precondition 3 — Length Bias and SimPO</h3>
+<p>The DPO implicit reward sums token-level log-prob ratios over the full sequence — an <em>unnormalized</em> sum. A 200-token response can outscore a 50-token response by sheer accumulation even if per-token quality is identical. <strong>The model learns to prefer verbosity.</strong></p>
+<p><strong>SimPO (Simple Preference Optimization, NeurIPS 2024)</strong> addresses this with three changes:</p>
+<ol>
+<li><strong>Length normalization</strong>: reward becomes the <em>average</em> log-prob per token, <code>r̂(x,y) = (β/|y|) log π_θ(y | x)</code>.</li>
+<li><strong>Reference-model elimination</strong>: the ratio π_θ / π_ref is dropped entirely, cutting memory and compute by ~50%.</li>
+<li><strong>Explicit margin</strong>: a target margin γ &gt; 0 requires the winning response to score at least γ above the losing one.</li>
+</ol>
+<p>SimPO reported up to <strong>6.4 points higher on AlpacaEval 2</strong> and <strong>7.5 points on Arena-Hard</strong> over vanilla DPO, with shorter and less verbose outputs.</p>
+<hr />
+<h3 id="most-likely-versley-follow-ups_1">Most Likely Versley Follow-ups</h3>
+<p><strong>Q: "You said Z(x) cancels. What breaks if the true human preference distribution violates that assumption?"</strong>
+The cancellation requires that preferences depend <em>only</em> on individual reward differences — that is, Bradley-Terry. If the true distribution has position effects or comparative features, the effective normalizer becomes response-pair dependent. Substituting into the DPO derivation, you get an extra log Z'(x, y_w, y_l) that does not cancel, so the DPO loss is a biased objective for the true preference distribution. You would observe this empirically as DPO learning to game the comparison format rather than improve absolute quality.</p>
+<p><strong>Q: "Walk me through the derivation — why does DPO look like a binary classification loss?"</strong>
+Start with the KL-regularized RL objective; its solution is π<em> ∝ π_ref · e^(r</em>/β). Invert this to get r<em> = β log(π</em>/π_ref) + β log Z(x). Plug into Bradley-Terry: the two β log Z(x) terms — one for y_w, one for y_l — are identical because both responses share the same x, so they cancel. What remains is a sigmoid over a log-ratio difference, and minimizing its negative log-likelihood is exactly binary cross-entropy.</p>
+<p><strong>Q: "What specific length bias does DPO have, and does SimPO's fix actually solve it?"</strong>
+DPO's implicit reward is a <em>sum</em> of token log-prob ratios, so a 200-token response can outscore a 50-token response by sheer accumulation. SimPO divides by sequence length — average log-prob per token — which removes the length-dependent accumulation term. It also drops the reference model entirely, cutting memory usage and removing the distribution-mismatch problem in one move.</p>
+<hr />
+<blockquote class="warn">
+<p><strong>How to say it in the room:</strong> "DPO's Z(x) cancellation is a consequence of Bradley-Terry, not a general result. If human preferences have position or comparative effects, Z(x) is no longer a prompt-only constant and the cancellation fails. The second practical problem is that the log-ratio is only meaningful when the responses in the training set come from near the reference policy — if you run DPO a second time on the same offline data, the reference assigns near-zero probability to those responses and the gradient signal breaks down. That is the exact reason iterative DPO re-samples from the current policy each round, and why SimPO sidesteps both issues by dropping the reference model and normalizing by length."</p>
+<p><strong>The one trap to avoid:</strong> Do not say "Z(x) cancels because it appears in the denominator of the softmax." Z(x) is not a softmax denominator here; it is the partition function of the Boltzmann-optimal policy. The cancellation happens because Z(x) appears as an <em>additive</em> β log Z(x) term in <em>both</em> r<em>(x, y_w) and r</em>(x, y_l), and the Bradley-Terry model takes their <em>difference</em>. State this precisely: "both responses condition on the same x, so the prompt-level log-normalizer appears identically on each side of the difference and subtracts to zero."</p>
+</blockquote>
+<hr />
+<h2 id="delivery-over-claim-coaching">Delivery &amp; Over-claim Coaching</h2>
+<p>The following is a crisp checklist derived from the coaching clusters identified across adaptive mock interviews. Each entry gives the trigger question X, the correct response strategy Y, and what never to say Z.</p>
+<hr />
+<h3 id="epistemic-sequencing-lead-with-uncertainty-not-claims">Epistemic Sequencing — Lead With Uncertainty, Not Claims</h3>
+<table>
+<thead>
+<tr>
+<th>If asked X</th>
+<th>Say Y</th>
+<th>Never say Z</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Any mechanistic "why" that you are extrapolating (not recalling)</td>
+<td>"My prediction here — not a citable finding — is..." <em>before</em> the claim</td>
+<td>State the claim declaratively, then walk it back after Versley pushes</td>
+</tr>
+<tr>
+<td>For a number or finding you are not certain is in the specific paper</td>
+<td>"I believe this is in [paper] but I should verify the exact figure"</td>
+<td>Quote the number as if you just read it</td>
+</tr>
+<tr>
+<td>A claim about XNLI error distribution skew or intrinsic dimensionality across base models</td>
+<td>"This is mechanistic reasoning from first principles, not a cited result"</td>
+<td>Present it as a finding without that flag</td>
+</tr>
+<tr>
+<td>Min-SNR formula or any specific formula from a paper</td>
+<td>Pre-caveat: "From memory, the formula is..."</td>
+<td>State it as definitive without the hedge</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="fabricated-or-unanchored-numbers-every-specific-number-needs-an-anchor">Fabricated or Unanchored Numbers — Every Specific Number Needs an Anchor</h3>
+<table>
+<thead>
+<tr>
+<th>If asked X</th>
+<th>Say Y</th>
+<th>Never say Z</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fine-tuning cost for a specific model</td>
+<td>State the model size, dataset size, and source: "For a 7B model, the range in the literature is X—Y per run, depending on hardware"</td>
+<td>"$50" without model size and paper reference</td>
+</tr>
+<tr>
+<td>eBay infrastructure scale (GPUs, cluster size)</td>
+<td>"I don't have a public source for eBay's specific cluster size"</td>
+<td>"480 H100s" as if from a data sheet</td>
+</tr>
+<tr>
+<td>Any frontier model benchmark score (AIME, MATH-500, coding)</td>
+<td>Directional claim with caveat about contamination: "Approximately X, though benchmark contamination is a concern"</td>
+<td>Specific scores with decimal precision (e.g., "61.4 on the AI Index")</td>
+</tr>
+<tr>
+<td>β for KL coefficient in InstructGPT</td>
+<td>"The InstructGPP paper reports 0.2, not the 0.01–0.1 range I may have cited elsewhere"</td>
+<td>"0.01 to 0.1" as the InstructGPT range</td>
+</tr>
+<tr>
+<td>Training token count for any specific model</td>
+<td>State your source explicitly; if uncertain, say "approximately, per their technical report"</td>
+<td>"36 trillion tokens" for Qwen3 without citing the Qwen3 report</td>
+</tr>
+<tr>
+<td>LLM throughput</td>
+<td>Always anchor to batch size and hardware: "~500 tokens/s aggregate per A100 at batch=32"</td>
+<td>"3,000 to 5,000 tokens/sec" without a batch-size anchor</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="diffusion-weights-paper-proactively-disclose-limitations">Diffusion Weights Paper — Proactively Disclose Limitations</h3>
+<table>
+<thead>
+<tr>
+<th>If asked X</th>
+<th>Say Y</th>
+<th>Never say Z</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Whether the predictor works on LoRA adapter trajectories</td>
+<td>"No LoRA adapter-trajectory variant exists in the paper; the 3.2× speedup comparison is against full-weight adaptation baselines, which I should flag proactively"</td>
+<td>Present 3.2× as a general efficiency claim without this caveat</td>
+</tr>
+<tr>
+<td>Whether the 3.2× efficiency claim accounts for adaptation run costs</td>
+<td>"The 3.2× does not include the upfront cost of collecting ground-truth trajectories — fine-tuning GPT-2 for 20,000 epochs to get the checkpoints — which the paper lists as a limitation; the speedup is amortized over many related fine-tuning jobs. The paper does not quantify a break-even job count, so I won't invent one, and the headline result is the wall-clock epoch-acceleration speedup, not a break-even analysis (full detail in 20_OWN_PAPERS_GROUND_TRUTH.md)"</td>
+<td>Quote a break-even like "45–60 jobs" or call break-even the paper's primary efficiency result — that number and that framing are not in the paper</td>
+</tr>
+<tr>
+<td>Whether Aghajanyan (2020) supports cross-model generalization</td>
+<td>"Aghajanyan supports solution-space low intrinsic dimensionality, not trajectory consistency across different base model initializations. Using it to justify cross-model generalization is a category error"</td>
+<td>Cite Aghajanyan as support for cross-architecture transfer</td>
+</tr>
+<tr>
+<td>Whether the frozen-core ablation was formally reported</td>
+<td>"I should be precise: I am uncertain whether the frozen-core ablation was formally reported in the paper or informally observed in experiments"</td>
+<td>State it as a formal result without this flag</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="rlhf-post-training-numerical-precision">RLHF / Post-training Numerical Precision</h3>
+<table>
+<thead>
+<tr>
+<th>If asked X</th>
+<th>Say Y</th>
+<th>Never say Z</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>KL coefficient β for InstructGPP</td>
+<td>"InstructGPP reports β = 0.2. The 0.01–0.1 range I may have cited is not from that paper"</td>
+<td>"0.01 to 0.1"</td>
+</tr>
+<tr>
+<td>PPO critic memory overhead</td>
+<td>"The critic is typically a separate linear head sharing the transformer backbone, not a full second model copy — removing it saves far less than half of model memory"</td>
+<td>"Removing the PPO critic roughly halves memory"</td>
+</tr>
+<tr>
+<td>R1-Zero vs full R1</td>
+<td>"R1-Zero is the pure-RL model where emergent CoT is the story. R1 (the full model) included a cold-start SFT phase on curated reasoning chains, so pure-RL emergence applies only to R1-Zero"</td>
+<td>Conflate R1 and R1-Zero</td>
+</tr>
+<tr>
+<td>GRPO and DAPO</td>
+<td>Lead with GRPO, then add: "DAPO (ByteDance, 2024) is the direct successor: it adds asymmetric clip-higher clipping, token-level policy gradient, and filtering of zero-advantage groups"</td>
+<td>Omit DAPO entirely when GRPO comes up</td>
+</tr>
+<tr>
+<td>Reward model overoptimization</td>
+<td>"Gao et al. 2022 'Scaling Laws for Reward Model Overoptimization' is the canonical citation for the RM overoptimization degradation curve"</td>
+<td>Describe the phenomenon without this citation</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="author-attribution-never-assert-an-interviewers-authorship-to-them">Author Attribution — Never Assert an Interviewer's Authorship to Them</h3>
+<table>
+<thead>
+<tr>
+<th>If asked X</th>
+<th>Say Y</th>
+<th>Never say Z</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Who are the authors of the RAG-for-MT paper?</td>
+<td>Name the authors you are confident about, then: "I would need to double-check the full author list"</td>
+<td>Assert Versley's authorship or non-authorship on their own work</td>
+</tr>
+<tr>
+<td>Any question about co-authorship with Versley</td>
+<td>Name the papers you believe you collaborated on, without asserting authorship status: "I understand we worked together on [paper]; I'd defer to you on the author list"</td>
+<td>"You are not listed as an author" or "we share co-authorship" without being directly asked</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="research-defense-under-pressure-hold-the-paper">Research Defense Under Pressure — Hold the Paper</h3>
+<table>
+<thead>
+<tr>
+<th>If asked X</th>
+<th>Say Y</th>
+<th>Never say Z</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>"Your paper borrows an overpromising name" or mild characterization of any paper</td>
+<td>Defend the contribution first: "The core result is [X]; the name choice reflects [Y]. I take the point that [Z] could be clearer"</td>
+<td>Accept the characterization without any defense</td>
+</tr>
+<tr>
+<td>"Is your thesis retrofitted to independent projects?"</td>
+<td>"The organizing principle emerged from constraints encountered in practice. The agenda is generative: the open problems are [list two or three specific open problems]"</td>
+<td>"Yes, the projects were somewhat independent" without a forward-looking framing</td>
+</tr>
+<tr>
+<td>Why you left the MSCA fellowship after seven months</td>
+<td>"I made the decision deliberately and communicated it to the host institution. The forward-looking change I made was [decision checkpoint behavior]"</td>
+<td>"It was a miscalculation" or any framing that implies passivity</td>
+</tr>
+<tr>
+<td>What would you specifically bring to an LLM pretraining team at eBay?</td>
+<td>Close with a specific marginal contribution claim: "Concretely, I would bring [X capability], which translates to [Y specific outcome] in the context of e-Llama or the next adaptation cycle"</td>
+<td>"I want to learn from the team" as the closing statement</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="bm25-rag-conflation-keep-the-two-operations-distinct">BM25 / RAG Conflation — Keep the Two Operations Distinct</h3>
+<table>
+<thead>
+<tr>
+<th>If asked X</th>
+<th>Say Y</th>
+<th>Never say Z</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>How you use BM25 in the MT pipeline</td>
+<td>"BM25 indexes the source-language side of an already-verified bilingual pair index and retrieves similar source-language titles as few-shot examples. It never evaluates cross-lingual faithfulness"</td>
+<td>"BM25 to find parallel training data"</td>
+</tr>
+<tr>
+<td>How you validate that a string is a faithful translation</td>
+<td>"fastText for language ID, then LaBSE cosine similarity ≥ 0.7 for cross-lingual faithfulness. BM25 is not appropriate for this step"</td>
+<td>Mention BM25 in the context of cross-lingual faithfulness validation</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="agentic-systems-prompt-injection-hierarchy-and-state-rollback">Agentic Systems — Prompt Injection Hierarchy and State Rollback</h3>
+<table>
+<thead>
+<tr>
+<th>If asked X</th>
+<th>Say Y</th>
+<th>Never say Z</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>How you prevent prompt injection</td>
+<td>"The primary defenses are action enumeration and least-privilege — the agent should be incapable of executing arbitrary actions. Role-tagged XML delimiters are a supplementary soft control, not the primary defense, because LLMs do not reliably treat delimited content as inert (Greshake et al. 2023)"</td>
+<td>Present XML/JSON delimiters as the primary injection defense</td>
+</tr>
+<tr>
+<td>What happens when a cheap model's output format breaks the next step</td>
+<td>"Stateless steps are safe to retry. Stateful steps — anything that wrote to a database, sent a message, or consumed a resource — require either context rollback or checkpoint restore before retry"</td>
+<td>Say "we retry with fallback" without distinguishing stateful from stateless steps</td>
+</tr>
+<tr>
+<td>Inter-rater reliability of κ = 0.61 and what it means for scores</td>
+<td>"κ = 0.61 cannot be converted to a specific disagreement rate without the marginal distribution. Also, inter-judge LLM calls on the same input are correlated, not IID, so the 1/√3 variance-reduction estimate for 3 judges is an overestimate"</td>
+<td>State a specific disagreement rate directly from κ</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><em>End of document. For the master study sequence, see 00_MASTER_INDEX_AND_STUDY_PLAN.md.</em></p>
+      <nav class="prevnext"><a class="pn prev" href="12_MOCK_INTERVIEW_FULL.html">‹ <span>Full Mock Interview</span></a><a class="pn next" href="18b_STAGE1_GAPFILL_ROUND2.html"><span>Gap-Fill: Round 2</span> ›</a></nav>
+    </article>
+    <aside class="toc"><div class="toc-title">On this page</div><ul>
+<li><a href="#table-of-contents">Table of Contents</a></li>
+<li><a href="#j3-vlm-input-pathways-and-connector-architecture">J3. VLM Input Pathways and Connector Architecture</a></li>
+<li><a href="#applying-transformer-era-reasoning-to-bilstm-era-papers-lee-et-al-2017">Applying Transformer-era Reasoning to biLSTM-era Papers (Lee et al. 2017)</a></li>
+<li><a href="#llm-routing-moeensembling-distinction-compound-failure-rate-monitoring-cost-model">LLM Routing: MoE/Ensembling Distinction, Compound Failure Rate, Monitoring Cost Model</a></li>
+<li><a href="#generative-models-score-matching-bridge-flow-matching-gradient-balance-ot-coupling-gap">Generative Models: Score Matching Bridge, Flow Matching Gradient Balance, OT Coupling Gap</a></li>
+<li><a href="#inference-efficiency-kv-cache-quantization-mla-rope-decoupling-gqafa3">Inference Efficiency: KV Cache Quantization, MLA RoPE Decoupling, GQA/FA3</a></li>
+<li><a href="#sota-2026-currency-benchmark-fabrication-test-time-compute-axis-process-vs-outcome-reward">SOTA 2026 Currency: Benchmark Fabrication, Test-Time Compute Axis, Process vs Outcome Reward</a></li>
+<li><a href="#training-infrastructure-activation-checkpointing-zero-memory-arithmetic-lr-warmup">Training Infrastructure: Activation Checkpointing, ZeRO Memory Arithmetic, LR Warmup</a></li>
+<li><a href="#ebay-system-design-parallel-corpus-mining-lora-rank-selection-rag-vs-ensemble">eBay System Design: Parallel Corpus Mining, LoRA Rank Selection, RAG vs Ensemble</a></li>
+<li><a href="#dpo-offline-distribution-mismatch-and-zx-cancellation-preconditions">DPO: Offline Distribution Mismatch and Z(x) Cancellation Preconditions</a></li>
+<li><a href="#delivery-over-claim-coaching">Delivery &amp;amp; Over-claim Coaching</a></li>
+</ul></aside>
+  </main>
+</div>
+<script>window.SEARCH_JSON="../assets/../search-index.json";</script>
+<script src="../assets/search-data.js"></script>
+<script src="../assets/app.js"></script>
+</body>
+</html>
