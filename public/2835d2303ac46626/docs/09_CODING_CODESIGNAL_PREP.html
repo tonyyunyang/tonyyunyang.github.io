@@ -81,12 +81,14 @@
 <hr />
 <h2 id="1-codesignal-format-and-strategy">1. CodeSignal Format and Strategy</h2>
 <h3 id="1a-general-coding-assessment-gca">1A. General Coding Assessment (GCA)</h3>
-<p><strong>What eBay likely sends for Stage 2:</strong>
-- 70 minutes, 4 questions, strictly increasing difficulty
-- Webcam proctoring, full-screen lock, keystroke logging
-- No AI tools, no external lookup, no screen switching
-- Python strongly recommended for ML roles (fastest to write, fewest ceremony)
-- New score scale (2026): <strong>200–600</strong> replacing the old 300–850</p>
+<p><strong>What eBay likely sends for Stage 2:</strong></p>
+<ul>
+<li>70 minutes, 4 questions, strictly increasing difficulty</li>
+<li>Webcam proctoring, full-screen lock, keystroke logging</li>
+<li>No AI tools, no external lookup, no screen switching</li>
+<li>Python strongly recommended for ML roles (fastest to write, fewest ceremony)</li>
+<li>New score scale (2026): <strong>200–600</strong> replacing the old 300–850</li>
+</ul>
 <p><strong>Question ladder:</strong></p>
 <table>
 <thead>
@@ -124,10 +126,12 @@
 </tr>
 </tbody>
 </table>
-<p><strong>Score targets:</strong>
-- 475–525 = strong competitive candidate
-- 525+ = elite signal
-- Partial credit is real and meaningful: a brute-force Q4 attempt that passes 3/10 test cases is worth far more than a blank</p>
+<p><strong>Score targets:</strong></p>
+<ul>
+<li>475–525 = strong competitive candidate</li>
+<li>525+ = elite signal</li>
+<li>Partial credit is real and meaningful: a brute-force Q4 attempt that passes 3/10 test cases is worth far more than a blank</li>
+</ul>
 <p><strong>Mental model for scoring:</strong> Questions are weighted by difficulty. A perfect Q1–Q3 with a brute-force Q4 attempt scores significantly higher than stopping after Q3. Never leave Q4 blank.</p>
 <hr />
 <h3 id="1b-ml-data-science-assessment-role-specific-variant">1B. ML / Data Science Assessment (Role-Specific Variant)</h3>
@@ -163,29 +167,37 @@
 </tr>
 </tbody>
 </table>
-<p><strong>Key constraints you must respect:</strong>
-- Python only in coding module; numpy, pandas, sklearn available
-- No screen switching whatsoever — memorize the pandas and sklearn APIs you'll need
-- Modules auto-advance, cannot return to previous module
-- Some variants include SQL (GROUP BY, window functions); prepare but treat as secondary</p>
-<p><strong>Common coding tasks in Module 3:</strong>
-- Load CSV → clean nulls → encode categoricals → groupby aggregation
-- Train sklearn LogisticRegression or RandomForestClassifier → compute accuracy/F1
-- Implement gradient descent loop from scratch
-- Compute precision/recall/F1 from raw TP/FP/FN counts without sklearn</p>
+<p><strong>Key constraints you must respect:</strong></p>
+<ul>
+<li>Python only in coding module; numpy, pandas, sklearn available</li>
+<li>No screen switching whatsoever — memorize the pandas and sklearn APIs you'll need</li>
+<li>Modules auto-advance, cannot return to previous module</li>
+<li>Some variants include SQL (GROUP BY, window functions); prepare but treat as secondary</li>
+</ul>
+<p><strong>Common coding tasks in Module 3:</strong></p>
+<ul>
+<li>Load CSV → clean nulls → encode categoricals → groupby aggregation</li>
+<li>Train sklearn LogisticRegression or RandomForestClassifier → compute accuracy/F1</li>
+<li>Implement gradient descent loop from scratch</li>
+<li>Compute precision/recall/F1 from raw TP/FP/FN counts without sklearn</li>
+</ul>
 <hr />
 <h3 id="1c-time-management-strategy">1C. Time Management Strategy</h3>
-<p><strong>For GCA:</strong>
-1. Read all four problem statements in the first 3 minutes. Know what you're walking into.
-2. Q1: solve in ≤8 min, check one edge case (empty input, single element, negatives)
-3. Q2: pattern-match first (hashmap? two-pointer? BFS?). Code in ≤20 min. O(n) or O(n log n).
-4. Q3: spend 5 min identifying the pattern before coding. Aim for O(n log n) or O(n²) if n is small.
-5. Q4: with 12–15 min left, code a brute-force or partial solution. Any passing test cases = free points. Submit even if wrong.</p>
-<p><strong>For ML Assessment:</strong>
-1. Burn through MCQs fast (Modules 1+2); aim for 1.5 min/question maximum.
-2. Do not overthink probability questions; the answer is almost always Bayes or CLT.
-3. For Module 3 coding: read the full question, plan on paper/scratch before typing.
-4. Use sklearn when allowed (faster); only write from scratch if explicitly asked.</p>
+<p><strong>For GCA:</strong></p>
+<ol>
+<li>Read all four problem statements in the first 3 minutes. Know what you're walking into.</li>
+<li>Q1: solve in ≤8 min, check one edge case (empty input, single element, negatives)</li>
+<li>Q2: pattern-match first (hashmap? two-pointer? BFS?). Code in ≤20 min. O(n) or O(n log n).</li>
+<li>Q3: spend 5 min identifying the pattern before coding. Aim for O(n log n) or O(n²) if n is small.</li>
+<li>Q4: with 12–15 min left, code a brute-force or partial solution. Any passing test cases = free points. Submit even if wrong.</li>
+</ol>
+<p><strong>For ML Assessment:</strong></p>
+<ol>
+<li>Burn through MCQs fast (Modules 1+2); aim for 1.5 min/question maximum.</li>
+<li>Do not overthink probability questions; the answer is almost always Bayes or CLT.</li>
+<li>For Module 3 coding: read the full question, plan on paper/scratch before typing.</li>
+<li>Use sklearn when allowed (faster); only write from scratch if explicitly asked.</li>
+</ol>
 <p><strong>AI-native candidate's specific threat:</strong> You have built muscular memory for delegating to Claude Code. Your biggest risk is blank-screen anxiety when the autocomplete disappears. The antidote is daily cold-coding practice with zero IDE assistance — raw Python in a text editor or repl.it with autocomplete disabled.</p>
 <hr />
 <h2 id="2-dsa-pattern-checklist-with-canonical-python-snippets">2. DS&amp;A Pattern Checklist with Canonical Python Snippets</h2>
@@ -791,9 +803,11 @@ bisect.insort(a, 6)         # inserts 6, list stays sorted
 <hr />
 <h3 id="pattern-12-dynamic-programming">Pattern 12: Dynamic Programming</h3>
 <p><strong>When:</strong> Overlapping subproblems + optimal substructure; max/min/count across choices.</p>
-<p><strong>Approaches:</strong>
-- Top-down: recursive + <code>@functools.lru_cache(maxsize=None)</code> — write naturally, memoize automatically
-- Bottom-up: explicit table — better control over space optimization (rolling array)</p>
+<p><strong>Approaches:</strong></p>
+<ul>
+<li>Top-down: recursive + <code>@functools.lru_cache(maxsize=None)</code> — write naturally, memoize automatically</li>
+<li>Bottom-up: explicit table — better control over space optimization (rolling array)</li>
+</ul>
 <p><strong>Coin Change (1D DP — minimum coins):</strong></p>
 <pre><code class="language-python">def coin_change(coins, amount):
     dp = [float('inf')] * (amount + 1)
@@ -1729,10 +1743,12 @@ E = 5    (expected cost = $5 before winning)
 <blockquote>
 <p>4 points on a circle, randomly partitioned into 2 chords. P(chords intersect)?</p>
 </blockquote>
-<p>Label points A, B, C, D in order around circle. Three ways to pair them:
-- (AB, CD) — no intersection
-- (AC, BD) — intersect
-- (AD, BC) — no intersection</p>
+<p>Label points A, B, C, D in order around circle. Three ways to pair them:</p>
+<ul>
+<li>(AB, CD) — no intersection</li>
+<li>(AC, BD) — intersect</li>
+<li>(AD, BC) — no intersection</li>
+</ul>
 <p>P(intersect) = <strong>1/3</strong></p>
 <p>Key insight: of all possible pairings, exactly 1/3 lead to crossing. Generalizes: 2n points, n random chords → P(all chords cross each other) involves Catalan numbers.</p>
 <p><strong>Birthday Problem:</strong></p>
@@ -1770,11 +1786,13 @@ z = (550 - 500) / 15.81 = 3.16
 P(|Z| &gt; 3.16) = 2 * P(Z &gt; 3.16) ≈ 2 * 0.0008 = 0.0016 &lt; 0.05
 </code></pre>
 <p>Conclusion: reject H0 at 5% significance. Coin is likely biased.</p>
-<p><strong>Key CLT facts for MCQs:</strong>
-- For n independent X_i with mean μ and variance σ²: (X̄ - μ) / (σ/√n) → N(0,1) as n→∞
-- Rule of thumb: CLT applies when n ≥ 30
-- Standard error of mean = σ/√n (gets smaller as n grows)
-- 95% confidence interval: X̄ ± 1.96 * σ/√n</p>
+<p><strong>Key CLT facts for MCQs:</strong></p>
+<ul>
+<li>For n independent X_i with mean μ and variance σ²: (X̄ - μ) / (σ/√n) → N(0,1) as n→∞</li>
+<li>Rule of thumb: CLT applies when n ≥ 30</li>
+<li>Standard error of mean = σ/√n (gets smaller as n grows)</li>
+<li>95% confidence interval: X̄ ± 1.96 * σ/√n</li>
+</ul>
 <hr />
 <h3 id="4e-distribution-quick-reference">4E. Distribution Quick Reference</h3>
 <table>
@@ -1839,11 +1857,13 @@ P(|Z| &gt; 3.16) = 2 * P(Z &gt; 3.16) ≈ 2 * 0.0008 = 0.0016 &lt; 0.05
 </tr>
 </tbody>
 </table>
-<p><strong>Common MCQ pitfalls with distributions:</strong>
-- Poisson: mean = variance always. If variance &gt;&gt; mean, not Poisson.
-- Geometric is memoryless: P(X &gt; s+t | X &gt; s) = P(X &gt; t).
-- Binomial(1, p) = Bernoulli(p).
-- If X ~ Poisson(λ), sum of n independent Poisson(λ) ~ Poisson(nλ).</p>
+<p><strong>Common MCQ pitfalls with distributions:</strong></p>
+<ul>
+<li>Poisson: mean = variance always. If variance &gt;&gt; mean, not Poisson.</li>
+<li>Geometric is memoryless: P(X &gt; s+t | X &gt; s) = P(X &gt; t).</li>
+<li>Binomial(1, p) = Bernoulli(p).</li>
+<li>If X ~ Poisson(λ), sum of n independent Poisson(λ) ~ Poisson(nλ).</li>
+</ul>
 <hr />
 <h3 id="4f-ab-testing-basics-common-in-ml-mcq">4F. A/B Testing Basics (common in ML MCQ)</h3>
 <p><strong>Setup:</strong> Control group (A) with n_A users, conversion rate p_A. Treatment group (B) with n_B users, conversion rate p_B.</p>
@@ -1851,11 +1871,13 @@ P(|Z| &gt; 3.16) = 2 * P(Z &gt; 3.16) ≈ 2 * 0.0008 = 0.0016 &lt; 0.05
 <pre><code>z = (p_B - p_A) / sqrt(p_pool*(1-p_pool) * (1/n_A + 1/n_B))
 where p_pool = (x_A + x_B) / (n_A + n_B)
 </code></pre>
-<p><strong>Common MCQ traps:</strong>
-1. "We ran the test until significance." -&gt; peeking problem; inflates false positive rate.
-2. "Test ran 3 days, got p=0.04." -&gt; insufficient time (day-of-week effects, novelty effect).
-3. "Both tests are independent." -&gt; verify: same time period, no user overlap, no spillover.
-4. "Multiple testing on 10 metrics." -&gt; need Bonferroni correction: use α/10 per test.</p>
+<p><strong>Common MCQ traps:</strong></p>
+<ol>
+<li>"We ran the test until significance." -&gt; peeking problem; inflates false positive rate.</li>
+<li>"Test ran 3 days, got p=0.04." -&gt; insufficient time (day-of-week effects, novelty effect).</li>
+<li>"Both tests are independent." -&gt; verify: same time period, no user overlap, no spillover.</li>
+<li>"Multiple testing on 10 metrics." -&gt; need Bonferroni correction: use α/10 per test.</li>
+</ol>
 <hr />
 <h2 id="5-ml-concept-mcq-style-qa">5. ML Concept MCQ-Style Q&amp;A</h2>
 <p>For Module 2 of the ML assessment. Read each question, formulate your answer mentally, then check the model answer.</p>
@@ -1873,45 +1895,57 @@ where p_pool = (x_A + x_B) / (n_A + n_B)
 <p><strong>A:</strong> When class distribution is imbalanced. Example: fraud detection where 99% of transactions are non-fraud. A model that always predicts non-fraud gets 99% accuracy but 0% recall for fraud. F1 = 2<em>P</em>R/(P+R) penalizes both missing positives (low recall) and false alarms (low precision). Use F1 when both error types matter and classes are imbalanced.</p>
 <hr />
 <h3 id="q5-what-is-the-difference-between-l1-and-l2-regularization">Q5. What is the difference between L1 and L2 regularization?</h3>
-<p><strong>A:</strong> 
-- L1 (Lasso): adds |w| penalty; optimization landscape has corners at zero → drives some weights to exactly 0 → sparse models → effective for feature selection when many features are irrelevant.
-- L2 (Ridge): adds w² penalty; gradient is 2λw; shrinks weights proportionally but rarely to 0; closed-form solution exists; handles multicollinearity by distributing weight across correlated features.
-- Elastic Net: combines both; controls sparsity and group selection simultaneously.</p>
+<p><strong>A:</strong> </p>
+<ul>
+<li>L1 (Lasso): adds |w| penalty; optimization landscape has corners at zero → drives some weights to exactly 0 → sparse models → effective for feature selection when many features are irrelevant.</li>
+<li>L2 (Ridge): adds w² penalty; gradient is 2λw; shrinks weights proportionally but rarely to 0; closed-form solution exists; handles multicollinearity by distributing weight across correlated features.</li>
+<li>Elastic Net: combines both; controls sparsity and group selection simultaneously.</li>
+</ul>
 <hr />
 <h3 id="q6-explain-the-bias-variance-tradeoff">Q6. Explain the bias-variance tradeoff.</h3>
-<p><strong>A:</strong> Total expected error = Bias² + Variance + Irreducible noise.
-- Bias: systematic error from wrong model assumptions (underfitting). Fixed by more capacity.
-- Variance: sensitivity to training data noise (overfitting). Fixed by regularization, more data.
-- Tradeoff: reducing bias usually increases variance, and vice versa. The optimal model complexity minimizes their sum on the validation set.
-- As model size grows: bias decreases monotonically; variance first increases then (for large overparameterized models like deep nets) can decrease again — the double-descent phenomenon.</p>
+<p><strong>A:</strong> Total expected error = Bias² + Variance + Irreducible noise.</p>
+<ul>
+<li>Bias: systematic error from wrong model assumptions (underfitting). Fixed by more capacity.</li>
+<li>Variance: sensitivity to training data noise (overfitting). Fixed by regularization, more data.</li>
+<li>Tradeoff: reducing bias usually increases variance, and vice versa. The optimal model complexity minimizes their sum on the validation set.</li>
+<li>As model size grows: bias decreases monotonically; variance first increases then (for large overparameterized models like deep nets) can decrease again — the double-descent phenomenon.</li>
+</ul>
 <hr />
 <h3 id="q7-random-forest-vs-gradient-boosting-when-to-use-each">Q7. Random Forest vs. Gradient Boosting — when to use each?</h3>
-<p><strong>A:</strong>
-- <strong>Random Forest (bagging):</strong> trains N trees in parallel on bootstrap samples with random feature subsets; averages/votes. Reduces variance. Fast to train. Robust to hyperparameters. Good baseline.
-- <strong>Gradient Boosting (XGBoost/LightGBM):</strong> trains trees sequentially; each tree fits residuals of the previous. Reduces bias. Slower (sequential). More sensitive to hyperparameters. Usually higher accuracy with tuning. Use when you have time to tune and need best performance.
-- Prefer Random Forest when: fast training matters, data is noisy, you need a solid out-of-box baseline.
-- Prefer XGBoost/LightGBM when: accuracy is paramount, data is tabular, you will tune hyperparameters.</p>
+<p><strong>A:</strong></p>
+<ul>
+<li><strong>Random Forest (bagging):</strong> trains N trees in parallel on bootstrap samples with random feature subsets; averages/votes. Reduces variance. Fast to train. Robust to hyperparameters. Good baseline.</li>
+<li><strong>Gradient Boosting (XGBoost/LightGBM):</strong> trains trees sequentially; each tree fits residuals of the previous. Reduces bias. Slower (sequential). More sensitive to hyperparameters. Usually higher accuracy with tuning. Use when you have time to tune and need best performance.</li>
+<li>Prefer Random Forest when: fast training matters, data is noisy, you need a solid out-of-box baseline.</li>
+<li>Prefer XGBoost/LightGBM when: accuracy is paramount, data is tabular, you will tune hyperparameters.</li>
+</ul>
 <hr />
 <h3 id="q8-what-happens-when-the-learning-rate-is-too-high-too-low">Q8. What happens when the learning rate is too high? Too low?</h3>
-<p><strong>A:</strong>
-- Too high: loss oscillates or diverges; gradient steps overshoot the minimum. Symptom: loss spikes or goes NaN.
-- Too low: training converges extremely slowly; model may get stuck in a suboptimal region; wastes compute.
-- Standard practice: warmup (ramp up from 0 to target LR over 1k–2k steps) + cosine decay. For LLM pretraining (Versley's domain), this is the universal recipe. Adam's adaptive per-parameter rates reduce sensitivity to global LR but it still matters.</p>
+<p><strong>A:</strong></p>
+<ul>
+<li>Too high: loss oscillates or diverges; gradient steps overshoot the minimum. Symptom: loss spikes or goes NaN.</li>
+<li>Too low: training converges extremely slowly; model may get stuck in a suboptimal region; wastes compute.</li>
+<li>Standard practice: warmup (ramp up from 0 to target LR over 1k–2k steps) + cosine decay. For LLM pretraining (Versley's domain), this is the universal recipe. Adam's adaptive per-parameter rates reduce sensitivity to global LR but it still matters.</li>
+</ul>
 <hr />
 <h3 id="q9-what-is-log-loss-cross-entropy-and-why-prefer-it-over-accuracy-for-classification">Q9. What is log-loss (cross-entropy) and why prefer it over accuracy for classification?</h3>
-<p><strong>A:</strong>
-- Log-loss = -(1/n) * Σ [y<em>log(p) + (1-y)</em>log(1-p)] for binary; -(1/n)<em>Σ y_i</em>log(p_i) for multi-class.
-- Penalizes confident wrong predictions heavily (log(p) → -inf as p→0 for a true class).
-- Differentiable and convex → amenable to gradient-based optimization.
-- Measures probabilistic calibration, not just correctness. A model that says "60% confident" every time for all correct predictions has 100% accuracy but poor log-loss.
-- Prefer log-loss when: you care about calibration (probability outputs matter, e.g., medical risk); you're comparing models at the training/validation level.</p>
+<p><strong>A:</strong></p>
+<ul>
+<li>Log-loss = -(1/n) * Σ [y<em>log(p) + (1-y)</em>log(1-p)] for binary; -(1/n)<em>Σ y_i</em>log(p_i) for multi-class.</li>
+<li>Penalizes confident wrong predictions heavily (log(p) → -inf as p→0 for a true class).</li>
+<li>Differentiable and convex → amenable to gradient-based optimization.</li>
+<li>Measures probabilistic calibration, not just correctness. A model that says "60% confident" every time for all correct predictions has 100% accuracy but poor log-loss.</li>
+<li>Prefer log-loss when: you care about calibration (probability outputs matter, e.g., medical risk); you're comparing models at the training/validation level.</li>
+</ul>
 <hr />
 <h3 id="q10-what-is-the-curse-of-dimensionality-and-how-does-it-affect-knn">Q10. What is the curse of dimensionality and how does it affect kNN?</h3>
-<p><strong>A:</strong> In high-dimensional spaces (large d), data becomes extremely sparse. Key effects:
-1. All pairwise distances become roughly equal as d→∞ (distance concentration). kNN can no longer distinguish "near" from "far" neighbors reliably.
-2. Exponentially more data needed to maintain the same coverage density (sampling density falls as O(n^{-1/d})).
-3. For kNN: distances become meaningless → neighbors are essentially random → classifier degrades toward random guessing.
-Fix: dimensionality reduction (PCA, t-SNE, UMAP), feature selection, or switch to a model that handles high-d better (SVM with kernel, tree ensembles, neural nets).</p>
+<p><strong>A:</strong> In high-dimensional spaces (large d), data becomes extremely sparse. Key effects:</p>
+<ol>
+<li>All pairwise distances become roughly equal as d→∞ (distance concentration). kNN can no longer distinguish "near" from "far" neighbors reliably.</li>
+<li>Exponentially more data needed to maintain the same coverage density (sampling density falls as O(n^{-1/d})).</li>
+<li>For kNN: distances become meaningless → neighbors are essentially random → classifier degrades toward random guessing.
+Fix: dimensionality reduction (PCA, t-SNE, UMAP), feature selection, or switch to a model that handles high-d better (SVM with kernel, tree ensembles, neural nets).</li>
+</ol>
 <hr />
 <h3 id="q11-explain-dropout">Q11. Explain dropout.</h3>
 <p><strong>A:</strong> During training, randomly zero out each activation with probability p (dropout rate). The effective network varies per forward pass → acts like training an ensemble of 2^n subnetworks (one per possible mask pattern). At inference, scale activations by (1-p) or equivalently use inverted dropout (scale training activations by 1/(1-p) → no change at test time). Reduces co-adaptation of neurons. Improves generalization. Typical rates: 0.1–0.2 in Transformer attention layers; 0.5 for fully-connected layers in older architectures.</p>
@@ -1920,18 +1954,22 @@ Fix: dimensionality reduction (PCA, t-SNE, UMAP), feature selection, or switch t
 <p><strong>A:</strong> If features have very different scales (e.g., age in [0–100] and salary in [0–1,000,000]), the loss surface is elongated/elliptical. Gradient descent oscillates in the large-scale dimension while barely moving in the small-scale dimension. Learning rate that works for one feature blows up for another. Normalization (z-score or min-max) makes the loss surface more spherical → faster, more stable convergence. kNN and SVMs are also explicitly distance-based and require normalization.</p>
 <hr />
 <h3 id="q13-what-is-the-difference-between-parameters-and-hyperparameters">Q13. What is the difference between parameters and hyperparameters?</h3>
-<p><strong>A:</strong>
-- <strong>Parameters</strong>: learned from data during training. Example: weights W and bias b in a linear layer, embedding vectors.
-- <strong>Hyperparameters</strong>: set before training, not learned by gradient descent. Example: learning rate, batch size, number of layers, hidden dimension, dropout rate, k in kNN, C in SVM, n_estimators in Random Forest.
-- Hyperparameter tuning strategies: grid search (exhaustive), random search (usually better for same budget), Bayesian optimization (models p(metric|hyperparams)), population-based training.</p>
+<p><strong>A:</strong></p>
+<ul>
+<li><strong>Parameters</strong>: learned from data during training. Example: weights W and bias b in a linear layer, embedding vectors.</li>
+<li><strong>Hyperparameters</strong>: set before training, not learned by gradient descent. Example: learning rate, batch size, number of layers, hidden dimension, dropout rate, k in kNN, C in SVM, n_estimators in Random Forest.</li>
+<li>Hyperparameter tuning strategies: grid search (exhaustive), random search (usually better for same budget), Bayesian optimization (models p(metric|hyperparams)), population-based training.</li>
+</ul>
 <hr />
 <h3 id="q14-explain-class-imbalance-and-three-ways-to-handle-it">Q14. Explain class imbalance and three ways to handle it.</h3>
 <p><strong>A:</strong> When one class is far more frequent than others (e.g., 99% negative, 1% positive), models can achieve high accuracy by always predicting negative while being useless.</p>
-<p>Solutions:
-1. <strong>Resampling:</strong> oversample minority class (SMOTE = synthetic minority oversampling) or undersample majority class. Risk: overfitting with oversampling; information loss with undersampling.
-2. <strong>Class weights:</strong> penalize misclassification of minority class more heavily during training (weight = n_majority/n_minority). Built into sklearn with class_weight='balanced'.
-3. <strong>Threshold adjustment:</strong> move the classification threshold from 0.5 to lower value to increase recall for minority class. Then optimize threshold on validation precision-recall curve.
-4. Bonus: use AUC-PR (precision-recall AUC) instead of AUC-ROC as evaluation metric — more informative when positive class is rare.</p>
+<p>Solutions:</p>
+<ol>
+<li><strong>Resampling:</strong> oversample minority class (SMOTE = synthetic minority oversampling) or undersample majority class. Risk: overfitting with oversampling; information loss with undersampling.</li>
+<li><strong>Class weights:</strong> penalize misclassification of minority class more heavily during training (weight = n_majority/n_minority). Built into sklearn with class_weight='balanced'.</li>
+<li><strong>Threshold adjustment:</strong> move the classification threshold from 0.5 to lower value to increase recall for minority class. Then optimize threshold on validation precision-recall curve.</li>
+<li>Bonus: use AUC-PR (precision-recall AUC) instead of AUC-ROC as evaluation metric — more informative when positive class is rare.</li>
+</ol>
 <hr />
 <h2 id="6-7-day-drill-plan-and-curated-practice-list">6. 7-Day Drill Plan and Curated Practice List</h2>
 <h3 id="mindset-for-this-drill">Mindset for This Drill</h3>
@@ -1940,42 +1978,50 @@ Fix: dimensionality reduction (PCA, t-SNE, UMAP), feature selection, or switch t
 <hr />
 <h3 id="day-1-arrays-strings-hashmaps-two-pointers">Day 1: Arrays, Strings, Hashmaps, Two Pointers</h3>
 <p><strong>Theory review (15 min):</strong> Re-read Pattern 1 and 2 above. Trace through Two Sum and 3Sum by hand.</p>
-<p><strong>Coding problems (60 min, timed):</strong>
-1. <a href="https://leetcode.com/problems/two-sum/">Two Sum</a> — 5 min target
-2. <a href="https://leetcode.com/problems/valid-anagram/">Valid Anagram</a> — 5 min
-3. <a href="https://leetcode.com/problems/group-anagrams/">Group Anagrams</a> — 10 min
-4. <a href="https://leetcode.com/problems/longest-consecutive-sequence/">Longest Consecutive Sequence</a> — 15 min
-5. <a href="https://leetcode.com/problems/3sum/">3Sum</a> — 20 min (sort + two pointers)</p>
+<p><strong>Coding problems (60 min, timed):</strong></p>
+<ol>
+<li><a href="https://leetcode.com/problems/two-sum/">Two Sum</a> — 5 min target</li>
+<li><a href="https://leetcode.com/problems/valid-anagram/">Valid Anagram</a> — 5 min</li>
+<li><a href="https://leetcode.com/problems/group-anagrams/">Group Anagrams</a> — 10 min</li>
+<li><a href="https://leetcode.com/problems/longest-consecutive-sequence/">Longest Consecutive Sequence</a> — 15 min</li>
+<li><a href="https://leetcode.com/problems/3sum/">3Sum</a> — 20 min (sort + two pointers)</li>
+</ol>
 <p><strong>Cold-type exercise:</strong> Write the <code>train_test_split</code> function from scratch without looking at Section 3E.</p>
 <hr />
 <h3 id="day-2-sliding-window-stack-heap">Day 2: Sliding Window + Stack + Heap</h3>
 <p><strong>Theory review (15 min):</strong> Read Patterns 3, 4, 9. Trace Minimum Window Substring manually.</p>
-<p><strong>Coding problems:</strong>
-1. <a href="https://leetcode.com/problems/longest-substring-without-repeating-characters/">Longest Substring Without Repeating Characters</a> — 10 min
-2. <a href="https://leetcode.com/problems/minimum-window-substring/">Minimum Window Substring</a> — 20 min
-3. <a href="https://leetcode.com/problems/daily-temperatures/">Daily Temperatures</a> — 10 min
-4. <a href="https://leetcode.com/problems/kth-largest-element-in-an-array/">Kth Largest Element</a> — 10 min
-5. <a href="https://leetcode.com/problems/top-k-frequent-elements/">Top K Frequent Elements</a> — 15 min</p>
+<p><strong>Coding problems:</strong></p>
+<ol>
+<li><a href="https://leetcode.com/problems/longest-substring-without-repeating-characters/">Longest Substring Without Repeating Characters</a> — 10 min</li>
+<li><a href="https://leetcode.com/problems/minimum-window-substring/">Minimum Window Substring</a> — 20 min</li>
+<li><a href="https://leetcode.com/problems/daily-temperatures/">Daily Temperatures</a> — 10 min</li>
+<li><a href="https://leetcode.com/problems/kth-largest-element-in-an-array/">Kth Largest Element</a> — 10 min</li>
+<li><a href="https://leetcode.com/problems/top-k-frequent-elements/">Top K Frequent Elements</a> — 15 min</li>
+</ol>
 <p><strong>Cold-type exercise:</strong> Write logistic regression <code>fit()</code> and <code>predict_proba()</code> from scratch.</p>
 <hr />
 <h3 id="day-3-trees-and-graphs">Day 3: Trees and Graphs</h3>
 <p><strong>Theory review (15 min):</strong> Read Patterns 7 and 8. Trace BFS level-order and topological sort.</p>
-<p><strong>Coding problems:</strong>
-1. <a href="https://leetcode.com/problems/maximum-depth-of-binary-tree/">Maximum Depth of Binary Tree</a> — 5 min
-2. <a href="https://leetcode.com/problems/binary-tree-level-order-traversal/">Binary Tree Level Order Traversal</a> — 10 min
-3. <a href="https://leetcode.com/problems/validate-binary-search-tree/">Validate Binary Search Tree</a> — 15 min
-4. <a href="https://leetcode.com/problems/number-of-islands/">Number of Islands</a> — 15 min
-5. <a href="https://leetcode.com/problems/course-schedule/">Course Schedule</a> — 20 min (topological sort)</p>
+<p><strong>Coding problems:</strong></p>
+<ol>
+<li><a href="https://leetcode.com/problems/maximum-depth-of-binary-tree/">Maximum Depth of Binary Tree</a> — 5 min</li>
+<li><a href="https://leetcode.com/problems/binary-tree-level-order-traversal/">Binary Tree Level Order Traversal</a> — 10 min</li>
+<li><a href="https://leetcode.com/problems/validate-binary-search-tree/">Validate Binary Search Tree</a> — 15 min</li>
+<li><a href="https://leetcode.com/problems/number-of-islands/">Number of Islands</a> — 15 min</li>
+<li><a href="https://leetcode.com/problems/course-schedule/">Course Schedule</a> — 20 min (topological sort)</li>
+</ol>
 <p><strong>Cold-type exercise:</strong> Write <code>k_means()</code> from scratch, including convergence check.</p>
 <hr />
 <h3 id="day-4-binary-search-dp">Day 4: Binary Search + DP</h3>
 <p><strong>Theory review (15 min):</strong> Read Patterns 10 and 12. Trace coin change and LCS.</p>
-<p><strong>Coding problems:</strong>
-1. <a href="https://leetcode.com/problems/binary-search/">Binary Search</a> — 5 min (warm-up)
-2. <a href="https://leetcode.com/problems/search-in-rotated-sorted-array/">Search in Rotated Sorted Array</a> — 15 min
-3. <a href="https://leetcode.com/problems/capacity-to-ship-packages-within-d-days/">Capacity to Ship Packages Within D Days</a> — 20 min
-4. <a href="https://leetcode.com/problems/coin-change/">Coin Change</a> — 15 min
-5. <a href="https://leetcode.com/problems/longest-common-subsequence/">Longest Common Subsequence</a> — 20 min</p>
+<p><strong>Coding problems:</strong></p>
+<ol>
+<li><a href="https://leetcode.com/problems/binary-search/">Binary Search</a> — 5 min (warm-up)</li>
+<li><a href="https://leetcode.com/problems/search-in-rotated-sorted-array/">Search in Rotated Sorted Array</a> — 15 min</li>
+<li><a href="https://leetcode.com/problems/capacity-to-ship-packages-within-d-days/">Capacity to Ship Packages Within D Days</a> — 20 min</li>
+<li><a href="https://leetcode.com/problems/coin-change/">Coin Change</a> — 15 min</li>
+<li><a href="https://leetcode.com/problems/longest-common-subsequence/">Longest Common Subsequence</a> — 20 min</li>
+</ol>
 <p><strong>Cold-type exercise:</strong> Write <code>precision_recall_f1()</code> and <code>roc_auc()</code> from scratch.</p>
 <hr />
 <h3 id="day-5-ml-implementations-day">Day 5: ML Implementations Day</h3>
@@ -1986,18 +2032,22 @@ Fix: dimensionality reduction (PCA, t-SNE, UMAP), feature selection, or switch t
 <hr />
 <h3 id="day-6-probability-stats-and-ml-concepts-mcq">Day 6: Probability, Stats, and ML Concepts MCQ</h3>
 <p><strong>Session 1 (45 min):</strong> Read through all 14 MCQ questions in Section 5. For each, cover the answer and state it aloud or write it before revealing.</p>
-<p><strong>Session 2 (45 min):</strong> Find a full CodeSignal ML assessment practice set:
-- <a href="https://codesignal.com/learn/courses/introduction-to-probability-and-statistics-for-machine-learning">CodeSignal ML Framework practice</a>
-- Work through at least 20 probability MCQs at DataLemur or StrataScratch</p>
+<p><strong>Session 2 (45 min):</strong> Find a full CodeSignal ML assessment practice set:</p>
+<ul>
+<li><a href="https://codesignal.com/learn/courses/introduction-to-probability-and-statistics-for-machine-learning">CodeSignal ML Framework practice</a></li>
+<li>Work through at least 20 probability MCQs at DataLemur or StrataScratch</li>
+</ul>
 <p><strong>Session 3 (30 min):</strong> Cold-type scaled dot-product attention and BPE tokenizer from scratch.</p>
 <hr />
 <h3 id="day-7-full-timed-mock">Day 7: Full Timed Mock</h3>
 <p><strong>GCA mock (70 min, strict):</strong> Open 4 LeetCode problems simultaneously. Set a 70-minute timer. No looking anything up. Attempt all four even if Q3 is unfinished.</p>
-<p>Suggested mock set:
-1. <a href="https://leetcode.com/problems/valid-parentheses/">Valid Parentheses</a> — Easy
-2. <a href="https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/">Find Minimum in Rotated Sorted Array</a> — Medium
-3. <a href="https://leetcode.com/problems/longest-increasing-subsequence/">Longest Increasing Subsequence</a> — Medium
-4. <a href="https://leetcode.com/problems/word-break/">Word Break</a> — Medium-Hard</p>
+<p>Suggested mock set:</p>
+<ol>
+<li><a href="https://leetcode.com/problems/valid-parentheses/">Valid Parentheses</a> — Easy</li>
+<li><a href="https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/">Find Minimum in Rotated Sorted Array</a> — Medium</li>
+<li><a href="https://leetcode.com/problems/longest-increasing-subsequence/">Longest Increasing Subsequence</a> — Medium</li>
+<li><a href="https://leetcode.com/problems/word-break/">Word Break</a> — Medium-Hard</li>
+</ol>
 <p><strong>Review (30 min):</strong> For any problem you did not finish or got wrong, trace through the optimal solution and understand why your approach failed.</p>
 <p><strong>ML assessment mock (30 min):</strong> Write 10 Bayes and EV problems on paper. Work through the distribution table in Section 4E without referring to it.</p>
 <hr />
@@ -2434,25 +2484,31 @@ print(classification_report(y[80:], preds))
 </code></pre>
 <hr />
 <h3 id="7i-exam-day-checklist">7I. Exam-Day Checklist</h3>
-<p>Before starting each coding question:
-1. Read the full problem statement. Identify input type, output type, constraints (n=?).
-2. Check edge cases: empty input, single element, all same, negatives, overflow risk.
-3. Identify the pattern: array/hashmap? two-pointer? sliding window? tree? DP?
-4. State your approach and complexity before coding (even silently).
-5. Write the skeleton first (function signature, base cases) then fill in logic.
-6. Test with the given example, then one edge case, before submitting.</p>
-<p><strong>Common bugs to avoid:</strong>
-- Off-by-one in binary search: <code>while lo &lt;= hi</code> vs <code>while lo &lt; hi</code>
-- Not copying when appending to result in backtracking: <code>result.append(path[:])</code> not <code>result.append(path)</code>
-- Using <code>list</code> as default argument in function definition (it persists across calls): use <code>None</code> and init inside
-- Integer overflow: Python handles big ints automatically, but if the problem requires modular arithmetic, apply <code>% MOD</code> inside the loop
-- Forgetting to handle empty arrays/trees: always check <code>if not arr</code> or <code>if not root</code>
-- Modifying a list while iterating over it: iterate over a copy or use indices carefully</p>
-<p><strong>Complexity sanity checks:</strong>
-- n ≤ 10^6: O(n) or O(n log n) required
-- n ≤ 10^4: O(n²) acceptable
-- n ≤ 10^2: O(n³) or brute-force OK
-- n ≤ 20: exponential O(2^n) or O(n!) feasible</p>
+<p>Before starting each coding question:</p>
+<ol>
+<li>Read the full problem statement. Identify input type, output type, constraints (n=?).</li>
+<li>Check edge cases: empty input, single element, all same, negatives, overflow risk.</li>
+<li>Identify the pattern: array/hashmap? two-pointer? sliding window? tree? DP?</li>
+<li>State your approach and complexity before coding (even silently).</li>
+<li>Write the skeleton first (function signature, base cases) then fill in logic.</li>
+<li>Test with the given example, then one edge case, before submitting.</li>
+</ol>
+<p><strong>Common bugs to avoid:</strong></p>
+<ul>
+<li>Off-by-one in binary search: <code>while lo &lt;= hi</code> vs <code>while lo &lt; hi</code></li>
+<li>Not copying when appending to result in backtracking: <code>result.append(path[:])</code> not <code>result.append(path)</code></li>
+<li>Using <code>list</code> as default argument in function definition (it persists across calls): use <code>None</code> and init inside</li>
+<li>Integer overflow: Python handles big ints automatically, but if the problem requires modular arithmetic, apply <code>% MOD</code> inside the loop</li>
+<li>Forgetting to handle empty arrays/trees: always check <code>if not arr</code> or <code>if not root</code></li>
+<li>Modifying a list while iterating over it: iterate over a copy or use indices carefully</li>
+</ul>
+<p><strong>Complexity sanity checks:</strong></p>
+<ul>
+<li>n ≤ 10^6: O(n) or O(n log n) required</li>
+<li>n ≤ 10^4: O(n²) acceptable</li>
+<li>n ≤ 10^2: O(n³) or brute-force OK</li>
+<li>n ≤ 20: exponential O(2^n) or O(n!) feasible</li>
+</ul>
 <hr />
 <h2 id="sources">Sources</h2>
 <ul>

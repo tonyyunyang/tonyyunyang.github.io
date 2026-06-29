@@ -101,17 +101,21 @@
 </tr>
 </tbody>
 </table>
-<p>His academic home areas (where he is a genuine expert):
-1. <strong>Coreference resolution</strong> — identity and bridging anaphora; kernel-based and statistical methods on German text
-2. <strong>Discourse relations</strong> — annotation schemas, linguistic tests for discourse connectives, discourse parsing
-3. <strong>Parsing</strong> — discriminative parsing for morphologically rich / free-word-order languages (German)
-4. <strong>Syntax-semantics interface</strong> — implicit semantic roles, argument structure, AMR parsing
-5. <strong>Multilingual NLP</strong> — cross-lingual pronoun prediction; WMT/DiscoMT shared tasks; non-English evaluation
-6. <strong>Kernel methods for NLP</strong> — tree kernels, structured prediction</p>
-<p>Key academic output:
-- <strong>BART (Baldridge Anaphora Resolution Toolkit)</strong> — modular, multi-language coreference toolkit (ACL-HLT Demo 2008, LREC 2008; with Ponzetto, Poesio et al.); widely used in the CoNLL shared tasks era
-- <strong>TüBa-D/Z annotations</strong> — bridging and discourse annotations to the Tübingen German treebank
-- <strong>Co-editor, <em>Anaphora Resolution: Algorithms, Resources, and Applications</em></strong> (Springer, 2016; with Massimo Poesio and Roland Stuckardt) — the definitive reference work in the field</p>
+<p>His academic home areas (where he is a genuine expert):</p>
+<ol>
+<li><strong>Coreference resolution</strong> — identity and bridging anaphora; kernel-based and statistical methods on German text</li>
+<li><strong>Discourse relations</strong> — annotation schemas, linguistic tests for discourse connectives, discourse parsing</li>
+<li><strong>Parsing</strong> — discriminative parsing for morphologically rich / free-word-order languages (German)</li>
+<li><strong>Syntax-semantics interface</strong> — implicit semantic roles, argument structure, AMR parsing</li>
+<li><strong>Multilingual NLP</strong> — cross-lingual pronoun prediction; WMT/DiscoMT shared tasks; non-English evaluation</li>
+<li><strong>Kernel methods for NLP</strong> — tree kernels, structured prediction</li>
+</ol>
+<p>Key academic output:</p>
+<ul>
+<li><strong>BART (Baldridge Anaphora Resolution Toolkit)</strong> — modular, multi-language coreference toolkit (ACL-HLT Demo 2008, LREC 2008; with Ponzetto, Poesio et al.); widely used in the CoNLL shared tasks era</li>
+<li><strong>TüBa-D/Z annotations</strong> — bridging and discourse annotations to the Tübingen German treebank</li>
+<li><strong>Co-editor, <em>Anaphora Resolution: Algorithms, Resources, and Applications</em></strong> (Springer, 2016; with Massimo Poesio and Roland Stuckardt) — the definitive reference work in the field</li>
+</ul>
 <h3 id="industry-career-chronological">Industry career (chronological)</h3>
 <table>
 <thead>
@@ -220,10 +224,12 @@
 <p>This section is ordered by how dangerous a weak answer would be.</p>
 <h3 id="3a-llm-continued-pretraining-highest-risk-his-daily-work">3A. LLM Continued Pretraining — HIGHEST RISK (his daily work)</h3>
 <p>He has run this experiment. You need to be able to discuss:</p>
-<p><strong>Why 10% of original LR?</strong> The e-Llama paper ablation (arXiv 2501.09706) shows:
-- LR = 3.0e-3 (10× original): catastrophic forgetting — general NLU drops from ~43 to 34.5
-- LR = 3.0e-4 (1× original): moderate forgetting
-- LR = 3.0e-5 (0.1× original): best balance — e-commerce improves ~25%, general shows some degradation, especially for the smaller 8B (NLU stays roughly comparable)</p>
+<p><strong>Why 10% of original LR?</strong> The e-Llama paper ablation (arXiv 2501.09706) shows:</p>
+<ul>
+<li>LR = 3.0e-3 (10× original): catastrophic forgetting — general NLU drops from ~43 to 34.5</li>
+<li>LR = 3.0e-4 (1× original): moderate forgetting</li>
+<li>LR = 3.0e-5 (0.1× original): best balance — e-commerce improves ~25%, general shows some degradation, especially for the smaller 8B (NLU stays roughly comparable)</li>
+</ul>
 <p>The mechanism: a large LR during continued pretraining moves parameters far from the pretrained optimum in parameter space, overwriting the prior distribution. Low LR allows the model to absorb domain signal without erasing the posterior from the original pretraining corpus.</p>
 <p><strong>Why 50% e-commerce / 50% general data mix?</strong> Ablation shows that going to 75% e-commerce delivers negligible incremental e-commerce gain (57.5 → 57.6 on e-com score) but starts degrading general NLU. The replay of general data acts as a regularizer against forgetting.</p>
 <p><strong>Checkpoint averaging.</strong> Simple mean of multiple checkpoint parameter vectors often outperforms the best single checkpoint. Explanation: SGD/Adam trace a noisy path through loss landscape; averaging smooths the noise and can approach a wider loss basin — empirically more robust. eBay uses it in LiLiuM.</p>
@@ -241,21 +247,25 @@
 <h3 id="3c-vision-language-models-his-most-recent-paper-arxiv260211733-2026">3C. Vision-Language Models — HIS MOST RECENT PAPER (arXiv:2602.11733, 2026)</h3>
 <p>The VLM paper (arXiv 2602.11733) is Versley's most recent major work and is directly relevant to Tony's Human Intent World Model. Know it in detail.</p>
 <p><strong>Architecture.</strong> LLaVA-OneVision style: SigLIP2 or Qwen2.5 ViT vision encoder → lightweight projector (MLP) → text decoder (LLM). No cross-attention between vision and text; visual tokens are simply prepended to the text token sequence and the LLM attends over both.</p>
-<p><strong>Three-stage training:</strong>
-1. Vision-Language Alignment: freeze LLM, train projector only on caption data (BLIP-LAION 558k)
-2. Mid-Stage Training: partial LLM unfreeze; filtered diverse datasets
-3. Visual Instruction Tuning: full fine-tune on 4M e-commerce instruction examples (45% VQA, 30% Dynamic Attribute Extraction, 12.5% Instruction Following, 12.5% Listings)</p>
+<p><strong>Three-stage training:</strong></p>
+<ol>
+<li>Vision-Language Alignment: freeze LLM, train projector only on caption data (BLIP-LAION 558k)</li>
+<li>Mid-Stage Training: partial LLM unfreeze; filtered diverse datasets</li>
+<li>Visual Instruction Tuning: full fine-tune on 4M e-commerce instruction examples (45% VQA, 30% Dynamic Attribute Extraction, 12.5% Instruction Following, 12.5% Listings)</li>
+</ol>
 <p><strong>Data pipeline.</strong> 15M raw marketplace listings → InternVL-2.5-26B for captioning → Mistral-Small-3-24B for visual-textual verification → 4M instruction tuning examples. This three-stage data curation removes seller-introduced noise (wrong images, misleading titles) before fine-tuning.</p>
 <p><strong>Key finding for Tony to reference.</strong> Using e-Llama3.1-8B as text decoder instead of generic Llama-3.1-8B gives 5-12% improvement on e-commerce tasks across benchmarks. The domain-adapted LLM decoder knows about product taxonomy, attribute semantics, and pricing structures — things a general model does not. This is a clean empirical demonstration of the value of the full stack: pretraining → domain adaptation → VLM alignment.</p>
 <p><strong>Efficiency point.</strong> Fine-tuned Gemma3-4B achieves 3.8× inference speedup vs. zero-shot Gemma3-27B while improving F1 from 44.8% to 50.5%. Same lesson as Tony's routing and pruning work: a smaller, specialized model beats a larger, general model on domain-specific tasks with lower cost.</p>
 <hr />
 <h3 id="3d-classical-nlp-his-academic-home-probe-zone">3D. Classical NLP — His Academic Home (probe zone)</h3>
 <p>He will not test you on bridging anaphora theory. But he will drop classical NLP questions as probes of intellectual depth, especially if the conversation lags. Do not dismiss these as outdated.</p>
-<p><strong>HMMs and Viterbi</strong> have been reported as actual eBay interview questions (from candidates). Be ready to walk through:
-- HMM: states S, observations O, transition matrix A, emission matrix B, initial distribution π
-- Forward algorithm: α_t(i) = P(o_1...o_t, s_t=i) — computed recursively in O(N²T)
-- Viterbi: same structure but max instead of sum; backtrace to get the most likely state sequence
-- Applications in NLP: POS tagging (states = POS tags, observations = words), NER (BIO tagging), speech recognition</p>
+<p><strong>HMMs and Viterbi</strong> have been reported as actual eBay interview questions (from candidates). Be ready to walk through:</p>
+<ul>
+<li>HMM: states S, observations O, transition matrix A, emission matrix B, initial distribution π</li>
+<li>Forward algorithm: α_t(i) = P(o_1...o_t, s_t=i) — computed recursively in O(N²T)</li>
+<li>Viterbi: same structure but max instead of sum; backtrace to get the most likely state sequence</li>
+<li>Applications in NLP: POS tagging (states = POS tags, observations = words), NER (BIO tagging), speech recognition</li>
+</ul>
 <p><strong>Coreference.</strong> He may ask how modern LLMs handle coreference vs. traditional systems. The honest answer: LLMs have dramatically improved entity tracking via in-context learning, but still fail systematically on bridging anaphora (indirect reference), long-distance reference, and cross-document coreference. His BART toolkit used SVM + tree kernels + semantic similarity features. Modern neural approaches use span-based models (e.g., Lee et al. 2018, SpanBERT for coref) or prompt-based LLMs. You can bridge this to your work by noting that multi-turn dialogue and multi-image product understanding require similar entity tracking — which is a real challenge in the VLM attribute extraction task he worked on.</p>
 <p><strong>MT metrics.</strong> He will ask about chrF vs. BLEU. The eBay RAG-for-MT paper uses chrF because product titles are short (avg ~11 words) — with such short sequences, 4-gram BLEU has sparse statistics and high variance. chrF computes character n-gram F-score — more robust for short texts, morphologically rich languages (DE, PL), and out-of-vocabulary product terms. Know this.</p>
 <hr />
@@ -420,8 +430,10 @@
 <li>"We chose X because it seemed to work better." (Weak — no mechanism.)</li>
 <li>"The paper shows that X outperforms Y." (Passive — he can read the paper.)</li>
 </ul>
-<p>Instead:
-- "We chose X because of mechanism Z. The ablation [describe it] confirmed that was the right call. In hindsight, the one thing I would change is [specific limitation]."</p>
+<p>Instead:</p>
+<ul>
+<li>"We chose X because of mechanism Z. The ablation [describe it] confirmed that was the right call. In hindsight, the one thing I would change is [specific limitation]."</li>
+</ul>
 <hr />
 <h3 id="language-and-tone">Language and tone</h3>
 <p>He has a computational linguistics background — he values precise language. Avoid AI hype vocabulary: "revolutionary," "game-changing," "we leveraged synergies," "robust performance at scale" (as a vague claim). Prefer: "17.5% improvement," "3.2× speedup," "some degradation on general NLU, more pronounced on the 8B."</p>

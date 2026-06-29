@@ -86,12 +86,14 @@
 <h2 id="section-1-stage-1-yannick-versley-60-min-ml-llm-research">SECTION 1: Stage 1 — Yannick Versley (60-min ML &amp; LLM Research)</h2>
 <h3 id="setting-the-scene">Setting the Scene</h3>
 <p><strong>Format:</strong> Video call, ~60 minutes. Versley is Senior Tech Lead Manager at eBay CoreAI Amsterdam, leading LLM pretraining. He has a PhD in computational linguistics from Tübingen, ran pretraining at Amazon (Alexa AI, then the Amazon Nova AGI org on 480 H100 GPUs), and leads the team behind the e-Llama domain adaptation work (arXiv:2501.09706, eBay), the vocabulary customization paper (Sept 2025 (arXiv preprint)), and is a co-author of the VLM adaptation paper (arXiv:2602.11733, 2026). He values rigor and will probe your design choices hard. He does not reward buzzwords.</p>
-<p><strong>Rough time budget:</strong>
-- Warm-up / context setting: ~5 min
-- Breadth sweep (pretraining, tokenization, domain adaptation, efficiency): ~15 min
-- Deep dive on Tony's papers: ~20 min
-- VLM + eBay-specific discussion: ~10 min
-- Tony's questions for Versley: ~10 min</p>
+<p><strong>Rough time budget:</strong></p>
+<ul>
+<li>Warm-up / context setting: ~5 min</li>
+<li>Breadth sweep (pretraining, tokenization, domain adaptation, efficiency): ~15 min</li>
+<li>Deep dive on Tony's papers: ~20 min</li>
+<li>VLM + eBay-specific discussion: ~10 min</li>
+<li>Tony's questions for Versley: ~10 min</li>
+</ul>
 <hr />
 <h3 id="exchange-1-opening-warm-up">EXCHANGE 1 — Opening / Warm-Up</h3>
 <p><strong>VERSLEY:</strong> Thanks for joining, Tony. I'm Yannick — I lead the LLM pretraining team here in Amsterdam. We build the foundation models that power eBay's product. Before we get into the technical weeds, give me a two-minute picture of where you are in your research and what you'd say is the through-line of your work.</p>
@@ -409,19 +411,23 @@
 <p><strong>COACHING NOTE FOR THE CLOSE:</strong> After Versley answers your questions, end with: "I've been following the LiLiuM and e-Llama work closely, and the combination of in-house pretraining plus domain adaptation plus VLM adaptation is exactly the research stack I want to be part of. I'm already in Amsterdam, so the hybrid setup is easy, and I'd love to continue this conversation with the team." Short, confident, not groveling.</p>
 <hr />
 <h3 id="stage-1-overall-coaching-notes">STAGE 1 OVERALL COACHING NOTES</h3>
-<p><strong>What made the model answers strong:</strong>
-1. Every technical answer contained specific numbers — not "the paper showed speedup" but "34% speedup," "50/50 data ratio," "LR = 3.0e-5 = 10% of original." The eBay team's published papers are all over your answers because you've read them — Versley leads this org and co-authored the VLM paper directly. You're engaging as an informed reader, not a collaborator.
-2. You acknowledged limitations before he found them. On Diffusion Weights optimizer state interaction, on cold-start in routing, on context generalizability of pruning results. Researchers respect intellectual honesty far more than polished defensiveness.
-3. You connected your work to his work as intellectual peer dialogue, not as marketing. The question about where the e-Llama gain is concentrated is a real scientific question, not flattery.
-4. Classical NLP (HMMs, Viterbi, CRFs, Baum-Welch) got a rigorous answer with the actual DP recurrence and EM framing, not a hand-wave. He has taught this topic; he will know if your answer is correct.
-5. On pushbacks, you conceded cleanly and specifically — stating what you got wrong, the correct framing, and the implication. This is more persuasive than defending a weak position.</p>
-<p><strong>Pitfalls to avoid:</strong>
-- Do not use the word "leverage" as a verb. Do not say "synergies." These are instant credibility destroyers with a computational linguist who uses language precisely.
-- Do not claim your routing work is "analogous to MoE" without immediately explaining why it's different — he will probe this and if you conflate them it signals you don't understand either.
-- Do not start any answer with "Great question." It's sycophantic and he's heard it 10,000 times.
-- Do not be vague about the e-Llama paper's numbers — his team produced it and he knows it cold. If you say "the model improved substantially" when you can say "59.9 vs 50.6 on e-commerce benchmarks at the two LR settings," you signal you read the abstract only.
-- If he asks something you genuinely don't know — "What are the exact training hyperparameters for LiLiuM 1B?" — say "I don't have that specific number in front of me, but here's how I'd think about the tradeoff." Don't bluff a specific number.
-- Do not claim chrF default β=2 — it's β=1 in sacreBLEU. ChrF2 is the named WMT variant.</p>
+<p><strong>What made the model answers strong:</strong></p>
+<ol>
+<li>Every technical answer contained specific numbers — not "the paper showed speedup" but "34% speedup," "50/50 data ratio," "LR = 3.0e-5 = 10% of original." The eBay team's published papers are all over your answers because you've read them — Versley leads this org and co-authored the VLM paper directly. You're engaging as an informed reader, not a collaborator.</li>
+<li>You acknowledged limitations before he found them. On Diffusion Weights optimizer state interaction, on cold-start in routing, on context generalizability of pruning results. Researchers respect intellectual honesty far more than polished defensiveness.</li>
+<li>You connected your work to his work as intellectual peer dialogue, not as marketing. The question about where the e-Llama gain is concentrated is a real scientific question, not flattery.</li>
+<li>Classical NLP (HMMs, Viterbi, CRFs, Baum-Welch) got a rigorous answer with the actual DP recurrence and EM framing, not a hand-wave. He has taught this topic; he will know if your answer is correct.</li>
+<li>On pushbacks, you conceded cleanly and specifically — stating what you got wrong, the correct framing, and the implication. This is more persuasive than defending a weak position.</li>
+</ol>
+<p><strong>Pitfalls to avoid:</strong></p>
+<ul>
+<li>Do not use the word "leverage" as a verb. Do not say "synergies." These are instant credibility destroyers with a computational linguist who uses language precisely.</li>
+<li>Do not claim your routing work is "analogous to MoE" without immediately explaining why it's different — he will probe this and if you conflate them it signals you don't understand either.</li>
+<li>Do not start any answer with "Great question." It's sycophantic and he's heard it 10,000 times.</li>
+<li>Do not be vague about the e-Llama paper's numbers — his team produced it and he knows it cold. If you say "the model improved substantially" when you can say "59.9 vs 50.6 on e-commerce benchmarks at the two LR settings," you signal you read the abstract only.</li>
+<li>If he asks something you genuinely don't know — "What are the exact training hyperparameters for LiLiuM 1B?" — say "I don't have that specific number in front of me, but here's how I'd think about the tradeoff." Don't bluff a specific number.</li>
+<li>Do not claim chrF default β=2 — it's β=1 in sacreBLEU. ChrF2 is the named WMT variant.</li>
+</ul>
 <hr />
 <p><a name="stage-2a"></a></p>
 <h2 id="section-2-stage-2a-coding-think-aloud-examples">SECTION 2: Stage 2a — Coding Think-Aloud Examples</h2>
@@ -480,10 +486,12 @@ def kmeans(X: np.ndarray, k: int, max_iter: int = 100, tol: float = 1e-4, seed: 
 
     return labels, centroids
 </code></pre>
-<p><strong>BEFORE SUBMITTING — say out loud:</strong>
-- "Edge cases: k &gt; N? I should check. D=1 works with broadcasting. Empty clusters handled."
-- "Time complexity: O(max_iter × N × k × D) for the vectorized version."
-- "Space: O(N × k × D) for the diff tensor, which could be large if N and k are both large. Alternative: compute distances in batches."</p>
+<p><strong>BEFORE SUBMITTING — say out loud:</strong></p>
+<ul>
+<li>"Edge cases: k &gt; N? I should check. D=1 works with broadcasting. Empty clusters handled."</li>
+<li>"Time complexity: O(max_iter × N × k × D) for the vectorized version."</li>
+<li>"Space: O(N × k × D) for the diff tensor, which could be large if N and k are both large. Alternative: compute distances in batches."</li>
+</ul>
 <hr />
 <h3 id="coding-example-2-bpe-tokenizer-merge-step">CODING EXAMPLE 2: BPE Tokenizer Merge Step</h3>
 <p><strong>PROBLEM:</strong> Given a vocabulary (mapping from string token pair to frequency), perform one BPE merge step. Return the new vocabulary after merging the most frequent pair.</p>
@@ -589,17 +597,21 @@ ORDER BY lc.user_id;
 <p><strong>THINK-ALOUD:</strong> "CTE first for clarity. ROW_NUMBER vs RANK: I want exactly one row per user, so ROW_NUMBER is right — RANK would give ties. Join back to the counts CTE — this ensures we count distinct items in the most recent category specifically."</p>
 <hr />
 <h3 id="section-2-coaching-notes">SECTION 2 COACHING NOTES</h3>
-<p><strong>For CodeSignal:</strong>
-- Verbalize your approach before writing — the assessor is scoring your thinking, not just the solution
-- Start with brute force if you're unsure; state complexity explicitly; then optimize
-- Handle edge cases aloud: empty input, k &gt; N, ties in ranking
-- Never assume — state your assumptions explicitly
-- Practice these patterns raw (no autocomplete): <code>defaultdict</code>, <code>Counter</code>, <code>heapq.nlargest</code>, <code>np.argsort</code>, <code>pd.groupby</code></p>
-<p><strong>Likely gotchas at eBay:</strong>
-- String manipulation: reverse words in a sentence, group anagrams
-- DFS/BFS on product category trees (hierarchical data = common eBay use case)
-- Two-pointer or sliding window on session data
-- SQL window functions are almost certain given eBay's analytics context</p>
+<p><strong>For CodeSignal:</strong></p>
+<ul>
+<li>Verbalize your approach before writing — the assessor is scoring your thinking, not just the solution</li>
+<li>Start with brute force if you're unsure; state complexity explicitly; then optimize</li>
+<li>Handle edge cases aloud: empty input, k &gt; N, ties in ranking</li>
+<li>Never assume — state your assumptions explicitly</li>
+<li>Practice these patterns raw (no autocomplete): <code>defaultdict</code>, <code>Counter</code>, <code>heapq.nlargest</code>, <code>np.argsort</code>, <code>pd.groupby</code></li>
+</ul>
+<p><strong>Likely gotchas at eBay:</strong></p>
+<ul>
+<li>String manipulation: reverse words in a sentence, group anagrams</li>
+<li>DFS/BFS on product category trees (hierarchical data = common eBay use case)</li>
+<li>Two-pointer or sliding window on session data</li>
+<li>SQL window functions are almost certain given eBay's analytics context</li>
+</ul>
 <hr />
 <p><a name="stage-2b"></a></p>
 <h2 id="section-3-stage-2b-ml-system-design-full-worked-dialogue">SECTION 3: Stage 2b — ML System Design (Full Worked Dialogue)</h2>
@@ -617,19 +629,25 @@ ORDER BY lc.user_id;
 <p>Assume the answers are: (a) semi-synchronous, 5–10 second SLA displayed with a progress indicator; (b) ~5M listings/day peak; (c) images primary, optional seller text; (d) fully automated with seller review/edit before publishing.</p>
 <hr />
 <p><strong>TONY — STEP 2: DEFINE SUCCESS METRICS</strong></p>
-<p><strong>Offline metrics:</strong>
-- Attribute extraction accuracy: Aspect Prediction accuracy against annotated test set
-- Title quality: ROUGE-L and human preference rating vs. reference titles
-- Category accuracy: top-1 accuracy against human-annotated category
-- Price suggestion MAPE (mean absolute percentage error) against sold item prices</p>
-<p><strong>Online metrics:</strong>
-- Listing completion rate: what fraction of sellers who start Magical Listing publish the generated listing without major edits?
-- Seller edit distance: how many tokens do sellers change in the generated listing? (Proxy for generation quality)
-- Sell-through rate: do AI-generated listings sell at the same rate as manually written ones?
-- Time-to-list: reduction in average listing creation time vs. manual (eBay reports &gt;25% reduction)</p>
-<p><strong>Business metrics:</strong>
-- GMV per lister (eBay reports double-digit increase)
-- New listing creation rate (eBay reports &gt;50% increase in new listing creation)</p>
+<p><strong>Offline metrics:</strong></p>
+<ul>
+<li>Attribute extraction accuracy: Aspect Prediction accuracy against annotated test set</li>
+<li>Title quality: ROUGE-L and human preference rating vs. reference titles</li>
+<li>Category accuracy: top-1 accuracy against human-annotated category</li>
+<li>Price suggestion MAPE (mean absolute percentage error) against sold item prices</li>
+</ul>
+<p><strong>Online metrics:</strong></p>
+<ul>
+<li>Listing completion rate: what fraction of sellers who start Magical Listing publish the generated listing without major edits?</li>
+<li>Seller edit distance: how many tokens do sellers change in the generated listing? (Proxy for generation quality)</li>
+<li>Sell-through rate: do AI-generated listings sell at the same rate as manually written ones?</li>
+<li>Time-to-list: reduction in average listing creation time vs. manual (eBay reports &gt;25% reduction)</li>
+</ul>
+<p><strong>Business metrics:</strong></p>
+<ul>
+<li>GMV per lister (eBay reports double-digit increase)</li>
+<li>New listing creation rate (eBay reports &gt;50% increase in new listing creation)</li>
+</ul>
 <hr />
 <p><strong>TONY — STEP 3: SYSTEM ARCHITECTURE</strong></p>
 <p>The system has five stages:</p>
@@ -645,30 +663,38 @@ Feed extracted attributes + product knowledge graph entry + optional seller text
 Pricing is a separate ML model: retrieval of comparable recently sold items (by product type + condition + attributes), gradient boosting or neural regression on sold prices, with features including category, condition, brand, key attributes, time-to-sale of comps. Output: suggested price range.</p>
 <hr />
 <p><strong>TONY — STEP 4: DATA PIPELINE</strong></p>
-<p>Training data for VLM attribute extractor:
-- Existing high-quality eBay listings with images and verified attribute values (from seller-confirmed structured data)
-- Augment with synthetically generated instruction-tuning examples using InternVL-2.5-26B as a caption generator and Mistral-Small for verification — the eBay VLM paper (arXiv:2602.11733) describes this pipeline: ~15M raw listings → ~4M instruction examples
-- Data distribution following the VLM paper (arXiv:2602.11733): 45% VQA, 30% Dynamic Attribute Extraction, 12.5% Precise Instruction Following, 12.5% Listings</p>
-<p>Training data for title generator:
-- High-performing listings (measured by sell-through rate within 30 days) paired with their attributes
-- Negative examples: rejected/removed listings or listings with low sell-through</p>
+<p>Training data for VLM attribute extractor:</p>
+<ul>
+<li>Existing high-quality eBay listings with images and verified attribute values (from seller-confirmed structured data)</li>
+<li>Augment with synthetically generated instruction-tuning examples using InternVL-2.5-26B as a caption generator and Mistral-Small for verification — the eBay VLM paper (arXiv:2602.11733) describes this pipeline: ~15M raw listings → ~4M instruction examples</li>
+<li>Data distribution following the VLM paper (arXiv:2602.11733): 45% VQA, 30% Dynamic Attribute Extraction, 12.5% Precise Instruction Following, 12.5% Listings</li>
+</ul>
+<p>Training data for title generator:</p>
+<ul>
+<li>High-performing listings (measured by sell-through rate within 30 days) paired with their attributes</li>
+<li>Negative examples: rejected/removed listings or listings with low sell-through</li>
+</ul>
 <hr />
 <p><strong>TONY — STEP 5: INFERENCE ARCHITECTURE</strong></p>
-<p>Latency breakdown for a 5-second SLA:
-- Image upload and preprocessing: 0.5s
-- Vision encoder (SigLIP2, batch 8 images): ~0.5s on A100
-- Knowledge graph lookup: ~0.1s (fast embedding retrieval)
-- VLM attribute extraction (e-Llama 8B, ~200 output tokens): ~1.5s with KV cache and continuous batching
-- Title generation (LiLiuM 7B, ~80 tokens): ~0.7s
-- Price suggestion (ML model): ~0.1s
-- Total: ~3.4s, comfortably within 5s SLA with some headroom</p>
+<p>Latency breakdown for a 5-second SLA:</p>
+<ul>
+<li>Image upload and preprocessing: 0.5s</li>
+<li>Vision encoder (SigLIP2, batch 8 images): ~0.5s on A100</li>
+<li>Knowledge graph lookup: ~0.1s (fast embedding retrieval)</li>
+<li>VLM attribute extraction (e-Llama 8B, ~200 output tokens): ~1.5s with KV cache and continuous batching</li>
+<li>Title generation (LiLiuM 7B, ~80 tokens): ~0.7s</li>
+<li>Price suggestion (ML model): ~0.1s</li>
+<li>Total: ~3.4s, comfortably within 5s SLA with some headroom</li>
+</ul>
 <p>For peak load of 5M listings/day ≈ 58 listings/second average, with ~3x peak factor → ~175 listings/second at peak. At ~2 seconds of GPU compute per listing (consolidated), this needs roughly 350 GPU-seconds/second of throughput. Serving on H100 80GB (each handles ~5 concurrent requests at this model size): ~70 H100s for peak, scale with autoscaling.</p>
-<p>Key inference optimizations:
-- Continuous batching across concurrent requests (vLLM-style)
-- KV prefix caching for the system prompt (shared across all listing requests)
-- Speculative decoding for title generation (short output, good candidate for speculative)
-- Quantization (AWQ 4-bit) for the VLM to halve memory footprint
-- Disaggregated prefill/decode: vision encoding and attribute extraction on one GPU pool, title generation on another</p>
+<p>Key inference optimizations:</p>
+<ul>
+<li>Continuous batching across concurrent requests (vLLM-style)</li>
+<li>KV prefix caching for the system prompt (shared across all listing requests)</li>
+<li>Speculative decoding for title generation (short output, good candidate for speculative)</li>
+<li>Quantization (AWQ 4-bit) for the VLM to halve memory footprint</li>
+<li>Disaggregated prefill/decode: vision encoding and attribute extraction on one GPU pool, title generation on another</li>
+</ul>
 <hr />
 <p><strong>TONY — STEP 6: QUALITY CONTROL</strong></p>
 <p>Not every generated listing should be published without review. I'd add a quality classifier that scores the generated listing on: attribute completeness (did we fill &gt;80% of expected attributes?), title coherence (does the title match the extracted attributes?), anomaly flags (price suggestion 3x above/below median for category, attributes inconsistent with images).</p>
@@ -689,16 +715,20 @@ Pricing is a separate ML model: retrieval of comparable recently sold items (by 
 <p>Over time, novel items that are listed, edited by sellers, and successfully sold become new ground truth data for expanding the knowledge graph and the VLM's training set. The system is self-expanding.</p>
 <hr />
 <h3 id="section-2b-coaching-notes">SECTION 2b COACHING NOTES</h3>
-<p><strong>What made this answer strong:</strong>
-- Defined success metrics before touching architecture — this is a strong engineering signal
-- Cited real eBay numbers (500M listings, &gt;25% listing time reduction, &gt;50% new listing rate) to show product awareness
-- Matched the architecture to eBay's published approach (SigLIP2 + e-Llama from the VLM paper arXiv:2602.11733) rather than inventing something new — shows you read the actual work
-- Did a latency math exercise with specific numbers (inference steps, H100 count)
-- Added quality control and monitoring without being asked</p>
-<p><strong>Pitfalls:</strong>
-- Do not start with "I'd use GPT-4" — eBay has in-house LLMs and the question is about your architecture judgment
-- Do not skip the metrics definition — interviewers flag this as a sign of research-only thinking
-- Do not ignore the knowledge graph — it's a specific, known eBay system that gives you grounding</p>
+<p><strong>What made this answer strong:</strong></p>
+<ul>
+<li>Defined success metrics before touching architecture — this is a strong engineering signal</li>
+<li>Cited real eBay numbers (500M listings, &gt;25% listing time reduction, &gt;50% new listing rate) to show product awareness</li>
+<li>Matched the architecture to eBay's published approach (SigLIP2 + e-Llama from the VLM paper arXiv:2602.11733) rather than inventing something new — shows you read the actual work</li>
+<li>Did a latency math exercise with specific numbers (inference steps, H100 count)</li>
+<li>Added quality control and monitoring without being asked</li>
+</ul>
+<p><strong>Pitfalls:</strong></p>
+<ul>
+<li>Do not start with "I'd use GPT-4" — eBay has in-house LLMs and the question is about your architecture judgment</li>
+<li>Do not skip the metrics definition — interviewers flag this as a sign of research-only thinking</li>
+<li>Do not ignore the knowledge graph — it's a specific, known eBay system that gives you grounding</li>
+</ul>
 <hr />
 <p><a name="stage-2c"></a></p>
 <h2 id="section-4-stage-2c-project-management-retrospective-behavioral-dialogue">SECTION 4: Stage 2c — Project Management / Retrospective Behavioral Dialogue</h2>
@@ -747,15 +777,19 @@ Pricing is a separate ML model: retrieval of comparable recently sold items (by 
 <p><strong>Result:</strong> They agreed to the two-step approach. The system shipped with the natural-language-then-parse architecture. Solution quality improved by ~18% on the benchmark objective. The framing of "interface contract" turned a technical disagreement into a collaboration on who owns what part of the system.</p>
 <hr />
 <h3 id="section-4-coaching-notes">SECTION 4 COACHING NOTES</h3>
-<p><strong>STAR structure discipline:</strong>
-- Situation and Task together should take 30–45 seconds max. The action and result are where you spend the most time.
-- Every result should have a number. "Approved" is not a result. "Approved, reducing annotation budget by 40K euros" is a result.
-- The "what I'd do differently" is not required in every story, but including it occasionally signals self-awareness and shows you learn from experience. Don't use it if you don't have a genuine reflection.</p>
-<p><strong>eBay-specific behavioral mapping:</strong>
-- Customer Focus → MeetaVista VLM project (built for real user need, shipped with product impact)
-- Innovate Boldly → pruning over 80% of nnU-Net weights at proxy Dice &gt;0.95 (risky technical bet that paid off)
-- Deliver With Impact → LLM Router work (shipping research to NeurIPS with production-ready benchmarks)
-- Act With Integrity → MERA evaluation framework (could have cherry-picked; instead built temporal holdout)</p>
+<p><strong>STAR structure discipline:</strong></p>
+<ul>
+<li>Situation and Task together should take 30–45 seconds max. The action and result are where you spend the most time.</li>
+<li>Every result should have a number. "Approved" is not a result. "Approved, reducing annotation budget by 40K euros" is a result.</li>
+<li>The "what I'd do differently" is not required in every story, but including it occasionally signals self-awareness and shows you learn from experience. Don't use it if you don't have a genuine reflection.</li>
+</ul>
+<p><strong>eBay-specific behavioral mapping:</strong></p>
+<ul>
+<li>Customer Focus → MeetaVista VLM project (built for real user need, shipped with product impact)</li>
+<li>Innovate Boldly → pruning over 80% of nnU-Net weights at proxy Dice &gt;0.95 (risky technical bet that paid off)</li>
+<li>Deliver With Impact → LLM Router work (shipping research to NeurIPS with production-ready benchmarks)</li>
+<li>Act With Integrity → MERA evaluation framework (could have cherry-picked; instead built temporal holdout)</li>
+</ul>
 <hr />
 <p><a name="stage-2b"></a></p>
 <h2 id="section-5-stage-3-team-fit-dialogue">SECTION 5: Stage 3 — Team Fit Dialogue</h2>
@@ -786,14 +820,18 @@ Pricing is a separate ML model: retrieval of comparable recently sold items (by 
 <p>Third, agentic reliability. We're at the point where agents can do impressive things in controlled settings, but production reliability — knowing when to ask for clarification, avoiding tool hallucination, recovering gracefully from errors — is still the bottleneck. The GRPO/RLVR results suggest that verifiable rewards are a powerful training signal for reasoning reliability. I'd expect to see similar progress applied to agentic task success as a training signal.</p>
 <hr />
 <h3 id="section-5-coaching-notes">SECTION 5 COACHING NOTES</h3>
-<p><strong>What made these answers strong:</strong>
-- Disagreement with partial agreement: "complementary rather than competitive, but requires clear-eyed view" — shows intellectual independence rather than deference
-- Self-awareness about gaps: "That's a knowledge gap I'd actively work to close" (pretraining dynamics) — recruiters value people who know what they don't know
-- Future directions grounded in mechanisms: each prediction connects to a specific technical finding (GRPO, InternVL3, RLVR) rather than vague trend</p>
-<p><strong>Team fit traps to avoid:</strong>
-- Do not say "I'm flexible, I can work either way" when asked about working style — it signals you have no self-knowledge
-- Do not claim equal enthusiasm for everything — it sounds sycophantic
-- Do not be dismissive of open-source models — Versley's team uses Llama, Qwen, and Gemma base models; you work in the same ecosystem</p>
+<p><strong>What made these answers strong:</strong></p>
+<ul>
+<li>Disagreement with partial agreement: "complementary rather than competitive, but requires clear-eyed view" — shows intellectual independence rather than deference</li>
+<li>Self-awareness about gaps: "That's a knowledge gap I'd actively work to close" (pretraining dynamics) — recruiters value people who know what they don't know</li>
+<li>Future directions grounded in mechanisms: each prediction connects to a specific technical finding (GRPO, InternVL3, RLVR) rather than vague trend</li>
+</ul>
+<p><strong>Team fit traps to avoid:</strong></p>
+<ul>
+<li>Do not say "I'm flexible, I can work either way" when asked about working style — it signals you have no self-knowledge</li>
+<li>Do not claim equal enthusiasm for everything — it sounds sycophantic</li>
+<li>Do not be dismissive of open-source models — Versley's team uses Llama, Qwen, and Gemma base models; you work in the same ecosystem</li>
+</ul>
 <hr />
 <p><a name="cheat-sheet"></a></p>
 <h2 id="section-6-quick-reference-cheat-sheet">SECTION 6: Quick-Reference Cheat Sheet</h2>

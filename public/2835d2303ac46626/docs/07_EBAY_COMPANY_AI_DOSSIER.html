@@ -71,15 +71,17 @@
 <h2 id="1-ebay-business-model-and-scale">1. eBay Business Model and Scale</h2>
 <h3 id="what-ebay-is-and-is-not">What eBay Is (and Is Not)</h3>
 <p>eBay is a <strong>pure marketplace</strong>: it owns no inventory and runs no warehouses. Revenue comes from transaction fees (final value fees, ~10–14% of GMV depending on category), promoted listings / advertising, and ancillary services (eBay Money / payment processing in some markets, shipping integrations). This asset-light model means eBay's unit economics are dominated by software, AI, and trust infrastructure — not logistics. Every percentage point of AI-driven improvement in listing quality, search relevance, or conversion flows directly to the bottom line.</p>
-<p><strong>Scale as of 2025–2026:</strong>
-- ~<strong>132 million active buyers</strong> globally
-- ~<strong>17 million active sellers</strong>
-- Present in <strong>190+ markets</strong>
-- Full-year 2025 GMV: <strong>~$80 billion</strong> (up from ~$73B in 2024)
-- Full-year 2025 Revenue: <strong>~$11.1 billion</strong>
-- Q1 2026 GMV: <strong>$22.2 billion</strong> (+14% YoY) — strongest quarterly growth in years
-- Q1 2026 Revenue: <strong>$3.09 billion</strong> (+19.5% YoY) — first time exceeding $3B since Q1 2021
-- Advertising revenue FY2025: <strong>~$2 billion</strong> (1P ads grew 17%+)</p>
+<p><strong>Scale as of 2025–2026:</strong></p>
+<ul>
+<li>~<strong>132 million active buyers</strong> globally</li>
+<li>~<strong>17 million active sellers</strong></li>
+<li>Present in <strong>190+ markets</strong></li>
+<li>Full-year 2025 GMV: <strong>~$80 billion</strong> (up from ~$73B in 2024)</li>
+<li>Full-year 2025 Revenue: <strong>~$11.1 billion</strong></li>
+<li>Q1 2026 GMV: <strong>$22.2 billion</strong> (+14% YoY) — strongest quarterly growth in years</li>
+<li>Q1 2026 Revenue: <strong>$3.09 billion</strong> (+19.5% YoY) — first time exceeding $3B since Q1 2021</li>
+<li>Advertising revenue FY2025: <strong>~$2 billion</strong> (1P ads grew 17%+)</li>
+</ul>
 <h3 id="revenue-streams">Revenue Streams</h3>
 <table>
 <thead>
@@ -124,10 +126,12 @@
 </ol>
 <p>Focus category GMV grew <strong>16%+ in Q4 2025</strong>; five focus categories each exceeded $10B in annual GMV in 2025.</p>
 <h3 id="recommerce-and-sustainability-positioning">Recommerce and Sustainability Positioning</h3>
-<p>eBay's differentiator against Amazon is recommerce: the pre-owned and refurbished economy. Over <strong>40% of GMV in 2025 came from pre-owned/refurbished goods</strong> (depending on exact classification). eBay is leaning into this as both a growth driver and a sustainability/ESG narrative:
-- Net-zero carbon emissions target for <strong>2045</strong>, validated by Science Based Targets initiative (SBTi)
-- Every sale of a pre-owned item extends product lifespan, reducing new manufacturing demand
-- AI enables the recommerce economy to scale: automated condition assessment, value estimation, smart listing generation from seller-uploaded photos</p>
+<p>eBay's differentiator against Amazon is recommerce: the pre-owned and refurbished economy. Over <strong>40% of GMV in 2025 came from pre-owned/refurbished goods</strong> (depending on exact classification). eBay is leaning into this as both a growth driver and a sustainability/ESG narrative:</p>
+<ul>
+<li>Net-zero carbon emissions target for <strong>2045</strong>, validated by Science Based Targets initiative (SBTi)</li>
+<li>Every sale of a pre-owned item extends product lifespan, reducing new manufacturing demand</li>
+<li>AI enables the recommerce economy to scale: automated condition assessment, value estimation, smart listing generation from seller-uploaded photos</li>
+</ul>
 <h3 id="buyer-seller-dynamics">Buyer / Seller Dynamics</h3>
 <ul>
 <li><strong>Sellers</strong>: range from casual C2C (single items) to large Power Sellers and business accounts (B2C). The listing funnel is a major investment area — reducing friction = more inventory = more GMV</li>
@@ -139,52 +143,66 @@
 <h3 id="21-lilium-ebays-in-house-llm-family">2.1 LiLiuM — eBay's In-House LLM Family</h3>
 <p><strong>Paper:</strong> arXiv 2406.12023 (Jun 2024, ACL Workshop)</p>
 <p>LiLiuM (eBay's own name) is the clearest statement of eBay's AI philosophy: <strong>build the foundation from scratch when the upside in efficiency, customization, and data governance justifies the cost</strong>.</p>
-<p><strong>Architecture:</strong>
-- Decoder-only transformer
-- Three sizes: <strong>1B, 7B, 13B parameters</strong>
-- Context: <strong>4,096 tokens</strong>
-- Positional encoding: <strong>RoPE (Rotary Position Embeddings)</strong>
-- Activation: <strong>SwiGLU</strong> (gated linear unit — standard post-PaLM efficiency choice)
-- 1B required additional experimental tuning vs. 7B/13B</p>
-<p><strong>Training:</strong>
-- <strong>3 trillion tokens</strong>, multilingual
-- Sources: RedPajama-V2 (general web), eBay marketplace listings (proprietary e-commerce), parallel MT data, code, encyclopedic sources
-- Language emphasis: DE, ES, IT, FR (for cross-border MT capability)
-- Filtering: heuristic deduplication + fuzzy matching
-- Checkpoint averaging applied at end of training (stabilizes final model — cheap but effective)</p>
-<p><strong>Custom Tokenizer:</strong>
-- <strong>Vocabulary: 65k tokens</strong> (versus LLaMA-2's 32k)
-- Three goals: (1) full control over special tokens; (2) better multilingual representation; (3) e-commerce term specialization
-- Key insight: common e-commerce terms (brand names, product categories, model numbers, part numbers) that are split into multiple BPE sub-words in a general tokenizer become <strong>single tokens</strong> in LiLiuM's vocabulary → fewer autoregressive steps → <strong>up to 34% generation speedup</strong> vs LLaMA-2 on eBay-specific tasks
-- This is not a marginal optimization — 34% faster generation at eBay's serving scale translates to significant infrastructure cost reduction</p>
-<p><strong>Performance:</strong>
-- English NLU: <strong>comparable to LLaMA-2</strong>
-- Non-English NLU, machine translation, e-commerce tasks: <strong>LiLiuM beats LLaMA-2</strong>
-- E-commerce benchmarks: Aspect Prediction, Item Selection tasks</p>
-<p><strong>Strategic rationale for building 100% in-house:</strong>
-- No licensing constraints (LLaMA has usage restrictions for &gt;700M MAU products)
-- Full data governance: eBay marketplace data contains buyer/seller PII, pricing data, transaction history — can't train on it via external providers
-- Custom vocabulary → inference efficiency at scale
-- Foundation for downstream fine-tuning and VLM extension (e-Llama, eBay VLM)</p>
+<p><strong>Architecture:</strong></p>
+<ul>
+<li>Decoder-only transformer</li>
+<li>Three sizes: <strong>1B, 7B, 13B parameters</strong></li>
+<li>Context: <strong>4,096 tokens</strong></li>
+<li>Positional encoding: <strong>RoPE (Rotary Position Embeddings)</strong></li>
+<li>Activation: <strong>SwiGLU</strong> (gated linear unit — standard post-PaLM efficiency choice)</li>
+<li>1B required additional experimental tuning vs. 7B/13B</li>
+</ul>
+<p><strong>Training:</strong></p>
+<ul>
+<li><strong>3 trillion tokens</strong>, multilingual</li>
+<li>Sources: RedPajama-V2 (general web), eBay marketplace listings (proprietary e-commerce), parallel MT data, code, encyclopedic sources</li>
+<li>Language emphasis: DE, ES, IT, FR (for cross-border MT capability)</li>
+<li>Filtering: heuristic deduplication + fuzzy matching</li>
+<li>Checkpoint averaging applied at end of training (stabilizes final model — cheap but effective)</li>
+</ul>
+<p><strong>Custom Tokenizer:</strong></p>
+<ul>
+<li><strong>Vocabulary: 65k tokens</strong> (versus LLaMA-2's 32k)</li>
+<li>Three goals: (1) full control over special tokens; (2) better multilingual representation; (3) e-commerce term specialization</li>
+<li>Key insight: common e-commerce terms (brand names, product categories, model numbers, part numbers) that are split into multiple BPE sub-words in a general tokenizer become <strong>single tokens</strong> in LiLiuM's vocabulary → fewer autoregressive steps → <strong>up to 34% generation speedup</strong> vs LLaMA-2 on eBay-specific tasks</li>
+<li>This is not a marginal optimization — 34% faster generation at eBay's serving scale translates to significant infrastructure cost reduction</li>
+</ul>
+<p><strong>Performance:</strong></p>
+<ul>
+<li>English NLU: <strong>comparable to LLaMA-2</strong></li>
+<li>Non-English NLU, machine translation, e-commerce tasks: <strong>LiLiuM beats LLaMA-2</strong></li>
+<li>E-commerce benchmarks: Aspect Prediction, Item Selection tasks</li>
+</ul>
+<p><strong>Strategic rationale for building 100% in-house:</strong></p>
+<ul>
+<li>No licensing constraints (LLaMA has usage restrictions for &gt;700M MAU products)</li>
+<li>Full data governance: eBay marketplace data contains buyer/seller PII, pricing data, transaction history — can't train on it via external providers</li>
+<li>Custom vocabulary → inference efficiency at scale</li>
+<li>Foundation for downstream fine-tuning and VLM extension (e-Llama, eBay VLM)</li>
+</ul>
 <p><em>Talk track:</em> "The 34% speedup from tokenizer design alone is essentially free efficiency — no architectural change, no model compression, just better vocabulary alignment to the domain. My routing work approaches the same problem from the other side: assign cheaper models to simpler queries. The two are composable — a well-tokenized LiLiuM serving as the 'cheap specialist' in a routing system would multiply these gains."</p>
 <hr />
 <h3 id="22-e-llama-domain-adaptation-of-foundation-llms">2.2 e-Llama — Domain Adaptation of Foundation LLMs</h3>
 <p><strong>Paper:</strong> arXiv:2501.09706 (eBay). <strong>Know this paper cold — Versley leads the org behind this work.</strong></p>
 <p>eBay's dual-track strategy: (A) LiLiuM = build from scratch; (B) e-Llama = adapt Meta's existing Llama 3.1.</p>
-<p><strong>Method:</strong>
-- Base: <strong>Llama 3.1 8B and 70B</strong> (Meta)
-- Approach: <strong>continued pretraining</strong> on 1T domain-specific tokens
-- Data mix (ablation-determined): <strong>50% e-commerce / 50% general domain</strong>; 10% of total is non-English
-- Infrastructure: <strong>480 NVIDIA H100 80GB GPUs</strong>, 60 nodes, NVLink intra-node + InfiniBand inter-node
-- Framework: <strong>Megatron-LM</strong> with 3D parallelism (data + tensor + pipeline)
-- Attention: <strong>Flash-Attention-2</strong>
-- Context during continued pretraining: <strong>8,192 tokens</strong> (Llama 3.1 native is 128k, but they reduce this for continued pretraining efficiency)
-- Training scale: 70B on 1T tokens ≈ <strong>340,000 GPU-hours</strong> over ~one month
-- Batch: ~11.8M tokens; 85,000 update steps</p>
-<p><strong>Key design choice — learning rate:</strong>
-- Final LR: <strong>10% of original Llama pretraining LR</strong> (3.0e-5 for 8B; 1.5e-5 for 70B)
-- Too high → catastrophic forgetting; too low → slow domain absorption
-- Ablation:</p>
+<p><strong>Method:</strong></p>
+<ul>
+<li>Base: <strong>Llama 3.1 8B and 70B</strong> (Meta)</li>
+<li>Approach: <strong>continued pretraining</strong> on 1T domain-specific tokens</li>
+<li>Data mix (ablation-determined): <strong>50% e-commerce / 50% general domain</strong>; 10% of total is non-English</li>
+<li>Infrastructure: <strong>480 NVIDIA H100 80GB GPUs</strong>, 60 nodes, NVLink intra-node + InfiniBand inter-node</li>
+<li>Framework: <strong>Megatron-LM</strong> with 3D parallelism (data + tensor + pipeline)</li>
+<li>Attention: <strong>Flash-Attention-2</strong></li>
+<li>Context during continued pretraining: <strong>8,192 tokens</strong> (Llama 3.1 native is 128k, but they reduce this for continued pretraining efficiency)</li>
+<li>Training scale: 70B on 1T tokens ≈ <strong>340,000 GPU-hours</strong> over ~one month</li>
+<li>Batch: ~11.8M tokens; 85,000 update steps</li>
+</ul>
+<p><strong>Key design choice — learning rate:</strong></p>
+<ul>
+<li>Final LR: <strong>10% of original Llama pretraining LR</strong> (3.0e-5 for 8B; 1.5e-5 for 70B)</li>
+<li>Too high → catastrophic forgetting; too low → slow domain absorption</li>
+<li>Ablation:</li>
+</ul>
 <table>
 <thead>
 <tr>
@@ -211,16 +229,22 @@
 </tr>
 </tbody>
 </table>
-<p><strong>Key design choice — data ratio:</strong>
-- 50% e-com is optimal; above 50% gives no further e-com gain but degrades general capability</p>
-<p><strong>Results:</strong>
-- English e-commerce tasks: <strong>~25% average improvement</strong> (e-Llama 70B Aspect Prediction: 59.2 vs 42.8 baseline)
-- Non-English e-commerce: <strong>~30% average improvement</strong> across DE/ES/FR/IT
-- General domain: <strong>some degradation, especially for the smaller 8B</strong>; 70B retains general capability better (catastrophic forgetting largely mitigated by the 50/50 data mix and conservative LR)</p>
-<p><strong>Model merging:</strong>
-- Parameter averaging of base Llama-3.1 + final e-Llama checkpoint gives near-linear trade-off curve
-- Zero additional compute cost; lets you dial domain vs. general balance at deployment time
-- This is a cheap engineering trick with real production value</p>
+<p><strong>Key design choice — data ratio:</strong></p>
+<ul>
+<li>50% e-com is optimal; above 50% gives no further e-com gain but degrades general capability</li>
+</ul>
+<p><strong>Results:</strong></p>
+<ul>
+<li>English e-commerce tasks: <strong>~25% average improvement</strong> (e-Llama 70B Aspect Prediction: 59.2 vs 42.8 baseline)</li>
+<li>Non-English e-commerce: <strong>~30% average improvement</strong> across DE/ES/FR/IT</li>
+<li>General domain: <strong>some degradation, especially for the smaller 8B</strong>; 70B retains general capability better (catastrophic forgetting largely mitigated by the 50/50 data mix and conservative LR)</li>
+</ul>
+<p><strong>Model merging:</strong></p>
+<ul>
+<li>Parameter averaging of base Llama-3.1 + final e-Llama checkpoint gives near-linear trade-off curve</li>
+<li>Zero additional compute cost; lets you dial domain vs. general balance at deployment time</li>
+<li>This is a cheap engineering trick with real production value</li>
+</ul>
 <p><strong>Tony connection:</strong> The model merging technique used in this eBay work is simple parameter averaging. The broader landscape includes SLERP, DARE, TIES-merging, and task arithmetic (Ilharco et al. 2023). If Versley asks about merging, you can note you know the broader landscape but their choice of simple averaging was validated by the ablation showing near-linear trade-off — so more complex methods aren't necessary here.</p>
 <hr />
 <h3 id="23-vocabulary-customization-for-efficient-deployment">2.3 Vocabulary Customization for Efficient Deployment</h3>
@@ -235,19 +259,25 @@
 <h3 id="24-vision-language-models-for-e-commerce">2.4 Vision-Language Models for E-commerce</h3>
 <p><strong>Paper:</strong> arXiv:2602.11733 (2026) — Versley is a co-author; this is his most recent major paper and the best one to engage him on directly.</p>
 <p>This is eBay's full recipe for building production-grade VLMs for e-commerce. Study it carefully because it directly overlaps with your Human Intent World Model work.</p>
-<p><strong>Architecture (modular LLaVA-style):</strong>
-- Vision encoders: <strong>SigLIP2-SO400M-Patch14-384</strong> or <strong>Qwen2.5 ViT</strong> (tested both)
-- Text decoders: Llama3.1-8B, <strong>e-Llama3.1-8B</strong>, <strong>LiLiuM 1B/4B/8B</strong>, Qwen3 4B/8B, Gemma3 4B/12B/27B</p>
-<p><strong>Three-stage training:</strong>
-1. <strong>Vision-Language Alignment</strong> — BLIP-LAION 558k corpus; aligns visual features to text decoder space
-2. <strong>Mid-Stage Training</strong> — filtered datasets
-3. <strong>Visual Instruction Tuning</strong> — 4M internal e-commerce instructions + general data</p>
-<p><strong>Data pipeline scale:</strong>
-- ~15M raw marketplace listings processed
-- InternVL-2.5-26B used for captioning; Mistral-Small-3-24B for visual-textual verification
-- ~4M instruction-tuning examples surviving quality filter
-- 100k items for multi-image "Item Intelligence" fine-tuning (median 5 images/item)
-- Distribution: VQA 45%, Dynamic Attribute Extraction 30%, Precise Instruction Following 12.5%, Product Listings 12.5%</p>
+<p><strong>Architecture (modular LLaVA-style):</strong></p>
+<ul>
+<li>Vision encoders: <strong>SigLIP2-SO400M-Patch14-384</strong> or <strong>Qwen2.5 ViT</strong> (tested both)</li>
+<li>Text decoders: Llama3.1-8B, <strong>e-Llama3.1-8B</strong>, <strong>LiLiuM 1B/4B/8B</strong>, Qwen3 4B/8B, Gemma3 4B/12B/27B</li>
+</ul>
+<p><strong>Three-stage training:</strong></p>
+<ol>
+<li><strong>Vision-Language Alignment</strong> — BLIP-LAION 558k corpus; aligns visual features to text decoder space</li>
+<li><strong>Mid-Stage Training</strong> — filtered datasets</li>
+<li><strong>Visual Instruction Tuning</strong> — 4M internal e-commerce instructions + general data</li>
+</ol>
+<p><strong>Data pipeline scale:</strong></p>
+<ul>
+<li>~15M raw marketplace listings processed</li>
+<li>InternVL-2.5-26B used for captioning; Mistral-Small-3-24B for visual-textual verification</li>
+<li>~4M instruction-tuning examples surviving quality filter</li>
+<li>100k items for multi-image "Item Intelligence" fine-tuning (median 5 images/item)</li>
+<li>Distribution: VQA 45%, Dynamic Attribute Extraction 30%, Precise Instruction Following 12.5%, Product Listings 12.5%</li>
+</ul>
 <p><strong>Key results:</strong></p>
 <table>
 <thead>
@@ -286,11 +316,13 @@
 </tbody>
 </table>
 <p><strong>Efficiency finding:</strong> Fine-tuned <strong>Gemma3-4B achieves 3.8× inference speedup</strong> vs. zero-shot Gemma3-27B <em>while improving F1</em> from 44.8% → 50.5%. This is a concrete data point that fine-tuning smaller domain-adapted models dominates zero-shot prompting large general models — relevant to your efficiency thesis.</p>
-<p><strong>Key technical findings:</strong>
-- Domain-adapted text decoder (e-Llama) gives <strong>5–12% improvement</strong> on e-commerce tasks vs. generic Llama
-- Multi-image generalization: models trained on single-image data generalize to multi-image without explicit training
-- Vision encoder choice (SigLIP2 vs. Qwen2.5ViT) was task-dependent, not conclusively better overall
-- Bounding-box labeling strategy improves Item Intelligence F1 to 58.8</p>
+<p><strong>Key technical findings:</strong></p>
+<ul>
+<li>Domain-adapted text decoder (e-Llama) gives <strong>5–12% improvement</strong> on e-commerce tasks vs. generic Llama</li>
+<li>Multi-image generalization: models trained on single-image data generalize to multi-image without explicit training</li>
+<li>Vision encoder choice (SigLIP2 vs. Qwen2.5ViT) was task-dependent, not conclusively better overall</li>
+<li>Bounding-box labeling strategy improves Item Intelligence F1 to 58.8</li>
+</ul>
 <p><em>Tony connection:</em> Your Human Intent World Model took a similar approach — synthetic data + fine-tuned VLM for domain-specific inference. Your specific angle was <em>customer intent</em> (behavioral/visual cues → purchase intent), while eBay's is <em>attribute extraction</em> (product properties). The synthetic reasoning traces in your work are analogous to eBay's Visual Verification Pipeline. Prepare to draw this parallel clearly.</p>
 <hr />
 <h3 id="25-machine-translation">2.5 Machine Translation</h3>
@@ -299,12 +331,14 @@
 <p><strong>eBay's Translation API:</strong> Developer-facing API offering MT for marketplace listings (item titles, descriptions); helps inventory reach new markets. eBay acquired AppTek's MT talent for this purpose.</p>
 <p><strong>RAG for Product Title Translation (arXiv 2409.12880, ACM Workshop 2024):</strong></p>
 <p>The standard MT problem for eBay is <em>product titles</em> — extremely short (avg 11.3 words), contextually sparse, domain-specific jargon, brand names, model numbers. Standard MT systems fail on these.</p>
-<p><strong>Solution:</strong>
-- Retrieval: <strong>BM25 (Lucene 8.11.3, OKAPI BM25)</strong> over bilingual product catalog
-- Index types: titles (TTL), bullet points (BP), product descriptions (PD), combined (T.B.D.)
-- Scale: <strong>&gt;10 million bilingual pairs</strong> (EN-NL, EN-PL, EN-DE, IT-DE indexed)
-- Model: <strong>Mixtral-8x7B-Instruct</strong> (few-shot prompted with retrieved bilingual examples)
-- Configurations: 1-shot and 5-shot</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>Retrieval: <strong>BM25 (Lucene 8.11.3, OKAPI BM25)</strong> over bilingual product catalog</li>
+<li>Index types: titles (TTL), bullet points (BP), product descriptions (PD), combined (T.B.D.)</li>
+<li>Scale: <strong>&gt;10 million bilingual pairs</strong> (EN-NL, EN-PL, EN-DE, IT-DE indexed)</li>
+<li>Model: <strong>Mixtral-8x7B-Instruct</strong> (few-shot prompted with retrieved bilingual examples)</li>
+<li>Configurations: 1-shot and 5-shot</li>
+</ul>
 <p><strong>Results (chrF over zero-shot baseline):</strong></p>
 <table>
 <thead>
@@ -360,99 +394,129 @@
 <p><strong>Scale context:</strong> &gt;2 billion active listings; hundreds of millions of users; real-time serving with hundreds-of-milliseconds latency constraints. Recommendations drive a large fraction of sessions that don't start with a specific search query.</p>
 <p><strong>Mercury — Agentic AI Platform for LLM-Powered Recommendations:</strong></p>
 <p>eBay's internal agentic framework for scaling LLM-based recommendation experiences.</p>
-<p>Design principles:
-- <strong>"Prompts as code"</strong> — all prompt changes go through PRs, code reviews, unit tests (rigor over speed)
-- <strong>Modular Agents</strong>: each encapsulates a prompt + input/output transformation layer
-- <strong>Chains</strong>: sequential agent steps with consistent interfaces (analogous to LangChain/LlamaIndex patterns but custom)</p>
-<p><strong>Listing Matching Engine</strong> (the retrieval + ranking subsystem inside Mercury):
-- Query expansion: topic → multiple specific queries via LLM
-- Exact match retrieval: eBay's internal search engine (precision-optimized)
-- Semantic similarity: KNN with vector databases, BERT-based + custom deep learning
-- Anomaly detection: category validation, price range validation, title alignment
-- Hard filters: NSFW, condition requirements, user preferences (size, location)
-- Personalized ranking: user behavior signals + round-robin for diversity</p>
-<p><strong>Infrastructure:</strong>
-- Distributed queue-based message passing (near-real-time)
-- Auto-retry with self-healing
-- On-the-fly priority adjustment
-- Multi-model: custom fine-tuned Llama, Mistral, LiLiuM (internal) + GCP/Azure/OpenAI (external APIs)
-- RAG with user/listing data, Common Crawl, Google Search for real-time signals
-- Safety: content moderation, LLM safety mechanisms, prompt injection detection</p>
-<p><strong>BERT-Based Recommendations (foundational layer):</strong>
-- eBay pre-trained NLP/BERT model on <strong>3 billion item titles</strong>
-- Cosine similarity between item-title embeddings as ranking feature
-- Now using <strong>Vertex AI Vector Search</strong> for embedding-based retrieval (scans billions of items)</p>
-<p><strong>Shop the Look (April 2024, iOS):</strong>
-- GenAI-powered outfit recommendation carousel
-- Personalized based on browsing history (requires 10+ fashion views in past 180 days)
-- Interactive hotspots revealing similar items and inspirations
-- Uses decades of behavioral data + billions of images</p>
+<p>Design principles:</p>
+<ul>
+<li><strong>"Prompts as code"</strong> — all prompt changes go through PRs, code reviews, unit tests (rigor over speed)</li>
+<li><strong>Modular Agents</strong>: each encapsulates a prompt + input/output transformation layer</li>
+<li><strong>Chains</strong>: sequential agent steps with consistent interfaces (analogous to LangChain/LlamaIndex patterns but custom)</li>
+</ul>
+<p><strong>Listing Matching Engine</strong> (the retrieval + ranking subsystem inside Mercury):</p>
+<ul>
+<li>Query expansion: topic → multiple specific queries via LLM</li>
+<li>Exact match retrieval: eBay's internal search engine (precision-optimized)</li>
+<li>Semantic similarity: KNN with vector databases, BERT-based + custom deep learning</li>
+<li>Anomaly detection: category validation, price range validation, title alignment</li>
+<li>Hard filters: NSFW, condition requirements, user preferences (size, location)</li>
+<li>Personalized ranking: user behavior signals + round-robin for diversity</li>
+</ul>
+<p><strong>Infrastructure:</strong></p>
+<ul>
+<li>Distributed queue-based message passing (near-real-time)</li>
+<li>Auto-retry with self-healing</li>
+<li>On-the-fly priority adjustment</li>
+<li>Multi-model: custom fine-tuned Llama, Mistral, LiLiuM (internal) + GCP/Azure/OpenAI (external APIs)</li>
+<li>RAG with user/listing data, Common Crawl, Google Search for real-time signals</li>
+<li>Safety: content moderation, LLM safety mechanisms, prompt injection detection</li>
+</ul>
+<p><strong>BERT-Based Recommendations (foundational layer):</strong></p>
+<ul>
+<li>eBay pre-trained NLP/BERT model on <strong>3 billion item titles</strong></li>
+<li>Cosine similarity between item-title embeddings as ranking feature</li>
+<li>Now using <strong>Vertex AI Vector Search</strong> for embedding-based retrieval (scans billions of items)</li>
+</ul>
+<p><strong>Shop the Look (April 2024, iOS):</strong></p>
+<ul>
+<li>GenAI-powered outfit recommendation carousel</li>
+<li>Personalized based on browsing history (requires 10+ fashion views in past 180 days)</li>
+<li>Interactive hotspots revealing similar items and inspirations</li>
+<li>Uses decades of behavioral data + billions of images</li>
+</ul>
 <p><em>Tony connection:</em> Mercury's multi-model architecture (Llama, Mistral, LiLiuM, external APIs) is exactly the deployment pattern your LLM Router addresses. Mercury currently handles model selection by business logic rules; a learned router (your work) would dynamically optimize cost/quality. Frame your routing research as directly applicable to the Mercury platform.</p>
 <hr />
 <h3 id="27-search-and-ads-ranking">2.7 Search and Ads Ranking</h3>
-<p><strong>Search Ranking — "Progressive Refinement" (SIGIR 2025):</strong>
-- Machine-learned ranking (MLR) baseline trained on 2 weeks of eBay search log data
-- Incorporates sequences of clicked items as short-term contextual signals
-- Uses <strong>eBERT embeddings</strong> (eBay's BERT variant) + cosine similarity between query and item
-- Progressive refinement: in-session buyer activity updates rankings in real-time</p>
-<p><strong>LLM for Search Relevance (2024–2025):</strong>
-- "From Reasoning LLMs to BERT: A Two-Stage Distillation Framework for Search Relevance": LLM-generated rationales guide distillation into lightweight cross-encoders for production serving
-- "LREF: Novel LLM-based Relevance Framework for E-commerce Search" (2025): LLM judge for relevance labels at scale</p>
+<p><strong>Search Ranking — "Progressive Refinement" (SIGIR 2025):</strong></p>
+<ul>
+<li>Machine-learned ranking (MLR) baseline trained on 2 weeks of eBay search log data</li>
+<li>Incorporates sequences of clicked items as short-term contextual signals</li>
+<li>Uses <strong>eBERT embeddings</strong> (eBay's BERT variant) + cosine similarity between query and item</li>
+<li>Progressive refinement: in-session buyer activity updates rankings in real-time</li>
+</ul>
+<p><strong>LLM for Search Relevance (2024–2025):</strong></p>
+<ul>
+<li>"From Reasoning LLMs to BERT: A Two-Stage Distillation Framework for Search Relevance": LLM-generated rationales guide distillation into lightweight cross-encoders for production serving</li>
+<li>"LREF: Novel LLM-based Relevance Framework for E-commerce Search" (2025): LLM judge for relevance labels at scale</li>
+</ul>
 <p><strong>Advertising / Keyphrase Recommendations:</strong></p>
-<p><em>"To Judge or not to Judge"</em> (ECAI 2025): LLM-as-judge for advertiser keyphrase relevance.
-- Task: recommend keyphrases to sellers for bidding; must be relevant to prevent search quality degradation
-- Problem: click/sales signals are biased — "irrelevant but clicked" scenarios pollute training
-- Solution: LLM-as-judge at scale as a proxy for seller relevance judgment
-- Three-way optimization: seller judgment ↔ advertising system ↔ search system</p>
-<p><em>LLMDistill4Ads</em> (arXiv 2508.03628, 2025): Knowledge distillation pipeline.
-- Architecture: LLM teacher → cross-encoder assistant → bi-encoder EBR student
-- Goal: LLM-quality signal at production bi-encoder latency
-- Addresses click-induced bias
-- Result: more varied, seller-aligned keyphrase suggestions</p>
+<p><em>"To Judge or not to Judge"</em> (ECAI 2025): LLM-as-judge for advertiser keyphrase relevance.</p>
+<ul>
+<li>Task: recommend keyphrases to sellers for bidding; must be relevant to prevent search quality degradation</li>
+<li>Problem: click/sales signals are biased — "irrelevant but clicked" scenarios pollute training</li>
+<li>Solution: LLM-as-judge at scale as a proxy for seller relevance judgment</li>
+<li>Three-way optimization: seller judgment ↔ advertising system ↔ search system</li>
+</ul>
+<p><em>LLMDistill4Ads</em> (arXiv 2508.03628, 2025): Knowledge distillation pipeline.</p>
+<ul>
+<li>Architecture: LLM teacher → cross-encoder assistant → bi-encoder EBR student</li>
+<li>Goal: LLM-quality signal at production bi-encoder latency</li>
+<li>Addresses click-induced bias</li>
+<li>Result: more varied, seller-aligned keyphrase suggestions</li>
+</ul>
 <p>This distillation pipeline is relevant to Tony's cost-efficiency work: using LLM signals (expensive) to train cheap production models is exactly the "buy good labels from large model, serve with small model" pattern.</p>
 <hr />
 <h3 id="28-product-knowledge-graph">2.8 Product Knowledge Graph</h3>
-<p>eBay's <strong>product knowledge graph</strong> is the structured backbone for listing quality and Magical Listing:
-- Encodes product taxonomy, ontology, attribute-value structures, and product relationships
-- Used by AI agents to identify specific products and fill structured item specifics (category, brand, model, condition, color, size...)
-- Published research: "Enabling Explainable Recommendation in E-commerce with LLM-powered Product Knowledge Graph" (arXiv 2412.01837) — LLMs querying/augmenting the KG for recommendation explainability</p>
+<p>eBay's <strong>product knowledge graph</strong> is the structured backbone for listing quality and Magical Listing:</p>
+<ul>
+<li>Encodes product taxonomy, ontology, attribute-value structures, and product relationships</li>
+<li>Used by AI agents to identify specific products and fill structured item specifics (category, brand, model, condition, color, size...)</li>
+<li>Published research: "Enabling Explainable Recommendation in E-commerce with LLM-powered Product Knowledge Graph" (arXiv 2412.01837) — LLMs querying/augmenting the KG for recommendation explainability</li>
+</ul>
 <p>The KG is the key asset that eBay's AI has that general-purpose LLMs don't: deep, structured, proprietary knowledge about tens of millions of specific product SKUs, categories, and attributes.</p>
 <hr />
 <h3 id="29-magical-listing-and-genai-products">2.9 Magical Listing and GenAI Products</h3>
-<p><strong>Magical Listing (fully AI-native, launched 2024, next-gen Q4 2025):</strong>
-- Not "AI layered on legacy flow" but architecturally AI-first
-- <strong>Flow:</strong> seller photographs item → AI guides which additional photos to take → VLM + LLM agents process photos → autonomously generate title, category, item specifics, price estimate
-- Leverages: advanced VLMs + LLMs + product knowledge graph
-- Impact (as of Q1 2026):
-  - <strong>&gt;25% decrease</strong> in average listing time
-  - <strong>&gt;50% increase</strong> in new listing creation rate
-  - <strong>Double-digit % increase</strong> in sold items and GMV per lister
-  - <strong>500 million listings</strong> created using Magical Listing (cumulative as of Q1 2026)
-  - <strong>50%+ increase</strong> in new listing creation rate in U.S. rollout
-  - <strong>10M+ unique sellers</strong> have used eBay's AI features
-- Won <strong>AI Breakthrough Award</strong> for "Best Overall Generative AI Solution" (2024)
-- Rolled out to all C2C sellers in US, UK, Germany</p>
+<p><strong>Magical Listing (fully AI-native, launched 2024, next-gen Q4 2025):</strong></p>
+<ul>
+<li>Not "AI layered on legacy flow" but architecturally AI-first</li>
+<li><strong>Flow:</strong> seller photographs item → AI guides which additional photos to take → VLM + LLM agents process photos → autonomously generate title, category, item specifics, price estimate</li>
+<li>Leverages: advanced VLMs + LLMs + product knowledge graph</li>
+<li>Impact (as of Q1 2026):</li>
+<li><strong>&gt;25% decrease</strong> in average listing time</li>
+<li><strong>&gt;50% increase</strong> in new listing creation rate</li>
+<li><strong>Double-digit % increase</strong> in sold items and GMV per lister</li>
+<li><strong>500 million listings</strong> created using Magical Listing (cumulative as of Q1 2026)</li>
+<li><strong>50%+ increase</strong> in new listing creation rate in U.S. rollout</li>
+<li><strong>10M+ unique sellers</strong> have used eBay's AI features</li>
+<li>Won <strong>AI Breakthrough Award</strong> for "Best Overall Generative AI Solution" (2024)</li>
+<li>Rolled out to all C2C sellers in US, UK, Germany</li>
+</ul>
 <p><em>System design implication:</em> Magical Listing is a multi-step agentic pipeline: (1) image ingestion + processing via VLM; (2) product identification via knowledge graph lookup; (3) attribute extraction; (4) title generation via LLM; (5) pricing suggestion. Each step could theoretically be served by a different model — a routing problem.</p>
 <p><strong>Shop the Look:</strong> Described in §2.6 above.</p>
 <p><strong>AI Video Generation (2025):</strong> Tool for US sellers to generate short-form social media videos from product listings.</p>
-<p><strong>eBay AI Shopping Agent (May 2025 beta):</strong>
-- Real-time hyper-personalized recommendations + expert guidance
-- Conversational interface
-- Tested in limited beta; agentic search beta showed <strong>50% more search engagement</strong> and <strong>double-digit purchase behavior increases</strong></p>
-<p><strong>eBay + OpenAI (Operator) Partnership:</strong>
-- eBay was a <strong>launch partner for OpenAI's Operator</strong> (autonomous web agent, early 2025)
-- Operator is approved to interact with eBay on behalf of users for product discovery
-- eBay built a "unified agentic commerce platform": eBay's hybrid cloud + LLM ecosystem + <strong>MCP server</strong> + proprietary data layer
-- Separate: eBay + OpenAI "AI Activate" in UK — helping 10,000 small businesses access AI tools</p>
-<p><strong>Third-Party Agent Restrictions (from February 20, 2026):</strong>
-- eBay updated user agreement to <strong>ban unauthorized third-party AI agents</strong> from autonomously placing orders (targeting "buy-for-me" bots)
-- Strategy: eBay wants to control the agent experience to protect ad revenue attribution and user trust
-- Exception: partners with prior express permission (OpenAI Operator)
-- This reveals eBay's agentic commerce philosophy: <strong>controlled, first-party agentic UX</strong> rather than open API free-for-all</p>
-<p><strong>Internal AI Productivity:</strong>
-- eBay internally using <strong>Claude Code</strong> for developer tooling (bug triage: 2–3 days → 1–2 hours)
-- AI email subject lines → <strong>40%+ increase</strong> in quality visits
-- CEO Jamie Iannone declared 2025 "a watershed year" — from GenAI pilots to "scalable agentic experiences"</p>
+<p><strong>eBay AI Shopping Agent (May 2025 beta):</strong></p>
+<ul>
+<li>Real-time hyper-personalized recommendations + expert guidance</li>
+<li>Conversational interface</li>
+<li>Tested in limited beta; agentic search beta showed <strong>50% more search engagement</strong> and <strong>double-digit purchase behavior increases</strong></li>
+</ul>
+<p><strong>eBay + OpenAI (Operator) Partnership:</strong></p>
+<ul>
+<li>eBay was a <strong>launch partner for OpenAI's Operator</strong> (autonomous web agent, early 2025)</li>
+<li>Operator is approved to interact with eBay on behalf of users for product discovery</li>
+<li>eBay built a "unified agentic commerce platform": eBay's hybrid cloud + LLM ecosystem + <strong>MCP server</strong> + proprietary data layer</li>
+<li>Separate: eBay + OpenAI "AI Activate" in UK — helping 10,000 small businesses access AI tools</li>
+</ul>
+<p><strong>Third-Party Agent Restrictions (from February 20, 2026):</strong></p>
+<ul>
+<li>eBay updated user agreement to <strong>ban unauthorized third-party AI agents</strong> from autonomously placing orders (targeting "buy-for-me" bots)</li>
+<li>Strategy: eBay wants to control the agent experience to protect ad revenue attribution and user trust</li>
+<li>Exception: partners with prior express permission (OpenAI Operator)</li>
+<li>This reveals eBay's agentic commerce philosophy: <strong>controlled, first-party agentic UX</strong> rather than open API free-for-all</li>
+</ul>
+<p><strong>Internal AI Productivity:</strong></p>
+<ul>
+<li>eBay internally using <strong>Claude Code</strong> for developer tooling (bug triage: 2–3 days → 1–2 hours)</li>
+<li>AI email subject lines → <strong>40%+ increase</strong> in quality visits</li>
+<li>CEO Jamie Iannone declared 2025 "a watershed year" — from GenAI pilots to "scalable agentic experiences"</li>
+</ul>
 <hr />
 <h2 id="3-the-amsterdam-applied-research-team">3. The Amsterdam Applied Research Team</h2>
 <h3 id="mission">Mission</h3>
@@ -467,21 +531,25 @@
 </ul>
 <p>The team <strong>publishes at top-tier conferences</strong>: ACL, EMNLP, EACL (Industry Track), NeurIPS (Workshop), SIGIR, ECAI, ECML/PKDD. This is a rare industry team that takes publication seriously as a validation mechanism and talent signal.</p>
 <h3 id="culture">Culture</h3>
-<p>From job postings and publications:
-- <strong>Agile startup model</strong> within a large company: fast iteration, fail-fast mindset
-- <strong>Research-publication norm</strong>: applied researchers are expected to contribute to the research community (conference papers, workshops)
-- <strong>Mentorship</strong>: senior researchers mentor junior applied researchers and engineers
-- <strong>Interdisciplinary</strong>: NLP, vision, recommendations, ranking, and agentic AI all coexist in the same building
-- <strong>Authenticity</strong>: "authenticity thrives, bold ideas welcome" — not just a corporate slogan, evidenced by the fact that they publish papers that include ablations showing what <em>didn't</em> work
-- <strong>University partnerships</strong>: Cees G. M. Snoek (UvA/University of Amsterdam) is co-author on the VLM paper — active eBay-UvA collaboration. Amsterdam's research ecosystem (UvA, VU, CWI) is directly accessible</p>
+<p>From job postings and publications:</p>
+<ul>
+<li><strong>Agile startup model</strong> within a large company: fast iteration, fail-fast mindset</li>
+<li><strong>Research-publication norm</strong>: applied researchers are expected to contribute to the research community (conference papers, workshops)</li>
+<li><strong>Mentorship</strong>: senior researchers mentor junior applied researchers and engineers</li>
+<li><strong>Interdisciplinary</strong>: NLP, vision, recommendations, ranking, and agentic AI all coexist in the same building</li>
+<li><strong>Authenticity</strong>: "authenticity thrives, bold ideas welcome" — not just a corporate slogan, evidenced by the fact that they publish papers that include ablations showing what <em>didn't</em> work</li>
+<li><strong>University partnerships</strong>: Cees G. M. Snoek (UvA/University of Amsterdam) is co-author on the VLM paper — active eBay-UvA collaboration. Amsterdam's research ecosystem (UvA, VU, CWI) is directly accessible</li>
+</ul>
 <h3 id="team-leadership">Team Leadership</h3>
 <p>Yannick Versley (Senior Tech Lead Manager) leads the LLM pretraining sub-team. Shahram Khadivi appears as a frequent co-author and is likely the broader CoreAI AI lead or VP. Other recurring names: Christian Herold, Michael Kozielski, Tala Bazazo, Pavel Petrushkov (technical leads / senior scientists).</p>
 <h3 id="role-landscape">Role Landscape</h3>
-<p>Open roles seen in 2024–2025:
-- <strong>Applied Researcher – LLMs</strong> (Foundation Models team) — this is likely the role Tony is interviewing for
-- Senior AI Researcher – Recommendations
-- Principal Applied Researcher – Generative AI
-- Applied Researcher 2 (junior/mid)</p>
+<p>Open roles seen in 2024–2025:</p>
+<ul>
+<li><strong>Applied Researcher – LLMs</strong> (Foundation Models team) — this is likely the role Tony is interviewing for</li>
+<li>Senior AI Researcher – Recommendations</li>
+<li>Principal Applied Researcher – Generative AI</li>
+<li>Applied Researcher 2 (junior/mid)</li>
+</ul>
 <p>The "Applied Researcher" title at eBay means: you do original research (publish), you build things that ship to users, and you do both. This is different from a pure research scientist (publish only) or pure MLE (ship only).</p>
 <h3 id="why-amsterdam">Why Amsterdam</h3>
 <ul>

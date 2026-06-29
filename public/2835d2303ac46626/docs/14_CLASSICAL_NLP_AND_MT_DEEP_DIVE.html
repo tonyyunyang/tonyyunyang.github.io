@@ -167,10 +167,12 @@ b_i(v)^new = Σ_{t: x_t=v} γ_t(i) / Σ_t γ_t(i)
 <pre><code>p(y | x) = (1/Z(x)) exp( Σ_t Σ_k λ_k f_k(y_{t-1}, y_t, x, t) )
 </code></pre>
 <p>where <strong>feature functions</strong> f_k can look at any part of x (the whole input) and the current + previous tag. Z(x) = Σ_{y'} exp(Σ...) is the partition function over all label sequences (computed via the forward algorithm, same recurrence as HMM but with sum-products over potentials, not probabilities).</p>
-<p><strong>Why CRF beats MEMM:</strong>
-1. Global normalisation: probability mass is distributed over complete sequences, not locally per step. No state absorbs mass by ignoring observations.
-2. Arbitrary feature overlap: features can fire on combinations of current/previous tags AND arbitrary input windows — no independence assumptions on features.
-3. Optimal (MAP) decoding via Viterbi on the unnormalised potentials. Training via gradient ascent on log-likelihood with L-BFGS (or CRF-SGD); gradient involves forward-backward for computing marginals.</p>
+<p><strong>Why CRF beats MEMM:</strong></p>
+<ol>
+<li>Global normalisation: probability mass is distributed over complete sequences, not locally per step. No state absorbs mass by ignoring observations.</li>
+<li>Arbitrary feature overlap: features can fire on combinations of current/previous tags AND arbitrary input windows — no independence assumptions on features.</li>
+<li>Optimal (MAP) decoding via Viterbi on the unnormalised potentials. Training via gradient ascent on log-likelihood with L-BFGS (or CRF-SGD); gradient involves forward-backward for computing marginals.</li>
+</ol>
 <p><strong>Log-linear form:</strong> score(y,x) = Σ_t w · φ(y_{t-1}, y_t, x, t); CRF = log-linear model whose partition function normalises over sequences, not local positions.</p>
 <h3 id="24-bilstm-crf">2.4 BiLSTM-CRF</h3>
 <p>Lample et al. (2016) combined a bidirectional LSTM to produce contextual emission scores with a CRF output layer. The LSTM computes per-token tag score vectors s_t ∈ R^K; the CRF uses these as unary potentials plus learned transition parameters A ∈ R^{K×K}:</p>
@@ -199,31 +201,39 @@ P[i][i][A] = p(A → w_i)  if rule exists
 <h3 id="32-dependency-parsing">3.2 Dependency Parsing</h3>
 <p><strong>Transition-based vs Graph-based</strong> — fundamental trade-off between linear-time greedy decoding and global optimisation.</p>
 <h4 id="transition-based-arc-standard-vs-arc-eager">Transition-Based: Arc-Standard vs Arc-Eager</h4>
-<p><strong>Arc-Standard (Nivre 2004):</strong>
-- State: (stack, buffer, arc set)
-- Transitions: SHIFT (push buffer head to stack), LEFT-ARC (add arc, pop stack), RIGHT-ARC (add arc, pop stack)
-- <strong>Builds trees bottom-up.</strong> LEFT-ARC requires all dependents of the left word to be processed first → cannot handle rightward dependencies early.
-- Complexity: O(n) transitions, O(n) if oracle; with beam = O(n·b).</p>
-<p><strong>Arc-Eager (Nivre 2003):</strong>
-- Adds REDUCE (pop without arc) and a different RIGHT-ARC that does not pop the head
-- <strong>Builds trees incrementally</strong>, attaches right dependents before their subtrees are complete
-- Better for projective dependencies where early attachment improves coverage
-- Both require <strong>projective</strong> trees by default; non-projective extensions (pseudo-projective transformations, or swap transitions Nivre 2009) add complexity.</p>
+<p><strong>Arc-Standard (Nivre 2004):</strong></p>
+<ul>
+<li>State: (stack, buffer, arc set)</li>
+<li>Transitions: SHIFT (push buffer head to stack), LEFT-ARC (add arc, pop stack), RIGHT-ARC (add arc, pop stack)</li>
+<li><strong>Builds trees bottom-up.</strong> LEFT-ARC requires all dependents of the left word to be processed first → cannot handle rightward dependencies early.</li>
+<li>Complexity: O(n) transitions, O(n) if oracle; with beam = O(n·b).</li>
+</ul>
+<p><strong>Arc-Eager (Nivre 2003):</strong></p>
+<ul>
+<li>Adds REDUCE (pop without arc) and a different RIGHT-ARC that does not pop the head</li>
+<li><strong>Builds trees incrementally</strong>, attaches right dependents before their subtrees are complete</li>
+<li>Better for projective dependencies where early attachment improves coverage</li>
+<li>Both require <strong>projective</strong> trees by default; non-projective extensions (pseudo-projective transformations, or swap transitions Nivre 2009) add complexity.</li>
+</ul>
 <p><strong>Training arc classifiers:</strong> MLP over hand-crafted features (pre-deep learning era); Chen &amp; Manning (2014) used neural features; Dozat &amp; Manning (2017) biaffine attention is now standard (see graph-based below).</p>
 <h4 id="graph-based-mst-and-biaffine">Graph-Based: MST and Biaffine</h4>
-<p><strong>MST / Eisner algorithm:</strong>
-- Score each arc independently: s(head, dep) via a neural scorer
-- Find the <strong>maximum spanning tree</strong> (MST) over all possible arcs
-- <strong>Projective trees:</strong> Eisner (1996) CKY-style O(n³) DP
-- <strong>Non-projective trees:</strong> Chu-Liu/Edmonds' algorithm O(n²) or O(n log n)
-- Advantage: globally optimal; captures non-projective dependencies (cross-lingual, free-word-order languages like Czech, German)</p>
-<p><strong>Biaffine Parser (Dozat &amp; Manning, 2017):</strong>
-- BiLSTM (now transformer) encodes tokens → head and dependent representations h_i^{(head)}, h_i^{(dep)}
-- Arc score: s(i,j) = h_j^{(dep)T} W^{(arc)} h_i^{(head)} + b
-- Relation score: computed similarly with separate W^{(rel)} per label
-- Loss: cross-entropy on gold head + gold label per token, summed
-- <strong>State of the art on UD (Universal Dependencies)</strong> across typologically diverse languages
-- Combined with XLM-R: Mbert/XLM-R + biaffine = best zero-shot cross-lingual parsing (Schuster &amp; Manning 2019 showed cross-lingual UD transfer is feasible)</p>
+<p><strong>MST / Eisner algorithm:</strong></p>
+<ul>
+<li>Score each arc independently: s(head, dep) via a neural scorer</li>
+<li>Find the <strong>maximum spanning tree</strong> (MST) over all possible arcs</li>
+<li><strong>Projective trees:</strong> Eisner (1996) CKY-style O(n³) DP</li>
+<li><strong>Non-projective trees:</strong> Chu-Liu/Edmonds' algorithm O(n²) or O(n log n)</li>
+<li>Advantage: globally optimal; captures non-projective dependencies (cross-lingual, free-word-order languages like Czech, German)</li>
+</ul>
+<p><strong>Biaffine Parser (Dozat &amp; Manning, 2017):</strong></p>
+<ul>
+<li>BiLSTM (now transformer) encodes tokens → head and dependent representations h_i^{(head)}, h_i^{(dep)}</li>
+<li>Arc score: s(i,j) = h_j^{(dep)T} W^{(arc)} h_i^{(head)} + b</li>
+<li>Relation score: computed similarly with separate W^{(rel)} per label</li>
+<li>Loss: cross-entropy on gold head + gold label per token, summed</li>
+<li><strong>State of the art on UD (Universal Dependencies)</strong> across typologically diverse languages</li>
+<li>Combined with XLM-R: Mbert/XLM-R + biaffine = best zero-shot cross-lingual parsing (Schuster &amp; Manning 2019 showed cross-lingual UD transfer is feasible)</li>
+</ul>
 <h3 id="33-universal-dependencies">3.3 Universal Dependencies</h3>
 <p>UD (Nivre et al., 2016; now v2.14 with 140+ languages) provides a cross-linguistically consistent annotation scheme:</p>
 <ul>
@@ -250,15 +260,19 @@ P[i][i][A] = p(A → w_i)  if rule exists
 
 <p><strong>Coreference resolution:</strong> identify all mentions (noun phrases, pronouns, named entities) in a document and cluster them into equivalence classes (entities) such that all mentions in a cluster refer to the same real-world entity.</p>
 <p><strong>Mention detection</strong> is the first bottleneck: enumerate candidate spans (all n-grams up to length L, or syntactically driven noun-phrase extraction). False negatives in mention detection propagate; end-to-end models learn to prune candidate spans jointly.</p>
-<p><strong>Identity anaphora vs bridging anaphora:</strong>
-- <strong>Identity (coreferent) anaphora:</strong> "the car ... it" — the anaphora and antecedent co-refer to the identical entity
-- <strong>Bridging anaphora (associative / indirect anaphora):</strong> "I bought a car. The engine was faulty." — the engine is associated with the car (part-whole, but NOT the same entity). This is Versley's research interest (he has work on bridging in German). Bridging requires reasoning about world knowledge and semantic relations beyond identity. Standard coreference datasets (OntoNotes) focus on identity; bridging has dedicated datasets (BASHI, ISNotes, Bredband)</p>
+<p><strong>Identity anaphora vs bridging anaphora:</strong></p>
+<ul>
+<li><strong>Identity (coreferent) anaphora:</strong> "the car ... it" — the anaphora and antecedent co-refer to the identical entity</li>
+<li><strong>Bridging anaphora (associative / indirect anaphora):</strong> "I bought a car. The engine was faulty." — the engine is associated with the car (part-whole, but NOT the same entity). This is Versley's research interest (he has work on bridging in German). Bridging requires reasoning about world knowledge and semantic relations beyond identity. Standard coreference datasets (OntoNotes) focus on identity; bridging has dedicated datasets (BASHI, ISNotes, Bredband)</li>
+</ul>
 <h3 id="42-mention-pair-models">4.2 Mention-Pair Models</h3>
 <p>Earliest neural approach: for each pair of mentions (m_i, m_j) with j &lt; i, compute a binary classifier P(coref | m_i, m_j). Cluster by transitive closure (or pairwise compatibility).</p>
-<p><strong>Problems:</strong>
-1. Quadratic in mentions
-2. Transitivity violations: pairwise decisions may be inconsistent
-3. Mention detection decoupled from coreference scoring</p>
+<p><strong>Problems:</strong></p>
+<ol>
+<li>Quadratic in mentions</li>
+<li>Transitivity violations: pairwise decisions may be inconsistent</li>
+<li>Mention detection decoupled from coreference scoring</li>
+</ol>
 <h3 id="43-mention-ranking-models">4.3 Mention-Ranking Models</h3>
 <p>Wiseman et al. (2015, 2016); Clark &amp; Manning (2016). For each mention m_i, rank all preceding antecedent candidates plus a NULL (no antecedent) option. Score each (antecedent, mention) pair; softmax or max-margin training.</p>
 <p><strong>Key insight:</strong> model antecedent selection as a ranking problem, not binary classification. Training signal from gold antecedent clusters. Clark &amp; Manning add global entity representations by iteratively refining entity cluster representations as mentions are processed.</p>
@@ -286,27 +300,35 @@ P[i][i][A] = p(A → w_i)  if rule exists
 <p><strong>Training:</strong> marginalise over all gold antecedents with cross-entropy on the softmax over antecedents + ε (epsilon = "no antecedent" / singleton).</p>
 </li>
 </ol>
-<p><strong>Key contributions over prior work:</strong>
-- Mention detection and coreference scoring trained jointly end-to-end
-- Span-based representations remove dependence on syntactic parser
-- Efficient top-span pruning
-- SpanBERT (Joshi et al., 2020) replacing GloVe further improved F1 dramatically on OntoNotes (~79→83 CoNLL F1)</p>
+<p><strong>Key contributions over prior work:</strong></p>
+<ul>
+<li>Mention detection and coreference scoring trained jointly end-to-end</li>
+<li>Span-based representations remove dependence on syntactic parser</li>
+<li>Efficient top-span pruning</li>
+<li>SpanBERT (Joshi et al., 2020) replacing GloVe further improved F1 dramatically on OntoNotes (~79→83 CoNLL F1)</li>
+</ul>
 <p><strong>Higher-order refinement:</strong> Lee et al. (2018) added one round of antecedent re-scoring using the expected antecedent representation (expectation over antecedent distribution → update span representation → re-score). This is analogous to a message-passing step on the coreference graph.</p>
 <h3 id="46-coreference-evaluation-metrics">4.6 Coreference Evaluation Metrics</h3>
-<p><strong>MUC (Vilain et al., 1995):</strong>
-- Precision: for each predicted cluster, how many of its links appear in gold clusters?
-- Recall: for each gold cluster, how many of its links appear in predicted clusters?
-- Based on minimum number of partitions/merges needed
-- <strong>Flaw:</strong> over-rewards large clusters; a single cluster covering all mentions gets perfect recall; insensitive to singletons</p>
-<p><strong>B-Cubed (Bagga &amp; Baldwin, 1998):</strong>
-- For each mention m: Precision(m) = fraction of coreference-linked mentions (in m's predicted cluster) that are in the same gold cluster; Recall(m) = fraction of gold-linked mentions (in m's gold cluster) that are in the same predicted cluster
-- Average over all mentions
-- <strong>Advantage:</strong> considers every mention individually; handles singletons; no assumption about equivalence between links and clusters
-- <strong>Flaw:</strong> if the same entity is split into many predicted clusters, precision drops appropriately</p>
-<p><strong>CEAF (Luo, 2005):</strong>
-- Aligns gold and predicted clusters via maximum bipartite matching (optimal one-to-one mapping)
-- Φ_3: entity-level (count of mentions correctly assigned); Φ_4: mention-level (proportion of correctly matched mentions)
-- <strong>Advantage:</strong> no double-counting of mentions across clusters; avoids B-cubed's leniency towards over-merging</p>
+<p><strong>MUC (Vilain et al., 1995):</strong></p>
+<ul>
+<li>Precision: for each predicted cluster, how many of its links appear in gold clusters?</li>
+<li>Recall: for each gold cluster, how many of its links appear in predicted clusters?</li>
+<li>Based on minimum number of partitions/merges needed</li>
+<li><strong>Flaw:</strong> over-rewards large clusters; a single cluster covering all mentions gets perfect recall; insensitive to singletons</li>
+</ul>
+<p><strong>B-Cubed (Bagga &amp; Baldwin, 1998):</strong></p>
+<ul>
+<li>For each mention m: Precision(m) = fraction of coreference-linked mentions (in m's predicted cluster) that are in the same gold cluster; Recall(m) = fraction of gold-linked mentions (in m's gold cluster) that are in the same predicted cluster</li>
+<li>Average over all mentions</li>
+<li><strong>Advantage:</strong> considers every mention individually; handles singletons; no assumption about equivalence between links and clusters</li>
+<li><strong>Flaw:</strong> if the same entity is split into many predicted clusters, precision drops appropriately</li>
+</ul>
+<p><strong>CEAF (Luo, 2005):</strong></p>
+<ul>
+<li>Aligns gold and predicted clusters via maximum bipartite matching (optimal one-to-one mapping)</li>
+<li>Φ_3: entity-level (count of mentions correctly assigned); Φ_4: mention-level (proportion of correctly matched mentions)</li>
+<li><strong>Advantage:</strong> no double-counting of mentions across clusters; avoids B-cubed's leniency towards over-merging</li>
+</ul>
 <p><strong>CoNLL Average:</strong></p>
 <pre><code>CoNLL F1 = (F1_MUC + F1_B3 + F1_CEAF_φ4) / 3
 </code></pre>
@@ -315,18 +337,22 @@ P[i][i][A] = p(A → w_i)  if rule exists
 <hr />
 <h2 id="5-discourse-and-semantic-role-labeling">5. Discourse and Semantic Role Labeling</h2>
 <h3 id="51-rst-vs-pdtb">5.1 RST vs PDTB</h3>
-<p><strong>Rhetorical Structure Theory (RST; Mann &amp; Thompson, 1988):</strong>
-- Hierarchical, tree-structured discourse representation
-- Relations (Elaboration, Contrast, Cause, Concession, Evidence...) hold between adjacent text spans (EDUs — elementary discourse units)
-- <strong>Nuclearity:</strong> nucleus (essential content) vs satellite (supporting content); asymmetric relations
-- RST tree covers the entire document; constituency-like structure
-- Datasets: RST-DT (Wall Street Journal, ~385 docs); evaluation: span/nuclearity/relation F1 with RST-Parseval</p>
-<p><strong>Penn Discourse Treebank (PDTB; Prasad et al., 2008):</strong>
-- <strong>Non-hierarchical, local, lexically-anchored</strong> annotation
-- Annotates discourse relations (explicit: "however", "because"; implicit: inferred between adjacent sentences) between pairs of argument spans (Arg1, Arg2)
-- 3-level hierarchy of relation types: Level 1 (Temporal, Contingency, Comparison, Expansion); Level 2 (Cause, Concession, etc.); Level 3 finer-grained
-- <strong>Explicit connectives</strong> are lexical triggers; implicit relations are the hard cases (require inference)
-- PDTB v3.0 extends annotation; ConnLex for cross-lingual connective lexicons</p>
+<p><strong>Rhetorical Structure Theory (RST; Mann &amp; Thompson, 1988):</strong></p>
+<ul>
+<li>Hierarchical, tree-structured discourse representation</li>
+<li>Relations (Elaboration, Contrast, Cause, Concession, Evidence...) hold between adjacent text spans (EDUs — elementary discourse units)</li>
+<li><strong>Nuclearity:</strong> nucleus (essential content) vs satellite (supporting content); asymmetric relations</li>
+<li>RST tree covers the entire document; constituency-like structure</li>
+<li>Datasets: RST-DT (Wall Street Journal, ~385 docs); evaluation: span/nuclearity/relation F1 with RST-Parseval</li>
+</ul>
+<p><strong>Penn Discourse Treebank (PDTB; Prasad et al., 2008):</strong></p>
+<ul>
+<li><strong>Non-hierarchical, local, lexically-anchored</strong> annotation</li>
+<li>Annotates discourse relations (explicit: "however", "because"; implicit: inferred between adjacent sentences) between pairs of argument spans (Arg1, Arg2)</li>
+<li>3-level hierarchy of relation types: Level 1 (Temporal, Contingency, Comparison, Expansion); Level 2 (Cause, Concession, etc.); Level 3 finer-grained</li>
+<li><strong>Explicit connectives</strong> are lexical triggers; implicit relations are the hard cases (require inference)</li>
+<li>PDTB v3.0 extends annotation; ConnLex for cross-lingual connective lexicons</li>
+</ul>
 <p><strong>Key difference:</strong> RST = top-down holistic structure; PDTB = bottom-up pairwise annotation. PDTB is more practical for extraction models; RST captures global document structure (useful for summarisation, coherence).</p>
 <p><strong>Relevance to Versley:</strong> his work on discourse (German RST; cross-lingual pronoun/coreference in MT = DiscoMT) connects to how discourse structure affects translation of discourse-level phenomena (pronoun anaphora, connectives across sentence boundaries).</p>
 <h3 id="52-coherence">5.2 Coherence</h3>
@@ -369,12 +395,14 @@ Factorises log co-occurrence matrix X with weighted least squares:</p>
 <pre><code>p(f | e) = Σ_a [1/(|e|+1)^|f| × Π_{j=1}^{|f|} t(f_j | e_{a(j)})]
 </code></pre>
 <p>where f = foreign sentence, e = English sentence (with NULL), a = alignment function (f position → e position). The prior on alignment is uniform.</p>
-<p><strong>EM training for IBM Model 1:</strong>
-- <strong>E-step:</strong> compute expected alignment counts:
+<p><strong>EM training for IBM Model 1:</strong></p>
+<ul>
+<li><strong>E-step:</strong> compute expected alignment counts:
   <code>c(f|e) = Σ_{sentences} Σ_j [t(f_j|e_i) / Σ_i' t(f_j|e_i')] × count(f_j,e_i in pair)</code>
-  (posterior probability that f_j is aligned to e_i = soft EM count)
-- <strong>M-step:</strong> update translation table:
-  <code>t(f|e) ← c(f|e) / Σ_{f'} c(f'|e)</code></p>
+  (posterior probability that f_j is aligned to e_i = soft EM count)</li>
+<li><strong>M-step:</strong> update translation table:
+  <code>t(f|e) ← c(f|e) / Σ_{f'} c(f'|e)</code></li>
+</ul>
 <p>Model 1 has <strong>global optimum</strong> (convex; unique fixed point). Convergence is guaranteed.</p>
 <p><strong>IBM Model 2:</strong> adds positional alignment prior a(i|j,|e|,|f|); joint EM over t and a parameters. Non-convex; sensitive to initialisation (warm-start from Model 1).</p>
 <p><strong>IBM Models 3-5:</strong> increasingly complex distortion, fertility (one source word generates multiple target words), and lexical translation models. GIZA++ implements these. All trained with EM (or variants). Model 3+ require <strong>constrained EM</strong> because the E-step marginalisation over alignments is intractable; heuristic hill-climbing neighbourhood search used.</p>
@@ -382,20 +410,26 @@ Factorises log co-occurrence matrix X with weighted least squares:</p>
 <p>Statistical MT was dominated 2003–2014 by phrase-based systems (Koehn et al., 2003 — Pharaoh/Moses). The translation model is a <strong>log-linear combination</strong> of feature functions:</p>
 <pre><code>p(f | e) ∝ exp( Σ_k λ_k h_k(f, e) )
 </code></pre>
-<p>Key feature functions:
-1. <strong>Translation model (TM):</strong> log p(phrase_f | phrase_e) and log p(phrase_e | phrase_f) — bidirectional phrase translation probabilities extracted from word-aligned parallel corpora
-2. <strong>Language model (LM):</strong> log p_LM(f) = Σ_t log p(f_t | f_{t-n+1}...f_{t-1}) — n-gram LM on target side; Kneser-Ney smoothing; trained with SRILM/KenLM
-3. <strong>Reordering model:</strong> log p(reorder | adjacent phrases) — monotone/swap/discontinuous reordering probabilities
-4. <strong>Word penalty:</strong> λ_{wp} × |f| — penalises/rewards sentence length to control verbosity
-5. <strong>Phrase penalty:</strong> constant per phrase used</p>
+<p>Key feature functions:</p>
+<ol>
+<li><strong>Translation model (TM):</strong> log p(phrase_f | phrase_e) and log p(phrase_e | phrase_f) — bidirectional phrase translation probabilities extracted from word-aligned parallel corpora</li>
+<li><strong>Language model (LM):</strong> log p_LM(f) = Σ_t log p(f_t | f_{t-n+1}...f_{t-1}) — n-gram LM on target side; Kneser-Ney smoothing; trained with SRILM/KenLM</li>
+<li><strong>Reordering model:</strong> log p(reorder | adjacent phrases) — monotone/swap/discontinuous reordering probabilities</li>
+<li><strong>Word penalty:</strong> λ_{wp} × |f| — penalises/rewards sentence length to control verbosity</li>
+<li><strong>Phrase penalty:</strong> constant per phrase used</li>
+</ol>
 <p><strong>Decoding:</strong> beam search over partial hypotheses (left-to-right target generation); each hypothesis tracks source coverage (which source words are translated). MERT (Minimum Error Rate Training; Och 2003) tunes log-linear weights λ_k by minimising BLEU on held-out set via coordinate ascent.</p>
-<p><strong>Reordering models</strong> — key challenge (especially for German-English: verb-final clause structures, split verbs):
-- <strong>Lexical reordering:</strong> condition on adjacent phrase pair identities; learn monotone/swap/discontinuous probabilities
-- <strong>Hierarchical phrase-based MT (Chiang 2007 — Hiero):</strong> introduces non-terminal X in phrase rules, enabling hierarchical reordering without explicit reordering model. Grammars parsed with CKY; captured long-distance reordering</p>
-<p><strong>The role of word alignment in phrase extraction:</strong>
-1. GIZA++ aligns source→target and target→source with IBM models + HMM alignment model
-2. Symmetrisation heuristics (grow-diag-final-and) combine bidirectional alignments
-3. Phrase pairs extracted from aligned sentence pairs by extracting consistent phrase pairs (no alignment crossing phrase boundaries)</p>
+<p><strong>Reordering models</strong> — key challenge (especially for German-English: verb-final clause structures, split verbs):</p>
+<ul>
+<li><strong>Lexical reordering:</strong> condition on adjacent phrase pair identities; learn monotone/swap/discontinuous probabilities</li>
+<li><strong>Hierarchical phrase-based MT (Chiang 2007 — Hiero):</strong> introduces non-terminal X in phrase rules, enabling hierarchical reordering without explicit reordering model. Grammars parsed with CKY; captured long-distance reordering</li>
+</ul>
+<p><strong>The role of word alignment in phrase extraction:</strong></p>
+<ol>
+<li>GIZA++ aligns source→target and target→source with IBM models + HMM alignment model</li>
+<li>Symmetrisation heuristics (grow-diag-final-and) combine bidirectional alignments</li>
+<li>Phrase pairs extracted from aligned sentence pairs by extracting consistent phrase pairs (no alignment crossing phrase boundaries)</li>
+</ol>
 <h3 id="73-neural-machine-translation-encoder-decoder-attention">7.3 Neural Machine Translation: Encoder-Decoder + Attention</h3>
 <p><strong>Sequence-to-sequence (Sutskever, Vinyals &amp; Le, 2014):</strong> encode source sequence with LSTM stack to a fixed-length context vector c; decode target sequence autoregressively conditioned on c. Fixed-length bottleneck limits performance on long sentences.</p>
 <p><strong>Attention mechanism (Bahdanau, Cho &amp; Bengio, 2015):</strong></p>
@@ -404,10 +438,12 @@ Factorises log co-occurrence matrix X with weighted least squares:</p>
 α_{ti} = softmax(e_t)_i            [attention weights]
 c_t    = Σ_i α_{ti} h_i           [context vector at step t]
 </code></pre>
-<p>The alignment model a can be:
-- Additive: a(s, h) = v^T tanh(W_1 s + W_2 h) [Bahdanau]
-- Multiplicative: a(s, h) = s^T W h [Luong et al. 2015]
-- Dot-product: a(s, h) = s^T h / √d [scaled; leads to transformer attention]</p>
+<p>The alignment model a can be:</p>
+<ul>
+<li>Additive: a(s, h) = v^T tanh(W_1 s + W_2 h) [Bahdanau]</li>
+<li>Multiplicative: a(s, h) = s^T W h [Luong et al. 2015]</li>
+<li>Dot-product: a(s, h) = s^T h / √d [scaled; leads to transformer attention]</li>
+</ul>
 <p><strong>How does attention relate to word alignment?</strong></p>
 <p>Attention was explicitly inspired by the IBM word alignment models. The attention weight α_{ti} approximates the probability that target word at step t corresponds to ("is aligned to") source position i. Formally:</p>
 <pre><code>α_{ti} ≈ p(a_t = i | a_{1:t-1}, y_{1:t-1}, x_{1:T})
@@ -421,26 +457,34 @@ c_t    = Σ_i α_{ti} h_i           [context vector at step t]
 <li><strong>Not a proper alignment:</strong> attention can be diffuse (spread over many positions), making alignment extraction from attention weights noisy; Koehn &amp; Knowles (2017) showed NMT attention does NOT reliably recover word alignments</li>
 </ol>
 <p>eBay connection: eBay uses MT heavily for cross-border trade. LiLiuM outperforms LLaMA-2 on machine translation tasks (arXiv:2406.12023). The product-title translation RAG paper (arXiv:2409.12880) applies retrieval-augmented generation to NMT — retrieval connects to bi-encoder dense retrieval (§10).</p>
-<p><strong>Transformer-based NMT (Vaswani et al., 2017):</strong> replaces recurrent encoder-decoder with multi-head self-attention + cross-attention. Cross-attention in the transformer decoder IS the attention mechanism: decoder queries attend over encoder key/value pairs. For MT:
-- Encoder: self-attention over source tokens
-- Decoder: masked self-attention over target tokens (past only) + cross-attention over encoder outputs
-- Cross-attention weights ≈ soft word alignment</p>
+<p><strong>Transformer-based NMT (Vaswani et al., 2017):</strong> replaces recurrent encoder-decoder with multi-head self-attention + cross-attention. Cross-attention in the transformer decoder IS the attention mechanism: decoder queries attend over encoder key/value pairs. For MT:</p>
+<ul>
+<li>Encoder: self-attention over source tokens</li>
+<li>Decoder: masked self-attention over target tokens (past only) + cross-attention over encoder outputs</li>
+<li>Cross-attention weights ≈ soft word alignment</li>
+</ul>
 <hr />
 <h2 id="8-multilingual-and-cross-lingual-representations">8. Multilingual and Cross-Lingual Representations</h2>
 <h3 id="81-mbert-vs-xlm-r">8.1 mBERT vs XLM-R</h3>
-<p><strong>mBERT (Multilingual BERT; Devlin et al., 2019):</strong>
-- MLM-trained on 104-language Wikipedia concatenation
-- Shared BPE vocabulary of 110K tokens; over-represents high-resource languages
-- No explicit cross-lingual supervision
-- Vocabulary per language is too small for morphologically-rich languages → high token fragmentation</p>
-<p><strong>XLM (Lample &amp; Conneau, 2019):</strong>
-- Added Translation Language Modeling (TLM): MLM on parallel sentence pairs (both languages concatenated); forces cross-lingual alignment via shared masked predictions
-- Shared BPE vocabulary; performance gain from TLM, especially on parallel-data-rich tasks</p>
-<p><strong>XLM-R (Conneau et al., 2020):</strong>
-- Trained on <strong>CC-100</strong>: 100 languages × Common Crawl (2.5TB total), ~10× more data than mBERT Wikipedia
-- MLM only (no TLM) — but the vastly larger training data compensates
-- Vocabulary: <strong>SentencePiece Unigram LM</strong> with 250K tokens — much larger than mBERT, far less fragmentation for morphologically-rich languages
-- Architecture: RoBERTa-style (no NSP; larger batch; more data)</p>
+<p><strong>mBERT (Multilingual BERT; Devlin et al., 2019):</strong></p>
+<ul>
+<li>MLM-trained on 104-language Wikipedia concatenation</li>
+<li>Shared BPE vocabulary of 110K tokens; over-represents high-resource languages</li>
+<li>No explicit cross-lingual supervision</li>
+<li>Vocabulary per language is too small for morphologically-rich languages → high token fragmentation</li>
+</ul>
+<p><strong>XLM (Lample &amp; Conneau, 2019):</strong></p>
+<ul>
+<li>Added Translation Language Modeling (TLM): MLM on parallel sentence pairs (both languages concatenated); forces cross-lingual alignment via shared masked predictions</li>
+<li>Shared BPE vocabulary; performance gain from TLM, especially on parallel-data-rich tasks</li>
+</ul>
+<p><strong>XLM-R (Conneau et al., 2020):</strong></p>
+<ul>
+<li>Trained on <strong>CC-100</strong>: 100 languages × Common Crawl (2.5TB total), ~10× more data than mBERT Wikipedia</li>
+<li>MLM only (no TLM) — but the vastly larger training data compensates</li>
+<li>Vocabulary: <strong>SentencePiece Unigram LM</strong> with 250K tokens — much larger than mBERT, far less fragmentation for morphologically-rich languages</li>
+<li>Architecture: RoBERTa-style (no NSP; larger batch; more data)</li>
+</ul>
 <p><strong>Why XLM-R beats mBERT:</strong></p>
 <ol>
 <li><strong>Training data scale:</strong> CC-100 vs Wikipedia — much larger, more diverse text per language</li>
@@ -460,23 +504,31 @@ c_t    = Σ_i α_{ti} h_i           [context vector at step t]
 </ol>
 <p><strong>Structural alignment via parallel data:</strong> TLM, contrastive cross-lingual learning (CCLM; Pan et al. 2021), ERNIE-M — explicit parallel data pushes representations of translation pairs close in embedding space, improving zero-shot transfer further.</p>
 <h3 id="83-translate-train-vs-translate-test">8.3 Translate-Train vs Translate-Test</h3>
-<p><strong>Translate-train:</strong> translate English training data (NLI, QA, NER annotations) into target language → fine-tune on translated data → evaluate on target language test set.
-- Advantage: task-specific translations; can use machine translation to create pseudo-labelled target-language training data
-- Disadvantage: translation errors propagate; translation of label-bearing spans (NER, SRL) is tricky; high MT cost</p>
-<p><strong>Translate-test:</strong> translate target-language test set into English → evaluate English-fine-tuned model on translated English test.
-- Advantage: fine-tune only on English; simpler pipeline
-- Disadvantage: MT errors in test set; domain/style mismatch; proper name handling; no exposure to target-language surface forms during inference</p>
+<p><strong>Translate-train:</strong> translate English training data (NLI, QA, NER annotations) into target language → fine-tune on translated data → evaluate on target language test set.</p>
+<ul>
+<li>Advantage: task-specific translations; can use machine translation to create pseudo-labelled target-language training data</li>
+<li>Disadvantage: translation errors propagate; translation of label-bearing spans (NER, SRL) is tricky; high MT cost</li>
+</ul>
+<p><strong>Translate-test:</strong> translate target-language test set into English → evaluate English-fine-tuned model on translated English test.</p>
+<ul>
+<li>Advantage: fine-tune only on English; simpler pipeline</li>
+<li>Disadvantage: MT errors in test set; domain/style mismatch; proper name handling; no exposure to target-language surface forms during inference</li>
+</ul>
 <p><strong>Comparison:</strong> on XNLI, XLM-R zero-shot (direct) is competitive with translate-train for high-resource languages; translate-train has advantage for low-resource languages with good MT. For eBay's multilingual product understanding, translate-train using eBay's own MT system is attractive because it leverages domain-specific terminology.</p>
 <h3 id="84-nllb-and-flores-200">8.4 NLLB and FLORES-200</h3>
-<p><strong>NLLB (No Language Left Behind; NLLB Team, Meta, 2022):</strong>
-- 200-language multilingual NMT model (NLLB-200: 1.3B and 3.3B parameter encoder-decoder)
-- Trained on FLORES-200 evaluation set + mined parallel data (LASER-based bitext mining); 
-- Supports many low-resource languages with no prior MT support
-- Mixture-of-experts and dense variants; sparsely-gated MoE with per-language expert routing</p>
-<p><strong>FLORES-200 (benchmark):</strong>
-- High-quality human-translated benchmark covering 200 languages × 1012 sentences (extracted from WikiVoyage and Wikipedia)
-- Enables standardised MT evaluation for low-resource languages
-- chrF and BLEU reported; COMET scores increasingly used</p>
+<p><strong>NLLB (No Language Left Behind; NLLB Team, Meta, 2022):</strong></p>
+<ul>
+<li>200-language multilingual NMT model (NLLB-200: 1.3B and 3.3B parameter encoder-decoder)</li>
+<li>Trained on FLORES-200 evaluation set + mined parallel data (LASER-based bitext mining); </li>
+<li>Supports many low-resource languages with no prior MT support</li>
+<li>Mixture-of-experts and dense variants; sparsely-gated MoE with per-language expert routing</li>
+</ul>
+<p><strong>FLORES-200 (benchmark):</strong></p>
+<ul>
+<li>High-quality human-translated benchmark covering 200 languages × 1012 sentences (extracted from WikiVoyage and Wikipedia)</li>
+<li>Enables standardised MT evaluation for low-resource languages</li>
+<li>chrF and BLEU reported; COMET scores increasingly used</li>
+</ul>
 <p><strong>eBay relevance:</strong> eBay operates in 190 markets; low-resource language MT is critical for cross-border product listing translation. LiLiuM reportedly beats LLaMA-2 on non-English NLU and MT — this is precisely the NLLB/FLORES territory.</p>
 <h3 id="85-morphologically-rich-tokenisation-de-pl-tr">8.5 Morphologically-Rich Tokenisation (DE / PL / TR)</h3>
 <p><strong>German (DE):</strong> noun compounding ("Bundesautobahn" = federal highway) creates very long words not seen in training. BPE will segment these; SentencePiece unigram LM learns compact sub-word units that capture compound components. German verb-final clauses and split verbs challenge seq2seq models. eBay titles in German: "Elektrische Zahnbürste für Kinder" — compound + case marking.</p>
@@ -489,22 +541,26 @@ c_t    = Σ_i α_{ti} h_i           [context vector at step t]
 <p><strong>BLEU (Bilingual Evaluation Understudy; Papineni et al., 2002):</strong></p>
 <pre><code>BLEU = BP × exp( Σ_{n=1}^{N} w_n log p_n )
 </code></pre>
-<p>where N=4 (unigram through 4-gram), w_n = 1/N = 0.25 uniform, and:
-- <strong>Modified n-gram precision p_n:</strong> count of n-gram matches (clipped by max count in any reference) / count of hypothesis n-grams
-- <strong>Brevity Penalty:</strong>
+<p>where N=4 (unigram through 4-gram), w_n = 1/N = 0.25 uniform, and:</p>
+<ul>
+<li><strong>Modified n-gram precision p_n:</strong> count of n-gram matches (clipped by max count in any reference) / count of hypothesis n-grams</li>
+<li><strong>Brevity Penalty:</strong>
   <code>BP = 1           if c &gt; r
   BP = exp(1-r/c)  if c ≤ r</code>
-  where c = hypothesis length, r = reference length (closest reference if multiple). BP prevents trivially short outputs.</p>
+  where c = hypothesis length, r = reference length (closest reference if multiple). BP prevents trivially short outputs.</li>
+</ul>
 <p><strong>BLEU example intuition:</strong> if a hypothesis matches all 1-grams (BP=1), p_1=1; but if it has no 4-gram matches, p_4=0 and log p_4 = -∞ → BLEU=0. Require at least some n-gram matches at all levels.</p>
 <p><strong>Corpus BLEU (recommended):</strong> accumulate all n-gram counts across all sentences, then compute precision once. Sentence-level BLEU is ill-defined (4-gram matches on short sentences → many zeros).</p>
 <p><strong>sacreBLEU:</strong> standardised BLEU with fixed tokenization (Moses tokeniser or language-specific; default: 13a); reproducible results regardless of codebase. Always report tokenisation scheme.</p>
-<p><strong>BLEU's limits:</strong>
-1. <strong>N-gram exact match:</strong> "big car" ≠ "large automobile" even if semantically equivalent; synonymy unrecognised
-2. <strong>No recall at sentence level:</strong> precision-only with BP; doesn't capture reference completeness well
-3. <strong>Poor correlation with human judgments</strong> at segment level; better at corpus level
-4. <strong>No adequacy signal:</strong> fluent but wrong translations score well if surface n-grams match
-5. <strong>Insensitive to word order</strong> beyond n-gram window; grammaticality issues within window penalised unevenly
-6. <strong>Domain and language effects:</strong> BLEU scores are not comparable across language pairs or domains</p>
+<p><strong>BLEU's limits:</strong></p>
+<ol>
+<li><strong>N-gram exact match:</strong> "big car" ≠ "large automobile" even if semantically equivalent; synonymy unrecognised</li>
+<li><strong>No recall at sentence level:</strong> precision-only with BP; doesn't capture reference completeness well</li>
+<li><strong>Poor correlation with human judgments</strong> at segment level; better at corpus level</li>
+<li><strong>No adequacy signal:</strong> fluent but wrong translations score well if surface n-grams match</li>
+<li><strong>Insensitive to word order</strong> beyond n-gram window; grammaticality issues within window penalised unevenly</li>
+<li><strong>Domain and language effects:</strong> BLEU scores are not comparable across language pairs or domains</li>
+</ol>
 <h3 id="92-chrf-and-chrf2">9.2 chrF and chrF2</h3>
 <p><strong>chrF (Popović, 2015) — character-level F-score:</strong></p>
 <pre><code>chrF = (1 + β²) × chrP × chrR / (β² × chrP + chrR)
@@ -514,11 +570,13 @@ c_t    = Σ_i α_{ti} h_i           [context vector at step t]
 chrR = (matched char n-grams) / (reference char n-grams)
 </code></pre>
 <p><strong>CRITICAL NOTE:</strong> sacreBLEU's default chrF uses <strong>β=1</strong> (equal weight to precision and recall, i.e., F1). The variant <strong>chrF2</strong> (β=2) weights recall <strong>twice</strong> as heavily as precision — this is the named recall-weighted variant used in WMT evaluations. Versley would know this; confusing β=1 and β=2 is a red flag.</p>
-<p><strong>Advantages of chrF:</strong>
-- <strong>Morphologically-rich languages:</strong> character n-grams capture shared stems, prefixes, suffixes even when exact wordforms differ (e.g., German inflection variants). Critical for DE/PL/TR which eBay serves.
-- <strong>Language independence:</strong> no tokenisation required; character-based; avoids Moses tokeniser language dependencies
-- <strong>Agglutinative languages:</strong> character overlap captures meaningful morpheme-level matches
-- Better segment-level correlation with human judgments than BLEU on morphologically-rich language pairs</p>
+<p><strong>Advantages of chrF:</strong></p>
+<ul>
+<li><strong>Morphologically-rich languages:</strong> character n-grams capture shared stems, prefixes, suffixes even when exact wordforms differ (e.g., German inflection variants). Critical for DE/PL/TR which eBay serves.</li>
+<li><strong>Language independence:</strong> no tokenisation required; character-based; avoids Moses tokeniser language dependencies</li>
+<li><strong>Agglutinative languages:</strong> character overlap captures meaningful morpheme-level matches</li>
+<li>Better segment-level correlation with human judgments than BLEU on morphologically-rich language pairs</li>
+</ul>
 <h3 id="93-meteor">9.3 METEOR</h3>
 <p><strong>METEOR (Banerjee &amp; Lavie, 2005):</strong></p>
 <p>Alignments between hypothesis and reference words, allowing synonym matching (WordNet), stemming, and paraphrase matching. Computes:</p>
@@ -534,11 +592,13 @@ METEOR = F_mean × (1 - Penalty)
 <p>Neural MT metric trained on human judgment data (DA scores, MQM annotations from WMT). Architecture: XLM-R encoder + regression head.</p>
 <p>Input (for COMET-DA): concatenate [source, hypothesis, reference] → XLM-R → pooled representation → scalar quality score.</p>
 <p>Training: direct assessment (DA) scores from WMT human evaluations; rank-based margin loss or regression on z-normalised scores.</p>
-<p><strong>Key properties:</strong>
-- Much higher segment-level correlation with human judgments than BLEU/chrF
-- Sensitive to adequacy errors (wrong meaning), fluency errors, hallucinations
-- Not interpretable (neural black-box); domain-sensitive (trained on news; may not generalise to e-commerce)
-- Model versions: COMET-DA (reference-based), COMET-22, COMET-Kiwi (reference-free)</p>
+<p><strong>Key properties:</strong></p>
+<ul>
+<li>Much higher segment-level correlation with human judgments than BLEU/chrF</li>
+<li>Sensitive to adequacy errors (wrong meaning), fluency errors, hallucinations</li>
+<li>Not interpretable (neural black-box); domain-sensitive (trained on news; may not generalise to e-commerce)</li>
+<li>Model versions: COMET-DA (reference-based), COMET-22, COMET-Kiwi (reference-free)</li>
+</ul>
 <p><strong>COMETKiwi (Rei et al., 2022):</strong>
 Reference-free quality estimation (QE): input is only [source, hypothesis] (no reference). Trained on MQM + DA data. Enables production QE where references are unavailable. eBay application: QE for machine-translated product listings without ground-truth references → filter low-quality translations before display.</p>
 <p><strong>BLEURT (Sellam et al., 2020):</strong>
@@ -547,9 +607,11 @@ BERT fine-tuned with human ratings; also trained with synthetic perturbations (m
 <h3 id="95-bootstrap-resampling-significance-and-paired-tests">9.5 Bootstrap Resampling Significance and Paired Tests</h3>
 <p><strong>Bootstrap resampling (Koehn, 2004):</strong>
 Sample n test sentences with replacement B times (B=1000); compute BLEU/chrF for each bootstrap sample; estimate confidence intervals from percentile distribution. Test statistical significance by comparing two systems: fraction of bootstrap samples where system A &gt; system B.</p>
-<p><strong>Paired tests:</strong>
-- <strong>Wilcoxon signed-rank test:</strong> non-parametric test on matched pairs (segment-level scores for system A vs B); tests whether median difference ≠ 0. More appropriate when score distributions are non-normal.
-- <strong>Approximate randomisation test:</strong> permute sentence-level score assignments between two systems B times; compute p-value as fraction of permutations with larger gap than observed. WMT official significance test.</p>
+<p><strong>Paired tests:</strong></p>
+<ul>
+<li><strong>Wilcoxon signed-rank test:</strong> non-parametric test on matched pairs (segment-level scores for system A vs B); tests whether median difference ≠ 0. More appropriate when score distributions are non-normal.</li>
+<li><strong>Approximate randomisation test:</strong> permute sentence-level score assignments between two systems B times; compute p-value as fraction of permutations with larger gap than observed. WMT official significance test.</li>
+</ul>
 <p><strong>WMT practice:</strong> WMT evaluation reports significance clusters via paired bootstrap or pairwise t-test with Bonferroni correction for multiple comparisons. Systems in the same cluster are not significantly different. COMET scores are compared this way.</p>
 <p><strong>Critical point for Versley:</strong> always pair evaluation with significance testing before claiming system A &gt; system B; with eBay's product translation MT pipeline, test-set size matters (short product titles → high BLEU variance → bootstrap CIs are wide).</p>
 <h3 id="96-mt-hallucination">9.6 MT Hallucination</h3>
@@ -571,11 +633,13 @@ Sample n test sentences with replacement B times (B=1000); compute BLEU/chrF for
 <p><strong>Named entity errors:</strong> dates, model numbers, product dimensions garbled.</p>
 </li>
 </ol>
-<p><strong>Detection approaches:</strong>
-- COMETKiwi QE (reference-free; flags anomalous outputs)
-- Faithfulness classifiers (NLI-based: hypothesis entailed by source+reference?)
-- Bilingual alignment scores: if hypothesis has low source coverage (many target tokens unaligned), flag as hallucination candidate
-- Perplexity-based anomaly detection (hypothesis with very low source-conditional perplexity may be model-generated regardless of source)</p>
+<p><strong>Detection approaches:</strong></p>
+<ul>
+<li>COMETKiwi QE (reference-free; flags anomalous outputs)</li>
+<li>Faithfulness classifiers (NLI-based: hypothesis entailed by source+reference?)</li>
+<li>Bilingual alignment scores: if hypothesis has low source coverage (many target tokens unaligned), flag as hallucination candidate</li>
+<li>Perplexity-based anomaly detection (hypothesis with very low source-conditional perplexity may be model-generated regardless of source)</li>
+</ul>
 <p><strong>eBay impact:</strong> hallucinated product attributes in translated listings can violate seller policies, mislead buyers, and create legal exposure. COMETKiwi or a lightweight faithfulness classifier as a post-MT filter is essential.</p>
 <hr />
 <h2 id="10-dense-retrieval-training">10. Dense Retrieval Training</h2>
@@ -599,14 +663,18 @@ Train bi-encoder for open-domain QA retrieval. BM25 hard negatives: retrieve top
 <p>Hard negatives are semantically related to the query but not the answer — they force the model to learn fine-grained distinctions, not just positive/random separation.</p>
 <p><strong>ANCE (Approximate Nearest-Neighbour Contrastive Estimation; Xiong et al., 2021):</strong>
 Dynamic hard-negative mining: periodically (every N training steps) re-index the document corpus with the current encoder checkpoint; retrieve new hard negatives for each query using the current model; continue training with these fresh hard negatives.</p>
-<p><strong>ANCE vs DPR:</strong>
-- DPR hard negatives are static (BM25-mined); ANCE negatives are dynamic (current-model-mined)
-- Dynamic negatives are harder (current model's near-misses) → stronger signal for later-stage training
-- Requires periodic full-corpus re-encoding → expensive; asynchronous re-indexing (ANCE-First = initialise from DPR, then one refresh cycle) is practical</p>
-<p><strong>Additional hard-negative mining approaches:</strong>
-- <strong>SimCSE (Gao et al., 2021):</strong> standard dropout as positive augmentation; in-batch negatives for NLI-trained encoder
-- <strong>Contriever (Izacard et al., 2022):</strong> unsupervised contrastive retrieval with random cropping as positives; no labelled data required
-- <strong>RocketQA (Qu et al., 2021):</strong> cross-encoder provides denoised hard negatives for bi-encoder training</p>
+<p><strong>ANCE vs DPR:</strong></p>
+<ul>
+<li>DPR hard negatives are static (BM25-mined); ANCE negatives are dynamic (current-model-mined)</li>
+<li>Dynamic negatives are harder (current model's near-misses) → stronger signal for later-stage training</li>
+<li>Requires periodic full-corpus re-encoding → expensive; asynchronous re-indexing (ANCE-First = initialise from DPR, then one refresh cycle) is practical</li>
+</ul>
+<p><strong>Additional hard-negative mining approaches:</strong></p>
+<ul>
+<li><strong>SimCSE (Gao et al., 2021):</strong> standard dropout as positive augmentation; in-batch negatives for NLI-trained encoder</li>
+<li><strong>Contriever (Izacard et al., 2022):</strong> unsupervised contrastive retrieval with random cropping as positives; no labelled data required</li>
+<li><strong>RocketQA (Qu et al., 2021):</strong> cross-encoder provides denoised hard negatives for bi-encoder training</li>
+</ul>
 <h3 id="104-cross-encoder-to-bi-encoder-distillation">10.4 Cross-Encoder to Bi-Encoder Distillation</h3>
 <p><strong>Cross-encoder (re-ranker):</strong>
 Jointly attends over [query; document] via transformer; produces relevance score. Slow at indexing time (cannot precompute) but much more accurate.</p>
@@ -626,10 +694,12 @@ Jointly attends over [query; document] via transformer; produces relevance score
 <p>eBay's RAG + LLM product-title translation paper (arXiv:2409.12880) uses retrieval of similar existing translations as context — this is the bi-encoder (§10) + in-context learning (§7.3) intersection. Evaluation would use BLEU/chrF/COMET (§9); hallucination monitoring (§9.6) is critical for product safety.</p>
 <p>Versley's prior work on cross-lingual pronoun in MT (DiscoMT workshop) connects to the discourse-MT interface (§5.1): pronoun translation across languages requires coreference resolution (§4) at the discourse level — "it" in English may be "er/sie/es" in German depending on the antecedent's grammatical gender, not biological gender. This is exactly the bridging coreference + MT intersection Versley has published on.</p>
 <h3 id="113-vlm-paper-and-classical-nlp">11.3 VLM Paper and Classical NLP</h3>
-<p>The VLM e-commerce understanding paper (arXiv:2602.11733, co-authored by Versley) focuses on structured attribute extraction from images + text. This requires:
-- NER-like sequence labeling (§2) for attribute mention extraction
-- Coreference (§4) to link visual references across multi-modal mentions
-- SRL (§5.3) to identify which attributes apply to which product entities</p>
+<p>The VLM e-commerce understanding paper (arXiv:2602.11733, co-authored by Versley) focuses on structured attribute extraction from images + text. This requires:</p>
+<ul>
+<li>NER-like sequence labeling (§2) for attribute mention extraction</li>
+<li>Coreference (§4) to link visual references across multi-modal mentions</li>
+<li>SRL (§5.3) to identify which attributes apply to which product entities</li>
+</ul>
 <p>Engaging Versley on the VLM paper's NLP components through a classical-NLP lens ("how do you handle attribute co-reference across image captions and product descriptions?") would demonstrate both domain relevance and comp-ling depth.</p>
 <h3 id="114-routing-and-discourse">11.4 Routing and Discourse</h3>
 <p>Tony's LLM routing work can be connected to Versley's discourse research: multi-turn dialogue routing (which model handles discourse-requiring turns vs factual turns) parallels coherence modeling (§5.2) — a discourse-coherent conversation requires understanding what entity/topic is being tracked (coreference, §4) to route appropriately.</p>

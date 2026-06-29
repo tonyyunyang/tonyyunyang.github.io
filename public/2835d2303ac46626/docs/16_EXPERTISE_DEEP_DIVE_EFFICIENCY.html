@@ -80,16 +80,20 @@
 <p><strong>Tony's approach (TwinRouterBench, MERA).</strong> Treat routing as a k-class classification problem. Given a query q, predict which model tier will produce quality &gt;= tau at minimum cost.</p>
 <p><strong>Training signal:</strong> offline trajectories of (query, model, outcome) tuples, where outcome is a binary or scalar quality label (e.g., task-completion for agentic steps, judge score for generation). A DistilBERT classifier (66M params vs BERT's 110M; 6 layers, 768 hidden, knowledge-distilled from BERT-base via Hinton et al. 2019) encodes the query and predicts the routing label.</p>
 <p><strong>Why DistilBERT specifically?</strong> Routing latency must not dominate; a 66M-parameter encoder adds ~5-15ms on CPU, negligible vs LLM inference (500ms-5s). Full BERT would be unnecessary; a smaller MLP would lack semantic understanding for nuanced query complexity estimation.</p>
-<p><strong>Limitations:</strong>
-- Assumes the label distribution in training trajectories is representative of production queries (covariate shift problem).
-- Learns a fixed decision boundary; cannot adapt online to model updates (e.g., if M_1 gets an update that makes it stronger).
-- Cannot explore: if a query type was always routed to M_K in training data, the classifier never learns that M_1 might suffice.</p>
+<p><strong>Limitations:</strong></p>
+<ul>
+<li>Assumes the label distribution in training trajectories is representative of production queries (covariate shift problem).</li>
+<li>Learns a fixed decision boundary; cannot adapt online to model updates (e.g., if M_1 gets an update that makes it stronger).</li>
+<li>Cannot explore: if a query type was always routed to M_K in training data, the classifier never learns that M_1 might suffice.</li>
+</ul>
 <hr />
 <h3 id="13-contextual-bandit-framing">1.3 Contextual Bandit Framing</h3>
-<p><strong>When is a bandit warranted?</strong> A contextual bandit is appropriate when:
-1. The label oracle is cheap (outcome is observed quickly after routing).
-2. Model capabilities drift over time (model updates, prompt format changes).
-3. The training set is sparse for certain query types (exploration needed).</p>
+<p><strong>When is a bandit warranted?</strong> A contextual bandit is appropriate when:</p>
+<ol>
+<li>The label oracle is cheap (outcome is observed quickly after routing).</li>
+<li>Model capabilities drift over time (model updates, prompt format changes).</li>
+<li>The training set is sparse for certain query types (exploration needed).</li>
+</ol>
 <p><strong>Setup.</strong> At each time step t, observe context x_t (query features), choose action a_t in {1,...,K} (model index), observe reward r_t in [0,1] (quality signal). Goal: minimize cumulative regret over T steps:</p>
 <pre><code>Regret(T) = sum_{t=1}^{T} [r*(x_t) - r_t]
 </code></pre>
@@ -100,9 +104,11 @@
 <p>where mu_hat_k(t) is empirical mean reward for model M_k on similar queries, n_k(t) is the number of times M_k has been chosen, and alpha is an exploration coefficient. UCB1 (Auer et al. 2002) achieves O(sqrt(KT log T)) regret. Lin-UCB (Li et al. 2010) extends this to contextual settings via a linear reward model per arm.</p>
 <p><strong>Thompson Sampling.</strong> Maintain a posterior over each model's quality p(theta_k | D_t). At each step, sample theta_k ~ posterior, choose argmax_k E[r | x_t, theta_k]. Thompson Sampling achieves O(sqrt(KT log K)) regret (Agrawal &amp; Goyal 2013) and empirically outperforms UCB in many LLM settings due to better exploration randomization.</p>
 <p><strong>Why Tony chose supervised classification instead of bandit for LLM Router.</strong> In the agentic step-routing setting (MERA, TwinRouterBench), the cost of exploration is high: a single wrong assignment in a 20-step agentic task can corrupt the entire trajectory. The oracle label (task-step quality) is only partially observable in real time (you need the full task completion signal). Furthermore, the training dataset from strong models provides a reasonably dense coverage of the query space. The supervised classifier thus dominates in expected reward under these constraints. A bandit would be preferred for a production API router where (1) millions of queries per day make exploration cheap, (2) outcome signals are fast (e.g., user click, next-turn continuation), and (3) model updates are frequent.</p>
-<p><strong>Formal regret comparison:</strong>
-- Supervised classifier: zero exploration regret if distribution is stationary; O(n^{1/3}) excess risk under distribution shift (VC theory).
-- Contextual bandit: O(sqrt(KT log T)) regret regardless of stationarity — the regret bound assumes worst-case, so it's not automatically better in the stationary case.</p>
+<p><strong>Formal regret comparison:</strong></p>
+<ul>
+<li>Supervised classifier: zero exploration regret if distribution is stationary; O(n^{1/3}) excess risk under distribution shift (VC theory).</li>
+<li>Contextual bandit: O(sqrt(KT log T)) regret regardless of stationarity — the regret bound assumes worst-case, so it's not automatically better in the stationary case.</li>
+</ul>
 <hr />
 <h3 id="14-precise-distinction-tonys-router-vs-mixture-of-experts-moe">1.4 Precise Distinction: Tony's Router vs Mixture-of-Experts (MoE)</h3>
 <p>This is a question Versley will probe, since MoE is central to frontier LLM architecture (Mixtral, GPT-4, DeepSeek-MoE).</p>
@@ -160,9 +166,11 @@
 <hr />
 <h3 id="15-cascading-routers">1.5 Cascading Routers</h3>
 <p><strong>FrugalGPT (Chen et al. 2023).</strong> A cascade: route to cheapest model M_1; if M_1's confidence &lt; threshold, escalate to M_2; if M_2's confidence &lt; threshold, escalate to M_K. This achieves Pareto-optimal cost-quality tradeoffs across a population of queries.</p>
-<p><strong>Compound failure rate.</strong> In a 2-stage cascade:
-- P(M_1 fails) = p_1
-- P(verifier misses M_1 failure | M_1 failed) = p_miss</p>
+<p><strong>Compound failure rate.</strong> In a 2-stage cascade:</p>
+<ul>
+<li>P(M_1 fails) = p_1</li>
+<li>P(verifier misses M_1 failure | M_1 failed) = p_miss</li>
+</ul>
 <p>The compound failure rate is P(bad output) = p_1 * p_miss + P(M_1 succeeds but verifier rejects) * P(M_2 also fails).</p>
 <p>Illustrating the motivation behind MERA with a hypothetical 20-step agentic trajectory (these specific numbers are my own illustration, not results from the paper), the compound failure risk is:</p>
 <pre><code>P(at least one step fails and is not caught) = 1 - (1 - p_fail_per_step)^{N_steps}
@@ -195,19 +203,23 @@
 <pre><code>p_hat = softmax(z / T)
 </code></pre>
 <p>where z is the pre-softmax logit vector. T &gt; 1 softens the distribution (reduces overconfidence); T &lt; 1 sharpens it (increases confidence).</p>
-<p><strong>Properties:</strong>
-1. Preserves accuracy ranking: argmax(softmax(z/T)) = argmax(softmax(z)) for any T &gt; 0. The predicted class is unchanged; only the confidence magnitude changes.
-2. Single parameter; fit on a held-out validation set by minimizing NLL: T* = argmin_T sum_i -log softmax(z_i / T)[y_i].
-3. Post-hoc: requires no retraining of the model. Applicable to any classifier.
-4. Limitation: cannot fix per-class miscalibration (class-wise ECE may remain high). Also cannot fix shape distortions — if the reliability diagram has a non-monotone relationship, a single scalar can't fix it; you need vector/matrix scaling (Kull et al. 2019, "Beyond temperature scaling").</p>
+<p><strong>Properties:</strong></p>
+<ol>
+<li>Preserves accuracy ranking: argmax(softmax(z/T)) = argmax(softmax(z)) for any T &gt; 0. The predicted class is unchanged; only the confidence magnitude changes.</li>
+<li>Single parameter; fit on a held-out validation set by minimizing NLL: T* = argmin_T sum_i -log softmax(z_i / T)[y_i].</li>
+<li>Post-hoc: requires no retraining of the model. Applicable to any classifier.</li>
+<li>Limitation: cannot fix per-class miscalibration (class-wise ECE may remain high). Also cannot fix shape distortions — if the reliability diagram has a non-monotone relationship, a single scalar can't fix it; you need vector/matrix scaling (Kull et al. 2019, "Beyond temperature scaling").</li>
+</ol>
 <p><strong>Why temperature scaling works in practice.</strong> Modern neural networks trained with cross-entropy on standard datasets are systematically overconfident (Guo et al. 2017). This is because CE loss only requires the correct class logit to be larger than others, not that the magnitude equals the log-probability. Temperature scaling removes the magnitude bias without disturbing the ordinal structure.</p>
 <hr />
 <h3 id="23-decision-theoretic-interpretation-of-ece-007">2.3 Decision-Theoretic Interpretation of ECE = 0.07</h3>
 <p><strong>What ECE = 0.07 means concretely.</strong> In expectation, across uniformly-sized confidence bins, the router's stated confidence deviates from empirical accuracy by 7 percentage points. This is a distribution-level summary; the deviation at any specific threshold may be larger or smaller.</p>
-<p><strong>For routing at threshold tau = 0.5:</strong>
-- If ECE = 0.07 is dominated by the 0.5 bin (common for binary classifiers): when the router says P(strong model needed) = 0.5, the empirical rate might be 0.43 or 0.57.
-- A 7-point deviation at the decision boundary means ~7% of queries are misclassified relative to their true probability being above/below 0.5.
-- At a production scale of 1M queries/day, 7% miscalibration = 70,000 queries/day potentially routed to the wrong tier.</p>
+<p><strong>For routing at threshold tau = 0.5:</strong></p>
+<ul>
+<li>If ECE = 0.07 is dominated by the 0.5 bin (common for binary classifiers): when the router says P(strong model needed) = 0.5, the empirical rate might be 0.43 or 0.57.</li>
+<li>A 7-point deviation at the decision boundary means ~7% of queries are misclassified relative to their true probability being above/below 0.5.</li>
+<li>At a production scale of 1M queries/day, 7% miscalibration = 70,000 queries/day potentially routed to the wrong tier.</li>
+</ul>
 <p><strong>Decision-theoretic framing (asymmetric costs).</strong> If the cost of under-routing (sending a hard query to the cheap model and getting a bad output) is much higher than over-routing (sending an easy query to the strong model and wasting compute), you should adjust the threshold:</p>
 <pre><code>Route to strong if P_hat(strong needed) &gt; tau*, where tau* = C_under / (C_under + C_over)
 </code></pre>
@@ -237,11 +249,13 @@
 <hr />
 <h3 id="34-layerdepth-pruning-gromov-et-al-2024">3.4 Layer/Depth Pruning (Gromov et al. 2024)</h3>
 <p><strong>Finding: middle layers of deep LLMs are highly redundant.</strong> Gromov et al. ("The Unreasonable Ineffectiveness of the Deeper Layers") showed that removing layers 16-28 of Llama-2-70B (out of 80 total layers) with a short healing phase (LoRA fine-tuning for ~0.4B tokens) restores performance close to the full model. Angular distance between consecutive layer outputs (cos_sim(l_{n}, l_{n+1})) is near 1.0 for many middle layers, indicating low information gain.</p>
-<p><strong>Practical recipe for e-Llama-70B:</strong>
-1. Compute layer similarity: for each pair of adjacent layers, compute cosine similarity of hidden states on a validation set.
-2. Remove the N consecutive layers with highest similarity (most redundant).
-3. Fine-tune with LoRA for ~0.5B tokens at LR = 10% of pretraining LR (following eBay's own recipe from e-Llama).
-4. Expected: removing 10-12 of 80 layers (12-15% depth reduction) with &lt;2% benchmark degradation.</p>
+<p><strong>Practical recipe for e-Llama-70B:</strong></p>
+<ol>
+<li>Compute layer similarity: for each pair of adjacent layers, compute cosine similarity of hidden states on a validation set.</li>
+<li>Remove the N consecutive layers with highest similarity (most redundant).</li>
+<li>Fine-tune with LoRA for ~0.5B tokens at LR = 10% of pretraining LR (following eBay's own recipe from e-Llama).</li>
+<li>Expected: removing 10-12 of 80 layers (12-15% depth reduction) with &lt;2% benchmark degradation.</li>
+</ol>
 <p><strong>Depth pruning vs head pruning:</strong> depth pruning removes an entire layer (attention + FFN), reducing parameter count proportionally. Head pruning is more granular. Depth pruning is more hardware-friendly (fewer transformer block calls = better pipeline utilization).</p>
 <hr />
 <h3 id="35-kv-cache-compression">3.5 KV-Cache Compression</h3>
@@ -255,9 +269,11 @@
   <figcaption>GQA/MQA share KV across query heads to shrink the cache; MLA compresses KV into a low-rank latent for the smallest cache.</figcaption>
 </figure>
 
-<p><strong>Why KV-cache is the bottleneck.</strong> In autoregressive generation, the KV-cache stores all past key-value pairs for each attention head. For e-Llama-70B with context length 8K:
-- KV-cache size = 2 (K+V) * 80 layers * 8 KV heads * 8192 tokens * 128 head_dim * 2 bytes (bf16) = ~2.68 GB per sequence.
-- At batch size 32: ~86 GB KV-cache alone, saturating GPU HBM.</p>
+<p><strong>Why KV-cache is the bottleneck.</strong> In autoregressive generation, the KV-cache stores all past key-value pairs for each attention head. For e-Llama-70B with context length 8K:</p>
+<ul>
+<li>KV-cache size = 2 (K+V) * 80 layers * 8 KV heads * 8192 tokens * 128 head_dim * 2 bytes (bf16) = ~2.68 GB per sequence.</li>
+<li>At batch size 32: ~86 GB KV-cache alone, saturating GPU HBM.</li>
+</ul>
 <p><strong>Four approaches:</strong></p>
 <ol>
 <li>
@@ -275,9 +291,11 @@
 </ol>
 <hr />
 <h3 id="36-quantization">3.6 Quantization</h3>
-<p><strong>Post-Training Quantization (PTQ) vs Quantization-Aware Training (QAT):</strong>
-- <strong>PTQ:</strong> quantize after training using calibration data; no gradient updates. Faster to deploy; some accuracy loss, especially at 4-bit.
-- <strong>QAT:</strong> simulate quantization during training (fake-quantize); model learns to be robust to rounding errors. Better accuracy but expensive (requires fine-tuning).</p>
+<p><strong>Post-Training Quantization (PTQ) vs Quantization-Aware Training (QAT):</strong></p>
+<ul>
+<li><strong>PTQ:</strong> quantize after training using calibration data; no gradient updates. Faster to deploy; some accuracy loss, especially at 4-bit.</li>
+<li><strong>QAT:</strong> simulate quantization during training (fake-quantize); model learns to be robust to rounding errors. Better accuracy but expensive (requires fine-tuning).</li>
+</ul>
 <p><strong>GPTQ (Frantar et al. 2022).</strong> Layer-wise second-order PTQ for LLMs. Uses the optimal brain compression (OBC) framework: reconstruct the layer output W * X after quantizing W by compensating downstream weights. For each weight W_{ij}, the quantization error is propagated to remaining un-quantized weights via the Hessian inverse. Achieves 3-4 bit quantization of GPT-175B with &lt;1 PPL increase. Runtime: ~4 GPU-hours for 175B model.</p>
 <p><strong>AWQ (Lin et al. 2023).</strong> Activation-aware weight quantization. Observation: not all weights are equally important; weights corresponding to large activation channels cause large quantization error. AWQ protects salient weights (top 1% by activation magnitude) by scaling them up before quantization and scaling activations down proportionally. Achieves better performance than GPTQ at 4-bit for instruction-tuned models; especially strong for multi-modal models.</p>
 <p><strong>SmoothQuant (Xiao et al. 2022).</strong> Addresses the activation quantization problem (activations have much wider dynamic range than weights). Migrates quantization difficulty from activations to weights via a per-channel scaling factor:
@@ -310,9 +328,11 @@ This makes both W and x easier to quantize to int8, enabling W8A8 (int8 weights 
   <figcaption>A small draft model proposes k tokens; the big model verifies them in one pass and accepts the longest correct prefix.</figcaption>
 </figure>
 
-<p><strong>Mechanism.</strong> A small draft model M_draft autoregressively generates k tokens in parallel; the large target model M_target verifies all k tokens in a single forward pass (since attention can process all k tokens simultaneously given the prefill). Accept/reject each token based on the ratio p_target(x)/p_draft(x):
-- If p_target &gt;= p_draft: accept deterministically.
-- Otherwise: accept with probability p_target/p_draft; replace with a corrected sample.</p>
+<p><strong>Mechanism.</strong> A small draft model M_draft autoregressively generates k tokens in parallel; the large target model M_target verifies all k tokens in a single forward pass (since attention can process all k tokens simultaneously given the prefill). Accept/reject each token based on the ratio p_target(x)/p_draft(x):</p>
+<ul>
+<li>If p_target &gt;= p_draft: accept deterministically.</li>
+<li>Otherwise: accept with probability p_target/p_draft; replace with a corrected sample.</li>
+</ul>
 <p>This guarantees the final output distribution is identical to running M_target alone (lossless).</p>
 <p><strong>Expected speedup.</strong> Let alpha = acceptance rate (mean fraction of draft tokens accepted). Each speculative step generates on average:
     E[accepted tokens] = (1 - alpha^{k+1}) / (1 - alpha)</p>
@@ -336,11 +356,13 @@ This makes both W and x easier to quantize to int8, enabling W8A8 (int8 weights 
 <hr />
 <h3 id="43-hypernetworks-ha-et-al-2017">4.3 HyperNetworks (Ha et al. 2017)</h3>
 <p><strong>Mechanism.</strong> A meta-network H(e_T) -&gt; theta generates the weights of a primary network from a task embedding e_T. H is trained jointly with the primary network such that the generated weights perform well on task T.</p>
-<p><strong>Differences from Diffusion Weights:</strong>
-- HyperNetworks generate weights from a task description/embedding alone. Diffusion Weights conditions on a single current weight checkpoint <em>plus</em> dataset/task conditioning (a permutation-invariant set encoder over the dataset and an LLM language embedding of the task), and synthesizes a future weight state via a diffusion process — it does not condition on a sequence/trajectory of past checkpoints.
-- HyperNetworks are typically small relative to the primary network; Diffusion Weights uses a U-Net operating on the weight tensor itself.
-- HyperNetworks cannot predict convergence from partial training; they generate weights from scratch given a task specification.
-- HyperNetworks typically operate on small primary networks (LSTM cell weights in Ha et al.); applying them to billion-parameter LLMs is computationally challenging.</p>
+<p><strong>Differences from Diffusion Weights:</strong></p>
+<ul>
+<li>HyperNetworks generate weights from a task description/embedding alone. Diffusion Weights conditions on a single current weight checkpoint <em>plus</em> dataset/task conditioning (a permutation-invariant set encoder over the dataset and an LLM language embedding of the task), and synthesizes a future weight state via a diffusion process — it does not condition on a sequence/trajectory of past checkpoints.</li>
+<li>HyperNetworks are typically small relative to the primary network; Diffusion Weights uses a U-Net operating on the weight tensor itself.</li>
+<li>HyperNetworks cannot predict convergence from partial training; they generate weights from scratch given a task specification.</li>
+<li>HyperNetworks typically operate on small primary networks (LSTM cell weights in Ha et al.); applying them to billion-parameter LLMs is computationally challenging.</li>
+</ul>
 <p><strong>Closest prior work to Diffusion Weights:</strong> Learning to predict optimizer trajectories (Andrychowicz et al. 2016, "Learning to learn by gradient descent by gradient descent") trains an LSTM to predict gradient updates. Diffusion Weights differs by (1) predicting full weight states, not gradient increments; (2) using a generative model (U-Net diffusion) rather than an optimizer surrogate; (3) multi-horizon prediction (predict weights at multiple future checkpoints and merge).</p>
 <hr />
 <h3 id="44-intrinsic-dimensionality-of-fine-tuning-aghajanyan-et-al-2020">4.4 Intrinsic Dimensionality of Fine-Tuning (Aghajanyan et al. 2020)</h3>
@@ -348,10 +370,12 @@ This makes both W and x easier to quantize to int8, enabling W8A8 (int8 weights 
 <pre><code>theta = theta_0 + P * phi
 </code></pre>
 <p>where phi in R^d (d &lt;&lt; D), P is a random projection matrix mapping d-&gt;D, and theta_0 is the pretrained initialization. They find that d can be as small as 200-1000 for MRPC fine-tuning (vs D ~= 125M parameters for BERT), retaining 90% of full fine-tuning performance.</p>
-<p><strong>Why weight-state prediction is plausible (general motivation, not the paper's stated theory).</strong> If fine-tuning trajectories lie on a low-dimensional manifold in weight space (intrinsic dimension ~= 200-1000 out of millions of parameters), then:
-1. Weight trajectories are smooth and predictable — there is structure to model.
-2. A diffusion model operating on the weight space can learn this manifold's dynamics.
-3. The U-Net's multi-scale processing (coarse-to-fine) is appropriate because the weight manifold has structure at multiple scales (layer-level, neuron-level, weight-level).</p>
+<p><strong>Why weight-state prediction is plausible (general motivation, not the paper's stated theory).</strong> If fine-tuning trajectories lie on a low-dimensional manifold in weight space (intrinsic dimension ~= 200-1000 out of millions of parameters), then:</p>
+<ol>
+<li>Weight trajectories are smooth and predictable — there is structure to model.</li>
+<li>A diffusion model operating on the weight space can learn this manifold's dynamics.</li>
+<li>The U-Net's multi-scale processing (coarse-to-fine) is appropriate because the weight manifold has structure at multiple scales (layer-level, neuron-level, weight-level).</li>
+</ol>
 <p>This low-dimensional-manifold view is useful general motivation, but it is NOT the paper's stated grounding. The paper's actual theory is Theorem 3.1 (global reconstruction error bounded by sqrt(k) * max_i ||w_i - w_hat_i|| over k chunks) and Theorem 3.2 (a cosine-similarity lower bound S &gt;= 1 - eps^2/(2||theta_train||^2), arguing directional correctness survives modest Euclidean error). The weight trajectory is not a random walk in D-dimensional space; it's a structured path, which is what makes it predictable. (Aghajanyan/intrinsic-dimensionality is not cited as the paper's justification.)</p>
 <p><strong>Connection to LoRA.</strong> LoRA (Hu et al. 2021) explicitly parametrizes the weight update as a low-rank matrix:</p>
 <pre><code>W' = W_0 + BA, where B in R^{d x r}, A in R^{r x k}, r &lt;&lt; min(d,k)
@@ -371,17 +395,21 @@ This makes both W and x easier to quantize to int8, enabling W8A8 (int8 weights 
 <hr />
 <h3 id="46-diffusion-weights-precise-mechanism-and-limitations">4.6 Diffusion Weights — Precise Mechanism and Limitations</h3>
 <p><strong>What it is.</strong> A diffusion U-Net trained to synthesize a future fine-tuning weight state. Conditioned on a single current checkpoint plus dataset/task conditioning (not a sequence of past checkpoints), it predicts a future weight state x_0 at short/mid/long horizons (multi-horizon). The predicted horizons are then merged in weight space via task-arithmetic-style combination (nonnegative coefficients summing to one), not a plain average.</p>
-<p><strong>Why U-Net?</strong> Multi-scale processing captures weight structure at:
-- Coarse scale: layer-level trends (all weights in a layer shifting together due to domain adaptation).
-- Medium scale: neuron-level specialization (specific neurons activating for specific input patterns).
-- Fine scale: individual weight magnitude adjustments.</p>
+<p><strong>Why U-Net?</strong> Multi-scale processing captures weight structure at:</p>
+<ul>
+<li>Coarse scale: layer-level trends (all weights in a layer shifting together due to domain adaptation).</li>
+<li>Medium scale: neuron-level specialization (specific neurons activating for specific input patterns).</li>
+<li>Fine scale: individual weight magnitude adjustments.</li>
+</ul>
 <p>The temporal dimension (checkpoint index) plays the role of the spatial dimension in standard U-Nets; skip connections allow the model to reference early trajectory information when predicting the final state.</p>
 <p><strong>The 3.2x speedup claim.</strong> Rather than running SGD to convergence, Diffusion Weights amortizes the trajectory: once the forecaster is trained on a family of fine-tuning trajectories, for a new related task it synthesizes a future weight state directly from a single current checkpoint plus the task conditioning, skipping the expensive iteration. The ~3.2x is the conservative abstract/intro headline; the measured Table 1 per-task wall-clock is actually 3.8x-4.3x (GLUE, LAMBADA, MMLU, OpenBookQA, WikiText). Downstream quality is comparable to full fine-tuning (parity-or-improvement, e.g. WMT16 TER -12.5%). The acceleration is amortized, not free — collecting the ground-truth trajectories is a real upfront cost the paper lists as a limitation.</p>
 <p><strong>Positioning vs diffusion-based generative models.</strong> Diffusion Weights uses genuine diffusion machinery: a standard Gaussian forward noising process (eq 6), a reverse sampling chain with DDPM/DDIM, and an attention U-Net denoiser F_psi (eqs 7-8). It is trained with x_0-prediction — predict the clean <em>future</em> weight state x_0 from a noisy x_t — under a state loss L_state plus a chrono-aware temporal loss L_chrono, so it is NOT a deterministic MSE regressor and NOT a plain trajectory predictor. What makes it diffusion-<em>inspired</em> rather than textbook DDPM: it operates in a beta-VAE latent space (not raw weights), the x_0 target is a <em>future</em> weight state (so the denoiser is really a future-state forecaster), and conditioning is ControlNet-style. When Versley asks "Is your Diffusion Weights actually diffusion?", the honest answer is: "Diffusion-inspired with real diffusion machinery but a non-standard target — there's a genuine Gaussian forward process, a DDPM/DDIM reverse chain, and an attention U-Net denoiser; the twist is x_0-prediction of a <em>future</em> weight state in a beta-VAE latent space." Do NOT flatly deny the noise process or reverse chain — that is contradicted by the PDF and the author's colleague would refute it on the spot. (Full verified detail in 20_OWN_PAPERS_GROUND_TRUTH.md.)</p>
-<p><strong>Known limitations:</strong>
-1. <strong>OOD detection.</strong> Is a new fine-tuning task in-distribution for the weight predictor? If the new task has substantially different loss landscape from training tasks, the predictor may forecast badly (e.g., training on vision fine-tuning trajectories, predicting a code fine-tuning trajectory).
-2. <strong>Fine-tuning vs continued pretraining.</strong> Diffusion Weights was demonstrated on SFT-phase fine-tuning trajectories. eBay's e-Llama uses continued pretraining (1T tokens at ~3e-5 LR) — a qualitatively different trajectory (much longer, more gradual, involves catastrophic forgetting dynamics). Reframing for eBay: most directly applicable to the SFT/instruction-tuning phase of eBay's model development pipeline, not the 1T-token continued pretraining run.
-3. <strong>Scale (the honest scope limit).</strong> All experiments are GPT-2 variants up to 1.5B params on a single RTX 4090; scaling to tens or hundreds of billions of parameters is explicitly listed as UNVALIDATED in the paper's Limitations, so 70B applicability is future work, not a demonstrated result. Collection cost compounds the problem: each 70B checkpoint is ~140GB, so the predictor would have to operate on compressed representations or a randomly sampled subset.</p>
+<p><strong>Known limitations:</strong></p>
+<ol>
+<li><strong>OOD detection.</strong> Is a new fine-tuning task in-distribution for the weight predictor? If the new task has substantially different loss landscape from training tasks, the predictor may forecast badly (e.g., training on vision fine-tuning trajectories, predicting a code fine-tuning trajectory).</li>
+<li><strong>Fine-tuning vs continued pretraining.</strong> Diffusion Weights was demonstrated on SFT-phase fine-tuning trajectories. eBay's e-Llama uses continued pretraining (1T tokens at ~3e-5 LR) — a qualitatively different trajectory (much longer, more gradual, involves catastrophic forgetting dynamics). Reframing for eBay: most directly applicable to the SFT/instruction-tuning phase of eBay's model development pipeline, not the 1T-token continued pretraining run.</li>
+<li><strong>Scale (the honest scope limit).</strong> All experiments are GPT-2 variants up to 1.5B params on a single RTX 4090; scaling to tens or hundreds of billions of parameters is explicitly listed as UNVALIDATED in the paper's Limitations, so 70B applicability is future work, not a demonstrated result. Collection cost compounds the problem: each 70B checkpoint is ~140GB, so the predictor would have to operate on compressed representations or a randomly sampled subset.</li>
+</ol>
 <hr />
 <h3 id="47-hardest-follow-up-if-weight-trajectories-have-intrinsic-dimension-200-aghajanyan-why-do-you-need-a-full-u-net-why-not-a-linear-predictor-in-that-subspace">4.7 Hardest Follow-up: "If weight trajectories have intrinsic dimension ~200 (Aghajanyan), why do you need a full U-Net? Why not a linear predictor in that subspace?"</h3>
 <p>Answer (noting first that Aghajanyan/intrinsic-dimensionality is general motivation, not the paper's stated grounding — the paper's own theory is Theorems 3.1/3.2 above): Aghajanyan measured intrinsic dimension for the final converged state relative to the initialization — i.e., the update lies in a ~200-dimensional subspace. But the trajectory (how you get there from checkpoint to checkpoint) may not be linear. The trajectory can have curvature, oscillation (gradient noise), and non-linear interactions between layers. The U-Net captures these non-linear trajectory dynamics. A linear predictor in the intrinsic subspace would work if the trajectory were straight-line (e.g., simple learning rate decay on a convex loss), but in practice, fine-tuning trajectories have phase transitions (early rapid improvement, late convergence oscillation) that require non-linear modeling.</p>
@@ -400,10 +428,12 @@ This makes both W and x easier to quantize to int8, enabling W8A8 (int8 weights 
 </ol>
 <p>Projected: ~8x memory reduction, ~3-5x throughput gain, &lt;3% benchmark degradation.</p>
 <h3 id="52-routing-over-the-compressed-stack">5.2 Routing over the Compressed Stack</h3>
-<p>Tony's LLM router sits on top of this stack. For eBay:
-- <strong>Easy queries</strong> (single-category listing title from clear image): route to e-Llama-8B compressed replica (int4 + speculative draft free-riding on own predictions).
-- <strong>Medium queries</strong> (multi-attribute item specific extraction): route to e-Llama-70B compressed, standard LoRA adapter.
-- <strong>Hard queries</strong> (cross-lingual product description, legal/compliance-sensitive copy): route to e-Llama-70B compressed with lawyer/compliance LoRA or external frontier model (GPT-4o, Claude 3.5).</p>
+<p>Tony's LLM router sits on top of this stack. For eBay:</p>
+<ul>
+<li><strong>Easy queries</strong> (single-category listing title from clear image): route to e-Llama-8B compressed replica (int4 + speculative draft free-riding on own predictions).</li>
+<li><strong>Medium queries</strong> (multi-attribute item specific extraction): route to e-Llama-70B compressed, standard LoRA adapter.</li>
+<li><strong>Hard queries</strong> (cross-lingual product description, legal/compliance-sensitive copy): route to e-Llama-70B compressed with lawyer/compliance LoRA or external frontier model (GPT-4o, Claude 3.5).</li>
+</ul>
 <p>Router: DistilBERT classifier (66M params, ~10ms latency, ECE &lt; 0.03 after temperature scaling) trained on eBay's own production query trajectories with quality labels from human raters + automated metrics (COMET for translation, NDCG for retrieval).</p>
 <p>Cascade: cheap model + confidence threshold (H2O-evicted KV means confidence can be measured faster) -&gt; escalate if confidence &lt; 0.6 -&gt; medium model -&gt; escalate if confidence &lt; 0.7 -&gt; strong model. Compound failure rate bounded by P_fail &lt; 0.05 at each stage -&gt; trajectory-level failure for a 5-step pipeline: 1 - 0.95^5 = 23% — acceptable for most listing tasks, requires human review queue for the failure fraction.</p>
 <hr />

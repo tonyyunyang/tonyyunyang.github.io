@@ -79,10 +79,12 @@
 <li><strong>Irreducible noise</strong> = inherent label noise; cannot be modeled away.</li>
 </ul>
 <p>Classic tradeoff: as model complexity increases, bias falls but variance rises. Optimal complexity minimizes total error.</p>
-<p><strong>Concrete examples:</strong>
-- LLM in-context learning with 1 example vs. 10 examples: fewer shots = higher bias (less information) but lower variance (less risk of spurious patterns).
-- Routing a query to a small 7B model vs. a 70B model: 7B has higher bias on hard tasks, 70B has higher variance on simple tasks (more prone to overthinking). This is exactly the tradeoff Tony's LLM Router addresses — match query difficulty to model capacity.
-- In Tony's nnU-Net pruning (&gt;80% of weights removed while proxy Dice stays &gt;0.95): extreme pruning increases bias (capacity removed) but reduces variance (fewer redundant features to overfit). Finding that &gt;80% of weights can be removed with minimal degradation means the original model was highly over-parameterized.</p>
+<p><strong>Concrete examples:</strong></p>
+<ul>
+<li>LLM in-context learning with 1 example vs. 10 examples: fewer shots = higher bias (less information) but lower variance (less risk of spurious patterns).</li>
+<li>Routing a query to a small 7B model vs. a 70B model: 7B has higher bias on hard tasks, 70B has higher variance on simple tasks (more prone to overthinking). This is exactly the tradeoff Tony's LLM Router addresses — match query difficulty to model capacity.</li>
+<li>In Tony's nnU-Net pruning (&gt;80% of weights removed while proxy Dice stays &gt;0.95): extreme pruning increases bias (capacity removed) but reduces variance (fewer redundant features to overfit). Finding that &gt;80% of weights can be removed with minimal degradation means the original model was highly over-parameterized.</li>
+</ul>
 <p><strong>In practice for neural networks:</strong> bias is addressed by architecture (depth, width, attention span); variance is addressed by regularization (dropout, weight decay, data augmentation, early stopping, ensemble). The double-descent phenomenon complicates the classical picture. In classical models, test error forms a U-curve: as model complexity grows, error first falls (bias reduction) then rises (variance inflation). The <strong>interpolation threshold</strong> is the point where model capacity is just large enough to fit the training data exactly; near this threshold, test error peaks. Beyond it, in the over-parameterized regime, something unexpected happens: test error descends again, even though the model memorizes training data. This "benign overfitting" occurs because an over-parameterized model has many solutions that interpolate the training data, and gradient descent tends to find one with a particular inductive bias (e.g., minimum-norm) that generalizes. The role of inductive bias is critical — the architecture's implicit regularization (e.g., residual connections, attention's structural bias toward sparse patterns) determines how well the model generalizes in this regime. LLMs live firmly in this over-parameterized regime, which is why adding more parameters can improve generalization even when training loss is already near zero.</p>
 <hr />
 <h3 id="a2-regularization-l1-l2-dropout">A2. Regularization: L1, L2, Dropout</h3>
@@ -120,17 +122,23 @@ At training start, weights are randomly initialized, so early gradients are nois
 <p><strong>Q: What is model calibration? How do you measure it, and why does it matter for production ML?</strong></p>
 <p><strong>Model Answer:</strong></p>
 <p>A model is <strong>calibrated</strong> if its predicted probabilities match empirical frequencies: when the model says 80% confidence, the event should occur ~80% of the time. Formally: <code>P(Y=1 | P̂(Y=1) = p) = p</code> for all p.</p>
-<p><strong>Measuring calibration:</strong>
-- <strong>Expected Calibration Error (ECE):</strong> bin predictions by confidence → compare mean predicted confidence vs. fraction positive in each bin → weighted average of |confidence - accuracy|.
-- <strong>Reliability diagram:</strong> plot predicted confidence (x-axis) vs. accuracy (y-axis). Perfect calibration = diagonal. Over-confident models show curve below diagonal.
-- <strong>Brier Score:</strong> <code>(P̂ - Y)²</code> — combines calibration and sharpness.</p>
-<p><strong>Why it matters for LLM inference:</strong>
-- LLM routing (Tony's work) depends on confidence: a router that says "60% confident this query needs the big model" must be calibrated for the cost threshold to be meaningful. Miscalibrated routers either over-use expensive models or incorrectly route hard queries to cheap ones.
-- In eBay's ads keyphrase relevance (LLM-as-judge), calibration determines whether LLM confidence scores can be thresholded for automated decision-making.</p>
-<p><strong>Common calibration issues in LLMs:</strong>
-- LLMs are notoriously over-confident in factual assertions but under-confident when asked explicit probability questions.
-- Temperature scaling: divide logits by T &gt; 1 before softmax → softens distribution → improves calibration. Calibration temperature is fit on a held-out validation set. Simple and effective.
-- Label smoothing during training: replaces one-hot targets <code>(0, 1)</code> with <code>(ε/K, 1-ε+ε/K)</code>. Prevents overconfident predictions; improves calibration at training time.</p>
+<p><strong>Measuring calibration:</strong></p>
+<ul>
+<li><strong>Expected Calibration Error (ECE):</strong> bin predictions by confidence → compare mean predicted confidence vs. fraction positive in each bin → weighted average of |confidence - accuracy|.</li>
+<li><strong>Reliability diagram:</strong> plot predicted confidence (x-axis) vs. accuracy (y-axis). Perfect calibration = diagonal. Over-confident models show curve below diagonal.</li>
+<li><strong>Brier Score:</strong> <code>(P̂ - Y)²</code> — combines calibration and sharpness.</li>
+</ul>
+<p><strong>Why it matters for LLM inference:</strong></p>
+<ul>
+<li>LLM routing (Tony's work) depends on confidence: a router that says "60% confident this query needs the big model" must be calibrated for the cost threshold to be meaningful. Miscalibrated routers either over-use expensive models or incorrectly route hard queries to cheap ones.</li>
+<li>In eBay's ads keyphrase relevance (LLM-as-judge), calibration determines whether LLM confidence scores can be thresholded for automated decision-making.</li>
+</ul>
+<p><strong>Common calibration issues in LLMs:</strong></p>
+<ul>
+<li>LLMs are notoriously over-confident in factual assertions but under-confident when asked explicit probability questions.</li>
+<li>Temperature scaling: divide logits by T &gt; 1 before softmax → softens distribution → improves calibration. Calibration temperature is fit on a held-out validation set. Simple and effective.</li>
+<li>Label smoothing during training: replaces one-hot targets <code>(0, 1)</code> with <code>(ε/K, 1-ε+ε/K)</code>. Prevents overconfident predictions; improves calibration at training time.</li>
+</ul>
 <hr />
 <h3 id="a5-data-leakage-and-evaluation-design">A5. Data Leakage and Evaluation Design</h3>
 <p><strong>Q: What is data leakage? Give an LLM-specific example. How do you prevent it?</strong></p>
@@ -138,34 +146,73 @@ At training start, weights are randomly initialized, so early gradients are nois
 <p><strong>Data leakage:</strong> information from the test/future partition is directly or indirectly available to the model during training, causing artificially inflated evaluation metrics that don't reflect deployment performance.</p>
 <p><strong>LLM-specific example — benchmark contamination:</strong>
 Modern LLMs are pretrained on web-scale data that often contains benchmark questions and answers (MMLU, GSM8K, HumanEval). A model scoring 90% on MMLU may have seen those exact questions during pretraining. Studies (Golchin &amp; Surdeanu 2023) show substantial contamination in GPT-4 and LLaMA evaluations. eBay's approach of constructing <strong>five new multilingual e-commerce benchmarks</strong> (Aspect Prediction, Price Prediction, Most Common Aspects) specifically addresses this — proprietary internal benchmarks cannot be in the training data.</p>
-<p><strong>Other LLM leakage forms:</strong>
-- Fine-tuning data contaminated by test labels (e.g., train set contains ground truth for val/test).
-- Embeddings trained on full dataset then used for cross-validation.
-- Future signals used as features in time-series recommendation (user history after the prediction point).</p>
-<p><strong>Prevention:</strong>
-- Time-based splits for sequential data (not random split).
-- Construct held-out benchmarks from data not publicly accessible (eBay's internal benchmark strategy).
-- Use n-gram overlap checks between training data and evaluation sets.
-- For continued pretraining: hold out evaluation data before any pretraining step.
-- Dynamic/live benchmarks (LiveCodeBench, Chatbot Arena with new questions) that cannot be contaminated.</p>
+<p><strong>Other LLM leakage forms:</strong></p>
+<ul>
+<li>Fine-tuning data contaminated by test labels (e.g., train set contains ground truth for val/test).</li>
+<li>Embeddings trained on full dataset then used for cross-validation.</li>
+<li>Future signals used as features in time-series recommendation (user history after the prediction point).</li>
+</ul>
+<p><strong>Prevention:</strong></p>
+<ul>
+<li>Time-based splits for sequential data (not random split).</li>
+<li>Construct held-out benchmarks from data not publicly accessible (eBay's internal benchmark strategy).</li>
+<li>Use n-gram overlap checks between training data and evaluation sets.</li>
+<li>For continued pretraining: hold out evaluation data before any pretraining step.</li>
+<li>Dynamic/live benchmarks (LiveCodeBench, Chatbot Arena with new questions) that cannot be contaminated.</li>
+</ul>
 <hr />
 <h3 id="a6-classification-metrics">A6. Classification Metrics</h3>
 <p><strong>Q: When do you use precision vs. recall vs. F1 vs. AUC-ROC? Give an e-commerce example.</strong></p>
 <p><strong>Model Answer:</strong></p>
-<p><strong>Definitions:</strong>
-- <code>Precision = TP / (TP + FP)</code> — of predicted positives, how many are correct?
-- <code>Recall = TP / (TP + FN)</code> — of actual positives, how many did we catch?
-- <code>F1 = 2 × P × R / (P + R)</code> — harmonic mean; good when both matter equally.
-- <code>AUC-ROC</code> = area under TPR vs. FPR curve across all thresholds. Measures discriminative ability; threshold-independent. <code>AUC=1</code>: perfect; <code>AUC=0.5</code>: random.</p>
-<p><strong>When to use which:</strong>
-| Scenario | Metric | Why |
-|---|---|---|
-| Fraud detection | High recall | Missing fraud = very costly; false alarms tolerable |
-| Content moderation (conservative) | High precision | Bad to block good content; tolerate some bad slipping through |
-| E-commerce product compliance | F1 | Both false blocks and missed violations matter |
-| Ad keyphrase relevance (eBay) | AUC or Precision@K | Ranking task; threshold is tuned separately |
-| Machine translation quality | chrF / COMET | Not classification; character n-gram overlap |
-| LLM routing | Calibration + coverage | Must match cost-quality Pareto |</p>
+<p><strong>Definitions:</strong></p>
+<ul>
+<li><code>Precision = TP / (TP + FP)</code> — of predicted positives, how many are correct?</li>
+<li><code>Recall = TP / (TP + FN)</code> — of actual positives, how many did we catch?</li>
+<li><code>F1 = 2 × P × R / (P + R)</code> — harmonic mean; good when both matter equally.</li>
+<li><code>AUC-ROC</code> = area under TPR vs. FPR curve across all thresholds. Measures discriminative ability; threshold-independent. <code>AUC=1</code>: perfect; <code>AUC=0.5</code>: random.</li>
+</ul>
+<p><strong>When to use which:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>Metric</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fraud detection</td>
+<td>High recall</td>
+<td>Missing fraud = very costly; false alarms tolerable</td>
+</tr>
+<tr>
+<td>Content moderation (conservative)</td>
+<td>High precision</td>
+<td>Bad to block good content; tolerate some bad slipping through</td>
+</tr>
+<tr>
+<td>E-commerce product compliance</td>
+<td>F1</td>
+<td>Both false blocks and missed violations matter</td>
+</tr>
+<tr>
+<td>Ad keyphrase relevance (eBay)</td>
+<td>AUC or Precision@K</td>
+<td>Ranking task; threshold is tuned separately</td>
+</tr>
+<tr>
+<td>Machine translation quality</td>
+<td>chrF / COMET</td>
+<td>Not classification; character n-gram overlap</td>
+</tr>
+<tr>
+<td>LLM routing</td>
+<td>Calibration + coverage</td>
+<td>Must match cost-quality Pareto</td>
+</tr>
+</tbody>
+</table>
 <p><strong>eBay-specific:</strong>
 For the Magical Listing attribute extraction task (Versley et al., arXiv:2602.11733 (2026)), they report F1 — because both false attributes (noise) and missed attributes (incomplete listing) hurt seller experience. For Aspect Prediction (whether a model can predict what attributes a product should have), they use accuracy as the task is framed as classification over a fixed attribute set.</p>
 <p><strong>Important:</strong> AUC-ROC can be misleading under heavy class imbalance (few positives). Use <strong>AUC-PR (Precision-Recall AUC)</strong> instead, which focuses only on the positive class performance.</p>
@@ -212,13 +259,38 @@ Does not modify Q/K; instead adds a learned-free linear bias to attention logits
 <pre><code>Score_{m,n} = (Q_m · K_n) / √dₖ - slope_h · (m - n)
 </code></pre>
 <p><code>slope_h</code> is a geometric sequence per head (head h uses slope 2^{-8h/H}). As distance m-n grows, bias grows negatively → attention decays with distance. Key advantage: generalizes to longer sequences than training without finetuning (bias just continues growing). Used in MPT, BLOOM.</p>
-<p><strong>RoPE vs ALiBi tradeoffs:</strong>
-| Property | RoPE | ALiBi |
-|---|---|---|
-| Long-context generalization | Needs YaRN fine-tuning | Natural, no finetuning |
-| Absolute quality within trained range | Better | Slightly worse |
-| Parameter count | None | None |
-| Adoption (2025) | Universal | Declining |</p>
+<p><strong>RoPE vs ALiBi tradeoffs:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>RoPE</th>
+<th>ALiBi</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Long-context generalization</td>
+<td>Needs YaRN fine-tuning</td>
+<td>Natural, no finetuning</td>
+</tr>
+<tr>
+<td>Absolute quality within trained range</td>
+<td>Better</td>
+<td>Slightly worse</td>
+</tr>
+<tr>
+<td>Parameter count</td>
+<td>None</td>
+<td>None</td>
+</tr>
+<tr>
+<td>Adoption (2025)</td>
+<td>Universal</td>
+<td>Declining</td>
+</tr>
+</tbody>
+</table>
 <p>For eBay: RoPE is the right choice for LiLiuM given the need for continued pretraining to extend context (e-Llama uses 8k context) and the LLaMA ecosystem compatibility for building e-Llama.</p>
 <hr />
 <h3 id="b3-rmsnorm-vs-layernorm-pre-norm-vs-post-norm">B3. RMSNorm vs LayerNorm; Pre-Norm vs Post-Norm</h3>
@@ -253,10 +325,12 @@ Model weights stored in FP32 (master copy); forward and backward passes computed
 <p><strong>Model Answer:</strong></p>
 <p><strong>Data Parallelism (DP):</strong> Each GPU holds a full model copy; minibatch distributed. After backward, gradients all-reduced (ring-allreduce or parameter server). Memory per GPU: full model + full Adam state + gradients (~14 bytes/param). OK for models that fit on one GPU (~7B on 80GB with BF16 + optimizer offload).</p>
 <p><strong>ZeRO / FSDP (Fully Sharded Data Parallelism):</strong>
-DeepSpeed ZeRO shards across <code>N</code> DP ranks:
-- <strong>ZeRO-1:</strong> Shard optimizer states only. Memory saved per GPU: 4× (optimizer states = 12 bytes of 16 total).
-- <strong>ZeRO-2:</strong> Shard optimizer states + gradients. Memory saved: ~8×.
-- <strong>ZeRO-3 / FSDP:</strong> Shard parameters too. Each GPU holds <code>1/N</code> of all parameters. Gather parameters just-in-time for each forward/backward layer; re-shard immediately. Memory per GPU: <code>14B/N</code> (where B = parameter count in bytes). Communication cost: extra all-gathers + reduce-scatters of parameters (2× more communication than vanilla DP).</p>
+DeepSpeed ZeRO shards across <code>N</code> DP ranks:</p>
+<ul>
+<li><strong>ZeRO-1:</strong> Shard optimizer states only. Memory saved per GPU: 4× (optimizer states = 12 bytes of 16 total).</li>
+<li><strong>ZeRO-2:</strong> Shard optimizer states + gradients. Memory saved: ~8×.</li>
+<li><strong>ZeRO-3 / FSDP:</strong> Shard parameters too. Each GPU holds <code>1/N</code> of all parameters. Gather parameters just-in-time for each forward/backward layer; re-shard immediately. Memory per GPU: <code>14B/N</code> (where B = parameter count in bytes). Communication cost: extra all-gathers + reduce-scatters of parameters (2× more communication than vanilla DP).</li>
+</ul>
 <p><strong>Use FSDP for:</strong> models that don't fit in single GPU; academic/research scale (easier to configure than Megatron).</p>
 <p><strong>Tensor Parallelism (TP):</strong> Split weight matrices column-wise then row-wise within each layer:</p>
 <pre><code>y = W₁ x = [W₁_A | W₁_B] [x]  → all-reduce across TP ranks
@@ -278,23 +352,27 @@ DeepSpeed ZeRO shards across <code>N</code> DP ranks:
 
 <p><strong>Q: Walk through the complete data curation pipeline for pretraining a 7B LLM on 3T tokens. What does eBay do differently?</strong></p>
 <p><strong>Model Answer:</strong></p>
-<p><strong>Stage 1 — Collection:</strong>
-- Web crawls (CommonCrawl, WARC format → WET text extraction). Snapshots from 2013–2024.
-- Books (Project Gutenberg, Books3, legal ebook sets).
-- Code (GitHub, StackOverflow, filtered for license).
-- Scientific/academic text (ArXiv, PubMed, Semantic Scholar).
-- Wikipedia, Wikidata, encyclopedias (high quality, multilingual).
-- Domain-specific: e-commerce listings, product reviews, parallel MT data (critical for LiLiuM).</p>
+<p><strong>Stage 1 — Collection:</strong></p>
+<ul>
+<li>Web crawls (CommonCrawl, WARC format → WET text extraction). Snapshots from 2013–2024.</li>
+<li>Books (Project Gutenberg, Books3, legal ebook sets).</li>
+<li>Code (GitHub, StackOverflow, filtered for license).</li>
+<li>Scientific/academic text (ArXiv, PubMed, Semantic Scholar).</li>
+<li>Wikipedia, Wikidata, encyclopedias (high quality, multilingual).</li>
+<li>Domain-specific: e-commerce listings, product reviews, parallel MT data (critical for LiLiuM).</li>
+</ul>
 <p><strong>Stage 2 — Language identification:</strong>
 FastText or CLD3 language classifier → assigns language label with confidence. Filter documents below threshold. For LiLiuM: explicitly includes DE, ES, IT, FR text (multilingual capability requirement).</p>
-<p><strong>Stage 3 — Quality filtering (heuristics):</strong>
-- Minimum doc length (&lt; 100 chars = not useful).
-- Fraction of alphabetic characters (low fraction = spam, code mixed in).
-- Average line length (&lt; 3 chars/line = tables/navigation menu).
-- Fraction of lines ending in punctuation (prose vs. lists).
-- Fraction of duplicate lines / paragraphs within document.
-- "Stop-word density" (very low = machine-generated text).
-- Perplexity filter: train small LM on Wikipedia → high perplexity docs = non-prose, filtered out.</p>
+<p><strong>Stage 3 — Quality filtering (heuristics):</strong></p>
+<ul>
+<li>Minimum doc length (&lt; 100 chars = not useful).</li>
+<li>Fraction of alphabetic characters (low fraction = spam, code mixed in).</li>
+<li>Average line length (&lt; 3 chars/line = tables/navigation menu).</li>
+<li>Fraction of lines ending in punctuation (prose vs. lists).</li>
+<li>Fraction of duplicate lines / paragraphs within document.</li>
+<li>"Stop-word density" (very low = machine-generated text).</li>
+<li>Perplexity filter: train small LM on Wikipedia → high perplexity docs = non-prose, filtered out.</li>
+</ul>
 <p><strong>Stage 4 — Deduplication:</strong>
 MinHash LSH (locality-sensitive hashing on shingles of tokens): documents mapped to hash signatures; pairs with Jaccard similarity &gt; threshold (e.g., 0.8) are near-duplicates → keep one. Can operate at paragraph level for finer granularity. Exact substring deduplication: suffix array to find repeated verbatim spans across all documents. Effect: prevents memorization, improves per-token diversity, reduces learning time wasted on repetition.</p>
 <p>D4 (Tirumala et al. 2023) showed that semantic diversity after dedup (measuring embedding spread) predicts downstream task performance better than raw token count.</p>
@@ -305,10 +383,12 @@ Explicit sampling weights per domain. LiLiuM general+e-commerce mix (unknown exa
 <p>Key insight from e-Llama ablation: 75% e-commerce → no further e-commerce gain, but general score degrades. 50/50 is the sweet spot. This is a direct empirical finding from Versley's team.</p>
 <p><strong>Stage 7 — E-commerce data serialization:</strong>
 Product listings are structured (title, category, price, item specifics, description). Naive serialization: <code>"Title: Nike Air Max | Category: Shoes | Price: $120 | Color: Red, Size: 10"</code>. Consistent format across training allows the model to learn the schema. JSON is also common. Key challenge: item specifics have hundreds of keys with sparse values — need to decide how to represent absent attributes (skip? <code>None</code>?). This is a real design problem Versley's team faced.</p>
-<p><strong>eBay's specifics:</strong>
-- MinHash LSH for deduplication (industry standard for web-scale corpora at this size).
-- Includes code + parallel MT data in the 3T.
-- Custom 65k vocabulary tokenizer — designed to minimize token fertility for e-commerce text (brand names, product categories, multilingual terms become single tokens).</p>
+<p><strong>eBay's specifics:</strong></p>
+<ul>
+<li>MinHash LSH for deduplication (industry standard for web-scale corpora at this size).</li>
+<li>Includes code + parallel MT data in the 3T.</li>
+<li>Custom 65k vocabulary tokenizer — designed to minimize token fertility for e-commerce text (brand names, product categories, multilingual terms become single tokens).</li>
+</ul>
 <hr />
 <h3 id="c2-tokenization-bpe-unigram-domain-vocabulary">C2. Tokenization: BPE, Unigram, Domain Vocabulary</h3>
 <figure class="diagram">
@@ -319,26 +399,32 @@ Product listings are structured (title, category, price, item specifics, descrip
 <p><strong>Q: Explain BPE tokenization. What is "token fertility" and why did eBay build a custom tokenizer?</strong></p>
 <p><strong>Model Answer:</strong></p>
 <p><strong>BPE (Byte-Pair Encoding — Sennrich et al. 2016, byte-level GPT-2 variant):</strong></p>
-<p>Algorithm:
-1. Initialize vocabulary as all UTF-8 bytes (256 tokens) or character-level.
-2. Count all adjacent byte-pair frequencies in corpus.
-3. Merge most frequent pair into a new token; add to vocabulary.
-4. Repeat until vocabulary reaches target size (e.g., 32k, 128k).</p>
+<p>Algorithm:</p>
+<ol>
+<li>Initialize vocabulary as all UTF-8 bytes (256 tokens) or character-level.</li>
+<li>Count all adjacent byte-pair frequencies in corpus.</li>
+<li>Merge most frequent pair into a new token; add to vocabulary.</li>
+<li>Repeat until vocabulary reaches target size (e.g., 32k, 128k).</li>
+</ol>
 <p>Byte-level BPE (GPT-2 onwards): start from bytes → zero OOV tokens (any text is representable).</p>
 <p><strong>WordPiece (BERT):</strong> Similar to BPE but merge criterion is likelihood increase <code>(freq(AB) - freq(A)×freq(B)) / freq(A)×freq(B)</code> — probabilistic rather than frequency-only. Handles morphological richness better in some languages.</p>
 <p><strong>Unigram LM (SentencePiece):</strong> Start with large vocabulary, prune by computing likelihood loss of removing each token and removing the least impactful. Advantage: no pre-tokenization boundary (doesn't split on whitespace) → works better for languages without word boundaries (Japanese, Chinese, agglutinative languages).</p>
-<p><strong>Vocabulary size effects:</strong>
-- <strong>Larger vocab</strong> → shorter sequences (fewer tokens per character) → cheaper attention → faster inference.
-- <strong>Larger vocab</strong> → bigger embedding matrix → more parameters (but relatively few: 65k × 4096 × 2 bytes = 512 MB for a 7B model, &lt;1% of total params).
-- <strong>Larger vocab</strong> → rarer tokens → less training signal per token → harder to learn good embeddings for rare tokens.
-- Modern frontier: 128k (Llama 3), 256k (Gemma 3), 32k (Llama 2).</p>
+<p><strong>Vocabulary size effects:</strong></p>
+<ul>
+<li><strong>Larger vocab</strong> → shorter sequences (fewer tokens per character) → cheaper attention → faster inference.</li>
+<li><strong>Larger vocab</strong> → bigger embedding matrix → more parameters (but relatively few: 65k × 4096 × 2 bytes = 512 MB for a 7B model, &lt;1% of total params).</li>
+<li><strong>Larger vocab</strong> → rarer tokens → less training signal per token → harder to learn good embeddings for rare tokens.</li>
+<li>Modern frontier: 128k (Llama 3), 256k (Gemma 3), 32k (Llama 2).</li>
+</ul>
 <p><strong>Token fertility:</strong>
 Number of tokens produced per word (or per character) for a given text type. High fertility = more tokens = more forward passes = higher inference cost. General BPE tokenizers have high fertility on domain-specific text: product codes, model numbers, non-English terms.</p>
 <p><strong>eBay's custom tokenizer (LiLiuM):</strong>
-65k vocabulary, designed to have:
-1. Full control over special tokens for e-commerce schema (category delimiters, attribute separators).
-2. Better multilingual coverage (explicit inclusion of German, Spanish, French, Italian vocabulary).
-3. E-commerce term merges: common brand names, category names, product identifiers as single tokens instead of 3-4 subword tokens.</p>
+65k vocabulary, designed to have:</p>
+<ol>
+<li>Full control over special tokens for e-commerce schema (category delimiters, attribute separators).</li>
+<li>Better multilingual coverage (explicit inclusion of German, Spanish, French, Italian vocabulary).</li>
+<li>E-commerce term merges: common brand names, category names, product identifiers as single tokens instead of 3-4 subword tokens.</li>
+</ol>
 <p>Result: <strong>34% faster generation</strong> on eBay tasks vs. LLaMA-2 tokenizer (which has 32k vocabulary optimized for English).</p>
 <p><strong>Versley's Sept 2025 vocabulary extension paper (arXiv 2509.26124):</strong> subsequent work extends an existing tokenizer (preserving its existing merge rules) with domain-specific tokens, guaranteeing token count never increases. Achieves <strong>up to 20% sequence compression</strong> on e-commerce text. Key constraint: monotone guarantee (no regression on any input) is important for production deployment — you can't regress existing production pipelines.</p>
 <hr />
@@ -360,10 +446,12 @@ Chinchilla optimizes training loss for a fixed compute budget. But in deployment
 </code></pre>
 <p>where K = inference tokens served over the model's lifetime. Optimal N shifts <strong>downward</strong> as K increases (inference cost dominates). For K = 10¹¹ tokens (typical large deployment), the optimal model is significantly smaller and trained longer than Chinchilla would suggest. This justifies the modern "overtraining" trend: Llama 3 (8B on 15T tokens), Qwen 3 (36T tokens) — deliberately overtrained from a pure training-loss standpoint, but optimal once inference cost is factored in.</p>
 <p>The deployment multiplier decision comes down to: at what serving traffic does the 1B/7B decision become optimal? A 1B model served to 10⁸ users/day at 1k tokens/query accumulates K ≈ 10¹¹ tokens/day — at that scale, even a 3× training cost premium to build a smaller model that serves 3× faster pays off in weeks.</p>
-<p><strong>Implications for eBay:</strong>
-- LiLiuM at 1B/7B/13B on 3T tokens: the 1B is substantially Chinchilla-overtrained (Chinchilla-optimal at 20 tokens/param ≈ 20B tokens; 3T is 150×). This is <strong>intentional inference-aware overtraining</strong> — a smaller model trained much longer, not an accident.
-- e-Llama: 8B model, 1T domain tokens — the focus is domain adaptation efficiency within a fixed compute budget, not minimizing training loss.
-- The 7B vs. 13B serving decision: at eBay's query volume (~100M+ listings served/day), a 7B model costs roughly 10× less per token than a 70B model in latency and compute — reinforcing the inference-aware logic.</p>
+<p><strong>Implications for eBay:</strong></p>
+<ul>
+<li>LiLiuM at 1B/7B/13B on 3T tokens: the 1B is substantially Chinchilla-overtrained (Chinchilla-optimal at 20 tokens/param ≈ 20B tokens; 3T is 150×). This is <strong>intentional inference-aware overtraining</strong> — a smaller model trained much longer, not an accident.</li>
+<li>e-Llama: 8B model, 1T domain tokens — the focus is domain adaptation efficiency within a fixed compute budget, not minimizing training loss.</li>
+<li>The 7B vs. 13B serving decision: at eBay's query volume (~100M+ listings served/day), a 7B model costs roughly 10× less per token than a 70B model in latency and compute — reinforcing the inference-aware logic.</li>
+</ul>
 <p><strong>Task-dependent scaling:</strong> Chinchilla assumes averaged benchmark performance. For memorization-heavy tasks (factual recall): lower D/N ratio (bigger model, less data). For reasoning tasks: higher D/N ratio (train smaller model longer, more diverse examples). E-commerce aspect prediction (classification-like) likely benefits from moderate D/N.</p>
 <hr />
 <h3 id="c4-pretraining-objectives-clm-mlm-ul2">C4. Pretraining Objectives: CLM, MLM, UL2</h3>
@@ -385,17 +473,21 @@ Randomly mask 15% of tokens; predict masked tokens from bidirectional context:</
 <strong>Cons:</strong> Not generative; slow fine-tuning loop; doesn't naturally produce text; training objective doesn't match generation.
 For Versley's coreference work: BERT-style MLM models were dominant until 2021; now replaced by in-context prompting of CLM models.</p>
 <p><strong>UL2 (Unifying Language Learning Objectives — Google, 2022):</strong>
-Combines multiple denoising objectives:
-- <strong>R-denoise:</strong> BERT-style short masking (15%, short spans).
-- <strong>S-denoise:</strong> GPT-style causal prefix LM (predict right half given left half).
-- <strong>X-denoise:</strong> extreme denoising (masked 50% in long spans) for abstractive generation.
-Input: <code>[S2S]</code>, <code>[NLU]</code>, <code>[NLG]</code> mode tokens indicate which objective.</p>
+Combines multiple denoising objectives:</p>
+<ul>
+<li><strong>R-denoise:</strong> BERT-style short masking (15%, short spans).</li>
+<li><strong>S-denoise:</strong> GPT-style causal prefix LM (predict right half given left half).</li>
+<li><strong>X-denoise:</strong> extreme denoising (masked 50% in long spans) for abstractive generation.
+Input: <code>[S2S]</code>, <code>[NLU]</code>, <code>[NLG]</code> mode tokens indicate which objective.</li>
+</ul>
 <p><strong>T5 / FLAN-T5</strong> use span corruption (masked spans → target). Encoder-decoder architecture enables efficient bidirectional encoding + autoregressive decoding.</p>
-<p><strong>For eBay use cases:</strong>
-- E-commerce attribute prediction (classification) → CLM models with zero-shot/few-shot prompting outperform MLM in 2025.
-- Machine translation → CLM (e.g., Mixtral-8x7B in eBay's RAG-for-MT paper).
-- LiLiuM: CLM (decoder-only), consistent with current practice.
-- Why CLM over encoder-decoder: single model for all tasks, no encoder-decoder alignment cost, simpler architecture, benefits from scale.</p>
+<p><strong>For eBay use cases:</strong></p>
+<ul>
+<li>E-commerce attribute prediction (classification) → CLM models with zero-shot/few-shot prompting outperform MLM in 2025.</li>
+<li>Machine translation → CLM (e.g., Mixtral-8x7B in eBay's RAG-for-MT paper).</li>
+<li>LiLiuM: CLM (decoder-only), consistent with current practice.</li>
+<li>Why CLM over encoder-decoder: single model for all tasks, no encoder-decoder alignment cost, simpler architecture, benefits from scale.</li>
+</ul>
 <hr />
 <h3 id="c5-training-stability-loss-spikes-qk-norm-z-loss">C5. Training Stability: Loss Spikes, QK-Norm, Z-Loss</h3>
 <p><strong>Q: What causes loss spikes during LLM pretraining? How do you prevent and recover from them?</strong></p>
@@ -422,20 +514,24 @@ Input: <code>[S2S]</code>, <code>[NLU]</code>, <code>[NLG]</code> mode tokens in
 <pre><code>z_loss = ε · (1/B) Σ_b (log Σ_e exp(g_{b,e}))²
 </code></pre>
 <p>Keeps router logits bounded.</p>
-<p><strong>Prevention checklist:</strong>
-- Pre-norm architecture (not post-norm).
-- BF16 (not FP16).
-- QK-Norm.
-- Gradient clipping (global norm ≤ 1.0).
-- LR warmup (1k–2k steps).
-- Z-loss for MoE.
-- Good data filtering.
-- μP for consistent LR across scales (see C9).</p>
-<p><strong>Recovery from a spike:</strong>
-1. Detect via monitoring (loss &gt; 2× moving average).
-2. Roll back to checkpoint before spike (typical: checkpoint every 1000 steps).
-3. Identify if data-related (skip offending batch) or optimizer-related (reduce LR temporarily).
-4. Resume from rolled-back checkpoint. If SPAM is available, use momentum reset instead of full rollback.</p>
+<p><strong>Prevention checklist:</strong></p>
+<ul>
+<li>Pre-norm architecture (not post-norm).</li>
+<li>BF16 (not FP16).</li>
+<li>QK-Norm.</li>
+<li>Gradient clipping (global norm ≤ 1.0).</li>
+<li>LR warmup (1k–2k steps).</li>
+<li>Z-loss for MoE.</li>
+<li>Good data filtering.</li>
+<li>μP for consistent LR across scales (see C9).</li>
+</ul>
+<p><strong>Recovery from a spike:</strong></p>
+<ol>
+<li>Detect via monitoring (loss &gt; 2× moving average).</li>
+<li>Roll back to checkpoint before spike (typical: checkpoint every 1000 steps).</li>
+<li>Identify if data-related (skip offending batch) or optimizer-related (reduce LR temporarily).</li>
+<li>Resume from rolled-back checkpoint. If SPAM is available, use momentum reset instead of full rollback.</li>
+</ol>
 <p><strong>Checkpoint averaging (eBay/LiLiuM):</strong> Averaging multiple checkpoints near training end smooths over late-stage instabilities and small spikes → better generalization than single best checkpoint. Similar to SWA (Stochastic Weight Averaging).</p>
 <hr />
 <h3 id="c6-continued-pretraining-vs-full-pretraining-vs-sft-the-domain-adaptation-decision">C6. Continued Pretraining vs. Full Pretraining vs. SFT — The Domain Adaptation Decision</h3>
@@ -488,68 +584,86 @@ Input: <code>[S2S]</code>, <code>[NLU]</code>, <code>[NLG]</code> mode tokens in
 </tr>
 </tbody>
 </table>
-<p><strong>eBay's dual-track strategy:</strong>
-- <strong>Track A (LiLiuM, 2023-2024):</strong> Train from scratch. Rationale: full vocabulary control (custom 65k tokenizer), full data control (PII risk with external model licenses), architectural choices, no reliance on Meta/OpenAI. Cost: likely 50k+ H100-hours.
-- <strong>Track B (e-Llama, 2024-2025):</strong> Continued pretraining of Llama 3.1. Rationale: Llama 3.1 is a much stronger starting point than building from scratch; 1T tokens of continued pretraining is much cheaper than 15T tokens from scratch; Apache 2.0 license is usable. Cost: ~340,000 H100-hours for 70B.</p>
+<p><strong>eBay's dual-track strategy:</strong></p>
+<ul>
+<li><strong>Track A (LiLiuM, 2023-2024):</strong> Train from scratch. Rationale: full vocabulary control (custom 65k tokenizer), full data control (PII risk with external model licenses), architectural choices, no reliance on Meta/OpenAI. Cost: likely 50k+ H100-hours.</li>
+<li><strong>Track B (e-Llama, 2024-2025):</strong> Continued pretraining of Llama 3.1. Rationale: Llama 3.1 is a much stronger starting point than building from scratch; 1T tokens of continued pretraining is much cheaper than 15T tokens from scratch; Apache 2.0 license is usable. Cost: ~340,000 H100-hours for 70B.</li>
+</ul>
 <p><strong>e-Llama learning rate choice (ablated in arXiv 2501.09706 — eBay published work, Versley org lead):</strong></p>
-<p>Verified numbers from the paper:
-- <strong>Original Llama 3.1 peak LRs:</strong> 3.0×10⁻⁴ for 8B; 1.5×10⁻⁴ for 70B.
-- <strong>e-Llama continued pretraining LR:</strong> 10% of original — <strong>3.0×10⁻⁵ for 8B; 1.5×10⁻⁵ for 70B</strong>.</p>
+<p>Verified numbers from the paper:</p>
+<ul>
+<li><strong>Original Llama 3.1 peak LRs:</strong> 3.0×10⁻⁴ for 8B; 1.5×10⁻⁴ for 70B.</li>
+<li><strong>e-Llama continued pretraining LR:</strong> 10% of original — <strong>3.0×10⁻⁵ for 8B; 1.5×10⁻⁵ for 70B</strong>.</li>
+</ul>
 <p>The paper states explicitly: "an LRmax that is 10% of the maximum learning rate used in pretraining." The arithmetic is consistent: 10% of 3.0×10⁻⁴ = 3.0×10⁻⁵ for 8B; 10% of 1.5×10⁻⁴ = 1.5×10⁻⁵ for 70B.</p>
 <p><strong>Why lower LR?</strong> The pretrained model's weights represent high-quality knowledge across languages and domains. A high LR would override existing weights too aggressively (catastrophic forgetting). A low LR allows gradual integration of domain knowledge without destroying general capability. This is the correct "fine-tuning regime" for a model at scale — the factor-of-10 reduction is empirically derived but theoretically consistent with wanting weight perturbations small relative to the magnitude of well-learned representations.</p>
 <p><strong>Catastrophic forgetting mechanics:</strong>
 The model's weight space encodes general knowledge as specific activation patterns. Domain-specific training with large gradients moves weights to fit domain data → general knowledge patterns destroyed (overwritten).</p>
-<p><strong>Mitigations:</strong>
-- <strong>Data mixing at 50/50:</strong> include 50% general domain data (e-Llama's ablated choice — prevents forgetting by continuously reinforcing general knowledge).
-- <strong>Lower LR:</strong> smaller steps, smaller perturbation to existing weights.
-- <strong>EWC (Elastic Weight Consolidation):</strong> penalize deviation from important weights (weights important for old task → constrained). Rarely used at LLM scale (too expensive to compute Fisher information for 70B).
-- <strong>Model merging:</strong> average the domain-adapted model with the original base model. The e-Llama paper (arXiv:2501.09706) shows this gives a linear interpolation of domain vs. general scores. Can tune merge ratio (0.0 = pure base, 1.0 = pure e-Llama) to achieve desired tradeoff without retraining.</p>
+<p><strong>Mitigations:</strong></p>
+<ul>
+<li><strong>Data mixing at 50/50:</strong> include 50% general domain data (e-Llama's ablated choice — prevents forgetting by continuously reinforcing general knowledge).</li>
+<li><strong>Lower LR:</strong> smaller steps, smaller perturbation to existing weights.</li>
+<li><strong>EWC (Elastic Weight Consolidation):</strong> penalize deviation from important weights (weights important for old task → constrained). Rarely used at LLM scale (too expensive to compute Fisher information for 70B).</li>
+<li><strong>Model merging:</strong> average the domain-adapted model with the original base model. The e-Llama paper (arXiv:2501.09706) shows this gives a linear interpolation of domain vs. general scores. Can tune merge ratio (0.0 = pure base, 1.0 = pure e-Llama) to achieve desired tradeoff without retraining.</li>
+</ul>
 <hr />
 <h3 id="c7-pretraining-infrastructure-details">C7. Pretraining Infrastructure Details</h3>
 <p><strong>Q: What infrastructure components are needed to train a 70B model on 480 H100 GPUs (as in e-Llama)?</strong></p>
 <p><strong>Model Answer:</strong></p>
-<p><strong>e-Llama configuration (from arXiv 2501.09706):</strong>
-- 480 H100 80GB GPUs, 60 nodes × 8 GPUs/node.
-- NVLink (intra-node, 600 GB/s bandwidth), InfiniBand (inter-node, 200–400 Gbps).
-- Framework: Megatron-LM (Nvidia's pretraining framework, used at Amazon/Google/Microsoft frontier).
-- Flash-Attention-2 for memory-efficient attention.
-- Batch size: ~11.8M tokens/step (large batch reduces gradient variance, enables fewer steps with same token budget).
-- 85,000 update steps over ~1 month.
-- ~340,000 total GPU-hours.</p>
+<p><strong>e-Llama configuration (from arXiv 2501.09706):</strong></p>
+<ul>
+<li>480 H100 80GB GPUs, 60 nodes × 8 GPUs/node.</li>
+<li>NVLink (intra-node, 600 GB/s bandwidth), InfiniBand (inter-node, 200–400 Gbps).</li>
+<li>Framework: Megatron-LM (Nvidia's pretraining framework, used at Amazon/Google/Microsoft frontier).</li>
+<li>Flash-Attention-2 for memory-efficient attention.</li>
+<li>Batch size: ~11.8M tokens/step (large batch reduces gradient variance, enables fewer steps with same token budget).</li>
+<li>85,000 update steps over ~1 month.</li>
+<li>~340,000 total GPU-hours.</li>
+</ul>
 <p><strong>3D parallelism in Megatron-LM:</strong></p>
 <pre><code>Effective batch = DP × PP_micro_batches × batch_per_rank
 Memory per GPU = (model_params + grads + optimizer) / (TP × PP × ZeRO_factor)
 </code></pre>
 <p>For 70B model: ~140 GB in BF16, ~560 GB FP32 optimizer state. Need at least 4–8 GPUs per model replica just for parameters. With TP=8 (within node), each GPU holds 70B/8 ≈ 8.75B params ≈ 17.5 GB in BF16, leaving room for activations and optimizer state on an 80GB H100.</p>
-<p><strong>Megatron-LM features:</strong>
-- Fused kernels (fused softmax, fused layer norm) for reduced memory traffic.
-- Sequence packing: concatenate short documents (with attention masking) to fill context length → eliminates padding waste.
-- Persistent kernels for repeated operations.
-- Gradient checkpointing: trade compute for memory by not storing activations of some layers during forward (recompute on backward). Critical for memory budget at large scale.</p>
-<p><strong>Checkpoint strategy:</strong>
-- Save every 1000–2000 steps.
-- Checkpoint averaging (LiLiuM): average last K checkpoints → smoother, better generalization than best single checkpoint.
-- Sharded checkpoints across ranks (Megatron + DCP).</p>
+<p><strong>Megatron-LM features:</strong></p>
+<ul>
+<li>Fused kernels (fused softmax, fused layer norm) for reduced memory traffic.</li>
+<li>Sequence packing: concatenate short documents (with attention masking) to fill context length → eliminates padding waste.</li>
+<li>Persistent kernels for repeated operations.</li>
+<li>Gradient checkpointing: trade compute for memory by not storing activations of some layers during forward (recompute on backward). Critical for memory budget at large scale.</li>
+</ul>
+<p><strong>Checkpoint strategy:</strong></p>
+<ul>
+<li>Save every 1000–2000 steps.</li>
+<li>Checkpoint averaging (LiLiuM): average last K checkpoints → smoother, better generalization than best single checkpoint.</li>
+<li>Sharded checkpoints across ranks (Megatron + DCP).</li>
+</ul>
 <hr />
 <h3 id="c8-base-model-evaluation">C8. Base Model Evaluation</h3>
 <p><strong>Q: How do you evaluate a base LLM (before instruction tuning)? What are eBay's e-commerce-specific evaluation challenges?</strong></p>
 <p><strong>Model Answer:</strong></p>
-<p><strong>Standard base-model evaluation:</strong>
-- <strong>Perplexity</strong> on held-out text (same domain/language as training): measures fit, not downstream utility. Low perplexity → model predicts held-out tokens well. Problem: hard to compare across models with different tokenizers (different sequence lengths for same text).
-- <strong>Few-shot downstream benchmarks</strong> (0-shot or N-shot prompting without fine-tuning): MMLU (57-subject QA), HellaSwag (commonsense), ARC-Challenge (science), WinoGrande (commonsense). Measures what the base model learned from pretraining alone.
-- <strong>MT evaluation:</strong> BLEU, chrF, COMET on WMT test sets. LiLiuM explicitly tested on MT tasks and outperformed LLaMA-2.</p>
+<p><strong>Standard base-model evaluation:</strong></p>
+<ul>
+<li><strong>Perplexity</strong> on held-out text (same domain/language as training): measures fit, not downstream utility. Low perplexity → model predicts held-out tokens well. Problem: hard to compare across models with different tokenizers (different sequence lengths for same text).</li>
+<li><strong>Few-shot downstream benchmarks</strong> (0-shot or N-shot prompting without fine-tuning): MMLU (57-subject QA), HellaSwag (commonsense), ARC-Challenge (science), WinoGrande (commonsense). Measures what the base model learned from pretraining alone.</li>
+<li><strong>MT evaluation:</strong> BLEU, chrF, COMET on WMT test sets. LiLiuM explicitly tested on MT tasks and outperformed LLaMA-2.</li>
+</ul>
 <p><strong>eBay's custom benchmarks (from e-Llama paper, arXiv 2501.09706):</strong>
-General NLU benchmarks like MMLU don't reflect e-commerce performance. eBay built tasks in multiple languages:
-1. <strong>Aspect Prediction:</strong> given a product title, predict which attributes (aspects) are relevant (e.g., color, material, size). Multi-label classification from eBay taxonomy.
-2. <strong>Aspect Prediction Multiple Choice:</strong> same but framed as MCQ (easier to evaluate without labeled taxonomy knowledge).
-3. <strong>Price Prediction Multiple Choice:</strong> predict price bracket for a product.
-4. <strong>Most Common Aspects:</strong> given a category, predict most frequently annotated aspects.
-5. <strong>MCA Multiple Choice:</strong> MCQ version of MCA.</p>
-<p><strong>Why internal benchmarks matter:</strong>
-- Cannot be in training data (no contamination risk).
-- Reflect actual eBay task distribution.
-- Enable iterative development with business-relevant metrics.
-- Languages: EN, DE, ES, FR, IT (cross-border trade coverage).</p>
+General NLU benchmarks like MMLU don't reflect e-commerce performance. eBay built tasks in multiple languages:</p>
+<ol>
+<li><strong>Aspect Prediction:</strong> given a product title, predict which attributes (aspects) are relevant (e.g., color, material, size). Multi-label classification from eBay taxonomy.</li>
+<li><strong>Aspect Prediction Multiple Choice:</strong> same but framed as MCQ (easier to evaluate without labeled taxonomy knowledge).</li>
+<li><strong>Price Prediction Multiple Choice:</strong> predict price bracket for a product.</li>
+<li><strong>Most Common Aspects:</strong> given a category, predict most frequently annotated aspects.</li>
+<li><strong>MCA Multiple Choice:</strong> MCQ version of MCA.</li>
+</ol>
+<p><strong>Why internal benchmarks matter:</strong></p>
+<ul>
+<li>Cannot be in training data (no contamination risk).</li>
+<li>Reflect actual eBay task distribution.</li>
+<li>Enable iterative development with business-relevant metrics.</li>
+<li>Languages: EN, DE, ES, FR, IT (cross-border trade coverage).</li>
+</ul>
 <p><strong>Contamination mitigation:</strong> For base model evaluation, eBay generates new examples from internal product catalog that were created <em>after</em> the training data cutoff. Versley's team is aware of this problem (he values rigor — he'll expect you to know about contamination).</p>
 <hr />
 <h3 id="c9-p-maximal-update-parametrization-versleys-expected-question">C9. μP (Maximal Update Parametrization) — Versley's Expected Question</h3>
@@ -558,10 +672,12 @@ General NLU benchmarks like MMLU don't reflect e-commerce performance. eBay buil
 <p><strong>The core problem:</strong> In standard parametrization (SP), the optimal hyperparameters (especially LR) change as you scale the model. A LR tuned at 1B is suboptimal at 7B — you must re-tune at every scale, which is expensive if each scale costs millions of GPU-hours.</p>
 <p><strong>μP (Maximal Update Parametrization — Yang et al., "Tensor Programs V", arXiv 2203.03466):</strong>
 μP is a reparametrization of network weights such that the optimal hyperparameters (particularly LR and initialization scale) remain <strong>constant as model width increases</strong>. The key insight: in SP, gradient magnitudes scale with model width, causing effective updates to depend on width. μP adjusts weight initialization and learning rate scaling so that the feature learning dynamics are width-independent (in the limit of infinite width, this is the "maximal feature learning" regime).</p>
-<p><strong>Practical implication — μTransfer:</strong>
-1. Tune hyperparameters exhaustively on a tiny proxy model (e.g., 100M parameters) — cheap.
-2. Zero-shot transfer the same LR (and other hyperparameters) to the full-scale model (7B, 70B) — no additional tuning.
-3. This works because μP makes the loss landscape invariant to width.</p>
+<p><strong>Practical implication — μTransfer:</strong></p>
+<ol>
+<li>Tune hyperparameters exhaustively on a tiny proxy model (e.g., 100M parameters) — cheap.</li>
+<li>Zero-shot transfer the same LR (and other hyperparameters) to the full-scale model (7B, 70B) — no additional tuning.</li>
+<li>This works because μP makes the loss landscape invariant to width.</li>
+</ol>
 <p><strong>How it modifies the parametrization:</strong></p>
 <pre><code>Standard SP:   W ∈ R^{d_out × d_in}, init ~ N(0, 1/d_in),  LR = α
 μP:            W ∈ R^{d_out × d_in}, init ~ N(0, 1/d_in),  LR = α · (d_ref / d_in)
@@ -576,27 +692,33 @@ Versley's team works on 1B, 7B, 13B, and now 70B models (e-Llama). At this portf
 <p><strong>Model Answer:</strong></p>
 <p><strong>Instruction tuning (SFT):</strong> Fine-tune a base LLM on examples of the form <code>(system_prompt, instruction, response)</code>. Loss computed only on response tokens (input tokens masked). Teaches: (a) instruction-following format, (b) helpful assistant persona, (c) domain-specific task behaviors.</p>
 <p><strong>Why it works:</strong> Base LLMs have learned language structure and world knowledge from pretraining but not the output format that users expect (coherent conversational responses, structured outputs). SFT aligns the model's decoder distribution with desired output style.</p>
-<p><strong>Data quality over quantity (key finding):</strong>
-- Alpaca (2023): 52k GPT-3.5-generated examples → instruction following competitive with early GPT-3. Showed LLM-generated data is viable.
-- LIMA (2023): 1k high-quality human-written examples → competitive with Alpaca 52k. "1k is enough if quality is high."
-- For eBay: a few thousand high-quality (instruction, gold response) examples for listing generation, attribute extraction, and translation are likely more valuable than millions of low-quality web examples.</p>
-<p><strong>Quality criteria:</strong>
-1. <strong>Diversity:</strong> instructions should cover different task types, formats, and domains.
-2. <strong>Accuracy:</strong> responses must be factually correct.
-3. <strong>Completeness:</strong> responses must fully satisfy the instruction.
-4. <strong>Format consistency:</strong> consistent output format (JSON for structured tasks, natural language for generation).
-5. <strong>Length appropriateness:</strong> neither too short (incomplete) nor too long (verbose without value).
-6. <strong>No data leakage:</strong> no test set examples in training data.</p>
+<p><strong>Data quality over quantity (key finding):</strong></p>
+<ul>
+<li>Alpaca (2023): 52k GPT-3.5-generated examples → instruction following competitive with early GPT-3. Showed LLM-generated data is viable.</li>
+<li>LIMA (2023): 1k high-quality human-written examples → competitive with Alpaca 52k. "1k is enough if quality is high."</li>
+<li>For eBay: a few thousand high-quality (instruction, gold response) examples for listing generation, attribute extraction, and translation are likely more valuable than millions of low-quality web examples.</li>
+</ul>
+<p><strong>Quality criteria:</strong></p>
+<ol>
+<li><strong>Diversity:</strong> instructions should cover different task types, formats, and domains.</li>
+<li><strong>Accuracy:</strong> responses must be factually correct.</li>
+<li><strong>Completeness:</strong> responses must fully satisfy the instruction.</li>
+<li><strong>Format consistency:</strong> consistent output format (JSON for structured tasks, natural language for generation).</li>
+<li><strong>Length appropriateness:</strong> neither too short (incomplete) nor too long (verbose without value).</li>
+<li><strong>No data leakage:</strong> no test set examples in training data.</li>
+</ol>
 <p><strong>Decontextualization for eBay instruction tuning:</strong>
 When generating instruction examples from product listings, the instruction cannot include the answer in context. E.g., "Given this product image, predict the category" must hide the category label during SFT training.</p>
 <hr />
 <h3 id="d2-rlhf-and-dpo">D2. RLHF and DPO</h3>
 <p><strong>Q: Compare PPO-RLHF and DPO. When does each shine? What is GRPO (used in DeepSeek-R1)?</strong></p>
 <p><strong>Model Answer:</strong></p>
-<p><strong>RLHF/PPO pipeline:</strong>
-1. SFT model.
-2. <strong>Reward Model:</strong> pairwise preference data <code>(prompt, chosen_y, rejected_y)</code> → Bradley-Terry model: <code>loss = -log σ(r(prompt, chosen) - r(prompt, rejected))</code>. RM maps (prompt, response) → scalar reward.
-3. <strong>PPO:</strong> treat SFT model as the policy <code>π</code>. Optimize:</p>
+<p><strong>RLHF/PPO pipeline:</strong></p>
+<ol>
+<li>SFT model.</li>
+<li><strong>Reward Model:</strong> pairwise preference data <code>(prompt, chosen_y, rejected_y)</code> → Bradley-Terry model: <code>loss = -log σ(r(prompt, chosen) - r(prompt, rejected))</code>. RM maps (prompt, response) → scalar reward.</li>
+<li><strong>PPO:</strong> treat SFT model as the policy <code>π</code>. Optimize:</li>
+</ol>
 <pre><code>J(θ) = E_{x~D, y~π_θ}[r(x,y)] - β · KL(π_θ || π_SFT)
 </code></pre>
 <p>Requires 4 models in memory simultaneously: policy (trained), reference (frozen SFT), reward model, value/critic model. Complex, unstable, memory-heavy.</p>
@@ -630,11 +752,13 @@ Freeze base weights <code>W₀ ∈ R^{d×k}</code>. Add trainable low-rank pertu
 </code></pre>
 <p>Init: <code>B = 0</code>, <code>A ~ N(0, σ²)</code> → ΔW = 0 at init (no perturbation). After training, merge <code>W = W₀ + α/r · BA</code> → zero inference overhead once merged. <strong>Important nuance:</strong> this zero-overhead claim holds only after the adapter has been merged into the base weights. In multi-adapter production serving (e.g., routing different queries to different LoRA adapters without a full model copy per adapter), adapters are typically kept separate and applied at runtime — this incurs real overhead (a matrix multiply per adapter per layer). Production systems serving dozens of task-specific adapters on a single base model do not get zero inference overhead.</p>
 <p><strong>Trainable parameters:</strong> <code>r × (d + k)</code> per layer, vs <code>d × k</code> for full. For d=k=4096, r=8: 65k trainable vs 16.8M frozen. ~250× parameter reduction.</p>
-<p><strong>Rank r selection:</strong>
-- r=4–8: most standard fine-tuning tasks (classification, style, instruction following).
-- r=16–64: significant distribution shift (new language, new domain).
-- r=128+: rarely better than r=64 for most tasks; sometimes for low-data complex tasks.
-- LLaMA-factory, Axolotl defaults: r=16.</p>
+<p><strong>Rank r selection:</strong></p>
+<ul>
+<li>r=4–8: most standard fine-tuning tasks (classification, style, instruction following).</li>
+<li>r=16–64: significant distribution shift (new language, new domain).</li>
+<li>r=128+: rarely better than r=64 for most tasks; sometimes for low-data complex tasks.</li>
+<li>LLaMA-factory, Axolotl defaults: r=16.</li>
+</ul>
 <p><strong>Which layers to apply:</strong>
 Original paper: Q and V only (key finding: attention is more important than FFN for task adaptation).
 Modern practice: all linear projections (Q, K, V, O attention, and up, gate, down FFN). Full-layer LoRA slightly outperforms Q+V only. Computational cost is proportional to where applied.</p>
@@ -656,13 +780,48 @@ Observation: 1% of weights are "salient" — high activation magnitude → large
 <pre><code>W_q = round((W · diag(s)) / Δ(W·diag(s)))
 </code></pre>
 <p>Scaling effectively protects high-magnitude channels. No per-task calibration needed; hardware-friendly (pure INT4, no mixed precision). AutoAWQ + INT4 kernels (CUDA/Triton) achieves 3–4× throughput vs FP16.</p>
-<p><strong>Comparison:</strong>
-| Method | Quality (PPL diff vs FP16) | Calibration | Hardware | Notes |
-|---|---|---|---|---|
-| GPTQ 4-bit | +0.1–0.5 PPL | 128 samples, ~4 hours for 70B | Requires custom kernels | Task-specific calibration possible |
-| AWQ 4-bit | +0.1–0.5 PPL | Minimal/none | Clean INT4 CUDA kernels | Better for deployment across diverse tasks |
-| LLM.int8() | +0.01 PPL | None | INT8 with outlier channels in FP16 | 2× memory saving only |
-| GGUF Q4_K_M | +0.3–0.8 PPL | None | CPU-optimized | llama.cpp, consumer hardware |</p>
+<p><strong>Comparison:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Quality (PPL diff vs FP16)</th>
+<th>Calibration</th>
+<th>Hardware</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GPTQ 4-bit</td>
+<td>+0.1–0.5 PPL</td>
+<td>128 samples, ~4 hours for 70B</td>
+<td>Requires custom kernels</td>
+<td>Task-specific calibration possible</td>
+</tr>
+<tr>
+<td>AWQ 4-bit</td>
+<td>+0.1–0.5 PPL</td>
+<td>Minimal/none</td>
+<td>Clean INT4 CUDA kernels</td>
+<td>Better for deployment across diverse tasks</td>
+</tr>
+<tr>
+<td>LLM.int8()</td>
+<td>+0.01 PPL</td>
+<td>None</td>
+<td>INT8 with outlier channels in FP16</td>
+<td>2× memory saving only</td>
+</tr>
+<tr>
+<td>GGUF Q4_K_M</td>
+<td>+0.3–0.8 PPL</td>
+<td>None</td>
+<td>CPU-optimized</td>
+<td>llama.cpp, consumer hardware</td>
+</tr>
+</tbody>
+</table>
 <p><strong>For eBay production:</strong> AWQ 4-bit for general serving of 7B–8B models (no per-task calibration, clean kernels). GPTQ if per-task calibration is feasible and the task distribution is stable. LiLiuM 7B quantized to INT4 would use ~3.5 GB weight memory (7B × 0.5 bytes) — could run on a single A10G GPU (24GB) with generous KV cache budget.</p>
 <hr />
 <h3 id="d5-moe-architecture">D5. MoE Architecture</h3>
@@ -691,11 +850,13 @@ Penalizes large router logits:</p>
 <p>Prevents logit explosion without constraining which expert wins. Addresses a key training stability cause for MoE models.</p>
 <p><strong>Expert Choice routing (Zhou et al. 2022):</strong>
 Invert the selection: instead of each token choosing top-K experts, each expert selects top-C tokens (by gate logit). Guarantees perfect load balance. Limitation: a token may be selected by no expert (especially rare tokens). Good for dense inference tasks, less suitable where every token must be processed.</p>
-<p><strong>MoE vs dense tradeoffs for eBay:</strong>
-- Mixtral 8×7B (47B total, 13B active) matches LLaMA-2 70B quality at ~6× faster inference. If eBay needs 70B-class quality, MoE is more efficient for serving.
-- But: full model must fit in memory across GPU shards. Expert parallelism (all-to-all communication across GPUs) adds latency.
-- For on-device or latency-critical serving: dense 7B model is simpler and more predictable.
-- eBay's Mercury platform supports multiple models — MoE-based models can be integrated if serving infrastructure supports efficient expert dispatch.</p>
+<p><strong>MoE vs dense tradeoffs for eBay:</strong></p>
+<ul>
+<li>Mixtral 8×7B (47B total, 13B active) matches LLaMA-2 70B quality at ~6× faster inference. If eBay needs 70B-class quality, MoE is more efficient for serving.</li>
+<li>But: full model must fit in memory across GPU shards. Expert parallelism (all-to-all communication across GPUs) adds latency.</li>
+<li>For on-device or latency-critical serving: dense 7B model is simpler and more predictable.</li>
+<li>eBay's Mercury platform supports multiple models — MoE-based models can be integrated if serving infrastructure supports efficient expert dispatch.</li>
+</ul>
 <hr />
 <h2 id="section-e-domain-adaptation-to-e-commerce">SECTION E: DOMAIN ADAPTATION TO E-COMMERCE</h2>
 <h3 id="e1-build-vs-buy-decision-and-lilium-rationale">E1. Build vs. Buy Decision and LiLiuM Rationale</h3>
@@ -726,11 +887,13 @@ Invert the selection: instead of each token choosing top-K experts, each expert 
 <h3 id="e2-multilingual-nlp-and-machine-translation">E2. Multilingual NLP and Machine Translation</h3>
 <p><strong>Q: What are the challenges of machine translation for product titles? How does eBay's RAG approach work?</strong></p>
 <p><strong>Model Answer:</strong></p>
-<p><strong>Why product title MT is hard:</strong>
-1. <strong>Extreme brevity:</strong> avg 11.3 words. No surrounding context to resolve ambiguity. Standard MT models trained on sentences/paragraphs underperform on 5–15 word inputs.
-2. <strong>High OOV rate:</strong> product codes ("iPhone 15 Pro Max 256GB Purple"), brand names, model numbers, abbreviations ("NWT", "OBO"), jargon. General MT models never saw these in training.
-3. <strong>Domain-specific terminology:</strong> "item specifics" like material compositions ("100% Pima Cotton"), care instructions, shoe width codes ("2E wide"). Must preserve exactly, not paraphrase.
-4. <strong>Mixed-language inputs:</strong> sellers often mix languages ("Nike Sneakers für Herren"). MT model must handle code-switching.</p>
+<p><strong>Why product title MT is hard:</strong></p>
+<ol>
+<li><strong>Extreme brevity:</strong> avg 11.3 words. No surrounding context to resolve ambiguity. Standard MT models trained on sentences/paragraphs underperform on 5–15 word inputs.</li>
+<li><strong>High OOV rate:</strong> product codes ("iPhone 15 Pro Max 256GB Purple"), brand names, model numbers, abbreviations ("NWT", "OBO"), jargon. General MT models never saw these in training.</li>
+<li><strong>Domain-specific terminology:</strong> "item specifics" like material compositions ("100% Pima Cotton"), care instructions, shoe width codes ("2E wide"). Must preserve exactly, not paraphrase.</li>
+<li><strong>Mixed-language inputs:</strong> sellers often mix languages ("Nike Sneakers für Herren"). MT model must handle code-switching.</li>
+</ol>
 <p><strong>eBay's RAG-for-MT approach (arXiv 2409.12880 — Bryan Zhang et al.; not a Versley-authored paper):</strong></p>
 <pre><code>Step 1: Index ~10M bilingual product title pairs (source, target) in BM25 index.
 Step 2: Query: retrieve top-K most similar source-language titles (BM25/Lucene).
@@ -739,11 +902,13 @@ Step 4: LLM (multilingual LLM, Mixtral-8x7B-Instruct in ablations) translates in
 </code></pre>
 <p><strong>Why BM25 (not dense retrieval)?</strong>
 Product titles contain exact keywords (brand names, model numbers) that must match exactly. BM25's exact term matching handles this better than dense embedding similarity (which might retrieve semantically related but terminologically different products). Brand names like "Birkenstock Arizona" should retrieve examples with "Birkenstock" in them, not just sandals.</p>
-<p><strong>Results (chrF improvement over zero-shot):</strong>
-- EN-PL: +15.3% (5-shot) — Polish has low LLM proficiency, RAG provides the most uplift.
-- EN-SE: +14.0% (5-shot).
-- EN-NL: +12.0% (5-shot).
-- EN-DE: +2.0% — German is well-represented in LLM pretraining; RAG less necessary.</p>
+<p><strong>Results (chrF improvement over zero-shot):</strong></p>
+<ul>
+<li>EN-PL: +15.3% (5-shot) — Polish has low LLM proficiency, RAG provides the most uplift.</li>
+<li>EN-SE: +14.0% (5-shot).</li>
+<li>EN-NL: +12.0% (5-shot).</li>
+<li>EN-DE: +2.0% — German is well-represented in LLM pretraining; RAG less necessary.</li>
+</ul>
 <p><strong>Why chrF not BLEU?</strong> BLEU (4-gram precision) requires at least 4 tokens per n-gram. For an 11-word title, 4-gram BLEU has very sparse statistics and high variance. chrF (character F-score) works at character n-gram level → stable statistics for short texts → industry standard for short-form MT since WMT 2020s.</p>
 <p><strong>Tony's connection:</strong> Tony's Diffusion Weights paper evaluated on WMT16 (German-English MT). Tony can connect: "My WMT16 evaluation directly relates to eBay's cross-border trade use case — MT quality compounds through your system from the LLM's multilingual pretraining all the way to RAG retrieval and prompt construction."</p>
 <hr />
@@ -754,21 +919,27 @@ Product titles contain exact keywords (brand names, model numbers) that must mat
 <p><strong>Step 1 — Identify the core tasks your model needs to do:</strong>
 For eBay: attribute extraction, price estimation, category prediction, multilingual transfer. Each becomes a benchmark task with a concrete input-output format.</p>
 <p><strong>Step 2 — Create structured MCQ when possible:</strong>
-Rather than evaluating free-form generation (requires human judgment), frame tasks as multiple choice:
-- "Given product title X, which aspect is most relevant: A) color, B) material, C) brand, D) size?"
-MCQ allows automatic evaluation against gold answers. eBay's e-Llama benchmarks: Aspect Prediction Multiple Choice, Price Prediction MC, MCA MC.</p>
-<p><strong>Step 3 — Use internal data the model has never seen:</strong>
-- Ensure test examples come from product listings created after the training data cutoff.
-- Or use internal catalog segments excluded from training.
-- Versley's team created multilingual evaluation tasks from internal eBay data.</p>
+Rather than evaluating free-form generation (requires human judgment), frame tasks as multiple choice:</p>
+<ul>
+<li>"Given product title X, which aspect is most relevant: A) color, B) material, C) brand, D) size?"
+MCQ allows automatic evaluation against gold answers. eBay's e-Llama benchmarks: Aspect Prediction Multiple Choice, Price Prediction MC, MCA MC.</li>
+</ul>
+<p><strong>Step 3 — Use internal data the model has never seen:</strong></p>
+<ul>
+<li>Ensure test examples come from product listings created after the training data cutoff.</li>
+<li>Or use internal catalog segments excluded from training.</li>
+<li>Versley's team created multilingual evaluation tasks from internal eBay data.</li>
+</ul>
 <p><strong>Step 4 — Validate against human annotation:</strong>
 Spot-check 100–500 examples with human annotators to confirm gold labels are correct. For MCQ, ensure distractors are plausible (not trivially wrong).</p>
 <p><strong>Step 5 — LLM-as-judge for generation tasks:</strong>
-For free-form outputs (listing quality, translation quality): use a strong judge LLM (GPT-4/Claude) with rubric:
-- Faithfulness to source product (no hallucination).
-- Completeness (all key attributes mentioned).
-- Fluency and format appropriateness.
-- Language correctness.</p>
+For free-form outputs (listing quality, translation quality): use a strong judge LLM (GPT-4/Claude) with rubric:</p>
+<ul>
+<li>Faithfulness to source product (no hallucination).</li>
+<li>Completeness (all key attributes mentioned).</li>
+<li>Fluency and format appropriateness.</li>
+<li>Language correctness.</li>
+</ul>
 <p>Mitigate judge biases (position bias, verbosity bias) by: swapping response order and averaging; using structured rubrics with explicit criteria; calibrating against human labels on a small subset.</p>
 <p><strong>Step 6 — Avoid Goodhart's Law:</strong>
 Once a metric becomes a target, it ceases to be a good measure. Maintain a secondary evaluation set (held out even from model selection) for final reporting. Rotate benchmarks periodically as models saturate them.</p>
@@ -781,45 +952,57 @@ Once a metric becomes a target, it ceases to be a good measure. Maintain a secon
 <p><strong>Full pipeline:</strong></p>
 <pre><code>Query → [Query Understanding] → [Retrieval] → [Reranking] → [Context Assembly] → [LLM Generation]
 </code></pre>
-<p><strong>1. Query Understanding:</strong>
-- Entity extraction: brand, category, condition, price range.
-- Query expansion: LLM generates alternative phrasings (e.g., "red running shoes" → "athletic sneakers", "jogging footwear").
-- Intent classification: browsing vs. buying intent → affects ranking strategy.</p>
-<p><strong>2. Retrieval (two-stage):</strong>
-- <strong>Sparse (BM25):</strong> Fast lexical matching. Important for product codes, brand names, model numbers (exact match). Lucene/Elasticsearch at scale.
-- <strong>Dense (embedding-based):</strong> BERT-based bi-encoder (eBay uses custom eBERT fine-tuned on product query-item pairs). ANN search over 2B item vectors → Vertex AI Vector Search (eBay confirmed). Returns top-1000 by approximate cosine similarity.
-- <strong>Hybrid fusion:</strong> Reciprocal Rank Fusion (RRF) combines sparse + dense rankings: <code>score(d) = Σ_r 1/(k + rank_r(d))</code> where k=60 typical. Complementary signal.</p>
+<p><strong>1. Query Understanding:</strong></p>
+<ul>
+<li>Entity extraction: brand, category, condition, price range.</li>
+<li>Query expansion: LLM generates alternative phrasings (e.g., "red running shoes" → "athletic sneakers", "jogging footwear").</li>
+<li>Intent classification: browsing vs. buying intent → affects ranking strategy.</li>
+</ul>
+<p><strong>2. Retrieval (two-stage):</strong></p>
+<ul>
+<li><strong>Sparse (BM25):</strong> Fast lexical matching. Important for product codes, brand names, model numbers (exact match). Lucene/Elasticsearch at scale.</li>
+<li><strong>Dense (embedding-based):</strong> BERT-based bi-encoder (eBay uses custom eBERT fine-tuned on product query-item pairs). ANN search over 2B item vectors → Vertex AI Vector Search (eBay confirmed). Returns top-1000 by approximate cosine similarity.</li>
+<li><strong>Hybrid fusion:</strong> Reciprocal Rank Fusion (RRF) combines sparse + dense rankings: <code>score(d) = Σ_r 1/(k + rank_r(d))</code> where k=60 typical. Complementary signal.</li>
+</ul>
 <p><strong>3. Reranking:</strong>
 Cross-encoder (heavy model) rescores top-100 candidates: takes <code>(query, item_text)</code> as single input, much more accurate than bi-encoder cosine. eBay's distillation pipeline: LLM teacher → cross-encoder student → bi-encoder EBR (see LLMDistill4Ads paper structure). Production latency: cross-encoder at top-100 is feasible (&lt;50ms on GPU).</p>
 <p><strong>4. Context Assembly:</strong>
-Retrieved chunks: product title, category, price, key attributes. Assembly strategy:
-- Limit context to fit in model's context window (4096 tokens for LiLiuM).
-- Most relevant items first (recency/relevance ordering matters for "lost in the middle").
-- Include diverse items to avoid redundancy.</p>
+Retrieved chunks: product title, category, price, key attributes. Assembly strategy:</p>
+<ul>
+<li>Limit context to fit in model's context window (4096 tokens for LiLiuM).</li>
+<li>Most relevant items first (recency/relevance ordering matters for "lost in the middle").</li>
+<li>Include diverse items to avoid redundancy.</li>
+</ul>
 <p><strong>5. Generation (LLM):</strong>
 LiLiuM or e-Llama generates: search summary, attribute clarifications, conversational response to shopping query. Key grounding: constrain generation to retrieved items (explicit enumeration prevents hallucination).</p>
 <p><strong>Hallucination in RAG:</strong>
-LLM may generate product details not in retrieved context (faithfulness failure). Mitigation:
-- Attribution: require LLM to cite which retrieved item each claim comes from.
-- RARR (Retrieve and Revise) style: post-hoc check each claim against retrieval.
-- RAGAS evaluation: faithfulness score (fraction of generated claims supported by context), answer relevance, context precision/recall.</p>
+LLM may generate product details not in retrieved context (faithfulness failure). Mitigation:</p>
+<ul>
+<li>Attribution: require LLM to cite which retrieved item each claim comes from.</li>
+<li>RARR (Retrieve and Revise) style: post-hoc check each claim against retrieval.</li>
+<li>RAGAS evaluation: faithfulness score (fraction of generated claims supported by context), answer relevance, context precision/recall.</li>
+</ul>
 <hr />
 <h3 id="f2-vector-databases-and-embedding-models">F2. Vector Databases and Embedding Models</h3>
 <p><strong>Q: Compare FAISS, Weaviate, Pinecone, and Vertex AI Vector Search at billion-item scale.</strong></p>
 <p><strong>Model Answer:</strong></p>
-<p><strong>Approximate Nearest Neighbor (ANN) algorithms:</strong>
-- <strong>HNSW (Hierarchical Navigable Small World):</strong> graph-based; layered skip-list structure; query time O(log n); high recall (&gt;0.99 at ef=200); high memory (64–128 bytes/vector); used by Weaviate, Pinecone, Qdrant, default FAISS.
-- <strong>IVF (Inverted File Index):</strong> cluster vectors into Voronoi cells; at query time, search only nearby cells. Low memory; lower recall; FAISS default for large scale.
-- <strong>ScaNN (Google):</strong> asymmetric quantized distance; state-of-art recall/throughput tradeoff.
-- <strong>Vertex AI Vector Search (formerly Matching Engine):</strong> Google's managed ScaNN; auto-scaling; confirmed eBay use case for 3B+ item embedding search.</p>
+<p><strong>Approximate Nearest Neighbor (ANN) algorithms:</strong></p>
+<ul>
+<li><strong>HNSW (Hierarchical Navigable Small World):</strong> graph-based; layered skip-list structure; query time O(log n); high recall (&gt;0.99 at ef=200); high memory (64–128 bytes/vector); used by Weaviate, Pinecone, Qdrant, default FAISS.</li>
+<li><strong>IVF (Inverted File Index):</strong> cluster vectors into Voronoi cells; at query time, search only nearby cells. Low memory; lower recall; FAISS default for large scale.</li>
+<li><strong>ScaNN (Google):</strong> asymmetric quantized distance; state-of-art recall/throughput tradeoff.</li>
+<li><strong>Vertex AI Vector Search (formerly Matching Engine):</strong> Google's managed ScaNN; auto-scaling; confirmed eBay use case for 3B+ item embedding search.</li>
+</ul>
 <p><strong>FAISS (Facebook AI Similarity Search):</strong> Open source, highly flexible. No server; library. Best for: research, batch retrieval, when you control infrastructure. Used in many RAG implementations; requires custom serving.</p>
 <p><strong>Weaviate:</strong> Open source vector DB with integrated modules (BM25, custom vectorizers). Good for hybrid search (BM25 + dense). GraphQL query interface. Self-hosted or managed.</p>
 <p><strong>Pinecone:</strong> Managed, serverless. Easy to start, expensive at scale. Limited customization. Good for prototyping.</p>
 <p><strong>Vertex AI Vector Search:</strong> Managed, massive scale (billion vectors), auto-scaling, integrates with GCP ecosystem. eBay is on GCP → natural fit. eBay uses Vertex AI Vector Search for recommendation item embedding retrieval.</p>
-<p><strong>Embedding models for e-commerce:</strong>
-- <strong>bi-encoder (Sentence-BERT style):</strong> encode query and item separately → cosine similarity. Can pre-compute item embeddings offline.
-- <strong>Custom domain embeddings:</strong> eBay fine-tunes BERT-family model on product query-item pairs (click-through data as proxy). Using eBay-specific titles → much better than off-the-shelf.
-- <strong>Late interaction (ColBERT):</strong> token-level embeddings; MaxSim scoring at query time. Better than bi-encoder, cheaper than cross-encoder. Good candidate for eBay's large-scale reranking.</p>
+<p><strong>Embedding models for e-commerce:</strong></p>
+<ul>
+<li><strong>bi-encoder (Sentence-BERT style):</strong> encode query and item separately → cosine similarity. Can pre-compute item embeddings offline.</li>
+<li><strong>Custom domain embeddings:</strong> eBay fine-tunes BERT-family model on product query-item pairs (click-through data as proxy). Using eBay-specific titles → much better than off-the-shelf.</li>
+<li><strong>Late interaction (ColBERT):</strong> token-level embeddings; MaxSim scoring at query time. Better than bi-encoder, cheaper than cross-encoder. Good candidate for eBay's large-scale reranking.</li>
+</ul>
 <hr />
 <h2 id="section-g-agents">SECTION G: AGENTS</h2>
 <h3 id="g1-agent-architecture-and-tonys-work">G1. Agent Architecture and Tony's Work</h3>
@@ -827,29 +1010,39 @@ LLM may generate product details not in retrieved context (faithfulness failure)
 <p><strong>Model Answer:</strong></p>
 <p><strong>Core agent components:</strong></p>
 <p><strong>1. Planner (LLM backbone):</strong>
-Decomposes goal into subtasks. Patterns:
-- <strong>ReAct (Yao et al. 2022):</strong> Interleave Thought → Action → Observation. Simple, effective, widely used.
-- <strong>Plan-and-Execute:</strong> separate planning step (list of subtasks) from execution (execute each step). Better for long-horizon tasks (10+ steps).
-- <strong>Chain-of-Thought (CoT):</strong> internal reasoning before final answer. o1/o3 style "extended thinking."
-- <strong>Tree-of-Thought (ToT):</strong> explore multiple reasoning branches; backtrack.</p>
-<p><strong>2. Tools:</strong>
-- Code interpreter (Python REPL) — verifiable computation.
-- Web search — access to current information.
-- Database/API calls — structured knowledge retrieval.
-- LLM calls — subagent delegation.
-- File operations — state persistence.</p>
-<p><strong>3. Memory:</strong>
-- <strong>In-context (short-term):</strong> full conversation + tool outputs in context window. Limited by context length.
-- <strong>External / episodic (long-term):</strong> vector DB or key-value store of past observations, user preferences, prior task outcomes.
-- <strong>Procedural:</strong> fine-tuned task knowledge embedded in model weights (not explicit memory).</p>
-<p><strong>4. Orchestration runtime:</strong>
-- LangGraph, OpenAI Agents SDK, CrewAI, eBay Mercury.
-- Handles: tool call dispatch, error recovery, parallel execution, state management.</p>
+Decomposes goal into subtasks. Patterns:</p>
+<ul>
+<li><strong>ReAct (Yao et al. 2022):</strong> Interleave Thought → Action → Observation. Simple, effective, widely used.</li>
+<li><strong>Plan-and-Execute:</strong> separate planning step (list of subtasks) from execution (execute each step). Better for long-horizon tasks (10+ steps).</li>
+<li><strong>Chain-of-Thought (CoT):</strong> internal reasoning before final answer. o1/o3 style "extended thinking."</li>
+<li><strong>Tree-of-Thought (ToT):</strong> explore multiple reasoning branches; backtrack.</li>
+</ul>
+<p><strong>2. Tools:</strong></p>
+<ul>
+<li>Code interpreter (Python REPL) — verifiable computation.</li>
+<li>Web search — access to current information.</li>
+<li>Database/API calls — structured knowledge retrieval.</li>
+<li>LLM calls — subagent delegation.</li>
+<li>File operations — state persistence.</li>
+</ul>
+<p><strong>3. Memory:</strong></p>
+<ul>
+<li><strong>In-context (short-term):</strong> full conversation + tool outputs in context window. Limited by context length.</li>
+<li><strong>External / episodic (long-term):</strong> vector DB or key-value store of past observations, user preferences, prior task outcomes.</li>
+<li><strong>Procedural:</strong> fine-tuned task knowledge embedded in model weights (not explicit memory).</li>
+</ul>
+<p><strong>4. Orchestration runtime:</strong></p>
+<ul>
+<li>LangGraph, OpenAI Agents SDK, CrewAI, eBay Mercury.</li>
+<li>Handles: tool call dispatch, error recovery, parallel execution, state management.</li>
+</ul>
 <p><strong>Tony's LLM Router connection to agentic systems:</strong>
-Multi-step agentic tasks have heterogeneous subtasks: some steps are simple (lookup, format conversion), some are complex (reasoning, synthesis). A naive agentic system calls the same (expensive) frontier model for every step. Tony's router assigns each agentic step to the cheapest capable model:
-- Simple steps (format JSON, retrieve product ID) → 1B LiLiuM.
-- Medium steps (attribute extraction) → 7B e-Llama.
-- Complex steps (multi-image reasoning, novel negotiation) → frontier VLM.</p>
+Multi-step agentic tasks have heterogeneous subtasks: some steps are simple (lookup, format conversion), some are complex (reasoning, synthesis). A naive agentic system calls the same (expensive) frontier model for every step. Tony's router assigns each agentic step to the cheapest capable model:</p>
+<ul>
+<li>Simple steps (format JSON, retrieve product ID) → 1B LiLiuM.</li>
+<li>Medium steps (attribute extraction) → 7B e-Llama.</li>
+<li>Complex steps (multi-image reasoning, novel negotiation) → frontier VLM.</li>
+</ul>
 <p>eBay's Mercury platform already implements multi-model routing (supports LiLiuM + Mistral + external APIs). Tony's routing research directly addresses how to make that routing principled (cost-quality Pareto, calibrated routing policy) rather than rule-based.</p>
 <p><strong>Tony's Cost-Adaptive Routing with Specialists:</strong>
 For <strong>repeated</strong> workflow steps (e.g., every listing generation runs the same attribute extraction prompt), collect trajectories from strong model → fine-tune small specialist model → route to specialist for that specific subtask. Cost drops as usage data accrues. Directly applicable to Mercury's "Listing Matching Engine" which runs the same listing-generation chain millions of times.</p>
@@ -887,11 +1080,13 @@ A trace-driven framework that adapts an agent's <em>per-invocation</em> serving 
 </li>
 </ol>
 <p><strong>Tony's Agentic Coding Bench:</strong>
-Evaluates: can an agent plan and build a complete software project from scratch? Key design choices:
-- <strong>Project-level challenges</strong> (not leetcode-style): real OSS project requirements, not toy problems.
-- <strong>Product brief given</strong>: agent must interpret ambiguous requirements, plan, implement, test.
-- <strong>Reference solution hidden</strong>: grading is automatic but hidden from agent → prevents gaming.
-- <strong>Comparison across strongest coding agents</strong> (GPT-4o, Claude Opus, Gemini Ultra): measures ceiling capabilities.</p>
+Evaluates: can an agent plan and build a complete software project from scratch? Key design choices:</p>
+<ul>
+<li><strong>Project-level challenges</strong> (not leetcode-style): real OSS project requirements, not toy problems.</li>
+<li><strong>Product brief given</strong>: agent must interpret ambiguous requirements, plan, implement, test.</li>
+<li><strong>Reference solution hidden</strong>: grading is automatic but hidden from agent → prevents gaming.</li>
+<li><strong>Comparison across strongest coding agents</strong> (GPT-4o, Claude Opus, Gemini Ultra): measures ceiling capabilities.</li>
+</ul>
 <p><strong>Why this is valuable for eBay:</strong> eBay uses Claude Code internally for bug triage (reported: 2-3 days → 1-2 hours). Versley would recognize Agentic Coding Bench as directly measuring the capability eBay relies on. Tony can say: "I built this benchmark precisely because existing benchmarks (HumanEval, MBPP) measure single-function generation, not real software engineering. eBay's bug triage automation needs agents that can navigate a large codebase, understand context, and execute multi-file changes — that's what we measure."</p>
 <hr />
 <h2 id="section-h-nlp-fundamentals-through-a-comp-ling-lens">SECTION H: NLP FUNDAMENTALS THROUGH A COMP-LING LENS</h2>
@@ -900,17 +1095,21 @@ Evaluates: can an agent plan and build a complete software project from scratch?
 <p><strong>Q: Explain HMMs and the Viterbi algorithm. How were they used in NLP?</strong></p>
 <p><strong>Model Answer:</strong></p>
 <p><strong>HMM:</strong>
-A Hidden Markov Model is a generative model for sequences with latent (hidden) states.
-- Hidden states: <code>S = {s₁, ..., sN}</code> (e.g., POS tags: N, V, DET, ADJ).
-- Observations: <code>O = {o₁, ..., oT}</code> (e.g., observed words).
-- Parameters:
-  - <strong>Transition probabilities:</strong> <code>A[i,j] = P(state_j | state_i)</code> — Markov assumption: only current state matters.
-  - <strong>Emission probabilities:</strong> <code>B[j,k] = P(obs_k | state_j)</code>.
-  - <strong>Initial distribution:</strong> <code>π[i] = P(state_i at t=1)</code>.</p>
-<p><strong>Three canonical HMM problems:</strong>
-1. <strong>Evaluation:</strong> P(O | model) — forward algorithm, O(T N²).
-2. <strong>Decoding:</strong> most likely state sequence given O — Viterbi algorithm.
-3. <strong>Learning:</strong> estimate parameters from observed sequences — Baum-Welch (EM).</p>
+A Hidden Markov Model is a generative model for sequences with latent (hidden) states.</p>
+<ul>
+<li>Hidden states: <code>S = {s₁, ..., sN}</code> (e.g., POS tags: N, V, DET, ADJ).</li>
+<li>Observations: <code>O = {o₁, ..., oT}</code> (e.g., observed words).</li>
+<li>Parameters:</li>
+<li><strong>Transition probabilities:</strong> <code>A[i,j] = P(state_j | state_i)</code> — Markov assumption: only current state matters.</li>
+<li><strong>Emission probabilities:</strong> <code>B[j,k] = P(obs_k | state_j)</code>.</li>
+<li><strong>Initial distribution:</strong> <code>π[i] = P(state_i at t=1)</code>.</li>
+</ul>
+<p><strong>Three canonical HMM problems:</strong></p>
+<ol>
+<li><strong>Evaluation:</strong> P(O | model) — forward algorithm, O(T N²).</li>
+<li><strong>Decoding:</strong> most likely state sequence given O — Viterbi algorithm.</li>
+<li><strong>Learning:</strong> estimate parameters from observed sequences — Baum-Welch (EM).</li>
+</ol>
 <p><strong>Viterbi algorithm:</strong>
 Dynamic programming for decoding the most likely hidden state sequence:</p>
 <pre><code>δ_t(j) = max_{s₁..s_{t-1}} P(o₁..oₜ, s_t=j | model)
@@ -920,11 +1119,13 @@ Dynamic programming for decoding the most likely hidden state sequence:</p>
 ψ_t(j) = argmax_i [δ_{t-1}(i) · A[i,j]]   (backpointer)
 </code></pre>
 <p>Final: <code>s*_T = argmax_j δ_T(j)</code>, backtrack through ψ. Complexity: O(T N²).</p>
-<p><strong>NLP applications:</strong>
-- <strong>POS tagging:</strong> states = POS tags, observations = words. Classic 1990s NLP baseline.
-- <strong>NER (Named Entity Recognition):</strong> states = BIO tags (B-PER, I-PER, O, B-LOC), observations = words. Used until BiLSTM-CRF replaced HMMs (~2016).
-- <strong>Speech recognition (acoustic model):</strong> states = phonemes, observations = acoustic feature vectors.
-- <strong>Chunking / shallow parsing.</strong></p>
+<p><strong>NLP applications:</strong></p>
+<ul>
+<li><strong>POS tagging:</strong> states = POS tags, observations = words. Classic 1990s NLP baseline.</li>
+<li><strong>NER (Named Entity Recognition):</strong> states = BIO tags (B-PER, I-PER, O, B-LOC), observations = words. Used until BiLSTM-CRF replaced HMMs (~2016).</li>
+<li><strong>Speech recognition (acoustic model):</strong> states = phonemes, observations = acoustic feature vectors.</li>
+<li><strong>Chunking / shallow parsing.</strong></li>
+</ul>
 <p><strong>Connection to CRF:</strong>
 CRF (Conditional Random Field) drops the generative assumption and models <code>P(tags | words)</code> directly — discriminative, doesn't need emission probabilities, handles overlapping features. BiLSTM-CRF (Lample et al. 2016) was the dominant NER model before transformers. Viterbi decoding is identical in CRF.</p>
 <p><strong>Why Versley asks this:</strong> He built BART (coreference toolkit) in an era where HMM-based sequence models were the foundation. He values knowing the foundations before learning transformers. This also tests whether Tony understands dynamic programming and probabilistic graphical models — essential foundations.</p>
@@ -938,24 +1139,30 @@ Coreference resolution identifies which mentions in a text refer to the same rea
 <p><em>"</em><em>The product</em><em> arrived on Tuesday. </em><em>It</em><em> was exactly as described. </em><em>The seller</em><em> shipped </em><em>it</em><em> quickly."</em></p>
 </blockquote>
 <p>Here: {the product, it, it} form a coreference chain. {the seller} is another chain.</p>
-<p><strong>Types (Versley is a world expert on bridging — his PhD and BART work):</strong>
-- <strong>Identity coreference:</strong> two mentions refer to the exact same entity (above).
-- <strong>Pronominal coreference:</strong> pronoun refers to prior noun. Simplest case.
-- <strong>Bridging anaphora (Versley's core expertise):</strong> a mention refers to an entity inferrable from context but not previously introduced. This is not one phenomenon but several distinct types requiring different resolution strategies:
-  - <strong>Part-whole bridges:</strong> <em>"I bought a dress. The zipper was broken."</em> — "the zipper" is a part of "dress" by world knowledge (dresses have zippers). For eBay: <em>"I ordered Air Max 90s. The sole was peeling."</em> → "sole" bridges from the shoe via part-whole knowledge.
-  - <strong>Set-member bridges:</strong> <em>"The team lost. The goalkeeper was blamed."</em> — "goalkeeper" is a member of "team." For eBay: <em>"A 5-piece dinnerware set. The bowl was chipped."</em>
-  - <strong>Property/event bridges:</strong> <em>"The delivery took two weeks. The tracking update was missing."</em> — "tracking update" bridges from "delivery" via event-based world knowledge.
-  - <strong>German compound bridges</strong> (specifically harder — Versley's BART German extension): German compound nouns create implicit bridging without a lexical head. <em>"Schuhsohle"</em> (shoe sole) as a single compound makes the part-whole relation encoded lexically; resolving a later reference to <em>"die Sohle"</em> requires decomposing the compound. Versley's German coreference work dealt with this explicitly.
-- <strong>Split antecedence / plural coreference:</strong> {John, Mary} → "they".</p>
-<p><strong>Historical approaches:</strong>
-1. <strong>Rule-based (Hobbs algorithm):</strong> syntactic tree traversal, preference rules. Hobbs, 1978.
-2. <strong>Statistical mention-pair / mention-ranking (2010s):</strong> score each mention pair (m_i, m_j) for coreference; use features (distance, gender, number, semantic type). Versley-era: kernel methods, rich feature engineering.
-3. <strong>Neural end-to-end (Lee et al. 2017):</strong> span encoding with BiLSTM + attention; prune span candidates; score all span pairs. First neural model to surpass rule-based on OntoNotes.
-4. <strong>LLM-based (2020s):</strong> LLMs can resolve identity coreference via in-context learning; but tend to fail on bridging — especially non-prototypical bridges and set-member relations that require uncommon world knowledge.</p>
-<p><strong>Relevance in LLM era:</strong>
-- LLMs implicitly resolve coreference during generation (pronoun consistency, entity tracking in multi-turn dialogue).
-- E-commerce relevance: <em>"This item was listed by the seller. Contact them for shipping."</em> — "them" must resolve to "the seller," not "the item." Failures cause chatbot confusions.
-- Multi-document reasoning (e.g., synthesizing multiple product reviews): identifying that "the battery" in three different reviews refers to the same physical component.</p>
+<p><strong>Types (Versley is a world expert on bridging — his PhD and BART work):</strong></p>
+<ul>
+<li><strong>Identity coreference:</strong> two mentions refer to the exact same entity (above).</li>
+<li><strong>Pronominal coreference:</strong> pronoun refers to prior noun. Simplest case.</li>
+<li><strong>Bridging anaphora (Versley's core expertise):</strong> a mention refers to an entity inferrable from context but not previously introduced. This is not one phenomenon but several distinct types requiring different resolution strategies:</li>
+<li><strong>Part-whole bridges:</strong> <em>"I bought a dress. The zipper was broken."</em> — "the zipper" is a part of "dress" by world knowledge (dresses have zippers). For eBay: <em>"I ordered Air Max 90s. The sole was peeling."</em> → "sole" bridges from the shoe via part-whole knowledge.</li>
+<li><strong>Set-member bridges:</strong> <em>"The team lost. The goalkeeper was blamed."</em> — "goalkeeper" is a member of "team." For eBay: <em>"A 5-piece dinnerware set. The bowl was chipped."</em></li>
+<li><strong>Property/event bridges:</strong> <em>"The delivery took two weeks. The tracking update was missing."</em> — "tracking update" bridges from "delivery" via event-based world knowledge.</li>
+<li><strong>German compound bridges</strong> (specifically harder — Versley's BART German extension): German compound nouns create implicit bridging without a lexical head. <em>"Schuhsohle"</em> (shoe sole) as a single compound makes the part-whole relation encoded lexically; resolving a later reference to <em>"die Sohle"</em> requires decomposing the compound. Versley's German coreference work dealt with this explicitly.</li>
+<li><strong>Split antecedence / plural coreference:</strong> {John, Mary} → "they".</li>
+</ul>
+<p><strong>Historical approaches:</strong></p>
+<ol>
+<li><strong>Rule-based (Hobbs algorithm):</strong> syntactic tree traversal, preference rules. Hobbs, 1978.</li>
+<li><strong>Statistical mention-pair / mention-ranking (2010s):</strong> score each mention pair (m_i, m_j) for coreference; use features (distance, gender, number, semantic type). Versley-era: kernel methods, rich feature engineering.</li>
+<li><strong>Neural end-to-end (Lee et al. 2017):</strong> span encoding with BiLSTM + attention; prune span candidates; score all span pairs. First neural model to surpass rule-based on OntoNotes.</li>
+<li><strong>LLM-based (2020s):</strong> LLMs can resolve identity coreference via in-context learning; but tend to fail on bridging — especially non-prototypical bridges and set-member relations that require uncommon world knowledge.</li>
+</ol>
+<p><strong>Relevance in LLM era:</strong></p>
+<ul>
+<li>LLMs implicitly resolve coreference during generation (pronoun consistency, entity tracking in multi-turn dialogue).</li>
+<li>E-commerce relevance: <em>"This item was listed by the seller. Contact them for shipping."</em> — "them" must resolve to "the seller," not "the item." Failures cause chatbot confusions.</li>
+<li>Multi-document reasoning (e.g., synthesizing multiple product reviews): identifying that "the battery" in three different reviews refers to the same physical component.</li>
+</ul>
 <p><strong>Smart discussion point with Versley:</strong></p>
 <blockquote>
 <p>"Your BART toolkit work, and particularly the German extension, had to deal with bridging types that require fundamentally different resolution strategies — part-whole, set-member, and property bridges each need different world knowledge. I'd be curious whether modern LLMs have narrowed that gap: my intuition is that prototypical part-whole bridges (shoe → sole) are now handled reasonably, but non-prototypical ones and German compound-based bridges remain hard precisely because the training data undercounts them. Does your evaluation on bridging in e-commerce product descriptions confirm that?"</p>
@@ -965,12 +1172,14 @@ Coreference resolution identifies which mentions in a text refer to the same rea
 <p><strong>Q: What is discourse parsing? How does it relate to machine translation and summarization?</strong></p>
 <p><strong>Model Answer:</strong></p>
 <p><strong>Discourse parsing:</strong>
-Analyzes how clauses/sentences in a text are rhetorically related. RST (Rhetorical Structure Theory): segment text into elementary discourse units (EDUs) → build a tree of nuclei (more important) and satellites (subordinate) connected by relation types:
-- Elaboration (satellite elaborates nucleus)
-- Contrast
-- Cause/Effect
-- Concession
-- Background</p>
+Analyzes how clauses/sentences in a text are rhetorically related. RST (Rhetorical Structure Theory): segment text into elementary discourse units (EDUs) → build a tree of nuclei (more important) and satellites (subordinate) connected by relation types:</p>
+<ul>
+<li>Elaboration (satellite elaborates nucleus)</li>
+<li>Contrast</li>
+<li>Cause/Effect</li>
+<li>Concession</li>
+<li>Background</li>
+</ul>
 <p>Example:</p>
 <blockquote>
 <p><em>[We lowered the price]<sub>nucleus</sub> [because demand fell]<sub>satellite</sub></em> → Cause relation.</p>
@@ -978,13 +1187,17 @@ Analyzes how clauses/sentences in a text are rhetorically related. RST (Rhetoric
 <p><strong>PDTB (Penn Discourse Treebank):</strong> alternative annotation: connectives (because, although, however) and their arguments labeled. More lexically grounded. Versley has published on discourse connective annotation.</p>
 <p><strong>Modern parsing — LLMs vs. explicit parsers:</strong>
 Modern LLMs do not use explicit constituency parsers (CKY / Earley) or PCFG grammars during inference. Instead, syntactic structure is implicitly encoded in their representations: Hewitt &amp; Manning (2019) showed that BERT's hidden states encode a linear transformation of the dependency parse tree — parsing information is latent in the weights, not explicitly computed. For eBay product titles, this matters for attribute extraction: the headword of "Nike Air Max 90 White Men's 10.5" is "Max 90" (the product line name), with modifiers for brand (Nike), color (White), gender (Men's), and size (10.5). A dependency parser would identify this structure; an LLM learns it implicitly. For high-volume, low-latency attribute extraction, a lightweight dependency parser can be faster and more interpretable than LLM inference.</p>
-<p><strong>Relevance to MT:</strong>
-- Discourse connectives translate differently depending on relation type: English "but" translates to German "aber" (concession), "sondern" (correction), or "doch" depending on discourse relation. Neural MT without discourse modeling often mistranslates connectives.
-- Cross-lingual pronoun prediction (WMT/DiscoMT shared tasks, which Versley participated in): predicting which pronoun to use in translation depends on the antecedent's discourse status.
-- Document-level MT: translating a full product description coherently requires maintaining entity tracking and discourse coherence across sentences. This is relevant to eBay's MT work.</p>
-<p><strong>Relevance to summarization:</strong>
-- Extractive summarization: select EDUs that are nuclei in RST tree (centrally important).
-- Abstractive summarization: understanding temporal ordering (discourse relations) prevents factual hallucination about cause/effect.</p>
+<p><strong>Relevance to MT:</strong></p>
+<ul>
+<li>Discourse connectives translate differently depending on relation type: English "but" translates to German "aber" (concession), "sondern" (correction), or "doch" depending on discourse relation. Neural MT without discourse modeling often mistranslates connectives.</li>
+<li>Cross-lingual pronoun prediction (WMT/DiscoMT shared tasks, which Versley participated in): predicting which pronoun to use in translation depends on the antecedent's discourse status.</li>
+<li>Document-level MT: translating a full product description coherently requires maintaining entity tracking and discourse coherence across sentences. This is relevant to eBay's MT work.</li>
+</ul>
+<p><strong>Relevance to summarization:</strong></p>
+<ul>
+<li>Extractive summarization: select EDUs that are nuclei in RST tree (centrally important).</li>
+<li>Abstractive summarization: understanding temporal ordering (discourse relations) prevents factual hallucination about cause/effect.</li>
+</ul>
 <p><strong>Modern LLM behavior on discourse:</strong>
 LLMs generally handle local coherence well but struggle with global discourse structure, especially in long documents.</p>
 <hr />
@@ -995,11 +1208,13 @@ LLMs generally handle local coherence well but struggle with global discourse st
 <pre><code>BLEU = BP · exp(Σ_n w_n log pn)
 </code></pre>
 <p>where <code>pn</code> = modified n-gram precision (n=1..4) between hypothesis and reference, BP = brevity penalty.</p>
-<p><strong>BLEU problems:</strong>
-- Requires multi-gram matches; for a 5-word sentence, 4-gram BLEU has near-zero count → statistic is meaningless.
-- No credit for synonyms or paraphrases.
-- Poor correlation with human judgment on short texts, low-resource languages, or when reference diversity is high.
-- eBay product titles average 11.3 words → 4-gram BLEU has sparse, noisy statistics.</p>
+<p><strong>BLEU problems:</strong></p>
+<ul>
+<li>Requires multi-gram matches; for a 5-word sentence, 4-gram BLEU has near-zero count → statistic is meaningless.</li>
+<li>No credit for synonyms or paraphrases.</li>
+<li>Poor correlation with human judgment on short texts, low-resource languages, or when reference diversity is high.</li>
+<li>eBay product titles average 11.3 words → 4-gram BLEU has sparse, noisy statistics.</li>
+</ul>
 <p><strong>chrF (Popović 2015):</strong>
 Character-level precision, recall, F-score over character n-grams (typically n=6):</p>
 <pre><code>chrF = (1+β²) · chrP · chrR / (β² · chrP + chrR)
@@ -1009,64 +1224,82 @@ Character-level precision, recall, F-score over character n-grams (typically n=6
 <p><strong>eBay's choice:</strong> chrF in their RAG-for-MT paper (arXiv 2409.12880) is correct. For product titles: "iPhone 15 Pro Max 256GB" and "iPhone 15 Pro Max 256 GB" differ by one space → BLEU treats them as mismatches; chrF gives near-perfect score because character n-grams match. The paper reports chrF gains of up to +15.3% over zero-shot for language pairs where LLMs have limited proficiency (EN-PL).</p>
 <p><strong>COMET (Rei et al. 2020 / Unbabel):</strong>
 Neural MT evaluation model trained on human translation quality judgments. Takes (source, hypothesis, reference) → quality score. Correlates much better with human judgment than BLEU or chrF on most benchmarks. Models: COMET-DA (direct assessment), COMET-MQM, XCOMET (explanatory). Used as primary metric in WMT competitions since 2021.</p>
-<p><strong>When to use which:</strong>
-- <strong>Research/system comparison:</strong> COMET (highest human correlation).
-- <strong>Short texts (product titles):</strong> chrF (stable statistics).
-- <strong>Legacy system benchmarks:</strong> BLEU (for comparability with older papers — but always mention its limitations).
-- <strong>Reference-free:</strong> COMETkiwi (quality estimation; no reference needed).</p>
+<p><strong>When to use which:</strong></p>
+<ul>
+<li><strong>Research/system comparison:</strong> COMET (highest human correlation).</li>
+<li><strong>Short texts (product titles):</strong> chrF (stable statistics).</li>
+<li><strong>Legacy system benchmarks:</strong> BLEU (for comparability with older papers — but always mention its limitations).</li>
+<li><strong>Reference-free:</strong> COMETkiwi (quality estimation; no reference needed).</li>
+</ul>
 <p><strong>Tony's connection:</strong> WMT16 evaluation in Diffusion Weights. Tony should note: "We scored WMT16 EN-DE with TER (Translation Edit Rate) — 117.17 vs 133.88, a 12.5% reduction — for comparability with sentence-level MT work, but for the eBay use case, chrF or COMET would be the right choice given your product title length distribution — chrF's character n-gram statistics are robust on short titles where edit-distance and n-gram-precision metrics get noisy."</p>
 <hr />
 <h3 id="h5-syntactic-parsing-morphology-ner">H5. Syntactic Parsing, Morphology, NER</h3>
 <p><strong>Q: How has NER evolved from HMM/CRF to transformers? What are the remaining challenges?</strong></p>
 <p><strong>Model Answer:</strong></p>
 <p><strong>NER evolution timeline:</strong></p>
-<p><strong>1990s-2000s — Rule-based + HMM:</strong>
-- Manually crafted rules (gazetteers: lists of known person/organization names, patterns like "Mr. [WORD]" → PERSON).
-- HMM sequence labeling (BIO tagging scheme: B-PER, I-PER, O).
-- Fast but brittle; no generalization to unseen names.</p>
-<p><strong>2008-2016 — CRF (Conditional Random Field):</strong>
-- Discriminative sequence labeling; features: word, POS, capitalization, word shape, surrounding context.
-- CRF Viterbi decoding handles label dependencies (I-PER cannot follow O).
-- Lafferty et al. 2001 foundational; dominant for 10 years.
-- Still competitive in many low-resource settings due to label efficiency.</p>
-<p><strong>2016-2019 — BiLSTM-CRF:</strong>
-- Replace feature engineering with BiLSTM encoding of word and character embeddings.
-- CRF output layer for consistent label sequence.
-- Lample et al. 2016: first neural model to match or exceed CRF with handcrafted features.
-- Character-level CNN/LSTM handles morphology + OOV words.</p>
-<p><strong>2018-2020 — BERT-based:</strong>
-- Fine-tune BERT (or XLM-R for multilingual) on NER as token classification.
-- [CLS] output ignored; token embeddings → linear head → BIO tags.
-- Dramatically outperforms BiLSTM-CRF on standard benchmarks (CoNLL-2003 F1 improved from ~91% to ~93%).
-- Named entity spans can span subtokens (wordpiece issue) — handled by labeling only first subtoken or using span prediction.</p>
-<p><strong>2021+ — Generative NER:</strong>
-- Seq2seq generation of entity spans (BART-based, T5). Works well for nested NER and zero-shot.
-- Instruction-following NER: prompt LLM "Extract all person names from: ..." → outputs structured list. Works remarkably well.
-- UniversalNER (2023): instruction-tuned for entity types defined in natural language → zero-shot NER.</p>
-<p><strong>Remaining challenges:</strong>
-1. <strong>Nested entities:</strong> "Steve Jobs announced Apple's new iPhone" → PERSON(Steve Jobs) + ORG(Apple) + PRODUCT(iPhone) can nest.
-2. <strong>Overlapping entities.</strong>
-3. <strong>Emerging entity types:</strong> LLMs without fine-tuning don't know about new entities (e.g., new eBay product category names not in training data).
-4. <strong>Low-resource languages:</strong> German compound nouns (eBay's DE market) create segmentation challenges; compound word may be a product name that no tokenizer splits correctly.
-5. <strong>E-commerce NER:</strong> product entities (brand, model, specifications) are not standard CoNLL types. eBay needs custom NER for product titles — "Nike Air Max 90 White Men's 10.5" → BRAND(Nike), PRODUCT_LINE(Air Max 90), COLOR(White), GENDER(Men's), SIZE(10.5). This is a real unsolved production challenge.</p>
+<p><strong>1990s-2000s — Rule-based + HMM:</strong></p>
+<ul>
+<li>Manually crafted rules (gazetteers: lists of known person/organization names, patterns like "Mr. [WORD]" → PERSON).</li>
+<li>HMM sequence labeling (BIO tagging scheme: B-PER, I-PER, O).</li>
+<li>Fast but brittle; no generalization to unseen names.</li>
+</ul>
+<p><strong>2008-2016 — CRF (Conditional Random Field):</strong></p>
+<ul>
+<li>Discriminative sequence labeling; features: word, POS, capitalization, word shape, surrounding context.</li>
+<li>CRF Viterbi decoding handles label dependencies (I-PER cannot follow O).</li>
+<li>Lafferty et al. 2001 foundational; dominant for 10 years.</li>
+<li>Still competitive in many low-resource settings due to label efficiency.</li>
+</ul>
+<p><strong>2016-2019 — BiLSTM-CRF:</strong></p>
+<ul>
+<li>Replace feature engineering with BiLSTM encoding of word and character embeddings.</li>
+<li>CRF output layer for consistent label sequence.</li>
+<li>Lample et al. 2016: first neural model to match or exceed CRF with handcrafted features.</li>
+<li>Character-level CNN/LSTM handles morphology + OOV words.</li>
+</ul>
+<p><strong>2018-2020 — BERT-based:</strong></p>
+<ul>
+<li>Fine-tune BERT (or XLM-R for multilingual) on NER as token classification.</li>
+<li>[CLS] output ignored; token embeddings → linear head → BIO tags.</li>
+<li>Dramatically outperforms BiLSTM-CRF on standard benchmarks (CoNLL-2003 F1 improved from ~91% to ~93%).</li>
+<li>Named entity spans can span subtokens (wordpiece issue) — handled by labeling only first subtoken or using span prediction.</li>
+</ul>
+<p><strong>2021+ — Generative NER:</strong></p>
+<ul>
+<li>Seq2seq generation of entity spans (BART-based, T5). Works well for nested NER and zero-shot.</li>
+<li>Instruction-following NER: prompt LLM "Extract all person names from: ..." → outputs structured list. Works remarkably well.</li>
+<li>UniversalNER (2023): instruction-tuned for entity types defined in natural language → zero-shot NER.</li>
+</ul>
+<p><strong>Remaining challenges:</strong></p>
+<ol>
+<li><strong>Nested entities:</strong> "Steve Jobs announced Apple's new iPhone" → PERSON(Steve Jobs) + ORG(Apple) + PRODUCT(iPhone) can nest.</li>
+<li><strong>Overlapping entities.</strong></li>
+<li><strong>Emerging entity types:</strong> LLMs without fine-tuning don't know about new entities (e.g., new eBay product category names not in training data).</li>
+<li><strong>Low-resource languages:</strong> German compound nouns (eBay's DE market) create segmentation challenges; compound word may be a product name that no tokenizer splits correctly.</li>
+<li><strong>E-commerce NER:</strong> product entities (brand, model, specifications) are not standard CoNLL types. eBay needs custom NER for product titles — "Nike Air Max 90 White Men's 10.5" → BRAND(Nike), PRODUCT_LINE(Air Max 90), COLOR(White), GENDER(Men's), SIZE(10.5). This is a real unsolved production challenge.</li>
+</ol>
 <p><strong>Versley connection:</strong> He values understanding of linguistic structure. Tony can note the analogy between bridging anaphora (requires domain knowledge to resolve) and product NER (requires e-commerce ontology knowledge to correctly segment).</p>
 <hr />
 <h3 id="h6-word-embeddings-history">H6. Word Embeddings History</h3>
 <p><strong>Q: Compare Word2Vec, GloVe, FastText, and BERT embeddings. What does each capture?</strong></p>
 <p><strong>Model Answer:</strong></p>
 <p><strong>Word2Vec (Mikolov et al. 2013):</strong>
-Learn embeddings by predicting:
-- <strong>CBOW:</strong> predict center word from context window.
-- <strong>Skip-gram:</strong> predict context words from center word.
-Uses negative sampling (NCE) or hierarchical softmax for efficiency. Result: static embeddings; <code>king - man + woman ≈ queen</code> (linear semantic algebra). Captures semantic and syntactic relations. 100-300 dimensions typical.</p>
+Learn embeddings by predicting:</p>
+<ul>
+<li><strong>CBOW:</strong> predict center word from context window.</li>
+<li><strong>Skip-gram:</strong> predict context words from center word.
+Uses negative sampling (NCE) or hierarchical softmax for efficiency. Result: static embeddings; <code>king - man + woman ≈ queen</code> (linear semantic algebra). Captures semantic and syntactic relations. 100-300 dimensions typical.</li>
+</ul>
 <p><strong>Limitation:</strong> one vector per word type — polysemy collapsed (bank:river vs bank:money → same vector).</p>
 <p><strong>GloVe (Pennington et al. 2014):</strong>
 Factorize global co-occurrence matrix: <code>w_i · w̃_j + b_i + b̃_j = log X_ij</code>. Combines local context (Word2Vec) with global statistics (term-document). Similar quality to Word2Vec, somewhat more consistent.</p>
 <p><strong>FastText (Bojanowski et al. 2017):</strong>
-Represent each word as sum of character n-gram embeddings (3–6 grams). "playing" = "pla" + "lay" + "ayi" + ... + "<playing>". Benefits:
-- Handles OOV words (can form embedding from character n-grams).
-- Better for morphologically rich languages (German: "Spielen", "spiele", "spielst" share n-grams → related representations).
-- Better for e-commerce product codes, model numbers, part IDs with regular sub-structure.</p>
+Represent each word as sum of character n-gram embeddings (3–6 grams). "playing" = "pla" + "lay" + "ayi" + ... + "<playing>". Benefits:</p>
+<ul>
+<li>Handles OOV words (can form embedding from character n-grams).</li>
+<li>Better for morphologically rich languages (German: "Spielen", "spiele", "spielst" share n-grams → related representations).</li>
+<li>Better for e-commerce product codes, model numbers, part IDs with regular sub-structure.</li>
+</ul>
 <p><strong>BERT (Devlin et al. 2018):</strong>
 Contextual embeddings: same word has different representations in different contexts. "bank" in "river bank" vs "bank account" → different BERT representations. 768-dim contextual vectors from 12-layer transformer. <strong>This is the key shift:</strong> static word embeddings → contextual sentence/document encoders.</p>
 <p><strong>Sentence-BERT (Reimers &amp; Gurevych 2019):</strong>
@@ -1081,10 +1314,12 @@ Siamese BERT fine-tuned on NLI + STS → sentence embeddings with meaningful cos
 <p><strong>Task-oriented dialogue / dialog state tracking:</strong> A user says "Book me a flight to Amsterdam." The system must track: destination=Amsterdam, origin=?, date=?, class=? across multiple turns until the form is complete. Dialog State Tracking (DST) is the component that maintains the current belief state of what the user wants. BERT-based DST models (SimpleTOD, TripPy) were standard in Alexa era.</p>
 <p><strong>Slot filling:</strong> Identifying named entities in user utterances that correspond to API parameters: "Wake me up at 7am" → time=07:00. Related to NER but domain-specific.</p>
 <p><strong>Why this matters for eBay's conversational shopping:</strong>
-eBay's agentic shopping assistant faces exactly these NLG and dialogue challenges:
-- NLG: generating a helpful product recommendation ("Based on your style profile, here are 3 jackets in your size range under €150") from structured product data.
-- DST: tracking user preferences across a multi-turn shopping session ("Show me smaller ones" requires tracking prior size constraint in context).
-- Slot filling: "I want a red one with fast shipping" → color=red, shipping_speed=fast → structured query for search.</p>
+eBay's agentic shopping assistant faces exactly these NLG and dialogue challenges:</p>
+<ul>
+<li>NLG: generating a helpful product recommendation ("Based on your style profile, here are 3 jackets in your size range under €150") from structured product data.</li>
+<li>DST: tracking user preferences across a multi-turn shopping session ("Show me smaller ones" requires tracking prior size constraint in context).</li>
+<li>Slot filling: "I want a red one with fast shipping" → color=red, shipping_speed=fast → structured query for search.</li>
+</ul>
 <p><strong>If Versley raises Amazon or NLG topics:</strong> acknowledge the lineage ("The gap between structured NLG and LLM-based generation is interesting — Amazon's template-based Alexa responses were reliable but inflexible; LLMs add fluency but require hallucination mitigation. I see the same tension in eBay's listing generation — e-Llama needs to be both creative enough to write compelling copy and faithful enough to not invent attributes that aren't in the product images.") This shows awareness of his background without asking him to reminisce.</p>
 <hr />
 <h2 id="section-i-efficiency-and-routing-tonys-signature">SECTION I: EFFICIENCY AND ROUTING (TONY'S SIGNATURE)</h2>
@@ -1098,33 +1333,69 @@ eBay's agentic shopping assistant faces exactly these NLG and dialogue challenge
 <p><strong>Model Answer:</strong></p>
 <p><strong>Problem definition:</strong>
 Given a query (or a step in a multi-step agentic task), select the cheapest model that can correctly handle it. Models form a cost-quality hierarchy: M1 (cheap, fast) &lt; M2 (medium) &lt; M3 (expensive, accurate). Router must decide which to use per query, maintaining target quality (e.g., ≥95% of M3 quality) while minimizing cost.</p>
-<p><strong>Tony's LLM Router (NeurIPS 2026 under review):</strong>
-- Benchmarks routing strategies across complex multi-step tasks.
-- Key insight: for complex tasks, different steps have different difficulty — route each step independently, not the whole task.
-- The LLM Router paper reports "same performance, &gt;90% cost reduction vs. always using a single SOTA model per step" — measured as per-task accuracy within ε% on a held-out test set. (This &gt;90% is the LLM Router paper's own result; do not attribute it to TwinRouterBench, which is a separate benchmark paper whose trained-router number is 53%.)</p>
-<p><strong>Router signal options:</strong>
-| Signal | Description | Pros | Cons |
-|---|---|---|---|
-| Query complexity classifier | Trained on difficulty labels | Fast, no LLM call needed | Requires labeled data; task distribution shift |
-| Uncertainty from small model | Get M1's output + confidence; route to M2 if uncertain | Self-calibrating | Requires M1 call first (2-stage latency) |
-| Length/entropy heuristics | Short simple queries → cheap | Zero cost | Crude; misses semantic complexity |
-| LLM meta-router | Ask M1 "can you handle this?" | Accurate | Adds another LLM call |</p>
+<p><strong>Tony's LLM Router (NeurIPS 2026 under review):</strong></p>
+<ul>
+<li>Benchmarks routing strategies across complex multi-step tasks.</li>
+<li>Key insight: for complex tasks, different steps have different difficulty — route each step independently, not the whole task.</li>
+<li>The LLM Router paper reports "same performance, &gt;90% cost reduction vs. always using a single SOTA model per step" — measured as per-task accuracy within ε% on a held-out test set. (This &gt;90% is the LLM Router paper's own result; do not attribute it to TwinRouterBench, which is a separate benchmark paper whose trained-router number is 53%.)</li>
+</ul>
+<p><strong>Router signal options:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Signal</th>
+<th>Description</th>
+<th>Pros</th>
+<th>Cons</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Query complexity classifier</td>
+<td>Trained on difficulty labels</td>
+<td>Fast, no LLM call needed</td>
+<td>Requires labeled data; task distribution shift</td>
+</tr>
+<tr>
+<td>Uncertainty from small model</td>
+<td>Get M1's output + confidence; route to M2 if uncertain</td>
+<td>Self-calibrating</td>
+<td>Requires M1 call first (2-stage latency)</td>
+</tr>
+<tr>
+<td>Length/entropy heuristics</td>
+<td>Short simple queries → cheap</td>
+<td>Zero cost</td>
+<td>Crude; misses semantic complexity</td>
+</tr>
+<tr>
+<td>LLM meta-router</td>
+<td>Ask M1 "can you handle this?"</td>
+<td>Accurate</td>
+<td>Adds another LLM call</td>
+</tr>
+</tbody>
+</table>
 <p><strong>TwinRouterBench (Tony's benchmark paper — arXiv:2605.18859, 3rd of 17 authors):</strong>
 53% cost reduction matching performance. Key contribution: <strong>static eval</strong> (fixed benchmark) + <strong>live dynamic eval</strong> (queries from real distribution) to avoid benchmark gaming. Static benchmark overfits; dynamic eval measures real deployment behavior.</p>
 <p><strong>MERA (Tony's Model Evolution and Routing — RL-Eval 2026 workshop, 3rd author):</strong>
 Adapts the <em>per-invocation</em> serving policy inside a multi-step trace: an input-only BERT-tiny router chooses among strong / cheap / specialized models, a SkillBook handles recurring local prompt structure, and a verifier falls back on failures. There is <strong>no</strong> math/code/QA skill-category taxonomy — skill selection and model routing are separate components. Headline: <strong>87.3% router accuracy</strong> (match to held-out cheap-vs-strong labels, <em>not</em> task accuracy) at ~52% of always-large serving cost, with a 4.4% fallback rate.</p>
 <p><strong>Cost-Adaptive Routing with Specialists:</strong>
-For <strong>repeated</strong> workflows (same prompt pattern used millions of times):
-1. Collect correct (input, output) trajectories from M3 (frontier model).
-2. Fine-tune M1 (small specialist) on this specific workflow.
-3. Deploy specialist for this workflow; route to M3 only for novel inputs outside training distribution.
-4. Cost decreases as more workflow-specific data accumulates (data flywheel).</p>
+For <strong>repeated</strong> workflows (same prompt pattern used millions of times):</p>
+<ol>
+<li>Collect correct (input, output) trajectories from M3 (frontier model).</li>
+<li>Fine-tune M1 (small specialist) on this specific workflow.</li>
+<li>Deploy specialist for this workflow; route to M3 only for novel inputs outside training distribution.</li>
+<li>Cost decreases as more workflow-specific data accumulates (data flywheel).</li>
+</ol>
 <p><strong>Design choices Versley will probe:</strong></p>
 <p><strong>Cold-start (critical — Versley ran Amazon Nova at scale):</strong>
-For a new step type with no routing data, naive fallback ("use the strong model") is a tautology, not a solution. The real answer has three parts:
-1. <strong>OOD detection:</strong> measure embedding cosine similarity between the new step and the router's training distribution centroid. If similarity &lt; threshold (or equivalently, if the router's softmax entropy is high), flag as out-of-distribution.
-2. <strong>Minimum data threshold for specialist:</strong> empirically, ~500–1000 labeled examples are typically sufficient to train a routing classifier or fine-tune a small specialist on a well-defined subtask. This is a known practical number; routes to M3 until that threshold is hit.
-3. <strong>Acknowledge the unsolved problem:</strong> exploration-exploitation in routing at production traffic is genuinely hard — it requires deciding how many "costly" M3 calls to make to collect data vs. exploiting the current router. At eBay's scale, even 0.1% M3 over-use is expensive. This is an active research problem in my routing work.</p>
+For a new step type with no routing data, naive fallback ("use the strong model") is a tautology, not a solution. The real answer has three parts:</p>
+<ol>
+<li><strong>OOD detection:</strong> measure embedding cosine similarity between the new step and the router's training distribution centroid. If similarity &lt; threshold (or equivalently, if the router's softmax entropy is high), flag as out-of-distribution.</li>
+<li><strong>Minimum data threshold for specialist:</strong> empirically, ~500–1000 labeled examples are typically sufficient to train a routing classifier or fine-tune a small specialist on a well-defined subtask. This is a known practical number; routes to M3 until that threshold is hit.</li>
+<li><strong>Acknowledge the unsolved problem:</strong> exploration-exploitation in routing at production traffic is genuinely hard — it requires deciding how many "costly" M3 calls to make to collect data vs. exploiting the current router. At eBay's scale, even 0.1% M3 over-use is expensive. This is an active research problem in my routing work.</li>
+</ol>
 <p><strong>Routing bottleneck:</strong> if router itself is slow/expensive, it cancels out savings. → Lightweight classifier (BERT-mini or even logistic regression on embeddings); latency &lt; 5ms.</p>
 <p><strong>Distribution shift:</strong> real queries drift from benchmark. → Continuous monitoring of routing decision quality; retrain router on production logs.</p>
 <p><strong>Fallback:</strong> when M1 fails (produces wrong output) and there's no oracle. → In agentic tasks, downstream verification (code execution, LLM-as-judge) can detect failures and trigger re-routing to M3.</p>
@@ -1135,28 +1406,36 @@ Mercury platform already routes queries across LiLiuM (1B/7B), Mistral, external
 <p><strong>Q: How does speculative decoding work? When is it most effective?</strong></p>
 <p><strong>Model Answer:</strong></p>
 <p><strong>Mechanism:</strong>
-Pair a small fast "draft" model <code>q</code> with the target model <code>p</code>.
-1. Draft model generates N candidate tokens auto-regressively: <code>[t₁, t₂, ..., tₙ]</code>.
-2. Target model evaluates all N candidates in <strong>one parallel forward pass</strong> (N tokens are already known → can process in parallel as a sequence).
-3. For each position i: if <code>q(tᵢ | prefix) / p(tᵢ | prefix) &lt; uniform random</code> → accept tᵢ. Else: reject tᵢ, sample correction from <code>p</code>, stop.
-4. All accepted tokens + one correction token produced per round.</p>
+Pair a small fast "draft" model <code>q</code> with the target model <code>p</code>.</p>
+<ol>
+<li>Draft model generates N candidate tokens auto-regressively: <code>[t₁, t₂, ..., tₙ]</code>.</li>
+<li>Target model evaluates all N candidates in <strong>one parallel forward pass</strong> (N tokens are already known → can process in parallel as a sequence).</li>
+<li>For each position i: if <code>q(tᵢ | prefix) / p(tᵢ | prefix) &lt; uniform random</code> → accept tᵢ. Else: reject tᵢ, sample correction from <code>p</code>, stop.</li>
+<li>All accepted tokens + one correction token produced per round.</li>
+</ol>
 <p><strong>Expected speedup:</strong>
 If draft model acceptance rate is α, expected tokens produced per target model call ≈ <code>1 / (1 - αᴺ)</code> for N draft tokens. At α=0.9 and N=5: expected output ≈ 4.8 tokens/call (vs 1 without speculative).</p>
 <p>Latency speedup = N × α / 1 = theoretical up to Nα. Practically: 2–3× for typical text, more for repetitive/predictable outputs.</p>
 <p><strong>Correctness guarantee:</strong> The combined algorithm produces samples from exactly <code>p</code> (the target distribution) regardless of draft quality. No approximation error.</p>
-<p><strong>When most effective:</strong>
-- Target model is <strong>large</strong> (memory-bandwidth bound) and <strong>slow</strong> per token.
-- Target and draft share tokenizer (required for alignment).
-- Draft model has high acceptance rate on the query distribution (domain similar to draft's training).
-- Low batch sizes (target has spare compute for the parallel verification pass).</p>
-<p><strong>When less effective:</strong>
-- High temperature sampling (more rejection from target; creative generation).
-- Large batches (target is already compute-efficient at scale).
-- Draft model poor acceptance rate on domain.</p>
-<p><strong>Variants:</strong>
-- <strong>Lookahead decoding:</strong> no draft model; reuse partial sequences from Jacobi iterations of target model. Zero additional model required.
-- <strong>Medusa:</strong> multiple prediction heads on the same model; faster to produce draft candidates.
-- <strong>Eagle / Eagle-2 (2024-2025):</strong> feature-based draft model; accepts input features from target's intermediate layers for better alignment; better acceptance rates.</p>
+<p><strong>When most effective:</strong></p>
+<ul>
+<li>Target model is <strong>large</strong> (memory-bandwidth bound) and <strong>slow</strong> per token.</li>
+<li>Target and draft share tokenizer (required for alignment).</li>
+<li>Draft model has high acceptance rate on the query distribution (domain similar to draft's training).</li>
+<li>Low batch sizes (target has spare compute for the parallel verification pass).</li>
+</ul>
+<p><strong>When less effective:</strong></p>
+<ul>
+<li>High temperature sampling (more rejection from target; creative generation).</li>
+<li>Large batches (target is already compute-efficient at scale).</li>
+<li>Draft model poor acceptance rate on domain.</li>
+</ul>
+<p><strong>Variants:</strong></p>
+<ul>
+<li><strong>Lookahead decoding:</strong> no draft model; reuse partial sequences from Jacobi iterations of target model. Zero additional model required.</li>
+<li><strong>Medusa:</strong> multiple prediction heads on the same model; faster to produce draft candidates.</li>
+<li><strong>Eagle / Eagle-2 (2024-2025):</strong> feature-based draft model; accepts input features from target's intermediate layers for better alignment; better acceptance rates.</li>
+</ul>
 <p><strong>eBay relevance:</strong> For low-latency product listing generation (Magical Listing), speculative decoding with a 1B LiLiuM draft + 7B LiLiuM target could achieve 2-3× generation speedup. Combined with Tony's routing: route to 1B for simple steps, use 7B+1B speculative decoding for medium steps, use 70B for hard steps.</p>
 <hr />
 <h3 id="i3-nnu-net-pruning-tonys-work-deep-dive">I3. nnU-Net Pruning (Tony's Work) — Deep Dive</h3>
@@ -1165,11 +1444,13 @@ If draft model acceptance rate is α, expected tokens produced per target model 
 <p><em>Tony's direct work — must be able to go very deep here.</em></p>
 <p><strong>Context:</strong>
 nnU-Net (Isensee et al.) is the state-of-the-art framework for biomedical image segmentation, self-configures architecture and training for any medical imaging task. Tony applied one-shot, post-training unstructured magnitude pruning, removing &gt;80% of the trained model's weights while proxy Dice stayed above 0.95, in a MIDL 2025 short paper (first author).</p>
-<p><strong>Why medical imaging models are over-parameterized:</strong>
-- Medical datasets are small (hundreds to a few thousand cases).
-- nnU-Net's design is architecture search over a large hypothesis space.
-- For the specific dataset, actual complexity needed is far lower than the generic nnU-Net configuration.
-- High weight redundancy → high sparsity achievable without performance loss.</p>
+<p><strong>Why medical imaging models are over-parameterized:</strong></p>
+<ul>
+<li>Medical datasets are small (hundreds to a few thousand cases).</li>
+<li>nnU-Net's design is architecture search over a large hypothesis space.</li>
+<li>For the specific dataset, actual complexity needed is far lower than the generic nnU-Net configuration.</li>
+<li>High weight redundancy → high sparsity achievable without performance loss.</li>
+</ul>
 <p><strong>Pruning criterion:</strong>
 Magnitude-based (L1 pruning): rank weights by absolute value; prune smallest weights. Justification: small-magnitude weights contribute little to the output (first-order Taylor approximation: <code>ΔL ≈ g · Δw</code>, and if <code>Δw ≈ -w</code> when we zero it, then <code>ΔL ≈ -g · w</code>; for nearly converged networks <code>g ≈ 0</code> → any small-magnitude weight is safe to remove).</p>
 <p><strong>One-shot, unstructured, post-training pruning (no structured conversion):</strong>
@@ -1193,21 +1474,27 @@ During autoregressive generation, the attention mechanism at each step needs <co
 <pre><code>= 2 × 32 × 8 × 128 × 4096 × 16 × 2 bytes ≈ 2.1 GB
 </code></pre>
 <p>GQA's reduction from 32 to 8 KV heads gives a 4× KV cache savings directly. This is a key advantage of e-Llama's Llama 3.1 base with GQA.</p>
-<p><strong>Problems with naive KV cache management:</strong>
-1. <strong>Pre-reservation:</strong> typical approach reserves max_seq_len × batch_size upfront, even if most sequences finish early. For 4k context, a 100-token sequence reserves 40× more memory than needed. Wastes 60–80% of KV cache memory.
-2. <strong>Fragmentation:</strong> deallocating completed sequences creates gaps that are hard to reuse.
-3. <strong>No sharing:</strong> if 100 requests share the same system prompt (common in RAG), all 100 allocations store identical KV values redundantly.</p>
+<p><strong>Problems with naive KV cache management:</strong></p>
+<ol>
+<li><strong>Pre-reservation:</strong> typical approach reserves max_seq_len × batch_size upfront, even if most sequences finish early. For 4k context, a 100-token sequence reserves 40× more memory than needed. Wastes 60–80% of KV cache memory.</li>
+<li><strong>Fragmentation:</strong> deallocating completed sequences creates gaps that are hard to reuse.</li>
+<li><strong>No sharing:</strong> if 100 requests share the same system prompt (common in RAG), all 100 allocations store identical KV values redundantly.</li>
+</ol>
 <p><strong>PagedAttention (vLLM, Kwon et al. 2023):</strong>
-Inspired by OS virtual memory paging:
-- KV cache divided into fixed-size <strong>pages</strong> (blocks) of K tokens each (e.g., 16 tokens/block).
-- Each sequence's KV cache is stored in a <strong>variable number of pages</strong> — no pre-reservation of max_seq_len.
-- Pages are allocated on-demand (only as new tokens are generated).
-- <strong>Prefix caching / prompt caching:</strong> if multiple requests share the same prefix (e.g., same RAG context or system prompt), those prefix pages are physically shared (one copy, multiple references via page table).
-- <strong>Non-contiguous storage:</strong> a sequence's pages need not be contiguous in GPU memory → flexible allocation, zero fragmentation.</p>
+Inspired by OS virtual memory paging:</p>
+<ul>
+<li>KV cache divided into fixed-size <strong>pages</strong> (blocks) of K tokens each (e.g., 16 tokens/block).</li>
+<li>Each sequence's KV cache is stored in a <strong>variable number of pages</strong> — no pre-reservation of max_seq_len.</li>
+<li>Pages are allocated on-demand (only as new tokens are generated).</li>
+<li><strong>Prefix caching / prompt caching:</strong> if multiple requests share the same prefix (e.g., same RAG context or system prompt), those prefix pages are physically shared (one copy, multiple references via page table).</li>
+<li><strong>Non-contiguous storage:</strong> a sequence's pages need not be contiguous in GPU memory → flexible allocation, zero fragmentation.</li>
+</ul>
 <p><strong>Result:</strong> vLLM achieves 2–4× more requests per second than naive implementations. For eBay's RAG serving (many requests share the same product knowledge context), prefix caching provides large memory savings → higher throughput.</p>
-<p><strong>vLLM V1 (2025) additions:</strong>
-- <strong>Chunked prefill:</strong> split long prompts into chunks interleaved with decode tokens → reduces first-token latency (TTFT).
-- <strong>Disaggregated prefill/decode:</strong> route prefill (compute-bound) to different GPU set than decode (memory-bound). Optimize each workload independently.</p>
+<p><strong>vLLM V1 (2025) additions:</strong></p>
+<ul>
+<li><strong>Chunked prefill:</strong> split long prompts into chunks interleaved with decode tokens → reduces first-token latency (TTFT).</li>
+<li><strong>Disaggregated prefill/decode:</strong> route prefill (compute-bound) to different GPU set than decode (memory-bound). Optimize each workload independently.</li>
+</ul>
 <hr />
 <h2 id="section-j-vlms-and-multimodal">SECTION J: VLMs AND MULTIMODAL</h2>
 <h3 id="j1-vlm-architecture-families">J1. VLM Architecture Families</h3>
@@ -1220,9 +1507,11 @@ Inspired by OS virtual memory paging:
 <p><strong>Model Answer:</strong></p>
 <p><strong>LLaVA (Liu et al. 2023) — Connector-based:</strong>
 Architecture: <code>[Vision Encoder (ViT)] → [Projector (MLP)] → [LLM (frozen or fine-tuned)]</code></p>
-<p>Training:
-1. <strong>Stage 1 (alignment):</strong> freeze LLM, train only projector on (image, text) pairs. Projector learns to map visual features to LLM's token space.
-2. <strong>Stage 2 (visual instruction tuning):</strong> unfreeze LLM + projector, fine-tune on multimodal instruction data.</p>
+<p>Training:</p>
+<ol>
+<li><strong>Stage 1 (alignment):</strong> freeze LLM, train only projector on (image, text) pairs. Projector learns to map visual features to LLM's token space.</li>
+<li><strong>Stage 2 (visual instruction tuning):</strong> unfreeze LLM + projector, fine-tune on multimodal instruction data.</li>
+</ol>
 <p>Vision encoder: CLIP ViT-L/14@336 (Radford et al.) or SigLIP (Sigmoid contrastive). Fixed, not trained further.
 Projector: 2-layer MLP (LLaVA-1.5). Outputs 256 visual tokens per image.</p>
 <p><strong>Versley's eBay VLM paper (arXiv 2602.11733) uses LLaVA-OneVision architecture</strong> (LLaVA-style with dynamic resolution + multi-image support). Three-stage training.</p>
@@ -1241,11 +1530,13 @@ Architecture: Image features (via Perceiver Resampler) are injected into every L
 Discretize images via VQ-VAE or image tokenizer → integer tokens fed directly to standard autoregressive LLM. No separate vision encoder in inference path.</p>
 <p><strong>Pros:</strong> Unified architecture; enables image generation + understanding in one model.
 <strong>Cons:</strong> Image tokenizer introduces reconstruction artifacts; huge vocabulary size; needs massive interleaved image-text training data from scratch.</p>
-<p><strong>eBay's VLM architecture (Versley et al., arXiv:2602.11733 (2026)):</strong>
-- Vision encoders: <strong>SigLIP2-SO400M-Patch14-384</strong> or <strong>Qwen2.5-ViT</strong>.
-- Text decoders: tested Llama 3.1-8B, e-Llama 3.1-8B, LiLiuM 1B/7B, Qwen3 variants, Gemma3 variants.
-- Architecture: LLaVA-OneVision (connector-based).
-- <strong>Key finding:</strong> e-Llama 3.1-8B as text decoder gives meaningful improvement over generic Llama 3.1 on e-commerce tasks. Domain-adapted text decoder matters more than vision encoder choice.</p>
+<p><strong>eBay's VLM architecture (Versley et al., arXiv:2602.11733 (2026)):</strong></p>
+<ul>
+<li>Vision encoders: <strong>SigLIP2-SO400M-Patch14-384</strong> or <strong>Qwen2.5-ViT</strong>.</li>
+<li>Text decoders: tested Llama 3.1-8B, e-Llama 3.1-8B, LiLiuM 1B/7B, Qwen3 variants, Gemma3 variants.</li>
+<li>Architecture: LLaVA-OneVision (connector-based).</li>
+<li><strong>Key finding:</strong> e-Llama 3.1-8B as text decoder gives meaningful improvement over generic Llama 3.1 on e-commerce tasks. Domain-adapted text decoder matters more than vision encoder choice.</li>
+</ul>
 <hr />
 <h3 id="j2-vlm-for-e-commerce-multi-image-and-attribute-extraction">J2. VLM for E-Commerce: Multi-Image and Attribute Extraction</h3>
 <p><strong>Q: What are the unique challenges of VLMs for e-commerce vs. general VQA? How does Versley's team address them?</strong></p>
@@ -1279,11 +1570,13 @@ Discretize images via VQ-VAE or image tokenizer → integer tokens fed directly 
 → Mistral-Small-3-24B: visual-text consistency verification (reject hallucinated captions)
 → ~4M high-quality instruction-tuning examples
 </code></pre>
-<p><strong>Instruction types in the 4M dataset:</strong>
-- VQA (45%): "What color is this product?"
-- Dynamic Attribute Extraction (30%): "List all extractable attributes from this image."
-- Precise Instruction Following (12.5%): "Format your answer as JSON with keys: brand, color, material, size."
-- Product Listings (12.5%): "Generate a complete eBay listing for this product."</p>
+<p><strong>Instruction types in the 4M dataset:</strong></p>
+<ul>
+<li>VQA (45%): "What color is this product?"</li>
+<li>Dynamic Attribute Extraction (30%): "List all extractable attributes from this image."</li>
+<li>Precise Instruction Following (12.5%): "Format your answer as JSON with keys: brand, color, material, size."</li>
+<li>Product Listings (12.5%): "Generate a complete eBay listing for this product."</li>
+</ul>
 <p><strong>Key finding (Versley's paper):</strong> Domain-adapted text decoder (e-Llama) improves VLM performance on e-commerce tasks <strong>even when the vision encoder is identical</strong>. This validates that e-commerce world knowledge (what products exist, what attributes they have, what reasonable prices are) is primarily in the LLM, not the vision encoder.</p>
 <p><strong>Efficiency finding:</strong> Fine-tuning a small VLM (finetuned Gemma3-4B) outperforms zero-shot prompting of a 7x-larger model (Gemma3-27B zero-shot) on domain-specific tasks: F1 = 50.5 (finetuned 4B) vs. F1 = 44.8 (zero-shot 27B), with approximately 3.8x inference speedup. This is a consistent theme in the paper's ablations — finetuned small beats zero-shot large.</p>
 <p><strong>Tony's Human Intent World Model connection:</strong>
@@ -1348,27 +1641,35 @@ Supervised: model learns from labeled (input, target) pairs. Self-supervised: mo
 <h2 id="section-l-sota-awareness-2025-2026">SECTION L: SOTA AWARENESS 2025-2026</h2>
 <h3 id="l1-efficiency-and-training-innovations-tonys-angle-lead-here">L1. Efficiency and Training Innovations (Tony's Angle — Lead Here)</h3>
 <p><em>Versley leads pretraining and values efficiency rigor. Lead with this, not capability leaderboard.</em></p>
-<p><strong>Efficiency SOTA (2025-2026):</strong>
-- <strong>SuperBPE (COLM 2025):</strong> Cross-word superword tokens → 33% fewer tokens, +4% benchmark performance. Lifts BPE's whitespace boundary constraint — exactly the direction eBay's vocabulary customization paper addresses.
-- <strong>ZClip (2025, arXiv 2504.02507):</strong> Z-score-based adaptive gradient clipping → stable training without over-clipping. Replaces fixed global norm threshold with data-driven z-score threshold.
-- <strong>SPAM (2025, arXiv 2501.06842):</strong> Spike-aware Adam momentum reset → recovers from training spikes without full rollback. Zeroes Adam m and v for affected parameters at spike onset.
-- <strong>Eagle-2 (2025):</strong> Feature-based speculative decoding draft model → higher acceptance rates than vanilla speculative decoding.
-- <strong>μP / μTransfer (Microsoft, Tensor Programs V):</strong> Zero-shot hyperparameter transfer across scales. LR tuned at proxy model transfers to full-scale model. Standard at frontier labs.
-- <strong>GQA (Grouped Query Attention, 2023):</strong> Now universal in production LLMs. H query heads share G &lt; H KV heads → H/G reduction in KV cache. e-Llama (Llama 3.1 based) uses G=8, H=32 → 4× KV cache reduction.</p>
+<p><strong>Efficiency SOTA (2025-2026):</strong></p>
+<ul>
+<li><strong>SuperBPE (COLM 2025):</strong> Cross-word superword tokens → 33% fewer tokens, +4% benchmark performance. Lifts BPE's whitespace boundary constraint — exactly the direction eBay's vocabulary customization paper addresses.</li>
+<li><strong>ZClip (2025, arXiv 2504.02507):</strong> Z-score-based adaptive gradient clipping → stable training without over-clipping. Replaces fixed global norm threshold with data-driven z-score threshold.</li>
+<li><strong>SPAM (2025, arXiv 2501.06842):</strong> Spike-aware Adam momentum reset → recovers from training spikes without full rollback. Zeroes Adam m and v for affected parameters at spike onset.</li>
+<li><strong>Eagle-2 (2025):</strong> Feature-based speculative decoding draft model → higher acceptance rates than vanilla speculative decoding.</li>
+<li><strong>μP / μTransfer (Microsoft, Tensor Programs V):</strong> Zero-shot hyperparameter transfer across scales. LR tuned at proxy model transfers to full-scale model. Standard at frontier labs.</li>
+<li><strong>GQA (Grouped Query Attention, 2023):</strong> Now universal in production LLMs. H query heads share G &lt; H KV heads → H/G reduction in KV cache. e-Llama (Llama 3.1 based) uses G=8, H=32 → 4× KV cache reduction.</li>
+</ul>
 <h3 id="l2-model-landscape">L2. Model Landscape</h3>
-<p><strong>Reasoning leaders:</strong>
-- <strong>DeepSeek-R1 (Jan 2025):</strong> GRPO + verifiable rewards; emergent CoT; open weights; MIT license. Frontier math/code at ~10% training cost of GPT-4.
-- <strong>OpenAI o3/o4-mini (2025):</strong> Extended thinking (long CoT at inference); PRM for step verification; best AIME/SWE-Bench results.
-- <strong>Qwen 3 (Alibaba, 2025):</strong> 36T tokens; 235B-A22B MoE; 100+ languages; hybrid thinking mode.
-- <strong>DeepSeek-V3 / V4-Pro:</strong> 671B/1.6T total, 37B/49B active. MLA attention. MIT license. Frontier quality at low activation rate.</p>
-<p><strong>Multimodal leaders:</strong>
-- <strong>Qwen3-VL (72B):</strong> SOTA open-source image understanding.
-- <strong>InternVL3:</strong> Native multimodal pretraining from scratch.
-- <strong>GPT-4o / GPT-5:</strong> Strong OCR, chart reading, multi-image reasoning.
-- <strong>Gemini 3.5 Flash:</strong> Multimodal native, 1M+ context, efficient.</p>
-<p><strong>Long-context leaders:</strong>
-- <strong>Llama 4 Scout:</strong> 10M tokens. Ring attention. Open weights.
-- <strong>DeepSeek V4:</strong> 128k+ context with MLA attention.</p>
+<p><strong>Reasoning leaders:</strong></p>
+<ul>
+<li><strong>DeepSeek-R1 (Jan 2025):</strong> GRPO + verifiable rewards; emergent CoT; open weights; MIT license. Frontier math/code at ~10% training cost of GPT-4.</li>
+<li><strong>OpenAI o3/o4-mini (2025):</strong> Extended thinking (long CoT at inference); PRM for step verification; best AIME/SWE-Bench results.</li>
+<li><strong>Qwen 3 (Alibaba, 2025):</strong> 36T tokens; 235B-A22B MoE; 100+ languages; hybrid thinking mode.</li>
+<li><strong>DeepSeek-V3 / V4-Pro:</strong> 671B/1.6T total, 37B/49B active. MLA attention. MIT license. Frontier quality at low activation rate.</li>
+</ul>
+<p><strong>Multimodal leaders:</strong></p>
+<ul>
+<li><strong>Qwen3-VL (72B):</strong> SOTA open-source image understanding.</li>
+<li><strong>InternVL3:</strong> Native multimodal pretraining from scratch.</li>
+<li><strong>GPT-4o / GPT-5:</strong> Strong OCR, chart reading, multi-image reasoning.</li>
+<li><strong>Gemini 3.5 Flash:</strong> Multimodal native, 1M+ context, efficient.</li>
+</ul>
+<p><strong>Long-context leaders:</strong></p>
+<ul>
+<li><strong>Llama 4 Scout:</strong> 10M tokens. Ring attention. Open weights.</li>
+<li><strong>DeepSeek V4:</strong> 128k+ context with MLA attention.</li>
+</ul>
 <h3 id="l3-key-trends">L3. Key Trends</h3>
 <ol>
 <li>
@@ -1441,10 +1742,12 @@ Your four benchmark types (VQA, Dynamic Attribute Extraction, Precise Instructio
 <p><em>[Question from Versley's computational linguistics background — Tony answers as the one being asked.]</em></p>
 <p><strong>Model Answer:</strong>
 Modern LLMs have essentially replaced classical CRF/HMM-based approaches for standard sequence labeling tasks (POS tagging, NER, chunking). BERT-based token classification outperforms BiLSTM-CRF on CoNLL-2003 NER (~93% F1 vs ~91%), and generative models with instruction tuning enable zero-shot NER that was impossible with classical models.</p>
-<p>However, classical models retain real advantages in specific regimes:
-1. <strong>Very low data:</strong> CRF with 100 labeled examples often outperforms fine-tuned BERT on the same 100 examples because CRF's label dependency model is a strong inductive bias. Viterbi on a CRF guarantees the globally optimal label sequence — LLMs with greedy decoding may produce locally incoherent label sequences (B-PER followed by I-LOC).
-2. <strong>Efficiency:</strong> A CRF tagger runs at ~100k tokens/second on CPU. A BERT-based tagger needs GPU. For eBay's 2B listings at high throughput, a CRF for simple attribute tagging may be more practical than an LLM.
-3. <strong>Interpretability and formal guarantees:</strong> a CRF's features and transition weights are inspectable; an LLM's behavior is opaque.</p>
+<p>However, classical models retain real advantages in specific regimes:</p>
+<ol>
+<li><strong>Very low data:</strong> CRF with 100 labeled examples often outperforms fine-tuned BERT on the same 100 examples because CRF's label dependency model is a strong inductive bias. Viterbi on a CRF guarantees the globally optimal label sequence — LLMs with greedy decoding may produce locally incoherent label sequences (B-PER followed by I-LOC).</li>
+<li><strong>Efficiency:</strong> A CRF tagger runs at ~100k tokens/second on CPU. A BERT-based tagger needs GPU. For eBay's 2B listings at high throughput, a CRF for simple attribute tagging may be more practical than an LLM.</li>
+<li><strong>Interpretability and formal guarantees:</strong> a CRF's features and transition weights are inspectable; an LLM's behavior is opaque.</li>
+</ol>
 <p>For eBay's production use cases (classifying millions of product titles, attribute extraction at 2B listing scale), this is a real consideration: CRF-style models for high-volume simple tagging, LLMs for complex reasoning or generation.</p>
 <p>On bridging anaphora specifically — where your research is foundational: the failure mode is clear. LLMs handle prototypical part-whole bridges reasonably (shoe → sole, dress → zipper). But non-prototypical bridges — and compound-based bridges in German where the relationship is embedded in the compound word itself ("Schuhsohle") rather than in discourse — remain systematically hard. The BART toolkit era had to model these explicitly with rich linguistic features; I suspect the implicit statistical associations in LLMs still miss the long tail of unusual bridges, which is exactly the hard test for genuine semantic knowledge.</p>
 <hr />
@@ -1474,10 +1777,12 @@ My positioning is already systems-oriented rather than pure theory: every paper 
 <p><strong>Strategy 1 — Anchor on efficiency:</strong>
 In any discussion about model selection, system design, or fine-tuning, always frame the answer in terms of the cost-quality Pareto. "The question I always ask is: what's the cheapest model that can correctly handle this step?" This positions LLM routing as Tony's natural lens.</p>
 <p><strong>Strategy 2 — Bridge from Tony's papers to eBay's papers:</strong>
-When possible, reference a specific result from Versley's published work and connect Tony's work to it. Examples:
-- On domain adaptation: "Your e-Llama ablation on learning rate is exactly the kind of empirical grounding I try to bring to routing decisions in MERA."
-- On VLMs: "Your finding that the e-Llama decoder improves VLM performance is consistent with what I found in Human Intent World Model — domain-specific world knowledge in the LLM backbone is often more important than the visual encoder choice."
-- On efficiency: "Your vocabulary customization paper's 20% compression result is complementary to my routing work — both are pre-model-forward optimizations that reduce inference cost."</p>
+When possible, reference a specific result from Versley's published work and connect Tony's work to it. Examples:</p>
+<ul>
+<li>On domain adaptation: "Your e-Llama ablation on learning rate is exactly the kind of empirical grounding I try to bring to routing decisions in MERA."</li>
+<li>On VLMs: "Your finding that the e-Llama decoder improves VLM performance is consistent with what I found in Human Intent World Model — domain-specific world knowledge in the LLM backbone is often more important than the visual encoder choice."</li>
+<li>On efficiency: "Your vocabulary customization paper's 20% compression result is complementary to my routing work — both are pre-model-forward optimizations that reduce inference cost."</li>
+</ul>
 <p><strong>Strategy 3 — Lead with rigor, not hype:</strong>
 Versley despises buzzwords. Never say "our model leverages cutting-edge AI to achieve synergistic improvements." Say "we applied one-shot, post-training magnitude-based unstructured pruning, removed &gt;80% of the trained nnU-Net's weights while proxy Dice stayed above 0.95 across four datasets, and found an inverted-U redundancy pattern where the bottleneck and deepest layers are the most prunable — no speedup was measured, that's the structured-pruning follow-up." Specificity = credibility with this interviewer.</p>
 <p><strong>Strategy 4 — Own uncertainty honestly:</strong>
@@ -1499,11 +1804,13 @@ RAG is not always better. For frequently recurring knowledge (e.g., eBay's categ
 <p><strong>RF6: "Adam is always better than SGD."</strong>
 For convex problems or simple models, SGD with momentum often generalizes better. For LLMs, AdamW is correct. But blanket "Adam is always better" signals memorized rule rather than understanding.</p>
 <p><strong>RF7: "I'm not familiar with that paper."</strong>
-If it's one of Versley's eBay papers, this is a disqualifier. The confirmed Versley-authored eBay papers to know cold:
-- <strong>arXiv 2501.09706</strong> — e-Llama: Domain Adaptation of Foundation LLMs for e-Commerce. eBay-team work (lead authors Herold, Kozielski et al.); Versley leads the org behind it — ask him about it as org lead, not as a co-author.
-- <strong>arXiv 2509.26124</strong> — Vocabulary Customization for Efficient Domain-Specific LLM Deployment. Versley confirmed co-author.
-- <strong>arXiv 2602.11733</strong> — Adapting Vision-Language Models for E-commerce Understanding at Scale. Versley confirmed co-author.
-- <strong>arXiv 2406.12023</strong> — LiLiuM: eBay's Large Language Models for e-commerce. eBay-team work (lead authors Herold, Kozielski); Versley leads the org — ask him about it as the org lead, not as a co-author.</p>
+If it's one of Versley's eBay papers, this is a disqualifier. The confirmed Versley-authored eBay papers to know cold:</p>
+<ul>
+<li><strong>arXiv 2501.09706</strong> — e-Llama: Domain Adaptation of Foundation LLMs for e-Commerce. eBay-team work (lead authors Herold, Kozielski et al.); Versley leads the org behind it — ask him about it as org lead, not as a co-author.</li>
+<li><strong>arXiv 2509.26124</strong> — Vocabulary Customization for Efficient Domain-Specific LLM Deployment. Versley confirmed co-author.</li>
+<li><strong>arXiv 2602.11733</strong> — Adapting Vision-Language Models for E-commerce Understanding at Scale. Versley confirmed co-author.</li>
+<li><strong>arXiv 2406.12023</strong> — LiLiuM: eBay's Large Language Models for e-commerce. eBay-team work (lead authors Herold, Kozielski); Versley leads the org — ask him about it as the org lead, not as a co-author.</li>
+</ul>
 <p>Note: <strong>arXiv 2409.12880</strong> (RAG-for-MT, Bryan Zhang et al.) is an eBay paper but Versley is <strong>not</strong> a listed author. Know its content but do not attribute it to him.</p>
 <p><strong>RF8: "Classical NLP is obsolete."</strong>
 Versley has 15 years of classical NLP work and will not appreciate dismissiveness. Classical methods (CRF, HMM, rule-based systems) have real remaining use cases (efficiency, interpretability, low-data, formal guarantees). Acknowledge the evolution without diminishing the foundations.</p>

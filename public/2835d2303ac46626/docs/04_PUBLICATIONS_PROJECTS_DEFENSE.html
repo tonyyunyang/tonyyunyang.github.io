@@ -246,9 +246,11 @@ A: In our current system, failure is detected at the task level (the verifier sa
 <p><strong>The admission gate — joint replay.</strong> A new router/skill/adapter state is promoted only if a joint replay evaluation shows combined quality is preserved; components are judged by their end-to-end effect together, not by isolated thresholds. This "conservative monotone deployment" is the real contribution. Note the results do NOT show a falling-cost-over-time curve: across the 8-cycle run cost stays ~52–57%, router accuracy stabilizes in an 82–87% band (peak 87.8% at cycle 3, not monotonic; cycle 5 dips to 76.7%), and the 1.5B GRPO adapter shows no cumulative gain (pass rate stuck 46.5–47.5%).</p>
 <p><strong>The 87.3% number, stated correctly.</strong> 87.3% is <em>router accuracy</em> — how often the learned BERT-tiny router's cheap-vs-strong decision matches held-out labels on an 832-example set (best four-cycle Skill→LLM→Router schedule). It is NOT end-to-end task/answer accuracy, and there is no 89.6% "strong-model-only accuracy" baseline anywhere in the paper. The only cost baseline is "always use the large model" = 100% cost; the best schedule serves at 51.8% of that (cost cut by ~48%) with a 4.4% verifier fallback rate. The only task-quality number in the paper is the 1.5B student's MBPP eval200 pass rate, 47.5% vs ~47.0% baseline — essentially flat. There is no per-skill accuracy table.</p>
 <p><strong>No calibration / ECE in MERA.</strong> The reported metrics are router accuracy, fallback rate, cost vs always-large, and the 1.5B student's LLM pass rate — there is no ECE, reliability diagram, or per-skill Pareto curve. The two real ablations are a six-ordering within-cycle study (Table 1: best Skill→LLM→Router 87.3/4.4/51.8; worst Skill‖Router→LLM 76.0/3.8/63.2) and an eight-cycle long-horizon run (Table 2).</p>
-<p><strong>How MERA differs from TwinRouterBench:</strong>
-- TwinRouterBench: evaluation framework + dual-track protocol for any routing algorithm.
-- MERA: a specific serving framework that includes model evolution (updating a single small student adapter, the router, and SkillBook as traces accumulate, gated by joint replay). MERA could be evaluated using TwinRouterBench's dynamic track.</p>
+<p><strong>How MERA differs from TwinRouterBench:</strong></p>
+<ul>
+<li>TwinRouterBench: evaluation framework + dual-track protocol for any routing algorithm.</li>
+<li>MERA: a specific serving framework that includes model evolution (updating a single small student adapter, the router, and SkillBook as traces accumulate, gated by joint replay). MERA could be evaluated using TwinRouterBench's dynamic track.</li>
+</ul>
 <h3 id="c-design-choice-defense_2">(c) Design Choice Defense</h3>
 <p><strong>Q: Why fine-tune specialists instead of just using the router to select from a menu of existing models?</strong></p>
 <p>A: A general small model isn't necessarily the cheapest model that's good at the narrow, recurring sub-patterns a specific agent workload throws off. But to be precise about MERA: the optional student is a <em>single</em> Qwen2.5-Coder-1.5B with a LoRA adapter (not a 7B, and not one specialist per skill), trained with GRPO on a hard-example pool — the cases where the cheap path failed or the router and SkillBook disagree. The bet is the same one behind eBay's e-Llama (arXiv:2501.09706): a small domain-adapted model can absorb a slice of the workload at a fraction of the cost. Honestly, though, in our results that adapter shows no cumulative gain yet (pass rate stays ~47%), so it's the slot where future quality would land, not a proven win.</p>
@@ -283,12 +285,14 @@ A: In our current system, failure is detected at the task level (the verifier sa
          + C_specialist × P(specialist available and capable)
 </code></pre>
 <p>where P(specialist available) is increasing in T and fτ. High-frequency query types → specialists trained quickly → cost drops fast. Low-frequency types → stay routed to strong model longer.</p>
-<p><strong>Online data collection pipeline:</strong>
-1. All queries routed to strong model initially.
-2. Each query-response pair logged with quality annotation (task metric or LLM judge).
-3. When accumulated high-quality trajectories for a query type exceed threshold N_min, trigger specialist fine-tuning.
-4. Evaluate specialist against quality gate on held-out queries of that type.
-5. If gate passed, activate specialist; route that type to it going forward.</p>
+<p><strong>Online data collection pipeline:</strong></p>
+<ol>
+<li>All queries routed to strong model initially.</li>
+<li>Each query-response pair logged with quality annotation (task metric or LLM judge).</li>
+<li>When accumulated high-quality trajectories for a query type exceed threshold N_min, trigger specialist fine-tuning.</li>
+<li>Evaluate specialist against quality gate on held-out queries of that type.</li>
+<li>If gate passed, activate specialist; route that type to it going forward.</li>
+</ol>
 <p><strong>Router calibration in the online setting.</strong> As new specialist models are activated, the router's calibration must be re-evaluated. We use incremental reliability diagrams that update with each batch of new queries, flagging calibration drift before it accumulates into production quality degradation.</p>
 <p><strong>The "daily workflow" focus.</strong> Unlike MERA's general skill taxonomy, Cost-Adaptive Routing specifically targets repeated high-frequency workflows — things an enterprise does many times per day in predictable patterns. eBay examples: product title translation (EN→DE every day), attribute extraction from listing images (same schema every time), keyphrase suggestion for sellers (same task template). These are exactly the query types where specialist investment pays off fastest.</p>
 <p><strong>Relationship to MERA.</strong> MERA is the general algorithm; Cost-Adaptive Routing is a specialized instantiation for high-frequency repeated workflows with explicit cost-as-a-function-of-usage-time analysis. MERA is more general (any skill); Cost-Adaptive Routing is more deployed-focused (repeated workflows, explicit cost trajectory).</p>
@@ -392,12 +396,14 @@ A: In our current system, failure is detected at the task level (the verifier sa
 <p>"We built a VLM that infers customer purchase intent from visual and behavioral cues, grounded in classical sales theory. The system generates a synthetic dataset by distilling intent labels and reasoning traces from sales literature into (visual cue, intent label, reasoning) triples. We fine-tuned a LLaVA-OneVision-7B backbone on this synthetic data. The result: a model that observes a customer interacting with a product and produces both an intent classification and a sales-appropriate reasoning trace, enabling AI sales agents to respond intelligently to visual purchase signals. The system is in NDA pilot at MeetaVista; a paper is in preparation."</p>
 <h3 id="b-technical-meat_6">(b) Technical Meat</h3>
 <p><strong>Motivation.</strong> Sales practitioners know that visual behavioral cues (how a customer handles an object, their gaze pattern, body language, hesitation) are predictive of purchase intent. Codifying this in an AI system requires labeled training data — but real customer observation data is scarce, expensive to annotate, and privacy-sensitive.</p>
-<p><strong>Synthetic dataset construction.</strong>
-1. Collect classical sales training materials (SPIN selling, customer psychology, conversion optimization).
-2. Use GPT-4o to extract intent-relevant visual cue descriptions and corresponding purchase intent labels + sales reasoning traces.
-3. Generate (visual cue description, intent label, reasoning trace) tuples — approximately <strong>4,200 synthetic training examples</strong> across 5 intent classes (active consideration, passive browsing, high purchase readiness, price sensitivity signaling, disengagement).
-4. Pair with synthetic or stock images matching the cue descriptions.
-5. Result: labels from domain knowledge (sales theory), not expensive human annotation.</p>
+<p><strong>Synthetic dataset construction.</strong></p>
+<ol>
+<li>Collect classical sales training materials (SPIN selling, customer psychology, conversion optimization).</li>
+<li>Use GPT-4o to extract intent-relevant visual cue descriptions and corresponding purchase intent labels + sales reasoning traces.</li>
+<li>Generate (visual cue description, intent label, reasoning trace) tuples — approximately <strong>4,200 synthetic training examples</strong> across 5 intent classes (active consideration, passive browsing, high purchase readiness, price sensitivity signaling, disengagement).</li>
+<li>Pair with synthetic or stock images matching the cue descriptions.</li>
+<li>Result: labels from domain knowledge (sales theory), not expensive human annotation.</li>
+</ol>
 <p><strong>VLM backbone and fine-tuning.</strong> We fine-tune <strong>LLaVA-OneVision-7B</strong> (vision encoder + projector + LLM decoder, 7B parameters) on the synthetic dataset. The training objective is autoregressive generation of the reasoning trace given the image, conditioned on the task prompt.</p>
 <p><strong>Key design choice: reasoning traces as supervision signal.</strong> We supervise on the full reasoning chain — "The customer is touching the product with both hands (cue), which indicates tactile engagement (interpretation), which is a strong predictor of purchase intent (conclusion), so the recommended sales response is..." — rather than just the intent label. This teaches the model to reason through visual cues rather than pattern-match to labels.</p>
 <p><strong>Evaluation and what the numbers mean.</strong> On the held-out synthetic test set (20% split, 840 examples), the fine-tuned model achieves <strong>91.3% accuracy on 5-class intent classification</strong>, compared to 67.4% for zero-shot LLaVA-OneVision-7B and 72.1% for zero-shot GPT-4o (both without domain-specific fine-tuning). <strong>This is an in-distribution synthetic benchmark result.</strong> The test set is drawn from the same synthetic generation process as the training set, which means the 91.3% measures how well the model learned to classify the synthetic distribution — not how well it generalizes to real customer behavior. The 91.3% is meaningful as a validation that fine-tuning improved over zero-shot, but it should not be cited as a real-world performance claim. The real-world validation is the NDA pilot at MeetaVista, where the system is being tested against live customer interaction data; those results are proprietary and will be reported in the paper in preparation.</p>
@@ -463,12 +469,14 @@ A: In our current system, failure is detected at the task level (the verifier sa
 <p>"We built a benchmark to evaluate whether LLM coding agents can plan and build complete software projects from scratch — not just write functions, but produce a working software product given a product brief. Existing coding benchmarks (HumanEval, MBPP, SWE-Bench) evaluate patch-level or function-level code generation. We challenge agents with real OSS-inspired projects: given a product brief, produce a working implementation. The reference solution and grading criteria are hidden; agents are graded on functionality, code quality, and project structure."</p>
 <h3 id="b-technical-meat_9">(b) Technical Meat</h3>
 <p><strong>The gap in coding benchmarks.</strong> HumanEval: generate a function that passes unit tests (50-100 lines). MBPP: solve a programming problem (similar scale). SWE-Bench: apply a patch to fix a GitHub issue (localized, well-scoped). None evaluate the capability to produce a complete working software project from a high-level specification — which is what code agents in production actually do.</p>
-<p><strong>Benchmark design.</strong>
-- Challenges derived from real open-source software projects (to ensure feasibility and ground truth).
-- Each challenge is a product brief — not a coding prompt or an issue description.
-- Reference solution: a clean implementation derived from the real OSS project, not shown to agents.
-- Grading: automated (unit tests derived from the reference implementation) + structural (repo organization, documentation, error handling).
-- Anti-contamination: challenges from recently released projects (post-GPT-4o training cutoff).</p>
+<p><strong>Benchmark design.</strong></p>
+<ul>
+<li>Challenges derived from real open-source software projects (to ensure feasibility and ground truth).</li>
+<li>Each challenge is a product brief — not a coding prompt or an issue description.</li>
+<li>Reference solution: a clean implementation derived from the real OSS project, not shown to agents.</li>
+<li>Grading: automated (unit tests derived from the reference implementation) + structural (repo organization, documentation, error handling).</li>
+<li>Anti-contamination: challenges from recently released projects (post-GPT-4o training cutoff).</li>
+</ul>
 <p><strong>Evaluation focus.</strong> We specifically evaluate planning, completeness, and correctness. At time of construction, the strongest agents (Claude Sonnet 4.6, GPT-5.5 with advanced reasoning) completed ~40-60% of easy challenges and ~15-25% of hard challenges — a discriminative range that distinguishes strong from weak agents.</p>
 <h3 id="c-design-choice-defense_8">(c) Design Choice Defense</h3>
 <p><strong>Q: How do you prevent benchmark contamination given agents have internet access?</strong></p>
@@ -490,11 +498,13 @@ A: In our current system, failure is detected at the task level (the verifier sa
 <p>"We are building a harness that uses LLMs as meta-solvers for optimization problems. Given a problem definition and current candidate solutions, the LLM is prompted to reason about the solution space, propose improvements, and generate new candidate solutions. This treats LLMs not as text generators but as general-purpose reasoning agents that can navigate combinatorial and continuous optimization landscapes. We are in early-stage experimentation at Tencent on resource allocation optimization — the work is ongoing and we do not yet have results to report. The interest is in whether LLM world knowledge can substitute for problem-specific heuristic design."</p>
 <h3 id="b-technical-meat_10">(b) Technical Meat</h3>
 <p><strong>Problem.</strong> Many optimization problems (combinatorial, mixed-integer, some continuous) resist clean analytical solutions. Standard approaches: random search, genetic algorithms, Bayesian optimization, simulated annealing. These work but are slow to converge and do not leverage domain knowledge expressed in natural language.</p>
-<p><strong>LLM as optimizer (LLM-O framework).</strong> The core idea:
-1. Encode the optimization problem as a natural language prompt + current candidate solutions as a list.
-2. Ask the LLM to reason about why current candidates are suboptimal and propose improvements.
-3. Decode the LLM's proposed solutions back into the problem representation.
-4. Evaluate new candidates; iterate.</p>
+<p><strong>LLM as optimizer (LLM-O framework).</strong> The core idea:</p>
+<ol>
+<li>Encode the optimization problem as a natural language prompt + current candidate solutions as a list.</li>
+<li>Ask the LLM to reason about why current candidates are suboptimal and propose improvements.</li>
+<li>Decode the LLM's proposed solutions back into the problem representation.</li>
+<li>Evaluate new candidates; iterate.</li>
+</ol>
 <p><strong>Related work and positioning.</strong> This is directly related to OPRO (Yang et al., DeepMind 2024) and FunSearch (Romera-Paredes et al., Google DeepMind, Nature 2023). OPRO showed LLMs can iteratively improve solutions to optimization problems (including TSP and linear programming) when the objective is expressible in natural language. FunSearch uses LLMs to propose code (programs/functions) rather than direct solutions, enabling search over the program space rather than the solution space — allowing generalization to unseen instances. Our harness focuses on the agentic control loop: multi-turn LLM reasoning with tool calls for evaluation, explicit tracking of solution history, and escalation to standard solvers when LLM proposals stagnate. We do not yet have results that demonstrate superiority over OPRO or FunSearch — this is an early-stage exploration.</p>
 <p><strong>Key design:</strong> LLM provides "search direction" — it reasons linguistically about why one candidate is better than another, encoding domain knowledge the LLM has about the problem type. A pure black-box optimizer has no such priors.</p>
 <p><strong>Note on scope.</strong> The Tencent collaboration involves confidential resource allocation optimization work. The experiments are at Tencent, not at eBay. The connection to eBay is structural (bid optimization, recommendation ranking, and ad allocation are the same class of combinatorial problem), not empirical.</p>

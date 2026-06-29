@@ -244,10 +244,12 @@ The honest answer has two parts. Theoretically, there <em>is</em> an implicit pa
 <p><strong>Cascade depth trade-off.</strong> Per-step failure rates compound geometrically across agentic trajectory length. Let <code>p</code> be the per-step failure probability:</p>
 <pre><code>P(task-level failure) = 1 − (1 − p)^n
 </code></pre>
-<p>At p = 0.03 (3% per step):
-- n = 3 steps → <strong>8.7% task-level failure</strong> (often acceptable)
-- n = 10 steps → <strong>26% task-level failure</strong> (materially degrades)
-- n = 20 steps → <strong>46% task-level failure</strong> (system is effectively unreliable)</p>
+<p>At p = 0.03 (3% per step):</p>
+<ul>
+<li>n = 3 steps → <strong>8.7% task-level failure</strong> (often acceptable)</li>
+<li>n = 10 steps → <strong>26% task-level failure</strong> (materially degrades)</li>
+<li>n = 20 steps → <strong>46% task-level failure</strong> (system is effectively unreliable)</li>
+</ul>
 <p>This is the core argument for keeping agentic subtasks short or inserting <strong>verification checkpoints at stage boundaries</strong>, not only at trajectory end. Research on multi-agent systems (NeurIPS 2025 MAST taxonomy, validated across 1,600+ execution traces) confirms production multi-agent failure rates range from 41–87%, with cascading as a primary mechanism.</p>
 <hr />
 <h3 id="3-monitoring-cost-model-for-subjective-tasks">3. Monitoring Cost Model for Subjective Tasks</h3>
@@ -256,15 +258,19 @@ The honest answer has two parts. Theoretically, there <em>is</em> an implicit pa
 <pre><code>f × m × c_cheap = α × (c_strong − c_cheap)
 </code></pre>
 <p>Where: <code>c_cheap</code> = cost per query to cheap model; <code>c_strong</code> = cost per query to strong model; <code>α</code> = fraction routed to cheap model; <code>f</code> = monitoring sample fraction; <code>m</code> = cost multiplier of judge relative to cheap model.</p>
-<p><strong>Example.</strong> If 60% of traffic routes to the cheap model (α = 0.6), strong model costs 5×, and judge costs 3×:
-- Gross savings per query: <code>0.6 × (5c − c) = 2.4c</code>
-- Monitoring overhead at f = 5%: <code>0.05 × 3c = 0.15c</code>
-- Net savings: <code>2.25c</code> — monitoring is well within bounds.</p>
+<p><strong>Example.</strong> If 60% of traffic routes to the cheap model (α = 0.6), strong model costs 5×, and judge costs 3×:</p>
+<ul>
+<li>Gross savings per query: <code>0.6 × (5c − c) = 2.4c</code></li>
+<li>Monitoring overhead at f = 5%: <code>0.05 × 3c = 0.15c</code></li>
+<li>Net savings: <code>2.25c</code> — monitoring is well within bounds.</li>
+</ul>
 <p>But if the cheap model is nearly as good (c_strong = 1.5c), savings shrink to <code>0.3c</code>, and even f = 20% with a 3× judge produces overhead <code>0.6c &gt; 0.3c</code> — monitoring overhead exceeds routing savings.</p>
-<p><strong>Mitigations:</strong>
-- Monitor a random sample only.
-- Use lightweight heuristic proxies — format validation, length checks, self-consistency — as surrogates for expensive judge calls.
-- Reserve LLM judge calls for queries flagged by heuristics or lying in uncertain router confidence intervals.</p>
+<p><strong>Mitigations:</strong></p>
+<ul>
+<li>Monitor a random sample only.</li>
+<li>Use lightweight heuristic proxies — format validation, length checks, self-consistency — as surrogates for expensive judge calls.</li>
+<li>Reserve LLM judge calls for queries flagged by heuristics or lying in uncertain router confidence intervals.</li>
+</ul>
 <hr />
 <h3 id="4-twinrouterbench-disclosure-caveat">4. TwinRouterBench Disclosure Caveat</h3>
 <p><strong>Do NOT cite a "simulated 15pp task-type distribution shift" live-dynamic protocol.</strong> That whole mechanism — ~12,000 queries over a 30-day window, a 15pp/30pp/45pp distribution-shift sensitivity curve calibrated from enterprise API logs — is not in the paper, and reciting it to Versley (the author's colleague) is the single most dangerous thing you could do with this work. What the paper actually has are two tracks: a deterministic <strong>static</strong> track (970 execution-verified step-level prefixes scored by millisecond arithmetic over tier labels, no online judge) and a <strong>dynamic</strong> track that runs routers end-to-end on SWE-bench Verified — a 100-case held-out subset, not the full 500 — via mini-swe-agent v2.2.8 with live OpenRouter pricing. There is no streaming corpus, no 30-day window, no distribution-shift curve, no enterprise-log calibration. (Full verified detail in 20_OWN_PAPERS_GROUND_TRUTH.md.)</p>
@@ -417,9 +423,11 @@ Structurally different. GQA still caches full-rank K and V tensors, just fewer o
 </code></pre>
 <p>This is the mechanism that makes "thinking longer" yield <em>monotonically</em> better results on hard math. Best-of-N has no such monotonic guarantee beyond the saturation point.</p>
 <p><strong>PRM reward hacking:</strong> When the policy is trained against a fixed PRM, it learns to produce steps that score highly on the PRM's learned heuristics — clean format, confident hedging phrases — without actually reasoning correctly. Training reward saturates to ~1.0 while held-out accuracy collapses. Mitigations: periodic PRM retraining on policy-generated data, format constraints, ensemble scoring.</p>
-<p><strong>Annotation methods for PRM training:</strong>
-- <strong>Math-Shepherd / Monte Carlo rollout:</strong> For each intermediate step s_t, run K full completions to the final answer. The step's label is the fraction that reach the correct answer: <code>V(s_t) = (1/K) Σ 1[answer_k = y*]</code>. Expensive but low-noise. Best when compute is abundant and domain has a clear correctness signal.
-- <strong>LLM-as-judge:</strong> Use a strong LLM to label each step. Cost drops from O(N·K) to O(N) calls, but annotation noise increases. Best when budget is limited or domain lacks a clean terminal signal.</p>
+<p><strong>Annotation methods for PRM training:</strong></p>
+<ul>
+<li><strong>Math-Shepherd / Monte Carlo rollout:</strong> For each intermediate step s_t, run K full completions to the final answer. The step's label is the fraction that reach the correct answer: <code>V(s_t) = (1/K) Σ 1[answer_k = y*]</code>. Expensive but low-noise. Best when compute is abundant and domain has a clear correctness signal.</li>
+<li><strong>LLM-as-judge:</strong> Use a strong LLM to label each step. Cost drops from O(N·K) to O(N) calls, but annotation noise increases. Best when budget is limited or domain lacks a clean terminal signal.</li>
+</ul>
 <hr />
 <h3 id="3-qk-norm-mechanism">3. QK-Norm Mechanism</h3>
 <p>When RMSNorm is applied to queries and keys before the dot product:</p>
@@ -493,10 +501,12 @@ Latency and cost. MCTS requires many sequential PRM evaluations per query — yo
 </tbody>
 </table>
 <p>Canonical figure from the ZeRO paper (Rajbhandari et al., SC 2020): <strong>2Ψ + 2Ψ + 12Ψ = 16Ψ bytes</strong>, where K=12 covers the three fp32 optimizer-state tensors. A 7B-parameter model needs roughly 7 × 10⁹ × 16 = <strong>112 GB</strong> of training state.</p>
-<p><strong>How each ZeRO stage reduces this:</strong>
-- <strong>ZeRO-1</strong>: shards only optimizer states (12 bytes). Per-GPU: 2 + 2 + 12/N bytes. At N=8: ~5.5 bytes/parameter.
-- <strong>ZeRO-2</strong>: additionally shards gradients. Per-GPU: 2 + 2/N + 12/N.
-- <strong>ZeRO-3 / FSDP</strong>: shards all three. Per-GPU: 16/N bytes. At N=64 a 7B model fits in ~12 GB per GPU.</p>
+<p><strong>How each ZeRO stage reduces this:</strong></p>
+<ul>
+<li><strong>ZeRO-1</strong>: shards only optimizer states (12 bytes). Per-GPU: 2 + 2 + 12/N bytes. At N=8: ~5.5 bytes/parameter.</li>
+<li><strong>ZeRO-2</strong>: additionally shards gradients. Per-GPU: 2 + 2/N + 12/N.</li>
+<li><strong>ZeRO-3 / FSDP</strong>: shards all three. Per-GPU: 16/N bytes. At N=64 a 7B model fits in ~12 GB per GPU.</li>
+</ul>
 <p><strong>DDP vs. ZeRO/FSDP in one sentence:</strong> DDP replicates the full 16 bytes per GPU and only shards <em>gradients during the AllReduce</em>; ZeRO/FSDP shards the tensors themselves and reconstructs them on demand.</p>
 <hr />
 <h3 id="3-lr-warmup-which-explanation-is-actually-primary">3. LR Warmup — Which Explanation Is Actually Primary</h3>
@@ -528,9 +538,11 @@ Communication cost. ZeRO-3 introduces all-gather and reduce-scatter operations o
 <p>BM25 is a <strong>monolingual lexical scoring function</strong>. It ranks documents by weighted term-frequency overlap against a query. The moment source and target are in different languages — say English and German — there is essentially zero shared vocabulary, so BM25 scores are uniform noise.</p>
 <p><strong>The correct pipeline for mining parallel pairs from a bilingual corpus</strong> is two-stage:</p>
 <p><strong>Stage 1 — Language-ID gate</strong> (<code>fastText lid.176.bin</code>, &lt;1 ms per string, &gt;98.5% accuracy across 176 languages): confirm that each string is actually in the expected language. Catches encoding errors, copy-paste accidents, and adversarial noise immediately.</p>
-<p><strong>Stage 2 — Cross-lingual embedding similarity:</strong> embed both strings with <strong>LaBSE</strong> (Language-Agnostic BERT Sentence Embedding, Google 2020 — language-agnostic dual encoder trained on 100+ languages) or <strong>LASER</strong> (Facebook/Meta, 93 languages). Both produce embeddings in a shared semantic space regardless of surface language. Apply:
-- <strong>Cosine similarity threshold ≥ 0.7</strong> to accept a pair as a translation candidate (LaBSE achieves P@1 of ~94.4 in bitext mining benchmarks).
-- <strong>Length-ratio heuristic</strong>: <code>|len_src − len_tgt| / max(len_src, len_tgt) ≤ 0.4</code> — faithful translations of short product titles are rarely more than 40% shorter or longer than the source.</p>
+<p><strong>Stage 2 — Cross-lingual embedding similarity:</strong> embed both strings with <strong>LaBSE</strong> (Language-Agnostic BERT Sentence Embedding, Google 2020 — language-agnostic dual encoder trained on 100+ languages) or <strong>LASER</strong> (Facebook/Meta, 93 languages). Both produce embeddings in a shared semantic space regardless of surface language. Apply:</p>
+<ul>
+<li><strong>Cosine similarity threshold ≥ 0.7</strong> to accept a pair as a translation candidate (LaBSE achieves P@1 of ~94.4 in bitext mining benchmarks).</li>
+<li><strong>Length-ratio heuristic</strong>: <code>|len_src − len_tgt| / max(len_src, len_tgt) ≤ 0.4</code> — faithful translations of short product titles are rarely more than 40% shorter or longer than the source.</li>
+</ul>
 <p><strong>Critical distinction to make in the room:</strong> BM25 over a bilingual index is <em>correct and appropriate</em> for the <strong>RAG-for-MT retrieval step</strong> (retrieving the most similar already-translated title pairs as few-shot examples). There, both query and retrieved documents share the same source-language surface, so lexical overlap is meaningful for finding the closest Translation Memory entry. The error is using BM25 to <em>validate</em> whether a German string faithfully translates an English string — that is a cross-lingual faithfulness question requiring cross-lingual embeddings.</p>
 <hr />
 <h3 id="2-lora-rank-selection-always-run-a-sweep-never-commit-to-a-heuristic">2. LoRA Rank Selection — Always Run a Sweep, Never Commit to a Heuristic</h3>
@@ -630,9 +642,11 @@ Under the Bradley-Terry preference model:</p>
 <p>No reward model, no RL loop. This is why DPO "looks like a binary classification loss": it is one, trained on log-ratio differences.</p>
 <hr />
 <h3 id="precondition-1-zx-cancellation-requires-bradley-terry">Precondition 1 — Z(x) Cancellation Requires Bradley-Terry</h3>
-<p>The cancellation works <em>only</em> because Bradley-Terry assumes preferences depend solely on the scalar reward difference between the two responses given the same x. If the true human preference distribution has:
-- <strong>Position effects (Plackett-Luce)</strong>: the probability of preferring y_w depends on where each response appears in the list.
-- <strong>Inter-response dependencies</strong>: annotators compare verbosity or style <em>relative to</em> the other response.</p>
+<p>The cancellation works <em>only</em> because Bradley-Terry assumes preferences depend solely on the scalar reward difference between the two responses given the same x. If the true human preference distribution has:</p>
+<ul>
+<li><strong>Position effects (Plackett-Luce)</strong>: the probability of preferring y_w depends on where each response appears in the list.</li>
+<li><strong>Inter-response dependencies</strong>: annotators compare verbosity or style <em>relative to</em> the other response.</li>
+</ul>
 <p>In either case, the true normalizer is not a constant shift that appears identically in both reward expressions, so it does not subtract out. The DPO loss then optimizes a <em>misspecified</em> surrogate — the model can increase L_DPO in the right direction while moving the actual human preference probability in the wrong direction.</p>
 <hr />
 <h3 id="precondition-2-offline-distribution-mismatch-is-the-central-practical-failure-mode">Precondition 2 — Offline Distribution Mismatch Is the Central Practical Failure Mode</h3>

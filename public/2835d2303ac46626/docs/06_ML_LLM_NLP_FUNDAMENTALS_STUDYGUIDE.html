@@ -203,21 +203,48 @@ Corr(X,Y) = Cov(X,Y) / (σ_X · σ_Y)   ∈ [-1, 1]
 <p><strong>One-liner:</strong> "CLT says sample means become Gaussian as n grows, which is why we can do normal-theory hypothesis tests on non-normal data."</p>
 <hr />
 <h3 id="16-hypothesis-testing">1.6 Hypothesis Testing</h3>
-<p><strong>Setup:</strong>
-- H₀ (null): no effect / status quo.
-- H₁ (alternative): the effect we want to detect.
-- Test statistic T: function of data with known distribution under H₀.
-- p-value: P(T ≥ t_observed | H₀). If p &lt; α (usually 0.05), reject H₀.</p>
+<p><strong>Setup:</strong></p>
+<ul>
+<li>H₀ (null): no effect / status quo.</li>
+<li>H₁ (alternative): the effect we want to detect.</li>
+<li>Test statistic T: function of data with known distribution under H₀.</li>
+<li>p-value: P(T ≥ t_observed | H₀). If p &lt; α (usually 0.05), reject H₀.</li>
+</ul>
 <p><strong>Type I error (α):</strong> False positive — reject H₀ when true.
 <strong>Type II error (β):</strong> False negative — fail to reject H₀ when false.
 <strong>Power = 1 - β:</strong> Probability of detecting a true effect.</p>
-<p><strong>Common tests:</strong>
-| Test | When | Statistic |
-|---|---|---|
-| z-test | Known σ, large n | (X̄ - μ₀) / (σ/√n) |
-| t-test | Unknown σ, small n | (X̄ - μ₀) / (s/√n); t distribution |
-| Chi-squared | Categorical, independence | Σ(O-E)²/E |
-| Mann-Whitney U | Non-parametric, two groups | Rank-based |</p>
+<p><strong>Common tests:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>When</th>
+<th>Statistic</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>z-test</td>
+<td>Known σ, large n</td>
+<td>(X̄ - μ₀) / (σ/√n)</td>
+</tr>
+<tr>
+<td>t-test</td>
+<td>Unknown σ, small n</td>
+<td>(X̄ - μ₀) / (s/√n); t distribution</td>
+</tr>
+<tr>
+<td>Chi-squared</td>
+<td>Categorical, independence</td>
+<td>Σ(O-E)²/E</td>
+</tr>
+<tr>
+<td>Mann-Whitney U</td>
+<td>Non-parametric, two groups</td>
+<td>Rank-based</td>
+</tr>
+</tbody>
+</table>
 <p><strong>A/B testing at eBay:</strong> Two-tailed t-test or z-test on conversion rate differences. Watch out for multiple comparisons (Bonferroni correction), peeking (inflate type I error), and network effects (SUTVA violation if users interact).</p>
 <hr />
 <h3 id="17-information-theory-essentials">1.7 Information Theory Essentials</h3>
@@ -230,17 +257,21 @@ Corr(X,Y) = Cov(X,Y) / (σ_X · σ_Y)   ∈ [-1, 1]
 <hr />
 <h3 id="21-eigendecomposition">2.1 Eigendecomposition</h3>
 <p>For square symmetric matrix A: <code>A = Q Λ Qᵀ</code> where Q = orthogonal eigenvectors (columns), Λ = diagonal eigenvalues.</p>
-<p><strong>Why it matters:</strong>
-- Eigenvalues encode the scaling in each principal direction.
-- Covariance matrix is symmetric PSD; eigenvectors = principal components; eigenvalues = variance captured.
-- Kernel matrices, Hessians, attention gram matrices are all analyzed via eigendecomposition.</p>
+<p><strong>Why it matters:</strong></p>
+<ul>
+<li>Eigenvalues encode the scaling in each principal direction.</li>
+<li>Covariance matrix is symmetric PSD; eigenvectors = principal components; eigenvalues = variance captured.</li>
+<li>Kernel matrices, Hessians, attention gram matrices are all analyzed via eigendecomposition.</li>
+</ul>
 <p><strong>One-liner:</strong> "Eigendecomposition reveals the intrinsic directions and scales of a linear transformation; for covariance matrices, it gives you PCA directly."</p>
 <hr />
 <h3 id="22-svd-singular-value-decomposition">2.2 SVD (Singular Value Decomposition)</h3>
-<p>Any m×n matrix A: <code>A = U Σ Vᵀ</code>
-- U: m×m orthogonal (left singular vectors)
-- Σ: m×n diagonal with σ₁ ≥ σ₂ ≥ ... ≥ 0 (singular values)
-- V: n×n orthogonal (right singular vectors)</p>
+<p>Any m×n matrix A: <code>A = U Σ Vᵀ</code></p>
+<ul>
+<li>U: m×m orthogonal (left singular vectors)</li>
+<li>Σ: m×n diagonal with σ₁ ≥ σ₂ ≥ ... ≥ 0 (singular values)</li>
+<li>V: n×n orthogonal (right singular vectors)</li>
+</ul>
 <p><strong>Truncated SVD (rank-r approximation):</strong> Keep top r singular values → best rank-r approximation in Frobenius norm (Eckart-Young theorem). Enables dimensionality reduction, latent semantic analysis, recommender systems (matrix factorization).</p>
 <p><strong>Connection to eigendecomposition:</strong> AᵀA = V Σ² Vᵀ; AAᵀ = U Σ² Uᵀ. Singular values = square roots of eigenvalues of AᵀA.</p>
 <p><strong>Relevance to LLMs:</strong> LoRA is low-rank decomposition of weight updates — <code>ΔW = BA</code> where B,A are thin matrices. This is exactly the spirit of truncated SVD: the weight update lives in a low-rank subspace, capturing the most important direction of change.</p>
@@ -309,37 +340,45 @@ Corr(X,Y) = Cov(X,Y) / (σ_X · σ_Y)   ∈ [-1, 1]
 <p><strong>One-liner:</strong> "SVM finds the maximum-margin hyperplane; kernels implicitly map to high-dimensional feature spaces without computing the mapping explicitly."</p>
 <hr />
 <h3 id="34-decision-trees">3.4 Decision Trees</h3>
-<p><strong>Splitting criterion:</strong>
-- <strong>Gini impurity:</strong> <code>G = 1 - Σ pᵢ²</code>. Measures probability of misclassifying a randomly chosen element.
-- <strong>Information gain (entropy):</strong> <code>IG = H(parent) - Σ (nₖ/n)·H(child_k)</code>. Use log base 2 for bits.
-- <strong>MSE reduction (regression):</strong> <code>Var(parent) - Σ weighted Var(child)</code>.</p>
+<p><strong>Splitting criterion:</strong></p>
+<ul>
+<li><strong>Gini impurity:</strong> <code>G = 1 - Σ pᵢ²</code>. Measures probability of misclassifying a randomly chosen element.</li>
+<li><strong>Information gain (entropy):</strong> <code>IG = H(parent) - Σ (nₖ/n)·H(child_k)</code>. Use log base 2 for bits.</li>
+<li><strong>MSE reduction (regression):</strong> <code>Var(parent) - Σ weighted Var(child)</code>.</li>
+</ul>
 <p><strong>Greedy construction:</strong> At each node, find best feature + threshold to maximize criterion. Grow until stopping condition (max depth, min samples, min gain).</p>
 <p><strong>Overfitting:</strong> Deep trees memorize training data. Mitigate: pruning (post-prune by validation error), max depth, min samples per leaf.</p>
 <p><strong>Pros:</strong> Interpretable, handles mixed types, no scaling needed. <strong>Cons:</strong> High variance, overfits, not smooth functions.</p>
 <hr />
 <h3 id="35-random-forests">3.5 Random Forests</h3>
-<p><strong>Bagging + feature randomization:</strong>
-1. Draw n bootstrap samples from training data.
-2. Grow a deep tree on each; at each split, sample <code>√d</code> (classification) or <code>d/3</code> (regression) features randomly.
-3. Aggregate: majority vote (classification), average (regression).</p>
+<p><strong>Bagging + feature randomization:</strong></p>
+<ol>
+<li>Draw n bootstrap samples from training data.</li>
+<li>Grow a deep tree on each; at each split, sample <code>√d</code> (classification) or <code>d/3</code> (regression) features randomly.</li>
+<li>Aggregate: majority vote (classification), average (regression).</li>
+</ol>
 <p><strong>Why it works:</strong> Trees are high-variance/low-bias. Averaging reduces variance while keeping bias low. Feature randomization decorrelates trees (so averaging helps more).</p>
 <p><strong>Out-of-bag (OOB) error:</strong> ~37% of samples not in each bootstrap → natural validation set. OOB error ≈ held-out test error.</p>
 <p><strong>Feature importance:</strong> Mean impurity decrease across all trees for each feature. Use carefully (biased toward high-cardinality features).</p>
 <p><strong>Pros:</strong> Robust, low hyperparameter sensitivity, parallelizable, handles missing data. <strong>Cons:</strong> Not interpretable, slower than gradient boosting in many benchmarks.</p>
 <hr />
 <h3 id="36-gradient-boosting-and-xgboost">3.6 Gradient Boosting and XGBoost</h3>
-<p><strong>Gradient Boosting (Friedman):</strong> Sequential ensemble. At each step m:
-1. Compute negative gradient of loss w.r.t. predictions: <code>rᵢ = -∂L/∂F(xᵢ)</code> (pseudo-residuals).
-2. Fit a weak learner (usually depth-3 tree) to pseudo-residuals.
-3. Update: <code>F_m(x) = F_{m-1}(x) + η · h_m(x)</code>.</p>
+<p><strong>Gradient Boosting (Friedman):</strong> Sequential ensemble. At each step m:</p>
+<ol>
+<li>Compute negative gradient of loss w.r.t. predictions: <code>rᵢ = -∂L/∂F(xᵢ)</code> (pseudo-residuals).</li>
+<li>Fit a weak learner (usually depth-3 tree) to pseudo-residuals.</li>
+<li>Update: <code>F_m(x) = F_{m-1}(x) + η · h_m(x)</code>.</li>
+</ol>
 <p>Learning rate η shrinks each tree's contribution → regularization. More trees needed but better generalization.</p>
-<p><strong>XGBoost improvements:</strong>
-- Second-order Taylor expansion of loss (uses Hessian Hᵢ, not just gradient gᵢ).
-- Regularized objective: <code>Ω(f) = γT + (λ/2)Σwⱼ²</code> (T=leaves, w=leaf weights).
-- Column subsampling (like random forests, reduces variance).
-- Sparse-aware: handles missing values natively (learns default direction).
-- Cache-aware block structure for fast computation.
-- Early stopping on validation metric.</p>
+<p><strong>XGBoost improvements:</strong></p>
+<ul>
+<li>Second-order Taylor expansion of loss (uses Hessian Hᵢ, not just gradient gᵢ).</li>
+<li>Regularized objective: <code>Ω(f) = γT + (λ/2)Σwⱼ²</code> (T=leaves, w=leaf weights).</li>
+<li>Column subsampling (like random forests, reduces variance).</li>
+<li>Sparse-aware: handles missing values natively (learns default direction).</li>
+<li>Cache-aware block structure for fast computation.</li>
+<li>Early stopping on validation metric.</li>
+</ul>
 <p><strong>Optimal leaf weight:</strong> <code>wⱼ* = -Σgᵢ / (Σhᵢ + λ)</code>. Gain for a split: <code>Gain = ½[G_L²/(H_L+λ) + G_R²/(H_R+λ) - G²/(H+λ)] - γ</code>.</p>
 <p><strong>LightGBM:</strong> Leaf-wise growth (deepens the highest-gain leaf, not level-wise). Faster, better accuracy, more overfit risk at small data. Gradient-based one-side sampling (GOSS) and exclusive feature bundling (EFB) for speed.</p>
 <p><strong>CatBoost:</strong> Handles categorical features natively via ordered target encoding. Reduces leakage from standard target encoding.</p>
@@ -353,11 +392,13 @@ Corr(X,Y) = Cov(X,Y) / (σ_X · σ_Y)   ∈ [-1, 1]
 <p><strong>Practical use:</strong> Retrieval / RAG vector search is kNN at scale (FAISS, Weaviate use ANN — approximate nearest neighbors via HNSW, IVF, or LSH).</p>
 <hr />
 <h3 id="38-k-means-clustering">3.8 k-Means Clustering</h3>
-<p><strong>Algorithm (Lloyd's):</strong>
-1. Initialize k centroids (random, k-means++).
-2. Assign each point to nearest centroid.
-3. Update each centroid to mean of its assigned points.
-4. Repeat until convergence.</p>
+<p><strong>Algorithm (Lloyd's):</strong></p>
+<ol>
+<li>Initialize k centroids (random, k-means++).</li>
+<li>Assign each point to nearest centroid.</li>
+<li>Update each centroid to mean of its assigned points.</li>
+<li>Repeat until convergence.</li>
+</ol>
 <p><strong>Objective (WCSS):</strong> <code>Σₖ Σᵢ∈Cₖ ||xᵢ - μₖ||²</code>. Guaranteed to converge but to local minimum.</p>
 <p><strong>k-means++ initialization:</strong> Choose centroids sequentially; probability of choosing point x proportional to <code>d(x, nearest existing centroid)²</code>. Reduces WCSS ≈ O(log k) vs random. Default in sklearn.</p>
 <p><strong>Choosing k:</strong> Elbow method (plot WCSS vs k, look for elbow); silhouette score; gap statistic.</p>
@@ -366,11 +407,13 @@ Corr(X,Y) = Cov(X,Y) / (σ_X · σ_Y)   ∈ [-1, 1]
 <hr />
 <h3 id="39-pca-principal-component-analysis">3.9 PCA (Principal Component Analysis)</h3>
 <p><strong>Goal:</strong> Find directions of maximum variance in data.</p>
-<p><strong>Algorithm:</strong>
-1. Center data: <code>X̃ = X - μ</code>.
-2. Compute covariance matrix: <code>C = X̃ᵀX̃ / (n-1)</code>.
-3. Eigendecompose: <code>C = QΛQᵀ</code>.
-4. Project: <code>Z = X̃Q_r</code> where Q_r = top r eigenvectors.</p>
+<p><strong>Algorithm:</strong></p>
+<ol>
+<li>Center data: <code>X̃ = X - μ</code>.</li>
+<li>Compute covariance matrix: <code>C = X̃ᵀX̃ / (n-1)</code>.</li>
+<li>Eigendecompose: <code>C = QΛQᵀ</code>.</li>
+<li>Project: <code>Z = X̃Q_r</code> where Q_r = top r eigenvectors.</li>
+</ol>
 <p><strong>Equivalent via SVD:</strong> <code>X̃ = UΣVᵀ</code>; principal components = columns of V; scores = UΣ.</p>
 <p><strong>Variance explained:</strong> <code>Var_k / Var_total = λₖ / Σλᵢ</code>. Choose r so cumulative explained variance ≥ 85–95%.</p>
 <p><strong>Connection to dimensionality reduction:</strong> PCA is linear; for nonlinear structure use kernel PCA, t-SNE (visualization), UMAP (visualization + structure preservation).</p>
@@ -380,13 +423,38 @@ Corr(X,Y) = Cov(X,Y) / (σ_X · σ_Y)   ∈ [-1, 1]
 <h3 id="310-naive-bayes">3.10 Naive Bayes</h3>
 <p><strong>Model:</strong> <code>P(y | x₁,...,xₙ) ∝ P(y) · Π P(xᵢ | y)</code>.</p>
 <p><strong>The "naive" assumption:</strong> Features are conditionally independent given the class. Almost never literally true, but often works well in practice.</p>
-<p><strong>Variants:</strong>
-| Variant | P(xᵢ | y) | Use |
-|---|---|---|
-| Gaussian NB | N(μ_{y,i}, σ²_{y,i}) | Continuous features |
-| Multinomial NB | Categorical/count | Text classification (word counts) |
-| Bernoulli NB | Bernoulli | Binary features (word presence) |
-| Complement NB | One-vs-rest | Imbalanced text |</p>
+<p><strong>Variants:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Variant</th>
+<th>P(xᵢ | y)</th>
+<th>Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Gaussian NB</td>
+<td>N(μ_{y,i}, σ²_{y,i})</td>
+<td>Continuous features</td>
+</tr>
+<tr>
+<td>Multinomial NB</td>
+<td>Categorical/count</td>
+<td>Text classification (word counts)</td>
+</tr>
+<tr>
+<td>Bernoulli NB</td>
+<td>Bernoulli</td>
+<td>Binary features (word presence)</td>
+</tr>
+<tr>
+<td>Complement NB</td>
+<td>One-vs-rest</td>
+<td>Imbalanced text</td>
+</tr>
+</tbody>
+</table>
 <p><strong>Laplace smoothing:</strong> Add pseudocount α=1 to all counts → prevents zero probabilities for unseen words.</p>
 <p><strong>Pros:</strong> Extremely fast, works with small data, good spam baseline. <strong>Cons:</strong> Independence assumption violated for correlated features; poor calibration; can't model interactions.</p>
 <hr />
@@ -419,10 +487,12 @@ Accuracy   = (TP + TN) / N     — misleading for imbalanced classes
 <pre><code>Log-loss = -(1/n) Σ [yᵢ log(pᵢ) + (1-yᵢ) log(1-pᵢ)]
 </code></pre>
 <p>Heavily penalizes confident wrong predictions. Encourages well-calibrated probabilities.</p>
-<p><strong>Calibration:</strong> A model is calibrated if, among all instances where it predicts p=0.7, exactly 70% are positive.
-- <strong>Reliability diagram (calibration curve):</strong> Plot mean predicted probability vs actual fraction of positives, binned. Perfect calibration = diagonal.
-- <strong>Expected Calibration Error (ECE):</strong> <code>Σ (nₖ/N) |acc(Bₖ) - conf(Bₖ)|</code> — weighted average miscalibration across bins.
-- <strong>Brier score:</strong> <code>(1/n) Σ (pᵢ - yᵢ)²</code> — combines accuracy and calibration; lower is better.</p>
+<p><strong>Calibration:</strong> A model is calibrated if, among all instances where it predicts p=0.7, exactly 70% are positive.</p>
+<ul>
+<li><strong>Reliability diagram (calibration curve):</strong> Plot mean predicted probability vs actual fraction of positives, binned. Perfect calibration = diagonal.</li>
+<li><strong>Expected Calibration Error (ECE):</strong> <code>Σ (nₖ/N) |acc(Bₖ) - conf(Bₖ)|</code> — weighted average miscalibration across bins.</li>
+<li><strong>Brier score:</strong> <code>(1/n) Σ (pᵢ - yᵢ)²</code> — combines accuracy and calibration; lower is better.</li>
+</ul>
 <p><strong>Fixing miscalibration:</strong> Platt scaling (fit a logistic layer on held-out data), isotonic regression (non-parametric; needs more data).</p>
 <p><strong>Why calibration matters at eBay:</strong> Ads bidding uses predicted CTR probability × bid → must be calibrated to work correctly.</p>
 <hr />
@@ -511,10 +581,12 @@ Noise     = Var(ε)                  — irreducible; measurement / world noise
 <hr />
 <h3 id="62-dropout">6.2 Dropout</h3>
 <p><strong>Mechanism:</strong> During training, randomly zero out each neuron with probability p (typically 0.2–0.5). Scale activations by 1/(1-p) at test time (or scale during training with inverted dropout).</p>
-<p><strong>Why it works:</strong>
-1. <strong>Ensemble interpretation:</strong> Training 2^n sub-networks sharing weights; inference approximates geometric mean of ensemble.
-2. <strong>Co-adaptation prevention:</strong> Each neuron can't rely on other neurons being present → learns more robust features.
-3. <strong>Regularization:</strong> Implicit L2-like effect; reduces effective capacity.</p>
+<p><strong>Why it works:</strong></p>
+<ol>
+<li><strong>Ensemble interpretation:</strong> Training 2^n sub-networks sharing weights; inference approximates geometric mean of ensemble.</li>
+<li><strong>Co-adaptation prevention:</strong> Each neuron can't rely on other neurons being present → learns more robust features.</li>
+<li><strong>Regularization:</strong> Implicit L2-like effect; reduces effective capacity.</li>
+</ol>
 <p><strong>Practical notes:</strong> Higher dropout rate for larger layers. Don't use dropout in the last few pretraining steps (reduces effective batch size). Dropout on attention weights (attention dropout) used in BERT/GPT training.</p>
 <hr />
 <h3 id="63-early-stopping">6.3 Early Stopping</h3>
@@ -532,10 +604,12 @@ Noise     = Var(ε)                  — irreducible; measurement / world noise
 <h3 id="71-gradient-descent-variants">7.1 Gradient Descent Variants</h3>
 <p><strong>Batch GD:</strong> Use all n samples to compute gradient. Exact; slow per update; not used in practice.</p>
 <p><strong>SGD (Stochastic):</strong> Use single sample or mini-batch of size B. Noisy gradient; fast; can escape local minima; default for deep learning.</p>
-<p><strong>Learning rate schedule:</strong>
-- Warmup: start small → ramp up → then decay (cosine or linear).
-- Cosine annealing: <code>η_t = η_min + (η_max - η_min)/2 · (1 + cos(πt/T))</code>.
-- Warmup is critical for transformers (especially with Adam): at the start, weights are randomly initialized, so gradients are noisy and large. Applying the full LR immediately risks large updates that damage useful loss-basin structure before Adam's moment estimates stabilize. Note: Adam's bias correction already handles the mathematical cold-start of the moments; the real issue is the unreliable early gradient signal itself.</p>
+<p><strong>Learning rate schedule:</strong></p>
+<ul>
+<li>Warmup: start small → ramp up → then decay (cosine or linear).</li>
+<li>Cosine annealing: <code>η_t = η_min + (η_max - η_min)/2 · (1 + cos(πt/T))</code>.</li>
+<li>Warmup is critical for transformers (especially with Adam): at the start, weights are randomly initialized, so gradients are noisy and large. Applying the full LR immediately risks large updates that damage useful loss-basin structure before Adam's moment estimates stabilize. Note: Adam's bias correction already handles the mathematical cold-start of the moments; the real issue is the unreliable early gradient signal itself.</li>
+</ul>
 <hr />
 <h3 id="72-momentum">7.2 Momentum</h3>
 <p><strong>Classical momentum:</strong></p>
@@ -558,14 +632,43 @@ v̂_t = v_t / (1 - β₂ᵗ)                  # bias correction
 </code></pre>
 <p>Typical: β₁=0.9, β₂=0.999, ε=1e-8, η=1e-3 to 3e-4.</p>
 <p><strong>Why it works:</strong> Adaptive learning rate per parameter — rare features get larger updates (v small → big step); frequent features get smaller steps (v large → small step). Momentum in m_t smooths noisy gradients.</p>
-<p><strong>Adam variants:</strong>
-| Variant | Key change | Use |
-|---|---|---|
-| AdamW | Decoupled weight decay (<code>θ ← θ·(1-λ)</code>) | Standard for LLM training (fixes L2 reg in Adam) |
-| Adafactor | Low-rank factorization of v; no full v matrix | Memory-efficient; used in T5, PaLM |
-| SOAP | Matrix AdamW on weight blocks | Recent; better large-batch performance |
-| Muon | Nesterov + orthogonalization update | Competitive on small/mid models |
-| CAME | Confidence-guided AM | Stable for post-training |</p>
+<p><strong>Adam variants:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Variant</th>
+<th>Key change</th>
+<th>Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AdamW</td>
+<td>Decoupled weight decay (<code>θ ← θ·(1-λ)</code>)</td>
+<td>Standard for LLM training (fixes L2 reg in Adam)</td>
+</tr>
+<tr>
+<td>Adafactor</td>
+<td>Low-rank factorization of v; no full v matrix</td>
+<td>Memory-efficient; used in T5, PaLM</td>
+</tr>
+<tr>
+<td>SOAP</td>
+<td>Matrix AdamW on weight blocks</td>
+<td>Recent; better large-batch performance</td>
+</tr>
+<tr>
+<td>Muon</td>
+<td>Nesterov + orthogonalization update</td>
+<td>Competitive on small/mid models</td>
+</tr>
+<tr>
+<td>CAME</td>
+<td>Confidence-guided AM</td>
+<td>Stable for post-training</td>
+</tr>
+</tbody>
+</table>
 <p><strong>AdamW vs Adam:</strong> Standard Adam L2 regularization couples decay with gradient scaling (not true weight decay). AdamW applies weight decay directly to weights: <code>θ ← (1 - λη)θ - η · m̂/√v̂</code>. Better regularization properties. Default for all modern LLM training.</p>
 <hr />
 <h3 id="74-common-pitfalls">7.4 Common Pitfalls</h3>
@@ -580,9 +683,11 @@ v̂_t = v_t / (1 - β₂ᵗ)                  # bias correction
 <p><strong>Convolutional layer:</strong> Apply kernel K of size k×k to input X at each location via cross-correlation:</p>
 <pre><code>(X * K)[i,j] = Σ_{p,q} X[i+p, j+q] · K[p,q]
 </code></pre>
-<p><strong>Key properties:</strong>
-- <strong>Parameter sharing:</strong> Same kernel applied everywhere → translation equivariance.
-- <strong>Local connectivity:</strong> Each output depends on k×k input patch → spatial inductive bias.</p>
+<p><strong>Key properties:</strong></p>
+<ul>
+<li><strong>Parameter sharing:</strong> Same kernel applied everywhere → translation equivariance.</li>
+<li><strong>Local connectivity:</strong> Each output depends on k×k input patch → spatial inductive bias.</li>
+</ul>
 <p><strong>Pooling:</strong> Max pooling / average pooling reduces spatial dimensions. Max pooling: most common; introduces translation invariance; selects dominant feature.</p>
 <p><strong>Receptive field:</strong> How much of the input each neuron "sees." Grows with depth. Dilated convolutions increase receptive field without adding parameters.</p>
 <p><strong>Batch norm after conv:</strong> Standard in ResNets. Order: Conv → BN → ReLU.</p>
@@ -633,19 +738,50 @@ h_t = o_t ⊙ tanh(c_t)
 <pre><code>x → RMSNorm → GQA Self-Attention + residual → RMSNorm → SwiGLU FFN + residual
 </code></pre>
 <p>No cross-attention (decoder-only = no encoder). RoPE applied to Q and K before attention.</p>
-<p><strong>Parameter count (rough guide for 7B model):</strong>
-- Embedding: <code>vocab × d_model</code> = 32k × 4096 ≈ 130M
-- Per transformer layer: ~4 × d_model² (QKV projections + output) + ~8 × d_model² (FFN with SwiGLU) ≈ 134M per layer
-- 32 layers × 134M ≈ 4.3B (+ embeddings ≈ 7B total after careful accounting).</p>
+<p><strong>Parameter count (rough guide for 7B model):</strong></p>
+<ul>
+<li>Embedding: <code>vocab × d_model</code> = 32k × 4096 ≈ 130M</li>
+<li>Per transformer layer: ~4 × d_model² (QKV projections + output) + ~8 × d_model² (FFN with SwiGLU) ≈ 134M per layer</li>
+<li>32 layers × 134M ≈ 4.3B (+ embeddings ≈ 7B total after careful accounting).</li>
+</ul>
 <p><strong>Attention complexity:</strong> <code>O(n² · d)</code> in time and <code>O(n²)</code> in space for naive implementation. FlashAttention: <code>O(n²)</code> time but <code>O(n)</code> memory (via tiled computation, never materializes n×n matrix to HBM).</p>
-<p><strong>Key architectural choices in 2026 LLMs:</strong>
-| Component | Old standard | Modern standard |
-|---|---|---|
-| Normalization | Post-LayerNorm | Pre-RMSNorm |
-| FFN activation | ReLU | SwiGLU / GeGLU |
-| Positional encoding | Learned absolute | RoPE |
-| Attention | Full MHA | GQA (few KV heads) |
-| QK scaling | Standard | + QK-Norm for stability |</p>
+<p><strong>Key architectural choices in 2026 LLMs:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Old standard</th>
+<th>Modern standard</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Normalization</td>
+<td>Post-LayerNorm</td>
+<td>Pre-RMSNorm</td>
+</tr>
+<tr>
+<td>FFN activation</td>
+<td>ReLU</td>
+<td>SwiGLU / GeGLU</td>
+</tr>
+<tr>
+<td>Positional encoding</td>
+<td>Learned absolute</td>
+<td>RoPE</td>
+</tr>
+<tr>
+<td>Attention</td>
+<td>Full MHA</td>
+<td>GQA (few KV heads)</td>
+</tr>
+<tr>
+<td>QK scaling</td>
+<td>Standard</td>
+<td>+ QK-Norm for stability</td>
+</tr>
+</tbody>
+</table>
 <hr />
 <h2 id="part-9-nlp-classics">PART 9 — NLP CLASSICS</h2>
 <hr />
@@ -697,23 +833,57 @@ Baum-Welch is the specific instantiation of EM for Hidden Markov Models, used to
 <p><strong>For depth on Baum-Welch, forward-backward algorithm, and PGM foundations: see doc 14 (Classical NLP + MT Deep Dive).</strong></p>
 <hr />
 <h3 id="93-word-embeddings-word2vec-and-glove">9.3 Word Embeddings: word2vec and GloVe</h3>
-<p><strong>word2vec (Mikolov 2013):</strong>
-- <strong>CBOW:</strong> Predict center word from context words.
-- <strong>Skip-gram:</strong> Predict context words from center word.
-- <strong>Negative sampling:</strong> Approximate softmax by training binary classifier: is (word, context) a real or random pair? Real pairs get high score; random negative samples get low score.
-- Training: shallow 2-layer net → embedding weights are the learned representations.</p>
+<p><strong>word2vec (Mikolov 2013):</strong></p>
+<ul>
+<li><strong>CBOW:</strong> Predict center word from context words.</li>
+<li><strong>Skip-gram:</strong> Predict context words from center word.</li>
+<li><strong>Negative sampling:</strong> Approximate softmax by training binary classifier: is (word, context) a real or random pair? Real pairs get high score; random negative samples get low score.</li>
+<li>Training: shallow 2-layer net → embedding weights are the learned representations.</li>
+</ul>
 <p><strong>Properties:</strong> Semantic algebra: <code>king - man + woman ≈ queen</code>. Captures analogy, synonym, association in a linear subspace.</p>
-<p><strong>GloVe (Pennington 2014):</strong>
-- Uses global word co-occurrence matrix X. Objective: <code>Σ f(Xᵢⱼ)(wᵢᵀw̃ⱼ + bᵢ + b̃ⱼ - log Xᵢⱼ)²</code>.
-- <code>f(x)</code> = weighting function (caps high co-occurrence counts).
-- Factorizes the log co-occurrence matrix; closed-form global optimization rather than local window.</p>
-<p><strong>Comparison:</strong>
-| | word2vec | GloVe | Contextual (BERT) |
-|---|---|---|---|
-| Context | Local window | Global co-occurrence | Full sentence |
-| Polysemy | No (one vector) | No | Yes (context-dependent) |
-| Speed | Fast training | Moderate | Slow (large model) |
-| Still used | Yes (recsys) | Less | No (replaced by contextual) |</p>
+<p><strong>GloVe (Pennington 2014):</strong></p>
+<ul>
+<li>Uses global word co-occurrence matrix X. Objective: <code>Σ f(Xᵢⱼ)(wᵢᵀw̃ⱼ + bᵢ + b̃ⱼ - log Xᵢⱼ)²</code>.</li>
+<li><code>f(x)</code> = weighting function (caps high co-occurrence counts).</li>
+<li>Factorizes the log co-occurrence matrix; closed-form global optimization rather than local window.</li>
+</ul>
+<p><strong>Comparison:</strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>word2vec</th>
+<th>GloVe</th>
+<th>Contextual (BERT)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Context</td>
+<td>Local window</td>
+<td>Global co-occurrence</td>
+<td>Full sentence</td>
+</tr>
+<tr>
+<td>Polysemy</td>
+<td>No (one vector)</td>
+<td>No</td>
+<td>Yes (context-dependent)</td>
+</tr>
+<tr>
+<td>Speed</td>
+<td>Fast training</td>
+<td>Moderate</td>
+<td>Slow (large model)</td>
+</tr>
+<tr>
+<td>Still used</td>
+<td>Yes (recsys)</td>
+<td>Less</td>
+<td>No (replaced by contextual)</td>
+</tr>
+</tbody>
+</table>
 <p><strong>Contextual embeddings:</strong> ELMo → BERT → modern LLMs. Same word gets different vectors based on context. Resolves polysemy. Dominant approach.</p>
 <hr />
 <h3 id="94-bleu-and-rouge">9.4 BLEU and ROUGE</h3>
@@ -726,10 +896,12 @@ Baum-Welch is the specific instantiation of EM for Hidden Markov Models, used to
 <li>Corpus-level metric; cannot evaluate individual sentences well.</li>
 </ul>
 <p><strong>BLEU limitations:</strong> N-gram matching; no credit for paraphrase, synonyms, or word order beyond n-grams; poor correlation with human judgment at fine-grained comparison. Still standard for MT because of reproducibility.</p>
-<p><strong>ROUGE (Recall-Oriented Understudy for Gisting Evaluation) — Summarization:</strong>
-- <strong>ROUGE-N:</strong> N-gram recall between hypothesis and reference.
-- <strong>ROUGE-L:</strong> Longest Common Subsequence (LCS) F1.
-- <strong>ROUGE-S:</strong> Skip-gram co-occurrence.</p>
+<p><strong>ROUGE (Recall-Oriented Understudy for Gisting Evaluation) — Summarization:</strong></p>
+<ul>
+<li><strong>ROUGE-N:</strong> N-gram recall between hypothesis and reference.</li>
+<li><strong>ROUGE-L:</strong> Longest Common Subsequence (LCS) F1.</li>
+<li><strong>ROUGE-S:</strong> Skip-gram co-occurrence.</li>
+</ul>
 <p>ROUGE is recall-oriented (how much of the reference is covered); BLEU is precision-oriented. For summarization, coverage is critical → ROUGE.</p>
 <p><strong>Modern alternatives:</strong> BERTScore (token-level semantic similarity via BERT embeddings), COMET (MT; trained on human judgments), chrF (character-level; better for morphologically rich languages). eBay cross-lingual MT → COMET is more reliable than BLEU for measuring true translation quality.</p>
 <hr />
@@ -745,10 +917,12 @@ Baum-Welch is the specific instantiation of EM for Hidden Markov Models, used to
 <p><strong>WordPiece:</strong> Used in BERT; likelihood-based merge criterion instead of frequency. Tends to produce subwords closer to morphological boundaries.</p>
 <p><strong>SentencePiece + Unigram:</strong> No pre-tokenization whitespace splitting; Unigram starts large and prunes. Used in Gemma, T5. Better for multilingual (no whitespace assumption; handles Chinese/Japanese natively).</p>
 <p><strong>Domain vocabulary (LiLiuM):</strong> Standard tokenizers fragment e-commerce terms (product codes, brand names) into many subwords. LiLiuM's custom vocabulary adds e-commerce terms as single tokens → 34% throughput gain. Same principle: fewer tokens = shorter sequence = less attention compute.</p>
-<p><strong>Tokenization pitfalls:</strong>
-- Inconsistent whitespace handling across models (GPT vs Llama differ).
-- Numbers tokenized character-by-character in some models → hurt arithmetic.
-- Non-English over-segmented in models with English-heavy vocab.</p>
+<p><strong>Tokenization pitfalls:</strong></p>
+<ul>
+<li>Inconsistent whitespace handling across models (GPT vs Llama differ).</li>
+<li>Numbers tokenized character-by-character in some models → hurt arithmetic.</li>
+<li>Non-English over-segmented in models with English-heavy vocab.</li>
+</ul>
 <hr />
 <h3 id="102-attention-mechanism-see-part-83-for-equations">10.2 Attention Mechanism (see Part 8.3 for equations)</h3>
 <figure class="diagram">
@@ -773,19 +947,23 @@ Baum-Welch is the specific instantiation of EM for Hidden Markov Models, used to
 </ul>
 <p><strong>Top-k sampling:</strong> At each step, keep only the k highest-probability tokens; redistribute probability mass; sample. Prevents very low-probability tokens. Fixed vocabulary size per step.</p>
 <p><strong>Top-p (nucleus) sampling (Holtzman 2020):</strong> Keep smallest set of tokens whose cumulative probability ≥ p. Vocabulary size adapts to the distribution: peaked distribution → small nucleus; flat distribution → large nucleus. Top-p=0.9 is common default.</p>
-<p><strong>Typical production settings:</strong>
-- Creative generation: T=0.9, top-p=0.9.
-- Factual QA: T=0.0–0.3 (near-greedy).
-- Code generation: T=0.2, top-p=0.95.</p>
+<p><strong>Typical production settings:</strong></p>
+<ul>
+<li>Creative generation: T=0.9, top-p=0.9.</li>
+<li>Factual QA: T=0.0–0.3 (near-greedy).</li>
+<li>Code generation: T=0.2, top-p=0.95.</li>
+</ul>
 <p><strong>Min-p (2024):</strong> Threshold: minimum p_i &gt; p_min × max(p). Removes tokens below fraction of the mode. More principled than top-k for varying entropy.</p>
 <hr />
 <h3 id="104-context-window-and-attention-cost">10.4 Context Window and Attention Cost</h3>
 <p><strong>Context window:</strong> Maximum sequence length the model can attend to. Limited by positional encodings (for RoPE: needs fine-tuning to extend), KV cache memory, and quadratic attention cost.</p>
 <p><strong>KV cache growth:</strong> Linear in sequence length (per token generated). At 128k context with large batch → OOM unless using PagedAttention or KV compression.</p>
-<p><strong>Extending context:</strong>
-- YaRN: scale RoPE frequencies to interpolate positions; fine-tune on long documents.
-- LongRoPE: different scales at different layers.
-- Llama 4 Scout: 10M token context via combination of MoE, efficient attention, and context parallelism.</p>
+<p><strong>Extending context:</strong></p>
+<ul>
+<li>YaRN: scale RoPE frequencies to interpolate positions; fine-tune on long documents.</li>
+<li>LongRoPE: different scales at different layers.</li>
+<li>Llama 4 Scout: 10M token context via combination of MoE, efficient attention, and context parallelism.</li>
+</ul>
 <hr />
 <h3 id="105-key-llm-components-quick-reference">10.5 Key LLM Components (quick reference)</h3>
 <table>
@@ -844,41 +1022,72 @@ Baum-Welch is the specific instantiation of EM for Hidden Markov Models, used to
 <hr />
 <h3 id="111-data-leakage">11.1 Data Leakage</h3>
 <p><strong>Definition:</strong> Information from the test/future set inadvertently leaks into training, inflating measured performance.</p>
-<p><strong>Types:</strong>
-1. <strong>Target leakage:</strong> Feature created using information only available after the label is known. Example: adding "account_frozen_after_purchase" to predict fraud — correlated with fraud but not causally predictive at transaction time.
-2. <strong>Temporal leakage:</strong> Train on future data; test on past data. Always split time-series data by time, not randomly.
-3. <strong>Preprocessing leakage:</strong> Fit scaler, imputer, or vocabulary on full dataset including test. Always fit preprocessing on train only, apply to test.
-4. <strong>Label leakage in feature engineering:</strong> Aggregating test labels into group statistics used as features.</p>
+<p><strong>Types:</strong></p>
+<ol>
+<li><strong>Target leakage:</strong> Feature created using information only available after the label is known. Example: adding "account_frozen_after_purchase" to predict fraud — correlated with fraud but not causally predictive at transaction time.</li>
+<li><strong>Temporal leakage:</strong> Train on future data; test on past data. Always split time-series data by time, not randomly.</li>
+<li><strong>Preprocessing leakage:</strong> Fit scaler, imputer, or vocabulary on full dataset including test. Always fit preprocessing on train only, apply to test.</li>
+<li><strong>Label leakage in feature engineering:</strong> Aggregating test labels into group statistics used as features.</li>
+</ol>
 <p><strong>Detection:</strong> Suspiciously good performance; feature importances include features that shouldn't be available at inference time.</p>
 <hr />
 <h3 id="112-validation-overfitting-benchmark-hacking">11.2 Validation Overfitting (Benchmark Hacking)</h3>
 <p><strong>Problem:</strong> Repeated evaluation on the same validation set → hyperparameter selection is biased toward this particular sample. Effective degrees of freedom used = roughly log₂(number of experiments).</p>
-<p><strong>Mitigation:</strong>
-- Hold out a final test set not touched until final evaluation.
-- Use nested cross-validation for hyperparameter search.
-- Report confidence intervals, not point estimates.
-- For LLM benchmarks: benchmark contamination (test data in pretraining) makes this worse.</p>
+<p><strong>Mitigation:</strong></p>
+<ul>
+<li>Hold out a final test set not touched until final evaluation.</li>
+<li>Use nested cross-validation for hyperparameter search.</li>
+<li>Report confidence intervals, not point estimates.</li>
+<li>For LLM benchmarks: benchmark contamination (test data in pretraining) makes this worse.</li>
+</ul>
 <hr />
 <h3 id="113-distribution-shift">11.3 Distribution Shift</h3>
-<p><strong>Types:</strong>
-| Type | Definition | Example |
-|---|---|---|
-| Covariate shift | P(X) changes; P(Y|X) same | Test users are different demographics than train |
-| Label shift | P(Y) changes; P(X|Y) same | Class prevalence changes after deployment |
-| Concept drift | P(Y|X) changes | User behavior evolves; yesterday's fraud patterns differ |
-| Domain shift | Both P(X) and P(Y|X) may change | e-commerce product descriptions vs Wikipedia |</p>
+<p><strong>Types:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Definition</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Covariate shift</td>
+<td>P(X) changes; P(Y|X) same</td>
+<td>Test users are different demographics than train</td>
+</tr>
+<tr>
+<td>Label shift</td>
+<td>P(Y) changes; P(X|Y) same</td>
+<td>Class prevalence changes after deployment</td>
+</tr>
+<tr>
+<td>Concept drift</td>
+<td>P(Y|X) changes</td>
+<td>User behavior evolves; yesterday's fraud patterns differ</td>
+</tr>
+<tr>
+<td>Domain shift</td>
+<td>Both P(X) and P(Y|X) may change</td>
+<td>e-commerce product descriptions vs Wikipedia</td>
+</tr>
+</tbody>
+</table>
 <p><strong>Detection:</strong> Monitor prediction distribution shift (KL divergence from reference), feature drift (PSI - population stability index), performance degradation over time.</p>
 <p><strong>Mitigation:</strong> Importance weighting, domain adaptation (fine-tuning on target domain), continued training on new data, online learning.</p>
 <p><strong>eBay context:</strong> Seasonal shifts (holiday patterns), new product categories, language model domain gap (general LLM on e-commerce text). This is why LiLiuM exists — domain-adapted from the ground up.</p>
 <hr />
 <h3 id="114-class-imbalance">11.4 Class Imbalance</h3>
 <p><strong>Problem:</strong> Majority class dominates training; model predicts majority class always.</p>
-<p><strong>Mitigation strategies:</strong>
-1. <strong>Resampling:</strong> Oversample minority (SMOTE: synthetic minority oversampling by interpolation in feature space) or undersample majority.
-2. <strong>Class weighting:</strong> Set <code>class_weight = n_majority / n_minority</code> in loss function.
-3. <strong>Threshold tuning:</strong> Default threshold 0.5 is arbitrary; tune on PR curve for desired P/R tradeoff.
-4. <strong>Focal loss:</strong> <code>FL = -α(1-pₜ)^γ log(pₜ)</code>. Down-weights easy examples (large pₜ); focuses training on hard examples. Used in object detection; applicable to fraud/abuse detection.
-5. <strong>Metric choice:</strong> PR-AUC, F1, balanced accuracy instead of raw accuracy.</p>
+<p><strong>Mitigation strategies:</strong></p>
+<ol>
+<li><strong>Resampling:</strong> Oversample minority (SMOTE: synthetic minority oversampling by interpolation in feature space) or undersample majority.</li>
+<li><strong>Class weighting:</strong> Set <code>class_weight = n_majority / n_minority</code> in loss function.</li>
+<li><strong>Threshold tuning:</strong> Default threshold 0.5 is arbitrary; tune on PR curve for desired P/R tradeoff.</li>
+<li><strong>Focal loss:</strong> <code>FL = -α(1-pₜ)^γ log(pₜ)</code>. Down-weights easy examples (large pₜ); focuses training on hard examples. Used in object detection; applicable to fraud/abuse detection.</li>
+<li><strong>Metric choice:</strong> PR-AUC, F1, balanced accuracy instead of raw accuracy.</li>
+</ol>
 <hr />
 <h3 id="115-multiple-comparisons-and-significance">11.5 Multiple Comparisons and Significance</h3>
 <p><strong>Problem:</strong> Test 20 models; one appears significant at p&lt;0.05 by chance.</p>
@@ -900,14 +1109,18 @@ Decompose R ≈ UVᵀ where U=user factors, V=item factors. Stochastic gradient 
 <p><strong>Limitation:</strong> Filter bubble — only recommends what's similar to past; no serendipity.</p>
 <hr />
 <h3 id="123-two-stage-retrieval-ranking">12.3 Two-Stage Retrieval-Ranking</h3>
-<p>Standard production recsys pipeline:
-1. <strong>Candidate generation (retrieval):</strong> Fast approximate retrieval; hundreds of thousands → hundreds of candidates. Use ANN on item embeddings, or CF lookup. Optimized for recall.
-2. <strong>Ranking:</strong> Complex ML model (GBM or deep learning) re-ranks candidates; incorporates rich features (user context, session, real-time signals). Optimized for precision.
-3. <strong>Business rules / re-ranking:</strong> Apply diversity, business constraints, sponsored content mixing.</p>
-<p><strong>LTR (Learning to Rank):</strong>
-- <strong>Pointwise:</strong> Model P(click | item, user) as binary classification. Simple; ignores inter-item ordering.
-- <strong>Pairwise:</strong> Prefer item A over B; train with pairwise loss (BPR, RankNet).
-- <strong>Listwise:</strong> Optimize NDCG directly (LambdaRank, LambdaMART). Better aligned with ranking metric.</p>
+<p>Standard production recsys pipeline:</p>
+<ol>
+<li><strong>Candidate generation (retrieval):</strong> Fast approximate retrieval; hundreds of thousands → hundreds of candidates. Use ANN on item embeddings, or CF lookup. Optimized for recall.</li>
+<li><strong>Ranking:</strong> Complex ML model (GBM or deep learning) re-ranks candidates; incorporates rich features (user context, session, real-time signals). Optimized for precision.</li>
+<li><strong>Business rules / re-ranking:</strong> Apply diversity, business constraints, sponsored content mixing.</li>
+</ol>
+<p><strong>LTR (Learning to Rank):</strong></p>
+<ul>
+<li><strong>Pointwise:</strong> Model P(click | item, user) as binary classification. Simple; ignores inter-item ordering.</li>
+<li><strong>Pairwise:</strong> Prefer item A over B; train with pairwise loss (BPR, RankNet).</li>
+<li><strong>Listwise:</strong> Optimize NDCG directly (LambdaRank, LambdaMART). Better aligned with ranking metric.</li>
+</ul>
 <hr />
 <h2 id="part-13-what-to-say-for-each-tony-paper-1-liner-connections">PART 13 — WHAT TO SAY FOR EACH TONY PAPER (1-liner connections)</h2>
 <hr />
