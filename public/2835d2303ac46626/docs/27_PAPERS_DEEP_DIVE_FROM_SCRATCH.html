@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en" data-pagefind-ignore="all">
+<head>
+<meta name="robots" content="noindex, nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>★ Four Papers — Taught From Scratch · eBay Prep</title>
+<script>try{if(localStorage.getItem('ebayprep-theme')==='dark')document.documentElement.classList.add('dark');}catch(e){}</script>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<button id="menu" class="menu-btn" aria-label="Menu">☰</button>
+<button id="theme" class="theme-btn" aria-label="Toggle theme">◐</button>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+<div class="brand"><a href="../index.html">eBay Prep</a><div class="brand-sub">Stage 1 · Yannick Versley</div></div>
+<div class="search"><input id="q" type="search" placeholder="Search the pack…" autocomplete="off"><div id="results"></div></div>
+<nav class="nav">
+<div class="nav-group"><div class="nav-group-title">Start Here</div><ul>
+<li><a href="7DAY_SPRINT_PLAN.html">7-Day Sprint Plan</a></li>
+<li><a href="21_KILL_LIST.html">⚠ Kill List — Never Say These</a></li>
+<li><a href="26_FINAL_HOURS_MUST_READ.html">★ Final-Hours Must-Read (1 page)</a></li>
+<li><a href="00_MASTER_INDEX_AND_STUDY_PLAN.html">Master Index &amp; Study Plan</a></li>
+<li><a href="SESSION2_READINESS_REPORT.html">Readiness Report</a></li>
+</ul></div>
+<div class="nav-group"><div class="nav-group-title">★ Hiring Manager — Behavioral</div><ul>
+<li><a href="22_STAR_METHOD_PLAYBOOK.html">★ STAR Method — Learn It First</a></li>
+<li><a href="23_HM_BEHAVIORAL_PLAYBOOK.html">★ Hiring-Manager Behavioral Playbook</a></li>
+<li><a href="24_STAR_STORY_LIBRARY.html">STAR Story Library — 25 stories</a></li>
+<li><a href="25_BEHAVIORAL_QUESTION_BANK.html">Behavioral Question Bank — 56 Qs</a></li>
+<li><a href="10_PROJECT_MGMT_RETROSPECTIVE_STAR.html">Project Mgmt &amp; STAR — Deep Reference</a></li>
+</ul></div>
+<div class="nav-group"><div class="nav-group-title">Stage 1 — Core</div><ul>
+<li><a href="03_INTERVIEWER_YANNICK_VERSLEY.html">Interviewer: Yannick Versley</a></li>
+<li><a href="02_STAGE1_ML_LLM_NLP_MASTERDOC.html">Stage-1 ML/LLM/NLP Master Doc</a></li>
+<li><a href="20_OWN_PAPERS_GROUND_TRUTH.html">★ Own Papers — Ground-Truth Defense</a></li>
+<li class="active"><a href="27_PAPERS_DEEP_DIVE_FROM_SCRATCH.html">★ Four Papers — Taught From Scratch</a></li>
+<li><a href="04_PUBLICATIONS_PROJECTS_DEFENSE.html">Publications &amp; Projects Defense</a></li>
+<li><a href="05_QUESTION_BANK_THIS_ROLE.html">Question Bank (This Role)</a></li>
+<li><a href="06_ML_LLM_NLP_FUNDAMENTALS_STUDYGUIDE.html">ML/LLM/NLP Fundamentals</a></li>
+<li><a href="12_MOCK_INTERVIEW_FULL.html">Full Mock Interview</a></li>
+</ul></div>
+<div class="nav-group"><div class="nav-group-title">Stage 1 — Deep Dives</div><ul>
+<li><a href="18_STAGE1_GAPFILL_DEEP_ANSWERS.html">Gap-Fill: Deep Answers</a></li>
+<li><a href="18b_STAGE1_GAPFILL_ROUND2.html">Gap-Fill: Round 2</a></li>
+<li><a href="19_ADAPTIVE_MOCK_SESSIONS.html">Adaptive Mock Sessions</a></li>
+<li><a href="13_GENERATIVE_MODELS_BEYOND_LLMS.html">Generative Models Beyond LLMs</a></li>
+<li><a href="14_CLASSICAL_NLP_AND_MT_DEEP_DIVE.html">Classical NLP &amp; MT Deep Dive</a></li>
+<li><a href="15_SOTA_2026_CURRENT_AWARENESS.html">SOTA 2026 Current Awareness</a></li>
+<li><a href="16_EXPERTISE_DEEP_DIVE_EFFICIENCY.html">Expertise Deep Dive: Efficiency</a></li>
+<li><a href="17_RAPID_FIRE_BREADTH_BANK.html">Rapid-Fire Breadth Bank</a></li>
+</ul></div>
+<div class="nav-group"><div class="nav-group-title">eBay &amp; Why eBay</div><ul>
+<li><a href="07_EBAY_COMPANY_AI_DOSSIER.html">eBay Company AI Dossier</a></li>
+</ul></div>
+<div class="nav-group"><div class="nav-group-title">Later Stages (2 &amp; 3)</div><ul>
+<li><a href="08_ML_SYSTEM_DESIGN_PLAYBOOK.html">ML System Design Playbook</a></li>
+<li><a href="09_CODING_CODESIGNAL_PREP.html">Coding / CodeSignal Prep</a></li>
+<li><a href="11_TEAM_FIT_CAREER.html">Team Fit &amp; Career</a></li>
+</ul></div>
+<div class="nav-group"><div class="nav-group-title">Logistics</div><ul>
+<li><a href="01_RECRUITER_RESPONSE_PACK.html">Recruiter Response Pack</a></li>
+</ul></div>
+</nav>
+  </aside>
+  <div class="scrim" id="scrim"></div>
+  <main class="content">
+    <article class="doc">
+      <div class="doc-meta"><span class="tag">Stage 1 — Core</span><span class="read">38 min read</span></div>
+      <h1 id="four-papers-taught-from-scratch-with-diagrams">Four Papers, Taught From Scratch — with diagrams</h1>
+<blockquote>
+<p><strong>What this doc is.</strong> You co-authored these four papers but were not deep in the weeds. This page teaches them from the ground up — the problem, the machinery, the intuition — so the mechanism feels like <em>yours</em> when Versley probes. It pairs with <strong>Own Papers — Ground-Truth Defense</strong> (the exact numbers and the full skeptical Q&amp;A); here the goal is <em>understanding</em>. Emphasis is on <strong>Diffusion Weights</strong>, with two short primers so the generative-model papers actually click. <strong>Read each primer before the paper it precedes.</strong></p>
+</blockquote>
+<h3 id="the-four-papers-at-a-glance">The four papers at a glance</h3>
+<table>
+<thead>
+<tr>
+<th>Paper</th>
+<th>The one idea</th>
+<th>Your role</th>
+<th>Thesis angle</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TwinRouterBench</td>
+<td>Score LLM routing per <em>call</em>, with tier labels verified by full-trajectory replay</td>
+<td>3rd of 17</td>
+<td>Route the right model per step</td>
+</tr>
+<tr>
+<td>MERA</td>
+<td>Route <em>inside</em> a live agent, with a verifier-fallback so a cheap pick cannot silently break quality</td>
+<td>3rd of 7</td>
+<td>Adapt the serving policy safely</td>
+</tr>
+<tr>
+<td>Diffusion Weights</td>
+<td><em>Forecast</em> a future-epoch weight state with a diffusion U-Net instead of running SGD</td>
+<td>author (under review)</td>
+<td>Cheapen training itself</td>
+</tr>
+<tr>
+<td>Reverse Imaging</td>
+<td>Recover sequence-invariant spin maps with a diffusion prior, then re-render any MRI sequence</td>
+<td>4th of 8</td>
+<td>Extract the invariant, synthesize the rest</td>
+</tr>
+</tbody>
+</table>
+<p>One thesis ties them: <strong>AI moved from a scaling race to a systems race</strong> — you win by spending a fixed model budget well, not by training something bigger.</p>
+<h2 id="primer-a-llm-routing-in-four-minutes">Primer A · LLM routing in four minutes</h2>
+<p><strong>The problem in one sentence.</strong> You have a pool of models running from cheap-and-weak to expensive-and-strong. For each request, you want the <strong>cheapest model that still gets the job done</strong> — not the strongest one every time, because the strong one costs 10x to 50x more and most requests don't need it. That choice, made per request, is <strong>routing</strong>.</p>
+<p>Four words carry the whole idea. Learn these and the rest follows:</p>
+<ul>
+<li><strong>Tier</strong> — an ordered capability class (think <code>low / mid / mid_high / high</code>), where each tier maps to one or more concrete models in your pool. A tier is a <em>rung on a ladder</em>, not a single model.</li>
+<li><strong>Cascade</strong> — the simplest routing strategy: try the cheap model first, check the answer, and <strong>escalate</strong> to a stronger one only if it fails.</li>
+<li><strong>Router</strong> — a small, fast model that looks at the input and <em>predicts</em> which tier you'll need, so you don't have to try-and-fail your way up the ladder.</li>
+<li><strong>Cost-vs-quality Pareto</strong> — the frontier of best-possible trade-offs. A good router pushes you toward it: same quality for less money, or more quality for the same money. Anything off the frontier is wasted spend.</li>
+</ul>
+<p><strong>Now the distinction that everything hinges on.</strong> Older router benchmarks (RouterBench, RouterArena) score routing at the <strong>query level</strong>: one prompt goes in, one model is picked, one answer comes out and gets graded. Clean, but it misses where routing actually lives.</p>
+<figure class="diagram">
+  <img src="../assets/illustrations/routing-query-vs-step.svg" alt="Query-level routing versus step-level routing inside an agent trajectory">
+  <figcaption>Query-level routing (left): one prompt, one model pick, one graded answer. Step-level routing (right): inside one agent task many calls fire in sequence, and a too-cheap pick at step i can silently break step i+5. TwinRouterBench is the first benchmark to score routing per call.</figcaption>
+</figure>
+
+<p>Real agentic work is <strong>step-level</strong>. One user request — fix this bug, answer this multi-hop question — fires <em>many</em> model calls in sequence: read the code, plan, edit, run tests, read the trace, edit again. A too-cheap call at <strong>step i</strong> can produce a subtly wrong edit that doesn't break until <strong>step i+5</strong>, where the whole task silently fails. The cheap call looked fine in isolation; it poisoned a later step. Query-level scoring is blind to this. <strong>This is the gap TwinRouterBench attacks</strong> — it scores routing <em>per call</em>, given the real prefix the router would actually see before that call.</p>
+<p><strong>Why not just let the frontier model route itself?</strong> Because step difficulty isn't visible from query-level intuition — even to the best model. In TwinRouterBench, <strong>Opus predicts "high" for only 7 of 147 verified-high SWE steps, and fails all 40 SWE trajectories</strong> when used as its own router. The strong model cannot tell which of its own steps were actually hard. You need a router trained on what <em>really</em> broke downstream.</p>
+<p><strong>One line on honest cost accounting.</strong> A router that saves money but breaks the task hasn't saved anything — the user still needs the job done, so you've <em>destroyed</em> value, not created it. Honest accounting must therefore <strong>charge failures</strong>, not just credit the cheap calls. (This is exactly TwinRouterBench's failure-aware <strong>CostSave</strong> metric.)</p>
+<p><strong>How to say it in the room:</strong> <em>"Routing is picking the cheapest model that still resolves the task. The old benchmarks score one prompt, one pick. The real problem is step-level — inside one agent run, a cheap call early can silently break a later step — and even the frontier model can't route itself there."</em></p>
+<p><strong>Both of your routing papers live here.</strong> <strong>TwinRouterBench</strong> is the benchmark that measures step-level routing honestly; <strong>MERA</strong> is a framework that does step-level routing safely inside a live agent.</p>
+<h2 id="paper-1-twinrouterbench-the-honest-router-benchmark">Paper 1 · TwinRouterBench — the honest router benchmark</h2>
+<p><strong>Start here.</strong> TwinRouterBench is a <strong>benchmark</strong>, not a cost-cutting method. It scores <strong>LLM routing</strong> — the act of picking <em>which</em> model answers a given call — but it does it in a place nobody else does: <strong>inside a long-horizon agent</strong>, one call at a time. You are <strong>3rd of 17 authors</strong>, listed as Independent Researcher. The two equal-contribution leads are <strong>Pei Yang and Wanyi Chen</strong>; <strong>Tianyu Shi</strong> is corresponding. So own the <strong>methodology</strong> (how the labels get built), not the framing.</p>
+<p><strong>The one genuinely new thing.</strong> Old router benchmarks score one prompt → one model → one answer, usually graded by an online LLM judge. TwinRouterBench scores <strong>step-level, conditional per call</strong>: given the real prefix before the next call (system prompt, prior messages, tool outputs, shell traces, partial code), what is the <strong>cheapest tier that still preserves end-to-end task success?</strong> Routing-by-difficulty is old. <strong>Verified step-level labels, checked by full-trajectory replay, are the new part.</strong></p>
+<h3 id="two-tracks">Two tracks</h3>
+<figure class="diagram">
+  <img src="../assets/illustrations/twinrouter-two-tracks.svg" alt="TwinRouterBench two tracks: deterministic static track vs live dynamic track">
+  <figcaption>TwinRouterBench's two tracks: a fast deterministic STATIC track scores 970 execution-verified step prefixes with millisecond arithmetic (no online judge); a LIVE DYNAMIC track runs routers end to end on SWE-bench Verified with real pricing. The static labels also train routers whose transfer the dynamic track validates — that is where the "53%" lives.</figcaption>
+</figure>
+
+<ul>
+<li><strong>STATIC track</strong> — <strong>970</strong> router-visible step prefixes drawn from <strong>520</strong> trajectories that a strong model already solved, across <strong>5</strong> workloads (SWE-bench, BFCL, mtRAG, QMSum, PinchBench). Scored by <strong>deterministic arithmetic in milliseconds</strong> over four metrics — <strong>RowPass / RowExact / TrajPass / CostSave</strong> — with <strong>no online judge</strong>, so it is fully reproducible and fast to iterate.</li>
+<li><strong>DYNAMIC track</strong> — run routers <strong>end to end</strong> on SWE-bench Verified (<code>mini-swe-agent</code>, live OpenRouter pricing). Report real <strong>resolve rate</strong>, <strong>realized spend</strong>, and a leaderboard <strong>bill = API cost + $0.60 per unresolved instance</strong>.</li>
+</ul>
+<h3 id="the-labeling-protocol-the-slice-you-own">The labeling protocol (the slice you own)</h3>
+<figure class="diagram">
+  <img src="../assets/illustrations/downgrade-cascade-protocol.svg" alt="Downgrade-and-cascade labeling: greedy sequential-locking search, each tier verified as a pool">
+  <figcaption>The label-construction protocol: greedy sequential-locking cuts the naive |T|^N grid down to O(|T|*N), and each tier is verified as a POOL (accept if ANY of 3 models passes), which recovered 28/33 downgradeable labels vs 15/33 single-model. Acceptance is always end-to-end: the full trajectory must still pass with the same step count.</figcaption>
+</figure>
+
+<p>The hard problem is <strong>trustworthy labels</strong> — "cheapest tier that preserves success" — built cheaply without fooling yourself.</p>
+<ul>
+<li><strong>Seed only from success.</strong> The downgrade question only exists when the task is solvable, so start from strong-model wins.</li>
+<li><strong>Greedy sequential-locking search.</strong> Lock earlier steps at their verified tier, try the next step cheapest-first. This collapses the naive <strong>|T|^N</strong> grid (4-to-the-N reruns) to <strong>O(|T|·N)</strong> (4×N) — what makes the corpus buildable at all.</li>
+<li><strong>Accept end-to-end.</strong> A tier is accepted only if the <strong>full trajectory still passes with the same step count</strong> — not just the one call.</li>
+<li><strong>Verify a tier as a POOL of 3 models</strong> (accept if <em>any</em> passes), because within-tier model choice is noisy. This recovered <strong>28/33</strong> downgradeable labels vs <strong>15/33</strong> single-model.</li>
+<li><strong>~10% manual audit</strong> (64 steps) caught <strong>1</strong> further-downgradeable SWE step → <strong>98.4% tight</strong>.</li>
+</ul>
+<h3 id="the-numbers-that-matter">The numbers that matter</h3>
+<p><strong>Static leaderboard.</strong> RowPass is <strong>gameable</strong> (689 of 970 rows are "low," so defaulting cheap scores well). <strong>RowExact is the honest column</strong> — Opus always-high earns only <strong>17.53</strong>.</p>
+<table>
+<thead>
+<tr>
+<th>Router</th>
+<th>RowPass</th>
+<th>RowExact</th>
+<th>CostSave</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SR-KNN (in-sample ceiling)</td>
+<td>91.86</td>
+<td><strong>78.76</strong></td>
+<td>56.18</td>
+</tr>
+<tr>
+<td>ClawRouter (rule-based)</td>
+<td>80.82</td>
+<td>11.75</td>
+<td>53.82</td>
+</tr>
+<tr>
+<td>Opus 4.6 (always-high)</td>
+<td>100</td>
+<td>17.53</td>
+<td>0.00</td>
+</tr>
+</tbody>
+</table>
+<p>The <strong>failure-aware CostSave (variant E)</strong> charges failing trajectories their cost instead of crediting the "savings." That single change flips <strong>SR-KNN (56.18) above ClawRouter (53.82)</strong>; variants A–D rank Claw above. You published the metric-sensitivity rather than burying it.</p>
+<p><strong>Dynamic headline.</strong> The trained router resolves <strong>75/100</strong> at <strong>$25.66</strong> vs unrouted Opus 4.6's <strong>74/100</strong> at <strong>$54.73</strong>.</p>
+<h3 id="saying-the-53-correctly">Saying the "53%" correctly</h3>
+<ul>
+<li>It is <strong>53.1% = 1 − 25.66/54.73</strong>: the <strong>trained</strong> UncommonRoute router vs <strong>unrouted Opus 4.6</strong>, at <strong>matched 75/100</strong> resolve, on a <strong>100-case held-out</strong> SWE-bench Verified split.</li>
+<li>It is a <strong>training-utility result on the dynamic track</strong> — evidence the static labels work as supervision. It is <strong>NOT</strong> "the benchmark cuts cost 53%."</li>
+<li>The number you should actually highlight: the trained router is <strong>6.7× cheaper</strong> than the rule-based one (<strong>$25.66 vs $172.56</strong>) — learned routing beating hand-written rules.</li>
+</ul>
+<h3 id="honest-limitations-volunteer-these">Honest limitations (volunteer these)</h3>
+<ul>
+<li><strong>Survivorship by design.</strong> Labels seed from solvable tasks, so this measures routing <strong>headroom on solvable tasks</strong>, not absolute difficulty.</li>
+<li><strong>Greedy may miss cross-step interactions</strong> — two individually-safe downgrades that jointly break the run. Partly guarded by the audit, not fully.</li>
+<li><strong>Staleness is built in.</strong> Labels are tied to a <strong>frozen 11-model pool</strong> and a price snapshot; changing either is a new benchmark version, not a patch.</li>
+</ul>
+<blockquote>
+<p><strong>How to say it in the room:</strong> "It's a <em>benchmark</em> with two tracks, and the part I own is the labeling protocol — verified step-level labels by full-trajectory replay. The famous 53% is a downstream training-utility check on the dynamic track, not the contribution."</p>
+</blockquote>
+<h2 id="paper-2-mera-routing-safely-inside-a-live-agent">Paper 2 · MERA — routing safely inside a live agent</h2>
+<p>You are the <strong>third of seven authors</strong> here (byline "Tongyun Yang," Independent Researcher). The corresponding author is <strong>Tianyu Shi</strong>, and the affiliations are <strong>CMU, UCLA, Soochow, SJTU, and Gradient</strong> — there is <strong>no McGill, Tsinghua, or Tencent</strong>. If that old "cross-cultural China collaboration" story is in your head, drop it now.</p>
+<h3 id="the-trap-stated-first">The trap, stated first</h3>
+<p>There is one number that can sink this conversation: <strong>87.3%</strong>. Say it the right way <em>every single time</em>:</p>
+<blockquote>
+<p>87.3% is <strong>router-decision accuracy</strong> on an <strong>832-example held-out set</strong> — how often the learned cheap-vs-strong decision matches the labels. It is <strong>not</strong> task accuracy. The agent is not answering 87.3% of tasks correctly.</p>
+</blockquote>
+<p>The <strong>only</strong> task-quality number in the paper is the 1.5B student's <strong>MBPP pass rate, ~47.5% versus ~47.0% baseline</strong> — essentially flat, no cumulative gain. Volunteer the distinction before Versley forces it; he will catch a misread in one sentence.</p>
+<h3 id="the-whole-idea-in-one-breath">The whole idea in one breath</h3>
+<p>MERA is <strong>two loops plus an admission gate</strong>, and its cleanest virtue is that <strong>cost and safety are decoupled</strong>: a router chases cost, a verifier protects quality.</p>
+<h3 id="loop-1-runtime">Loop 1 — runtime</h3>
+<p>Before each agent invocation:</p>
+<ul>
+<li>An <strong>input-only router</strong> sees <strong>only the serialized prompt plus local context</strong> (not hidden agent state, not tool traces) and picks <strong>strong / cheap / optional 1.5B specialist</strong> (a Qwen2.5-Coder-1.5B LoRA adapter).</li>
+<li>A <strong>SkillBook</strong> may instead fire a stable <strong>template</strong> when the local structure matches a recurring signature — formatting, extraction, single-tool argument construction.</li>
+<li>A <strong>verifier</strong> then checks <strong>schema validity, tool-call legality, and executable tests</strong>. If it fails, the invocation <strong>falls back to a stronger model</strong> and logs the event.</li>
+</ul>
+<figure class="diagram">
+  <img src="../assets/illustrations/mera-runtime-loop.svg" alt="MERA single runtime invocation: input-only router or SkillBook, then verifier with fallback">
+  <figcaption>One runtime invocation: an input-only router (or a SkillBook template) sends easy, checkable steps to a cheap model or the 1.5B student; a verifier checks the output and falls back to the strong model on failure (4.4%). Cost savings come from the router/SkillBook; the reliability guarantee comes from the verifier — the two are decoupled.</figcaption>
+</figure>
+
+<p><strong>Cost savings come from the router/SkillBook; reliability comes from the verifier.</strong> That decoupling is the one-line summary to keep ready.</p>
+<h3 id="loop-2-offline">Loop 2 — offline</h3>
+<p>Complete traces are <strong>canonicalized into step slices</strong> (prompt, local context, tool schemas, output, verifier result, retry count, fallback metadata, skill assignment) and fed into <strong>three SEPARATE tracks</strong> over the shared traces:</p>
+<ul>
+<li><strong>SkillBook stats</strong> — CPU-bound success/failure counts for recurring prompt signatures.</li>
+<li><strong>A BERT-tiny router</strong> — trained on prompt text with <strong>weak-supervision</strong> cheap/strong labels.</li>
+<li><strong>A Qwen2.5-Coder-1.5B LoRA adapter</strong> — GPU-heavy, trained with <strong>local GRPO</strong> on a <strong>hard-example pool</strong> (cheap-execution failures, or router/SkillBook disagreements).</li>
+</ul>
+<figure class="diagram">
+  <img src="../assets/illustrations/mera-two-loops.svg" alt="MERA two loops plus joint-replay admission gate">
+  <figcaption>Two loops plus an admission gate. Runtime traces feed three SEPARATE tracks (SkillBook stats, a BERT-tiny router, a Qwen-1.5B LoRA+GRPO student). A new combined state is promoted back to runtime only if a joint replay shows end-to-end quality is preserved — conservative, monotone deployment.</figcaption>
+</figure>
+
+<h3 id="the-admission-gate-the-real-contribution">The admission gate — the real contribution</h3>
+<p>A new combined router/skill/adapter state is <strong>promoted only if a joint-replay evaluation shows end-to-end quality is preserved</strong>. Components are judged by their <strong>combined</strong> effect, not in isolation. Call this <strong>conservative, monotone deployment</strong> — it is the part to claim as the real contribution.</p>
+<h3 id="what-is-genuinely-new-dont-overclaim">What is genuinely new (don't overclaim)</h3>
+<p>The router itself is a <strong>plain BERT-tiny classifier</strong> — not a clever new routing algorithm. The deltas versus RouteLLM / cascade work are exactly two:</p>
+<ul>
+<li><strong>(a) invocation-level granularity</strong> inside a trace, instead of one route per task; and</li>
+<li><strong>(b) joint, replay-gated admission</strong> of three heterogeneous tracks together.</li>
+</ul>
+<h3 id="the-numbers-worth-memorizing">The numbers worth memorizing</h3>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Value</th>
+<th>What it actually is</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Best four-cycle <strong>router accuracy</strong></td>
+<td><strong>87.3%</strong></td>
+<td>Match to labels on 832 held-out examples — NOT task accuracy</td>
+</tr>
+<tr>
+<td>Best four-cycle <strong>serving cost</strong></td>
+<td><strong>51.8%</strong> of always-large</td>
+<td>Cost cut by 48.2%</td>
+</tr>
+<tr>
+<td>Best four-cycle <strong>fallback rate</strong></td>
+<td><strong>4.4%</strong></td>
+<td>Verifier rejects and reruns on a stronger model</td>
+</tr>
+<tr>
+<td>Ordering ablation span</td>
+<td><strong>76.0% → 87.3%</strong></td>
+<td>Six orderings, four-cycle study</td>
+</tr>
+<tr>
+<td>Eight-cycle stabilized band</td>
+<td><strong>82–87%</strong></td>
+<td>Cycle-5 dip to 76.7% is a single-seed outlier</td>
+</tr>
+<tr>
+<td>Only task-quality number</td>
+<td><strong>~47.5% vs ~47.0%</strong> MBPP</td>
+<td>The 1.5B GRPO adapter — flat</td>
+</tr>
+</tbody>
+</table>
+<h3 id="honest-limitations">Honest limitations</h3>
+<ul>
+<li><strong>Verifier coverage is load-bearing</strong> — a missed semantic failure means MERA overestimates how safe a down-route is.</li>
+<li><strong>The GRPO adapter shows no cumulative gain</strong> — empirically the weakest component.</li>
+<li><strong>Replay is not fully online</strong> — it can't perfectly capture the policy's own distribution shift.</li>
+<li><strong>"At scale" overstates</strong> a 590-task code-gen feasibility study.</li>
+<li><strong>Router labels are weakly supervised</strong> (circularity); the <strong>verifier-fallback</strong> is what keeps deployment honest.</li>
+</ul>
+<h3 id="how-to-say-it-in-the-room">How to say it in the room</h3>
+<blockquote>
+<p>"MERA routes <em>inside</em> a multi-step trace and only admits an update after joint replay shows quality held — cost from the router, safety from the verifier, decoupled. <strong>Mercury already runs many models per query</strong>, so this discipline is exactly what you'd want before pushing routing into a live multi-model agent. The open question I'd put to you: can we build a cheap, trustworthy verifier for e-commerce outputs, where there's no executable ground truth?"</p>
+</blockquote>
+<h2 id="primer-b-diffusion-models-in-eight-minutes-read-this-before-the-next-two-papers">Primer B · Diffusion models in eight minutes (read this before the next two papers)</h2>
+<p>Two of your papers — <strong>Diffusion Weights</strong> and <strong>Reverse Imaging</strong> — are creative riffs on the same machine. So spend eight minutes building that machine from zero. Once you can recite the template, both papers stop being scary and start being "oh, they just changed <em>one</em> part."</p>
+<h3 id="the-core-idea-noise-it-then-learn-to-un-noise-it">The core idea: noise it, then learn to un-noise it</h3>
+<p>Picture a real data point <code>x0</code> — an image, a latent, a weight chunk. A diffusion model has two processes:</p>
+<ul>
+<li><strong>Forward process:</strong> slowly add a little <strong>Gaussian noise</strong> at each of <code>T</code> steps. After enough steps the data is gone — <code>xT</code> is indistinguishable from pure static. This part has no learning in it; it's a fixed recipe.</li>
+<li><strong>Reverse process:</strong> a neural network (usually a <strong>U-Net</strong> — an encoder-decoder with skip connections) learns to take a noisy <code>x_t</code> and step <em>one notch back</em> toward clean data.</li>
+</ul>
+<p>The payoff: start from random noise <code>xT ~ N(0, I)</code>, run the learned reverse chain, and you <strong>generate a brand-new sample</strong> that never existed. That's it — that's generation.</p>
+<figure class="diagram">
+  <img src="../assets/illustrations/diffusion-forward-reverse.svg" alt="Diffusion forward noising and reverse denoising chain">
+  <figcaption>A diffusion model in one picture: the forward process gradually adds Gaussian noise to data x0 until it is pure noise xT; a U-Net learns the reverse process, denoising step by step back to data. The network can be trained to predict the noise epsilon or, equivalently, the clean sample x0.</figcaption>
+</figure>
+
+<h3 id="what-does-the-network-actually-predict">What does the network actually predict?</h3>
+<p>Two equivalent parameterizations — know both, because your papers split on this:</p>
+<ul>
+<li><strong>Epsilon-prediction (<code>ε</code>):</strong> the U-Net predicts the <em>noise that was added</em>. Subtract it off, you recover the data.</li>
+<li><strong><code>x0</code>-prediction:</strong> the U-Net predicts the <em>clean sample directly</em>.</li>
+</ul>
+<p>They're <strong>algebraically equivalent</strong> — given the noisy <code>x_t</code> and the noise schedule, knowing one gives you the other. <strong>Memorize this:</strong> <em>"<code>x0</code>-prediction = predict the clean target directly."</em> <strong>Diffusion Weights uses exactly <code>x0</code>-prediction</strong> — with a twist you'll meet in a moment (the clean target it predicts is a <em>future-epoch</em> weight state, not the sample it was handed).</p>
+<h3 id="the-score-view-one-sentence-big-payoff">The score view (one sentence, big payoff)</h3>
+<p>A denoiser is, mathematically, learning the <strong>score</strong> — the gradient of log-density, <code>∇ log p(x)</code>, i.e. "which direction makes this more like real data." Why care? Because you can <strong>bolt a second gradient next to it</strong>. If you have a physics likelihood telling you "which direction makes this consistent with my measurement," you add the two and get <strong>guided sampling</strong>. <strong>That's the whole trick Reverse Imaging exploits</strong> — drive a diffusion <strong>spin-property prior</strong> (over PD/T1/T2 maps) with the <strong>Bloch physics forward model</strong>, so guided sampling recovers the <strong>spin maps</strong> that explain the measurement — which any sequence's forward model can then re-render into an image. (Note: the prior is <em>not</em> an image prior, and sampling lands on spin maps, not images.)</p>
+<h3 id="ddpm-vs-ddim-one-line">DDPM vs DDIM (one line)</h3>
+<ul>
+<li><strong>DDPM</strong> — the original <strong>stochastic</strong> sampler: many small noisy steps. Faithful, slow.</li>
+<li><strong>DDIM</strong> — a <strong>deterministic</strong> sampler that reaches a sample in <strong>far fewer steps</strong>.</li>
+</ul>
+<p>Both names show up in your papers; if asked, <em>"DDPM is the original many-step stochastic chain; DDIM is the deterministic few-step accelerated version."</em></p>
+<h3 id="upgrade-1-latent-diffusion-why-it-fits-on-one-gpu">Upgrade 1 — LATENT diffusion (why it fits on one GPU)</h3>
+<p>Running diffusion on raw high-dimensional data is <strong>expensive</strong>. So compress first:</p>
+<ul>
+<li>A <strong>VAE</strong> (variational autoencoder) is just an autoencoder — an <strong>encoder</strong> squeezes data into a small <strong>latent</strong>, a <strong>decoder</strong> reconstructs it — but with a <strong>smooth, regularized latent</strong> (the <strong>KL / beta</strong> term penalizes a messy code).</li>
+<li>Run the <em>entire</em> diffusion process <strong>inside that small latent space</strong>, then <strong>decode</strong> the result back.</li>
+</ul>
+<p>Because the latent is small <em>and</em> well-behaved (the beta term makes it a clean diffusion target, not arbitrary autoencoder garbage), the whole thing is tractable. <strong>This is precisely why Diffusion Weights can run on a single RTX 4090</strong> — it diffuses over compressed weight latents, never raw 1.5B-parameter weights.</p>
+<figure class="diagram">
+  <img src="../assets/illustrations/diffusion-latent-conditioning.svg" alt="Latent diffusion with a VAE plus conditioning via cross-attention or ControlNet">
+  <figcaption>Two upgrades that show up across modern diffusion. (1) LATENT diffusion — a VAE encodes to a small latent, the diffusion runs there, then decodes back; this is the Diffusion Weights move, while Reverse Imaging uses NO VAE and diffuses directly in spin-property space. (2) CONDITIONING — steer the denoiser with side information so it generates the thing you asked for: Diffusion Weights uses a dataset/task embedding via cross-attention / ControlNet, whereas Reverse Imaging conditions on a physics measurement likelihood (data consistency), not text.</figcaption>
+</figure>
+
+<h3 id="upgrade-2-conditioning-generate-a-specific-thing">Upgrade 2 — CONDITIONING (generate a <em>specific</em> thing)</h3>
+<p>A raw diffusion model generates <em>something</em> random. To generate <strong>the thing you asked for</strong>, feed <strong>side information</strong> into the denoiser:</p>
+<ul>
+<li>A <strong>text embedding</strong> or a <strong>dataset embedding</strong>, injected via <strong>cross-attention</strong>.</li>
+<li><strong>ControlNet</strong> — a popular adapter that injects conditions through <strong>zero-initialized convolutions</strong>, so at the start it adds nothing and training stays stable.</li>
+<li><strong>Classifier-free guidance</strong> — the trick that <strong>dials up how hard the condition steers</strong> the output.</li>
+</ul>
+<p>Diffusion Weights conditions on <em>which task you're forecasting weights for</em> (a dataset encoder + an LLM task embedding, ControlNet-style); Reverse Imaging conditions on <em>the measurement</em>.</p>
+<h3 id="the-one-paragraph-payoff-hold-this-template">The one-paragraph payoff (hold this template)</h3>
+<p>So a modern <strong>conditional latent diffusion model</strong> = <strong>compress with a VAE</strong>, <strong>add noise in latent space</strong>, <strong>train a conditioned U-Net to denoise toward a target</strong>, <strong>sample with DDPM/DDIM</strong>, <strong>decode</strong>. Hold that template — but treat the <strong>VAE-compress/decode slot as optional</strong>. <strong>Diffusion Weights</strong> uses it (it diffuses over compressed weight latents); <strong>Reverse Imaging</strong> skips it entirely and diffuses <em>directly</em> in <strong>spin-property space</strong> — no VAE, no latent compression. The next two papers are creative variations on just a couple of slots: <strong>the TARGET</strong> (Diffusion Weights makes it a <em>future weight state</em>) and <strong>the CONDITION</strong> (Reverse Imaging makes it a <em>physics likelihood</em> — that's its only twist; it leaves the VAE-latent slot empty).</p>
+<h2 id="paper-3-diffusion-weights-the-centerpiece-taught-slowly">Paper 3 · Diffusion Weights — the centerpiece, taught slowly</h2>
+<p>This is the paper Versley is most likely to dig into, because diffusion and pretraining are his world. So slow down and own it. <strong>Authorship first:</strong> this is <em>a paper I'm an author on, currently under review at ACL</em> — the PDF is anonymized for review, so never say "my accepted ACL 2026 paper." Say "under review."</p>
+<p>Keep the <strong>conditional-latent-diffusion template</strong> from the primer in your head the whole way through: <em>compress to a latent, condition on what you want, run a U-Net reverse chain in that latent.</em> Diffusion Weights is exactly that template — and then it adds one creative twist that you must be able to name in your sleep.</p>
+<h3 id="the-reframe-training-as-forecasting">The reframe: training as forecasting</h3>
+<p>Start with the intuition, because it sells the whole paper.</p>
+<ul>
+<li><strong>SGD is wasteful with information.</strong> It computes a residual (a gradient step), takes one tiny step, and throws the trajectory away. Over a run you generate thousands of checkpoints and keep exactly one — the last.</li>
+<li>The image to use out loud: <em>"It's like recording a whole movie and keeping a single frame, then trying to reconstruct the plot."</em></li>
+<li><strong>The flip:</strong> instead of computing the <em>next update</em>, you <strong>generate a future weight state directly</strong>. You treat the training trajectory as data and learn to leap through it.</li>
+</ul>
+<figure class="diagram">
+  <img src="../assets/illustrations/diffw-mechanism.svg" alt="Diffusion Weights three-stage pipeline">
+  <figcaption>Diffusion Weights end to end: weights are compressed into a beta-VAE latent (Stage 1); a permutation-invariant data encoder plus an LLM task embedding form the conditioning (Stage 2); a conditional attention U-Net runs a real diffusion reverse chain whose x0 target is the FUTURE-epoch latent, decoded back to predicted weights (Stage 3). The twist: the denoiser is a future-state forecaster, not a same-sample reconstructor.</figcaption>
+</figure>
+
+<p>That figure is your map. Three stages — compress, condition, diffuse — then a merging step on top. Walk it in that order and you survive any drill-down.</p>
+<h3 id="stage-1-compress-the-weights-with-a-beta-vae">Stage 1: compress the weights with a beta-VAE</h3>
+<p><strong>Why a latent at all?</strong> You cannot run a diffusion U-Net over 1.5B raw weights on a single RTX 4090. So you make the problem tractable by shrinking it first.</p>
+<p>A quick reminder of what a <strong>VAE</strong> is: an autoencoder that learns a <em>smooth, probabilistic</em> latent code rather than an arbitrary one. The <strong>beta</strong> term turns up the pressure toward a smooth, well-behaved latent — which matters because that latent becomes the thing diffusion has to model.</p>
+<p>The mechanism, in order:</p>
+<ul>
+<li><strong>Vectorize</strong> each layer's weight matrix (row-major).</li>
+<li><strong>Pad</strong> to a multiple of a fixed chunk size.</li>
+<li><strong>Split</strong> into contiguous chunks.</li>
+<li><strong>Encode</strong> every chunk with a <em>shared</em> chunk-wise <strong>beta-VAE</strong> into compact latents.</li>
+</ul>
+<p>Everything downstream happens in this latent space, never on raw weights.</p>
+<p><strong>The honest cost — name it before he does.</strong> Compression introduces a <strong>reconstruction floor</strong>. <strong>Theorem 3.1</strong> bounds the global reconstruction error by <code>sqrt(k)</code> times the maximum per-chunk error over <code>k</code> chunks — so error can <em>grow with chunk count</em>. That, plus the fixed chunking, is a stated structural-bias limitation.</p>
+<blockquote>
+<p><strong>How to say it in the room:</strong> "I diffuse in a beta-VAE latent because a U-Net over 1.5B raw weights isn't feasible on one 4090; the beta term gives a smoother diffusion target than a plain autoencoder. The cost is a reconstruction floor — Theorem 3.1, error scales like root-k in the chunk count."</p>
+</blockquote>
+<h3 id="stage-2-tell-it-which-task-conditioning">Stage 2: tell it which task (conditioning)</h3>
+<p>A forecaster that ignores the task is useless — you have to tell it <em>which</em> future you want. Two embeddings, fused.</p>
+<ul>
+<li><strong>Dataset embedding <code>z_D</code>.</strong> A <strong>permutation-invariant set encoder</strong> runs over class-conditional data subsets. <em>Permutation-invariant</em> means the output doesn't change if you reorder or resample the examples — order and count don't matter, only the distribution does.</li>
+<li><strong>Task/language embedding <code>z_c</code>.</strong> An instruction-tuned LLM encodes the task description (the instruction text) into a vector.</li>
+<li><strong>Fuse</strong> them, then inject into the forecaster via <strong>cross-attention / ControlNet-style modulation</strong> (ControlNet = the standard trick for steering a frozen diffusion backbone with an external condition through zero-initialized adapters).</li>
+</ul>
+<p>The glue is a <strong>Contrastive Task-Conditioning loss</strong> — CLIP-style <strong>InfoNCE</strong> — that aligns dataset embeddings with weight embeddings. Plain words: it pulls the <em>right task</em> toward the <em>right region of weight space</em>, so conditioning actually steers the generation instead of decorating it.</p>
+<h3 id="stage-3-the-conditional-u-net-diffusion-the-heart-and-the-one-nuance">Stage 3: the conditional U-Net diffusion (the heart) — and the one nuance</h3>
+<p>Here is where you prove it's real diffusion, not a fancy name. Remember the <strong>conditional-latent-diffusion template</strong> — and here is the creative twist.</p>
+<p>The genuine machinery (this is the textbook part):</p>
+<ul>
+<li>a standard <strong>Gaussian forward noising process</strong> that corrupts the target <code>x_0</code>;</li>
+<li>an <strong>attention U-Net</strong> as the <em>reverse</em> model, with a ControlNet zero-conv adapter plus <strong>LayerEmb / TimeEmb / TextEmb</strong>;</li>
+<li><strong>x0-prediction</strong> — the network predicts the clean state directly;</li>
+<li>trained with a state loss <code>L_state = ||x_hat_0 - x_0||^2</code> plus a <strong>chrono-aware temporal loss <code>L_chrono</code></strong>;</li>
+<li>inference runs the reverse chain from <code>x_T ~ N(0, I)</code> with <strong>DDPM/DDIM</strong> sampling, then decodes <code>theta_hat = D(x_0)</code>.</li>
+</ul>
+<p>That is a real training objective and a real architecture. Nothing cosmetic.</p>
+<figure class="diagram">
+  <img src="../assets/illustrations/diffw-future-target.svg" alt="Normal denoiser recovers the same sample; Diffusion Weights predicts a future weight state">
+  <figcaption>The one idea that makes Diffusion Weights non-standard. A normal denoiser (top) is handed a noised sample and must recover that SAME sample. Diffusion Weights (bottom) is handed a noised current latent and must output a FUTURE-epoch weight latent — so the "denoiser" is really a future-state forecaster. Same machinery, different target.</figcaption>
+</figure>
+
+<p><strong>The nuance that makes it non-canonical — say it proactively, it's your credibility anchor.</strong> In a textbook denoiser, the <code>x_0</code> target is the <em>clean version of the very sample you corrupted</em>. Here, <code>x_0</code> is a <strong>future weight state — the next-epoch checkpoint</strong> — not the clean version of the noisy input. So the "denoiser" is really a <strong>future-state forecaster</strong>. Combine that with (a) operating in a VAE latent and (b) ControlNet conditioning, and you get the precise verdict: <strong>diffusion-inspired, real machinery, non-standard target</strong> — <em>not</em> a textbook DDPM, and <em>not</em> "just regression."</p>
+<p>One more honesty point to volunteer: the intro's line about "treating SGD as a forward diffusion process" is <strong>motivational analogy</strong>. The <em>implemented</em> forward process is plain Gaussian noising, not the literal SGD trajectory. Flag it before he does; it reads as rigor.</p>
+<h3 id="multi-horizon-merging">Multi-Horizon Merging</h3>
+<p>One forecaster, three horizons. Predict <code>x_0</code> at <strong>short / mid / long</strong> horizons, form <strong>task vectors</strong> <code>delta = theta_hat_{tau+delta} - theta_tau</code>, and merge in weight space:</p>
+<ul>
+<li>coefficients are <strong>nonnegative and sum to one</strong> (a convex combination — this is <strong>task-arithmetic / Model Soup</strong> territory; baselines are <strong>Model Soup</strong> and <strong>Greedy Soup</strong>, Wortsman et al. 2022);</li>
+<li>the convex constraint keeps the merged point inside the convex hull of the task vectors — the well-behaved region.</li>
+</ul>
+<figure class="diagram">
+  <img src="../assets/illustrations/diffw-multihorizon-merge.svg" alt="Multi-horizon merging of short, mid, long task vectors">
+  <figcaption>Multi-Horizon Merging: from the current checkpoint, predict three task vectors at short/mid/long horizons and combine them with nonnegative weights summing to one (task-arithmetic style). Composing reliable short horizons beats betting on one hard long forecast: the epoch-250 merge (>0.42) beats the epoch-500 pure prediction (<0.38).</figcaption>
+</figure>
+
+<p><strong>Why it works</strong> is two ideas:</p>
+<ul>
+<li><strong>Phase complementarity</strong> — early checkpoints encode <em>broad adaptation</em>, late ones encode <em>task-specific refinement</em>, so merging captures both.</li>
+<li><strong>Robustness</strong> — the long horizon is the hardest thing to predict, so composing <em>reliable short</em> predictions beats betting everything on one long forecast.</li>
+</ul>
+<p><strong>Evidence:</strong> the epoch-250 merge (<code>&gt;0.42</code>) beats the epoch-500 <em>pure</em> prediction (<code>&lt;0.38</code>); the merge gain is <code>delta Acc 0.037–0.052</code> across three datasets; and the gain correlates with the later checkpoint's quality at <code>r ~ 0.6, p &lt; 0.01</code>. Concede honestly that the coefficients are hyperparameters — it's a well-motivated heuristic, not a tight guarantee.</p>
+<h3 id="does-it-actually-work-the-numbers">Does it actually work? the numbers</h3>
+<figure class="diagram">
+  <img src="../assets/illustrations/diffw-ablation-bars.svg" alt="Ablation cosine similarity bars: full vs no temporal loss vs no state prediction">
+  <figcaption>The strongest internal evidence for the design, as cosine similarity to the true future weights at short / mid / long horizons (GPT-2 XL, Wikipedia). Full 0.85 / 0.82 / 0.78. Drop the chrono temporal loss: 0.82 / 0.78 / 0.73. Drop state-prediction (a plain residual U-Net): 0.78 / 0.72 / 0.65 — the biggest fall (up to 0.13) on the LONG horizon, exactly where residual error compounding should bite.</figcaption>
+</figure>
+
+<p><strong>The speedup — name the discrepancy yourself.</strong> The numbers genuinely disagree across the paper, so own it rather than reconcile with invented math:</p>
+<ul>
+<li><strong>~3.2x</strong> is the conservative <em>headline</em> in the abstract and intro.</li>
+<li><strong>~3–4x</strong> is the implementation-details range.</li>
+<li><strong>3.8–4.3x</strong> is what Table 1 actually measures per task.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Task</th>
+<th>Wall-clock</th>
+<th>Speedup</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GLUE</td>
+<td>10h -&gt; 2.5h</td>
+<td>4.0x</td>
+</tr>
+<tr>
+<td>LAMBADA</td>
+<td>6h -&gt; 1.6h</td>
+<td>3.8x</td>
+</tr>
+<tr>
+<td>MMLU</td>
+<td>18h -&gt; 4.2h</td>
+<td>4.3x</td>
+</tr>
+<tr>
+<td>OpenBookQA</td>
+<td>8h -&gt; 2.1h</td>
+<td>3.8x</td>
+</tr>
+<tr>
+<td>WikiText</td>
+<td>24h -&gt; 5.8h</td>
+<td>4.1x</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Quality is parity-or-improvement, not a deficit:</strong> WMT16 EN-DE is scored with <strong>TER, not BLEU</strong> — <code>117.17 vs 133.88 (-12.5%)</code>; OpenBookQA <code>+2.9%</code>; Winogrande <code>+4.4%</code>; PIGA weight variance <code>-86%</code>. (TER is concrete — don't say "I'd have to look it up.")</p>
+<p><strong>The ablation triplets are your strongest single piece of evidence.</strong> Full <code>0.85 / 0.82 / 0.78</code> versus a plain residual U-Net <code>0.78 / 0.72 / 0.65</code> — with the biggest drop on the <em>long</em> horizon.</p>
+<h3 id="why-it-works-intuition">Why it works (intuition)</h3>
+<ul>
+<li><strong>Residual prediction compounds error.</strong> Each predicted update feeds the next, so error accumulates over a long horizon. Predicting the <strong>destination <code>x_0</code></strong> in one shot sidesteps that compounding.</li>
+<li>The residual ablation <strong>fails in exactly the predicted way</strong> — worst on the long horizon (<code>0.65</code>), where compounding should bite hardest. That's not a coincidence; it's the design being confirmed.</li>
+<li><strong>Theorem 3.2</strong> (a cosine-similarity lower bound) says <em>directional correctness survives modest Euclidean error</em> — which is what you actually need for a usable checkpoint. (Not Aghajanyan intrinsic dimensionality — that was an old wrong claim; do not say it.)</li>
+</ul>
+<h3 id="amortized-not-free">Amortized, not free</h3>
+<figure class="diagram">
+  <img src="../assets/illustrations/diffw-amortized.svg" alt="Amortized not free: upfront trajectory collection then cheap per-task forecasting">
+  <figcaption>Why the ~3.2x is amortized, not free. You still pay full price once to collect real trajectories (fine-tune GPT-2 for 20,000 epochs, keep 20 checkpoints) and train the forecaster. The payoff is on the margin: each new related task is forecast cheaply instead of trained to convergence. It wins when you fine-tune many related tasks.</figcaption>
+</figure>
+
+<p>This is the killer follow-up, so pre-empt it. The acceleration is <strong>amortized, not free</strong>: you still fine-tune GPT-2 for <strong>20,000 epochs</strong> and keep <strong>20 equidistant checkpoints</strong> to train the forecaster. The win is <strong>per new related task</strong> — forecast cheaply instead of training to convergence. The paper <strong>does not quantify a break-even</strong>, and <strong>you must not invent one</strong> (the old "45–60 jobs" figure is fabricated).</p>
+<h3 id="the-four-questions-you-must-nail">The four questions you must nail</h3>
+<p>One crisp answer each — then point to doc 20 for the full Q&amp;A.</p>
+<ul>
+<li><strong>Is it really diffusion?</strong> Yes on the machinery — real Gaussian forward process, DDPM/DDIM reverse chain, attention U-Net denoiser. Non-canonical because <code>x_0</code> is a <em>future</em> weight state in a beta-VAE latent with ControlNet conditioning. Don't overclaim "real DDPM"; don't overcorrect into "just regression."</li>
+<li><strong>Where does the 3.2x come from?</strong> ~3.2x is the conservative headline; Table 1 measures 3.8–4.3x. The exact 3.2x derivation isn't reconstructible from the paper — own the gap rather than invent math.</li>
+<li><strong>Why predict <code>x_0</code>, not the residual?</strong> Residuals compound error over the horizon; predicting the destination sidesteps it — and the residual ablation fails worst on the long horizon, exactly as predicted.</li>
+<li><strong>Why a beta-VAE latent?</strong> Tractability (no U-Net over 1.5B raw weights on one 4090) plus a smoother diffusion target. The exact <strong>latent dim and chunk size are appendix-deferred</strong> — point there, do not guess.</li>
+</ul>
+<h3 id="honest-limitations_1">Honest limitations</h3>
+<p>State these before he digs — volunteering failure modes is the move with this interviewer.</p>
+<ul>
+<li><strong>MLP-only.</strong> It predicts only MLP-layer weights; attention is still trained normally. Frame it as <em>why the wall-clock numbers are believable</em> — attention isn't assumed free. It does <strong>not</strong> predict attention projections (old fabrication).</li>
+<li><strong>Amortized, not free</strong> — pays off over many related tasks; no break-even in the paper.</li>
+<li><strong>Scale unvalidated.</strong> Everything is GPT-2 up to 1.5B on one 4090; scaling is explicit future work. Call it a proof-of-concept, not a production claim. (No 7B / LLaMA / Mistral results, no 312-run corpus, no corrective SGD steps — all fabrications.)</li>
+<li><strong>Assumes consistent training dynamics</strong> — can fail under curriculum learning, optimizer switching, or large in-run distribution shift.</li>
+<li><strong>"First to…" is positioning, not measurement</strong> — flag it as such; Versley treats unearned "first" claims as a red flag.</li>
+</ul>
+<blockquote>
+<p><strong>How to say the diffusion question in the room:</strong> "It's diffusion-inspired with real diffusion machinery — a genuine Gaussian forward process, a DDPM/DDIM reverse chain, and an attention U-Net denoiser. What makes it non-canonical is the target: I use x0-prediction where x0 is a <em>future</em> weight state — the next-epoch checkpoint — not the clean version of the noisy input, operating in a beta-VAE latent with ControlNet-style conditioning. I wouldn't call it a textbook DDPM over weight space, and the 'SGD as forward diffusion' line in the intro is motivational analogy, not the implemented math."</p>
+</blockquote>
+<h2 id="paper-4-reverse-imaging-diffusion-as-a-physics-inverse-problem">Paper 4 · Reverse Imaging — diffusion as a physics inverse problem</h2>
+<p>This is the paper where the <strong>diffusion primer pays off</strong>: it reuses the exact score / guided-sampling machinery you just learned, but points it at MR physics instead of pixels. You are <strong>4th of 8 authors</strong> here (printed as Tongyun Yang). The lead is <strong>Yidong Zhao</strong>; the corresponding author and supervisor is <strong>Qian Tao</strong> at TU Delft. It is an <strong>arXiv preprint from Aug 2025</strong>, written in MICCAI/LNCS workshop style — say "preprint," and <strong>never</strong> call it MICCAI 2025 or an IEEE-TMI paper. That was a fabrication in the old prep.</p>
+<h3 id="the-problem-in-plain-terms">The problem, in plain terms</h3>
+<p>Cardiac MRI segmentation models are almost always trained on <strong>bSSFP cine</strong> (the standard "bright-blood" movie). They fall apart on other <strong>sequences</strong> — <strong>MOLLI</strong> T1-mapping, <strong>GRE</strong> — because the contrast is completely different. MOLLI can even <strong>invert</strong> the blood-to-myocardium contrast, so the heart looks nothing like what the model trained on. This is <strong>cross-sequence</strong>, not cross-vendor: plain intensity augmentation handles a different scanner, but it cannot manufacture a different physics.</p>
+<h3 id="the-key-insight">The key insight</h3>
+<p>The genuinely sequence-invariant "content" of an MR image is not its appearance — it is the underlying tissue <strong>spin properties</strong> <code>z = (PD, T1, T2)</code> (proton density, and the two relaxation times). Every sequence is just a <strong>different Bloch forward model</strong> <code>f_i</code> applied to the <em>same</em> <code>z</code>. So instead of translating image-to-image, you run the physics <strong>backwards</strong>: infer <code>z</code> from one image, then re-render <em>any</em> sequence by applying its forward model.</p>
+<figure class="diagram">
+  <img src="../assets/illustrations/reverse-imaging-mechanism.svg" alt="The forward/reverse loop: recover spin maps from one image, then re-render any sequence">
+  <figcaption>Reverse Imaging: one observed image is inverted (guided diffusion plus a spin prior) into sequence-invariant spin maps z = (PD, T1, T2), which any Bloch forward model can then re-render into a new sequence.</figcaption>
+</figure>
+
+<h3 id="the-mechanism-as-a-clean-inverse-problem">The mechanism as a clean inverse problem</h3>
+<p>Read it straight off the primer — same three ingredients, new latent:</p>
+<ul>
+<li><strong>Likelihood = physics.</strong> The forward model is the <strong>Bloch signal equation</strong>: an image is <code>f_i(z)</code>. So <code>log p(x|z) ∝ -||f_i(z) - x||²</code> — pure measurement consistency, no learned weights.</li>
+<li><strong>Prior = a DDPM in spin space.</strong> <code>p(z)</code> is a diffusion model trained on real T1/T2 maps; the denoiser hands you the <strong>score</strong> <code>∇ log p(z)</code>, exactly the object guided sampling needs.</li>
+<li><strong>Posterior.</strong> <code>p(z|x) ∝ p(x|z) · p(z)</code>. Recovering three maps from one qualitative image is <strong>ill-posed and nonlinear</strong> — name that tension yourself.</li>
+<li><strong>Guided inference is DPS.</strong> This is <strong>diffusion posterior sampling</strong>: at each reverse step add a <strong>data-consistency gradient</strong> built on a <strong>Tweedie</strong> one-step estimate <code>ẑ₀</code> of the clean spin maps, render it through <code>f_i</code>, compare to the observed image, backprop.</li>
+</ul>
+<p>Say the novelty plainly: <strong>the sampler is off-the-shelf DPS</strong>. What is new is <em>what you plug into it</em> — a <strong>physical latent</strong> (the spin triplet) and a <strong>nonlinear Bloch measurement operator</strong>, not a linear blur or k-space mask.</p>
+<h3 id="two-usages">Two usages</h3>
+<figure class="diagram">
+  <img src="../assets/illustrations/ri-t2s-vs-ri-aug.svg" alt="Why RI-Aug beats RI-T2S: apply the inverse problem on the information-rich source side, no">
+  <figcaption>Two usages of the same inverse problem. RI-T2S inverts the target image at test time (fails when GRE's short TE starves it of T2 signal); RI-Aug inverts the information-rich bSSFP source and synthesizes target contrasts for training — the more robust default.</figcaption>
+</figure>
+
+<ul>
+<li><strong>RI-T2S</strong> — translate a target image (MOLLI/GRE) <em>back</em> to bSSFP through <code>z</code>, then segment with the bSSFP model.</li>
+<li><strong>RI-Aug</strong> — invert the information-rich <strong>bSSFP source</strong> and synthesize MOLLI/GRE contrasts to <strong>augment training</strong>.</li>
+</ul>
+<p>Crucially, <strong>neither needs any target-domain data</strong>.</p>
+<h3 id="the-headline-numbers">The headline numbers</h3>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Baseline → RI-Aug</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>MOLLI LV</strong> Dice</td>
+<td><strong>39.9 → 91.6</strong></td>
+</tr>
+<tr>
+<td><strong>Device MYO</strong> Dice</td>
+<td><strong>86.9 → 93.1</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>RI-Aug is best on both eval sets</strong>, and every RI-Aug gain is significant at <strong>p &lt; 0.05</strong>. The honest failure: <strong>RI-T2S drops <em>below</em> baseline on the device GRE set</strong>, because GRE's <strong>~1.5 ms echo time</strong> minimizes T2 weighting and starves the inverse problem of signal. The rule: <strong>translate when the target image is informative; augment when it isn't</strong> — augmentation is the robust default.</p>
+<h3 id="honest-limitations-volunteer-these_1">Honest limitations (volunteer these)</h3>
+<ul>
+<li>The recovered spin maps are <strong>"approximate but meaningful"</strong> — <strong>never</strong> validated as quantitative T1/T2 (no ms/% error reported).</li>
+<li>A <strong>load-bearing flip angle (45°) was guessed</strong> for ACDC, with <strong>no sensitivity ablation</strong>.</li>
+<li><strong>Small cohorts</strong>, small spin prior; it's a <strong>preprint</strong>.</li>
+</ul>
+<blockquote class="warn">
+<p><strong>How to say it in the room:</strong> "We repurpose diffusion posterior sampling from image reconstruction into sequence translation — the latent is the physical spin triplet, the operator is the nonlinear Bloch equation, and we never claim quantitative maps, only contrast realistic enough to augment."</p>
+</blockquote>
+<p><strong>Portable lesson:</strong> when you can write down the <strong>forward process</strong> of your domain, you can run it <strong>backwards</strong> with a diffusion prior and generate the distribution you cannot collect.</p>
+<h2 id="your-two-first-author-papers-sixty-seconds-each-you-know-these-here-is-the-clean-anchor">Your two first-author papers — sixty seconds each (you know these; here is the clean anchor)</h2>
+<p>These two are <em>yours</em> — you led them, so own them plainly, including the absences. Here is the corrected anchor for each.</p>
+<h3 id="1-pruning-nnu-net-midl-2025-first-author">1. Pruning nnU-Net (MIDL 2025, first author)</h3>
+<p><strong>Headline, said correctly:</strong> one-shot <strong>magnitude-threshold pruning</strong> — train the model to convergence, then zero every weight below a fixed threshold, <em>no retraining</em> — removes <strong>over 80% of a trained nnU-Net's weights</strong> while <strong>proxy Dice stays above 0.95</strong> across four medical-imaging datasets.</p>
+<ul>
+<li><strong>Proxy Dice</strong> = agreement between the pruned and the <em>unpruned</em> model, not accuracy against ground truth. Say "proxy," every time.</li>
+<li><strong>No measured speedup.</strong> Unstructured pruning leaves zeros you still store and multiply, so efficiency is framed as future work. <strong>Never say "99% sparsity" or "6x."</strong></li>
+<li><strong>The real finding is the inverted-U redundancy map:</strong> the <strong>bottleneck and deep layers</strong> hold the <em>most</em> parameters but are the <em>most</em> prunable; the <strong>encoder and decoder ends</strong> hold the critical weights. Consistent across all four datasets.</li>
+</ul>
+<figure class="diagram">
+  <img src="../assets/illustrations/inverted-u-redundancy.svg" alt="Inverted-U weight redundancy: bottleneck and deep layers most prunable">
+  <figcaption>The pruning paper's real contribution: parameter count rises toward the bottleneck, and so does post-pruning sparsity. The deep layers and bottleneck are the MOST prunable; the encoder and decoder ends hold the critical weights. Consistent across all four datasets.</figcaption>
+</figure>
+
+<p><em>In the room:</em> "First-author MIDL 2025 short paper. One-shot magnitude pruning, over 80% of weights gone at proxy Dice above 0.95 across four datasets — and the real finding is the inverted-U. I measured redundancy, not speedup."</p>
+<h3 id="2-eye-tracking-emotion-in-vr-imwut-2025-co-first-with-bishwas-regmi">2. Eye-Tracking Emotion in VR (IMWUT 2025, co-first with Bishwas Regmi)</h3>
+<p><strong>Headline, said correctly:</strong> the <strong>first VR emotion dataset</strong> to capture <em>raw</em> high-frame-rate <strong>periocular video</strong> (the micro-expressions around the eye) alongside <strong>gaze and pupil at 4x the usual frequency</strong>, with discrete <strong>Ekman emotion labels</strong>.</p>
+<ul>
+<li>The benchmark is a <strong>multi-faceted fusion</strong> model, <em>not</em> gaze-only. A ViViT reads the periocular video, a time-series transformer reads the eye-movement, and a self-attention encoder fuses the tokens before a 7-way softmax.</li>
+<li><strong>The lift:</strong> fusing periocular video with eye-movement raises <strong>cross-session F1 from 0.54 (periocular-only) to 0.70.</strong> Eye-movement alone is the <em>weakest</em> path.</li>
+<li><strong>The honest dip:</strong> at a 0.5s window, fusion (0.43) slightly loses to periocular-only (0.45) — the eye-movement stream needs a minimum time budget. That's a temporal-budget finding, not a bug; volunteer it.</li>
+</ul>
+<figure class="diagram">
+  <img src="../assets/illustrations/emotion-fusion-architecture.svg" alt="Multi-faceted fusion: periocular video plus eye-movement, fused by self-attention">
+  <figcaption>The multi-faceted fusion model: a ViViT reads the periocular video, a time-series transformer reads the 4D eye-movement, and a self-attention encoder fuses the three tokens before a 7-way softmax. Eye-movement alone is the weakest path; the lift comes from adding the periocular video.</figcaption>
+</figure>
+
+<p><em>In the room:</em> "First author, Bishwas Regmi co-first. The first dataset with raw periocular video plus 4x-frequency gaze and Ekman labels; fusion lifts cross-session F1 from 0.54 to 0.70."</p>
+<h3 id="the-through-line">The through-line</h3>
+<p>Both are the same <strong>efficiency discipline</strong> — compress hard, then find the saturation point where the metric stops moving — aimed at another domain. For the exact Q&amp;A and every number, see <strong>"Own Papers — Ground-Truth Defense."</strong></p>
+<h2 id="putting-it-together">Putting it together</h2>
+<p>Four papers, one thesis: <strong>AI moved from a scaling race to a systems race.</strong> You do not win by training a bigger model — you win by spending a fixed model budget well. TwinRouterBench <em>measures</em> step-level routing honestly; MERA <em>does</em> it safely inside a live agent; Diffusion Weights <em>forecasts</em> the optimization you would otherwise pay for; Reverse Imaging <em>synthesizes</em> the data distribution you cannot collect. That arc maps directly onto Versley's own efficiency-over-scale world — which is the rapport you want.</p>
+<p>For the exact figures, the byline/venue facts, and the full skeptical Q&amp;A on each paper, see <strong>Own Papers — Ground-Truth Defense</strong>; for the one-screen banned-phrase cram, the <strong>Kill List</strong>; and for the consolidated essentials, the <strong>Final-Hours Must-Read</strong>.</p>
+      <nav class="prevnext"><a class="pn prev" href="20_OWN_PAPERS_GROUND_TRUTH.html">‹ <span>★ Own Papers — Ground-Truth Defense</span></a><a class="pn next" href="04_PUBLICATIONS_PROJECTS_DEFENSE.html"><span>Publications &amp; Projects Defense</span> ›</a></nav>
+    </article>
+    <aside class="toc"><div class="toc-title">On this page</div><ul>
+<li><a href="#primer-a-llm-routing-in-four-minutes">Primer A · LLM routing in four minutes</a></li>
+<li><a href="#paper-1-twinrouterbench-the-honest-router-benchmark">Paper 1 · TwinRouterBench — the honest router benchmark</a></li>
+<li><a href="#paper-2-mera-routing-safely-inside-a-live-agent">Paper 2 · MERA — routing safely inside a live agent</a></li>
+<li><a href="#primer-b-diffusion-models-in-eight-minutes-read-this-before-the-next-two-papers">Primer B · Diffusion models in eight minutes (read this before the next two papers)</a></li>
+<li><a href="#paper-3-diffusion-weights-the-centerpiece-taught-slowly">Paper 3 · Diffusion Weights — the centerpiece, taught slowly</a></li>
+<li><a href="#paper-4-reverse-imaging-diffusion-as-a-physics-inverse-problem">Paper 4 · Reverse Imaging — diffusion as a physics inverse problem</a></li>
+<li><a href="#your-two-first-author-papers-sixty-seconds-each-you-know-these-here-is-the-clean-anchor">Your two first-author papers — sixty seconds each (you know these; here is the clean anchor)</a></li>
+<li><a href="#putting-it-together">Putting it together</a></li>
+</ul></aside>
+  </main>
+</div>
+<script>window.SEARCH_JSON="../assets/../search-index.json";</script>
+<script src="../assets/search-data.js"></script>
+<script src="../assets/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" role="img">
+  <title>Ablation bar chart: state-prediction and temporal loss</title>
+  <desc>Grouped bar chart of cosine similarity to the true future weights at three forecast horizons (Short, Mid, Long). The full model leads at every horizon (0.85, 0.82, 0.78); removing the temporal loss drops it (0.82, 0.78, 0.73); replacing state prediction with a residual U-Net drops it most (0.78, 0.72, 0.65), with the largest 0.13 gap at the Long horizon where residual error compounds.</desc>
+
+  <defs>
+    <marker id="amb" markerWidth="9" markerHeight="7" refX="4.5" refY="3.5" orient="auto">
+      <polygon points="0 0, 9 3.5, 0 7" fill="#b45309"/>
+    </marker>
+  </defs>
+
+  <g font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif">
+
+    <!-- Title + subtitle -->
+    <text x="480" y="30" text-anchor="middle" font-size="19" font-weight="700" fill="#1f2733">Ablation: state-prediction + temporal loss both matter (GPT-2 XL, Wikipedia)</text>
+    <text x="480" y="50" text-anchor="middle" font-size="12" fill="#56616f">cosine similarity to the true future weights &#8212; higher is better</text>
+
+    <!-- Legend -->
+    <rect x="250" y="62" width="14" height="14" rx="3" fill="#2563eb"/>
+    <text x="269" y="73" font-size="11" fill="#1f2733">Full model</text>
+    <rect x="351" y="62" width="14" height="14" rx="3" fill="#94a3b8"/>
+    <text x="370" y="73" font-size="11" fill="#1f2733">w/o Temporal Loss</text>
+    <rect x="494" y="62" width="14" height="14" rx="3" fill="#b45309"/>
+    <text x="513" y="73" font-size="11" fill="#1f2733">w/o State Prediction (residual U-Net)</text>
+
+    <!-- Plot background -->
+    <rect x="80" y="120" width="580" height="270" rx="10" fill="#f7f8fa" stroke="#94a3b8" stroke-width="1" stroke-dasharray="5 4"/>
+
+    <!-- Y axis label -->
+    <text x="30" y="255" text-anchor="middle" font-size="11" fill="#56616f" transform="rotate(-90 30 255)">cosine similarity</text>
+
+    <!-- Gridlines + y labels -->
+    <line x1="80" y1="120" x2="660" y2="120" stroke="#94a3b8" stroke-width="0.75" stroke-dasharray="3 3"/>
+    <line x1="80" y1="210" x2="660" y2="210" stroke="#94a3b8" stroke-width="0.75" stroke-dasharray="3 3"/>
+    <line x1="80" y1="300" x2="660" y2="300" stroke="#94a3b8" stroke-width="0.75" stroke-dasharray="3 3"/>
+    <line x1="80" y1="390" x2="660" y2="390" stroke="#94a3b8" stroke-width="1.2"/>
+    <line x1="80" y1="120" x2="80" y2="390" stroke="#94a3b8" stroke-width="1"/>
+    <text x="72" y="124" text-anchor="end" font-size="10" fill="#56616f">0.9</text>
+    <text x="72" y="214" text-anchor="end" font-size="10" fill="#56616f">0.8</text>
+    <text x="72" y="304" text-anchor="end" font-size="10" fill="#56616f">0.7</text>
+    <text x="72" y="394" text-anchor="end" font-size="10" fill="#56616f">0.6</text>
+
+    <!-- ===== SHORT group (center 175) ===== -->
+    <rect x="112" y="165" width="38" height="225" rx="3" fill="#2563eb"/>
+    <rect x="156" y="192" width="38" height="198" rx="3" fill="#94a3b8"/>
+    <rect x="200" y="228" width="38" height="162" rx="3" fill="#b45309"/>
+    <text x="131" y="159" text-anchor="middle" font-size="10.5" font-weight="700" fill="#1f2733">0.85</text>
+    <text x="175" y="186" text-anchor="middle" font-size="10.5" font-weight="700" fill="#1f2733">0.82</text>
+    <text x="219" y="222" text-anchor="middle" font-size="10.5" font-weight="700" fill="#1f2733">0.78</text>
+    <text x="175" y="408" text-anchor="middle" font-size="13" font-weight="600" fill="#1f2733">Short</text>
+
+    <!-- ===== MID group (center 385) ===== -->
+    <rect x="322" y="192" width="38" height="198" rx="3" fill="#2563eb"/>
+    <rect x="366" y="228" width="38" height="162" rx="3" fill="#94a3b8"/>
+    <rect x="410" y="282" width="38" height="108" rx="3" fill="#b45309"/>
+    <text x="341" y="186" text-anchor="middle" font-size="10.5" font-weight="700" fill="#1f2733">0.82</text>
+    <text x="385" y="222" text-anchor="middle" font-size="10.5" font-weight="700" fill="#1f2733">0.78</text>
+    <text x="429" y="276" text-anchor="middle" font-size="10.5" font-weight="700" fill="#1f2733">0.72</text>
+    <text x="385" y="408" text-anchor="middle" font-size="13" font-weight="600" fill="#1f2733">Mid</text>
+
+    <!-- ===== LONG group (center 595) ===== -->
+    <rect x="532" y="228" width="38" height="162" rx="3" fill="#2563eb"/>
+    <rect x="576" y="273" width="38" height="117" rx="3" fill="#94a3b8"/>
+    <rect x="620" y="345" width="38" height="45" rx="3" fill="#b45309"/>
+    <text x="551" y="222" text-anchor="middle" font-size="10.5" font-weight="700" fill="#1f2733">0.78</text>
+    <text x="595" y="267" text-anchor="middle" font-size="10.5" font-weight="700" fill="#1f2733">0.73</text>
+    <text x="639" y="339" text-anchor="middle" font-size="10.5" font-weight="700" fill="#1f2733">0.65</text>
+    <text x="595" y="408" text-anchor="middle" font-size="13" font-weight="600" fill="#1f2733">Long</text>
+
+    <!-- horizon direction note -->
+    <text x="385" y="432" text-anchor="middle" font-size="10" fill="#56616f">forecast horizon &#8594; longer</text>
+
+    <!-- ===== Gap annotation on the LONG group ===== -->
+    <!-- reference levels: 0.78 (top y=228) and 0.65 (top y=345) -->
+    <line x1="532" y1="228" x2="672" y2="228" stroke="#b45309" stroke-width="1" stroke-dasharray="4 3"/>
+    <line x1="620" y1="345" x2="672" y2="345" stroke="#b45309" stroke-width="1" stroke-dasharray="4 3"/>
+    <!-- double arrow spanning the gap -->
+    <line x1="668" y1="286" x2="668" y2="229" stroke="#b45309" stroke-width="1.5" marker-end="url(#amb)"/>
+    <line x1="668" y1="286" x2="668" y2="344" stroke="#b45309" stroke-width="1.5" marker-end="url(#amb)"/>
+    <text x="660" y="290" text-anchor="end" font-size="10" font-weight="700" fill="#b45309">&#916;0.13</text>
+
+    <!-- callout box -->
+    <rect x="684" y="238" width="252" height="104" rx="10" fill="#fff7ed" stroke="#b45309" stroke-width="1.5"/>
+    <text x="700" y="260" font-size="11" font-weight="700" fill="#b45309">Long horizon: 0.78 vs 0.65</text>
+    <text x="700" y="284" font-size="13" font-weight="700" fill="#1f2733">up to 0.13 drop</text>
+    <text x="700" y="304" font-size="10.5" fill="#56616f">worst exactly where the</text>
+    <text x="700" y="318" font-size="10.5" fill="#56616f">residual U-Net's error compounds</text>
+
+  </g>
+</svg>
