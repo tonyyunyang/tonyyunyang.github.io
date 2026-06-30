@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 360" role="img">
+  <title>MERA paper facts-at-a-glance card</title>
+  <desc>A reference card listing the MERA paper title, venue, the seven authors in byline order with the third author highlighted, and the headline router metrics with a note that 87.3% is router accuracy, not task accuracy.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#2563eb"/></marker>
+    <marker id="arrowGray" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#94a3b8"/></marker>
+    <marker id="arrowGreen" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#16a34a"/></marker>
+    <marker id="arrowRed" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#dc2626"/></marker>
+  </defs>
+  <g font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif">
+
+    <!-- Header band: full paper title -->
+    <rect x="16" y="14" width="908" height="40" rx="10" fill="#eef2ff" stroke="#4f46e5" stroke-width="2"/>
+    <text x="470" y="40" text-anchor="middle" font-size="15.5" font-weight="700" fill="#1f2733">MERA: Model Evolution and Routing with Skill Adaptation for Agentic Systems at Scale</text>
+
+    <!-- Chips row -->
+    <rect x="16" y="62" width="250" height="26" rx="10" fill="#eef2ff" stroke="#4f46e5" stroke-width="1.5"/>
+    <text x="28" y="79" font-size="11" fill="#1f2733">RL-Eval 2026 &#183; OpenReview 6oyBiDMCHs</text>
+
+    <rect x="278" y="62" width="156" height="26" rx="10" fill="#f3e8ff" stroke="#7c3aed" stroke-width="1.5"/>
+    <text x="290" y="79" font-size="11" fill="#1f2733">code-generation study</text>
+
+    <rect x="446" y="62" width="276" height="26" rx="10" fill="#e8f0fe" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="458" y="79" font-size="11" fill="#1f2733">github.com/zeyuyuyu/router-skills-evolve</text>
+
+    <!-- Left byline panel -->
+    <rect x="16" y="98" width="600" height="248" rx="10" fill="#f7f8fa" stroke="#334155" stroke-width="2"/>
+    <text x="30" y="120" font-size="12.5" font-weight="700" fill="#1f2733">Byline &#183; 7 authors, in submission order</text>
+
+    <!-- Row 3 highlight (you) -->
+    <rect x="22" y="190" width="588" height="28" rx="8" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+
+    <!-- Author 1 -->
+    <circle cx="36" cy="148" r="10" fill="#e8f0fe" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="36" y="151.5" text-anchor="middle" font-size="11" font-weight="700" fill="#2563eb">1</text>
+    <text x="54" y="152" font-size="11"><tspan font-size="12.5" font-weight="700" fill="#1f2733">Yuhang Yao</tspan><tspan fill="#56616f">&#160;&#8212;&#160;Carnegie Mellon University</tspan></text>
+
+    <!-- Author 2 -->
+    <circle cx="36" cy="176" r="10" fill="#e8f0fe" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="36" y="179.5" text-anchor="middle" font-size="11" font-weight="700" fill="#2563eb">2</text>
+    <text x="54" y="180" font-size="11"><tspan font-size="12.5" font-weight="700" fill="#1f2733">Zeyu Wang</tspan><tspan fill="#56616f">&#160;&#8212;&#160;UCLA</tspan></text>
+
+    <!-- Author 3 (you) -->
+    <circle cx="36" cy="204" r="10" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+    <text x="36" y="207.5" text-anchor="middle" font-size="11" font-weight="700" fill="#16a34a">3</text>
+    <text x="54" y="208" font-size="11"><tspan font-size="12.5" font-weight="700" fill="#1f2733">Tongyun Yang</tspan><tspan fill="#56616f">&#160;&#8212;&#160;Independent Researcher</tspan></text>
+    <rect x="492" y="194" width="114" height="20" rx="10" fill="#16a34a"/>
+    <text x="549" y="208" text-anchor="middle" font-size="9.5" font-weight="700" fill="#ffffff">YOU &#183; 3rd of 7</text>
+
+    <!-- Author 4 -->
+    <circle cx="36" cy="232" r="10" fill="#e8f0fe" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="36" y="235.5" text-anchor="middle" font-size="11" font-weight="700" fill="#2563eb">4</text>
+    <text x="54" y="236" font-size="11"><tspan font-size="12.5" font-weight="700" fill="#1f2733">Wanyi Chen</tspan><tspan fill="#56616f">&#160;&#8212;&#160;Soochow University</tspan></text>
+
+    <!-- Author 5 -->
+    <circle cx="36" cy="260" r="10" fill="#e8f0fe" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="36" y="263.5" text-anchor="middle" font-size="11" font-weight="700" fill="#2563eb">5</text>
+    <text x="54" y="264" font-size="11"><tspan font-size="12.5" font-weight="700" fill="#1f2733">Yuhang Han</tspan><tspan fill="#56616f">&#160;&#8212;&#160;Shanghai Jiao Tong University</tspan></text>
+
+    <!-- Author 6 -->
+    <circle cx="36" cy="288" r="10" fill="#e8f0fe" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="36" y="291.5" text-anchor="middle" font-size="11" font-weight="700" fill="#2563eb">6</text>
+    <text x="54" y="292" font-size="11"><tspan font-size="12.5" font-weight="700" fill="#1f2733">Jie Xiao</tspan><tspan fill="#56616f">&#160;&#8212;&#160;Gradient</tspan></text>
+
+    <!-- Author 7 (corresponding) -->
+    <circle cx="36" cy="316" r="10" fill="#e8f0fe" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="36" y="319.5" text-anchor="middle" font-size="11" font-weight="700" fill="#2563eb">7</text>
+    <text x="54" y="320" font-size="11"><tspan font-size="12.5" font-weight="700" fill="#1f2733">Tianyu Shi</tspan><tspan fill="#56616f">&#160;&#8212;&#160;Gradient</tspan><tspan font-size="9.5" fill="#56616f">&#160;&#183; tianyu@gradient.network</tspan></text>
+    <rect x="506" y="306" width="100" height="20" rx="10" fill="#e8f0fe" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="556" y="319.5" text-anchor="middle" font-size="9.5" font-weight="700" fill="#2563eb">corresponding</text>
+
+    <!-- Right column: stat block -->
+    <rect x="632" y="98" width="292" height="112" rx="10" fill="#f7f8fa" stroke="#334155" stroke-width="2"/>
+    <text x="644" y="118" font-size="11.5" font-weight="700" fill="#1f2733">Best 4-cycle schedule</text>
+    <text x="644" y="133" font-size="10" fill="#56616f">Skill &#8594; LLM &#8594; Router</text>
+
+    <text x="680" y="180" text-anchor="middle" font-size="20" font-weight="700" fill="#16a34a">87.3%</text>
+    <text x="680" y="196" text-anchor="middle" font-size="9.5" fill="#56616f">router acc</text>
+
+    <text x="778" y="180" text-anchor="middle" font-size="20" font-weight="700" fill="#2563eb">4.4%</text>
+    <text x="778" y="196" text-anchor="middle" font-size="9.5" fill="#56616f">fallback</text>
+
+    <text x="876" y="180" text-anchor="middle" font-size="20" font-weight="700" fill="#ea580c">51.8%</text>
+    <text x="876" y="196" text-anchor="middle" font-size="9.5" fill="#56616f">cost vs large</text>
+
+    <!-- Trap caption -->
+    <rect x="632" y="218" width="292" height="44" rx="10" fill="#fef2f2" stroke="#dc2626" stroke-width="2"/>
+    <text x="778" y="237" text-anchor="middle" font-size="11" font-weight="700" fill="#dc2626">87.3% = ROUTER accuracy (832 held-out),</text>
+    <text x="778" y="252" text-anchor="middle" font-size="11" font-weight="700" fill="#dc2626">NOT task accuracy</text>
+
+    <!-- Note strip -->
+    <rect x="632" y="270" width="292" height="38" rx="10" fill="#fef9c3" stroke="#ea580c" stroke-width="2"/>
+    <text x="778" y="293" text-anchor="middle" font-size="11.5" font-weight="700" fill="#9a3412">NO McGill / Tsinghua / Tencent</text>
+
+  </g>
+</svg>

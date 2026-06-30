@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 460" role="img">
+  <title>GRPO zero-variance collapse: why the MERA adapter stays flat</title>
+  <desc>Three K=4 rollout groups show that all-pass and all-fail groups have zero variance and zero gradient, so only mixed-outcome groups train the single Qwen2.5-Coder-1.5B adapter, which stays flat at 46.5 to 47.5 percent.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#2563eb"/></marker>
+    <marker id="arrowGray" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#94a3b8"/></marker>
+    <marker id="arrowGreen" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#16a34a"/></marker>
+    <marker id="arrowRed" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#dc2626"/></marker>
+  </defs>
+  <g font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif">
+
+    <!-- Title + subtitle -->
+    <text x="20" y="28" font-size="18" font-weight="700" fill="#1f2733">Why the GRPO adapter stalls: zero-variance collapse</text>
+    <text x="20" y="50" font-size="12" fill="#56616f">K = 4 rollouts per prompt &#183; binary pass/fail reward &#183; group-relative advantage A = (r &#8722; mean) / std</text>
+
+    <!-- Legend -->
+    <rect x="678" y="40" width="13" height="13" rx="2" fill="#dcfce7" stroke="#16a34a" stroke-width="1.3"/>
+    <text x="696" y="50" font-size="11" fill="#56616f">1 = pass</text>
+    <rect x="760" y="40" width="13" height="13" rx="2" fill="#fef2f2" stroke="#dc2626" stroke-width="1.3"/>
+    <text x="778" y="50" font-size="11" fill="#56616f">0 = fail</text>
+
+    <!-- ================= PANEL A : all pass ================= -->
+    <rect x="20" y="82" width="290" height="298" rx="10" fill="#f7f8fa" stroke="#94a3b8" stroke-width="2" stroke-dasharray="6 5"/>
+    <text x="165" y="106" font-size="14" font-weight="700" fill="#1f2733" text-anchor="middle">Group A &#183; all pass</text>
+    <text x="165" y="126" font-size="12" fill="#56616f" text-anchor="middle">rewards = [1, 1, 1, 1]</text>
+
+    <rect x="65" y="138" width="44" height="50" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+    <text x="87" y="167" font-size="20" font-weight="700" fill="#15803d" text-anchor="middle">1</text>
+    <text x="87" y="181" font-size="9" fill="#15803d" text-anchor="middle">pass</text>
+    <rect x="117" y="138" width="44" height="50" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+    <text x="139" y="167" font-size="20" font-weight="700" fill="#15803d" text-anchor="middle">1</text>
+    <text x="139" y="181" font-size="9" fill="#15803d" text-anchor="middle">pass</text>
+    <rect x="169" y="138" width="44" height="50" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+    <text x="191" y="167" font-size="20" font-weight="700" fill="#15803d" text-anchor="middle">1</text>
+    <text x="191" y="181" font-size="9" fill="#15803d" text-anchor="middle">pass</text>
+    <rect x="221" y="138" width="44" height="50" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+    <text x="243" y="167" font-size="20" font-weight="700" fill="#15803d" text-anchor="middle">1</text>
+    <text x="243" y="181" font-size="9" fill="#15803d" text-anchor="middle">pass</text>
+
+    <line x1="165" y1="190" x2="165" y2="205" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrowGray)"/>
+    <rect x="90" y="208" width="150" height="26" rx="8" fill="#f7f8fa" stroke="#cbd5e1" stroke-width="1.5"/>
+    <text x="165" y="225" font-size="12" font-weight="600" fill="#56616f" text-anchor="middle">variance = 0</text>
+    <line x1="165" y1="236" x2="165" y2="251" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrowGray)"/>
+    <rect x="90" y="254" width="150" height="26" rx="8" fill="#f7f8fa" stroke="#cbd5e1" stroke-width="1.5"/>
+    <text x="165" y="271" font-size="12" font-weight="600" fill="#56616f" text-anchor="middle">advantage = 0</text>
+    <line x1="165" y1="282" x2="165" y2="297" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrowGray)"/>
+    <rect x="90" y="300" width="150" height="30" rx="8" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
+    <text x="165" y="320" font-size="14" font-weight="700" fill="#56616f" text-anchor="middle">NO gradient</text>
+    <text x="165" y="354" font-size="11.5" fill="#56616f" text-anchor="middle">already mastered</text>
+
+    <!-- ================= PANEL B : all fail ================= -->
+    <rect x="324" y="82" width="290" height="298" rx="10" fill="#f7f8fa" stroke="#94a3b8" stroke-width="2" stroke-dasharray="6 5"/>
+    <text x="469" y="106" font-size="14" font-weight="700" fill="#1f2733" text-anchor="middle">Group B &#183; all fail</text>
+    <text x="469" y="126" font-size="12" fill="#56616f" text-anchor="middle">rewards = [0, 0, 0, 0]</text>
+
+    <rect x="369" y="138" width="44" height="50" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+    <text x="391" y="167" font-size="20" font-weight="700" fill="#b91c1c" text-anchor="middle">0</text>
+    <text x="391" y="181" font-size="9" fill="#b91c1c" text-anchor="middle">fail</text>
+    <rect x="421" y="138" width="44" height="50" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+    <text x="443" y="167" font-size="20" font-weight="700" fill="#b91c1c" text-anchor="middle">0</text>
+    <text x="443" y="181" font-size="9" fill="#b91c1c" text-anchor="middle">fail</text>
+    <rect x="473" y="138" width="44" height="50" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+    <text x="495" y="167" font-size="20" font-weight="700" fill="#b91c1c" text-anchor="middle">0</text>
+    <text x="495" y="181" font-size="9" fill="#b91c1c" text-anchor="middle">fail</text>
+    <rect x="525" y="138" width="44" height="50" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+    <text x="547" y="167" font-size="20" font-weight="700" fill="#b91c1c" text-anchor="middle">0</text>
+    <text x="547" y="181" font-size="9" fill="#b91c1c" text-anchor="middle">fail</text>
+
+    <line x1="469" y1="190" x2="469" y2="205" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrowGray)"/>
+    <rect x="394" y="208" width="150" height="26" rx="8" fill="#f7f8fa" stroke="#cbd5e1" stroke-width="1.5"/>
+    <text x="469" y="225" font-size="12" font-weight="600" fill="#56616f" text-anchor="middle">variance = 0</text>
+    <line x1="469" y1="236" x2="469" y2="251" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrowGray)"/>
+    <rect x="394" y="254" width="150" height="26" rx="8" fill="#f7f8fa" stroke="#cbd5e1" stroke-width="1.5"/>
+    <text x="469" y="271" font-size="12" font-weight="600" fill="#56616f" text-anchor="middle">advantage = 0</text>
+    <line x1="469" y1="282" x2="469" y2="297" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrowGray)"/>
+    <rect x="394" y="300" width="150" height="30" rx="8" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
+    <text x="469" y="320" font-size="14" font-weight="700" fill="#56616f" text-anchor="middle">NO gradient</text>
+    <text x="469" y="354" font-size="11.5" fill="#56616f" text-anchor="middle">beyond 1.5B reach</text>
+
+    <!-- ================= PANEL C : mixed ================= -->
+    <rect x="628" y="82" width="290" height="298" rx="10" fill="#f0fdf4" stroke="#16a34a" stroke-width="2"/>
+    <text x="773" y="106" font-size="14" font-weight="700" fill="#15803d" text-anchor="middle">Group C &#183; mixed</text>
+    <text x="773" y="126" font-size="12" fill="#56616f" text-anchor="middle">rewards = [1, 0, 1, 0]</text>
+
+    <rect x="673" y="138" width="44" height="50" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+    <text x="695" y="167" font-size="20" font-weight="700" fill="#15803d" text-anchor="middle">1</text>
+    <text x="695" y="181" font-size="9" fill="#15803d" text-anchor="middle">pass</text>
+    <rect x="725" y="138" width="44" height="50" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+    <text x="747" y="167" font-size="20" font-weight="700" fill="#b91c1c" text-anchor="middle">0</text>
+    <text x="747" y="181" font-size="9" fill="#b91c1c" text-anchor="middle">fail</text>
+    <rect x="777" y="138" width="44" height="50" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+    <text x="799" y="167" font-size="20" font-weight="700" fill="#15803d" text-anchor="middle">1</text>
+    <text x="799" y="181" font-size="9" fill="#15803d" text-anchor="middle">pass</text>
+    <rect x="829" y="138" width="44" height="50" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+    <text x="851" y="167" font-size="20" font-weight="700" fill="#b91c1c" text-anchor="middle">0</text>
+    <text x="851" y="181" font-size="9" fill="#b91c1c" text-anchor="middle">fail</text>
+
+    <line x1="773" y1="190" x2="773" y2="205" stroke="#16a34a" stroke-width="2" marker-end="url(#arrowGreen)"/>
+    <rect x="698" y="208" width="150" height="26" rx="8" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+    <text x="773" y="225" font-size="12" font-weight="600" fill="#15803d" text-anchor="middle">variance &gt; 0</text>
+    <line x1="773" y1="236" x2="773" y2="251" stroke="#16a34a" stroke-width="2" marker-end="url(#arrowGreen)"/>
+    <rect x="698" y="254" width="150" height="26" rx="8" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+    <text x="773" y="271" font-size="12" font-weight="600" fill="#15803d" text-anchor="middle">advantage &#8800; 0</text>
+    <line x1="773" y1="282" x2="773" y2="297" stroke="#16a34a" stroke-width="2" marker-end="url(#arrowGreen)"/>
+    <rect x="698" y="300" width="150" height="30" rx="8" fill="#16a34a" stroke="#15803d" stroke-width="1.5"/>
+    <text x="773" y="320" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">GRADIENT</text>
+    <text x="773" y="354" font-size="11.5" font-weight="600" fill="#15803d" text-anchor="middle">the only group that teaches</text>
+
+    <!-- ================= Caption ================= -->
+    <rect x="20" y="392" width="898" height="60" rx="10" fill="#fef9c3" stroke="#eab308" stroke-width="1.5"/>
+    <text x="34" y="411" font-size="11" fill="#1f2733">On binary-reward code tasks, most K=4 groups are all-pass (mastered) or all-fail (out of reach): zero variance &#8594; advantage 0 &#8594; no gradient.</text>
+    <text x="34" y="429" font-size="11" fill="#1f2733">That is why the single Qwen2.5-Coder-1.5B LoRA adapter (local GRPO on a hard-example pool) stays flat at 46.5&#8211;47.5% on MBPP eval200, no cumulative gain.</text>
+    <text x="34" y="447" font-size="11" fill="#56616f">DAPO drops zero-variance groups and adds asymmetric clipping, but does not eliminate the problem.</text>
+
+  </g>
+</svg>

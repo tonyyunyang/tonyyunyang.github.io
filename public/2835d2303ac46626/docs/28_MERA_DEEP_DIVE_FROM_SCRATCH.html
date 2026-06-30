@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en" data-pagefind-ignore="all">
+<head>
+<meta name="robots" content="noindex, nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>★ MERA — Explained From Scratch · eBay Prep</title>
+<script>try{if(localStorage.getItem('ebayprep-theme')==='dark')document.documentElement.classList.add('dark');}catch(e){}</script>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<button id="menu" class="menu-btn" aria-label="Menu">☰</button>
+<button id="theme" class="theme-btn" aria-label="Toggle theme">◐</button>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+<div class="brand"><a href="../index.html">eBay Prep</a><div class="brand-sub">Stage 1 · Yannick Versley</div></div>
+<div class="search"><input id="q" type="search" placeholder="Search the pack…" autocomplete="off"><div id="results"></div></div>
+<nav class="nav">
+<div class="nav-group"><div class="nav-group-title">Start Here</div><ul>
+<li><a href="7DAY_SPRINT_PLAN.html">7-Day Sprint Plan</a></li>
+<li><a href="21_KILL_LIST.html">⚠ Kill List — Never Say These</a></li>
+<li><a href="26_FINAL_HOURS_MUST_READ.html">★ Final-Hours Must-Read (1 page)</a></li>
+<li><a href="00_MASTER_INDEX_AND_STUDY_PLAN.html">Master Index &amp; Study Plan</a></li>
+<li><a href="SESSION2_READINESS_REPORT.html">Readiness Report</a></li>
+</ul></div>
+<div class="nav-group"><div class="nav-group-title">★ Hiring Manager — Behavioral</div><ul>
+<li><a href="22_STAR_METHOD_PLAYBOOK.html">★ STAR Method — Learn It First</a></li>
+<li><a href="23_HM_BEHAVIORAL_PLAYBOOK.html">★ Hiring-Manager Behavioral Playbook</a></li>
+<li><a href="24_STAR_STORY_LIBRARY.html">STAR Story Library — 25 stories</a></li>
+<li><a href="25_BEHAVIORAL_QUESTION_BANK.html">Behavioral Question Bank — 56 Qs</a></li>
+<li><a href="10_PROJECT_MGMT_RETROSPECTIVE_STAR.html">Project Mgmt &amp; STAR — Deep Reference</a></li>
+</ul></div>
+<div class="nav-group"><div class="nav-group-title">Stage 1 — Core</div><ul>
+<li><a href="03_INTERVIEWER_YANNICK_VERSLEY.html">Interviewer: Yannick Versley</a></li>
+<li><a href="02_STAGE1_ML_LLM_NLP_MASTERDOC.html">Stage-1 ML/LLM/NLP Master Doc</a></li>
+<li><a href="20_OWN_PAPERS_GROUND_TRUTH.html">★ Own Papers — Ground-Truth Defense</a></li>
+<li><a href="27_PAPERS_DEEP_DIVE_FROM_SCRATCH.html">★ Four Papers — Taught From Scratch</a></li>
+<li class="active"><a href="28_MERA_DEEP_DIVE_FROM_SCRATCH.html">★ MERA — Explained From Scratch</a></li>
+<li><a href="04_PUBLICATIONS_PROJECTS_DEFENSE.html">Publications &amp; Projects Defense</a></li>
+<li><a href="05_QUESTION_BANK_THIS_ROLE.html">Question Bank (This Role)</a></li>
+<li><a href="06_ML_LLM_NLP_FUNDAMENTALS_STUDYGUIDE.html">ML/LLM/NLP Fundamentals</a></li>
+<li><a href="12_MOCK_INTERVIEW_FULL.html">Full Mock Interview</a></li>
+</ul></div>
+<div class="nav-group"><div class="nav-group-title">Stage 1 — Deep Dives</div><ul>
+<li><a href="18_STAGE1_GAPFILL_DEEP_ANSWERS.html">Gap-Fill: Deep Answers</a></li>
+<li><a href="18b_STAGE1_GAPFILL_ROUND2.html">Gap-Fill: Round 2</a></li>
+<li><a href="19_ADAPTIVE_MOCK_SESSIONS.html">Adaptive Mock Sessions</a></li>
+<li><a href="13_GENERATIVE_MODELS_BEYOND_LLMS.html">Generative Models Beyond LLMs</a></li>
+<li><a href="14_CLASSICAL_NLP_AND_MT_DEEP_DIVE.html">Classical NLP &amp; MT Deep Dive</a></li>
+<li><a href="15_SOTA_2026_CURRENT_AWARENESS.html">SOTA 2026 Current Awareness</a></li>
+<li><a href="16_EXPERTISE_DEEP_DIVE_EFFICIENCY.html">Expertise Deep Dive: Efficiency</a></li>
+<li><a href="17_RAPID_FIRE_BREADTH_BANK.html">Rapid-Fire Breadth Bank</a></li>
+</ul></div>
+<div class="nav-group"><div class="nav-group-title">eBay &amp; Why eBay</div><ul>
+<li><a href="07_EBAY_COMPANY_AI_DOSSIER.html">eBay Company AI Dossier</a></li>
+</ul></div>
+<div class="nav-group"><div class="nav-group-title">Later Stages (2 &amp; 3)</div><ul>
+<li><a href="08_ML_SYSTEM_DESIGN_PLAYBOOK.html">ML System Design Playbook</a></li>
+<li><a href="09_CODING_CODESIGNAL_PREP.html">Coding / CodeSignal Prep</a></li>
+<li><a href="11_TEAM_FIT_CAREER.html">Team Fit &amp; Career</a></li>
+</ul></div>
+<div class="nav-group"><div class="nav-group-title">Logistics</div><ul>
+<li><a href="01_RECRUITER_RESPONSE_PACK.html">Recruiter Response Pack</a></li>
+</ul></div>
+</nav>
+  </aside>
+  <div class="scrim" id="scrim"></div>
+  <main class="content">
+    <article class="doc">
+      <div class="doc-meta"><span class="tag">Stage 1 — Core</span><span class="read">38 min read</span></div>
+      <h1 id="mera-explained-from-scratch">MERA — Explained From Scratch</h1>
+<p><em>Full title: </em><em>"MERA: Model Evolution and Routing with Skill Adaptation for Agentic Systems at Scale."</em><em> Venue: </em><em>RL-Eval 2026</em><em> workshop (OpenReview id <code>6oyBiDMCHs</code>). Code: <code>github.com/zeyuyuyu/router-skills-evolve</code>. You are the </em><em>third of seven authors</em><em> (byline "Tongyun Yang," Independent Researcher); the corresponding author is </em><em>Tianyu Shi</em><em> (Gradient).</em></p>
+<p>This page teaches MERA from zero — the problem it solves, every component, and the exact numbers — so you can defend it cold in front of Versley, who will read the routing pair (TwinRouterBench + MERA) most carefully. It pairs with the <strong>★ Own Papers — Ground-Truth Defense</strong> (the verified numbers + Q&amp;A) and the <strong>★ Four Papers — Taught From Scratch</strong> overview; this one goes deeper and is more heavily illustrated. Read it slowly once, then skim the diagrams the night before.</p>
+<blockquote class="warn">
+<h3 id="the-one-trap-that-can-sink-this-conversation-873-is-router-accuracy-not-task-accuracy">⚠ The one trap that can sink this conversation: <strong>87.3% is <em>router</em> accuracy, not task accuracy.</strong></h3>
+<p>It is how often the learned router's <strong>cheap-vs-strong decision</strong> matches held-out labels on an <strong>832-example</strong> set. It is <strong>not</strong> the agent answering 87.3% of tasks correctly — and the paper reports <strong>no end-to-end agentic task-success rate at all</strong>. The only task-quality number anywhere in the paper is the 1.5B student's <strong>MBPP pass rate, ~47.5% vs ~47.0% baseline</strong> — essentially flat. <strong>Volunteer this distinction before Versley forces it</strong>; he will catch a misread in one sentence and the rest of the hour is uphill. Say <em>"router accuracy 87.3% at ~52% serving cost"</em> every single time.</p>
+</blockquote>
+<figure class="diagram">
+  <img src="../assets/illustrations/mera-author-card.svg" alt="MERA facts-at-a-glance: title, venue, 7-author byline with Tongyun Yang third, headline router metrics">
+  <figcaption>The paper at a glance — full title, venue (RL-Eval 2026, OpenReview 6oyBiDMCHs), the seven-author byline (you are third: <b>Tongyun Yang, Independent Researcher</b>; Tianyu Shi is corresponding), and the headline reminder that <b>87.3% is router accuracy, not task accuracy</b>.</figcaption>
+</figure>
+
+<h2 id="1-the-problem-from-absolute-zero">1 · The problem, from absolute zero</h2>
+<figure class="diagram">
+  <img src="../assets/illustrations/mera-cost-quality-frontier.svg" alt="Cost vs quality frontier: strong, cheap, always-small+fallback, and MERA operating points">
+  <figcaption>The serving dilemma. Always-large is safe but costly; always-small-then-escalate is reliable but its cost drifts up as every failure reruns on the strong model. Routing pulls the operating point <b>left</b> — same quality, less cost — toward ~51.8% of always-large.</figcaption>
+</figure>
+
+<p>Start from the unit of work. An <strong>agent</strong> is an LLM that doesn't answer once and stop; it runs a loop: read a prompt, call a tool, read the result, write the next step. A single user task can spawn many of these invocations, and every invocation is a model call you pay for.</p>
+<p>Now look at the bill. Not all calls cost the same. A <strong>frontier model</strong> (the biggest, strongest one) can cost <strong>often an order of magnitude or more</strong> per query than a small, cheap model. Once you put a fixed pool of models behind your agent, that ratio becomes the whole economic story: most of your spend is the strong model being asked to do things a cheap model could have handled.</p>
+<p>Here is the catch. The cheap model is genuinely good enough on the <em>easy</em> steps. Format this JSON. Extract a field. Build one tool argument. On steps like those, a small model matches the big one at a fraction of the price. It only breaks down on the <em>hard</em> steps: long-horizon reasoning, tricky code generation, anything that needs real capability. So your workload is a mix, and the price of each model has almost nothing to do with the value it adds on any given step.</p>
+<p>The obvious fix is the <strong>always-small, escalate-on-failure</strong> strategy: send everything to the cheap model, and whenever it fails, retry on the strong one. This is reliable, because you never ship an answer the cheap model couldn't actually produce. But its cost quietly creeps back up. Each escalation means you paid for the cheap attempt <em>and</em> the expensive one, plus the latency of doing the work twice. The more often the cheap model stumbles, the more your "cheap" pipeline starts to resemble the expensive one with extra steps bolted on.</p>
+<p>So you are stuck between two bad defaults: always-large (safe but costly) and always-small-then-escalate (reliable but cost drifts upward). The frontier you actually want is the dashed curve above: the same quality for less cost. The lever that moves you toward it is <strong>routing</strong> — deciding, <em>before</em> you spend, which model each individual step deserves.</p>
+<blockquote>
+<p>How to say it in the room: "The bill isn't model size, it's serving the wrong-sized model to each step. Routing is the lever that fixes that without touching the models."</p>
+</blockquote>
+<h2 id="2-the-key-idea-route-inside-the-trace-not-once-per-task">2 · The key idea — route <em>inside</em> the trace, not once per task</h2>
+<figure class="diagram">
+  <img src="../assets/illustrations/mera-query-vs-invocation.svg" alt="Query-level vs invocation-level routing across a six-step agent trace">
+  <figcaption>Why route <i>per invocation</i>. Easy and hard steps interleave inside one trace, so one model per task is too coarse: pick strong and you overpay on the easy steps; pick cheap and you fail the hard ones. MERA routes each step on its own input.</figcaption>
+</figure>
+
+<p>Start with the picture above. A modern agent does not answer a task in one shot. It runs a <strong>chain</strong> of model calls: read the prompt, plan, call a tool, parse the result, format an answer, retry on failure. Each box in that chain is a separate model <strong>invocation</strong>, and the whole chain is one <strong>trace</strong>.</p>
+<p>The point the diagram is making: the steps are not uniformly hard. Inside a single trace, trivial steps sit right next to genuinely hard ones. Building one tool argument or reformatting a list is easy and cheaply checkable; the long-horizon reasoning step in the middle may really need the strong model. Easy and hard are <strong>interleaved</strong>.</p>
+<p>Now look at how prior work routes. <strong>Query-level routing</strong> makes one cheap-vs-strong decision for the entire user task and then runs every step on that choice. That granularity is too coarse. It either overpays, sending an easy reformat to the strong model, or it gambles, betting the hard step on the cheap one. You cannot fix both with a single per-task switch.</p>
+<p>MERA's central move is to shrink the unit of adaptation. The thing it routes, observes, and learns over is a single <strong>invocation</strong>, not a task. At each step it decides cheap model vs strong model vs optional specialized student, using only what that one step exposes. This is <strong>invocation-level routing inside the trace</strong>, and it is the genuinely new granularity in the paper.</p>
+<blockquote>
+<p>How to say it in the room: "Prior routers pick one model per query; we route per model call inside the agent's trace, because easy and hard steps are mixed together in the same task."</p>
+</blockquote>
+<p>But here is the danger that shapes everything after this section. If you let the system adapt freely on every invocation, two failure modes open up. A cheap model can <strong>fail silently</strong>, producing a plausible-looking but wrong output that nobody catches. And a learned adapter can <strong>regress on rare cases</strong> it was never really trained for. Down-routing aggressively is exactly when these bite.</p>
+<p>That is why MERA never treats "I observed this is easy" as permission to change behavior. It <strong>separates observation from admission</strong>: every step is logged, but a cheaper policy is only deployed after a gate proves quality held. The rest of the design is that separation.</p>
+<h2 id="3-loop-1-the-runtime-path">3 · Loop 1 — the runtime path</h2>
+<figure class="diagram">
+  <img src="../assets/illustrations/mera-runtime-loop.svg" alt="MERA single runtime invocation: input-only router or SkillBook, then verifier with fallback">
+  <figcaption>One runtime invocation: an input-only router (or a SkillBook template) sends easy, checkable steps to a cheap model or the 1.5B student; a verifier checks the output and falls back to the strong model on failure (4.4%). Cost savings come from the router/SkillBook; the reliability guarantee comes from the verifier — the two are decoupled.</figcaption>
+</figure>
+
+<p>Loop 1 is what happens on a single model call inside a running agent. Picture the agent mid-trace, about to make its next <strong>invocation</strong> (one LLM-or-tool step). MERA intercepts that step and decides how to serve it. The whole loop lives at the granularity of one invocation, not one user task — that per-invocation granularity is the genuinely new part.</p>
+<p>Walk the path:</p>
+<p><strong>1. The router looks — and it is input-only.</strong> The <strong>router</strong> (a plain BERT-tiny classifier over prompt text) sees only the <strong>serialized prompt plus local context</strong> for this one step. It does NOT see hidden agent state, scratchpad memory, or earlier tool-execution traces. From that text alone it picks one of three serving options: the <strong>strong</strong> model, the <strong>cheap</strong> model, or the optional <strong>1.5B specialist</strong> (the Qwen2.5-Coder-1.5B LoRA adapter, when one exists for this region).</p>
+<p><strong>2. A SkillBook template may fire instead.</strong> If the local structure matches a recurring <strong>prompt signature</strong> — a known formatting, extraction, or single-argument shape — the <strong>skill selector</strong> can short-circuit the model call and dispatch a stable <strong>SkillBook template</strong> at near-zero cost.</p>
+<p><strong>3. The chosen path executes.</strong> Cheap model, strong model, specialist, or template — whatever was selected runs and produces an output.</p>
+<p><strong>4. The verifier checks, then falls back.</strong> A <strong>verifier</strong> tests that output: schema validity, tool-call legality, and executable tests. On failure the invocation <strong>falls back to a stronger model</strong>, and the full event is logged — retry count, fallback metadata, what was tried. That log is the fuel for Loop 2.</p>
+<p>Now the line to internalize:</p>
+<blockquote>
+<p><strong>How to say it in the room:</strong> "Cost savings come from the router and SkillBook down-routing the easy, checkable steps; the safety guarantee comes entirely from the verifier-fallback. The two are decoupled — an aggressive router can't silently degrade output, because the verifier catches it and escalates."</p>
+</blockquote>
+<p><strong>Why input-only?</strong> It keeps serving simple and portable: you route on the prompt you already have, with no plumbing into agent internals, so the router drops into any stack. And crucially, it makes Loop 2's <strong>replay reproducible</strong> — the routing decision is a pure function of logged text, so you can re-score it offline exactly as it ran.</p>
+<p><strong>The cost of that choice:</strong> two steps with identical local prompts but different history get routed the same way, even when their broader context differs. MERA accepts this and absorbs it from both ends. The <strong>verifier-fallback</strong> catches any down-route that was actually wrong and escalates it, so a context-blind mistake is corrected rather than shipped. And <strong>SkillBook signatures are kept narrow</strong> — a length tier plus a few semantic tags — so a template only fires where the local shape is genuinely stable, not wherever the surface text happens to look similar.</p>
+<figure class="diagram">
+  <img src="../assets/illustrations/mera-decoupling.svg" alt="Cost optimized by router/SkillBook; quality protected independently by verifier/fallback">
+  <figcaption>The decoupling principle. <b>Cost</b> is optimized by the router + SkillBook (down-route easy, checkable steps); <b>quality</b> is protected independently by the verifier + fallback. Because they are separate mechanisms, an aggressive router cannot silently degrade output.</figcaption>
+</figure>
+
+<h2 id="4-the-skillbook-precisely">4 · The SkillBook, precisely</h2>
+<figure class="diagram">
+  <img src="../assets/illustrations/mera-skillbook-signature.svg" alt="SkillBook: prompt to signature to Laplace-smoothed success table to template/recommendation">
+  <figcaption>Inside the SkillBook. A prompt is reduced to a <b>signature</b> (length tier | semantic tags); per-(signature, model) success stats are Laplace-smoothed and start agnostic at 0.5; the book then recommends the cheapest viable model or fires a stable template. It is CPU-only and grew to 34 signatures / 120 observations.</figcaption>
+</figure>
+
+<p>The single most common misread of your paper is that the SkillBook is a <strong>topic taxonomy</strong> — code vs. math vs. summarization, with a classifier picking a bucket. It is not. There is no skill classifier and no semantic categories. The SkillBook is a layer of stable <strong>templates</strong> keyed to recurring <strong>local prompt signatures</strong>: small, repeatable shapes inside an agent trace like a formatting step, a field extraction, or a single tool-call argument. Each template carries CPU-bound <strong>success/failure statistics</strong>, nothing heavier.</p>
+<p><strong>The signature.</strong> A signature is just two cheap features of the current prompt, concatenated:</p>
+<p><code>signature = length_tier | semantic_tags</code></p>
+<ul>
+<li><strong>length_tier</strong> ∈ {S, M, L} by character count: S &lt; 200, M = 200–500, L &gt; 500.</li>
+<li><strong>semantic_tags</strong> come from keyword matching over a tiny tag set — <code>{list, str, num, sort, crypto, advanced, bool, ...}</code>.</li>
+</ul>
+<p>So a short string-manipulation prompt might hash to something like <code>S | str</code>. No embeddings, no model call — this is deliberately cheap and deterministic.</p>
+<p><strong>The confidence.</strong> For each (signature, model) pair you track a Laplace-smoothed success rate:</p>
+<p><code>success_rate(sig, model) = (successes + 1) / (total + 2)</code></p>
+<p>A brand-new entry therefore starts at <strong>0.5</strong> — genuinely agnostic, neither trusted nor distrusted — and moves toward the observed rate as evidence accumulates. The +1/+2 smoothing keeps a single lucky or unlucky early outcome from swinging a fresh entry to 0 or 1.</p>
+<p><strong>What it buys you.</strong> Given a matching signature, the SkillBook recommends the <strong>cheapest model expected to clear a target success rate</strong>, or fires a stable template directly instead of invoking a model at all. It is a lookup, not an inference. Over the full 8-cycle run it stayed small — <strong>34 signatures / 120 observations</strong> — which is the honest scale: it captures repetition, not the whole input space.</p>
+<p>Crucially, of MERA's three offline tracks, the SkillBook is the <strong>cheapest to update</strong>: it is pure CPU-bound counting over canonicalized step slices, no gradients, no GPU.</p>
+<blockquote>
+<p>How to say it in the room: "The SkillBook isn't topics — it's templates keyed to a length-tier-plus-tags signature, with Laplace-smoothed hit rates starting at 0.5, so it can cheaply recommend the cheapest viable model or just fire a known-good template."</p>
+</blockquote>
+<h2 id="5-loop-2-three-tracks-over-shared-traces">5 · Loop 2 — three tracks over shared traces</h2>
+<figure class="diagram">
+  <img src="../assets/illustrations/mera-step-slice.svg" alt="A runtime trace canonicalized into a step slice feeding three separate update tracks">
+  <figcaption>One trace, canonicalized <i>once</i>, read three ways. Each invocation becomes a flat <b>step slice</b>; the same record feeds the SkillBook counts, the BERT-tiny router, and the Qwen-1.5B GRPO adapter.</figcaption>
+</figure>
+
+<p>Loop 1 ran the agent and logged everything. Loop 2 is the offline half: it turns those logs into model updates without ever re-running the agent.</p>
+<p><strong>The shared unit: the step slice.</strong> Loop 1 doesn't hand back one verdict per task — it hands back every individual invocation. Loop 2 canonicalizes each one into a <strong>step slice</strong>, a flat record with the same fields every time:</p>
+<ul>
+<li><strong>prompt</strong> and <strong>local context</strong> (what the model actually saw)</li>
+<li><strong>tool schemas</strong> available at that step</li>
+<li><strong>generated output</strong></li>
+<li><strong>verifier result</strong> (pass/fail, and why)</li>
+<li><strong>retry count</strong></li>
+<li><strong>fallback metadata</strong> (did it bounce to a stronger model?)</li>
+<li><strong>skill assignment</strong> (which SkillBook signature, if any)</li>
+</ul>
+<p>The point is that this is <em>one</em> format. The same slice feeds three completely different learners — you canonicalize the trace once, then read it three ways.</p>
+<p><strong>Track 1 — SkillBook stats (CPU-bound).</strong> For each (signature, model) pair you tally successes and failures and refresh the Laplace-smoothed confidence. No GPU, no training; it's bookkeeping over the slices.</p>
+<p><strong>Track 2 — the BERT-tiny router (GPU, light).</strong> The router retrains on slice <em>prompt text</em> with weak cheap-vs-strong labels derived from what actually worked. It stays <strong>input-only</strong>: it never sees hidden agent state or the downstream execution trace, only what was visible at decision time.</p>
+<p><strong>Track 3 — the LoRA adapter (GPU-heavy).</strong> The hard-example pool — slices where cheap execution failed, or where router and SkillBook disagreed — feeds <strong>local GRPO</strong> on <strong>Qwen2.5-Coder-1.5B</strong>. This is the one expensive job.</p>
+<p><strong>Order is scheduling, not method.</strong> All three read the same slices, so the within-cycle order is just a resource decision. The best observed schedule is <strong>Skill -&gt; LLM -&gt; Router</strong>: run the cheap CPU bookkeeping first, then the GPU-heavy adapter, then the router <em>last</em>. Reorder it and you land on a different cost/accuracy point, not a different method.</p>
+<p>The only firm wall-time lever is parallelism: the router and LLM tracks are the GPU-bound ones, and running them together drops a cycle from <strong>99 to 95 minutes</strong>.</p>
+<blockquote>
+<p>How to say it in the room: "We canonicalize each invocation into one step-slice format, then read those same slices three ways — SkillBook counts, a tiny router, and a GRPO adapter. The order is a scheduling choice, not a methodological one."</p>
+</blockquote>
+<figure class="diagram">
+  <img src="../assets/illustrations/mera-two-loops.svg" alt="MERA two loops plus joint-replay admission gate">
+  <figcaption>Two loops plus an admission gate. Runtime traces feed three SEPARATE tracks (SkillBook stats, a BERT-tiny router, a Qwen-1.5B LoRA+GRPO student). A new combined state is promoted back to runtime only if a joint replay shows end-to-end quality is preserved — conservative, monotone deployment.</figcaption>
+</figure>
+
+<h2 id="6-the-learned-router">6 · The learned router</h2>
+<figure class="diagram">
+  <img src="../assets/illustrations/mera-router-trap.svg" alt="87.3% router accuracy on 832 held-out examples versus the only task-quality number, flat MBPP 47.5%">
+  <figcaption>The number that can sink the conversation. <b>87.3%</b> is how often the router's cheap-vs-strong call matches held-out labels on <b>832</b> examples — <i>not</i> the agent answering 87.3% of tasks. The only task-quality figure in the paper is the flat ~47.5% MBPP pass rate.</figcaption>
+</figure>
+
+<p>The router is the part most people misread, so build the mechanics first and the headline number second.</p>
+<p>Mechanically, the router is deliberately boring: a plain <strong>BERT-tiny</strong> classifier that reads only the serialized prompt and local context for the current invocation and emits a <strong>cheap-vs-strong</strong> decision. No agent hidden state, no execution traces; it is input-only by design. Route more aggressively toward the cheap model and you save cost but risk more failures, which is exactly what the verifier exists to catch.</p>
+<p>Now the headline. The best four-cycle schedule reports <strong>87.3% router accuracy</strong>. Read that phrase literally:</p>
+<blockquote>
+<p><strong>Router accuracy</strong> = how often the router's cheap/strong call matches the held-out label, on an <strong>832-example</strong> held-out set. That is all it means.</p>
+</blockquote>
+<p>It is <em>not</em> task accuracy. It does not say the agent solves 87.3% of tasks; the paper reports no end-to-end agentic task-success rate at all. The only number that touches task quality is the small adapter's MBPP score: <strong>47.5%</strong> for the GRPO adapter versus <strong>~47.0%</strong> base, essentially flat and unrelated to routing. So treat 87.3% as a <em>serving-policy fit</em> metric, not an outcome metric.</p>
+<p><strong>The circularity you must say out loud.</strong> The router is trained on <strong>3,328</strong> router examples whose labels are <em>weak</em>, produced by the <strong>UncommonRoute</strong> pipeline rather than by humans or an oracle. The 832 held-out examples come from that same distribution. So 87.3% measures how well the router agrees with the weak labelling scheme it was trained against, not how often a cheap model would truly have sufficed. If the labels are biased, this number inherits the bias.</p>
+<p>What keeps deployment honest is not the router but the independent <strong>verifier-with-fallback</strong>. The verifier runs schema, legality, and executable checks; when a down-route fails it escalates to a stronger model, and the measured <strong>fallback rate is 4.4%</strong>. That is your real safety signal: an aggressive router cannot silently degrade output, because a separate mechanism catches its mistakes.</p>
+<blockquote>
+<p><strong>How to say it in the room:</strong> "87.3% is router accuracy on an 832-example held-out set, agreement with weak UncommonRoute labels, not task success. The number that actually protects users is the 4.4% verifier fallback."</p>
+</blockquote>
+<p>Keep the novelty claim modest. The classifier itself is off-the-shelf BERT-tiny. What is new is <em>where</em> it routes, per invocation inside a trace, and that it is admitted jointly with the SkillBook and adapter, not the routing algorithm.</p>
+<h2 id="7-the-llm-adapter-and-why-grpo-stalls-here">7 · The LLM adapter — and why GRPO stalls here</h2>
+<figure class="diagram">
+  <img src="../assets/illustrations/mera-grpo-zero-variance.svg" alt="GRPO zero-variance collapse: all-pass and all-fail groups give zero gradient; only mixed groups teach">
+  <figcaption>Why the 1.5B adapter stays flat. With a binary pass/fail reward, all-pass and all-fail rollout groups have <b>zero variance</b>, so the GRPO advantage — and the gradient — is zero. Only mixed groups teach, and on code tasks there are too few of them.</figcaption>
+</figure>
+
+<p>This is the weakest leg of MERA, and the paper is honest about it. The "model evolution" track is one <strong>student</strong>: a single <strong>Qwen2.5-Coder-1.5B</strong> carrying a <strong>LoRA adapter</strong>. It is not a fleet of specialists and not a 7B model — just one small coder you try to nudge upward over time.</p>
+<p>You train it only on a <strong>hard-example pool</strong>: tasks where cheap execution failed, or where the router and the SkillBook disagreed about which model to trust. Those are exactly the cases the cheap path can't yet handle, so they're where a stronger student would buy you the most.</p>
+<p>The method is <strong>GRPO</strong> (Group-Relative Policy Optimization). The intuition: for each prompt you sample <strong>K rollouts</strong>, run the executable tests, and hand each one a <strong>binary pass/fail reward</strong> <code>r</code>. Instead of a value network, GRPO scores each rollout against its own group — the advantage is <code>A = (r − mean) / std</code> over those K samples. A rollout that beats the group average gets pushed up, a below-average one gets pushed down. No critic, no extra model; the group is its own baseline.</p>
+<p>That design is also where it breaks. <strong>Zero-variance collapse</strong>: if all K rollouts pass (all-1) or all fail (all-0), the group has zero spread, every advantage is 0, and the gradient vanishes. Only <strong>mixed</strong> groups — some pass, some fail — teach anything. On binary-reward code tasks, a large share of prompts are already mastered (all-pass) or beyond a 1.5B model's reach (all-fail), so most groups contribute nothing. The outcome is exactly what the paper reports: the adapter sits in a <strong>flat 46.5–47.5% band with no cumulative gain</strong> across cycles. <strong>DAPO</strong> softens this — drop the zero-variance groups, add asymmetric clipping — but does not eliminate it.</p>
+<blockquote>
+<p>How to say it in the room: "The 1.5B doesn't improve because most groups are all-pass or all-fail — zero variance means zero gradient, so GRPO has almost nothing to learn from."</p>
+</blockquote>
+<p>Why GRPO instead of <strong>SFT or distillation</strong> off the strong model? Because on these hard cases the strong trace may itself be wrong, so imitating its tokens copies bad supervision. GRPO instead learns from <strong>execution outcomes</strong> — the tests — which is the signal you actually trust here.</p>
+<p>Be candid about the rest: the paper's own verdict is that the <strong>adapter is modest and its gains are non-cumulative</strong>. Any prettier per-cycle number in the repo is a living draft, not the submitted result — the paper's reported result is the flat band with no cumulative gain.</p>
+<h2 id="8-the-joint-replay-admission-gate-the-real-contribution">8 · The joint-replay admission gate — the real contribution</h2>
+<figure class="diagram">
+  <img src="../assets/illustrations/mera-admission-gate.svg" alt="Joint-replay admission gate promoting a combined state only if replay preserves end-to-end quality">
+  <figcaption>The real contribution: the joint-replay admission gate. The three freshly-updated tracks are bundled and promoted only if an offline replay shows combined end-to-end quality held and cost/fallback did not worsen — conservative, monotone deployment.</figcaption>
+</figure>
+
+<p>Everything so far — the router, the SkillBook, the LoRA adapter — is plumbing. The actual contribution is the <strong>rule for when you're allowed to change that plumbing.</strong></p>
+<p>Here is the discipline. After a cycle produces a new combined router/skill/adapter state, you do not ship it because the router got more accurate, or the SkillBook grew, or the adapter's pass rate ticked up. You ship it only if a <strong>joint replay</strong> — re-running the saved traces through the <em>whole</em> new configuration together — shows <strong>end-to-end quality is preserved while cost or fallback risk goes down (and neither gets worse).</strong> Components are judged by their <strong>combined effect</strong>, never by isolated metrics. A router that looks 3 points sharper in a vacuum but quietly raises the fallback rate does not get promoted.</p>
+<blockquote>
+<p><strong>How to say it in the room:</strong> "We don't admit a component because its own number improved. We admit a new combined state only if a joint replay shows quality held and cost or fallback dropped. Improvements are evaluated together, end to end."</p>
+</blockquote>
+<p>The replay leans on the evidence the SkillBook, router, and verifier accumulate, which partitions the trace space into three regions:</p>
+<table>
+<thead>
+<tr>
+<th>Region</th>
+<th>What it means</th>
+<th>What happens to it</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Easy</strong></td>
+<td>cheap serving reliably passes the verifier</td>
+<td>candidate for down-routing, or for admitting the student later</td>
+</tr>
+<tr>
+<td><strong>Hard</strong></td>
+<td>cheap serving keeps failing</td>
+<td>feeds the LLM (adapter) update; stays on the strong model for now</td>
+</tr>
+<tr>
+<td><strong>Uncertain</strong></td>
+<td>mixed or thin evidence</td>
+<td>left under verifier-fallback protection</td>
+</tr>
+</tbody>
+</table>
+<p>Notice that nothing risky is forced. Easy regions are where you harvest savings; hard regions are where you try to teach the small model; uncertain regions simply stay protected. You only move work to a cheaper path once the evidence — confirmed by replay — says it survives.</p>
+<p>This is what the paper calls <strong>conservative monotone deployment</strong>: across cycles, quality can only <strong>hold or improve</strong>, never silently regress, because a regressing state never clears the gate. Cost and fallback are allowed to fall; quality is not allowed to fall.</p>
+<p>And that is the whole point of the framework. Invocation-level routing inside a live agent trace is aggressive — you are repeatedly betting on a cheaper model mid-task. The admission gate is what makes that bet <strong>safe to ship</strong>: the system can get cheaper over time, but it cannot quietly get worse.</p>
+<h2 id="9-the-experiments-with-the-exact-numbers">9 · The experiments, with the exact numbers</h2>
+<figure class="diagram">
+  <img src="../assets/illustrations/mera-ordering-ablation.svg" alt="Bar chart of router accuracy for the six four-cycle orderings, Skill to LLM to Router highest at 87.3%">
+  <figcaption>The four-cycle ordering ablation. Six within-cycle schedules (‖ = run in parallel); router accuracy spans 76.0% to 87.3%. <b>Skill → LLM → Router</b> wins at 87.3% / 4.4% fallback / 51.8% cost — read it as the strongest <i>observed</i> point in a single-seed study, not proven-optimal.</figcaption>
+</figure>
+
+<p>Everything in MERA is evaluated on <strong>code generation only</strong> — chosen precisely because code gives a cheap, near-objective verifier (run the tests). Keep that framing: it is a <strong>feasibility-and-ablation study</strong>, not a deployment result.</p>
+<p><strong>The Evolver Dataset.</strong> Two cleanly separated pools:</p>
+<table>
+<thead>
+<tr>
+<th>Pool</th>
+<th>Size</th>
+<th>Splits (Train / Dev / Test)</th>
+<th>What it is</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Executable <strong>code</strong> tasks</td>
+<td><strong>590</strong></td>
+<td>472 / 59 / 59</td>
+<td>HumanEval, MBPP, and hard traces — tasks with runnable tests</td>
+</tr>
+<tr>
+<td>Weakly-labelled <strong>router</strong> examples</td>
+<td><strong>3,328</strong></td>
+<td>2662 / 332 / 334</td>
+<td>Prompts with weak cheap/strong labels (from a pipeline called <em>UncommonRoute</em>)</td>
+</tr>
+</tbody>
+</table>
+<p>Router accuracy is always measured on a <strong>fixed 832-example held-out set</strong>; the LLM pass rate is always <strong>MBPP eval200</strong>. The router is a <strong>BERT-tiny</strong> checkpoint; the student is a <strong>Qwen2.5-Coder-1.5B</strong> LoRA adapter trained with <strong>local GRPO</strong>.</p>
+<p><strong>Table 1 — the four-cycle ordering ablation (the main result).</strong> The three offline tracks can be scheduled in different within-cycle orders; <code>||</code> means two tracks run in parallel that cycle. Router metrics are on the 832 held-out set; LLM pass is MBPP eval200. This is a <em>scheduling</em> study, not six different methods.</p>
+<table>
+<thead>
+<tr>
+<th>Ordering (within each cycle)</th>
+<th style="text-align: right;">Router acc.</th>
+<th style="text-align: right;">Fallback</th>
+<th style="text-align: right;">Cost vs. large</th>
+<th style="text-align: right;">LLM pass</th>
+<th style="text-align: right;">Wall time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Skill ‖ Router → LLM</td>
+<td style="text-align: right;">76.0%</td>
+<td style="text-align: right;">3.8%</td>
+<td style="text-align: right;">63.2%</td>
+<td style="text-align: right;">47.0%</td>
+<td style="text-align: right;">100 min</td>
+</tr>
+<tr>
+<td>Skill ‖ Router ‖ LLM</td>
+<td style="text-align: right;">80.7%</td>
+<td style="text-align: right;">4.7%</td>
+<td style="text-align: right;">57.8%</td>
+<td style="text-align: right;">47.0%</td>
+<td style="text-align: right;"><strong>95 min</strong></td>
+</tr>
+<tr>
+<td>Skill → Router → LLM</td>
+<td style="text-align: right;">81.6%</td>
+<td style="text-align: right;">3.9%</td>
+<td style="text-align: right;">57.7%</td>
+<td style="text-align: right;">47.5%</td>
+<td style="text-align: right;">99 min</td>
+</tr>
+<tr>
+<td>Skill ‖ LLM → Router</td>
+<td style="text-align: right;">82.7%</td>
+<td style="text-align: right;">4.1%</td>
+<td style="text-align: right;">56.4%</td>
+<td style="text-align: right;">47.5%</td>
+<td style="text-align: right;">99 min</td>
+</tr>
+<tr>
+<td>LLM → Skill → Router</td>
+<td style="text-align: right;">84.6%</td>
+<td style="text-align: right;">4.1%</td>
+<td style="text-align: right;">54.5%</td>
+<td style="text-align: right;">47.0%</td>
+<td style="text-align: right;">97 min</td>
+</tr>
+<tr>
+<td><strong>Skill → LLM → Router</strong></td>
+<td style="text-align: right;"><strong>87.3%</strong></td>
+<td style="text-align: right;"><strong>4.4%</strong></td>
+<td style="text-align: right;"><strong>51.8%</strong></td>
+<td style="text-align: right;">46.5%</td>
+<td style="text-align: right;">99 min</td>
+</tr>
+</tbody>
+</table>
+<p>The headline operating point is the bottom row: <strong>87.3% router accuracy, 4.4% fallback, 51.8% of always-large cost.</strong> Read the four columns as four <em>different deployment risks</em>: router accuracy = does the learned gate match held-out labels; fallback = fraction of invocations rejected and rerun on the strong model; cost = normalized to always-large (lower is better); LLM pass = the small adapter alone on MBPP (<strong>not</strong> used as the admission criterion). Notice the LLM column barely moves (46.5–47.5%) across every ordering — that is the honest signal that the GRPO track is not yet earning its keep. The only clear wall-time win is parallelizing the GPU-heavy tracks (99 → 95 min).</p>
+<figure class="diagram">
+  <img src="../assets/illustrations/mera-eight-cycle.svg" alt="Line chart of router accuracy across eight cycles peaking at cycle 3 then stabilizing 82 to 87 percent">
+  <figcaption>The eight-cycle long-horizon run (one continuous run). Router accuracy warms up, <b>peaks at 87.8% at cycle 3</b>, then stabilizes in the 82–87% band; the cycle-5 dip to 76.7% is a single router-seed outlier.</figcaption>
+</figure>
+
+<p><strong>Table 2 — the eight-cycle long-horizon run</strong> (Skill → LLM → Router; <strong>one continuous run</strong>, not eight independent runs):</p>
+<table>
+<thead>
+<tr>
+<th>Cycle</th>
+<th style="text-align: right;">1</th>
+<th style="text-align: right;">2</th>
+<th style="text-align: right;"><strong>3</strong></th>
+<th style="text-align: right;">4</th>
+<th style="text-align: right;">5</th>
+<th style="text-align: right;">6</th>
+<th style="text-align: right;">7</th>
+<th style="text-align: right;">8</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Router acc.</td>
+<td style="text-align: right;">57.6%</td>
+<td style="text-align: right;">71.1%</td>
+<td style="text-align: right;"><strong>87.8%</strong></td>
+<td style="text-align: right;">82.3%</td>
+<td style="text-align: right;">76.7%</td>
+<td style="text-align: right;">85.3%</td>
+<td style="text-align: right;">82.7%</td>
+<td style="text-align: right;">85.0%</td>
+</tr>
+<tr>
+<td>Fallback</td>
+<td style="text-align: right;">0.4%</td>
+<td style="text-align: right;">4.3%</td>
+<td style="text-align: right;">3.4%</td>
+<td style="text-align: right;">3.5%</td>
+<td style="text-align: right;">14.4%</td>
+<td style="text-align: right;">3.1%</td>
+<td style="text-align: right;">4.6%</td>
+<td style="text-align: right;">4.0%</td>
+</tr>
+<tr>
+<td>Cost vs. large</td>
+<td style="text-align: right;">85.6%</td>
+<td style="text-align: right;">68.6%</td>
+<td style="text-align: right;">52.8%</td>
+<td style="text-align: right;">57.4%</td>
+<td style="text-align: right;">54.2%</td>
+<td style="text-align: right;">56.0%</td>
+<td style="text-align: right;">56.6%</td>
+<td style="text-align: right;">54.3%</td>
+</tr>
+</tbody>
+</table>
+<p>It <strong>warms up</strong> over the first two cycles, <strong>peaks at cycle 3 (87.8%)</strong>, then stabilizes in the <strong>82–87% band</strong>. The <strong>cycle-5 dip to 76.7%</strong> (with fallback spiking to 14.4%) is consistent with a <strong>single router-seed outlier</strong>, not a trend — and because there are no multi-seed runs, you cannot fully separate ordering effect from seed noise. Over the run, SkillBook coverage grows to <strong>34 signatures / 120 observations</strong>; the LLM track stays pinned in the 46.5–47.5% band.</p>
+<blockquote>
+<p><strong>How to say it in the room:</strong> "The strongest four-cycle schedule is Skill → LLM → Router at 87.3% router accuracy, 4.4% fallback, and 51.8% of always-large cost. I'd present that as the strongest <em>observed</em> operating point in a single-seed study, not as proven-optimal — the ordering spread runs from 76% to 87% and we flag multi-seed as future work."</p>
+</blockquote>
+<h2 id="10-what-is-genuinely-new-and-what-is-not">10 · What is genuinely new (and what is not)</h2>
+<p>Your strongest move in the room is to say, first and unprompted, what MERA does <em>not</em> invent. There are exactly two real deltas, and a lot of deliberately ordinary machinery underneath.</p>
+<p>The two genuine contributions, both relative to prior per-task routing and cascade work:</p>
+<ul>
+<li><strong>Invocation-level granularity.</strong> Prior routing picks one model per user task. MERA routes <em>inside</em> a multi-step agent trace, choosing strong / cheap / specialized per invocation from input only.</li>
+<li><strong>Joint, replay-gated admission.</strong> Three heterogeneous tracks — SkillBook stats, the BERT-tiny router, the LoRA adapter — update over shared traces and are promoted <strong>together</strong> only after an offline joint replay shows combined end-to-end quality is preserved. Components are judged by their combined effect, never in isolation.</li>
+</ul>
+<p>What is <em>not</em> new:</p>
+<ul>
+<li>The <strong>router</strong> is a plain BERT-tiny classifier over prompt text — no new routing algorithm.</li>
+<li>The <strong>SkillBook</strong> is Laplace-smoothed success/failure statistics over local prompt signatures — simple, not learned.</li>
+<li><strong>GRPO</strong> is standard; here it is just the textbook reason the 1.5B adapter stays flat.</li>
+</ul>
+<p>So the contribution is the <em>systems framework</em> plus the <em>admission discipline</em> plus an <em>honest diagnostic study</em> — what pays off (cheap, verifiable down-routing) and what does not (no cumulative student gains). No model gets bigger; the value is in how a fixed pool is served and safely evolved.</p>
+<blockquote>
+<p>How to say it in the room: "Nothing here is a new algorithm — the novelty is invocation-level granularity and replay-gated admission of three tracks together, plus an honest study of where it actually pays off."</p>
+</blockquote>
+<h2 id="11-honest-limitations-own-these-out-loud">11 · Honest limitations (own these out loud)</h2>
+<p>You score points by naming these before the panel does. None of them sinks the paper; each is a known boundary of a feasibility study, so volunteer them rather than wait to be pressed.</p>
+<p><strong>The verifier is load-bearing.</strong> Every cost claim rests on it. If a semantic failure slips past the schema, tool-call, and executable-test checks, MERA records the down-route as safe when it wasn't, so a weak verifier makes the savings look better than they really are. This is the limitation you guard most carefully.</p>
+<p><strong>Simple-first bias.</strong> Gains arrive gradually because MERA only down-routes steps it can already check cheaply. Hard, long-horizon reasoning stays on the strong model for a long time, so you never see a sudden jump.</p>
+<p><strong>Replay isn't fully online.</strong> The admission gate evaluates on logged traces, so it cannot perfectly capture the policy's own distribution shift once a new state is deployed.</p>
+<p><strong>Skill promotion needs structure.</strong> The <strong>SkillBook</strong> only grows where local subgraphs are canonicalizable and the workload repeats. With no recurring prompt signatures, there is nothing stable to template.</p>
+<p><strong>The adapter is modest.</strong> The Qwen2.5-Coder-1.5B <strong>GRPO</strong> student stays flat (46.5–47.5% on MBPP eval200) with no cumulative gain across cycles. Say that plainly instead of implying the small model is steadily learning.</p>
+<p><strong>"At Scale" oversells it.</strong> This is a 590-task code-generation study, an ablation plus feasibility check, not a production deployment. Own the title gap before someone else points at it.</p>
+<p><strong>What is simply not measured.</strong> No end-to-end agentic <strong>task-success rate</strong>. No human or A/B evaluation. No multi-seed or significance testing; the held-out router set is 832 examples, single-seed. These are future work, not buried weaknesses.</p>
+<blockquote>
+<p>How to say it in the room: "Everything rides on verifier coverage, the gains come in slowly by design, and to be clear it's a single-seed code-gen feasibility study with no end-to-end task-success number yet."</p>
+</blockquote>
+<h2 id="12-how-versley-will-probe-it-and-how-to-answer">12 · How Versley will probe it — and how to answer</h2>
+<p>These are the five pressure points, with spoken-length answers. The pattern throughout: <strong>volunteer the weakness before he forces it.</strong></p>
+<p><strong>Q — "87.3% accuracy of <em>what</em>? Is that the agent getting tasks right?"</strong>
+"I want to be careful, because it's easy to misread. 87.3% is <em>router</em> accuracy — how often the learned cheap-vs-strong decision matches held-out labels on an 832-example set. It is <strong>not</strong> end-to-end task success. The only task-quality number we report is the 1.5B student's MBPP pass rate, about 47.5% versus a 47.0% baseline — essentially flat. The fair summary is: the router reproduces the cheap-or-strong decision well, which lets us hold quality roughly constant while cutting serving cost to ~52% of always-large at a 4.4% fallback rate."</p>
+<p><strong>Q — "Your router is graded against weak labels from the same pipeline that made your training data. Isn't that circular?"</strong>
+"That's the weakest part of the evaluation, and I'll concede it. The 3,328 router examples are weakly labelled and the 832 held-out set is same-distribution, so router accuracy measures agreement with weak labels, not a verified oracle. What keeps deployment honest is <em>decoupled</em> from that — it's the verifier. At runtime the router can be wrong; the verifier catches schema, tool-call, and executable-test failures and falls back, and that fallback rate is 4.4%. So I read router accuracy as an internal optimization metric, and the fallback rate plus the cost reduction as the deployment-relevant numbers. A stronger eval — listed as future work — grades the router against verifier-confirmed outcomes on a larger, ideally online set."</p>
+<p><strong>Q — "Why deliberately blind the router to hidden agent state? Step difficulty depends on what happened earlier."</strong>
+"It's a serving-simplicity and reproducibility tradeoff, and yes, it costs signal. Hidden state and tool traces are high-dimensional, unstable across framework versions, and expensive to serialize on the latency-critical path. Restricting the router to the serialized prompt plus local context keeps the decision cheap, portable, and reproducible during offline replay — which matters because our whole admission protocol is replay-based. The cost is that two steps with identical local prompts but different history route the same way; we absorb that with the verifier-fallback and with SkillBook only firing under narrow signatures where local structure is actually predictive. I wouldn't claim input-only is strictly better — it's a deliberate, bounded choice."</p>
+<p><strong>Q — "Your ordering table spans 76% to 87%, but a single cycle-5 seed drops you to 76.7% — with no multi-seed runs. How do you know Skill → LLM → Router is really best?"</strong>
+"Honestly, we can't fully separate ordering effect from seed variance with this data — you've found the internal inconsistency. We didn't run multi-seed and we list it as future work, so the ranking is suggestive, not statistically established. What I'd still stand behind is the qualitative pattern, because it matches the mechanism: skill evidence first, router last, so the router trains on the most current policy including this cycle's new skill and adapter behavior. And cost and fallback are tighter across orderings than the headline accuracy. But I won't sell it as proven-optimal."</p>
+<p><strong>Q — "The 1.5B GRPO adapter moves pass rate 47.0 → 47.5 and doesn't accumulate. That's noise. Why is it in the paper, and why GRPO over SFT?"</strong>
+"I won't dress it up — the LLM track is the weakest component empirically: a half-point bump, no cumulative gain. We keep it for two reasons. First, the contribution is the joint admission harness, and part of its value is <em>diagnostic</em> — MERA honestly reports that GRPO isn't yet earning its GPU cost. Second, the adapter is the slot where future quality gains would land. On GRPO over SFT or distillation: we wanted an objective that learns from execution outcomes on the hard-example pool — cases where cheap execution failed or router and SkillBook disagree — rather than imitating the strong model's tokens, because those are exactly the cases where the strong trace may be the wrong supervision. The recipe is undertuned; KL and reference-model stabilization are flagged as future work."</p>
+<p><strong>Q — "The title says 'at Scale,' but it's 590 code tasks with an executable verifier. Where's the scale, and what survives where you can't cheaply verify?"</strong>
+"Two honest concessions. First, 'at Scale' is aspirational about the framework design — 590 executable tasks, code-gen only, is a feasibility-and-ablation study, and I'd describe it that way. Second, and more important: the whole method leans on the verifier. We chose code generation precisely because it gives a cheap, near-objective verifier; our own limitations section says routing-label quality and student admission depend entirely on verifier coverage. In a domain without executable checks — say e-commerce attribute extraction — you'd need a substitute verifier, a learned judge or constraint checker, and the guarantees are only as good as that proxy. So MERA transfers exactly as far as you can build a trustworthy, cheap verifier for the new domain — which is the open question I'd most want to put to you."</p>
+<h2 id="13-the-thesis-bridge-the-ebay-connection">13 · The thesis bridge &amp; the eBay connection</h2>
+<figure class="diagram">
+  <img src="../assets/illustrations/mera-thesis-bridge.svg" alt="Scaling race to systems race bridge connecting MERA's levers to the eBay/Mercury setting">
+  <figcaption>Scaling race → systems race. MERA makes no model bigger; it spends a <i>fixed</i> model budget well via invocation routing and replay-gated admission. For eBay, the gating concern — a cheap, trustworthy verifier — is exactly the open e-commerce question.</figcaption>
+</figure>
+
+<p>The big story you want to land is that AI has shifted from a <strong>scaling race</strong> to a <strong>systems race</strong>. For years the way to get better outputs was a bigger model. That curve is flattening, so the value increasingly comes from <em>how</em> you serve a fixed pool of models, not from training a larger one.</p>
+<p>MERA is a clean instance of that shift. It makes <strong>no model bigger</strong>. Every gain comes from two ideas layered over static weights: <strong>per-invocation routing</strong> (send each easy, checkable step to a cheap model or a SkillBook template) and <strong>replay-gated admission</strong> (only promote a new router/skill/adapter state if an offline joint replay shows end-to-end quality held). You cut serving cost to 51.8% of always-large without retraining the underlying models at all.</p>
+<p>That is exactly the frame for eBay/Versley. Their <strong>Mercury</strong>-style stack already runs many models per query, so the missing discipline is not "more models" but <em>governed</em> routing: route <strong>inside</strong> a multi-step agent trace, with a <strong>verifier-protected fallback</strong> so an aggressive router cannot silently degrade output, and a replay gate so updates can only help. That is what you'd want before pushing routing into a live multi-model agent.</p>
+<p>The honest catch is the <strong>verifier</strong>, and it is also the real e-commerce challenge. MERA chose code generation precisely because verification is cheap there: you run the tests. eBay domains rarely give you that. Attribute extraction, listing generation, and MT have <strong>no cheap executable ground truth</strong>. So the open question MERA points at is whether you can build a trustworthy cheap verifier or learned judge for those outputs. That is a sharp thing to put directly to Versley.</p>
+<p>Finally, the "<strong>grow a cheaper domain student over time</strong>" idea rhymes with <strong>e-Llama</strong>, raising a domain-tuned small model to absorb easy traffic. Be honest here: MERA's GRPO adapter is flat (46.5–47.5%) with <strong>no cumulative gain yet</strong>, so this is a direction, not a delivered result.</p>
+<blockquote>
+<p>How to say it in the room: "MERA doesn't make a model bigger; it disciplines how a fixed pool is served, and the one piece that doesn't transfer to eBay for free is a cheap, trustworthy verifier."</p>
+</blockquote>
+<h2 id="14-one-thing-to-know-before-you-share-the-repo">14 · One thing to know before you share the repo</h2>
+<p>The public code repo — <code>github.com/zeyuyuyu/router-skills-evolve</code> — is a <strong>living research codebase that has moved on past the submitted workshop paper.</strong> If Versley browses it, he may see newer, larger experiments and some different engineering choices. Keep the two straight:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>The <strong>submitted paper</strong> (cite this)</th>
+<th>The <strong>current repo</strong> (in-progress, do not cite as results)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Headline</td>
+<td>87.3% <strong>router acc</strong> / 4.4% fb / 51.8% cost</td>
+<td>A divergent draft quotes 99% task acc / 17% cost / 93.04% routing / 2.12% fb</td>
+</tr>
+<tr>
+<td>Scale</td>
+<td>590 code tasks, Qwen2.5-Coder-<strong>1.5B</strong></td>
+<td>A <strong>35B</strong> MoE adapter + a 3-domain <strong>tau2-bench</strong> agentic extension</td>
+</tr>
+<tr>
+<td>Router (paper)</td>
+<td><strong>BERT-tiny</strong> over prompt text</td>
+<td>The code path also explores <strong>TF-IDF + LogReg</strong>, and a single global "coding" skill</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>How to say it if he raises the repo:</strong> "The submission is the four-cycle code-generation study — 87.3% router accuracy, ~52% cost. The repo has since grown the framework toward larger agentic settings, including a 35B adapter on tau2-bench; those are ongoing extensions I'd present as <em>where the work is going</em>, not as the paper's verified results." That keeps you anchored to numbers you can defend and honest about the rest.</p>
+</blockquote>
+<h2 id="15-say-it-in-the-room">15 · Say it in the room</h2>
+<p><strong>The 10-second version:</strong> "MERA routes <em>inside</em> a multi-step agent trace — per invocation, not once per task — with a verifier-protected fallback, and only admits an update after a joint replay shows quality held. Cost from the router, safety from the verifier, decoupled."</p>
+<p><strong>The 30-second version:</strong> "Routing once per user task is too coarse, because easy and hard steps are interleaved inside one trace; but adapting every invocation is risky, because a cheap model can fail silently. So at runtime an input-only router picks strong / cheap / a 1.5B specialist, a SkillBook can fire a template, and a verifier checks the output and falls back on failure. Offline, the traces feed three tracks — SkillBook stats, a BERT-tiny router, a Qwen-1.5B LoRA+GRPO adapter — and a new combined state is promoted only if a joint replay preserves quality. Best four-cycle schedule: 87.3% router accuracy at ~52% serving cost, 4.4% fallback. I'm the third author."</p>
+<p><strong>The 2-minute version:</strong> start from the cost/quality dilemma → the interleaved-difficulty insight → the runtime loop (router + SkillBook + verifier-fallback, decoupled) → the offline loop (three tracks over shared step slices) → the joint-replay admission gate (the real contribution, conservative monotone deployment) → the honest numbers (87.3% router acc, flat 47.5% MBPP, no cumulative LLM gain) → the eBay bridge (Mercury runs many models per query; the verifier is the e-commerce challenge).</p>
+<blockquote>
+<p><strong>The single sentence to leave him with:</strong> "MERA is the routing-and-admission half of the systems-race story done carefully — and the open question I'd put to you is whether we can build a cheap, trustworthy verifier for e-commerce outputs, where there's no executable ground truth."</p>
+</blockquote>
+      <nav class="prevnext"><a class="pn prev" href="27_PAPERS_DEEP_DIVE_FROM_SCRATCH.html">‹ <span>★ Four Papers — Taught From Scratch</span></a><a class="pn next" href="04_PUBLICATIONS_PROJECTS_DEFENSE.html"><span>Publications &amp; Projects Defense</span> ›</a></nav>
+    </article>
+    <aside class="toc"><div class="toc-title">On this page</div><ul>
+<li><a href="#1-the-problem-from-absolute-zero">1 · The problem, from absolute zero</a></li>
+<li><a href="#2-the-key-idea-route-inside-the-trace-not-once-per-task">2 · The key idea — route inside the trace, not once per task</a></li>
+<li><a href="#3-loop-1-the-runtime-path">3 · Loop 1 — the runtime path</a></li>
+<li><a href="#4-the-skillbook-precisely">4 · The SkillBook, precisely</a></li>
+<li><a href="#5-loop-2-three-tracks-over-shared-traces">5 · Loop 2 — three tracks over shared traces</a></li>
+<li><a href="#6-the-learned-router">6 · The learned router</a></li>
+<li><a href="#7-the-llm-adapter-and-why-grpo-stalls-here">7 · The LLM adapter — and why GRPO stalls here</a></li>
+<li><a href="#8-the-joint-replay-admission-gate-the-real-contribution">8 · The joint-replay admission gate — the real contribution</a></li>
+<li><a href="#9-the-experiments-with-the-exact-numbers">9 · The experiments, with the exact numbers</a></li>
+<li><a href="#10-what-is-genuinely-new-and-what-is-not">10 · What is genuinely new (and what is not)</a></li>
+<li><a href="#11-honest-limitations-own-these-out-loud">11 · Honest limitations (own these out loud)</a></li>
+<li><a href="#12-how-versley-will-probe-it-and-how-to-answer">12 · How Versley will probe it — and how to answer</a></li>
+<li><a href="#13-the-thesis-bridge-the-ebay-connection">13 · The thesis bridge &amp;amp; the eBay connection</a></li>
+<li><a href="#14-one-thing-to-know-before-you-share-the-repo">14 · One thing to know before you share the repo</a></li>
+<li><a href="#15-say-it-in-the-room">15 · Say it in the room</a></li>
+</ul></aside>
+  </main>
+</div>
+<script>window.SEARCH_JSON="../assets/../search-index.json";</script>
+<script src="../assets/search-data.js"></script>
+<script src="../assets/app.js"></script>
+</body>
+</html>

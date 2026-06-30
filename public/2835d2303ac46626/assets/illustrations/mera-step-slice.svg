@@ -1,0 +1,127 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 460" role="img">
+  <title>MERA step slice: one canonical record feeding three separate tracks</title>
+  <desc>A raw runtime trace is canonicalized into per-invocation step slices, and the same slice record feeds three separate offline updates: SkillBook stats, the BERT-tiny router, and the Qwen2.5-Coder-1.5B LoRA adapter.</desc>
+
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#2563eb"/>
+    </marker>
+    <marker id="arrowGray" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#94a3b8"/>
+    </marker>
+    <marker id="arrowIndigo" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#4f46e5"/>
+    </marker>
+    <marker id="arrowPurple" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#7c3aed"/>
+    </marker>
+  </defs>
+
+  <g font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif">
+
+    <!-- Title -->
+    <text x="470" y="30" text-anchor="middle" font-size="19" font-weight="700" fill="#1f2733">One step-slice format, three different updates</text>
+    <text x="470" y="50" text-anchor="middle" font-size="12" fill="#56616f">A runtime trace is canonicalized into per-invocation step slices; the SAME slice feeds three separate offline tracks.</text>
+
+    <!-- Column headers -->
+    <text x="114" y="76" text-anchor="middle" font-size="13" font-weight="700" fill="#ea580c">Raw runtime trace</text>
+    <text x="420" y="76" text-anchor="middle" font-size="13" font-weight="700" fill="#334155">Canonicalize &#8594; step slice</text>
+    <text x="768" y="76" text-anchor="middle" font-size="13" font-weight="700" fill="#1f2733">Three separate tracks (same traces)</text>
+
+    <!-- ===== LEFT: raw runtime trace ===== -->
+    <rect x="24" y="86" width="180" height="296" rx="10" fill="#f7f8fa" stroke="#ea580c" stroke-width="2"/>
+    <text x="114" y="106" text-anchor="middle" font-size="11" fill="#56616f">multi-step agent trace</text>
+
+    <rect x="40" y="116" width="148" height="40" rx="8" fill="#ffedd5" stroke="#ea580c" stroke-width="1.5"/>
+    <text x="114" y="141" text-anchor="middle" font-size="12" font-weight="600" fill="#1f2733">invocation 1</text>
+
+    <rect x="40" y="168" width="148" height="40" rx="8" fill="#ffedd5" stroke="#ea580c" stroke-width="2.6"/>
+    <text x="114" y="186" text-anchor="middle" font-size="12" font-weight="700" fill="#1f2733">invocation 2</text>
+    <text x="114" y="201" text-anchor="middle" font-size="9.5" fill="#9a3412">selected</text>
+
+    <rect x="40" y="220" width="148" height="40" rx="8" fill="#ffedd5" stroke="#ea580c" stroke-width="1.5"/>
+    <text x="114" y="245" text-anchor="middle" font-size="12" font-weight="600" fill="#1f2733">invocation 3</text>
+
+    <text x="114" y="278" text-anchor="middle" font-size="13" font-weight="700" fill="#94a3b8">&#183;&#183;&#183;</text>
+
+    <rect x="40" y="290" width="148" height="40" rx="8" fill="#ffedd5" stroke="#ea580c" stroke-width="1.5"/>
+    <text x="114" y="315" text-anchor="middle" font-size="12" font-weight="600" fill="#1f2733">invocation k</text>
+
+    <text x="114" y="352" text-anchor="middle" font-size="10.5" fill="#56616f">each = one model call + verifier</text>
+
+    <!-- trace -> slice arrow -->
+    <text x="237" y="180" text-anchor="middle" font-size="10" fill="#56616f">1 slice</text>
+    <line x1="206" y1="188" x2="268" y2="188" stroke="#2563eb" stroke-width="2" marker-end="url(#arrow)"/>
+
+    <!-- ===== MIDDLE: step slice record card ===== -->
+    <rect x="270" y="96" width="300" height="284" rx="10" fill="#f7f8fa" stroke="#334155" stroke-width="2"/>
+    <text x="420" y="121" text-anchor="middle" font-size="14" font-weight="700" fill="#1f2733">Step slice (canonical record)</text>
+    <text x="420" y="138" text-anchor="middle" font-size="11" fill="#56616f">one record per invocation</text>
+    <line x1="284" y1="150" x2="556" y2="150" stroke="#94a3b8" stroke-width="1"/>
+
+    <!-- field rows -->
+    <circle cx="288" cy="168" r="2.6" fill="#334155"/>
+    <text x="298" y="172" text-anchor="start" font-size="12" font-weight="600" fill="#1f2733">prompt</text>
+    <text x="552" y="172" text-anchor="end" font-size="10.5" fill="#56616f">serialized input</text>
+
+    <circle cx="288" cy="194" r="2.6" fill="#334155"/>
+    <text x="298" y="198" text-anchor="start" font-size="12" font-weight="600" fill="#1f2733">local context</text>
+    <text x="552" y="198" text-anchor="end" font-size="10.5" fill="#56616f">this invocation only</text>
+
+    <circle cx="288" cy="220" r="2.6" fill="#334155"/>
+    <text x="298" y="224" text-anchor="start" font-size="12" font-weight="600" fill="#1f2733">tool schemas</text>
+    <text x="552" y="224" text-anchor="end" font-size="10.5" fill="#56616f">available tools</text>
+
+    <circle cx="288" cy="246" r="2.6" fill="#334155"/>
+    <text x="298" y="250" text-anchor="start" font-size="12" font-weight="600" fill="#1f2733">generated output</text>
+    <text x="552" y="250" text-anchor="end" font-size="10.5" fill="#56616f">model response</text>
+
+    <circle cx="288" cy="272" r="2.6" fill="#334155"/>
+    <text x="298" y="276" text-anchor="start" font-size="12" font-weight="600" fill="#1f2733">verifier result</text>
+    <text x="552" y="276" text-anchor="end" font-size="10.5" fill="#56616f">pass / fail</text>
+
+    <circle cx="288" cy="298" r="2.6" fill="#334155"/>
+    <text x="298" y="302" text-anchor="start" font-size="12" font-weight="600" fill="#1f2733">retry count</text>
+    <text x="552" y="302" text-anchor="end" font-size="10.5" fill="#56616f">number of retries</text>
+
+    <circle cx="288" cy="324" r="2.6" fill="#334155"/>
+    <text x="298" y="328" text-anchor="start" font-size="12" font-weight="600" fill="#1f2733">fallback metadata</text>
+    <text x="552" y="328" text-anchor="end" font-size="10.5" fill="#56616f">escalation log</text>
+
+    <circle cx="288" cy="350" r="2.6" fill="#334155"/>
+    <text x="298" y="354" text-anchor="start" font-size="12" font-weight="600" fill="#1f2733">skill assignment</text>
+    <text x="552" y="354" text-anchor="end" font-size="10.5" fill="#56616f">SkillBook signature</text>
+
+    <!-- ===== Fan-out arrows: same slice -> 3 tracks ===== -->
+    <line x1="574" y1="238" x2="616" y2="140" stroke="#2563eb" stroke-width="2" marker-end="url(#arrow)"/>
+    <line x1="574" y1="238" x2="616" y2="237" stroke="#4f46e5" stroke-width="2" marker-end="url(#arrowIndigo)"/>
+    <line x1="574" y1="238" x2="616" y2="335" stroke="#7c3aed" stroke-width="2" marker-end="url(#arrowPurple)"/>
+
+    <!-- ===== RIGHT: three consumers ===== -->
+    <!-- Track 1: SkillBook stats -->
+    <rect x="620" y="96" width="296" height="88" rx="10" fill="#e8f0fe" stroke="#2563eb" stroke-width="2"/>
+    <text x="636" y="120" text-anchor="start" font-size="13" font-weight="700" fill="#2563eb">SkillBook stats &#183; CPU</text>
+    <text x="636" y="142" text-anchor="start" font-size="11" fill="#56616f">success / failure counts</text>
+    <text x="636" y="158" text-anchor="start" font-size="11" fill="#56616f">per recurring local signature</text>
+    <text x="636" y="176" text-anchor="start" font-size="11" font-weight="600" fill="#1f2733">grew to 34 sig / 120 obs</text>
+
+    <!-- Track 2: BERT-tiny router -->
+    <rect x="620" y="196" width="296" height="82" rx="10" fill="#eef2ff" stroke="#4f46e5" stroke-width="2"/>
+    <text x="636" y="220" text-anchor="start" font-size="13" font-weight="700" fill="#4f46e5">BERT-tiny router</text>
+    <text x="636" y="242" text-anchor="start" font-size="11" fill="#56616f">weak cheap / strong labels</text>
+    <text x="636" y="259" text-anchor="start" font-size="11" fill="#56616f">input-only, on prompt text</text>
+
+    <!-- Track 3: LoRA adapter -->
+    <rect x="620" y="290" width="296" height="90" rx="10" fill="#f3e8ff" stroke="#7c3aed" stroke-width="2"/>
+    <text x="636" y="314" text-anchor="start" font-size="13" font-weight="700" fill="#7c3aed">LoRA adapter</text>
+    <text x="636" y="335" text-anchor="start" font-size="11.5" font-weight="600" fill="#1f2733">Qwen2.5-Coder-1.5B</text>
+    <text x="636" y="351" text-anchor="start" font-size="11" fill="#56616f">GPU &#183; local GRPO</text>
+    <text x="636" y="367" text-anchor="start" font-size="11" fill="#56616f">on the hard-example pool</text>
+
+    <!-- ===== Bottom caption ===== -->
+    <rect x="24" y="398" width="892" height="48" rx="8" fill="#f7f8fa" stroke="#94a3b8" stroke-width="1"/>
+    <text x="470" y="419" text-anchor="middle" font-size="13" font-weight="700" fill="#1f2733">One shared slice format, three different updates &#8212; all over the SAME traces.</text>
+    <text x="470" y="437" text-anchor="middle" font-size="11" fill="#56616f">SkillBook stats (CPU) &#183; BERT-tiny router (weak labels) &#183; LoRA adapter (GPU, GRPO on hard pool)</text>
+
+  </g>
+</svg>
