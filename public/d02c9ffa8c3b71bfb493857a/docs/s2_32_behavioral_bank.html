@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Behavioral &amp; Competency Bank · eBay Stage-2 Prep</title>
+<meta name="robots" content="noindex,nofollow">
+<script>try{if(localStorage.getItem('ebay-s2-theme')==='dark')document.documentElement.classList.add('dark');}catch(e){}</script>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body data-track="pm" data-pagefind-ignore="all">
+<button id="menu" class="menu-btn" aria-label="Menu">☰</button>
+<button id="theme" class="theme-btn" aria-label="Toggle theme">◐</button>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+<div class="brand"><a href="../index.html"><span class="brand-mark">e</span><span class="brand-txt">Stage&nbsp;2 Prep<em>eBay · three interviews</em></span></a></div>
+<div class="search"><input id="q" type="search" placeholder="Search…" autocomplete="off"><div id="results"></div></div>
+<nav class="nav">
+<div class="nav-group" data-track="start"><div class="nav-group-title"><span class="dot"></span>Start Here</div><ul>
+<li><a href="s2_00_email_and_logistics.html">Email &amp; Logistics</a></li>
+<li><a href="s2_01_overview_and_plan.html">Overview &amp; Study Plan</a></li>
+<li><a href="s2_44_confirm_tony.html">★ Fill These Before the Room</a></li>
+</ul></div>
+<div class="nav-group" data-track="code"><div class="nav-group-title"><span class="dot"></span>1 · Live Coding &amp; Engineering</div><ul>
+<li><a href="s2_10_live_coding_playbook.html">Live-Coding Playbook</a></li>
+<li><a href="s2_11_ml_from_scratch.html">ML From Scratch (Python)</a></li>
+<li><a href="s2_12_practice_regimen.html">Unaided Practice Regimen</a></li>
+<li><a href="s2_13_engineering_qa.html">Engineering Q&amp;A — Build &amp; Train</a></li>
+<li><a href="s2_14_serving_qa.html">Engineering Q&amp;A — Serve &amp; Monitor</a></li>
+<li><a href="s2_15_mlops_honest_gap.html">The Honest MLOps-Gap Script</a></li>
+</ul></div>
+<div class="nav-group" data-track="design"><div class="nav-group-title"><span class="dot"></span>2 · ML System Design</div><ul>
+<li><a href="s2_20_design_framework.html">Design Framework &amp; How to Drive</a></li>
+<li><a href="s2_21_recsys_search_design.html">Flagship: Search Ranking &amp; Recs</a></li>
+<li><a href="s2_22_design_skeletons.html">Design Skeletons Bank</a></li>
+<li><a href="s2_23_scaling_playbook.html">The Scaling Playbook</a></li>
+</ul></div>
+<div class="nav-group" data-track="pm"><div class="nav-group-title"><span class="dot"></span>3 · Project Mgmt &amp; Retrospective</div><ul>
+<li><a href="s2_30_project_walkthrough.html">Walkthrough: Routing at Scale</a></li>
+<li><a href="s2_31_star_stories.html">STAR Stories — The Four Prompts</a></li>
+<li class="active"><a href="s2_32_behavioral_bank.html">Behavioral &amp; Competency Bank</a></li>
+</ul></div>
+<div class="nav-group" data-track="ebay"><div class="nav-group-title"><span class="dot"></span>eBay &amp; Closing</div><ul>
+<li><a href="s2_40_ebay_context.html">eBay Context (Stage-2 lens)</a></li>
+<li><a href="s2_41_own_papers_numbers.html">Own-Paper Numbers (say them cold)</a></li>
+<li><a href="s2_42_questions_to_ask.html">Questions to Ask</a></li>
+<li><a href="s2_43_final_hours.html">Final-Hours Cheatsheet</a></li>
+</ul></div>
+</nav>
+  </aside>
+  <div class="scrim" id="scrim"></div>
+  <main class="content">
+    <article class="doc">
+      <div class="doc-meta"><span class="tag t-pm">Behavioral</span><span class="read">19 min read</span></div>
+      <h1 id="behavioral-competency-bank">Behavioral &amp; Competency Bank</h1>
+<p><em>Your routing table for Interview 3's STAR half — a fast index that maps each likely question to the story you fire, the one-line strategy, and the trap to dodge. Read it the night before, then close it. The full spoken tellings live in </em><em>STAR Stories — The Four Prompts</em><em>; the project narrative lives in </em><em>The Project Walkthrough</em><em>; the ops-gap answer lives in </em><em>The Honest MLOps-Gap Script</em><em>.</em></p>
+<hr />
+<h2 id="how-to-use-this">How to use this</h2>
+<ul>
+<li><strong>Don't memorize answers — memorize which story to fire.</strong> When a question lands, your only job is to recognize the bucket and reach for the right rehearsed story. The words come from the STAR docs; this page gets you there in two seconds.</li>
+<li><strong>One story serves several questions.</strong> That's intended. The risk is telling the <em>same anecdote three contradictory ways</em> in one hour — keep each story's facts fixed and just re-angle the emphasis.</li>
+<li><strong>Every number is the verified one</strong> (see the quick card at the bottom). If a figure isn't in your head, say <em>"I don't have that in front of me — directionally it was…"</em> and give the honest direction. Inventing a number is the one fatal move — especially on your <em>own</em> papers.</li>
+<li><strong>Discipline that runs through every Trap column:</strong> caveat goes in the <em>first</em> sentence of your Result; Situation + Task ≤ 45s, whole answer ~2 min, then stop and let them cut in; say <strong>"I" not "we"</strong> in the Action; tell routing stories as "I decided / I did," then hand the floor back.</li>
+<li><strong><code>⚠ [CONFIRM TONY]</code> on a row</strong> means the mapped story has an interpersonal gap — a real conflict, a named person, a human reaction — not yet in your record. Fill it from a <em>true</em> memory before the room, or fall back to the row's grounded alternative. Never invent the gap.</li>
+</ul>
+<hr />
+<h2 id="story-key-cited-in-the-tables-below">Story key (cited in the tables below)</h2>
+<table>
+<thead>
+<tr>
+<th>Tag</th>
+<th>Story</th>
+<th>Where the full telling lives</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ROUTE</strong></td>
+<td>The anchor project — "Cost-Efficient LLM Routing at Scale" (LLM Router → MERA)</td>
+<td>The Project Walkthrough</td>
+</tr>
+<tr>
+<td><strong>TRB</strong></td>
+<td>Owning the TwinRouterBench evaluation methodology / the benchmark nobody asked for</td>
+<td>STAR Stories — The Four Prompts (P3/P4)</td>
+</tr>
+<tr>
+<td><strong>SKILL-TRAP</strong></td>
+<td>The per-skill metric that almost lied — aggregate accuracy hid a failing skill category</td>
+<td>The Project Walkthrough (Beat 6)</td>
+</tr>
+<tr>
+<td><strong>MERA-NULL</strong></td>
+<td>MERA's model-evolution half showed no cumulative gain — reported, not buried</td>
+<td>The Project Walkthrough (retrospective)</td>
+</tr>
+<tr>
+<td><strong>DW</strong></td>
+<td>Diffusion Weights — 1.5B-scale weight diffusion made feasible on a single RTX 4090</td>
+<td>STAR Stories — The Four Prompts (P1 backup)</td>
+</tr>
+<tr>
+<td><strong>NNU</strong></td>
+<td>Pruning nnU-Net — the ACDC ground-truth anchor and the honest "no speedup"</td>
+<td>STAR Stories — The Four Prompts (P4 primary)</td>
+</tr>
+<tr>
+<td><strong>EYE</strong></td>
+<td>The eye-tracking VR emotion dataset — owned end to end past a hardware wall</td>
+<td>STAR Stories — The Four Prompts (P1 primary)</td>
+</tr>
+<tr>
+<td><strong>RI</strong></td>
+<td>Reverse Imaging — the ML voice on a physics-led MRI team</td>
+<td>STAR Stories — The Four Prompts (P3 backup)</td>
+</tr>
+<tr>
+<td><strong>FELLOW</strong></td>
+<td>Leaving the Marie-Curie fellowship to go independent</td>
+<td>STAR Stories — The Four Prompts (self/ambiguity)</td>
+</tr>
+<tr>
+<td><strong>IDEA</strong></td>
+<td>The ranked idea-portfolio backlog (smallest falsifying experiment)</td>
+<td>STAR Stories — The Four Prompts (initiative)</td>
+</tr>
+<tr>
+<td><strong>MENTOR</strong></td>
+<td>TA / MSc mentor at TU Delft (~5 courses)</td>
+<td>STAR Stories — The Four Prompts (feedback)</td>
+</tr>
+<tr>
+<td><strong>PIVOTS</strong></td>
+<td>Domain pivots: EE → CS systems → medical → wireless → LLM</td>
+<td>STAR Stories — The Four Prompts (learning)</td>
+</tr>
+<tr>
+<td><strong>NXP</strong></td>
+<td>The automated CAN-chip test bench at NXP (the one genuinely <em>shipped</em> artifact)</td>
+<td>STAR Stories — The Four Prompts (delivery)</td>
+</tr>
+<tr>
+<td><strong>LEAD</strong></td>
+<td>Leadership style — co-first-authorship + teaching + self-direction</td>
+<td>STAR Stories — The Four Prompts (leadership)</td>
+</tr>
+<tr>
+<td><strong>GAP</strong></td>
+<td>The honest MLOps-gap script</td>
+<td>The Honest MLOps-Gap Script</td>
+</tr>
+<tr>
+<td><strong>WHYEBAY</strong></td>
+<td>Browse-the-site "Why eBay"</td>
+<td>Overview &amp; Study Plan / eBay AI Dossier</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="1-the-core-prompts-rehearse-these-cold">1. The core prompts (rehearse these cold)</h2>
+<p>These four are the ones you were asked to prepare in writing — expect at least one verbatim.</p>
+<table>
+<thead>
+<tr>
+<th>Question</th>
+<th>Fire this</th>
+<th>Strategy (one line)</th>
+<th>Trap to avoid</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Walk me through a project you delivered end to end.</strong></td>
+<td><strong>ROUTE</strong></td>
+<td>8-beat spine: bottom-line first, protect the <em>decisions</em> and <em>retrospective+scale</em> beats; frame it honestly as a research program, not a shipped product.</td>
+<td>Burning the clock on Situation; claiming production deployment / live traffic / dollar savings that didn't happen.</td>
+</tr>
+<tr>
+<td><strong>A challenging project and how you overcame the difficulty.</strong></td>
+<td><strong>EYE</strong> / <strong>DW</strong> (backup)</td>
+<td>Lead with the <em>wall</em> — the hardware/compute limit, not the ML — then the design-around; land on the concrete artifact (Unity tool + IMWUT; or 1.5B diffusion on one 4090).</td>
+<td>Drowning in setup; overstating the eye-tracking dataset as "first large-scale public" — it isn't (see quick card).</td>
+</tr>
+<tr>
+<td><strong>A time you used data to influence someone.</strong></td>
+<td><strong>NNU</strong> / <strong>TRB</strong> flip (backup)</td>
+<td>Lead with the <strong>ACDC ground-truth curve</strong> sitting <em>alongside</em> proxy-Dice to kill the "you removed 80%, that's circular" objection; caveat (no measured speedup) first.</td>
+<td>Solo-work framing with no one influenced. <code>⚠ [CONFIRM TONY]</code> name the person whose mind actually changed (advisor Qian Tao / co-author / reviewer).</td>
+</tr>
+<tr>
+<td><strong>A time you used expertise to advise — the issue and your advice.</strong></td>
+<td><strong>TRB</strong> / <strong>RI</strong> (backup)</td>
+<td>Own the labeling-protocol + cost-accounting slice the team leaned on you for; hand the floor back ("curious how you'd label step difficulty at eBay scale").</td>
+<td>Lecturing the interviewer; describing a <em>method</em> instead of <em>advising a person.</em> <code>⚠ [CONFIRM TONY]</code> who received the advice and what they changed.</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>If asked for a <em>second</em> example on any prompt, give the 90-second compressed version (one-line Situation + your two most judgement-heavy Actions + Result), not a full two minutes.</p>
+</blockquote>
+<hr />
+<h2 id="2-program-project-management-delivery">2. Program &amp; project management, delivery</h2>
+<table>
+<thead>
+<tr>
+<th>Question</th>
+<th>Fire this</th>
+<th>Strategy (one line)</th>
+<th>Trap to avoid</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>How did you scope this — what was in vs. out?</td>
+<td><strong>ROUTE</strong></td>
+<td>Non-goals up front ("phase 1 I deliberately did <em>not</em> optimize tail latency"); prove the cost/quality frontier before productizing.</td>
+<td>Presenting a scoping cut as a regret; missing that the scope <em>was</em> the judgement.</td>
+</tr>
+<tr>
+<td>How did you plan and sequence the work?</td>
+<td><strong>ROUTE</strong></td>
+<td>Benchmark → simple scalar router → skill-adaptive router; each phase gated on a <em>measured</em> result before adding complexity.</td>
+<td>A vague "we iterated"; no gating logic.</td>
+</tr>
+<tr>
+<td>How did you know you were on track?</td>
+<td><strong>ROUTE</strong></td>
+<td>Pre-set success metrics (quality margin, cost %, routing overhead); per-milestone eval on TwinRouterBench.</td>
+<td>Retrofitting metrics you set <em>after</em> the fact.</td>
+</tr>
+<tr>
+<td>Tell me about a timeline/estimate that slipped.</td>
+<td><strong>SKILL-TRAP</strong></td>
+<td>The per-skill metric fix cost real time but was the right call — re-cut scope, flagged it early.</td>
+<td><code>⚠ [CONFIRM TONY]</code> a real slip with a real date/decision; don't fabricate a deadline story.</td>
+</tr>
+<tr>
+<td>How do you prioritize when everything feels urgent?</td>
+<td><strong>IDEA</strong></td>
+<td>Concrete rule: rank by "what would I learn?" × "smallest experiment that could prove me wrong," and cut the rest.</td>
+<td>Abstract "I prioritize by impact" with no mechanism.</td>
+</tr>
+<tr>
+<td>A time you had to manage multiple workstreams at once.</td>
+<td><strong>EYE</strong></td>
+<td>A multi-stage managed project: hardware/sync, the Unity tool, stimulus design, two studies (A=20, B=6), the fusion benchmark.</td>
+<td>One undifferentiated blob; over-talking logistics.</td>
+</tr>
+<tr>
+<td>Something you built that no one asked for.</td>
+<td><strong>TRB</strong></td>
+<td>You built the <em>measuring stick</em> first — a single router's number is unfalsifiable; the benchmark made every later claim comparative.</td>
+<td>Framing it as scope-creep rather than deliberate judgement.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="3-prioritization-ambiguity-tradeoffs">3. Prioritization, ambiguity &amp; tradeoffs</h2>
+<table>
+<thead>
+<tr>
+<th>Question</th>
+<th>Fire this</th>
+<th>Strategy (one line)</th>
+<th>Trap to avoid</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A decision you made with incomplete information.</td>
+<td><strong>ROUTE</strong></td>
+<td>Chose a learned upfront router over a cascade <em>before</em> having training data — the escalation-tax reasoning — and kept the cascade as a fallback baseline to de-risk.</td>
+<td>Pretending you had certainty; skipping the fallback.</td>
+</tr>
+<tr>
+<td>A time you faced real ambiguity — no clear right answer.</td>
+<td><strong>TRB</strong></td>
+<td>"Which routing strategy wins?" was undefined, so you built the benchmark to <em>remove</em> the ambiguity instead of guessing.</td>
+<td>Generic "I stayed calm"; no concrete move.</td>
+</tr>
+<tr>
+<td>A high-ambiguity, high-stakes bet.</td>
+<td><strong>FELLOW</strong></td>
+<td>Left a funded, secure MSCA track mid-stream to go independent — a deliberate bet, no safety net, consistent with a career of pivots.</td>
+<td>Framing it as drift/escape; badmouthing academia; pretending it was risk-free.</td>
+</tr>
+<tr>
+<td>A tradeoff you're proud of.</td>
+<td><strong>TRB</strong></td>
+<td>Weeks on a benchmark nobody asked for → every later claim was defensible. Long-term correctness over short-term speed.</td>
+<td>Making it sound like gold-plating rather than leverage.</td>
+</tr>
+<tr>
+<td>A tradeoff you'd make differently now.</td>
+<td><strong>ROUTE</strong></td>
+<td>Build the <em>online/shadow</em> eval harness earlier — offline-first hid the router's calibration under real-like traffic.</td>
+<td>Saying "nothing"; a non-specific regret.</td>
+</tr>
+<tr>
+<td>A calculated risk you took.</td>
+<td><strong>DW</strong></td>
+<td>Bet you could predict next-epoch weights with a diffusion model instead of running SGD, and make 1.5B-param diffusion feasible on one RTX 4090 via a β-VAE latent.</td>
+<td>Overstating the speedup; implying it's production-deployed (it's GPT-2-scale research).</td>
+</tr>
+<tr>
+<td>How do you decide when "good enough" is good enough?</td>
+<td><strong>EYE</strong></td>
+<td>You <em>measured</em> the saturation point — periocular perf saturates ~15 fps, so you train at 10 fps for ~no accuracy loss; stop spending compute past the knee.</td>
+<td>A hand-wavy "when it feels done."</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="4-stakeholders-influence-conflict-communication">4. Stakeholders, influence, conflict &amp; communication</h2>
+<blockquote>
+<p><strong>Your thinnest bucket — no workplace interpersonal conflict is documented.</strong> Lead with grounded analogs (peer review, cross-discipline collaboration, the fellowship decision) and bridge honestly; never manufacture a clash.</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Question</th>
+<th>Fire this</th>
+<th>Strategy (one line)</th>
+<th>Trap to avoid</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Who were your stakeholders and how did you manage them?</td>
+<td><strong>ROUTE</strong></td>
+<td>Tailor the message: <em>efficiency/cost</em> framing for infra, <em>quality/user-felt</em> framing for product/research.</td>
+<td><code>⚠ [CONFIRM TONY]</code> name the real stakeholders (advisor/PI, co-authors, any product/infra partners).</td>
+</tr>
+<tr>
+<td>A time you influenced without authority.</td>
+<td><strong>LEAD</strong> / <strong>TRB</strong></td>
+<td>Co-first-authorship is coordinate-not-command: you won people to benchmark-first by showing a single-router number was unfalsifiable — alignment by evidence, not title.</td>
+<td>Implying formal authority you've never had. <code>⚠ [CONFIRM TONY]</code> one concrete steering moment with Bishwas Regmi or Andreas Bulling.</td>
+</tr>
+<tr>
+<td>A disagreement with a colleague/advisor on a technical call.</td>
+<td><strong>NNU</strong> / <strong>RI</strong></td>
+<td>Hold the position with data (the ACDC anchor; or the RI-T2S failure you reported), concede where they're right, land on the joint decision.</td>
+<td>Manufacturing drama. <code>⚠ [CONFIRM TONY]</code> a real disagreement: what they wanted, what you said, how it ended.</td>
+</tr>
+<tr>
+<td>A time you stood firm under pressure on a technical point.</td>
+<td><strong>TRB</strong> flip</td>
+<td>Argue failure-aware cost accounting is <em>correct on first principles</em> — a router that breaks the task hasn't saved anything — regardless of which router wins.</td>
+<td>Cherry-pick accusation: defend the <em>principle</em>, not a ranking. <code>⚠ [CONFIRM TONY]</code> who applied the pressure.</td>
+</tr>
+<tr>
+<td>Tough feedback you received and what you did with it.</td>
+<td><strong>NNU</strong></td>
+<td>Peer-review pushback you genuinely got ("your headline is a proxy Dice, not real accuracy") — answered with the ACDC ground-truth curve.</td>
+<td>Inventing the reviewer's exact words. <code>⚠ [CONFIRM TONY]</code> which paper, the objection, whether they moved.</td>
+</tr>
+<tr>
+<td>Difficult feedback you <em>gave</em> someone.</td>
+<td><strong>MENTOR</strong></td>
+<td>Make the problem crisp, then hand ownership back — including telling a mentee when an approach isn't working.</td>
+<td>Fabricating a confrontation. <code>⚠ [CONFIRM TONY]</code> one real mentoring episode: who, what you said, the outcome.</td>
+</tr>
+<tr>
+<td>Explain a complex result to a non-technical audience.</td>
+<td><strong>ROUTE</strong></td>
+<td>Translate metrics → money and user-felt quality: "halving serving cost on routable traffic that users can't feel is a seven-figure line item."</td>
+<td>Charts with no "so-what"; telling any reconstructed detail as fact.</td>
+</tr>
+<tr>
+<td>Bridge a technical gap between two groups.</td>
+<td><strong>RI</strong></td>
+<td>You sat on the ML ↔ MR-physics boundary and made the learning-side reasoning legible to physicists (and vice versa).</td>
+<td>Jargon-dumping; claiming you taught them physics you don't have.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="5-leadership-ownership-initiative">5. Leadership, ownership &amp; initiative</h2>
+<blockquote>
+<p><strong>Honest caveat, said once and up front: no formal reports, no line management.</strong> "Leadership" here = leading without authority + teaching + self-direction. That caveat is a clean sentence in the Result, not your opener.</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Question</th>
+<th>Fire this</th>
+<th>Strategy (one line)</th>
+<th>Trap to avoid</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Describe your leadership style.</td>
+<td><strong>LEAD</strong></td>
+<td>Three legs: lead-without-authority (co-first-authorship), lead-by-teaching (TA/MSc), self-direction (the idea-backlog); get to clarity fast, smallest falsifying experiment, evidence settles it.</td>
+<td>Opening by deflating yourself; implying people-management you lack.</td>
+</tr>
+<tr>
+<td>Something you drove end-to-end with no one telling you how.</td>
+<td><strong>EYE</strong></td>
+<td>You owned hardware choice → sync/labeling pipeline → Unity tool → two studies → fusion model; the Pupil Labs add-on was <em>your</em> call when Tobii only exposed derived gaze.</td>
+<td>Slipping into "we"; losing your slice in the team's.</td>
+</tr>
+<tr>
+<td>A self-directed project with no external mandate.</td>
+<td><strong>IDEA</strong></td>
+<td>Your independent program is a ranked backlog of 10–15 ideas by learning value + smallest falsifying experiment; you run it solo.</td>
+<td>Presenting Cost-Adaptive Routing as having results — <strong>it has none yet</strong>; say so plainly.</td>
+</tr>
+<tr>
+<td>Tell me about mentoring someone.</td>
+<td><strong>MENTOR</strong></td>
+<td>Make the problem crisp, then let them own it — your actual move across ~5 courses.</td>
+<td>Generic mentoring platitudes. <code>⚠ [CONFIRM TONY]</code> one real mentee and outcome.</td>
+</tr>
+<tr>
+<td>How do you raise the level of people around you?</td>
+<td><strong>TRB</strong></td>
+<td>A reusable benchmark + reproducible method others build on top of.</td>
+<td>Vague "I share knowledge"; no artifact.</td>
+</tr>
+<tr>
+<td>A time you learned something difficult fast.</td>
+<td><strong>PIVOTS</strong></td>
+<td>Each pivot (EE → CS systems → medical → wireless → LLM) was a from-scratch domain; pick one and show <em>how</em> you ramped, not just that you did.</td>
+<td>A CV tour with no concrete "how I got productive."</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="6-measuring-impact-failure-retrospective">6. Measuring impact, failure &amp; retrospective</h2>
+<p><em>(Interview 3's highest-signal bucket — the round asks for a real failure explicitly.)</em></p>
+<table>
+<thead>
+<tr>
+<th>Question</th>
+<th>Fire this</th>
+<th>Strategy (one line)</th>
+<th>Trap to avoid</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A model/result that underperformed — what changed in how you work?</td>
+<td><strong>SKILL-TRAP</strong></td>
+<td>Aggregate accuracy looked great but hid the router dumping a whole skill category onto the cheap model where it quietly failed → now you score <em>per-slice</em> with guardrails by default.</td>
+<td>A trivial/fake failure; not naming the systemic change.</td>
+</tr>
+<tr>
+<td>Tell me about a significant failure.</td>
+<td><strong>MERA-NULL</strong></td>
+<td>The model-evolution half showed <strong>no cumulative gain</strong> — you reported it instead of dropping it. Integrity is the point.</td>
+<td>Picking a safe non-failure; spinning the null away.</td>
+</tr>
+<tr>
+<td>A time your results didn't match expectations.</td>
+<td><strong>RI</strong></td>
+<td>RI-T2S underperformed the baseline on short-echo-time GRE — you treated the failure as signal, and it motivated RI-Aug (MOLLI LV Dice <strong>39.9 → 91.6</strong>).</td>
+<td>Hiding the negative instead of owning it as the useful part.</td>
+</tr>
+<tr>
+<td>A time you were wrong.</td>
+<td><strong>ROUTE</strong></td>
+<td>You assumed a scalar difficulty score was enough; the data showed skill-conditioning mattered, so you redesigned.</td>
+<td>Defending the prior; not naming what changed your mind.</td>
+</tr>
+<tr>
+<td>What would you do differently on your best project?</td>
+<td><strong>NNU</strong></td>
+<td>One specific fix: get true ground-truth Dice on <em>every</em> dataset, not the proxy on three of four — and convert the redundancy map into structured pruning to actually measure a speedup.</td>
+<td>Saying "nothing"; vague self-criticism.</td>
+</tr>
+<tr>
+<td>How did you measure impact — and how do you know it's real?</td>
+<td><strong>ROUTE</strong></td>
+<td>Comparative, benchmarked cost-at-fixed-quality; be honest it's an <em>offline</em> result unless deployed.</td>
+<td>Implying live-traffic impact; overstating.</td>
+</tr>
+<tr>
+<td>A time you reported inconvenient news.</td>
+<td><strong>EYE</strong></td>
+<td>Your fusion model <em>loses slightly</em> at the 0.5s window — reported openly, not buried.</td>
+<td>Burying the caveat; presenting fusion as a clean win.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="7-ebay-role-specific-behavioral">7. eBay / role-specific behavioral</h2>
+<table>
+<thead>
+<tr>
+<th>Question</th>
+<th>Fire this</th>
+<th>Strategy (one line)</th>
+<th>Trap to avoid</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Why eBay? / Why this role?</td>
+<td><strong>WHYEBAY</strong> + thesis</td>
+<td>Open with one thing you <em>actually tried</em> on the live site, then map your systems-race thesis onto Foundation-Models work that ships to hundreds of millions of buyers.</td>
+<td>Press-scan recitation with no lived beat. <code>⚠ [CONFIRM TONY]</code> run the shopping agent / Magical Listing and note one real observation.</td>
+</tr>
+<tr>
+<td>What draws you to efficiency / routing work?</td>
+<td>thesis + <strong>ROUTE</strong></td>
+<td>Routing the right model to the right task at the right cost is exactly eBay's in-house play; it's your two-year arc.</td>
+<td>Lecturing on routing; over-claiming Cost-Adaptive Routing (no results).</td>
+</tr>
+<tr>
+<td>How much production MLOps have you actually done?</td>
+<td><strong>GAP</strong></td>
+<td>Say the rehearsed script <em>once</em>: own the on-call/live-drift gap in one clause, then pivot to the efficiency/serving-cost levers you own.</td>
+<td>Bluffing an ops war-story — it unravels on the next question; eBay scores "Act With Integrity."</td>
+</tr>
+<tr>
+<td>Taking research toward production.</td>
+<td><strong>ROUTE</strong> + <strong>GAP</strong></td>
+<td>The honest version: your deployments were research/shadow-eval scale — <em>which is why</em> this production-scale role is the deliberate next step.</td>
+<td>Implying you've shipped at eBay scale.</td>
+</tr>
+<tr>
+<td>A time you delivered under tight compute/cost constraints.</td>
+<td><strong>DW</strong> / <strong>NXP</strong></td>
+<td>1.5B-param diffusion was infeasible directly, so you compressed into a β-VAE latent and ran diffusion there — on a single RTX 4090, ~<strong>3.2×</strong> wall-clock fine-tune speedup.</td>
+<td>Overstating the speedup; implying DW is deployed (<strong>NXP</strong> is the only genuinely <em>shipped</em> artifact).</td>
+</tr>
+<tr>
+<td>If you had six more months and a team?</td>
+<td><strong>ROUTE</strong></td>
+<td>An SLA-aware router (set a quality target directly), online drift monitoring on the <em>decision mix</em>, and an eBay-model-zoo routing pilot behind shadow traffic.</td>
+<td>A wish-list with no first step.</td>
+</tr>
+<tr>
+<td>How does this scale to eBay QPS?</td>
+<td><strong>ROUTE</strong></td>
+<td>Sub-10ms shardable router, drift on the decision distribution, retraining cadence, an SLA knob — mapped onto LiLiuM 1B/7B/13B + e-Llama 8B/70B + frontier fallback.</td>
+<td>Treating scaling as an afterthought; over-asserting eBay's internal architecture as fact.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="8-ebays-five-values-one-star-story-each">8. eBay's five values → one STAR story each</h2>
+<p>Have one story <em>pinned</em> to each value so a "tell me about a time you lived X" lands instantly. <strong>Deliver With Impact</strong> is the one you quantify.</p>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th>Fire this</th>
+<th>How you connect it (the line)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Customer Focus</strong></td>
+<td><strong>SKILL-TRAP</strong></td>
+<td>"The aggregate number said we were fine — but per-skill I found a whole category the router was quietly failing. For the user on <em>that</em> task it's a broken experience, so I re-scored per-slice and set guardrails. I care about what the customer actually feels, not the average."</td>
+</tr>
+<tr>
+<td><strong>Innovate Boldly</strong></td>
+<td><strong>DW</strong></td>
+<td>"I bet you could <em>predict</em> a model's next-epoch weights with a diffusion model instead of running SGD — and made 1.5B-param-scale diffusion feasible on a single RTX 4090 by moving it into a β-VAE latent. Unconventional, and it earned a ~3.2× wall-clock fine-tune speedup."</td>
+</tr>
+<tr>
+<td><strong>Be For Everyone</strong></td>
+<td><strong>RI</strong> <em>(alt: the open-source Unity tool)</em></td>
+<td>"I was the ML voice on a physics-led MRI team spanning MR physicists and external collaborators — two sides that genuinely speak different languages. I made the learning-side reasoning legible so <em>everyone</em> at the table could engage and push back."</td>
+</tr>
+<tr>
+<td><strong>Deliver With Impact</strong> <em>(quantify)</em></td>
+<td><strong>ROUTE</strong></td>
+<td>"The routing program: the LLM Router benchmark held near-parity quality at <strong>&gt;90% cost reduction</strong> on the right traffic; <strong>MERA</strong> reached <strong>87.3% router-decision accuracy at 51.8% of serving cost</strong>; and on <strong>TwinRouterBench</strong> (I'm <strong>3rd of 17</strong>) a trained router cut realized API cost <strong>~53%</strong> vs. unrouted Opus at <em>matched</em> resolve rate on the live SWE-bench track. Half the cost at the quality bar — a seven-figure line item at real serving volume."</td>
+</tr>
+<tr>
+<td><strong>Act With Integrity</strong></td>
+<td><strong>MERA-NULL</strong> <em>(or </em><em>NNU</em><em> "no speedup")</em></td>
+<td>"MERA's model-evolution half showed no cumulative gain — I reported the null result instead of burying it. Same discipline on the nnU-Net paper: I measured <em>redundancy</em>, not speedup, so I framed deployment as future work, not a delivered win. I'd rather be precise than impressive."</td>
+</tr>
+</tbody>
+</table>
+<blockquote class="warn">
+<p><strong>Trap:</strong> don't force one story to <em>two</em> values in the same hour if it invites a "wait, didn't you just say…" — spread the load across the six stories above. <strong>Deliver With Impact</strong> is the only value where you lead with numbers; for the others, lead with the <em>behavior</em>, then let one figure land.</p>
+</blockquote>
+<hr />
+<h2 id="verified-number-quick-card-say-these-not-the-cv-anti-fabrication-safeguard">Verified-number quick card (say these, not the CV — anti-fabrication safeguard)</h2>
+<blockquote>
+<p>These are the figures fact-checked against the paper PDFs (<strong>Own Papers Ground Truth</strong>). Two of them correct old-pack overclaims — the corrections are load-bearing because you'd be misquoting your <em>own</em> work to people who can check.</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Work</th>
+<th>Say exactly</th>
+<th>Never say</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>LLM Router</strong></td>
+<td><strong>&gt;90% cost reduction at matched ("iso") quality</strong> on favorable traffic</td>
+<td>a raw "10× cheaper" with no iso-quality qualifier</td>
+</tr>
+<tr>
+<td><strong>MERA</strong></td>
+<td><strong>87.3% <em>router-decision</em> accuracy at 51.8% serving cost</strong>; the model-evolution half stayed flat (~47%, no cumulative gain)</td>
+<td>87.3% as "task accuracy"; any "99% acc / 83% cost" number (that's the <em>repo</em> draft, not the paper)</td>
+</tr>
+<tr>
+<td><strong>TwinRouterBench</strong></td>
+<td><strong>~53% API-cost reduction</strong> — trained router ($25.66) vs. unrouted Opus 4.6 ($54.73) at <em>matched resolve</em> on the live dynamic track; a training-utility result, <strong>not</strong> the benchmark's headline; <strong>3rd of 17</strong></td>
+<td>53% as a quality/performance win ("beat Opus by 53%"), a static-track result, the benchmark's main contribution, or a "GPT-4o baseline" (it's Opus 4.6)</td>
+</tr>
+<tr>
+<td><strong>Diffusion Weights</strong></td>
+<td><strong>~3.2× wall-clock fine-tune speedup</strong> at comparable accuracy; GPT-2 up to 1.5B, single RTX 4090, β-VAE latent</td>
+<td>that it's production-deployed; smoothing over the ~3.2× vs 3.8–4.3× table inconsistency</td>
+</tr>
+<tr>
+<td><strong>Pruning nnU-Net</strong></td>
+<td><strong>first author (MIDL 2025)</strong>; <strong>&gt;80% of weights removed while proxy Dice stays &gt;0.95</strong> across 4 datasets; the finding is an inverted-U redundancy map; <strong>no measured speedup</strong> (deployment = future work)</td>
+<td>⚠ <strong>"99% sparsity / ~6× speedup"</strong> — both are <em>fabrications</em>; 99.1% is only Brain Tumor at the most aggressive, high-degradation threshold</td>
+</tr>
+<tr>
+<td><strong>Eye-Tracking VR emotion</strong></td>
+<td><strong>first author</strong> (co-first with <strong>Bishwas Regmi</strong>); raw periocular video (120 fps) + <strong>gaze at 240 Hz</strong> (4× VREED) + <strong>7 Ekman emotions</strong>; 26 participants; fusion lifts cross-session <strong>F1 0.54 → 0.70</strong></td>
+<td>⚠ <strong>"first large-scale public dataset"</strong> — it's <em>shared on request under agreement</em> (26 is modest); the <em>public</em> artifact is the open-source <strong>Unity tool</strong></td>
+</tr>
+<tr>
+<td><strong>Reverse Imaging</strong></td>
+<td>co-author; RI-Aug takes <strong>MOLLI LV Dice 39.9 → 91.6</strong> with no target-domain data; RI-T2S <em>underperforms</em> on short-echo GRE (the failure that motivated RI-Aug)</td>
+<td>any claim that RI-T2S was a clean win</td>
+</tr>
+<tr>
+<td><strong>eBay stack</strong> (their work, not yours)</td>
+<td>LiLiuM 1B/7B/13B, custom tokenizer ~34% faster; e-Llama = continued-pretrain Llama-3.1 8B/70B at LR=10% of original; VLM = Gemma3-4B <strong>F1 50.5</strong> beats zero-shot Gemma3-27B <strong>44.8</strong>, ~3.8× faster</td>
+<td>that Tony authored LiLiuM / e-Llama / VLM</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="closing-reminders-the-five-that-lose-offers">Closing reminders (the five that lose offers)</h2>
+<ol>
+<li><strong>Never invent a number.</strong> <em>"I don't have that in front of me — directionally it was…"</em> Verified figures only. Your <em>own</em> papers are the highest-risk place to overclaim.</li>
+<li><strong>Caveat first</strong>, in the opening sentence of your Result — not after a follow-up drags it out.</li>
+<li><strong>S + T ≤ 45s; whole answer ~2 min; then stop.</strong> Let them cut in and steer.</li>
+<li><strong>Say "I," not "we," in the Action.</strong> Use "we" only for genuine team context, then switch to "I did X" immediately.</li>
+<li><strong>Own the ops gap once, cleanly</strong> (The Honest MLOps-Gap Script), and don't relitigate it. Honesty + concept-fluency + pivot beats a polished-sounding fabrication every time.</li>
+</ol>
+<p><em>Cross-references: </em><em>STAR Stories — The Four Prompts</em><em> (full spoken tellings — override anything here if they differ), </em><em>The Project Walkthrough</em><em> (the 8-beat ROUTE narrative + deep-probe handling), </em><em>The Honest MLOps-Gap Script</em><em> (the canonical ops answer), </em><em>Own Papers Ground Truth</em><em> (every verified figure + line-by-line defenses).</em></p>
+      <nav class="prevnext"><a class="pn prev" href="s2_31_star_stories.html">‹ <span>STAR Stories — The Four Prompts</span></a><a class="pn next" href="s2_40_ebay_context.html"><span>eBay Context (Stage-2 lens)</span> ›</a></nav>
+    </article>
+    <aside class="toc"><div class="toc-title">On this page</div><ul>
+<li><a href="#how-to-use-this">How to use this</a></li>
+<li><a href="#story-key-cited-in-the-tables-below">Story key (cited in the tables below)</a></li>
+<li><a href="#1-the-core-prompts-rehearse-these-cold">1. The core prompts (rehearse these cold)</a></li>
+<li><a href="#2-program-project-management-delivery">2. Program &amp; project management, delivery</a></li>
+<li><a href="#3-prioritization-ambiguity-tradeoffs">3. Prioritization, ambiguity &amp; tradeoffs</a></li>
+<li><a href="#4-stakeholders-influence-conflict-communication">4. Stakeholders, influence, conflict &amp; communication</a></li>
+<li><a href="#5-leadership-ownership-initiative">5. Leadership, ownership &amp; initiative</a></li>
+<li><a href="#6-measuring-impact-failure-retrospective">6. Measuring impact, failure &amp; retrospective</a></li>
+<li><a href="#7-ebay-role-specific-behavioral">7. eBay / role-specific behavioral</a></li>
+<li><a href="#8-ebays-five-values-one-star-story-each">8. eBay&#x27;s five values → one STAR story each</a></li>
+<li><a href="#verified-number-quick-card-say-these-not-the-cv-anti-fabrication-safeguard">Verified-number quick card (say these, not the CV — anti-fabrication safeguard)</a></li>
+<li><a href="#closing-reminders-the-five-that-lose-offers">Closing reminders (the five that lose offers)</a></li>
+</ul></aside>
+  </main>
+</div>
+<script>window.SEARCH_JSON="../assets/../search-index.json";</script>
+<script src="../assets/search-data.js"></script>
+<script src="../assets/app.js"></script>
+</body>
+</html>

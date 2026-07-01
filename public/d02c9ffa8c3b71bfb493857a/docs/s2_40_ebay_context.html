@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>eBay Context (Stage-2 lens) · eBay Stage-2 Prep</title>
+<meta name="robots" content="noindex,nofollow">
+<script>try{if(localStorage.getItem('ebay-s2-theme')==='dark')document.documentElement.classList.add('dark');}catch(e){}</script>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body data-track="ebay" data-pagefind-ignore="all">
+<button id="menu" class="menu-btn" aria-label="Menu">☰</button>
+<button id="theme" class="theme-btn" aria-label="Toggle theme">◐</button>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+<div class="brand"><a href="../index.html"><span class="brand-mark">e</span><span class="brand-txt">Stage&nbsp;2 Prep<em>eBay · three interviews</em></span></a></div>
+<div class="search"><input id="q" type="search" placeholder="Search…" autocomplete="off"><div id="results"></div></div>
+<nav class="nav">
+<div class="nav-group" data-track="start"><div class="nav-group-title"><span class="dot"></span>Start Here</div><ul>
+<li><a href="s2_00_email_and_logistics.html">Email &amp; Logistics</a></li>
+<li><a href="s2_01_overview_and_plan.html">Overview &amp; Study Plan</a></li>
+<li><a href="s2_44_confirm_tony.html">★ Fill These Before the Room</a></li>
+</ul></div>
+<div class="nav-group" data-track="code"><div class="nav-group-title"><span class="dot"></span>1 · Live Coding &amp; Engineering</div><ul>
+<li><a href="s2_10_live_coding_playbook.html">Live-Coding Playbook</a></li>
+<li><a href="s2_11_ml_from_scratch.html">ML From Scratch (Python)</a></li>
+<li><a href="s2_12_practice_regimen.html">Unaided Practice Regimen</a></li>
+<li><a href="s2_13_engineering_qa.html">Engineering Q&amp;A — Build &amp; Train</a></li>
+<li><a href="s2_14_serving_qa.html">Engineering Q&amp;A — Serve &amp; Monitor</a></li>
+<li><a href="s2_15_mlops_honest_gap.html">The Honest MLOps-Gap Script</a></li>
+</ul></div>
+<div class="nav-group" data-track="design"><div class="nav-group-title"><span class="dot"></span>2 · ML System Design</div><ul>
+<li><a href="s2_20_design_framework.html">Design Framework &amp; How to Drive</a></li>
+<li><a href="s2_21_recsys_search_design.html">Flagship: Search Ranking &amp; Recs</a></li>
+<li><a href="s2_22_design_skeletons.html">Design Skeletons Bank</a></li>
+<li><a href="s2_23_scaling_playbook.html">The Scaling Playbook</a></li>
+</ul></div>
+<div class="nav-group" data-track="pm"><div class="nav-group-title"><span class="dot"></span>3 · Project Mgmt &amp; Retrospective</div><ul>
+<li><a href="s2_30_project_walkthrough.html">Walkthrough: Routing at Scale</a></li>
+<li><a href="s2_31_star_stories.html">STAR Stories — The Four Prompts</a></li>
+<li><a href="s2_32_behavioral_bank.html">Behavioral &amp; Competency Bank</a></li>
+</ul></div>
+<div class="nav-group" data-track="ebay"><div class="nav-group-title"><span class="dot"></span>eBay &amp; Closing</div><ul>
+<li class="active"><a href="s2_40_ebay_context.html">eBay Context (Stage-2 lens)</a></li>
+<li><a href="s2_41_own_papers_numbers.html">Own-Paper Numbers (say them cold)</a></li>
+<li><a href="s2_42_questions_to_ask.html">Questions to Ask</a></li>
+<li><a href="s2_43_final_hours.html">Final-Hours Cheatsheet</a></li>
+</ul></div>
+</nav>
+  </aside>
+  <div class="scrim" id="scrim"></div>
+  <main class="content">
+    <article class="doc">
+      <div class="doc-meta"><span class="tag t-ebay">eBay</span><span class="read">10 min read</span></div>
+      <h1 id="ebay-context-stage-2-lens">eBay Context (Stage-2 lens)</h1>
+<p><em>Your one-page map of eBay's AI stack — every number, and the one-line bridge from it to your own work. Read it early, then re-skim before each round so the facts and connections are loaded and ready to drop into conversation.</em></p>
+<h2 id="what-this-doc-is-for">What this doc is for</h2>
+<p>Stage 1 was the research round (with Yannick Versley, who leads Foundation Models pretraining). <strong>Stage 2 is a different audience:</strong> an engineer/applied scientist (Round 1), a senior IC or lead (Round 2), and a hiring manager (Round 3). None of them wants a paper-by-paper deep dive. What they reward is you connecting your work to eBay's <em>actual production problems</em> — naturally, in a sentence, when the conversation opens the door.</p>
+<p>So this doc is not a company dossier. It's the <strong>connective tissue</strong>: the stack, the numbers, and the bridge to your research. Drop these as bridges, not as a monologue.</p>
+<blockquote class="warn">
+<p><strong>Trap:</strong> don't recite the stack unprompted. These land when an interviewer's question opens the door ("how would you serve this cheaply?", "why not just use a big model?"). Then you have the bridge ready.</p>
+</blockquote>
+<h2 id="the-one-economic-fact-that-frames-everything">The one economic fact that frames everything</h2>
+<p>eBay is an <strong>asset-light marketplace</strong> — no inventory, no warehouses. ~<strong>$80B GMV</strong> in 2025 on ~<strong>$11.1B revenue</strong>, mostly transaction fees. So the unit economics are dominated by software and AI, <strong>not</strong> logistics: every percentage point of serving cost or listing quality flows straight to the bottom line.</p>
+<p>That's <em>why</em> eBay's published AI work is obsessed with efficiency — and it's exactly your thesis: <strong>AI is moving from a scaling race to a systems race.</strong> eBay is one of the few places where that isn't a slogan, it's the business model.</p>
+<h2 id="numbers-cheat-sheet-two-lanes-keep-them-separate">Numbers cheat-sheet — two lanes, keep them separate</h2>
+<p>Never blur who authored what. eBay's published/internal work is theirs; your results are yours; the bridge connects them.</p>
+<table>
+<thead>
+<tr>
+<th>eBay's published work (theirs)</th>
+<th>Your work (yours)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>LiLiuM</strong> in-house LLMs 1B/7B/13B, 3T tokens, custom e-commerce tokenizer → <strong>~34% faster generation</strong></td>
+<td><strong>LLM Router</strong> — <strong>&gt;90% cost reduction at matched ("iso") quality</strong></td>
+</tr>
+<tr>
+<td><strong>e-Llama</strong> — Llama-3.1 8B/70B continued-pretrained on 1T e-commerce tokens at <strong>LR = 10% of original</strong> (anti catastrophic-forgetting)</td>
+<td><strong>MERA</strong> — <strong>87.3% router-decision accuracy at 51.8% serving cost</strong> (router-decision, <em>not</em> task accuracy)</td>
+</tr>
+<tr>
+<td><strong>e-commerce VLM</strong> — finetuned <strong>Gemma3-4B F1 50.5</strong> beats zero-shot <strong>Gemma3-27B 44.8</strong>, <strong>~3.8× faster</strong></td>
+<td><strong>Diffusion Weights</strong> — <strong>~3.2× wall-clock fine-tune speedup</strong></td>
+</tr>
+<tr>
+<td><strong>Mercury</strong> — agentic platform serving many models by rule-based selection</td>
+<td><strong>Pruning nnU-Net</strong> — <strong>&gt;80% of weights removed at proxy Dice &gt;0.95</strong> (unstructured; no measured speedup) (MIDL, first author)</td>
+</tr>
+<tr>
+<td><strong>Magical Listing</strong> — 500M listings, &gt;25% less listing time</td>
+<td><strong>TwinRouterBench</strong> — <strong>53%</strong> (trained router vs unrouted Opus, matched resolve, dynamic track)</td>
+</tr>
+</tbody>
+</table>
+<blockquote class="warn">
+<p><strong>Trap:</strong> the documented failure mode is misquoting these — "87.3%" is <strong>router-decision accuracy</strong>, never "task accuracy," and it pairs with <strong>51.8% serving cost</strong>. Say it the same way every time.</p>
+</blockquote>
+<h2 id="the-stack-and-the-bridge-to-your-work">The stack, and the bridge to your work</h2>
+<p>For each: what it is (with eBay's numbers), then <strong>Bridge:</strong> — how your work connects, in one line.</p>
+<h3 id="lilium-ebays-in-house-llm-family-ebays-published-work">LiLiuM — eBay's in-house LLM family <em>(eBay's published work)</em></h3>
+<p>Decoder-only, three sizes <strong>1B / 7B / 13B</strong>, trained on <strong>3T multilingual tokens</strong>, with a <strong>custom 65k e-commerce tokenizer</strong>. Because brand names, model numbers, and part numbers become <em>single</em> tokens instead of being split into sub-words, generation is <strong>up to ~34% faster</strong> than LLaMA-2 on eBay tasks. Built 100% in-house for data governance, licensing freedom, and serving efficiency.</p>
+<blockquote>
+<p><strong>Bridge:</strong> tokenizer efficiency and my routing attack the same cost from two different layers — they make each <em>token</em> cheaper; I make each <em>query</em> cheaper by sending the easy ones to a smaller model. They compose: route to a well-tokenized specialist and you multiply both wins.</p>
+</blockquote>
+<h3 id="e-llama-domain-adapted-llama-31-ebays-published-work">e-Llama — domain-adapted Llama 3.1 <em>(eBay's published work)</em></h3>
+<p><strong>Continued pretraining</strong> of Llama-3.1 <strong>8B and 70B</strong> on <strong>1T e-commerce tokens</strong> at <strong>LR = 10% of the original</strong> pretraining rate — the key knob for adapting a strong base model without catastrophic forgetting. A <strong>50% e-com / 50% general</strong> data mix, plus <strong>model merging</strong> (simple parameter averaging) that gives a near-linear domain-vs-general dial at zero extra compute.</p>
+<blockquote>
+<p><strong>Bridge:</strong> this is cheap adaptation done <em>right</em> — the LR=10% call is the same instinct behind my Diffusion Weights work (<strong>~3.2× wall-clock fine-tune speedup</strong>): the win is in <em>how</em> you adapt, not how big you go.</p>
+</blockquote>
+<h3 id="the-e-commerce-vlm-small-finetuned-beats-big-zero-shot-ebays-published-work-flagship-bridge">The e-commerce VLM — small-finetuned beats big-zero-shot <em>(eBay's published work)</em> — <strong>flagship bridge</strong></h3>
+<p>LLaVA-style VLMs for e-commerce. The headline result: a <strong>finetuned Gemma3-4B reaches F1 50.5</strong>, beating a <strong>zero-shot Gemma3-27B at 44.8</strong> — <em>higher quality</em> — while running <strong>~3.8× faster</strong>. Using a domain-adapted decoder (e-Llama) adds another 5–12% on e-commerce tasks.</p>
+<blockquote>
+<p><strong>Bridge:</strong> this is my entire thesis in one data point — a small, domain-adapted model dominates a big general one on quality <em>and</em> cost. It's the same economics as my <strong>LLM Router (&gt;90% cost reduction at matched quality)</strong> and <strong>MERA (87.3% router-decision accuracy at 51.8% serving cost)</strong>: stop paying for capacity the query doesn't need.</p>
+</blockquote>
+<h3 id="mercury-agentic-platform-for-llm-powered-recommendations-ebays-work">Mercury — agentic platform for LLM-powered recommendations <em>(eBay's work)</em></h3>
+<p>An internal agentic framework that runs a <strong>fleet of models in parallel</strong> — fine-tuned Llama, Mistral, LiLiuM internally, plus external GCP/Azure/OpenAI APIs — with "prompts as code," modular agents, and chains. Today model selection is <strong>rule-based / priority-queue-based, not learned.</strong></p>
+<blockquote>
+<p><strong>Bridge:</strong> Mercury is a learned router waiting to happen. It already serves many models by hand-written rules; my LLM Router / MERA replace those rules with a policy that picks the cheapest model still meeting the quality bar — the 51.8%-serving-cost lever, applied to their platform.</p>
+</blockquote>
+<h3 id="magical-listing-the-shipped-agentic-pipeline-ebays-product">Magical Listing — the shipped agentic pipeline <em>(eBay's product)</em></h3>
+<p>AI-native listing flow: seller photographs an item → VLM + LLM agents generate title, category, item specifics, and a price estimate. Impact as of Q1 2026: <strong>&gt;25% less listing time</strong>, <strong>&gt;50% higher new-listing creation rate</strong>, <strong>500M listings created</strong> cumulatively; won an <strong>AI Breakthrough Award</strong>.</p>
+<blockquote>
+<p><strong>Bridge:</strong> it's a multi-step agentic pipeline (ingest → identify → extract → title → price), and each step is a model-choice decision — exactly the per-step routing problem MERA benchmarks. At 500M listings, a few points of per-step serving cost is real money.</p>
+</blockquote>
+<h3 id="machine-translation-cross-border-trade-as-a-revenue-driver-ebays-published-work">Machine translation — cross-border trade as a revenue driver <em>(eBay's published work)</em></h3>
+<p>Cross-border trade is a structural moat, and MT quality directly converts into international GMV. LiLiuM's <strong>65k multilingual tokenizer</strong> (DE/ES/IT/FR emphasis) is built for it; a separate RAG title-translation line of work tackles the genuinely hard case — <strong>~11-word product titles</strong>, jargon and model numbers, so sparse that <strong>chrF is chosen over BLEU</strong>.</p>
+<blockquote>
+<p><strong>Bridge:</strong> my Diffusion Weights paper is evaluated on <strong>WMT16</strong>, so MT is native ground for me — and the interesting eBay twist is that <em>product-title</em> MT is harder than sentence MT (sparse, jargon-heavy), which is still an open problem, not a solved one.</p>
+</blockquote>
+<h3 id="recommendations-search-ads-ranking-ebays-published-work">Recommendations, search &amp; ads ranking <em>(eBay's published work)</em></h3>
+<p>Near-real-time re-ranking under a hard latency budget (<strong>P99 ≤ 120 ms</strong> is the reported design constraint), on <strong>eBERT</strong> embeddings. A recurring pattern across search relevance and advertiser-keyphrase work: an <strong>LLM teacher/judge distilled into a cross-encoder or bi-encoder student</strong> for production-latency serving.</p>
+<blockquote>
+<p><strong>Bridge:</strong> "buy good labels from the big model, serve with the small one" is the same efficiency move as my pruning work (<strong>&gt;80% of weights removed at proxy Dice &gt;0.95</strong> on nnU-Net; unstructured, so no measured speedup yet) and my routing — expensive signal, cheap serving. (The full end-to-end design of this system lives in <strong>Flagship: Search Ranking &amp; Recs</strong>; don't rebuild it here.)</p>
+</blockquote>
+<h3 id="the-product-knowledge-graph-ebays-proprietary-asset">The product knowledge graph <em>(eBay's proprietary asset)</em></h3>
+<p>A structured backbone — taxonomy, ontology, attribute-value structures over tens of millions of SKUs — that general LLMs simply don't have. It's what lets Magical Listing fill accurate item specifics.</p>
+<blockquote>
+<p><strong>Bridge (the honest one — no forced routing angle):</strong> the KG is <em>what makes a small specialist viable at all.</em> Structured domain grounding is why a 4B model can punch above a 27B one — it isn't reconstructing product knowledge from parameters. That's the substrate under the small-finetuned-beats-big result.</p>
+</blockquote>
+<h2 id="why-ebay-the-authentic-version">Why eBay — the authentic version</h2>
+<p>This is genuine, not flattery. My thesis is that AI is moving from a scaling race to a <strong>systems race</strong> — what matters is how you train, route, compress, deploy, and apply models under real constraints. eBay is the rare place where that's not a slogan but the <em>business model</em>: an asset-light marketplace where every efficiency point flows to the bottom line. So the team is already building my thesis into production — LiLiuM's tokenizer, the vocabulary-compression work, the small-finetuned-beats-big VLM result — and the routing problem I've published on is sitting, unsolved, inside Mercury. It's a team that both <strong>ships</strong> (Magical Listing, 500M listings) and <strong>publishes</strong> (ACL/EMNLP/EACL/SIGIR/ECAI), which is the research-that-deploys balance I want, and it's in <strong>Amsterdam</strong>, where I already am, next to UvA and CWI.</p>
+<p><strong>Say it like this:</strong></p>
+<blockquote class="warn">
+<p>"I'm not looking for a bigger GPU budget — I'm looking for the place where doing more with less is the <em>whole game</em>. eBay's an asset-light marketplace, so serving cost and listing quality flow straight to the bottom line, and the team is already building the thing I believe in: LiLiuM's tokenizer, the vocabulary compression, a finetuned 4B beating a zero-shot 27B. My routing and compression work is the same bet from a different angle — and honestly, the learned router that Mercury doesn't have yet is exactly what I've published on. Plus I'm already in Amsterdam, next to UvA."</p>
+<p>⚠ <strong>[CONFIRM TONY — DO THIS, ~15 MIN, BEFORE THE ROUND]:</strong> Sit down at eBay.com (and open the Magical Listing flow — start listing an item from a photo) and lock in <strong>ONE true, specific observation</strong> you can say out loud. Options: (a) a real search/purchase of yours — a niche part, collectible, or recommerce find — name the item and what the experience was like; or (b) list a real item you own via Magical Listing and note ONE concrete thing (e.g., the title/category it auto-generated, whether the item specifics were right, how fast it was). Write the one sentence here once you have it. A real, first-hand observation makes "Customer Focus" land far harder than any stat — do NOT fabricate one; use only what you actually saw.</p>
+</blockquote>
+<h2 id="ebays-5-values-one-line-hook-each">eBay's 5 values — one-line hook each</h2>
+<p>Scored explicitly in Round 3 (the behavioral round). Full STAR stories live in the behavioral prep doc — here, just the hook that ties each value to you.</p>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th>Your one-line hook</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Customer Focus</strong></td>
+<td>Efficiency isn't abstract — cheaper, faster serving is what lets eBay cut listing time &gt;25% and put good models in front of <em>every</em> buyer and seller, not just the high-value ones.</td>
+</tr>
+<tr>
+<td><strong>Innovate Boldly</strong></td>
+<td>Routing was a contrarian bet when I started — and I publish the ablations that show where it <em>doesn't</em> win, not just where it does.</td>
+</tr>
+<tr>
+<td><strong>Be For Everyone</strong></td>
+<td>Cross-border MT and cost-efficient serving are the same idea: make good AI cheap enough to reach every market and every seller.</td>
+</tr>
+<tr>
+<td><strong>Deliver With Impact</strong></td>
+<td>I lead with numbers — &gt;90% cost reduction at iso quality, 87.3% router-decision accuracy at 51.8% serving cost, &gt;80% of weights removed at proxy Dice &gt;0.95 (unstructured; no measured speedup), ~3.2× fine-tune.</td>
+</tr>
+<tr>
+<td><strong>Act With Integrity</strong></td>
+<td>I'm precise about the line between what I've owned (efficiency, offline eval) and what I haven't (live production on-call) — see <strong>The Honest MLOps-Gap Script</strong>.</td>
+</tr>
+</tbody>
+</table>
+<blockquote class="warn">
+<p><strong>Trap:</strong> don't over-explain the values or turn a hook into a mini-STAR — that's the behavioral round's job. Here they're just anchors so you know which of your stories maps where.</p>
+</blockquote>
+      <nav class="prevnext"><a class="pn prev" href="s2_32_behavioral_bank.html">‹ <span>Behavioral &amp; Competency Bank</span></a><a class="pn next" href="s2_41_own_papers_numbers.html"><span>Own-Paper Numbers (say them cold)</span> ›</a></nav>
+    </article>
+    <aside class="toc"><div class="toc-title">On this page</div><ul>
+<li><a href="#what-this-doc-is-for">What this doc is for</a></li>
+<li><a href="#the-one-economic-fact-that-frames-everything">The one economic fact that frames everything</a></li>
+<li><a href="#numbers-cheat-sheet-two-lanes-keep-them-separate">Numbers cheat-sheet — two lanes, keep them separate</a></li>
+<li><a href="#the-stack-and-the-bridge-to-your-work">The stack, and the bridge to your work</a></li>
+<li><a href="#why-ebay-the-authentic-version">Why eBay — the authentic version</a></li>
+<li><a href="#ebays-5-values-one-line-hook-each">eBay&#x27;s 5 values — one-line hook each</a></li>
+</ul></aside>
+  </main>
+</div>
+<script>window.SEARCH_JSON="../assets/../search-index.json";</script>
+<script src="../assets/search-data.js"></script>
+<script src="../assets/app.js"></script>
+</body>
+</html>

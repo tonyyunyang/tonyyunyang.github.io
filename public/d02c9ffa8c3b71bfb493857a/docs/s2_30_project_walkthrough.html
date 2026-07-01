@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Walkthrough: Routing at Scale · eBay Stage-2 Prep</title>
+<meta name="robots" content="noindex,nofollow">
+<script>try{if(localStorage.getItem('ebay-s2-theme')==='dark')document.documentElement.classList.add('dark');}catch(e){}</script>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body data-track="pm" data-pagefind-ignore="all">
+<button id="menu" class="menu-btn" aria-label="Menu">☰</button>
+<button id="theme" class="theme-btn" aria-label="Toggle theme">◐</button>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+<div class="brand"><a href="../index.html"><span class="brand-mark">e</span><span class="brand-txt">Stage&nbsp;2 Prep<em>eBay · three interviews</em></span></a></div>
+<div class="search"><input id="q" type="search" placeholder="Search…" autocomplete="off"><div id="results"></div></div>
+<nav class="nav">
+<div class="nav-group" data-track="start"><div class="nav-group-title"><span class="dot"></span>Start Here</div><ul>
+<li><a href="s2_00_email_and_logistics.html">Email &amp; Logistics</a></li>
+<li><a href="s2_01_overview_and_plan.html">Overview &amp; Study Plan</a></li>
+<li><a href="s2_44_confirm_tony.html">★ Fill These Before the Room</a></li>
+</ul></div>
+<div class="nav-group" data-track="code"><div class="nav-group-title"><span class="dot"></span>1 · Live Coding &amp; Engineering</div><ul>
+<li><a href="s2_10_live_coding_playbook.html">Live-Coding Playbook</a></li>
+<li><a href="s2_11_ml_from_scratch.html">ML From Scratch (Python)</a></li>
+<li><a href="s2_12_practice_regimen.html">Unaided Practice Regimen</a></li>
+<li><a href="s2_13_engineering_qa.html">Engineering Q&amp;A — Build &amp; Train</a></li>
+<li><a href="s2_14_serving_qa.html">Engineering Q&amp;A — Serve &amp; Monitor</a></li>
+<li><a href="s2_15_mlops_honest_gap.html">The Honest MLOps-Gap Script</a></li>
+</ul></div>
+<div class="nav-group" data-track="design"><div class="nav-group-title"><span class="dot"></span>2 · ML System Design</div><ul>
+<li><a href="s2_20_design_framework.html">Design Framework &amp; How to Drive</a></li>
+<li><a href="s2_21_recsys_search_design.html">Flagship: Search Ranking &amp; Recs</a></li>
+<li><a href="s2_22_design_skeletons.html">Design Skeletons Bank</a></li>
+<li><a href="s2_23_scaling_playbook.html">The Scaling Playbook</a></li>
+</ul></div>
+<div class="nav-group" data-track="pm"><div class="nav-group-title"><span class="dot"></span>3 · Project Mgmt &amp; Retrospective</div><ul>
+<li class="active"><a href="s2_30_project_walkthrough.html">Walkthrough: Routing at Scale</a></li>
+<li><a href="s2_31_star_stories.html">STAR Stories — The Four Prompts</a></li>
+<li><a href="s2_32_behavioral_bank.html">Behavioral &amp; Competency Bank</a></li>
+</ul></div>
+<div class="nav-group" data-track="ebay"><div class="nav-group-title"><span class="dot"></span>eBay &amp; Closing</div><ul>
+<li><a href="s2_40_ebay_context.html">eBay Context (Stage-2 lens)</a></li>
+<li><a href="s2_41_own_papers_numbers.html">Own-Paper Numbers (say them cold)</a></li>
+<li><a href="s2_42_questions_to_ask.html">Questions to Ask</a></li>
+<li><a href="s2_43_final_hours.html">Final-Hours Cheatsheet</a></li>
+</ul></div>
+</nav>
+  </aside>
+  <div class="scrim" id="scrim"></div>
+  <main class="content">
+    <article class="doc">
+      <div class="doc-meta"><span class="tag t-pm">Behavioral</span><span class="read">25 min read</span></div>
+      <h1 id="walkthrough-routing-at-scale">Walkthrough: Routing at Scale</h1>
+<p><em>The centerpiece of Interview 3 (Project Management &amp; Retrospective). Part 1 is a reusable format for presenting any project end-to-end; Part 2 is the rehearsable script for "Cost-Efficient LLM Routing at Scale"; Parts 3-5 are deep-probe handling, the ops-gap play, and the scaling spine. Rehearse Part 2 out loud to ~12-13 minutes. Read it the night before, then again the morning of.</em></p>
+<hr />
+<h2 id="part-1-how-to-present-any-project-end-to-end">Part 1 — How to present ANY project end-to-end</h2>
+<p>Interview 3 opens with a ~12-13 min structured walkthrough, then probing. For a senior candidate the interviewer is not checking whether you can build the thing — they assume that. They're checking <strong>judgment</strong>: how you structure a problem, make tradeoffs under real constraints, tie technical work to outcomes, and communicate at the right altitude. So the walkthrough is a <strong>story with a spine</strong>, not a lab report. Lead with the bottom line, spend the most time on <em>decisions</em>, always land the <em>so-what</em>.</p>
+<p><strong>Timing discipline is itself scored.</strong> Land the core at ~12 min so probes fit inside the hour. Running to the wire reads as poor prioritization.</p>
+<h3 id="the-8-beat-skeleton">The 8-beat skeleton</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Beat</th>
+<th>Time</th>
+<th>The one job of this beat</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><strong>Hook / bottom-line</strong></td>
+<td>0:40</td>
+<td>Purpose + headline number in one breath — they know where you're going</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>Context &amp; problem</strong></td>
+<td>1:45</td>
+<td>Why it mattered, to whom, what hurt before</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>Goals &amp; success metrics</strong></td>
+<td>1:00</td>
+<td>The measurable bar you set <em>up front</em></td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>Key decisions &amp; alternatives</strong></td>
+<td>2:45</td>
+<td>The heart — 2-3 real forks, what you chose, what you rejected, <em>why</em></td>
+</tr>
+<tr>
+<td>5</td>
+<td><strong>Architecture / approach</strong></td>
+<td>2:00</td>
+<td>How it works, right altitude, one clean sketch</td>
+</tr>
+<tr>
+<td>6</td>
+<td><strong>Execution &amp; challenges</strong></td>
+<td>2:00</td>
+<td>What broke, what <em>I</em> did (ownership)</td>
+</tr>
+<tr>
+<td>7</td>
+<td><strong>Results &amp; impact</strong></td>
+<td>1:45</td>
+<td>Numbers → business translation; the "wow"</td>
+</tr>
+<tr>
+<td>8</td>
+<td><strong>Retrospective + how it scales</strong></td>
+<td>2:15</td>
+<td>One honest do-over + forward extension to eBay scale</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Total ≈ 13 min.</strong> If you run long, merge beat 3 into 2 or beat 6 into 5. <strong>Protect beat 4 and beat 8</strong> — they carry the most senior signal.</p>
+<h3 id="four-rules-that-apply-to-every-beat">Four rules that apply to every beat</h3>
+<ul>
+<li><strong>STAR budget: S 20% / T 10% / A 60% / R 10%.</strong> The Action is the movie; the rest is setup and payoff. The common failure is a bloated Situation and a rushed Result.</li>
+<li><strong>Say "I", not "we", in the Action.</strong> Use "we" only for genuine team context, then immediately switch to "I did X." Interviewers audit <em>your</em> contribution; plural verbs read as passivity.</li>
+<li><strong>Quantify every result.</strong> No "the team was happy" endings. Exact numbers, then translate to money or user-felt quality.</li>
+<li><strong>Layer your detail.</strong> Present at altitude; keep 2-3 levels of depth in reserve per beat. When probed, go <em>exactly one level</em> down, then check: "Want me to go deeper here, or is that the right level?"</li>
+</ul>
+<p>Full delivery mechanics and the story→competency map live in <strong>Behavioral &amp; STAR Library</strong>; the reusable "now 10× it" answer shape lives in <strong>Scaling Playbook</strong>. This doc is the applied instance.</p>
+<hr />
+<h2 id="part-2-the-walkthrough-script-cost-efficient-llm-routing-at-scale">Part 2 — The walkthrough script: "Cost-Efficient LLM Routing at Scale"</h2>
+<h3 id="the-honest-framing-decision-say-this-at-the-top">The honest framing decision (say this at the top)</h3>
+<p>You are presenting <strong>three distinct artifacts</strong> tied together by one research question — not one shipped product, and <em>never</em> "two findings of the same benchmark line of work." Name them cleanly and keep them separate every time you quote a number:</p>
+<ol>
+<li><strong>An LLM-routing benchmark</strong> — a <em>separate</em> paper. The finding: a router can hold near-parity quality at <strong>over 90% cost reduction at iso-quality</strong> on favorable traffic.</li>
+<li><strong>TwinRouterBench</strong> — the agentic benchmark. A <em>trained</em> router <strong>cut realized cost by about 53% versus unrouted Opus at matched resolve</strong> on the dynamic track. This is the artifact whose <strong>labeling protocol and cost-accounting you personally own</strong>.</li>
+<li><strong>MERA</strong> — the learned agentic router (the <em>system</em>). It reached <strong>87.3% router-decision accuracy at 51.8% of always-strong serving cost</strong>, 4.4% verifier-fallback.</li>
+</ol>
+<p>Frame the arc as a research program — a hypothesis, a measuring stick, a system. That's exactly what a senior retrospective looks like, and it lets you demonstrate <em>iteration and learning</em>, the single strongest signal in this round. But a number-literate interviewer will force the split the moment you blur them, so treat "three artifacts" as a hard rule, not a stylistic choice.</p>
+<blockquote class="warn">
+<p>⚠ <strong>[CONFIRM TONY]:</strong> Your authorship is real but shared — you're a co-author (3rd author) on both TwinRouterBench and MERA, not the lead. For a "present a project you owned" round, scope your <em>individual</em> contribution honestly: say "I" only for the slices you actually drove (the labeling-protocol / cost-accounting / evaluation work you can defend line-by-line) and credit the lead authors for program direction. Decide before the room which slice you're claiming as <em>yours</em>, and open with it. Do <strong>not</strong> present the whole program as solo work. <strong>Also pin your role on the LLM-routing benchmark (item 1)</strong> — you lead the walkthrough headline with its <strong>&gt;90%</strong>, so be ready for "and what was <em>your</em> role on that one?" If your contribution there is thinner than on TwinRouterBench/MERA, attribute it honestly ("on the LLM-routing paper I contributed to, the headline was…") rather than presenting it as an owned lead result. [CONFIRM: your exact author position on the LLM-routing benchmark.]</p>
+</blockquote>
+<p><strong>These are separate projects — resolved.</strong> The LLM-routing benchmark, TwinRouterBench, and MERA are three different artifacts, not one line of work with several findings. If an interviewer probes the reconciliation ("wait, is this one thing or several?"), fire this rehearsed separator and move on:</p>
+<blockquote>
+<p>"Three artifacts: an LLM-routing benchmark — &gt;90% on favorable traffic; TwinRouterBench — 53% trained-router-vs-unrouted-Opus on the dynamic track, the one I own the labeling for; and MERA — 87.3% router-decision accuracy at 51.8% cost."</p>
+</blockquote>
+<h3 id="beat-1-hook-040">Beat 1 — Hook (0:40)</h3>
+<p><strong>Say it like this:</strong></p>
+<blockquote>
+<p>"The last stretch of my work has been on one question: <strong>can you keep LLM answer quality high while cutting the cost of serving it — and does that survive scaling up?</strong> I came at it as a research program — first building the <em>measuring sticks</em> to find which routing strategy actually holds up, then a learned, agentic router called <strong>MERA</strong>. The slice I personally drove is the <strong>evaluation methodology</strong> — the labeling protocol and failure-aware cost-accounting that made the whole comparison buildable. The headline: on the benchmark side, a router holds near-parity quality at <strong>over 90% cost reduction</strong> on the right traffic mix — and MERA is the learned system that turns that finding into a running agentic router (I'll give its exact numbers in the results). Let me walk the arc, then push it to eBay scale."</p>
+</blockquote>
+<h3 id="beat-2-context-problem-145">Beat 2 — Context &amp; problem (1:45)</h3>
+<p><strong>Say it like this:</strong></p>
+<blockquote class="warn">
+<p>"If you serve one frontier model for everything, you massively overpay, because most requests are routine and don't need frontier capability. The obvious fix is <em>routing</em>: easy queries to a small, cheap model, hard ones to a strong model. But two things were genuinely unclear when I started. One: <em>which</em> routing strategy actually wins — rules, a cascade, or a learned router? Nobody had a clean, apples-to-apples comparison. Two: does the routing <em>decision</em> quality hold up in a real agent, where one user request fires many model calls and a cheap choice at step <em>i</em> can quietly break step <em>i+5</em>? So I couldn't just build a router. I had to first build the measuring stick."</p>
+<p>⚠ <strong>[CONFIRM TONY]:</strong> The "$200K/month, 70% routine traffic" industry figure from the research brief is an <em>external</em> citation, not your result. If you use it, say "public reports put enterprise NLP serving north of…" — never imply it's your measurement.</p>
+</blockquote>
+<h3 id="beat-3-goals-success-metrics-100">Beat 3 — Goals &amp; success metrics (1:00)</h3>
+<p><strong>Say it like this:</strong></p>
+<blockquote class="warn">
+<p>"I set the bar up front. Success meant: match a strong-model quality baseline within a small margin; cut serving cost by at least half; keep routing overhead small relative to generation; and — the one that drove the whole benchmark — make the comparison <em>reproducible</em> across strategies. Explicit non-goal in phase one: I wasn't optimizing tail latency or cold-start. I wanted the cost/quality frontier clean first."</p>
+<p>⚠ <strong>[CONFIRM TONY]:</strong> The exact thresholds you actually used — quality margin %, cost target, routing-overhead budget in ms. State the real ones; don't invent round numbers.</p>
+</blockquote>
+<h3 id="beat-4-key-decisions-alternatives-245-the-heart">Beat 4 — Key decisions &amp; alternatives (2:45) — the heart</h3>
+<p><strong>Say it like this:</strong></p>
+<blockquote class="warn">
+<p>"Three real forks.</p>
+<p><strong>Fork 1 — measuring stick before router.</strong> I could have gone straight to a router and reported one number. I chose to build the measuring stick first, because a single router's number is unfalsifiable — you can't tell if you won because of the routing idea or the model pool. Concretely that's <em>two distinct benchmark artifacts</em>, and I keep them separate: the <strong>LLM-routing benchmark</strong>, which established that a router can hold near-parity quality at <strong>over 90% cost reduction at iso-quality</strong> on favorable traffic; and <strong>TwinRouterBench</strong>, the agentic benchmark where a <em>trained</em> router <strong>cut cost by about 53% versus unrouted Opus at matched resolve</strong> on the dynamic track — that's the one whose labeling and cost-accounting I own. <strong>MERA</strong> is the third artifact: the learned router <em>system</em> those benchmarks then evaluate. The cost was weeks of extra work before any 'product.' The payoff was that every later claim became comparative and defensible. One diagnostic from that work is my strongest single talking point: <strong>a frontier model is a terrible router of itself</strong> — asked to predict which steps genuinely need the strong tier, it caught only a tiny fraction and failed every hard trajectory. That's the evidence that step-level difficulty is real and not captured by query-level intuition.</p>
+<p><strong>Fork 2 — learned upfront router vs. cascade.</strong> Two serious designs were on the table. A cascade runs the cheap model first and escalates on low confidence; a learned router decides per-request <em>before</em> generating. Cascades need no training, but they roughly <em>double</em> latency and cost on hard queries — you pay for the cheap model, fail, then pay again for the strong one. At volume that escalation tax dominates. The program went with the learned router — and my cost-accounting is what made that call defensible rather than a hunch: once failing trajectories are charged their true cost instead of quietly forgiven, the cascade's escalation tax shows up in the numbers rather than hiding. The cascade stayed on as a <strong>conceptual fallback baseline</strong> — a safe floor to drop back to if the learned router didn't beat it. On scope, be precise: the cascade was the <em>reasoning</em> floor, not a benchmarked arm — there's no head-to-head cascade-vs-router number. So if you ask me for that delta, the honest answer is that the comparison was mechanistic — the escalation tax dominates at volume — not an experiment I can hand you a figure for.</p>
+<p><strong>Fork 3 — route on skill, not just a difficulty score.</strong> Rather than a single scalar difficulty threshold, MERA conditions on the <em>kind</em> of local task — because the cheap model's competence varies a lot by skill. That's more complex than one threshold, but it's what closed the gap — and this is exactly where my measurement work <em>drove</em> the design. My per-skill scoring showed a single global threshold was leaving cost and quality on the table — a failing skill slice the aggregate was absorbing — and that finding is what motivated the team's move to skill-conditioning. The principle I'd carry anywhere: add complexity only where a measured bottleneck forces it, and make sure the measurement comes first."</p>
+<p>⚠ <strong>[CONFIRM TONY]:</strong> Whether MERA is strictly upfront-routing, a cascade, or a hybrid. (Ground truth: MERA's router is <em>input-only</em> — it sees only the serialized prompt + local context, not hidden agent state — and it's protected by a runtime verifier that falls back to a stronger model on failure. So it's "upfront route + verify + fallback," not a pure cascade. State it that way if accurate.)</p>
+</blockquote>
+<h3 id="beat-5-architecture-approach-200">Beat 5 — Architecture / approach (2:00)</h3>
+<p><strong>Sketch:</strong> request → feature/skill representation → learned router picks a target from the model pool → target model generates → <strong>verifier checks the output; on failure, fall back to a stronger model</strong>. Around that, two loops: an <strong>offline eval loop</strong> that scores every strategy on the benchmark, and a <strong>router training loop</strong> that learns the routing policy.</p>
+<p><strong>Say it like this:</strong></p>
+<blockquote class="warn">
+<p>"The runtime path is: a request comes in, a small router looks at the prompt and local context and picks a tier from the model pool, the chosen model generates, and then a verifier checks the output — schema, tool-call legality, executable tests where we have them. If the verifier passes, we're done cheaply; if it fails, we fall back to a stronger model and log the event. The key design idea is that <strong>cost and safety are decoupled</strong>: the router optimizes cost, the verifier protects quality, so an aggressive router can't silently degrade output. The router itself is deliberately <em>cheap</em> relative to generation — if the router costs as much as the model, you've spent your savings on the router."</p>
+<p>⚠ <strong>[CONFIRM TONY]:</strong> Router architecture and training signal. (Ground truth: MERA's learned router is a <strong>BERT-tiny</strong> classifier trained on prompt text with <strong>weak-supervision</strong> cheap/strong labels; the offline loop also updates a SkillBook of templates and a Qwen2.5-Coder-1.5B LoRA student via GRPO. New states are promoted only after a <strong>joint replay</strong> shows combined quality held.) Fill in the exact model pool you used; don't guess at model names in the room.</p>
+</blockquote>
+<h3 id="beat-6-execution-challenges-200">Beat 6 — Execution &amp; challenges (2:00)</h3>
+<p><strong>Say it like this:</strong></p>
+<blockquote class="warn">
+<p>"Two hard parts, both mine to own. <strong>First, the metric almost lied to me.</strong> Early on, aggregate accuracy looked great — but it was hiding that the router had dumped an entire skill category onto the cheap model, where it quietly failed. The average washed it out. I caught it by scoring <em>per-skill</em> instead of in aggregate, and that finding is exactly what motivated the skill-conditioned design. <strong>Second, honest cost accounting.</strong> A router that saves a little money but breaks the task hasn't saved anything — it's destroyed value, because the user still needs the task done. So I moved to failure-aware accounting: a passing trajectory is credited its savings, but a <em>failing</em> trajectory is charged its cost, not quietly forgiven. That single accounting choice flips which routers look good — and it's the honest one."</p>
+<p>⚠ <strong>[CONFIRM TONY]:</strong> The averaging trap — what's verified vs. not. The <strong>verified anchor is the MERA null result</strong>: the skill-cumulative variant sat <strong>~47% flat, with no cumulative gain</strong> over baseline — that flatness is what exposed the trap. But the <strong>specific failing skill category and its per-slice numbers are UNVERIFIED.</strong> So in the room: give the <em>direction</em> ("one skill slice sat far below the rest and the aggregate absorbed it"), offer to pull the exact per-slice figure afterward, and <strong>never name a category or quote a number you can't source.</strong></p>
+<p>⚠ <strong>[CONFIRM TONY]:</strong> Your single most real war-story for this beat — a specific bug, a reproducibility fight, a compute limit, or a deadline call, told first-person. The two above are defensible from the papers, but a lived "I hit X at 2am and did Y" lands harder. Do not invent one; use a real one.</p>
+</blockquote>
+<h3 id="beat-7-results-impact-145">Beat 7 — Results &amp; impact (1:45)</h3>
+<p><strong>Say it like this:</strong></p>
+<blockquote>
+<p>"The numbers. On the benchmark side, the best routing strategy holds near-parity quality at <strong>over 90% cost reduction</strong> on favorable traffic; and on the <strong>dynamic agentic track (held-out eval)</strong>, a <em>trained</em> router cut realized API cost by about <strong>53%</strong> versus running the unrouted strong model — at <em>matched</em> resolve rate, so it's not buying cheapness by failing more. MERA landed at <strong>87.3% router-decision accuracy at 51.8% of always-strong serving cost</strong>, with a 4.4% verifier-fallback rate. Now the translation: at real serving volume, halving cost on routable traffic while users can't feel the quality drop <strong>would translate to a seven-figure infra line item — a projection at real serving volume, not a booked saving</strong> — plus a smaller GPU and carbon footprint. And because it's benchmarked, it's a <em>repeatable method</em>, not a one-off."</p>
+</blockquote>
+<p><strong>Trap:</strong> Never call the 87.3% "task accuracy." It is <strong>router-decision accuracy</strong> — how often the router's cheap-vs-strong choice matched held-out labels on an 832-example set. If you slip and present it as the agent answering 87.3% of tasks correctly, an informed interviewer catches it in one sentence and the rest of the hour is uphill. Say it the same way every time: <em>"87.3% router-decision accuracy at 51.8% serving cost."</em></p>
+<blockquote class="warn">
+<p>⚠ <strong>[CONFIRM TONY]:</strong> Deployment status. Was any of this served on live traffic, or is it an offline/shadow-eval benchmark study? "This was an offline benchmark study" is a completely fine, honest answer — say the true one. Do not imply production deployment. The 53% is a <em>dynamic-track training-utility</em> result on a 100-case held-out split, not a live-production number; present it as evidence the labels work as training supervision.</p>
+</blockquote>
+<h3 id="beat-8-retrospective-how-it-scales-215">Beat 8 — Retrospective + how it scales (2:15)</h3>
+<p><strong>Say it like this:</strong></p>
+<blockquote class="warn">
+<p>"<strong>What I'd do differently:</strong> I'd build the <em>online / shadow</em> eval harness earlier. My evaluation was offline-first, and a router's calibration should be measured under shifting, live-like traffic sooner — because that's exactly where routing quality degrades. I'd also have set a per-skill guardrail from day one instead of discovering the averaging trap the hard way.</p>
+<p><strong>How it scales — and this is where it maps onto eBay:</strong> eBay already has the ideal model zoo for this — <strong>LiLiuM at 1B/7B/13B, e-Llama at 8B and 70B, plus a frontier fallback.</strong> That's a routing target set, not one model. The router becomes the layer that sends a routine listing-title request to LiLiuM-1B, a cross-border translation to the right e-Llama, and only the genuinely hard reasoning to 70B or frontier. Three things change at eBay QPS that I'd design for: <strong>one</strong>, the router itself has to be sub-10ms and horizontally shardable — partition by request type or entity — or it eats the very savings it creates; <strong>two</strong>, the traffic distribution <em>drifts</em> — new categories, seasonal spikes, new listing flows — so the router needs periodic retraining and a drift signal on its <em>decision mix</em>, not just on model accuracy; <strong>three</strong>, you want an SLA-aware knob so an operator can say 'hold quality at X' directly instead of hand-tuning a threshold. If I owned this at eBay, step one would be a <strong>shadow-traffic</strong> deployment of the router against the current serving path — measuring decision agreement and cost delta before touching a single live request."</p>
+</blockquote>
+<p>Reference the <strong>eBay AI Dossier</strong> for the LiLiuM/e-Llama/VLM numbers and the <strong>Scaling Playbook</strong> for the general 6-axis "now 10× it" walk — don't re-derive them here.</p>
+<hr />
+<h2 id="part-3-deep-probe-handling-be-ready-to-go-2-3-levels">Part 3 — Deep-probe handling (be ready to go 2-3 levels)</h2>
+<h3 id="probe-a-calibration-per-skill-routing">Probe A — Calibration + per-skill routing</h3>
+<p><strong>Level 1 (what):</strong> "A router is only as good as its confidence. If it's overconfident on hard queries it under-routes and breaks tasks; if it's underconfident it over-routes and burns money. So calibration is the whole game, and I calibrate and threshold <em>per skill</em>, not globally."</p>
+<p><strong>Level 2 (why per-skill):</strong> "Because the cheap model's reliability is wildly uneven across skills. A global threshold that's safe for extraction is reckless for multi-step reasoning. One threshold means you either over-pay on the easy skills or silently fail on the hard ones. Per-skill thresholds let each slice sit at its own safe operating point on the cost/quality frontier."</p>
+<p><strong>Level 3 (how you'd verify / where it breaks):</strong> "I'd measure calibration per slice — reliability curves, and in production a decision-mix drift signal per skill so I can see a slice degrading before quality labels arrive. Where it breaks: skills with thin data get noisy thresholds, and a brand-new skill has no history at all — that's where I'd fall the router back to the safe default (strong model or cascade) until it's earned a threshold. The verifier is the backstop the whole time: even a mis-calibrated route gets caught and re-run."</p>
+<blockquote class="warn">
+<p>⚠ <strong>[CONFIRM TONY]:</strong> Exactly how you calibrated/thresholded in the actual work (temperature scaling? per-slice threshold sweep on a dev set? verifier-confirmed labels?). Fill in the real method — this is a spot an informed interviewer will dig into.</p>
+</blockquote>
+<h3 id="probe-b-tell-me-about-a-decision-you-made-with-incomplete-information">Probe B — "Tell me about a decision you made with incomplete information."</h3>
+<p><strong>Say it like this:</strong></p>
+<blockquote>
+<p>"Choosing the learned router over the cascade, before I had any training data to prove it would work. The information I <em>had</em> was the mechanism argument: cascades pay the escalation tax twice on hard queries, and that tax dominates at volume. The information I <em>didn't</em> have was whether a learned router would actually calibrate well enough to beat that. So I made the call on the reasoning, but I de-risked it structurally: I kept the cascade as a <strong>fallback baseline</strong>, so the downside was bounded — worst case, I ship the cascade. That's the pattern I use under ambiguity: commit to the higher-ceiling option, but keep the safe option alive as a floor until the data comes in."</p>
+</blockquote>
+<h3 id="probe-c-what-would-you-genuinely-do-differently">Probe C — "What would you genuinely do differently?"</h3>
+<p><strong>Say it like this:</strong></p>
+<blockquote class="warn">
+<p>"Two genuinely distinct things, not one insight twice. <strong>First — build the online / shadow eval harness <em>first</em>, not after the offline benchmark.</strong> My instinct was to get the offline cost/quality frontier clean before touching traffic — which was right for the comparison, but it meant the router's calibration went unmeasured under real distribution shift for too long. Routing quality degrades precisely where traffic drifts, and offline eval can't see that; if I ran it again, the shadow harness would be week-one infrastructure. <strong>Second — set a per-skill guardrail from day one instead of discovering the averaging trap the hard way.</strong> I learned per-slice gating reactively, after an aggregate metric hid a failing skill category (the story in the next probe). Knowing that now, I'd gate on the worst slice from the very first eval, so no headline number can ship without a floor under its weakest sub-population. The first change is about <em>when</em> you measure; the second is about <em>what</em> you measure — different lessons, and I'd apply both."</p>
+</blockquote>
+<p>Keep this one honest and specific — an instant, polished "I'd change nothing" answer reads as unreflective. Take a beat before you answer.</p>
+<h3 id="probe-d-the-real-failure-the-highest-signal-question">Probe D — The real failure (the highest-signal question)</h3>
+<p><strong>Say it like this:</strong></p>
+<blockquote class="warn">
+<p>"The one that changed how I work: an averaging trap. Early on my headline metric was aggregate router accuracy, and it looked strong. What it was hiding was that the router had learned to dump an entire skill category onto the cheap model — where that category quietly failed — and because it was a small slice of the traffic, the average absorbed it. I only caught it when I broke the score down <em>per slice</em> and saw one category sitting far below the rest. Two things came out of it. First, it directly motivated the skill-conditioned router. Second, and more lasting: I now <strong>score per-slice with guardrails by default</strong> — no aggregate metric ships without a worst-slice floor underneath it, so a failing sub-population can't hide inside a healthy average again."</p>
+<p>⚠ <strong>[CONFIRM TONY]:</strong> Tell this as clearly as the STAR doc does — but keep the verified/unverified line sharp. <strong>Verified:</strong> the MERA null result — the skill-cumulative variant sat <strong>~47% flat, no cumulative gain</strong> — that's the real anchor for "the average hid it." <strong>Unverified:</strong> the exact failing skill category and its per-slice numbers. Give the direction, offer to pull the precise per-slice figure after, and never invent the category or a number.</p>
+</blockquote>
+<p>The learning <em>is</em> the answer — end there, not on the failure. A tiny illustrative sketch of the guardrail habit, if asked to make it concrete:</p>
+<pre><code class="language-python">def evaluate(router, examples, slice_key, floor=0.80):
+    # aggregate is not enough — gate on the WORST slice
+    slices = defaultdict(list)
+    for ex in examples:
+        correct = router.decide(ex) == ex.gold_tier
+        slices[slice_key(ex)].append(correct)
+
+    per_slice = {s: sum(v) / len(v) for s, v in slices.items()}
+    worst = min(per_slice, key=per_slice.get)
+    passed = per_slice[worst] &gt;= floor        # a healthy mean can't rescue a failing slice
+    return per_slice, worst, passed
+</code></pre>
+<h3 id="probe-e-you-were-third-author-what-did-you-manage-vs-execute-and-who-set-direction">Probe E — "You were third author. What did you <em>manage</em> vs. <em>execute</em>, and who set direction?"</h3>
+<p>This is the ownership-audit question, and the honest answer is <em>stronger</em> than a vague "I did everything." Scope tightly to the slice you actually ran as a self-managed sub-project.</p>
+<p><strong>Say it like this:</strong></p>
+<blockquote class="warn">
+<p>"Fair question — I wasn't setting the program's research direction, and I'm careful to say so. What I <em>owned</em> end-to-end was a defined sub-project: the <strong>labeling protocol and the cost-accounting methodology</strong> for TwinRouterBench. That was mine to manage, not just execute — I set its scope, ran its risks, and shipped its milestones. Concretely: I designed how cheap-vs-strong routing decisions got labeled, I moved the benchmark to <em>failure-aware</em> cost accounting so a failing trajectory is charged its cost rather than quietly forgiven, and I ran a <strong>manual audit milestone</strong> on a labeled sample to confirm the protocol was self-consistent before any router trained on it. The risks there were mine too — label noise, an accounting choice that flatters the wrong routers. The overall program direction — the research agenda and the system design calls — belonged to the lead authors; I contributed inside it. I'd rather draw that line precisely than claim the whole thing."</p>
+<p>⚠ <strong>[CONFIRM TONY]:</strong> The <strong>exact names and roles</strong> of the lead authors (who set direction / who owned MERA's system design vs. your labeling-and-accounting slice), and the precise scope of the manual audit milestone (sample size, what you checked). State the real ones; do not guess at names or invent an audit metric in the room.</p>
+</blockquote>
+<hr />
+<h2 id="part-4-own-the-ops-gap-honestly">Part 4 — Own the ops gap honestly</h2>
+<p>If a probe drifts into live-production MLOps — on-call, canary, real-time drift dashboards — answer honestly and pivot to your real strength. Use the rehearsed script (it's the same wording everywhere; see <strong>MLOps Honest-Gap Script</strong>):</p>
+<p><strong>Say it like this:</strong></p>
+<blockquote>
+<p>"The efficiency side I've owned end to end — I've built and benchmarked routing, pruning, and generative training-acceleration systems, so the inference-optimization and cost levers are second nature to me. What I haven't personally run is a large-scale production on-call rotation with live canary releases and real-time drift monitoring — my deployments have been at research and shadow-eval scale. But I know exactly how that machinery works — shadow then canary then A/B with automated rollback, drift monitoring on both the input and the decision distributions, and proxy metrics while labels are delayed — and it's the fastest gap I'd close. I'd rather be precise about that than overstate it."</p>
+</blockquote>
+<p>Then redirect to the routing-specific version: "For <em>this</em> system, the drift signal I care most about is on the <strong>decision mix</strong> — if the fraction of traffic the router sends to the cheap tier shifts, that's my earliest warning that the input distribution moved, well before quality labels come back."</p>
+<hr />
+<h2 id="part-5-the-scaling-spine-plant-it-in-five-places">Part 5 — The scaling spine (plant it in five places)</h2>
+<p>You already got a scaling question in an earlier round, so make scaling a <em>spine</em>, not an afterthought. Plant it at these anchors so it feels native:</p>
+<ol>
+<li><strong>In the hook</strong> — end the first sentence with "…and does that survive scaling up?"</li>
+<li><strong>In Fork 2</strong> — justify learned-router-over-cascade <em>by</em> scale: "the escalation tax dominates <em>at volume</em>." Scaling is the <em>reason</em> for the decision.</li>
+<li><strong>In results</strong> — translate the % into eBay-scale money and GPU/carbon footprint; the number only matters at scale.</li>
+<li><strong>In beat 8</strong> — the explicit trio: <strong>(a)</strong> sub-10ms, horizontally shardable router (partition by request type/entity) or it eats the savings; <strong>(b)</strong> traffic drifts → retraining cadence + drift signal on the <em>decision mix</em>; <strong>(c)</strong> SLA-aware control so operators set a quality target directly. Map targets onto the real zoo: LiLiuM 1B/7B/13B, e-Llama 8B/70B, frontier fallback.</li>
+<li><strong>In probe redirects</strong> — when pushed on a thin ops area, answer honestly then pivot to a scaling strength: throughput/latency budgets, shardable routing, cost-per-quality as the north-star metric.</li>
+</ol>
+<p><strong>The one-liner to keep in your pocket:</strong></p>
+<blockquote>
+<p>"At one QPS the interesting number is accuracy; at eBay QPS the interesting number is cost-per-quality under drift — with a router cheap and shardable enough that it doesn't spend the savings it creates."</p>
+</blockquote>
+<hr />
+<h2 id="quick-reference-the-numbers-said-correctly">Quick-reference: the numbers, said correctly</h2>
+<table>
+<thead>
+<tr>
+<th>Number</th>
+<th>Say it exactly as</th>
+<th>Never say</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>&gt;90% cost reduction</strong></td>
+<td>at <em>iso-quality</em> (matched quality), best strategy on favorable traffic (LLM Router)</td>
+<td>"at no quality cost" without "matched quality"</td>
+</tr>
+<tr>
+<td><strong>53%</strong></td>
+<td>trained router vs <em>unrouted Opus</em>, <em>matched resolve</em>, dynamic track (TwinRouterBench)</td>
+<td>"the benchmark got 53%" / a static-track result</td>
+</tr>
+<tr>
+<td><strong>87.3% at 51.8% cost</strong></td>
+<td><strong>router-decision</strong> accuracy at 51.8% serving cost, 4.4% fallback (MERA)</td>
+<td>"87.3% task accuracy"</td>
+</tr>
+</tbody>
+</table>
+<p>Verified-number discipline lives in <strong>Own Papers — Ground Truth</strong>; match it verbatim. Every <code>⚠ [CONFIRM TONY]</code> above is a real gap you must fill from your own memory before the room — do not improvise a specific in front of an informed interviewer.</p>
+      <nav class="prevnext"><a class="pn prev" href="s2_23_scaling_playbook.html">‹ <span>The Scaling Playbook</span></a><a class="pn next" href="s2_31_star_stories.html"><span>STAR Stories — The Four Prompts</span> ›</a></nav>
+    </article>
+    <aside class="toc"><div class="toc-title">On this page</div><ul>
+<li><a href="#part-1-how-to-present-any-project-end-to-end">Part 1 — How to present ANY project end-to-end</a></li>
+<li><a href="#part-2-the-walkthrough-script-cost-efficient-llm-routing-at-scale">Part 2 — The walkthrough script: &quot;Cost-Efficient LLM Routing at Scale&quot;</a></li>
+<li><a href="#part-3-deep-probe-handling-be-ready-to-go-2-3-levels">Part 3 — Deep-probe handling (be ready to go 2-3 levels)</a></li>
+<li><a href="#part-4-own-the-ops-gap-honestly">Part 4 — Own the ops gap honestly</a></li>
+<li><a href="#part-5-the-scaling-spine-plant-it-in-five-places">Part 5 — The scaling spine (plant it in five places)</a></li>
+<li><a href="#quick-reference-the-numbers-said-correctly">Quick-reference: the numbers, said correctly</a></li>
+</ul></aside>
+  </main>
+</div>
+<script>window.SEARCH_JSON="../assets/../search-index.json";</script>
+<script src="../assets/search-data.js"></script>
+<script src="../assets/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Overview &amp; Study Plan · eBay Stage-2 Prep</title>
+<meta name="robots" content="noindex,nofollow">
+<script>try{if(localStorage.getItem('ebay-s2-theme')==='dark')document.documentElement.classList.add('dark');}catch(e){}</script>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body data-track="start" data-pagefind-ignore="all">
+<button id="menu" class="menu-btn" aria-label="Menu">☰</button>
+<button id="theme" class="theme-btn" aria-label="Toggle theme">◐</button>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+<div class="brand"><a href="../index.html"><span class="brand-mark">e</span><span class="brand-txt">Stage&nbsp;2 Prep<em>eBay · three interviews</em></span></a></div>
+<div class="search"><input id="q" type="search" placeholder="Search…" autocomplete="off"><div id="results"></div></div>
+<nav class="nav">
+<div class="nav-group" data-track="start"><div class="nav-group-title"><span class="dot"></span>Start Here</div><ul>
+<li><a href="s2_00_email_and_logistics.html">Email &amp; Logistics</a></li>
+<li class="active"><a href="s2_01_overview_and_plan.html">Overview &amp; Study Plan</a></li>
+<li><a href="s2_44_confirm_tony.html">★ Fill These Before the Room</a></li>
+</ul></div>
+<div class="nav-group" data-track="code"><div class="nav-group-title"><span class="dot"></span>1 · Live Coding &amp; Engineering</div><ul>
+<li><a href="s2_10_live_coding_playbook.html">Live-Coding Playbook</a></li>
+<li><a href="s2_11_ml_from_scratch.html">ML From Scratch (Python)</a></li>
+<li><a href="s2_12_practice_regimen.html">Unaided Practice Regimen</a></li>
+<li><a href="s2_13_engineering_qa.html">Engineering Q&amp;A — Build &amp; Train</a></li>
+<li><a href="s2_14_serving_qa.html">Engineering Q&amp;A — Serve &amp; Monitor</a></li>
+<li><a href="s2_15_mlops_honest_gap.html">The Honest MLOps-Gap Script</a></li>
+</ul></div>
+<div class="nav-group" data-track="design"><div class="nav-group-title"><span class="dot"></span>2 · ML System Design</div><ul>
+<li><a href="s2_20_design_framework.html">Design Framework &amp; How to Drive</a></li>
+<li><a href="s2_21_recsys_search_design.html">Flagship: Search Ranking &amp; Recs</a></li>
+<li><a href="s2_22_design_skeletons.html">Design Skeletons Bank</a></li>
+<li><a href="s2_23_scaling_playbook.html">The Scaling Playbook</a></li>
+</ul></div>
+<div class="nav-group" data-track="pm"><div class="nav-group-title"><span class="dot"></span>3 · Project Mgmt &amp; Retrospective</div><ul>
+<li><a href="s2_30_project_walkthrough.html">Walkthrough: Routing at Scale</a></li>
+<li><a href="s2_31_star_stories.html">STAR Stories — The Four Prompts</a></li>
+<li><a href="s2_32_behavioral_bank.html">Behavioral &amp; Competency Bank</a></li>
+</ul></div>
+<div class="nav-group" data-track="ebay"><div class="nav-group-title"><span class="dot"></span>eBay &amp; Closing</div><ul>
+<li><a href="s2_40_ebay_context.html">eBay Context (Stage-2 lens)</a></li>
+<li><a href="s2_41_own_papers_numbers.html">Own-Paper Numbers (say them cold)</a></li>
+<li><a href="s2_42_questions_to_ask.html">Questions to Ask</a></li>
+<li><a href="s2_43_final_hours.html">Final-Hours Cheatsheet</a></li>
+</ul></div>
+</nav>
+  </aside>
+  <div class="scrim" id="scrim"></div>
+  <main class="content">
+    <article class="doc">
+      <div class="doc-meta"><span class="tag t-start">Start</span><span class="read">10 min read</span></div>
+      <h1 id="overview-study-plan">Overview &amp; Study Plan</h1>
+<p><em>The front door to your Stage-2 prep. Read this first, then re-skim it the morning of each interview to reload what each round is actually scoring.</em></p>
+<p>You passed Stage 1. Stage 2 is <strong>three 60-minute interviews, all in one loop</strong>:</p>
+<ul>
+<li><strong>(1) Live Coding &amp; Engineering</strong> — plain Python, no AI in the room.</li>
+<li><strong>(2) ML System Design</strong> — you drive, argued from your own head.</li>
+<li><strong>(3) Project Management &amp; Retrospective</strong> — own a project start to finish.</li>
+</ul>
+<p>No AI in the room means your edge is real depth, not tool-assisted breadth. This doc tells you exactly what each round measures, the few ways strong candidates still lose it, your opening lines, the one rule you never break, and a 5-day plan to walk in loaded.</p>
+<hr />
+<h2 id="the-3-round-loop-at-a-glance">The 3-round loop at a glance</h2>
+<table>
+<thead>
+<tr>
+<th>Round</th>
+<th>Format reality</th>
+<th>What it's really testing</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1. Live Coding &amp; Engineering</strong></td>
+<td>~5 min intro → <strong>~35–45 min live Python coding</strong> (1 problem, sometimes 2) → <strong>~15–25 min rapid engineering Q&amp;A</strong> → your questions. Shared editor, AI off, possibly <strong>no run button</strong>.</td>
+<td>Can you write clean, correct Python <em>while narrating</em>, and can you talk production ML (docker, testing, training + inference optimization, deploy, monitoring) like someone who's shipped?</td>
+</tr>
+<tr>
+<td><strong>2. ML System Design</strong></td>
+<td>60 min, <strong>open-ended, you drive</strong>. Interviewer probes wherever you go shallow. Marketplace + ML flavored (search re-ranking, recommendations, fraud), not generic distributed systems.</td>
+<td>Do you think like a <strong>production engineer</strong> — business metric → data → model → serving → monitoring → trade-offs — or like a researcher who jumps to architecture?</td>
+</tr>
+<tr>
+<td><strong>3. PM &amp; Retrospective</strong></td>
+<td>Two halves: <strong>present one project start→finish</strong> (~12–13 min walkthrough) then <strong>STAR behavioral</strong> against eBay's 5 values, with deep probing on <em>your</em> decisions.</td>
+<td>Can you own a project end to end, quantify impact, say "I" not "we", and tell a real failure story without overclaiming?</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Don't blow the hour on the code.</strong> Round 1 was deliberately split into "coding" + "engineering Q&amp;A" because <em>both</em> are scored. If you burn 55 minutes on the problem, you forfeit a block you can win.</p>
+<hr />
+<h2 id="what-each-round-scores-the-criteria-in-plain-behaviors">What each round scores — the criteria in plain behaviors</h2>
+<p>The recruiter's five named criteria (<strong>Communication, Problem Solving, Coding/edge-cases, Complexity, Debugging</strong>) are the standard coding rubric. They primarily grade <strong>Round 1's coding half</strong> — but <em>Communication</em> and <em>Problem Solving</em> follow you into all three rounds. Here's what a high score looks and sounds like:</p>
+<table>
+<thead>
+<tr>
+<th>Criterion</th>
+<th>"Green" behavior the interviewer is watching for</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Communication</strong></td>
+<td>Restate the problem in your words and confirm before coding. Think out loud continuously — state the approach <em>before</em> you type, narrate trade-offs while you type. No silent stretches; if you need to think, say "let me think for 20 seconds."</td>
+</tr>
+<tr>
+<td><strong>Problem Solving</strong></td>
+<td>A consistent template: restate → constraints → propose approach → code → validate. <strong>Baseline first, then optimize</strong> ("here's the O(n²), it's slow because…, now the hashmap version"). Justify each data-structure choice aloud.</td>
+</tr>
+<tr>
+<td><strong>Coding (edge cases &amp; bugs)</strong></td>
+<td>Runnable, readable Python — clear names, helper functions, "code that could go to prod." Enumerate edge cases <em>before and after</em> coding: empty, single element, large N, negatives, ties, duplicates, None. Walk one concrete example through by hand.</td>
+</tr>
+<tr>
+<td><strong>Complexity</strong></td>
+<td>State time <strong>and</strong> space Big-O <em>unprompted</em>. Compare to the brute force. Name the trade-off you chose ("O(n) space to buy O(1) lookup"). Have the next optimization ready if asked "can you do better?"</td>
+</tr>
+<tr>
+<td><strong>Debugging</strong></td>
+<td>When a test fails, <strong>don't panic-rewrite</strong>. Read the failure → form a hypothesis out loud → isolate (print/assert, check boundaries) → fix. A bug you catch and reason through often scores <em>higher</em> than silent perfect code.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>The sixth, unnamed dimension</strong> (Round 1's Q&amp;A half): <strong>production fluency</strong>. Know the concept, give the real trade-off, and where you lack hands-on scale, say so and pivot to efficiency. That pivot is scripted — see below.</p>
+<hr />
+<h2 id="how-strong-ml-candidates-still-fail-each-round">How strong ML candidates still fail each round</h2>
+<p>For each round: the top ~3 ways people lose it, and your counter.</p>
+<h3 id="round-1-live-coding-engineering">Round 1 — Live Coding &amp; Engineering</h3>
+<ul>
+<li><strong>Silent coding.</strong> A correct-but-silent solution still scores mid, because Communication is named. → <strong>Narrate before you type; think out loud.</strong></li>
+<li><strong>Jumping to code without clarifying.</strong> Signals you don't gather requirements. → <strong>Restate + ask about input ranges, types, invalid input, scale — then code.</strong></li>
+<li><strong>Bluffing the engineering half.</strong> Invented ops experience unravels under one follow-up. → <strong>Concept + real trade-off, then the honest pivot to efficiency</strong> (the gap script).</li>
+</ul>
+<h3 id="round-2-ml-system-design">Round 2 — ML System Design</h3>
+<ul>
+<li><strong>Sounding like a researcher, not a production engineer</strong> — the #1 silent failure. Jumping to model architecture, skipping the data pipeline, forgetting monitoring/drift is <em>the fastest signal</em> you've never run something in production. This is exactly your known-gap surface, so <strong>neutralize it on purpose</strong>: open with the business metric, clarify scale/latency/freshness, spend real time on data → features → splits, and <em>always close</em> with drift + shadow/canary + retraining. Lead with GMV/CTR/latency SLA, never with a model.</li>
+<li><strong>Skipping the data pipeline.</strong> 80–90% of ML failures are data issues; glossing over sources, features, leakage, and time-based splits reads as inexperience. → <strong>Budget real minutes for data.</strong></li>
+<li><strong>No monitoring / rollout plan.</strong> Marks you as not production-ready. → <strong>End every design with PSI/KS drift, shadow→canary→A/B, rollback, retraining cadence.</strong></li>
+</ul>
+<h3 id="round-3-pm-retrospective">Round 3 — PM &amp; Retrospective</h3>
+<ul>
+<li><strong>Rambling setup, thin on your actions.</strong> The interviewer can't tell what <em>you</em> did. → <strong>20% setup / 80% action + outcome; say "I".</strong></li>
+<li><strong>No quantified impact.</strong> Fails "Deliver With Impact." → <strong>Lead with the numbers</strong> (see <em>Own-Papers Ground Truth</em> for the exact figures — quote them, never round or reinvent them).</li>
+<li><strong>Overclaiming production ops / no failure story.</strong> Punished under probing and "Act With Integrity"; and the round literally asks for a retrospective. → <strong>Own the ops gap honestly, and bring one real bet-that-didn't-pan-out + the systemic change it produced.</strong></li>
+</ul>
+<hr />
+<h2 id="tell-me-about-yourself-your-6090s-opener">"Tell me about yourself" — your 60–90s opener</h2>
+<p>The single most predictable opening line of Rounds 1 and 3. <strong>This is distinct from the ~12-min project walkthrough</strong> — it's a tight headline reel, not the deep dive. Structure: one identity line → the systems-race thesis in <em>one</em> sentence → three proof-points → one line of why-eBay. <strong>Rehearse it to a stopwatch</strong> and land it at 60–90s; if it runs to two minutes you've turned an opener into a monologue.</p>
+<p><strong>Say it like this:</strong></p>
+<blockquote>
+<p>I'm an ML engineer and researcher focused on model efficiency — training, routing, and compression. My whole thesis is that the next decade is a <strong>systems race</strong>, not a scaling race: the winner isn't the biggest model, it's whoever trains, routes, compresses, and serves models most efficiently under real constraints. Three things I've built that prove it: a routing system that cut serving cost <strong>&gt;90% at iso-quality</strong>; unstructured pruning that removed <strong>&gt;80% of a segmentation model's weights while proxy Dice stayed &gt;0.95</strong> across four datasets; and a diffusion-based fine-tuning method that hit <strong>~3.2× wall-clock speedup</strong>. I want to do that at production scale, and eBay is one of the few marketplaces where efficiency at scale <em>is</em> the business — your own stack already goes that way, so it's a direct fit.</p>
+</blockquote>
+<hr />
+<h2 id="why-a-company-now-why-leave-the-independent-path">Why a company now — why leave the independent path</h2>
+<p>Expect "why leave independent research?" or "why eBay now?" in Round 3. Have this rehearsed — it's also the honest frame for the MLOps gap.</p>
+<p><strong>Say it like this:</strong></p>
+<blockquote>
+<p>Independent research let me prove the thesis end to end — but it capped me at research and shadow-eval scale. I could show routing, pruning, and generative-training acceleration <em>work</em>; I couldn't run them against live traffic, real SLAs, and a retraining loop. The deliberate next step is a place where the systems-race thesis <strong>is</strong> the business model, run at production scale — and that's exactly eBay. I'll be honest that production MLOps is my thinner surface; that gap is <em>why</em> this role is the next move, not a reason against it.</p>
+</blockquote>
+<hr />
+<h2 id="your-core-message-open-with-this">Your core message — open with this</h2>
+<p>Two sentences. Say them early in Round 2 or 3, and let them frame everything after.</p>
+<p><strong>Say it like this:</strong></p>
+<blockquote>
+<p>The industry spent five years on a scaling race — bigger models, more tokens, more GPUs. I think the next decade is a <strong>systems race</strong>: the winner won't have the biggest model, it'll be whoever can train, route, compress, deploy, and apply models most efficiently under real constraints — which is exactly the work I've done, and exactly what a marketplace at eBay's scale needs.</p>
+</blockquote>
+<p>Everything you'll present — routing, compression, generative-training acceleration — is one argument: <strong>small, specialized, and well-served beats big and general on cost at matched quality.</strong> eBay's own stack already agrees with you (a finetuned Gemma3-4B beating a zero-shot 27B at ~3.8× faster inference; LiLiuM's tokenizer at ~34% faster generation). You're not pitching against their roadmap — you're already on it. (Details in <em>eBay AI Dossier</em>.)</p>
+<hr />
+<h2 id="the-one-rule-do-not-break-it">The one rule (do not break it)</h2>
+<blockquote>
+<p><strong>Never invent a specific.</strong> No number, name, date, result, or quote you can't stand behind. When you don't know something about your own work — an exact threshold, a stakeholder's reaction, whether a system was live or shadow — <strong>caveat first</strong>: say what you <em>do</em> know, then name the boundary. "Caveat-first" beats bluffing in every round, and it's literally rewarded under "Act With Integrity."</p>
+</blockquote>
+<p>The single place this bites hardest is the MLOps question — "how much production ops have you actually done?" You have <strong>one rehearsed answer</strong> for it, used verbatim everywhere it comes up. Read and memorize <strong>The Honest MLOps-Gap Script</strong> before the loop; don't improvise this one.</p>
+<p>Your canonical figures (MERA, LLM Router, TwinRouterBench, Diffusion Weights, pruning) live in <strong>Own-Papers Ground Truth</strong> — that doc is the source of truth. If your memory and that doc ever disagree, the doc wins.</p>
+<hr />
+<h2 id="5-day-drill-plan">5-day drill plan</h2>
+<p>Compressed, front-loaded on your weaker surfaces (the engineering Q&amp;A and the "production engineer" framing), and heavy on <strong>practice out loud</strong> — reading is not rehearsing.</p>
+<table>
+<thead>
+<tr>
+<th>Day</th>
+<th>Read</th>
+<th>Practice (out loud / unaided)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1 — Message &amp; facts</strong></td>
+<td><em>Overview &amp; Study Plan</em> (this), <em>eBay AI Dossier</em>, <em>Own-Papers Ground Truth</em></td>
+<td>Say the <strong>core message</strong> and the <strong>honest MLOps-gap script</strong> 3× each until they're muscle memory. Recite your 5 canonical numbers cold.</td>
+</tr>
+<tr>
+<td><strong>2 — Coding round</strong></td>
+<td><em>Live-Coding Protocol</em>, <em>ML Primitives From Scratch</em>, <em>Coding Practice Regimen</em></td>
+<td><strong>3–4 unaided problems</strong>, narrating the whole time, <strong>no run button</strong> — type, then hand-trace. Write <strong>softmax+cross-entropy</strong> and <strong>scaled dot-product attention</strong> from memory.</td>
+</tr>
+<tr>
+<td><strong>3 — Engineering Q&amp;A</strong></td>
+<td><em>Engineering Q&amp;A: Training &amp; Infra</em>, <em>Engineering Q&amp;A: Serving, Deployment &amp; Monitoring</em>, <em>The Honest MLOps-Gap Script</em></td>
+<td>Rapid-fire self-quiz: docker multi-stage, train/serve skew, quantization tiers, KV-cache/PagedAttention, PSI thresholds, shadow→canary→A/B. Rehearse the gap script until it's one clean breath.</td>
+</tr>
+<tr>
+<td><strong>4 — System design</strong></td>
+<td><em>ML System Design Framework</em>, <em>Flagship: Search Ranking &amp; Recsys</em>, <em>System Design Skeletons Bank</em>, <em>The Scaling Playbook</em></td>
+<td><strong>One full mock design out loud</strong>, whiteboard, ~45 min: "design near-real-time re-ranking for eBay search." Force yourself to open with the business metric and close with monitoring. Then walk the 6-axis "now 10× it."</td>
+</tr>
+<tr>
+<td><strong>5 — Project &amp; close</strong></td>
+<td><em>Project Walkthrough: Cost-Efficient LLM Routing</em>, <em>Behavioral &amp; STAR Library</em>, <em>Questions to Ask &amp; Closing</em>, <em>Final-Hours Cheatsheet</em></td>
+<td>Rehearse the <strong>8-beat walkthrough</strong> timed to ~12 min, "I" not "we." Drill 2–3 STAR stories mapped to eBay values. <strong>Fill in every <code>[CONFIRM TONY]</code> gap</strong> in the walkthrough with your real facts.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Morning of:</strong> re-skim this doc's scoring tables + the <em>Final-Hours Cheatsheet</em>. Then trust the reps.</p>
+<hr />
+<p>You're interviewing from strength. You have owned the efficiency stack end to end — routing, pruning, training acceleration — and that's precisely where the industry, and eBay, is heading. Round 1 is winnable with clean narration. Round 2 is yours the moment you frame like a production engineer. Round 3 is a story you've already lived. Prepare the gaps honestly, rehearse out loud, and let the systems-race thesis carry the room.</p>
+      <nav class="prevnext"><a class="pn prev" href="s2_00_email_and_logistics.html">‹ <span>Email &amp; Logistics</span></a><a class="pn next" href="s2_44_confirm_tony.html"><span>★ Fill These Before the Room</span> ›</a></nav>
+    </article>
+    <aside class="toc"><div class="toc-title">On this page</div><ul>
+<li><a href="#the-3-round-loop-at-a-glance">The 3-round loop at a glance</a></li>
+<li><a href="#what-each-round-scores-the-criteria-in-plain-behaviors">What each round scores — the criteria in plain behaviors</a></li>
+<li><a href="#how-strong-ml-candidates-still-fail-each-round">How strong ML candidates still fail each round</a></li>
+<li><a href="#tell-me-about-yourself-your-6090s-opener">&quot;Tell me about yourself&quot; — your 60–90s opener</a></li>
+<li><a href="#why-a-company-now-why-leave-the-independent-path">Why a company now — why leave the independent path</a></li>
+<li><a href="#your-core-message-open-with-this">Your core message — open with this</a></li>
+<li><a href="#the-one-rule-do-not-break-it">The one rule (do not break it)</a></li>
+<li><a href="#5-day-drill-plan">5-day drill plan</a></li>
+</ul></aside>
+  </main>
+</div>
+<script>window.SEARCH_JSON="../assets/../search-index.json";</script>
+<script src="../assets/search-data.js"></script>
+<script src="../assets/app.js"></script>
+</body>
+</html>

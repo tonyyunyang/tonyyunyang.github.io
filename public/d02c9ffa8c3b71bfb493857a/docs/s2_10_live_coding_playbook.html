@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Live-Coding Playbook · eBay Stage-2 Prep</title>
+<meta name="robots" content="noindex,nofollow">
+<script>try{if(localStorage.getItem('ebay-s2-theme')==='dark')document.documentElement.classList.add('dark');}catch(e){}</script>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body data-track="code" data-pagefind-ignore="all">
+<button id="menu" class="menu-btn" aria-label="Menu">☰</button>
+<button id="theme" class="theme-btn" aria-label="Toggle theme">◐</button>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+<div class="brand"><a href="../index.html"><span class="brand-mark">e</span><span class="brand-txt">Stage&nbsp;2 Prep<em>eBay · three interviews</em></span></a></div>
+<div class="search"><input id="q" type="search" placeholder="Search…" autocomplete="off"><div id="results"></div></div>
+<nav class="nav">
+<div class="nav-group" data-track="start"><div class="nav-group-title"><span class="dot"></span>Start Here</div><ul>
+<li><a href="s2_00_email_and_logistics.html">Email &amp; Logistics</a></li>
+<li><a href="s2_01_overview_and_plan.html">Overview &amp; Study Plan</a></li>
+<li><a href="s2_44_confirm_tony.html">★ Fill These Before the Room</a></li>
+</ul></div>
+<div class="nav-group" data-track="code"><div class="nav-group-title"><span class="dot"></span>1 · Live Coding &amp; Engineering</div><ul>
+<li class="active"><a href="s2_10_live_coding_playbook.html">Live-Coding Playbook</a></li>
+<li><a href="s2_11_ml_from_scratch.html">ML From Scratch (Python)</a></li>
+<li><a href="s2_12_practice_regimen.html">Unaided Practice Regimen</a></li>
+<li><a href="s2_13_engineering_qa.html">Engineering Q&amp;A — Build &amp; Train</a></li>
+<li><a href="s2_14_serving_qa.html">Engineering Q&amp;A — Serve &amp; Monitor</a></li>
+<li><a href="s2_15_mlops_honest_gap.html">The Honest MLOps-Gap Script</a></li>
+</ul></div>
+<div class="nav-group" data-track="design"><div class="nav-group-title"><span class="dot"></span>2 · ML System Design</div><ul>
+<li><a href="s2_20_design_framework.html">Design Framework &amp; How to Drive</a></li>
+<li><a href="s2_21_recsys_search_design.html">Flagship: Search Ranking &amp; Recs</a></li>
+<li><a href="s2_22_design_skeletons.html">Design Skeletons Bank</a></li>
+<li><a href="s2_23_scaling_playbook.html">The Scaling Playbook</a></li>
+</ul></div>
+<div class="nav-group" data-track="pm"><div class="nav-group-title"><span class="dot"></span>3 · Project Mgmt &amp; Retrospective</div><ul>
+<li><a href="s2_30_project_walkthrough.html">Walkthrough: Routing at Scale</a></li>
+<li><a href="s2_31_star_stories.html">STAR Stories — The Four Prompts</a></li>
+<li><a href="s2_32_behavioral_bank.html">Behavioral &amp; Competency Bank</a></li>
+</ul></div>
+<div class="nav-group" data-track="ebay"><div class="nav-group-title"><span class="dot"></span>eBay &amp; Closing</div><ul>
+<li><a href="s2_40_ebay_context.html">eBay Context (Stage-2 lens)</a></li>
+<li><a href="s2_41_own_papers_numbers.html">Own-Paper Numbers (say them cold)</a></li>
+<li><a href="s2_42_questions_to_ask.html">Questions to Ask</a></li>
+<li><a href="s2_43_final_hours.html">Final-Hours Cheatsheet</a></li>
+</ul></div>
+</nav>
+  </aside>
+  <div class="scrim" id="scrim"></div>
+  <main class="content">
+    <article class="doc">
+      <div class="doc-meta"><span class="tag t-code">Coding</span><span class="read">21 min read</span></div>
+      <h1 id="live-coding-playbook">Live-Coding Playbook</h1>
+<p><em>The core of Interview 1's coding half: how to narrate while you code, how to recover when you stall, and the ranked pattern table to drill. Read this the week before, then re-skim the morning of. ML primitives (softmax, attention, metrics, BPE) live in the companion </em><em>ML From Scratch (Python)</em><em> doc — this one is DS&amp;A + narration.</em></p>
+<h2 id="the-one-job-make-your-thinking-audible">The one job: make your thinking audible</h2>
+<p><strong>Communication is the #1 graded criterion — above speed, above a perfectly optimal solution.</strong> A correct answer explained poorly scores <em>below</em> a partial answer explained clearly. Treat the interviewer as a pair-programming partner you're thinking out loud <em>with</em>, not an examiner you're performing <em>for</em>.</p>
+<p>Your specific risk profile: you know the algorithms and you're AI-native, so the two things that are actually rusty are (a) raw unaided typing/recall with no autocomplete, and (b) narrating out loud while your hands move. This playbook drills exactly those two.</p>
+<p><strong>Time budget for a 60-min round, one main problem:</strong> ~8 min talking before you type · ~25 min coding · ~10 min testing/reviewing · buffer for follow-ups. Do not touch the keyboard for the first several minutes — silent-then-deliberate is itself a positive signal.</p>
+<hr />
+<h2 id="1-the-umpire-narration-protocol">1. The UMPIRE narration protocol</h2>
+<p>Use <strong>UMPIRE</strong> as your spine: <strong>U</strong>nderstand → <strong>M</strong>atch → <strong>P</strong>lan → <strong>I</strong>mplement → <strong>R</strong>eview → <strong>E</strong>valuate. Below is the exact spoken script, beat by beat, with the literal phrases to say.</p>
+<h3 id="beat-0-frame-it-10-seconds-before-anything">Beat 0 — Frame it (10 seconds, before anything)</h3>
+<p><strong>Say it like this:</strong></p>
+<blockquote>
+<p>"Before I write anything, I'll make sure I understand the problem, walk a small example, state my approach and its complexity, and only then code. I'll think out loud the whole way — please stop me anytime."</p>
+</blockquote>
+<p>This one sentence tells them you have a process and buys you permission to be deliberate instead of panic-typing.</p>
+<h3 id="beat-1-understand-clarify-inputs-constraints-edge-cases-24-min">Beat 1 — UNDERSTAND: clarify inputs, constraints, edge cases (2–4 min)</h3>
+<p>Restate the problem in your own words, then ask targeted questions. Write one or two concrete input→output examples in a comment as you go.</p>
+<p><strong>Say it like this:</strong></p>
+<blockquote>
+<p>"Let me restate: I'm given <code>___</code> and I need to return <code>___</code>. Is that right?"
+"What are the input <strong>sizes</strong> — n up to 10³, 10⁶, 10⁹? That tells me what complexity I need to target."
+"Can the input be <strong>empty</strong>? <strong>Duplicates</strong>? <strong>Negatives</strong>? Non-ASCII for strings?"
+"Is it <strong>sorted</strong>? Can I <strong>mutate</strong> it in place, or must I keep it intact?"
+"If there are ties or multiple valid answers, is <strong>any one</strong> fine, or is there a tiebreak?"
+"What should I return for the <strong>degenerate case</strong> — empty input, or k &gt; n?"</p>
+</blockquote>
+<p><strong>Name the edge cases out loud even if you don't ask about them</strong> — it shows you see them: <em>"I'll keep empty-input and single-element cases in mind as I go."</em> Input size is load-bearing: say what it implies. <em>"n up to 10⁶ rules out O(n²), so I'm aiming for O(n) or O(n log n)."</em></p>
+<h3 id="beat-2-match-name-the-pattern-30-seconds">Beat 2 — MATCH: name the pattern (30 seconds)</h3>
+<p>Say what family the problem is in before you plan. This is where the pattern table in §3 pays off.</p>
+<p><strong>Say it like this:</strong></p>
+<blockquote>
+<p>"This looks like a <strong>hashmap-for-counting</strong> problem." / "…a <strong>two-pointer on a sorted array</strong>." / "…a <strong>BFS on a grid</strong>."</p>
+</blockquote>
+<h3 id="beat-3-plan-state-the-approach-and-its-complexity-before-typing-23-min">Beat 3 — PLAN: state the approach AND its complexity <em>before</em> typing (2–3 min)</h3>
+<p>Always mention the brute force first, then the improvement — it shows range. <strong>Commit to a target time and space complexity before you write a line.</strong></p>
+<p><strong>Say it like this:</strong></p>
+<blockquote>
+<p>"<strong>Brute force</strong> is O(n²): check every pair. I think I can do better — a hashmap gives O(n) time for O(n) space. Let me confirm the idea before coding."
+"My plan, three steps: (1) build a count map, (2) one pass checking each element's complement, (3) return the indices."
+"If two approaches tie, I'll say so and pick: a heap is O(n log k) and simpler to get right; a bucket sort is O(n). I'll start with the heap and mention the bucket optimization at the end."</p>
+</blockquote>
+<p><strong>Then get a nod:</strong></p>
+<blockquote>
+<p>"Does that approach sound reasonable to start?"</p>
+</blockquote>
+<p>If they hesitate, you just saved yourself 20 minutes. Inviting a check here lets them redirect you <em>cheaply</em>, before you've written code.</p>
+<h3 id="beat-4-implement-code-in-small-verbalized-steps-bulk-of-the-time">Beat 4 — IMPLEMENT: code in small, verbalized steps (bulk of the time)</h3>
+<p>Narrate the <em>intent</em> of each block — say <em>why</em>, then type. Do not narrate keystrokes.</p>
+<ul>
+<li><strong>Announce structure first:</strong> <em>"I'll write a helper for <code>___</code>, then the main loop."</em></li>
+<li><strong>Per block, state intent then type:</strong> <em>"Now I iterate the array, and for each element compute its complement and check the map."</em></li>
+<li><strong>Name variables meaningfully and say the meaning:</strong> <em>"I'll call this <code>seen</code> — a dict from value to index."</em></li>
+<li><strong>Handle edge cases in the code and point at them:</strong> <em>"I'm guarding the empty case here so we return early."</em></li>
+<li><strong>If you defer something, flag it — don't silently omit:</strong> <em>"I'll stub input validation for now and come back if there's time — flagging it so we both know."</em></li>
+<li><strong>Fill silence with the plan, not apologies:</strong> <em>"Okay, complement check done; next I store the index."</em></li>
+</ul>
+<h3 id="beat-5-review-hand-trace-an-example-edge-cases-out-loud-810-min-do-not-skip">Beat 5 — REVIEW: hand-trace an example + edge cases, out loud (~8–10 min, do NOT skip)</h3>
+<p>Even with no run button, <strong>trace the code by hand like a debugger.</strong> This is where strong candidates separate from average ones.</p>
+<p><strong>Say it like this:</strong></p>
+<blockquote>
+<p>"Let me trace <code>nums=[2,7,11], target=9</code>. i=0: <code>seen</code> empty, store <code>{2:0}</code>. i=1: complement 2 is in <code>seen</code> → return <code>[0,1]</code>. Correct."</p>
+</blockquote>
+<p>Then run the edge cases <em>you named in Beat 1</em>:</p>
+<blockquote>
+<p>"Empty array → loop never runs → return <code>[]</code>. Single element → no pair → <code>[]</code>. Duplicates <code>[3,3], target 6</code> → first 3 stored, second finds the complement → <code>[0,1]</code>. Good."</p>
+</blockquote>
+<p>If you find a bug mid-trace, <strong>say it and fix it</strong> — catching your own bug out loud is a <em>positive</em> signal:</p>
+<blockquote>
+<p>"Wait — I store <em>after</em> checking, so <code>[3,3]</code> works. If I'd stored before checking, an element would match itself. Good that the order is right."</p>
+</blockquote>
+<h3 id="beat-6-evaluate-3-sentence-complexity-wrap-up-one-improvement-23-min">Beat 6 — EVALUATE: 3-sentence complexity wrap-up + one improvement (2–3 min)</h3>
+<p>Volunteer space complexity <strong>without being asked</strong>. Use this three-sentence structure:</p>
+<ol>
+<li><strong>Time:</strong> <em>"One pass over n elements, each map op O(1) average → </em><em>O(n) time</em><em>."</em></li>
+<li><strong>Space:</strong> <em>"The map holds up to n entries → </em><em>O(n) space</em><em>."</em></li>
+<li><strong>Tradeoff (only if one exists):</strong> <em>"I traded O(n) space for speed. If memory were tight and the array were sorted, two pointers would be O(1) space but O(n log n) if I have to sort first."</em></li>
+</ol>
+<p>Then proactively propose an improvement:</p>
+<blockquote>
+<p>"Given more time I'd add input validation and unit tests for the empty and single-element cases. For very large n I'd think about streaming rather than holding everything in memory."</p>
+</blockquote>
+<hr />
+<h2 id="2-recovery-hints-playbook">2. Recovery &amp; hints playbook</h2>
+<p>The interviewer <em>expects</em> to hint — how you stall and how you take a hint are both graded. The failure mode isn't being stuck; it's going silent or ignoring the nudge.</p>
+<h3 id="when-youre-stuck-never-go-silent">When you're stuck — never go silent</h3>
+<ul>
+<li><strong>Downgrade deliberately to a working baseline</strong> (the single most valuable move): <em>"I don't see the O(n) trick yet, so let me get a correct brute-force O(n²) working first, then optimize — a working solution beats a stuck-perfect one."</em></li>
+<li><strong>Externalize the search out loud:</strong> <em>"The bottleneck is the repeated lookup. What structure gives O(1) lookup? A hashmap — let me switch to that."</em></li>
+<li><strong>Narrate exactly where you're blocked:</strong> <em>"I can tell </em>whether<em> a pair exists, but I'm not tracking </em>indices<em> yet. Let me change the value I store from the number to its index."</em></li>
+<li><strong>Buy time honestly, then actually think:</strong> <em>"Give me twenty seconds to think."</em> Said once, this reads as composure, not weakness.</li>
+</ul>
+<h3 id="when-given-a-hint-treat-it-as-gold">When given a hint — treat it as gold</h3>
+<p>A hint is information, not a penalty. Reading one fast and correctly is a <em>stronger</em> signal than never needing one.</p>
+<ol>
+<li><strong>Acknowledge + paraphrase</strong> so they know it landed: <em>"Thanks — so you're nudging me toward whether the array is </em>sorted<em>. If it is, I can drop the hashmap and use two pointers for O(1) space. Let me take that."</em></li>
+<li><strong>Integrate, don't discard everything:</strong> <em>"Good point — I'll keep my loop structure but swap the inner scan for a binary search."</em></li>
+<li><strong>Extend past the hint</strong> to show you can build on it: <em>"…and once I'm using two pointers here, the same idea generalizes to the 3Sum variant."</em></li>
+</ol>
+<p><strong>Trap:</strong> politely nodding at a hint and then continuing down your original path. Interviewers read that as not listening. Visibly change course.</p>
+<h3 id="think-out-loud-without-rambling">Think out loud without rambling</h3>
+<p>There's a difference between narrating and filling air. The rule: <strong>narrate decisions and intent, not keystrokes, and not a monologue of every possibility.</strong></p>
+<ul>
+<li><strong>Do:</strong> state the <em>why</em> before a block, name tradeoffs, announce the next step. <em>"Next I need O(1) lookup, so I'll reach for a set."</em></li>
+<li><strong>Don't:</strong> read your own code back verbatim, or spiral through five half-ideas. If you need to genuinely deliberate, say <em>"let me think for twenty seconds"</em> and go quiet <strong>on purpose</strong> — a signposted silence is calm; an unexplained one is panic.</li>
+<li>If you notice yourself rambling, land the plane: <em>"Short version: I'll go with the hashmap. Coding it now."</em></li>
+</ul>
+<h3 id="when-you-spot-your-own-bug">When you spot your own bug</h3>
+<p>Say it plainly and re-trace — self-correction is a plus, not an admission of failure:</p>
+<blockquote>
+<p>"I think I have an off-by-one — the loop should stop at <code>n-1</code>, not <code>n</code>. Let me fix and re-trace the last example."</p>
+</blockquote>
+<p>Don't panic-rewrite the whole function when one test fails. Read the failure, form a hypothesis, isolate it (check boundaries first), fix, re-run the trace. Narrate the hypothesis.</p>
+<hr />
+<h2 id="3-ranked-dsa-pattern-table">3. Ranked DS&amp;A pattern table</h2>
+<p>Ranked by probability in a live round (DFS/BFS, two-pointer, and hashmaps dominate real interview banks). For each: <strong>the tell</strong> (how to recognize it), the <strong>template idea</strong> in a line or two, <strong>canonical problems</strong> (eBay-reported ones tagged), and <strong>complexity</strong>. Python-first. Reach for <code>Counter</code> / <code>defaultdict</code> / <code>deque</code> / <code>heapq</code> by name — naming the right tool is itself a signal.</p>
+<h3 id="tier-1-expect-one-of-these-drill-hardest">Tier 1 — expect one of these; drill hardest</h3>
+<table>
+<thead>
+<tr>
+<th>Pattern</th>
+<th>The tell</th>
+<th>Template idea</th>
+<th>Canonical problems</th>
+<th>Complexity</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Hashmap (count / lookup)</strong></td>
+<td>"find a pair/complement," "count frequencies," "group by," "seen before?," "first unique"</td>
+<td>One pass building a <code>dict</code>/<code>Counter</code>/<code>set</code>; trade space for O(1) lookup to kill an O(n²) scan</td>
+<td>Two Sum · Group Anagrams · Contains Duplicate · Valid Anagram</td>
+<td>O(n) time, O(n) space</td>
+</tr>
+<tr>
+<td><strong>Prefix sum + count-map</strong></td>
+<td>"count/find <strong>contiguous</strong> subarrays summing to k (or divisible by k)," "subarray with equal 0s/1s"</td>
+<td>Running sum; look up <code>running - k</code> in a count-map of prefix sums seen so far. Seed <code>seen[0]=1</code> for the empty prefix. For "divisible by k," key on <code>running % k</code></td>
+<td>Subarray Sum Equals K · Continuous Subarray Sum</td>
+<td>O(n) time, O(n) space</td>
+</tr>
+<tr>
+<td><strong>Two pointers</strong></td>
+<td>sorted input; "pair summing to target"; "in-place reverse/partition"; palindrome; merge two sorted; O(1)-space required</td>
+<td>Two indices moving toward each other (or fast/slow); shrink/grow based on comparison to target</td>
+<td>Valid Palindrome · 3Sum · Container With Most Water · Merge Sorted Array</td>
+<td>O(n), or O(n log n) if you must sort; O(1) extra</td>
+</tr>
+<tr>
+<td><strong>Sliding window</strong></td>
+<td>"longest/shortest <strong>contiguous</strong> subarray/substring," "at most k distinct," "sum ≥ target," "no repeats"</td>
+<td>Expand <code>right</code>; when the constraint breaks, shrink <code>left</code>; track best. Fixed- vs. variable-size</td>
+<td>Longest Substring Without Repeating Characters · Minimum Size Subarray Sum · Max Average Subarray</td>
+<td>O(n) time, O(k) space</td>
+</tr>
+<tr>
+<td><strong>Trees — DFS / BFS</strong></td>
+<td>binary/n-ary tree; "depth," "level order," "path sum," "validate BST," "lowest common ancestor"</td>
+<td>Most tree problems = a traversal with a twist in what you accumulate. DFS = recursion (or a stack); BFS = <code>deque</code> level by level</td>
+<td><strong>Path Sum</strong> <em>(eBay-reported)</em> · Max Depth · Validate BST · Level-Order Traversal · LCA</td>
+<td>O(n) time; space O(h) for DFS, O(width) for BFS</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Highest-value skeletons — have these in your fingers:</strong></p>
+<pre><code class="language-python"># Hashmap — Two Sum: check complement BEFORE inserting so you never match self
+def two_sum(nums: list[int], target: int) -&gt; list[int]:
+    seen = {}                                   # value -&gt; index
+    for i, x in enumerate(nums):
+        if target - x in seen:
+            return [seen[target - x], i]
+        seen[x] = i
+    return []
+
+# Prefix sum + count-map — count contiguous subarrays summing to k
+def subarray_sum_k(nums: list[int], k: int) -&gt; int:
+    from collections import defaultdict
+    seen, running, count = defaultdict(int), 0, 0
+    seen[0] = 1                                 # empty prefix — the load-bearing init
+    for x in nums:
+        running += x
+        count += seen[running - k]              # prefixes that close a subarray = k
+        seen[running] += 1
+    return count
+# Gotcha: forget seen[0]=1 and you miss every subarray that starts at index 0.
+
+# Two pointers — on a sorted array, move the side that improves the target
+def two_sum_sorted(a: list[int], target: int) -&gt; list[int]:
+    lo, hi = 0, len(a) - 1
+    while lo &lt; hi:
+        s = a[lo] + a[hi]
+        if s == target: return [lo, hi]
+        if s &lt; target:  lo += 1                 # need bigger → move left up
+        else:           hi -= 1                 # need smaller → move right down
+    return []
+
+# Sliding window — longest substring without repeats
+def longest_unique(s: str) -&gt; int:
+    last = {}                                   # char -&gt; last index seen
+    left = best = 0
+    for right, c in enumerate(s):
+        if c in last and last[c] &gt;= left:
+            left = last[c] + 1                  # jump past the repeat
+        last[c] = right
+        best = max(best, right - left + 1)
+    return best
+
+# Tree DFS — Path Sum: does a root→leaf path sum to target?
+def has_path_sum(node, target: int) -&gt; bool:
+    if not node: return False
+    if not node.left and not node.right:        # leaf
+        return node.val == target
+    rest = target - node.val
+    return has_path_sum(node.left, rest) or has_path_sum(node.right, rest)
+
+# Tree BFS — level order with a deque
+from collections import deque
+def level_order(root) -&gt; list[list[int]]:
+    out, q = [], deque([root] if root else [])
+    while q:
+        level = []
+        for _ in range(len(q)):                 # snapshot this level's size
+            n = q.popleft(); level.append(n.val)
+            if n.left:  q.append(n.left)
+            if n.right: q.append(n.right)
+        out.append(level)
+    return out
+</code></pre>
+<h3 id="tier-2-very-plausible">Tier 2 — very plausible</h3>
+<table>
+<thead>
+<tr>
+<th>Pattern</th>
+<th>The tell</th>
+<th>Template idea</th>
+<th>Canonical problems</th>
+<th>Complexity</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Stack / monotonic stack</strong></td>
+<td>"valid parentheses," "next greater element," "nearest smaller," "evaluate expression," undo/history</td>
+<td>Push while a condition holds, pop when it breaks; a monotonic stack keeps a sorted-so-far invariant</td>
+<td>Valid Parentheses · Min Stack · Daily Temperatures · Eval Reverse Polish Notation</td>
+<td>O(n) time, O(n) space</td>
+</tr>
+<tr>
+<td><strong>Binary search (incl. search-on-answer)</strong></td>
+<td>sorted array; "find first-true / boundary"; "minimize the maximum" / "search the answer space"; O(log n) asked</td>
+<td>Shrink <code>lo/hi</code> by half on a predicate. Master the <em>leftmost/rightmost</em> template and the invariant, not just exact-match. For "search-on-answer," binary-search the <em>value</em> and test feasibility</td>
+<td>Binary Search · Search in Rotated Sorted Array · Find First/Last Position · <strong>Koko Eating Bananas</strong> (search-on-answer)</td>
+<td>O(log n), or O(n log range) for search-on-answer; O(1) space</td>
+</tr>
+<tr>
+<td><strong>Graphs — BFS / DFS / union-find / topo</strong></td>
+<td>grid/matrix, "islands," "connected components," "shortest path in unweighted graph," "can you reach," "course prerequisites"</td>
+<td>Adjacency list or grid neighbors. BFS = shortest unweighted path; DFS or union-find = connectivity; Kahn's algorithm = topological order (cycle iff you can't process all nodes)</td>
+<td>Number of Islands (flood-fill) · Course Schedule (topo) · Rotting Oranges (multi-source BFS) · Clone Graph</td>
+<td>O(V+E) time and space</td>
+</tr>
+<tr>
+<td><strong>Heaps / top-k</strong></td>
+<td>"top-k," "k-th largest/smallest," "merge k sorted," "running median"</td>
+<td><code>heapq</code> is a min-heap; push <code>-x</code> for a max-heap. Keep a <strong>size-k</strong> heap for top-k; two heaps for a running median</td>
+<td>Kth Largest Element · Top K Frequent · Merge k Sorted Lists</td>
+<td>O(n log k) time, O(k) space</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Skeletons worth memorizing:</strong></p>
+<pre><code class="language-python"># Binary search on the ANSWER — Koko: smallest eating speed to finish in h hours
+import math
+def min_speed(piles: list[int], h: int) -&gt; int:
+    def hours(speed): return sum(math.ceil(p / speed) for p in piles)
+    lo, hi = 1, max(piles)
+    while lo &lt; hi:                              # find leftmost feasible speed
+        mid = (lo + hi) // 2
+        if hours(mid) &lt;= h: hi = mid            # feasible → try slower
+        else:               lo = mid + 1
+    return lo
+
+# Graph BFS flood-fill — Number of Islands
+def num_islands(grid: list[list[str]]) -&gt; int:
+    if not grid: return 0
+    R, C, count = len(grid), len(grid[0]), 0
+    def sink(r, c):
+        q = deque([(r, c)]); grid[r][c] = '0'
+        while q:
+            i, j = q.popleft()
+            for di, dj in ((1,0),(-1,0),(0,1),(0,-1)):
+                ni, nj = i+di, j+dj
+                if 0 &lt;= ni &lt; R and 0 &lt;= nj &lt; C and grid[ni][nj] == '1':
+                    grid[ni][nj] = '0'; q.append((ni, nj))
+    for r in range(R):
+        for c in range(C):
+            if grid[r][c] == '1':
+                count += 1; sink(r, c)
+    return count
+
+# Topological sort — Course Schedule (Kahn's BFS); cycle iff not all nodes processed
+def can_finish(n: int, prereqs: list[list[int]]) -&gt; bool:
+    from collections import defaultdict
+    graph, indeg = defaultdict(list), [0] * n
+    for course, need in prereqs:
+        graph[need].append(course); indeg[course] += 1
+    q = deque(i for i in range(n) if indeg[i] == 0)
+    done = 0
+    while q:
+        u = q.popleft(); done += 1
+        for v in graph[u]:
+            indeg[v] -= 1
+            if indeg[v] == 0: q.append(v)
+    return done == n
+
+# Top-k with a size-k min-heap — kth largest
+import heapq
+def kth_largest(nums: list[int], k: int) -&gt; int:
+    h = []
+    for x in nums:
+        heapq.heappush(h, x)
+        if len(h) &gt; k: heapq.heappop(h)         # drop the smallest → heap holds k largest
+    return h[0]
+</code></pre>
+<h3 id="tier-3-possible-know-the-shape-dont-over-invest">Tier 3 — possible; know the shape, don't over-invest</h3>
+<table>
+<thead>
+<tr>
+<th>Pattern</th>
+<th>The tell</th>
+<th>Template idea</th>
+<th>Canonical problems</th>
+<th>Complexity</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Intervals</strong></td>
+<td>"merge overlapping," "meeting rooms," "insert interval"</td>
+<td>Sort by start; merge when <code>curr.start &lt;= prev.end</code>, else emit</td>
+<td>Merge Intervals · Insert Interval · Meeting Rooms</td>
+<td>O(n log n) time (the sort)</td>
+</tr>
+<tr>
+<td><strong>Backtracking</strong></td>
+<td>"generate all," "permutations/combinations/subsets," "N-Queens," "word search"</td>
+<td>Choose → recurse → <strong>undo</strong>. For subsets, branch include/exclude</td>
+<td><strong>Letter Combinations of a Phone Number</strong> <em>(eBay-reported)</em> · Subsets · Permutations · Word Search</td>
+<td>Exponential: O(2ⁿ) / O(n!) — say so out loud</td>
+</tr>
+<tr>
+<td><strong>Light 1-D DP</strong></td>
+<td>"count the ways," "min/max cost," "can you reach," "can this be segmented"</td>
+<td>Define state + recurrence <em>out loud first</em>; <code>dp[i]</code> = best/answer up to i. Bottom-up array or <code>@cache</code> on the recursion</td>
+<td><strong>Word Break</strong> <em>(eBay-reported)</em> · Climbing Stairs · House Robber · Coin Change</td>
+<td>Typically O(n·k) time, O(n) space</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-python"># Backtracking — subsets: choose / recurse / undo
+def subsets(nums: list[int]) -&gt; list[list[int]]:
+    res, path = [], []
+    def bt(start):
+        res.append(path[:])                     # copy the current subset
+        for i in range(start, len(nums)):
+            path.append(nums[i])
+            bt(i + 1)                            # advance so we don't reuse
+            path.pop()                           # undo
+    bt(0)
+    return res
+
+# 1-D DP — Word Break: can s be segmented into dictionary words?
+def word_break(s: str, words: list[str]) -&gt; bool:
+    wordset = set(words)
+    dp = [True] + [False] * len(s)              # dp[i] = s[:i] is segmentable
+    for i in range(1, len(s) + 1):
+        for j in range(i):
+            if dp[j] and s[j:i] in wordset:
+                dp[i] = True; break
+    return dp[len(s)]
+</code></pre>
+<p><strong>For DP specifically, state the recurrence before you type:</strong> <em>"Let <code>dp[i]</code> be whether the first i characters split cleanly. <code>dp[i]</code> is true if some <code>j &lt; i</code> has <code>dp[j]</code> true and <code>s[j:i]</code> is in the dictionary. Base case <code>dp[0] = True</code>."</em> Saying the recurrence out loud is half the score on a DP question.</p>
+<hr />
+<h2 id="4-debug-this-dsa-code">4. Debug this DSA code</h2>
+<p>The mirror of the ML doc's "broken model" round: sometimes they hand you working-<em>looking</em> DS&amp;A code that's subtly wrong. <strong>Spot by symptom, not by re-reading line-by-line</strong> — narrate the symptom, form a hypothesis, check boundaries first. These classics cover most planted bugs.</p>
+<h3 id="bug-1-off-by-one-loop-bound">Bug 1 — Off-by-one loop bound</h3>
+<pre><code class="language-python">for i in range(len(a)):
+    if a[i] + a[i + 1] == target: ...   # BUG: a[i+1] runs off the end
+</code></pre>
+<p><strong>Symptom:</strong> <strong><code>IndexError</code> on the last iteration</strong>, or a silent miss/overcount at the boundary. Any time you index <code>i+1</code> inside the loop, the bound must be <code>range(len(a) - 1)</code>. First check on a boundary crash: what's the largest index you touch?</p>
+<h3 id="bug-2-missing-seen0-1-in-a-prefix-sum-count">Bug 2 — Missing <code>seen[0] = 1</code> in a prefix-sum count</h3>
+<pre><code class="language-python">seen, running, count = defaultdict(int), 0, 0
+# BUG: never seed seen[0] = 1
+for x in nums:
+    running += x
+    count += seen[running - k]
+    seen[running] += 1
+</code></pre>
+<p><strong>Symptom:</strong> <strong>Count is low by exactly the number of qualifying subarrays that start at index 0.</strong> The empty prefix (sum 0) must be pre-seeded. Sanity check: <code>nums=[3], k=3</code> should return 1, not 0.</p>
+<h3 id="bug-3-storing-the-value-not-the-index-in-two-sum">Bug 3 — Storing the value, not the index, in Two Sum</h3>
+<pre><code class="language-python">if target - x in seen:
+    return [seen[target - x], i]
+seen[x] = x                             # BUG: stored the value, wanted the index
+</code></pre>
+<p><strong>Symptom:</strong> <strong>Returns numbers where indices were asked for</strong> (<code>[7, 1]</code> instead of <code>[0, 1]</code>). The map's <em>key</em> is the value you look up; the <em>value</em> is the index you return. Trace one example and read what you actually return.</p>
+<h3 id="bug-4-mutating-a-list-while-iterating-it">Bug 4 — Mutating a list while iterating it</h3>
+<pre><code class="language-python">for x in items:
+    if is_stale(x): items.remove(x)     # BUG: mutating under the iterator
+</code></pre>
+<p><strong>Symptom:</strong> <strong>Elements get skipped</strong> — removing shifts everything left, so the iterator jumps past the next item. Iterate a copy (<code>for x in items[:]</code>) or build a new list by comprehension.</p>
+<h3 id="bug-5-pop0-as-a-bfs-queue">Bug 5 — <code>pop(0)</code> as a BFS queue</h3>
+<pre><code class="language-python">q = [start]
+while q:
+    node = q.pop(0)                     # BUG: O(n) shift every dequeue
+</code></pre>
+<p><strong>Symptom:</strong> <strong>Correct answers, but O(n²) and it times out on large inputs.</strong> <code>list.pop(0)</code> shifts every remaining element. Use <code>collections.deque</code> with <code>popleft()</code> for O(1). Say this out loud even if it "works" on the toy case — naming the complexity trap is the signal.</p>
+<hr />
+<h2 id="5-one-ml-flavored-warm-up-narrate-the-intent">5. One ML-flavored warm-up (narrate the intent)</h2>
+<p>For an ML-research team the DS&amp;A problem sometimes wears an ML costume — a set/hashmap dressed as a data-pipeline step. Same patterns, but <strong>narrate the ML intent</strong>, not just the mechanics: say <em>why</em> the structure matters for a model. Two that land well:</p>
+<pre><code class="language-python"># Feature hashing — map sparse text tokens to a fixed-width vector (the &quot;hashing trick&quot;).
+# ML intent: bounded memory, no vocab lookup, collisions traded for O(1) featurization.
+def hash_features(tokens: list[str], dim: int) -&gt; list[float]:
+    vec = [0.0] * dim
+    for tok in tokens:
+        h = hash(tok)
+        vec[h % dim] += 1.0                     # signed variant: use (h &gt;&gt; 1 &amp; 1) for ±1
+    return vec
+
+# Dedup a stream of search queries — a set is the exact O(1)-membership answer.
+# ML intent: strip near-duplicate queries before they skew training-set frequencies.
+def unique_queries(stream) -&gt; list[str]:
+    seen, out = set(), []
+    for q in stream:
+        key = q.strip().lower()                 # normalize before dedup
+        if key not in seen:
+            seen.add(key); out.append(q)
+    return out
+</code></pre>
+<p><strong>Say it like this:</strong> <em>"This is a hashmap/set problem underneath — I'll use feature hashing so featurization is O(1) with bounded memory, and I'll flag that collisions are the cost. For a truly massive stream where even the set won't fit, I'd swap in a Bloom filter and name the false-positive tradeoff."</em></p>
+<hr />
+<h2 id="python-fluency-signals-reach-for-these">Python fluency signals (reach for these)</h2>
+<p>Naming the right standard-library tool reads as production habit. Quick reference — details and gotchas are in the <strong>Unaided Practice Regimen</strong> companion; the load-bearing ones for a live round:</p>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Use it for</th>
+<th>One-liner</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>collections.Counter</code></td>
+<td>frequency counts, top-k</td>
+<td><code>Counter(s).most_common(k)</code></td>
+</tr>
+<tr>
+<td><code>collections.defaultdict</code></td>
+<td>adjacency lists, grouping</td>
+<td><code>defaultdict(list)</code> — no "key exists?" checks</td>
+</tr>
+<tr>
+<td><code>collections.deque</code></td>
+<td>BFS queue, sliding window</td>
+<td>O(1) <code>append</code>/<code>popleft</code> (a list's <code>pop(0)</code> is O(n) — say this)</td>
+</tr>
+<tr>
+<td><code>heapq</code></td>
+<td>top-k, k-th, merge-k, median</td>
+<td>min-heap; push <code>-x</code> for max-heap; push tuples <code>(priority, item)</code></td>
+</tr>
+<tr>
+<td><code>bisect</code></td>
+<td>binary search on a sorted list</td>
+<td><code>bisect_left</code> / <code>insort</code> in O(log n)</td>
+</tr>
+<tr>
+<td><code>functools.cache</code></td>
+<td>memoize recursion (DP)</td>
+<td>one decorator turns a recursion into top-down DP</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Cheap seniority signals while coding:</strong> type hints on the signature (<code>def two_sum(nums: list[int], target: int) -&gt; list[int]:</code>), guard clauses / early returns for edge cases up top, <code>enumerate</code> instead of <code>range(len(...))</code>, tuple unpacking (<code>a, b = b, a + b</code>), and <code>"".join(parts)</code> instead of <code>+=</code> in a loop (which is O(n²) on strings — worth naming).</p>
+<p><strong>Trap:</strong> the mutable-default-argument bug — <code>def f(x, acc=[])</code> creates the list <em>once</em> at def time and shares it across calls. If you ever need a default list/dict, write <code>acc=None</code> then <code>acc = acc if acc is not None else []</code> (not <code>acc or []</code>, which also wipes a deliberately-passed empty list). Being able to explain this on demand is a classic Python probe.</p>
+<hr />
+<h2 id="the-one-line-summary-to-internalize">The one-line summary to internalize</h2>
+<p><strong>Correct-but-silent scores below partial-but-clear.</strong> Frame → clarify → state approach <em>and</em> complexity → code in narrated steps → hand-trace → wrap complexity in three sentences → propose one improvement. When stuck, secure a working baseline and say where you're blocked. When hinted, paraphrase it back and change course visibly.</p>
+      <nav class="prevnext"><a class="pn prev" href="s2_44_confirm_tony.html">‹ <span>★ Fill These Before the Room</span></a><a class="pn next" href="s2_11_ml_from_scratch.html"><span>ML From Scratch (Python)</span> ›</a></nav>
+    </article>
+    <aside class="toc"><div class="toc-title">On this page</div><ul>
+<li><a href="#the-one-job-make-your-thinking-audible">The one job: make your thinking audible</a></li>
+<li><a href="#1-the-umpire-narration-protocol">1. The UMPIRE narration protocol</a></li>
+<li><a href="#2-recovery-hints-playbook">2. Recovery &amp; hints playbook</a></li>
+<li><a href="#3-ranked-dsa-pattern-table">3. Ranked DS&amp;A pattern table</a></li>
+<li><a href="#4-debug-this-dsa-code">4. Debug this DSA code</a></li>
+<li><a href="#5-one-ml-flavored-warm-up-narrate-the-intent">5. One ML-flavored warm-up (narrate the intent)</a></li>
+<li><a href="#python-fluency-signals-reach-for-these">Python fluency signals (reach for these)</a></li>
+<li><a href="#the-one-line-summary-to-internalize">The one-line summary to internalize</a></li>
+</ul></aside>
+  </main>
+</div>
+<script>window.SEARCH_JSON="../assets/../search-index.json";</script>
+<script src="../assets/search-data.js"></script>
+<script src="../assets/app.js"></script>
+</body>
+</html>

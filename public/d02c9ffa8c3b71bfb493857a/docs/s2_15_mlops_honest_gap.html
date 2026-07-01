@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Honest MLOps-Gap Script · eBay Stage-2 Prep</title>
+<meta name="robots" content="noindex,nofollow">
+<script>try{if(localStorage.getItem('ebay-s2-theme')==='dark')document.documentElement.classList.add('dark');}catch(e){}</script>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body data-track="code" data-pagefind-ignore="all">
+<button id="menu" class="menu-btn" aria-label="Menu">☰</button>
+<button id="theme" class="theme-btn" aria-label="Toggle theme">◐</button>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+<div class="brand"><a href="../index.html"><span class="brand-mark">e</span><span class="brand-txt">Stage&nbsp;2 Prep<em>eBay · three interviews</em></span></a></div>
+<div class="search"><input id="q" type="search" placeholder="Search…" autocomplete="off"><div id="results"></div></div>
+<nav class="nav">
+<div class="nav-group" data-track="start"><div class="nav-group-title"><span class="dot"></span>Start Here</div><ul>
+<li><a href="s2_00_email_and_logistics.html">Email &amp; Logistics</a></li>
+<li><a href="s2_01_overview_and_plan.html">Overview &amp; Study Plan</a></li>
+<li><a href="s2_44_confirm_tony.html">★ Fill These Before the Room</a></li>
+</ul></div>
+<div class="nav-group" data-track="code"><div class="nav-group-title"><span class="dot"></span>1 · Live Coding &amp; Engineering</div><ul>
+<li><a href="s2_10_live_coding_playbook.html">Live-Coding Playbook</a></li>
+<li><a href="s2_11_ml_from_scratch.html">ML From Scratch (Python)</a></li>
+<li><a href="s2_12_practice_regimen.html">Unaided Practice Regimen</a></li>
+<li><a href="s2_13_engineering_qa.html">Engineering Q&amp;A — Build &amp; Train</a></li>
+<li><a href="s2_14_serving_qa.html">Engineering Q&amp;A — Serve &amp; Monitor</a></li>
+<li class="active"><a href="s2_15_mlops_honest_gap.html">The Honest MLOps-Gap Script</a></li>
+</ul></div>
+<div class="nav-group" data-track="design"><div class="nav-group-title"><span class="dot"></span>2 · ML System Design</div><ul>
+<li><a href="s2_20_design_framework.html">Design Framework &amp; How to Drive</a></li>
+<li><a href="s2_21_recsys_search_design.html">Flagship: Search Ranking &amp; Recs</a></li>
+<li><a href="s2_22_design_skeletons.html">Design Skeletons Bank</a></li>
+<li><a href="s2_23_scaling_playbook.html">The Scaling Playbook</a></li>
+</ul></div>
+<div class="nav-group" data-track="pm"><div class="nav-group-title"><span class="dot"></span>3 · Project Mgmt &amp; Retrospective</div><ul>
+<li><a href="s2_30_project_walkthrough.html">Walkthrough: Routing at Scale</a></li>
+<li><a href="s2_31_star_stories.html">STAR Stories — The Four Prompts</a></li>
+<li><a href="s2_32_behavioral_bank.html">Behavioral &amp; Competency Bank</a></li>
+</ul></div>
+<div class="nav-group" data-track="ebay"><div class="nav-group-title"><span class="dot"></span>eBay &amp; Closing</div><ul>
+<li><a href="s2_40_ebay_context.html">eBay Context (Stage-2 lens)</a></li>
+<li><a href="s2_41_own_papers_numbers.html">Own-Paper Numbers (say them cold)</a></li>
+<li><a href="s2_42_questions_to_ask.html">Questions to Ask</a></li>
+<li><a href="s2_43_final_hours.html">Final-Hours Cheatsheet</a></li>
+</ul></div>
+</nav>
+  </aside>
+  <div class="scrim" id="scrim"></div>
+  <main class="content">
+    <article class="doc">
+      <div class="doc-meta"><span class="tag t-code">Coding</span><span class="read">6 min read</span></div>
+      <h1 id="the-honest-mlops-gap-script">The Honest MLOps-Gap Script</h1>
+<p><em>The one thing to memorize word-for-word. Read this last, the night before, and again on the walk in. When any interviewer probes "how much production MLOps have you actually done?" — this is the answer. Say it once, cleanly, the same way everywhere.</em></p>
+<h2 id="why-this-matters">Why this matters</h2>
+<p>Interview 1's engineering half and Interview 2's design round both probe deep on production ops — canary releases, live drift monitoring, on-call. This is your <strong>known gap</strong>: your deployments have been research and shadow-eval scale, not a live on-call rotation. That's fine. What sinks candidates is <strong>bluffing it</strong> — an invented ops war-story unravels under a single follow-up, and eBay explicitly scores "Act With Integrity." The winning move is the opposite: know the machinery cold, own the gap in one clean clause, and pivot to the thing you genuinely own — efficiency and serving cost. Honest scores higher than flawless-sounding fabrication here, every time.</p>
+<p>So you say it <strong>once, the same way, everywhere.</strong> Not a fresh improvisation each time it comes up — one rehearsed, precise answer. That consistency is itself a credibility signal.</p>
+<blockquote class="warn">
+<p>⚠ <strong>Trap:</strong> the failure mode is drifting into "well, when I deployed to production I set up the canary..." — you didn't, at that scale, and the next question exposes it. Stay on the rehearsed script. One clause of gap, then pivot. Never embellish.</p>
+</blockquote>
+<h2 id="the-canonical-script-say-it-exactly-like-this">The canonical script — say it exactly like this</h2>
+<p><strong>Say it like this</strong> (to "how much production MLOps have you done?"):</p>
+<blockquote>
+<p>The efficiency side I've owned end to end — I've built and benchmarked routing, pruning, and generative training-acceleration systems, so the inference-optimization and cost levers are second nature to me. What I haven't personally run is a large-scale production on-call rotation with live canary releases and real-time drift monitoring — my deployments have been at research and shadow-eval scale. But I know exactly how that machinery works — shadow then canary then A/B with automated rollback, drift monitoring on both the input and the decision distributions, and proxy metrics while labels are delayed — and it's the fastest gap I'd close. I'd rather be precise about that than overstate it.</p>
+</blockquote>
+<p>That's the whole thing. It concedes the gap in <strong>one clause</strong> ("what I haven't personally run is...") and spends the rest proving you know the machinery and where your real strength is. Don't add to it in the moment.</p>
+<h2 id="your-real-hands-on-stack-confirm-once-then-reuse">Your real hands-on stack (confirm once, then reuse)</h2>
+<p>Before the follow-ups, lock down the two sentences that draw the line between what you've <em>personally run</em> and what you <em>know by design</em>. Confirm these once here — the <strong>Serve &amp; Monitor</strong> and <strong>Build &amp; Train</strong> Q&amp;A docs mirror these exact two sentences, so you rehearse them a single time and reuse them everywhere. Getting caught overstating either one is the same integrity trap as the ops war-story.</p>
+<p><strong>Serving stack</strong> (to "what have you served models with?"):</p>
+<blockquote class="warn">
+<p>⚠ <strong>[CONFIRM TONY]:</strong> "I've actually run <strong>vLLM</strong> for inference serving hands-on, and I know <strong>SGLang, Triton Inference Server, and TensorRT-LLM</strong> by design — their tradeoffs and when I'd reach for each — but haven't operated them in production myself." <em>(Default assumes vLLM is the one you've truly launched; adjust which is hands-on vs. by-design to match reality.)</em></p>
+</blockquote>
+<p><strong>Distributed-training stack</strong> (to "how have you trained at scale?"):</p>
+<blockquote class="warn">
+<p>⚠ <strong>[CONFIRM TONY]:</strong> "I've personally launched multi-GPU training with <strong>PyTorch DDP</strong>, and I understand <strong>FSDP and ZeRO</strong> sharding for when the model won't fit on one device, though my hands-on runs were DDP-scale." <em>(Default assumes DDP is what you've personally driven and FSDP/ZeRO is by-design knowledge; correct if you've actually launched sharded training.)</em></p>
+</blockquote>
+<p>Say each the same way every time. One clause of what you've run, one clause of what you know by design — no drift into claiming the by-design tools as lived experience.</p>
+<h2 id="the-two-follow-up-landmines">The two follow-up landmines</h2>
+<p>They will almost always push once more to check the machinery is real, not memorized. These two are the likely follow-ups. Answer with the mechanic and the threshold first — that's what proves it's genuine.</p>
+<h3 id="ok-so-what-would-you-actually-monitor">"OK — so what would you actually monitor?"</h3>
+<p><strong>Say it like this:</strong></p>
+<blockquote>
+<p>Two distributions, not one. <strong>Input drift</strong> — PSI or a KS test on the feature distributions; the rule of thumb is PSI under 0.1 is stable, 0.1 to 0.2 is watch, above 0.2 is act, tuned per feature by importance. And the <strong>decision/output distribution</strong> — if the model's own predictions suddenly shift, that's an early warning before any label lands. The hard part is labels are delayed — a purchase or a chargeback lags by days — so while I wait I lean on <strong>proxy metrics</strong>: prediction drift immediately, business signals like click-through shortly after, and for generative outputs, <strong>LLM-as-judge on a sampled slice</strong> calibrated against a small golden set. Underneath all of it, the operational SLOs — TTFT, TPOT, p99 latency, and goodput, the fraction of requests hitting <em>all</em> their SLOs at once.</p>
+</blockquote>
+<p><strong>The beats, in order:</strong> drift on <strong>both</strong> input and decision distributions → PSI/KS with concrete thresholds → delayed-label proxy metrics → LLM-as-judge on a sample → latency/goodput SLOs. Hit them in that order; it reads as someone who's thought about the whole ladder, not just recited "monitor for drift."</p>
+<blockquote class="warn">
+<p><strong>Trap:</strong> don't stop at "I'd monitor for drift." That's the answer that sounds researcher-not-engineer. The distinction that earns the point is <em>input</em> drift versus <em>decision/output</em> drift, plus the delayed-label problem — those are the details a real operator knows.</p>
+</blockquote>
+<h3 id="how-would-you-roll-back-a-bad-model">"How would you roll back a bad model?"</h3>
+<p><strong>Say it like this:</strong></p>
+<blockquote class="warn">
+<p>The fastest rollback is one you designed in before you shipped. Prerequisite is a <strong>versioned, immutable model registry</strong> — so "the previous good model" is an exact, reproducible artifact with its lineage, not something you hope to rebuild. Rollout is staged: <strong>shadow</strong> to check it's safe on real traffic, <strong>canary</strong> to ramp a small slice while watching SLOs, then <strong>A/B</strong> for the business decision. Rollback is then trivial — set the canary split back to zero, or with blue-green flip traffic to the known-good environment atomically — and I'd wire it to trigger <strong>automatically</strong> on an SLO or quality regression rather than waiting for a human to notice. Keep the <strong>previous version warm</strong> so the switch is instant. The subtle trap is state: if the new model changed a feature schema, a naive rollback leaves you inconsistent, so you version features and keep them backward-compatible.</p>
+</blockquote>
+<p><strong>The beats:</strong> versioned immutable registry → shadow → canary → A/B → automated rollback on SLO/quality regression → keep the previous version warm. The state/schema caveat at the end is the senior signal — it shows you've thought past the happy path.</p>
+<blockquote class="warn">
+<p><strong>Trap:</strong> if you claim you've <em>operated</em> automated rollback on-call at scale, you'll get drilled on the paging policy and the incident you handled — and you don't have one. Describe the machinery in the abstract ("I'd wire it to..."), not as lived on-call experience. The script already conceded that; stay consistent with it.</p>
+</blockquote>
+<h2 id="the-one-line-rule">The one-line rule</h2>
+<p><strong>Know the machinery cold. Own the gap in ONE clause. Pivot to efficiency. Never bluff.</strong></p>
+<p>Everything behind the machinery — the drift tests, rollout strategies, and SLOs — lives in your engineering Q&amp;A prep on <strong>serving, deployment, and monitoring</strong>, with the same honesty framing baked into each answer. This doc is the compressed, memorize-it version of that framing; other prep docs point back here whenever the gap comes up. When it does: this script, once, the same way.</p>
+      <nav class="prevnext"><a class="pn prev" href="s2_14_serving_qa.html">‹ <span>Engineering Q&amp;A — Serve &amp; Monitor</span></a><a class="pn next" href="s2_20_design_framework.html"><span>Design Framework &amp; How to Drive</span> ›</a></nav>
+    </article>
+    <aside class="toc"><div class="toc-title">On this page</div><ul>
+<li><a href="#why-this-matters">Why this matters</a></li>
+<li><a href="#the-canonical-script-say-it-exactly-like-this">The canonical script — say it exactly like this</a></li>
+<li><a href="#your-real-hands-on-stack-confirm-once-then-reuse">Your real hands-on stack (confirm once, then reuse)</a></li>
+<li><a href="#the-two-follow-up-landmines">The two follow-up landmines</a></li>
+<li><a href="#the-one-line-rule">The one-line rule</a></li>
+</ul></aside>
+  </main>
+</div>
+<script>window.SEARCH_JSON="../assets/../search-index.json";</script>
+<script src="../assets/search-data.js"></script>
+<script src="../assets/app.js"></script>
+</body>
+</html>

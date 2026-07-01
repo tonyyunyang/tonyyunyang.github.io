@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Final-Hours Cheatsheet · eBay Stage-2 Prep</title>
+<meta name="robots" content="noindex,nofollow">
+<script>try{if(localStorage.getItem('ebay-s2-theme')==='dark')document.documentElement.classList.add('dark');}catch(e){}</script>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body data-track="ebay" data-pagefind-ignore="all">
+<button id="menu" class="menu-btn" aria-label="Menu">☰</button>
+<button id="theme" class="theme-btn" aria-label="Toggle theme">◐</button>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+<div class="brand"><a href="../index.html"><span class="brand-mark">e</span><span class="brand-txt">Stage&nbsp;2 Prep<em>eBay · three interviews</em></span></a></div>
+<div class="search"><input id="q" type="search" placeholder="Search…" autocomplete="off"><div id="results"></div></div>
+<nav class="nav">
+<div class="nav-group" data-track="start"><div class="nav-group-title"><span class="dot"></span>Start Here</div><ul>
+<li><a href="s2_00_email_and_logistics.html">Email &amp; Logistics</a></li>
+<li><a href="s2_01_overview_and_plan.html">Overview &amp; Study Plan</a></li>
+<li><a href="s2_44_confirm_tony.html">★ Fill These Before the Room</a></li>
+</ul></div>
+<div class="nav-group" data-track="code"><div class="nav-group-title"><span class="dot"></span>1 · Live Coding &amp; Engineering</div><ul>
+<li><a href="s2_10_live_coding_playbook.html">Live-Coding Playbook</a></li>
+<li><a href="s2_11_ml_from_scratch.html">ML From Scratch (Python)</a></li>
+<li><a href="s2_12_practice_regimen.html">Unaided Practice Regimen</a></li>
+<li><a href="s2_13_engineering_qa.html">Engineering Q&amp;A — Build &amp; Train</a></li>
+<li><a href="s2_14_serving_qa.html">Engineering Q&amp;A — Serve &amp; Monitor</a></li>
+<li><a href="s2_15_mlops_honest_gap.html">The Honest MLOps-Gap Script</a></li>
+</ul></div>
+<div class="nav-group" data-track="design"><div class="nav-group-title"><span class="dot"></span>2 · ML System Design</div><ul>
+<li><a href="s2_20_design_framework.html">Design Framework &amp; How to Drive</a></li>
+<li><a href="s2_21_recsys_search_design.html">Flagship: Search Ranking &amp; Recs</a></li>
+<li><a href="s2_22_design_skeletons.html">Design Skeletons Bank</a></li>
+<li><a href="s2_23_scaling_playbook.html">The Scaling Playbook</a></li>
+</ul></div>
+<div class="nav-group" data-track="pm"><div class="nav-group-title"><span class="dot"></span>3 · Project Mgmt &amp; Retrospective</div><ul>
+<li><a href="s2_30_project_walkthrough.html">Walkthrough: Routing at Scale</a></li>
+<li><a href="s2_31_star_stories.html">STAR Stories — The Four Prompts</a></li>
+<li><a href="s2_32_behavioral_bank.html">Behavioral &amp; Competency Bank</a></li>
+</ul></div>
+<div class="nav-group" data-track="ebay"><div class="nav-group-title"><span class="dot"></span>eBay &amp; Closing</div><ul>
+<li><a href="s2_40_ebay_context.html">eBay Context (Stage-2 lens)</a></li>
+<li><a href="s2_41_own_papers_numbers.html">Own-Paper Numbers (say them cold)</a></li>
+<li><a href="s2_42_questions_to_ask.html">Questions to Ask</a></li>
+<li class="active"><a href="s2_43_final_hours.html">Final-Hours Cheatsheet</a></li>
+</ul></div>
+</nav>
+  </aside>
+  <div class="scrim" id="scrim"></div>
+  <main class="content">
+    <article class="doc">
+      <div class="doc-meta"><span class="tag t-ebay">eBay</span><span class="read">6 min read</span></div>
+      <h1 id="final-hours-cheatsheet">Final-Hours Cheatsheet</h1>
+<p><em>The one screen to read in the ~4 minutes before you walk into each round. Recall only — everything here is proven elsewhere in the pack.</em></p>
+<hr />
+<h2 id="the-one-rule">THE ONE RULE</h2>
+<ul>
+<li><strong>Never invent a specific.</strong> No number, name, date, threshold, or deployment status you can't source. If unsure, say the range or say "I'd have to check" — caveat-first beats confident-wrong.</li>
+<li><strong>Caveat-first, then pivot.</strong> Own the edge in one clause, then move to what you <em>do</em> know cold. Underclaiming credibly beats overclaiming; this loop deep-probes.</li>
+<li><strong>Derive, don't recite.</strong> If they push past a memorized fact, fall back to first principles out loud.</li>
+</ul>
+<hr />
+<h2 id="say-it-cold-my-own-numbers-one-line-each">SAY-IT-COLD — my own numbers (one line each)</h2>
+<ul>
+<li><strong>LLM Router</strong> — &gt;90% cost reduction at matched ("iso") quality.</li>
+<li><strong>MERA</strong> — 87.3% <strong>router-decision</strong> accuracy at 51.8% serving cost. <em>(never say "task accuracy")</em></li>
+<li><strong>TwinRouterBench</strong> — 53%, trained router vs unrouted Opus, matched resolve, dynamic track.</li>
+<li><strong>Diffusion Weights</strong> — ~3.2x wall-clock fine-tune speedup (generative training).</li>
+<li><strong>Pruning nnU-Net</strong> — &gt;80% weights removed at proxy Dice &gt;0.95, unstructured, no measured speedup. MIDL, <strong>first author</strong>.</li>
+<li><strong>Eye-Tracking VR emotion dataset</strong> — first author, 240 Hz gaze, 7 Ekman emotions, 26 participants; shared on request; public artifact = the open-source Unity tool.</li>
+</ul>
+<hr />
+<h2 id="the-honest-gap-one-liner-say-it-once-clean">THE HONEST-GAP ONE-LINER (say it once, clean)</h2>
+<blockquote>
+<p>"The efficiency side I've owned end to end — routing, pruning, generative training acceleration — so inference-optimization and cost levers are second nature. What I haven't personally run is a large-scale production on-call rotation with live canary and real-time drift monitoring; my deployments have been research and shadow-eval scale. But I know exactly how that machinery works — shadow → canary → A/B with automated rollback, drift on both input <em>and</em> decision distributions, proxy metrics while labels lag — and it's the fastest gap I'd close."</p>
+</blockquote>
+<hr />
+<h2 id="coding-narrate-while-you-code-one-beat-per-line">CODING — narrate-while-you-code (one beat per line)</h2>
+<ol>
+<li><strong>Restate</strong> the problem + confirm 1-2 examples and edge cases out loud.</li>
+<li><strong>Brute force first</strong> — say it and its complexity, don't code it.</li>
+<li><strong>Optimized plan</strong> — name the pattern + target O() <em>before</em> typing.</li>
+<li><strong>Narrate as you type</strong> — one sentence per block: what it does, why.</li>
+<li><strong>Dry-run</strong> on a tiny example, tracing state.</li>
+<li><strong>State time/space complexity</strong> unprompted.</li>
+<li><strong>Test edges</strong>: empty, single, duplicates, negatives, overflow.</li>
+</ol>
+<p><strong>From-scratch primitives to have cold</strong> (NumPy, out loud):</p>
+<ul>
+<li><strong>Stable softmax + cross-entropy</strong> — subtract row max (overflow); <code>+1e-12</code> inside log (log 0).</li>
+<li><strong>Scaled dot-product attention</strong> — <code>QKᵀ/√d</code>, causal mask = <code>-inf</code> on future, softmax, ×V.</li>
+<li><strong>Precision / recall / F1 + AUC</strong> — guard divide-by-zero; AUC = P(pos ranked above neg).</li>
+<li><strong>BPE merge step</strong> — greedily merge most-frequent adjacent pair; order matters.</li>
+<li><strong>Welford mean/var + z-score</strong> — one-pass stable; it's what LayerNorm does inside.</li>
+<li><strong>kNN / k-means / logreg+GD</strong> — guard empty cluster; BCE gradient is <code>(p − y)</code>.</li>
+</ul>
+<blockquote class="warn">
+<p><strong>Trap:</strong> don't burn clock on "let me recall the formula." If it stalls, derive the shape from first principles while narrating.</p>
+</blockquote>
+<hr />
+<h2 id="engineering-cheat-blocks">ENGINEERING — cheat blocks</h2>
+<h3 id="training-memory-mixed-precision-adam">Training memory (mixed-precision Adam)</h3>
+<pre><code>2 (bf16 weight) + 4 (fp32 master) + 4 (fp32 grad) + 8 (Adam m,v) = 18 bytes/param
+7B → ~126 GB of state (before activations) → why it won't fit one GPU
+</code></pre>
+<blockquote>
+<p>ZeRO paper quotes <strong>16</strong> because it assumes fp16 grads — the 16-vs-18 gap is <em>only</em> gradient precision. Flag it if pushed. Fifth bucket = <strong>activations</strong> (scale with batch×seq); tame with <strong>activation checkpointing</strong> (+~33% compute, lowers MFU).</p>
+</blockquote>
+<h3 id="kv-cache-memory-know-cold">KV-cache memory (know cold)</h3>
+<pre><code>KV bytes = 2 × layers × kv_heads × head_dim × seq × batch × bytes_per_elem
+           K,V ↑        ↑ use kv_heads (GQA), NOT n_heads              2=bf16 / 1=int8 / 0.5=int4
+</code></pre>
+<ul>
+<li>Llama-3-70B, bf16, 4K, batch 1 → ~1.34 GB/seq; batch 32 → ~43 GB.</li>
+<li>Grows <strong>linearly</strong> in seq × batch (long context + concurrency = the killers).<blockquote class="warn">
+<p><strong>GQA trap:</strong> using <code>n_heads</code> instead of <code>kv_heads</code> is an <strong>8x error</strong> (Llama-2-70B: 8 vs 64).</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="quantization-fast-recall">Quantization (fast recall)</h3>
+<table>
+<thead>
+<tr>
+<th>Precision</th>
+<th>vs BF16</th>
+<th>Quality</th>
+<th>Use when</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>FP8</strong></td>
+<td>~1.5x, ½ mem</td>
+<td>~0.6 pt loss</td>
+<td><strong>Default</strong> on Hopper/Blackwell; quality-critical</td>
+</tr>
+<tr>
+<td><strong>INT8</strong></td>
+<td>modest over FP8</td>
+<td>comparable</td>
+<td>Rarely the clear winner on modern GPUs</td>
+</tr>
+<tr>
+<td><strong>INT4-AWQ</strong></td>
+<td>~2.7x</td>
+<td>&lt;2 pt MMLU, <strong>−8 pt HumanEval</strong></td>
+<td>VRAM-bound; <strong>not</strong> code/math/reasoning</td>
+</tr>
+</tbody>
+</table>
+<p>AWQ &lt; GPTQ perplexity at INT4 (protects salient weights). <strong>FP8 first</strong>, INT4 only when memory forces it.</p>
+<h3 id="drift-psi-thresholds">Drift — PSI thresholds</h3>
+<ul>
+<li><strong>&lt; 0.1</strong> stable · <strong>0.1–0.2</strong> moderate, watch · <strong>&gt; 0.2</strong> significant, act.</li>
+<li>PSI/KS on inputs = no labels needed. KS is hypersensitive at millions of rows — lean on effect size. <strong>Data drift</strong> → maybe retrain; <strong>concept drift</strong> → target moved, rethink model.</li>
+</ul>
+<h3 id="inference-cost-ladder-cheapest-win-first">Inference cost ladder (cheapest win first)</h3>
+<pre><code>quantize (FP8) → continuous batching + PagedAttention (40%→90% util) → prefix cache → speculative decode → ROUTE
+</code></pre>
+<blockquote>
+<p>The biggest lever is often <strong>not touching the model</strong> — route the easy query to the small model. That's my edge. Spec-decode is a <em>latency</em> win, not throughput (can hurt under high batch load).</p>
+</blockquote>
+<hr />
+<h2 id="system-design-8-step-spine">SYSTEM DESIGN — 8-step spine</h2>
+<p><strong>Clarify → Metrics → Data/Features → Model → Serving → Experiment → Monitor → Trade-offs.</strong></p>
+<ul>
+<li><strong>Lead with a business metric</strong> (GMV / CTR / conversion / latency SLA) — <em>then</em> ML metric → offline proxy. Never open with architecture.</li>
+<li><strong>Latency-budget breakdown, never one global number.</strong> Search E2E ~500 ms; the ranking model itself ~120–200 ms. Split the budget across retrieval → features → model → post.</li>
+<li>Trade-off at <em>every</em> layer; end scaling answers with "what breaks first + cheapest lever."<blockquote class="warn">
+<p><strong>Trap #1 silent-fail:</strong> thinking like a researcher, not a production engineer. Say cost, SLO, rollout, monitoring.</p>
+</blockquote>
+</li>
+</ul>
+<hr />
+<h2 id="walkthrough-cost-efficient-llm-routing-at-scale-8-beats-12-min">WALKTHROUGH — "Cost-Efficient LLM Routing at Scale" (8 beats, ~12 min)</h2>
+<ol>
+<li><strong>Bottom-line first</strong> — the result, then the story (&gt;90% cost cut at iso quality).</li>
+<li><strong>Problem</strong> — serving big models on every query is the cost floor; most queries don't need it.</li>
+<li><strong>Scope</strong> — non-goals up front (no tail-latency phase 1); prove cost/quality frontier before productizing.</li>
+<li><strong>Approach</strong> — benchmark → simple router → skill-adaptive; each phase gated on a measured result.</li>
+<li><strong>Key decision under uncertainty</strong> — learned router over cascade (escalation-tax reasoning); kept cascade as fallback.</li>
+<li><strong>Results</strong> — quantify everything: MERA 87.3% decision acc @ 51.8% cost; TwinRouterBench 53%.</li>
+<li><strong>Retrospective</strong> — build the online/shadow eval harness earlier; offline-first hid calibration under real traffic.</li>
+<li><strong>Scale to eBay</strong> — sub-10 ms shardable router, drift on the <em>decision mix</em>, retrain cadence, SLA knob; map onto LiLiuM/e-Llama zoo.</li>
+</ol>
+<p><strong>STAR timing:</strong> Situation 20% · Task 10% · <strong>Action 60%</strong> · Result 10%. Say <strong>"I"</strong>, not "we". Quantify every result.</p>
+<blockquote class="warn">
+<p><strong>Confirm before the room:</strong> deployment status (offline vs live), exact thresholds, stakeholder/timeline specifics — flag, don't invent.</p>
+</blockquote>
+<hr />
+<h2 id="ebay-why-values">eBay — why + values</h2>
+<p><strong>Why:</strong> eBay already lives the systems-race thesis — LiLiuM's custom tokenizer (~34% faster generation), e-Llama (continued pretraining at 10% LR to avoid forgetting), a fine-tuned Gemma3-4B (F1 50.5) beating a zero-shot 27B (44.8) at ~3.8x faster. That small-specialized-beats-big-general economics is exactly what I publish on; I'd put a router in front of that fleet.</p>
+<p><strong>5 values:</strong> Customer Focus · Innovate Boldly · Be For Everyone · Deliver With Impact · Act With Integrity. <em>(Pin one quantified STAR story to each; use "Deliver With Impact" for the routing numbers, "Act With Integrity" for the honest-gap.)</em></p>
+      <nav class="prevnext"><a class="pn prev" href="s2_42_questions_to_ask.html">‹ <span>Questions to Ask</span></a><span class="pn ghost"></span></nav>
+    </article>
+    <aside class="toc"><div class="toc-title">On this page</div><ul>
+<li><a href="#the-one-rule">THE ONE RULE</a></li>
+<li><a href="#say-it-cold-my-own-numbers-one-line-each">SAY-IT-COLD — my own numbers (one line each)</a></li>
+<li><a href="#the-honest-gap-one-liner-say-it-once-clean">THE HONEST-GAP ONE-LINER (say it once, clean)</a></li>
+<li><a href="#coding-narrate-while-you-code-one-beat-per-line">CODING — narrate-while-you-code (one beat per line)</a></li>
+<li><a href="#engineering-cheat-blocks">ENGINEERING — cheat blocks</a></li>
+<li><a href="#system-design-8-step-spine">SYSTEM DESIGN — 8-step spine</a></li>
+<li><a href="#walkthrough-cost-efficient-llm-routing-at-scale-8-beats-12-min">WALKTHROUGH — &quot;Cost-Efficient LLM Routing at Scale&quot; (8 beats, ~12 min)</a></li>
+<li><a href="#ebay-why-values">eBay — why + values</a></li>
+</ul></aside>
+  </main>
+</div>
+<script>window.SEARCH_JSON="../assets/../search-index.json";</script>
+<script src="../assets/search-data.js"></script>
+<script src="../assets/app.js"></script>
+</body>
+</html>

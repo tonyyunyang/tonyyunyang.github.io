@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Questions to Ask · eBay Stage-2 Prep</title>
+<meta name="robots" content="noindex,nofollow">
+<script>try{if(localStorage.getItem('ebay-s2-theme')==='dark')document.documentElement.classList.add('dark');}catch(e){}</script>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body data-track="ebay" data-pagefind-ignore="all">
+<button id="menu" class="menu-btn" aria-label="Menu">☰</button>
+<button id="theme" class="theme-btn" aria-label="Toggle theme">◐</button>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+<div class="brand"><a href="../index.html"><span class="brand-mark">e</span><span class="brand-txt">Stage&nbsp;2 Prep<em>eBay · three interviews</em></span></a></div>
+<div class="search"><input id="q" type="search" placeholder="Search…" autocomplete="off"><div id="results"></div></div>
+<nav class="nav">
+<div class="nav-group" data-track="start"><div class="nav-group-title"><span class="dot"></span>Start Here</div><ul>
+<li><a href="s2_00_email_and_logistics.html">Email &amp; Logistics</a></li>
+<li><a href="s2_01_overview_and_plan.html">Overview &amp; Study Plan</a></li>
+<li><a href="s2_44_confirm_tony.html">★ Fill These Before the Room</a></li>
+</ul></div>
+<div class="nav-group" data-track="code"><div class="nav-group-title"><span class="dot"></span>1 · Live Coding &amp; Engineering</div><ul>
+<li><a href="s2_10_live_coding_playbook.html">Live-Coding Playbook</a></li>
+<li><a href="s2_11_ml_from_scratch.html">ML From Scratch (Python)</a></li>
+<li><a href="s2_12_practice_regimen.html">Unaided Practice Regimen</a></li>
+<li><a href="s2_13_engineering_qa.html">Engineering Q&amp;A — Build &amp; Train</a></li>
+<li><a href="s2_14_serving_qa.html">Engineering Q&amp;A — Serve &amp; Monitor</a></li>
+<li><a href="s2_15_mlops_honest_gap.html">The Honest MLOps-Gap Script</a></li>
+</ul></div>
+<div class="nav-group" data-track="design"><div class="nav-group-title"><span class="dot"></span>2 · ML System Design</div><ul>
+<li><a href="s2_20_design_framework.html">Design Framework &amp; How to Drive</a></li>
+<li><a href="s2_21_recsys_search_design.html">Flagship: Search Ranking &amp; Recs</a></li>
+<li><a href="s2_22_design_skeletons.html">Design Skeletons Bank</a></li>
+<li><a href="s2_23_scaling_playbook.html">The Scaling Playbook</a></li>
+</ul></div>
+<div class="nav-group" data-track="pm"><div class="nav-group-title"><span class="dot"></span>3 · Project Mgmt &amp; Retrospective</div><ul>
+<li><a href="s2_30_project_walkthrough.html">Walkthrough: Routing at Scale</a></li>
+<li><a href="s2_31_star_stories.html">STAR Stories — The Four Prompts</a></li>
+<li><a href="s2_32_behavioral_bank.html">Behavioral &amp; Competency Bank</a></li>
+</ul></div>
+<div class="nav-group" data-track="ebay"><div class="nav-group-title"><span class="dot"></span>eBay &amp; Closing</div><ul>
+<li><a href="s2_40_ebay_context.html">eBay Context (Stage-2 lens)</a></li>
+<li><a href="s2_41_own_papers_numbers.html">Own-Paper Numbers (say them cold)</a></li>
+<li class="active"><a href="s2_42_questions_to_ask.html">Questions to Ask</a></li>
+<li><a href="s2_43_final_hours.html">Final-Hours Cheatsheet</a></li>
+</ul></div>
+</nav>
+  </aside>
+  <div class="scrim" id="scrim"></div>
+  <main class="content">
+    <article class="doc">
+      <div class="doc-meta"><span class="tag t-ebay">eBay</span><span class="read">6 min read</span></div>
+      <h1 id="questions-to-ask">Questions to Ask</h1>
+<p><em>Your end-of-round questions, one bank per interviewer plus universal fallbacks and a closing move. Skim this the morning of, and again in the 60 seconds before each round ends.</em></p>
+<p>Good questions are scored too. They signal seniority, genuine homework, and that you're evaluating the team as much as they're evaluating you. Every question below is tuned to eBay's actual stack (LiLiuM, e-Llama, the finetuned-VLM work, Mercury / Magical Listing, the Amsterdam Foundation Models charter) so it reads as "I've done my reading," not "I googled generic interview questions."</p>
+<p><strong>How to use this.</strong> Pick <strong>2-3 per round</strong> and let them come out of the conversation — if the interviewer already answered one, drop it. Don't machine-gun all four. Ask the ones that fit what you just talked about; a question that picks up a thread they raised beats a scripted one every time.</p>
+<blockquote class="warn">
+<p><strong>Trap:</strong> don't ask anything about comp, level, visa, start date, or scheduling — that's the recruiter's lane and it reads as if you're already negotiating. Keep every question about the <em>work, the team, and the tech</em>.</p>
+</blockquote>
+<hr />
+<h2 id="interview-1-live-coding-engineering">Interview 1 — Live Coding &amp; Engineering</h2>
+<p><em>Themes to probe: their serving stack, how they trade model quality against serving cost, and their testing / deployment culture. This interviewer is a hands-on engineer or applied scientist — ask concrete, "how does it actually work here" questions.</em></p>
+<p><strong>On the serving stack (shared vs. owned).</strong></p>
+<blockquote>
+<p>"What does the path from a trained model to production look like day-to-day — is there a shared serving platform the team builds on, or does each team own its own inference stack? And are the in-house LLMs like LiLiuM and e-Llama served on that same platform, or something separate?"</p>
+</blockquote>
+<p><strong>On quality vs. serving cost as an explicit target.</strong></p>
+<blockquote>
+<p>"Is serving cost an explicit optimization target for the production LLMs, or more of a capacity-planning concern? I'm curious whether things like the custom e-commerce tokenizer's faster generation are treated as a cost lever the team actively tunes, or a one-time win."</p>
+</blockquote>
+<p><strong>On testing and train/serve skew.</strong></p>
+<blockquote>
+<p>"What's the testing and CI story for models before they ship — how do you catch train/serve skew, and is there a golden-set regression gate a model has to pass to get promoted?"</p>
+</blockquote>
+<p><strong>On the researcher's real week.</strong></p>
+<blockquote>
+<p>"How much of an applied researcher's week here is modeling and experimentation versus production engineering, deployment, and monitoring? I want a realistic picture of the split."</p>
+</blockquote>
+<hr />
+<h2 id="interview-2-ml-system-design">Interview 2 — ML System Design</h2>
+<p><em>Themes to probe: the hardest scale / latency constraints they actually hit, how research reaches production, and the search / recsys / LLM roadmap. This interviewer will go deep — ask questions that invite the war stories, not yes/no answers.</em></p>
+<p><strong>On the real latency bottleneck.</strong></p>
+<blockquote>
+<p>"For search and ranking at your scale, where does the P99 latency budget actually go today — retrieval, feature fetch, or model inference? I'm curious which part is the current bottleneck and what the last big latency win came from."</p>
+</blockquote>
+<p><strong>On real-time vs. batch features.</strong></p>
+<blockquote>
+<p>"How do you blend real-time event features — clicks, add-to-cart — with batch aggregates in ranking without blowing the latency budget or introducing point-in-time leakage? Is there a feature store with freshness tiers, or is it more bespoke per service?"</p>
+</blockquote>
+<p><strong>On how research reaches production.</strong></p>
+<blockquote>
+<p>"What does it take for a research result to become a production system here? Is there a standard shadow-then-canary path, and how mature is drift monitoring and automated retraining in practice versus still being manual?"</p>
+</blockquote>
+<p><strong>On the roadmap — and where cost-aware routing fits.</strong></p>
+<blockquote>
+<p>"Where is the search / recsys / LLM roadmap heading over the next year? And specifically — does cost-aware serving, like routing or model cascades where a cheap specialist handles the easy traffic and the big model only takes the hard cases, fit anywhere on that roadmap? That's the space my own work has been in."</p>
+</blockquote>
+<p><strong>On small-specialist vs. big-general.</strong></p>
+<blockquote>
+<p>"How does the Foundation Models team decide between a big general model and a small finetuned specialist for a given product? eBay's own published VLM result — the finetuned smaller model beating the larger zero-shot one at a fraction of the inference cost — points one way; I'm curious how that call gets made in practice across products."</p>
+</blockquote>
+<hr />
+<h2 id="interview-3-project-management-retrospective">Interview 3 — Project Management &amp; Retrospective</h2>
+<p><em>Themes to probe: how the team scopes and prioritizes, what "impact" looks like here, and team growth. This is likely the hiring manager — ask questions that show you think about outcomes and ownership, not just code.</em></p>
+<p><strong>On how work gets picked.</strong></p>
+<blockquote>
+<p>"How does the Amsterdam Foundation Models team decide what to work on? How much is research-driven — the team pursuing a bet it believes in — versus pulled by product teams like Mercury or Magical Listing? I want to understand where the roadmap actually comes from."</p>
+</blockquote>
+<p><strong>On what "impact" means here.</strong></p>
+<blockquote>
+<p>"What does impact look like for this team when it's measured? Is it a shipped model moving a business metric, a paper the field builds on, or a capability other teams adopt internally? I ask because I try to scope projects to the impact definition up front."</p>
+</blockquote>
+<p><strong>On publishing vs. shipping.</strong></p>
+<blockquote>
+<p>"The team publishes real work — LiLiuM, e-Llama, the VLM paper. How do you balance getting a paper out against shipping to production? Do those pull in the same direction most of the time, or is there a real tension to manage?"</p>
+</blockquote>
+<p><strong>On success and growth in the role.</strong></p>
+<blockquote>
+<p>"What does success look like for this role in the first 6-12 months? And what's the collaboration model with the US Core AI org and product teams across time zones — how does an Amsterdam researcher stay in the loop and grow here?"</p>
+</blockquote>
+<hr />
+<h2 id="universal-questions-any-round-when-you-have-a-spare-slot">Universal Questions (any round, when you have a spare slot)</h2>
+<p><strong>On the failure mode of the role.</strong></p>
+<blockquote>
+<p>"What's the most common reason someone struggles in this role in their first year — is it the ambiguity, the production side, the cross-team coordination, or something else?"</p>
+</blockquote>
+<p><strong>On a project that didn't work the first time.</strong></p>
+<blockquote>
+<p>"What's a project the team is proud of now that didn't work the first time — what changed between the failed version and the one that landed?"</p>
+</blockquote>
+<p><strong>A direct feedback ask (use it if rapport is good).</strong></p>
+<blockquote>
+<p>"Is there anything in my background you'd want me to strengthen or clarify before the next step? I'd rather know now."</p>
+</blockquote>
+<hr />
+<h2 id="how-to-close">How to Close</h2>
+<p>When the interviewer signals the end, do three things in about twenty seconds: <strong>reiterate fit in one line, thank them, ask about next steps in the process.</strong></p>
+<p><strong>Say it like this:</strong></p>
+<blockquote>
+<p>"This has been a great conversation — thank you. Honestly, this role sits right where I think the field is heading: it's less a scaling race now and more a systems race, and everything I've worked on has been about how you train, route, compress, and deploy models under real constraints. That's exactly what this team does, so I'd be genuinely excited to keep going. What do the next steps look like?"</p>
+</blockquote>
+<p>Then stop talking and let them answer.</p>
+<blockquote class="warn">
+<p><strong>Trap:</strong> the close is a <em>positive fit</em> line — do NOT re-air the honest MLOps-gap script here. You owned that gap where it belonged, earlier and in the other rounds; the last thing they hear should be your edge, not your caveat. And "next steps" means the <em>process</em> (timeline, remaining rounds) — not comp or scheduling, which stay with the recruiter.</p>
+</blockquote>
+      <nav class="prevnext"><a class="pn prev" href="s2_41_own_papers_numbers.html">‹ <span>Own-Paper Numbers (say them cold)</span></a><a class="pn next" href="s2_43_final_hours.html"><span>Final-Hours Cheatsheet</span> ›</a></nav>
+    </article>
+    <aside class="toc"><div class="toc-title">On this page</div><ul>
+<li><a href="#interview-1-live-coding-engineering">Interview 1 — Live Coding &amp; Engineering</a></li>
+<li><a href="#interview-2-ml-system-design">Interview 2 — ML System Design</a></li>
+<li><a href="#interview-3-project-management-retrospective">Interview 3 — Project Management &amp; Retrospective</a></li>
+<li><a href="#universal-questions-any-round-when-you-have-a-spare-slot">Universal Questions (any round, when you have a spare slot)</a></li>
+<li><a href="#how-to-close">How to Close</a></li>
+</ul></aside>
+  </main>
+</div>
+<script>window.SEARCH_JSON="../assets/../search-index.json";</script>
+<script src="../assets/search-data.js"></script>
+<script src="../assets/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ML From Scratch (Python) · eBay Stage-2 Prep</title>
+<meta name="robots" content="noindex,nofollow">
+<script>try{if(localStorage.getItem('ebay-s2-theme')==='dark')document.documentElement.classList.add('dark');}catch(e){}</script>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body data-track="code" data-pagefind-ignore="all">
+<button id="menu" class="menu-btn" aria-label="Menu">☰</button>
+<button id="theme" class="theme-btn" aria-label="Toggle theme">◐</button>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+<div class="brand"><a href="../index.html"><span class="brand-mark">e</span><span class="brand-txt">Stage&nbsp;2 Prep<em>eBay · three interviews</em></span></a></div>
+<div class="search"><input id="q" type="search" placeholder="Search…" autocomplete="off"><div id="results"></div></div>
+<nav class="nav">
+<div class="nav-group" data-track="start"><div class="nav-group-title"><span class="dot"></span>Start Here</div><ul>
+<li><a href="s2_00_email_and_logistics.html">Email &amp; Logistics</a></li>
+<li><a href="s2_01_overview_and_plan.html">Overview &amp; Study Plan</a></li>
+<li><a href="s2_44_confirm_tony.html">★ Fill These Before the Room</a></li>
+</ul></div>
+<div class="nav-group" data-track="code"><div class="nav-group-title"><span class="dot"></span>1 · Live Coding &amp; Engineering</div><ul>
+<li><a href="s2_10_live_coding_playbook.html">Live-Coding Playbook</a></li>
+<li class="active"><a href="s2_11_ml_from_scratch.html">ML From Scratch (Python)</a></li>
+<li><a href="s2_12_practice_regimen.html">Unaided Practice Regimen</a></li>
+<li><a href="s2_13_engineering_qa.html">Engineering Q&amp;A — Build &amp; Train</a></li>
+<li><a href="s2_14_serving_qa.html">Engineering Q&amp;A — Serve &amp; Monitor</a></li>
+<li><a href="s2_15_mlops_honest_gap.html">The Honest MLOps-Gap Script</a></li>
+</ul></div>
+<div class="nav-group" data-track="design"><div class="nav-group-title"><span class="dot"></span>2 · ML System Design</div><ul>
+<li><a href="s2_20_design_framework.html">Design Framework &amp; How to Drive</a></li>
+<li><a href="s2_21_recsys_search_design.html">Flagship: Search Ranking &amp; Recs</a></li>
+<li><a href="s2_22_design_skeletons.html">Design Skeletons Bank</a></li>
+<li><a href="s2_23_scaling_playbook.html">The Scaling Playbook</a></li>
+</ul></div>
+<div class="nav-group" data-track="pm"><div class="nav-group-title"><span class="dot"></span>3 · Project Mgmt &amp; Retrospective</div><ul>
+<li><a href="s2_30_project_walkthrough.html">Walkthrough: Routing at Scale</a></li>
+<li><a href="s2_31_star_stories.html">STAR Stories — The Four Prompts</a></li>
+<li><a href="s2_32_behavioral_bank.html">Behavioral &amp; Competency Bank</a></li>
+</ul></div>
+<div class="nav-group" data-track="ebay"><div class="nav-group-title"><span class="dot"></span>eBay &amp; Closing</div><ul>
+<li><a href="s2_40_ebay_context.html">eBay Context (Stage-2 lens)</a></li>
+<li><a href="s2_41_own_papers_numbers.html">Own-Paper Numbers (say them cold)</a></li>
+<li><a href="s2_42_questions_to_ask.html">Questions to Ask</a></li>
+<li><a href="s2_43_final_hours.html">Final-Hours Cheatsheet</a></li>
+</ul></div>
+</nav>
+  </aside>
+  <div class="scrim" id="scrim"></div>
+  <main class="content">
+    <article class="doc">
+      <div class="doc-meta"><span class="tag t-code">Coding</span><span class="read">12 min read</span></div>
+      <h1 id="ml-from-scratch-python">ML From Scratch (Python)</h1>
+<p><em>The ~10 NumPy primitives a Foundation-Models team asks you to type from a blank file — memorize these cold, ordered by likelihood. Read this the night before Round 1 and re-type each one from memory until it's automatic.</em></p>
+<p>An ML-research round often swaps the LeetCode puzzle for <strong>"implement this in NumPy and overfit it on toy data"</strong> or <strong>"here's a broken model — find the bug."</strong> Fluency here should match your regular-Python fluency; fumbling the softmax formula for two minutes burns clock and signal. Narrate each one out loud the same way you would a DSA problem (the UMPIRE protocol from the Round-1 live-coding playbook applies unchanged).</p>
+<p><strong>Every entry below follows the same drill card:</strong> <em>When asked</em> (the trigger) → the ~10-line shape → <em>Gotchas</em> (say these aloud) → <em>Complexity</em>. All eight snippets are verified runnable.</p>
+<pre><code class="language-python">import numpy as np
+from collections import Counter
+</code></pre>
+<hr />
+<h2 id="1-softmax-numerically-stable-cross-entropy-1-most-likely">1. Softmax (numerically stable) + Cross-Entropy — <em>#1 most likely</em></h2>
+<p><strong>When asked:</strong> "Turn these logits into probabilities," or as a sub-step of attention / a classification loss. The subtract-the-max trick is <em>the</em> thing they're checking.</p>
+<pre><code class="language-python">def softmax(x, axis=-1):                          # x: (..., C)
+    x = x - np.max(x, axis=axis, keepdims=True)   # stability: prevents exp() overflow
+    e = np.exp(x)
+    return e / e.sum(axis=axis, keepdims=True)
+
+def cross_entropy(logits, labels):                # logits (N,C), labels (N,) ints
+    p = softmax(logits, axis=1)
+    N = logits.shape[0]
+    return -np.mean(np.log(p[np.arange(N), labels] + 1e-12))  # eps guards log(0)
+</code></pre>
+<p><strong>Gotchas (say aloud):</strong></p>
+<ul>
+<li><strong>Subtract the max</strong> before <code>exp</code> — softmax is <em>shift-invariant</em>, so it doesn't change the answer but stops <code>exp(1000)</code> overflowing to <code>inf</code>. This is the whole point of the question.</li>
+<li><strong><code>+1e-12</code> inside the log</strong> guards <code>log(0)</code> when a true-class probability underflows. And <code>keepdims=True</code> is what makes the divide broadcast correctly.</li>
+<li><strong>Stability, the right way:</strong> a stabler CE computes <code>log_softmax(x) = x − logsumexp(x)</code> directly and indexes <em>that</em> — never <code>log(softmax(x))</code>, which can still underflow. <code>torch.nn.functional.cross_entropy</code> fuses exactly this; the <code>+1e-12</code> above is a band-aid for the naive form.</li>
+<li>CE for one example = <code>−log(prob of true class)</code>; averaging over the batch gives the loss.</li>
+</ul>
+<p><strong>Backward pass (the #1 follow-up):</strong> the gradient of CE wrt the logits is <code>dL/dz = (p − y_onehot)</code>, divided by <code>N</code> for the mean — the <strong>same clean residual</strong> as binary BCE (one fact to remember).</p>
+<pre><code class="language-python">grad = p.copy(); grad[np.arange(N), labels] -= 1; grad /= N
+</code></pre>
+<p><strong>Complexity:</strong> O(N·C) time, O(N·C) space (one probability per logit).</p>
+<hr />
+<h2 id="2-scaled-dot-product-attention-2-theyre-a-foundation-models-team">2. Scaled Dot-Product Attention — <em>#2, they're a Foundation-Models team</em></h2>
+<p><strong>When asked:</strong> "Implement self-attention / a transformer block," or "add a causal mask." Expect a follow-up to <strong>extend to multi-head verbally</strong>.</p>
+<pre><code class="language-python">def attention(Q, K, V, mask=None):                # Q:(L,d) K:(M,d) V:(M,dv)
+    d = Q.shape[-1]
+    scores = Q @ K.T / np.sqrt(d)                 # (L,M); scale keeps softmax gradients sane
+    if mask is not None:                          # mask: True = keep, False = block
+        scores = np.where(mask, scores, -1e9)     # causal mask hides future positions
+    w = softmax(scores, axis=-1)                  # weights sum to 1 along each query row
+    return w @ V                                  # (L,dv)
+
+# causal mask for self-attention: mask = np.tril(np.ones((L, L), dtype=bool))
+</code></pre>
+<p><strong>Gotchas (say aloud):</strong></p>
+<ul>
+<li><strong>Divide by √d</strong> — without it, dot products grow with dimension, push softmax into a saturated corner, and gradients vanish. √d normalizes the variance back to ~1.</li>
+<li><strong>Causal mask is applied <em>before</em> softmax</strong> as <code>-1e9</code> (≈ −∞ → weight 0 after exp), so a decoder position can't attend to future tokens. The mask is lower-triangular (<code>tril</code>); getting the triangle wrong silently leaks the future (see the debug section).</li>
+</ul>
+<p><strong>Multi-head, verbally:</strong> split <code>d</code> into <code>h</code> heads of size <code>d/h</code>, run this same attention independently per head, <strong>concat</strong> the <code>h</code> outputs back to <code>d</code>, then apply an output projection <code>W_o</code>. Same FLOPs as single-head — heads just let the model attend to different subspaces at once.</p>
+<p><strong>Multi-head, in code (if they push you past verbal):</strong></p>
+<pre><code class="language-python">def multihead(Q, K, V, h, W_o):                  # Q,K,V: (B, L, d)
+    B, L, d = Q.shape; dh = d // h
+    def split(x): return x.reshape(B, L, h, dh).transpose(0, 2, 1, 3)  # (B,h,L,dh)
+    Qh, Kh, Vh = split(Q), split(K), split(V)
+    scores = Qh @ Kh.transpose(0, 1, 3, 2) / np.sqrt(dh)   # (B,h,L,L)
+    out = softmax(scores, axis=-1) @ Vh                     # (B,h,L,dh)
+    out = out.transpose(0, 2, 1, 3).reshape(B, L, d)        # concat heads
+    return out @ W_o                                        # output projection
+</code></pre>
+<p><strong>Complexity:</strong> O(L·M·d) time and <strong>O(L·M) memory</strong> — quadratic in sequence length. That L² memory is exactly what FlashAttention (tiling, never materializing the full score matrix) exists to kill; worth naming for this team.</p>
+<hr />
+<h2 id="3-precision-recall-f1-rank-based-auc">3. Precision / Recall / F1 + rank-based AUC</h2>
+<p><strong>When asked:</strong> "Score this classifier by hand," "compute F1," or "implement AUC without sklearn."</p>
+<pre><code class="language-python">def prf1(y_true, y_pred):                          # binary, 0/1
+    tp = sum(t == 1 and p == 1 for t, p in zip(y_true, y_pred))
+    fp = sum(t == 0 and p == 1 for t, p in zip(y_true, y_pred))
+    fn = sum(t == 1 and p == 0 for t, p in zip(y_true, y_pred))
+    prec = tp / (tp + fp) if tp + fp else 0.0      # guard divide-by-zero everywhere
+    rec  = tp / (tp + fn) if tp + fn else 0.0
+    f1   = 2 * prec * rec / (prec + rec) if prec + rec else 0.0
+    return prec, rec, f1
+
+def auc(y_true, scores):                           # rank-based (Mann–Whitney U)
+    order = np.argsort(scores); ranks = np.empty(len(scores))
+    ranks[order] = np.arange(1, len(scores) + 1)   # 1-based ranks by ascending score
+    pos = np.array(y_true) == 1
+    npos, nneg = pos.sum(), (~pos).sum()
+    return (ranks[pos].sum() - npos * (npos + 1) / 2) / (npos * nneg)
+</code></pre>
+<p><strong>Gotchas (say aloud):</strong></p>
+<ul>
+<li><strong>Precision</strong> = "of what I predicted positive, how many were right"; <strong>recall</strong> = "of the actual positives, how many I caught"; <strong>F1</strong> is their harmonic mean. <strong>Guard every denominator</strong> — no positives predicted → precision is 0/0.</li>
+<li><strong>AUC = P(a random positive is ranked above a random negative).</strong> The rank formula is the Mann–Whitney U identity; it's O(n log n), no threshold sweep needed. This snippet ignores exact score ties — mention you'd <strong>average tied ranks</strong> for exactness.</li>
+</ul>
+<p><strong>Complexity:</strong> PRF1 O(n) time, O(1) space. AUC O(n log n) time (the <code>argsort</code>), O(n) space.</p>
+<hr />
+<h2 id="4-bpe-merge-step-directly-relevant-ebay-ships-a-custom-e-commerce-tokenizer">4. BPE merge step — <em>directly relevant: eBay ships a custom e-commerce tokenizer</em></h2>
+<p><strong>When asked:</strong> "Implement one step of BPE training," or "how does subword tokenization learn its vocab?"</p>
+<pre><code class="language-python">def get_stats(ids):                                # count every adjacent pair
+    return Counter(zip(ids, ids[1:]))
+
+def merge(ids, pair, new_id):                      # replace every occurrence of `pair`
+    out, i = [], 0
+    while i &lt; len(ids):
+        if i &lt; len(ids) - 1 and (ids[i], ids[i + 1]) == pair:
+            out.append(new_id); i += 2
+        else:
+            out.append(ids[i]); i += 1
+    return out
+
+# train loop: repeatedly pick the max-count pair, assign it a new id,
+# merge it everywhere, and RECORD the merge in order.
+</code></pre>
+<p><strong>Gotchas (say aloud):</strong></p>
+<ul>
+<li>Start from raw <strong>bytes</strong> (0–255), then <strong>greedily merge the single most-frequent adjacent pair</strong> each step, minting a new token id.</li>
+<li><strong>Merge order matters:</strong> encoding new text must replay the learned merges <em>in the exact order they were learned</em> — the recorded merge list is the model. Stop when you hit the target vocab size.</li>
+</ul>
+<p><strong>Complexity:</strong> O(n) per merge step (one pass over the sequence). Training to a vocab of size V is ~O(n·V) naive, before the standard priority-queue speedups.</p>
+<hr />
+<h2 id="5-welford-running-meanvariance-z-score-normalize-what-layernorm-does-internally">5. Welford running mean/variance + z-score normalize — <em>what LayerNorm does internally</em></h2>
+<p><strong>When asked:</strong> "Compute mean/variance in one streaming pass," "standardize these features," or "what does LayerNorm compute?"</p>
+<pre><code class="language-python">def running_mean_var(xs):                          # one pass, numerically stable
+    n = 0; mean = 0.0; M2 = 0.0
+    for x in xs:
+        n += 1
+        d = x - mean; mean += d / n                # update mean first...
+        M2 += d * (x - mean)                        # ...then use BOTH old &amp; new mean
+    return mean, (M2 / n if n else 0.0)             # population variance (/n)
+
+def zscore(X):                                      # per-feature standardization
+    return (X - X.mean(0)) / (X.std(0) + 1e-8)      # eps avoids /0 on constant features
+</code></pre>
+<p><strong>Gotchas (say aloud):</strong></p>
+<ul>
+<li>Welford avoids the <strong>catastrophic cancellation</strong> of the naive "mean of squares minus square of mean," which loses precision when values are large and variance is small.</li>
+<li>Order matters inside the loop: update <code>mean</code> <em>before</em> the <code>M2</code> term, which multiplies the <strong>old</strong> delta by the <strong>new</strong> delta. <code>+1e-8</code> in z-score stops a constant feature (std 0) blowing up. This is exactly the normalize step inside <strong>LayerNorm/BatchNorm</strong> (they then rescale with learned γ, β).</li>
+</ul>
+<p><strong>Complexity:</strong> Welford O(n) time, <strong>O(1) space</strong> (its whole selling point). Z-score O(N·D).</p>
+<hr />
+<h2 id="6-k-nearest-neighbors-knn">6. k-Nearest Neighbors (kNN)</h2>
+<p><strong>When asked:</strong> "Classify a point from its neighbors," the classic no-training warmup.</p>
+<pre><code class="language-python">def knn_predict(X_train, y_train, x, k):           # X_train:(N,D), x:(D,)
+    dists = np.linalg.norm(X_train - x, axis=1)     # Euclidean to every training point
+    idx = np.argsort(dists)[:k]                     # indices of the k closest
+    return Counter(y_train[idx]).most_common(1)[0][0]   # majority vote
+</code></pre>
+<p><strong>Gotchas (say aloud):</strong></p>
+<ul>
+<li><strong>No training</strong> — all the cost is at inference, so it doesn't scale to huge N without an ANN index (FAISS, HNSW).</li>
+<li><strong>Normalize features first</strong> — raw Euclidean distance is dominated by whichever feature has the largest scale. Pick odd <code>k</code> (or define a tie-break) to avoid split votes.</li>
+</ul>
+<p><strong>Complexity:</strong> O(N·D) per query, O(1) training. Add O(N log N) if you <code>argsort</code> the full distance array (a <code>np.argpartition</code> for top-k is O(N)).</p>
+<hr />
+<h2 id="7-k-means-guard-the-empty-cluster">7. k-Means (guard the empty cluster)</h2>
+<p><strong>When asked:</strong> "Cluster this unlabeled data," Lloyd's algorithm from scratch.</p>
+<pre><code class="language-python">def kmeans(X, k, iters=100):
+    C = X[np.random.choice(len(X), k, replace=False)]     # init: k random points
+    for _ in range(iters):
+        d = np.linalg.norm(X[:, None] - C[None], axis=2)  # (N,k) all pairwise dists
+        labels = d.argmin(1)                              # assign each point
+        newC = np.array([X[labels == j].mean(0) if (labels == j).any()
+                         else C[j] for j in range(k)])    # update; keep old if empty
+        if np.allclose(newC, C): break                    # converged
+        C = newC
+    return labels, C
+</code></pre>
+<p><strong>Gotchas (say aloud):</strong></p>
+<ul>
+<li><strong>Guard the empty cluster</strong> — if no point is assigned to centroid <code>j</code>, <code>.mean()</code> is <code>nan</code>; keep the old centroid (or re-seed it). This is the edge case they're watching for.</li>
+<li>Sensitive to init and only finds a <strong>local</strong> optimum — mention <strong>k-means++</strong> seeding and running a few restarts. The <code>X[:,None] - C[None]</code> broadcast is O(N·k·D) memory, fine for toy data.</li>
+</ul>
+<p><strong>Complexity:</strong> O(iters·N·k·D) time.</p>
+<hr />
+<h2 id="8-logistic-regression-gradient-descent">8. Logistic Regression + Gradient Descent</h2>
+<p><strong>When asked:</strong> "Train a binary classifier by hand," "derive/implement the gradient," then "overfit it on a 4-point toy set to prove it runs."</p>
+<pre><code class="language-python">def sigmoid(z):
+    return 1 / (1 + np.exp(-z))
+
+def train_logreg(X, y, lr=0.1, epochs=1000):       # X:(N,D), y:(N,) in {0,1}
+    w = np.zeros(X.shape[1]); b = 0.0
+    for _ in range(epochs):
+        p = sigmoid(X @ w + b)
+        gw = X.T @ (p - y) / len(y)                # gradient of BCE wrt w
+        gb = (p - y).mean()                         # gradient wrt b
+        w -= lr * gw; b -= lr * gb                  # descend (note the minus)
+    return w, b
+</code></pre>
+<p><strong>Gotchas (say aloud):</strong></p>
+<ul>
+<li>The BCE gradient collapses to a beautiful <strong><code>(p − y)</code></strong> — the prediction-minus-target residual, same shape as linear regression's. Know this cold; it's the thing they probe.</li>
+<li>The update is <code>w -= lr * grad</code> (<strong>descend</strong>, not ascend — a sign flip here sends loss <em>up</em>). <code>sigmoid</code> overflows for large negative <code>z</code>; clip <code>z</code> if needed. Add L2 with <code>gw += lam * w</code>.</li>
+</ul>
+<p><strong>Complexity:</strong> O(epochs·N·D) time, O(D) space for the weights.</p>
+<hr />
+<h2 id="debug-this-broken-model">DEBUG THIS BROKEN MODEL</h2>
+<p>The other half of the round: they hand you working-looking code that's subtly wrong. <strong>Spot by symptom, not by re-reading line-by-line.</strong> These five account for most planted bugs.</p>
+<h3 id="bug-1-missing-max-subtraction-in-softmax">Bug 1 — Missing max-subtraction in softmax</h3>
+<pre><code class="language-python">def softmax(x, axis=-1):
+    e = np.exp(x)                     # BUG: no `x - max(x)`
+    return e / e.sum(axis, keepdims=True)
+</code></pre>
+<p><strong>Symptom:</strong> Works on toy data, then <strong><code>nan</code>/<code>inf</code> at scale</strong> — the moment a logit gets large, <code>exp</code> overflows. Fix: subtract <code>np.max(..., keepdims=True)</code> first. <em>This is the single most common planted bug for this team.</em></p>
+<h3 id="bug-2-wrong-reduction-axis">Bug 2 — Wrong reduction axis</h3>
+<pre><code class="language-python">p = e / e.sum(axis=0, keepdims=True)   # BUG: normalizing down the batch, not across classes
+</code></pre>
+<p><strong>Symptom:</strong> Probabilities <strong>sum to 1 across the wrong dimension</strong> (over examples instead of over classes), so per-row probs don't sum to 1 and loss is nonsense. Sanity check: <code>softmax(logits).sum(axis=1)</code> must be all-ones for <code>(N, C)</code> logits.</p>
+<h3 id="bug-3-missing-keepdims">Bug 3 — Missing <code>keepdims</code></h3>
+<pre><code class="language-python">x = x - np.max(x, axis=-1)             # BUG: no keepdims → shape (N,) not (N,1)
+</code></pre>
+<p><strong>Symptom:</strong> Either a <strong>broadcasting <code>ValueError</code></strong>, or worse, it broadcasts against the <em>wrong</em> axis and silently produces garbage. Whenever you subtract/divide a reduction from its source array, <code>keepdims=True</code>.</p>
+<h3 id="bug-4-off-by-one-causal-mask-the-dangerous-one">Bug 4 — Off-by-one causal mask <em>(the dangerous one)</em></h3>
+<pre><code class="language-python">mask = np.tril(np.ones((L, L), bool), k=1)   # BUG: k=1 lets each token see ONE future token
+</code></pre>
+<p><strong>Symptom:</strong> <strong>No crash, trains beautifully, cheats at inference.</strong> <code>k=1</code> leaks one future token (label leakage); <code>k=-1</code> blocks a token from attending to itself. The correct causal mask is plain <code>np.tril(...)</code> (<code>k=0</code>). Suspect this whenever training loss looks <em>too</em> good — silent future-leakage is the classic transformer footgun.</p>
+<h3 id="bug-5-gradient-sign-error">Bug 5 — Gradient sign error</h3>
+<pre><code class="language-python">w += lr * gw                            # BUG: ascending the gradient
+# or:  gw = X.T @ (y - p) / len(y)      # BUG: residual flipped to (y - p) then subtracted
+</code></pre>
+<p><strong>Symptom:</strong> <strong>Loss goes <em>up</em> every epoch</strong> (or oscillates/diverges). Descent is <code>w -= lr * grad</code> with residual <code>(p - y)</code>. If you flip the residual to <code>(y - p)</code> you must flip the update to <code>+=</code>; get exactly one of the two wrong and it diverges. First move on any diverging trainer: print the loss each epoch and check the sign.</p>
+<hr />
+<h2 id="30-second-pre-flight-checklist-run-this-mentally-before-you-say-done">30-second pre-flight checklist (run this mentally before you say "done")</h2>
+<ul>
+<li>Softmax: <strong>max subtracted?</strong> <code>keepdims</code>? right axis? <code>log(0)</code> guarded with eps?</li>
+<li>Attention: <strong>÷√d</strong>? mask applied <em>before</em> softmax? causal triangle is <code>tril(k=0)</code>?</li>
+<li>Any metric: <strong>every denominator guarded</strong> against zero?</li>
+<li>Any trainer: update is <strong><code>-= lr * grad</code></strong>, residual is <strong><code>(p - y)</code></strong>, loss <strong>decreasing</strong> in a quick trace?</li>
+<li>k-means: <strong>empty cluster</strong> handled? kNN: <strong>features normalized</strong>?</li>
+</ul>
+      <nav class="prevnext"><a class="pn prev" href="s2_10_live_coding_playbook.html">‹ <span>Live-Coding Playbook</span></a><a class="pn next" href="s2_12_practice_regimen.html"><span>Unaided Practice Regimen</span> ›</a></nav>
+    </article>
+    <aside class="toc"><div class="toc-title">On this page</div><ul>
+<li><a href="#1-softmax-numerically-stable-cross-entropy-1-most-likely">1. Softmax (numerically stable) + Cross-Entropy — #1 most likely</a></li>
+<li><a href="#2-scaled-dot-product-attention-2-theyre-a-foundation-models-team">2. Scaled Dot-Product Attention — #2, they&#x27;re a Foundation-Models team</a></li>
+<li><a href="#3-precision-recall-f1-rank-based-auc">3. Precision / Recall / F1 + rank-based AUC</a></li>
+<li><a href="#4-bpe-merge-step-directly-relevant-ebay-ships-a-custom-e-commerce-tokenizer">4. BPE merge step — directly relevant: eBay ships a custom e-commerce tokenizer</a></li>
+<li><a href="#5-welford-running-meanvariance-z-score-normalize-what-layernorm-does-internally">5. Welford running mean/variance + z-score normalize — what LayerNorm does internally</a></li>
+<li><a href="#6-k-nearest-neighbors-knn">6. k-Nearest Neighbors (kNN)</a></li>
+<li><a href="#7-k-means-guard-the-empty-cluster">7. k-Means (guard the empty cluster)</a></li>
+<li><a href="#8-logistic-regression-gradient-descent">8. Logistic Regression + Gradient Descent</a></li>
+<li><a href="#debug-this-broken-model">DEBUG THIS BROKEN MODEL</a></li>
+<li><a href="#30-second-pre-flight-checklist-run-this-mentally-before-you-say-done">30-second pre-flight checklist (run this mentally before you say &quot;done&quot;)</a></li>
+</ul></aside>
+  </main>
+</div>
+<script>window.SEARCH_JSON="../assets/../search-index.json";</script>
+<script src="../assets/search-data.js"></script>
+<script src="../assets/app.js"></script>
+</body>
+</html>

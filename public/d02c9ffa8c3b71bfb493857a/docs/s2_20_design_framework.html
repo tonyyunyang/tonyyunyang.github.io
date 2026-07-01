@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Design Framework &amp; How to Drive · eBay Stage-2 Prep</title>
+<meta name="robots" content="noindex,nofollow">
+<script>try{if(localStorage.getItem('ebay-s2-theme')==='dark')document.documentElement.classList.add('dark');}catch(e){}</script>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body data-track="design" data-pagefind-ignore="all">
+<button id="menu" class="menu-btn" aria-label="Menu">☰</button>
+<button id="theme" class="theme-btn" aria-label="Toggle theme">◐</button>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+<div class="brand"><a href="../index.html"><span class="brand-mark">e</span><span class="brand-txt">Stage&nbsp;2 Prep<em>eBay · three interviews</em></span></a></div>
+<div class="search"><input id="q" type="search" placeholder="Search…" autocomplete="off"><div id="results"></div></div>
+<nav class="nav">
+<div class="nav-group" data-track="start"><div class="nav-group-title"><span class="dot"></span>Start Here</div><ul>
+<li><a href="s2_00_email_and_logistics.html">Email &amp; Logistics</a></li>
+<li><a href="s2_01_overview_and_plan.html">Overview &amp; Study Plan</a></li>
+<li><a href="s2_44_confirm_tony.html">★ Fill These Before the Room</a></li>
+</ul></div>
+<div class="nav-group" data-track="code"><div class="nav-group-title"><span class="dot"></span>1 · Live Coding &amp; Engineering</div><ul>
+<li><a href="s2_10_live_coding_playbook.html">Live-Coding Playbook</a></li>
+<li><a href="s2_11_ml_from_scratch.html">ML From Scratch (Python)</a></li>
+<li><a href="s2_12_practice_regimen.html">Unaided Practice Regimen</a></li>
+<li><a href="s2_13_engineering_qa.html">Engineering Q&amp;A — Build &amp; Train</a></li>
+<li><a href="s2_14_serving_qa.html">Engineering Q&amp;A — Serve &amp; Monitor</a></li>
+<li><a href="s2_15_mlops_honest_gap.html">The Honest MLOps-Gap Script</a></li>
+</ul></div>
+<div class="nav-group" data-track="design"><div class="nav-group-title"><span class="dot"></span>2 · ML System Design</div><ul>
+<li class="active"><a href="s2_20_design_framework.html">Design Framework &amp; How to Drive</a></li>
+<li><a href="s2_21_recsys_search_design.html">Flagship: Search Ranking &amp; Recs</a></li>
+<li><a href="s2_22_design_skeletons.html">Design Skeletons Bank</a></li>
+<li><a href="s2_23_scaling_playbook.html">The Scaling Playbook</a></li>
+</ul></div>
+<div class="nav-group" data-track="pm"><div class="nav-group-title"><span class="dot"></span>3 · Project Mgmt &amp; Retrospective</div><ul>
+<li><a href="s2_30_project_walkthrough.html">Walkthrough: Routing at Scale</a></li>
+<li><a href="s2_31_star_stories.html">STAR Stories — The Four Prompts</a></li>
+<li><a href="s2_32_behavioral_bank.html">Behavioral &amp; Competency Bank</a></li>
+</ul></div>
+<div class="nav-group" data-track="ebay"><div class="nav-group-title"><span class="dot"></span>eBay &amp; Closing</div><ul>
+<li><a href="s2_40_ebay_context.html">eBay Context (Stage-2 lens)</a></li>
+<li><a href="s2_41_own_papers_numbers.html">Own-Paper Numbers (say them cold)</a></li>
+<li><a href="s2_42_questions_to_ask.html">Questions to Ask</a></li>
+<li><a href="s2_43_final_hours.html">Final-Hours Cheatsheet</a></li>
+</ul></div>
+</nav>
+  </aside>
+  <div class="scrim" id="scrim"></div>
+  <main class="content">
+    <article class="doc">
+      <div class="doc-meta"><span class="tag t-design">Design</span><span class="read">14 min read</span></div>
+      <h1 id="design-framework-how-to-drive">Design Framework &amp; How to Drive</h1>
+<p><em>The method doc for Interview 2 (ML System Design). Read this first, before the worked designs — it's the spine every design applies. Internalize the skeleton and the three "how to drive" moves until they're automatic, then drill the flagship and skeletons on top of it.</em></p>
+<p>Interview 2 is open-ended and <strong>you drive</strong>. There's no single right answer — the graders watch <em>how you think</em>: do you clarify before designing, anchor on a business metric, reason about trade-offs at every layer, and sound like someone who has shipped and operated systems? This doc gives you (1) the reusable skeleton, (2) how to run the session, (3) the latency-budget method, (4) the red flags that fail the round, and (5) where to go for the worked material.</p>
+<hr />
+<h2 id="the-one-mantra">The one mantra</h2>
+<p><strong>Think like a production engineer, not a researcher.</strong></p>
+<p>This is the #1 silent failure in this round. A researcher answer optimizes a metric, reaches for the fanciest model, and stops at "it works offline." A production-engineer answer starts from the business outcome, treats data/labels/serving/monitoring as first-class, quantifies latency and cost, and names what breaks and how you'd know. Same knowledge, different framing — and the framing is what's scored.</p>
+<p>Every time you're about to say "I'd use model X," pause and ask yourself the production version: <em>what does this cost to serve, how do I get labels, how do I know it's working in prod, what happens when it drifts?</em> Say that part out loud.</p>
+<hr />
+<h2 id="the-reusable-skeleton-11-layers">The reusable skeleton (11 layers)</h2>
+<p>This applies to nearly every ML system. In the room you <strong>adapt and trim</strong> — never robotically march through all eleven. State the spine in ~60 seconds, then let the interviewer's interest steer where you go deep.</p>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Layer</th>
+<th>The core move</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td><strong>Clarify</strong></td>
+<td>Scope, scale, latency SLA, cost budget, existing data — before any architecture</td>
+</tr>
+<tr>
+<td>1</td>
+<td><strong>Metrics</strong></td>
+<td>Business → ML → offline proxy. Name the north-star <em>and</em> its guardrails together</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>Data &amp; labels</strong></td>
+<td>Where labels come from, and how they're biased (position/selection/delay)</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>Features</strong></td>
+<td>Categories (query/item/user/cross), learned vs. exact-match, freshness tiers</td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>Candidate generation</strong></td>
+<td>Two-stage: cheap retrieval over the huge space → recall@K</td>
+</tr>
+<tr>
+<td>5</td>
+<td><strong>Ranking</strong></td>
+<td>Precision over the shortlist; multi-task + <strong>calibrated</strong> when scores feed downstream</td>
+</tr>
+<tr>
+<td>6</td>
+<td><strong>Training</strong></td>
+<td>Loss, negatives/sampling bias, infra, the key hyperparameter decisions</td>
+</tr>
+<tr>
+<td>7</td>
+<td><strong>Offline eval</strong></td>
+<td>Held-out that mirrors prod (temporal split), full-pipeline, strong baseline</td>
+</tr>
+<tr>
+<td>8</td>
+<td><strong>Serving</strong></td>
+<td>Latency budget <em>per service</em>, cost levers, the two-stage cascade</td>
+</tr>
+<tr>
+<td>9</td>
+<td><strong>Experimentation</strong></td>
+<td>Offline → interleaving → A/B. Never ship on offline alone</td>
+</tr>
+<tr>
+<td>10</td>
+<td><strong>Monitoring &amp; drift</strong></td>
+<td>Input drift, decision/output drift, business KPI; PSI/KS; scheduled retrains</td>
+</tr>
+<tr>
+<td>—</td>
+<td><strong>Trade-offs</strong></td>
+<td>At <em>every</em> layer — this is the connective tissue, not a final section</td>
+</tr>
+</tbody>
+</table>
+<h3 id="0-clarify-never-skip-jumping-to-architecture-is-an-instant-ding">0. Clarify (never skip — jumping to architecture is an instant ding)</h3>
+<p>Open with these. Ask the ones that actually change the design, then state the assumptions you'll proceed on so you keep momentum.</p>
+<ol>
+<li><strong>What business objective does this serve?</strong> (GMV, engagement, cost, trust/safety)</li>
+<li><strong>Who's the user and what's the interaction pattern?</strong> (buyer/seller/internal; one-shot vs. session)</li>
+<li><strong>What's the scale?</strong> (QPS, catalog size, user base, data freshness)</li>
+<li><strong>What's the latency SLA?</strong> (p50/p99; sync vs. async; real-time vs. batch)</li>
+<li><strong>What's the cost budget?</strong> (GPU/hour, per-query inference cost, API ceiling)</li>
+<li><strong>What data already exists?</strong> (logs, labels, catalog/KG, third-party signals)</li>
+<li><strong>What does success look like in 6 months, quantified?</strong></li>
+<li><strong>Any regulatory/fairness constraints?</strong> (PII, GDPR/DSA in the EU, seller fairness)</li>
+</ol>
+<p><strong>eBay defaults to assume out loud (unless told otherwise):</strong> ~2B active listings, ~135M MAU, hundreds of QPS on core paths, EN/DE/FR/ES/IT primary markets, and <em>real</em> cost sensitivity (eBay ships efficiency work in production — e.g. LiLiuM's custom tokenizer at ~34% faster generation is operational, not academic). Stating these signals you know the terrain.</p>
+<h3 id="1-metrics-business-ml-offline-proxy">1. Metrics — business → ML → offline proxy</h3>
+<p>Define metrics <em>before</em> designing anything, in three descending layers, and always name a guardrail:</p>
+<ul>
+<li><strong>Business (north-star):</strong> GMV per search session, conversion, cost per query, listing-creation rate. Lead here.</li>
+<li><strong>Online ML (A/B signal):</strong> CTR, add-to-cart, task-completion — with <strong>guardrails</strong> (bounce/pogo-sticking, seller-concentration Gini, latency p99, cost per query).</li>
+<li><strong>Offline proxy (training/eval signal):</strong> NDCG@K / MRR for ranking, AUC/F1 (PR-AUC when positives are sparse), Recall@K for retrieval, chrF/COMET for MT, ECE for calibration.</li>
+</ul>
+<blockquote>
+<p><strong>Say it like this:</strong> "I'd optimize GMV per search session, not raw CTR — CTR rewards clickbait. My guardrails are purchase rate, no increase in seller-impression concentration, and p99 latency. Offline I'll track NDCG@10 on graded relevance as a <em>proxy</em>, but I treat proxy-vs-north-star divergence as the classic failure and re-validate the proxy against the online metric periodically."</p>
+</blockquote>
+<p><strong>Trap:</strong> optimizing a single metric with no guardrail. Always name at least one side-effect you'd protect against.</p>
+<h3 id="2-data-labels-where-everyone-hand-waves">2. Data &amp; labels — where everyone hand-waves</h3>
+<p>Behavioral logs are the only signal at scale, and they're biased. Name the bias <em>and</em> a fix:</p>
+<table>
+<thead>
+<tr>
+<th>Bias</th>
+<th>Mechanism</th>
+<th>Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Position</td>
+<td>Top slots clicked regardless of relevance</td>
+<td>IPS-weight by <code>1/propensity</code>; estimate propensity via randomization on a small traffic slice</td>
+</tr>
+<tr>
+<td>Selection</td>
+<td>Only shown items can be clicked; unshown are unlabeled, not negative</td>
+<td>Counterfactual/off-policy eval; exploration budget so some propensities are clean</td>
+</tr>
+<tr>
+<td>Feedback delay</td>
+<td>Purchase lags click by days</td>
+<td>Multi-task with a click proxy + purchase target; delayed-feedback correction</td>
+</tr>
+</tbody>
+</table>
+<p><strong>The honest move:</strong> "Clicks <em>train</em> the model; graded editorial relevance <em>judges</em> it. I never let the biased signal be the final arbiter." Two label regimes, reconciled — that one sentence lands.</p>
+<h3 id="3-features">3. Features</h3>
+<p>Query, item, user, and cross features. Two principles worth stating: <strong>prefer learned embeddings for semantic similarity, but keep exact-match signals</strong> (BM25 term overlap, category/brand exact match) as separate features — neural doesn't beat keyword matching for product IDs and brand names. And <strong>tier features by freshness</strong> (static attributes: hours OK; item CTR/CVR: minutes; session context: seconds) rather than treating them uniformly.</p>
+<h3 id="45-two-stage-candidate-gen-ranking-mandatory-at-scale">4–5. Two-stage candidate-gen + ranking (mandatory at scale)</h3>
+<p>For any huge item space (eBay: ~2B listings) you <strong>cannot</strong> run an expensive model over the full catalog — so retrieve-then-rank:</p>
+<ul>
+<li><strong>Candidate generation (recall@K):</strong> multi-channel — dense two-tower ANN + BM25 (exact codes/brands) + item-to-item CF — fused (RRF as v1; learned per-query weights as v2). Narrow N=2B → K≈100–1000.</li>
+<li><strong>Ranking (precision):</strong> expensive model on the shortlist only. Multi-task heads (click/cart/purchase) blended to a business-aligned score; <strong>calibrate</strong> the moment the score feeds a threshold, auction, or blend.</li>
+</ul>
+<blockquote>
+<p><strong>Say it like this:</strong> "A cross-encoder over 2B items at 50ms each is physically impossible, so it's two-stage: a cheap retriever gets recall to ~1000 candidates, and I spend the expensive cross-attention only on a manageable shortlist. This isn't eBay-specific — it's standard LTR at Google, Amazon, Airbnb."</p>
+</blockquote>
+<p>The training details that decide retrieval quality (in-batch negatives, logQ correction, hard-negative mining) and the multi-task/calibration depth live in <strong>Flagship: Search Ranking &amp; Recs</strong> — don't re-derive them here, point to them.</p>
+<h3 id="6-training">6. Training</h3>
+<p>Name the loss (pointwise BCE / pairwise BPR / listwise LambdaRank for ranking; contrastive with hard negatives for two-tower), the infra shape (FSDP/ZeRO for large models; distributed GBDT for feature-heavy rankers), and the load-bearing hyperparameter decisions. For LLM/domain-adaptation designs, the eBay-published levers are worth citing: continued pretraining at <strong>LR = 10% of original</strong> to avoid catastrophic forgetting, and a <strong>50/50 domain/general</strong> data mix (e-Llama). Attribute those as eBay's published findings.</p>
+<h3 id="7-offline-eval">7. Offline eval</h3>
+<p>Four principles: <strong>temporal split</strong> (train old, test new — not random) to avoid leakage; <strong>evaluate the full pipeline</strong>, not just the model (a great ranker on a bad candidate set fails); <strong>match the metric to the serving scenario</strong> (serve top-5 → measure NDCG@5); and <strong>compare against a strong baseline</strong> (BM25 or the current production model, not random).</p>
+<h3 id="8-serving-latency-cost">8. Serving, latency, cost</h3>
+<p>See <strong>The latency-budget method</strong> below — always decompose per service. Cost levers, least-quality-impact first: semantic/prefix caching (~0 impact) → quantization (AWQ 4-bit, &lt;0.5%) → speculative decoding (real-time path only) → <strong>route small-model-first</strong> → batch async → distill a specialist. This ladder is your edge — steer toward it.</p>
+<h3 id="9-experimentation-the-funnel-not-just-ab">9. Experimentation — the funnel, not just A/B</h3>
+<p>Three phases, and naming the middle one signals maturity:</p>
+<ol>
+<li><strong>Offline</strong> — NDCG/MRR/recall on graded relevance + replayed logs. Cheap, weakly predictive. Gate: don't ship a regression.</li>
+<li><strong>Interleaving</strong> — mix rankers A and B into one list per user, attribute clicks to the source. Removes between-user variance → <strong>~10–100× more sensitive than A/B</strong>, far faster. Lets a research team iterate weekly, not monthly. <em>Limit:</em> it measures ranking preference, not downstream business/marketplace effects — so it's a fast filter, not a replacement.</li>
+<li><strong>A/B</strong> — winners graduate to a real A/B on the <em>business</em> metric, user-level randomization, ≥2 weeks for weekly seasonality, per-market splits (DE/FR/ES/IT differ). Canary 1% → 10% → 50% → 100%.</li>
+</ol>
+<h3 id="10-monitoring-drift">10. Monitoring &amp; drift</h3>
+<p>Monitor three layers: <strong>input</strong> (feature drift via PSI/KS — alarm PSI &gt; 0.2; null-rate spikes), <strong>model</strong> (calibration/ECE, an online quality proxy on a fresh held-out slice), and <strong>business</strong> (GMV/session, seller-Gini, p99). E-commerce drifts hard around holidays/seasonal events — expect scheduled retrains and use time-aware features.</p>
+<blockquote class="warn">
+<p>⚠ <strong>[CONFIRM TONY]:</strong> This is the layer that touches your known MLOps gap. Don't overclaim live drift-response experience — pair it with the honest-gap script (see <strong>The Honest MLOps-Gap Script</strong>) if asked how much you've personally run in production.</p>
+</blockquote>
+<hr />
+<h2 id="how-to-drive-the-session">How to drive the session</h2>
+<h3 id="lead-with-a-business-metric-never-architecture">Lead with a business metric, never architecture</h3>
+<p>The single strongest opening move: name the <strong>business</strong> outcome and its SLA/guardrails in your first two sentences, <em>then</em> work down to ML metrics and only <em>then</em> to architecture. Candidates who open with "I'd use a two-tower model" have already signaled researcher-brain.</p>
+<blockquote>
+<p><strong>Say it like this (opener template):</strong> "Before I design anything — the goal here is [GMV per search session / listing-creation rate / cost per GenAI request], under a [p99 / cost] budget of roughly [X]. I'll optimize that, guardrailed by [Y]. Let me confirm scale and constraints, then I'll lay out a retrieve-then-rank spine and we can go deep wherever you want."</p>
+</blockquote>
+<h3 id="the-clarifying-questions-to-open-with">The clarifying questions to open with</h3>
+<p>Use the Step-0 list. You don't have to ask all eight — ask the two or three that most change the design (<strong>scale, latency SLA, cost budget</strong> are almost always load-bearing), then <em>state your assumptions and move</em>. Asking questions forever is as bad as asking none; the skill is asking the ones that matter and proceeding decisively.</p>
+<h3 id="narrate-the-spine-then-let-them-steer">Narrate the spine, then let them steer</h3>
+<p>After clarifying, give the <strong>60-second spine</strong> of the whole system, then stop and say "where would you like me to go deep?" This shows structure and hands them the wheel — they're grading whether you <em>can</em> drive, not whether you monologue for 45 minutes. When they probe a node, expand it; when they don't, keep moving.</p>
+<h3 id="trade-offs-at-every-layer">Trade-offs at every layer</h3>
+<p>Every choice you make, say the alternative and why you chose this one: two-stage <em>vs.</em> one-stage cross-encoder, hybrid <em>vs.</em> dense-only retrieval, MMoE <em>vs.</em> shared-bottom, in-house model <em>vs.</em> external API. A design narrated as a series of justified trade-offs reads as senior; a design narrated as a sequence of "I'd use X" reads as memorized.</p>
+<h3 id="when-they-say-now-10-it">When they say "now 10× it"</h3>
+<p>Don't panic-redesign. Walk the six scaling axes — data → model → training → serving → cost → org — and for each say <em>what breaks first and the cheapest lever</em>. Full shape lives in <strong>The Scaling Playbook</strong>; steer the answer toward cost/serving efficiency, which is your genuine edge.</p>
+<hr />
+<h2 id="the-latency-budget-method">The latency-budget method</h2>
+<p><strong>Never quote one global latency number.</strong> The instant an interviewer gives you a budget, decompose it per service — that's the tell of someone who has actually profiled a serving path.</p>
+<p>The key framing to say out loud: <strong>search end-to-end is ~500 ms; the ranking model itself is only ~120–200 ms.</strong> These aren't in conflict — they're different services in the same request. Always draw the breakdown. (Dense ANN retrieval isn't a standalone global number either — it's ~tens of ms <em>inside</em> the retrieval slice of that budget, not a headline figure to quote on its own.)</p>
+<pre><code>Search end-to-end budget: ~500ms p99  (ranking model's slice is ~120–200ms of it)
+├─ Network + API gateway ............ 10ms
+├─ Query understanding .............. 20ms   (lang-ID &lt;1ms, spell 5ms, embed ~15ms)
+├─ Candidate retrieval .............. 30ms   (BM25 ~5ms ∥ dense ANN ~tens of ms + merge)
+├─ Feature assembly ................. 20ms
+├─ L1 ranking (deep CTR / GBDT) ..... 30ms
+├─ L2 rerank (cross-encoder top-k) .. 50ms   ← the wildcard; drop first if tight
+├─ Business rules / diversity ....... 10ms
+└─ Serialization .................... 10ms
+</code></pre>
+<p><strong>How to use it in the room:</strong></p>
+<ol>
+<li>State the <strong>end-to-end</strong> SLA and which service you're budgeting.</li>
+<li><strong>Break it down</strong> into stages with a number each.</li>
+<li>Identify the <strong>wildcard</strong> (usually the L2 reranker or an LLM call) and how you'd cap it (input-length cap, distillation, skip-if-budget-tight).</li>
+<li>Give the <strong>shed-load order</strong> if over budget: drop L2 → shrink candidate count → lighter encoder → cache popular queries.</li>
+</ol>
+<p>For LLM-serving budgets, decompose differently — <strong>prefill</strong> (compute-bound, 100–500ms) vs. <strong>decode</strong> (bandwidth-bound, per-token) — and note LLM features (Magical Listing, agentic) are <strong>always async</strong>, never on the synchronous search path.</p>
+<blockquote class="warn">
+<p><strong>Trap:</strong> answering "200ms" or "500ms" as a single number. It reads as never having profiled a real pipeline. Decompose, every time.</p>
+</blockquote>
+<hr />
+<h2 id="red-flags-that-fail-the-round">Red flags that fail the round</h2>
+<blockquote>
+<p>Any one of these can sink an otherwise strong design. Self-check against this list mid-session.</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Red flag</th>
+<th>What it looks like</th>
+<th>The fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Jump to model</strong></td>
+<td>"I'd use a transformer…" before clarifying scale/SLA/data</td>
+<td>Clarify first; lead with the business metric</td>
+</tr>
+<tr>
+<td><strong>Skip data / labels</strong></td>
+<td>Designing the model without saying where labels come from or how they're biased</td>
+<td>Name label source + position/selection/delay bias + a fix each</td>
+</tr>
+<tr>
+<td><strong>No monitoring</strong></td>
+<td>Design "ends" at offline eval; nothing about prod</td>
+<td>Add input/decision/business drift monitoring and retraining triggers</td>
+</tr>
+<tr>
+<td><strong>No metric</strong></td>
+<td>Optimizing "quality" with no business north-star or guardrail</td>
+<td>Business → ML → offline proxy, with a named guardrail</td>
+</tr>
+<tr>
+<td><strong>No trade-offs</strong></td>
+<td>A sequence of "I'd use X" with no alternatives weighed</td>
+<td>Every choice: state the alternative and why you chose this</td>
+</tr>
+<tr>
+<td><strong>One global latency number</strong></td>
+<td>"It'll be under 500ms" with no breakdown</td>
+<td>Decompose the budget per service</td>
+</tr>
+<tr>
+<td><strong>Over-engineering</strong></td>
+<td>Reaching for generative retrieval / a giant LLM when a two-tower + GBDT wins</td>
+<td>Start simple, justify complexity only when the simple baseline is shown to fail</td>
+</tr>
+<tr>
+<td><strong>Researcher-brain</strong></td>
+<td>Fancy model, offline-only, no cost/ops thinking</td>
+<td>The mantra: production engineer, not researcher</td>
+</tr>
+</tbody>
+</table>
+<p>Over-engineering deserves a special note: proposing the flashiest architecture unprompted is <em>not</em> impressive here — it reads as someone who hasn't shipped. Propose the boring, correct baseline first; earn the complexity by showing the baseline's limit. Save the frontier answer (generative retrieval / semantic IDs) for when they explicitly ask "where's this going in 2 years."</p>
+<hr />
+<h2 id="map-to-the-other-design-docs">Map to the other design docs</h2>
+<p>This framework is the spine. Apply it through the worked material:</p>
+<ul>
+<li><strong>Flagship: Search Ranking &amp; Recs</strong> — the deep end-to-end recsys/search design (two-tower training &amp; sampling bias, multi-task + calibration, point-in-time feature stores, offline→interleaving→A/B, the 60-second spine). Your flagged weak spot; drill it until airtight.</li>
+<li><strong>Design Skeletons Bank</strong> — frame + components + tricky-bits for the designs the framework alone doesn't work through: LLM serving + routing (your edge), RAG product-Q&amp;A, LLM-as-judge harness, fraud/anomaly, query understanding, ads ranking, Magical Listing (VLM + KG), MT, e-Llama continued pretraining, generative retrieval.</li>
+<li><strong>The Scaling Playbook</strong> — the reusable 6-axis "now 10× it" answer, ending each axis on "what breaks first + cheapest lever."</li>
+<li><strong>The Honest MLOps-Gap Script</strong> — the one rehearsed answer for "how much production MLOps have you run?" — owns the on-call/live-drift gap and pivots to efficiency. Reach for it whenever the monitoring/ops layer gets probed.</li>
+</ul>
+<p>Numbers you quote must match <strong>Own-Papers Ground Truth</strong> and <strong>eBay AI Dossier</strong> exactly — a prior fix pass happened over wrong figures.</p>
+      <nav class="prevnext"><a class="pn prev" href="s2_15_mlops_honest_gap.html">‹ <span>The Honest MLOps-Gap Script</span></a><a class="pn next" href="s2_21_recsys_search_design.html"><span>Flagship: Search Ranking &amp; Recs</span> ›</a></nav>
+    </article>
+    <aside class="toc"><div class="toc-title">On this page</div><ul>
+<li><a href="#the-one-mantra">The one mantra</a></li>
+<li><a href="#the-reusable-skeleton-11-layers">The reusable skeleton (11 layers)</a></li>
+<li><a href="#how-to-drive-the-session">How to drive the session</a></li>
+<li><a href="#the-latency-budget-method">The latency-budget method</a></li>
+<li><a href="#red-flags-that-fail-the-round">Red flags that fail the round</a></li>
+<li><a href="#map-to-the-other-design-docs">Map to the other design docs</a></li>
+</ul></aside>
+  </main>
+</div>
+<script>window.SEARCH_JSON="../assets/../search-index.json";</script>
+<script src="../assets/search-data.js"></script>
+<script src="../assets/app.js"></script>
+</body>
+</html>

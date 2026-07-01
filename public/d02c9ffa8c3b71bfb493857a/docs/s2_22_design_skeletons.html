@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Design Skeletons Bank · eBay Stage-2 Prep</title>
+<meta name="robots" content="noindex,nofollow">
+<script>try{if(localStorage.getItem('ebay-s2-theme')==='dark')document.documentElement.classList.add('dark');}catch(e){}</script>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body data-track="design" data-pagefind-ignore="all">
+<button id="menu" class="menu-btn" aria-label="Menu">☰</button>
+<button id="theme" class="theme-btn" aria-label="Toggle theme">◐</button>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+<div class="brand"><a href="../index.html"><span class="brand-mark">e</span><span class="brand-txt">Stage&nbsp;2 Prep<em>eBay · three interviews</em></span></a></div>
+<div class="search"><input id="q" type="search" placeholder="Search…" autocomplete="off"><div id="results"></div></div>
+<nav class="nav">
+<div class="nav-group" data-track="start"><div class="nav-group-title"><span class="dot"></span>Start Here</div><ul>
+<li><a href="s2_00_email_and_logistics.html">Email &amp; Logistics</a></li>
+<li><a href="s2_01_overview_and_plan.html">Overview &amp; Study Plan</a></li>
+<li><a href="s2_44_confirm_tony.html">★ Fill These Before the Room</a></li>
+</ul></div>
+<div class="nav-group" data-track="code"><div class="nav-group-title"><span class="dot"></span>1 · Live Coding &amp; Engineering</div><ul>
+<li><a href="s2_10_live_coding_playbook.html">Live-Coding Playbook</a></li>
+<li><a href="s2_11_ml_from_scratch.html">ML From Scratch (Python)</a></li>
+<li><a href="s2_12_practice_regimen.html">Unaided Practice Regimen</a></li>
+<li><a href="s2_13_engineering_qa.html">Engineering Q&amp;A — Build &amp; Train</a></li>
+<li><a href="s2_14_serving_qa.html">Engineering Q&amp;A — Serve &amp; Monitor</a></li>
+<li><a href="s2_15_mlops_honest_gap.html">The Honest MLOps-Gap Script</a></li>
+</ul></div>
+<div class="nav-group" data-track="design"><div class="nav-group-title"><span class="dot"></span>2 · ML System Design</div><ul>
+<li><a href="s2_20_design_framework.html">Design Framework &amp; How to Drive</a></li>
+<li><a href="s2_21_recsys_search_design.html">Flagship: Search Ranking &amp; Recs</a></li>
+<li class="active"><a href="s2_22_design_skeletons.html">Design Skeletons Bank</a></li>
+<li><a href="s2_23_scaling_playbook.html">The Scaling Playbook</a></li>
+</ul></div>
+<div class="nav-group" data-track="pm"><div class="nav-group-title"><span class="dot"></span>3 · Project Mgmt &amp; Retrospective</div><ul>
+<li><a href="s2_30_project_walkthrough.html">Walkthrough: Routing at Scale</a></li>
+<li><a href="s2_31_star_stories.html">STAR Stories — The Four Prompts</a></li>
+<li><a href="s2_32_behavioral_bank.html">Behavioral &amp; Competency Bank</a></li>
+</ul></div>
+<div class="nav-group" data-track="ebay"><div class="nav-group-title"><span class="dot"></span>eBay &amp; Closing</div><ul>
+<li><a href="s2_40_ebay_context.html">eBay Context (Stage-2 lens)</a></li>
+<li><a href="s2_41_own_papers_numbers.html">Own-Paper Numbers (say them cold)</a></li>
+<li><a href="s2_42_questions_to_ask.html">Questions to Ask</a></li>
+<li><a href="s2_43_final_hours.html">Final-Hours Cheatsheet</a></li>
+</ul></div>
+</nav>
+  </aside>
+  <div class="scrim" id="scrim"></div>
+  <main class="content">
+    <article class="doc">
+      <div class="doc-meta"><span class="tag t-design">Design</span><span class="read">23 min read</span></div>
+      <h1 id="design-skeletons-bank">Design Skeletons Bank</h1>
+<p><em>A bank of design prompts and ready-to-whiteboard skeletons for Interview 2 (ML System Design). Read this to rehearse framing any prompt in 30 seconds and surviving one round of probing. For the 14-step method itself use </em><em>ML System Design Framework</em><em>; for the deep search/recsys design use </em><em>Flagship: Search Ranking at eBay Scale</em><em>; for "now 10× it" use the </em><em>Scaling Playbook</em><em>. This doc does not repeat those.</em></p>
+<p>You drive this round. The graders are watching for a production engineer, not a researcher: lead with a <strong>business metric</strong>, propose a spine, then go deep where they probe. The skeletons below give you the spine + the two or three tricky bits that earn the point.</p>
+<hr />
+<h2 id="1-ranked-probable-prompts-with-a-30-second-opener">1. Ranked probable prompts (with a 30-second opener)</h2>
+<p>Ranked by likelihood for <strong>this</strong> role (Amsterdam Foundation Models / Applied Research). LLM / RAG / routing / evals out-rank pure recsys because this team lives there — but search/recsys is eBay's core and a flagged weak spot, so be airtight on it. Tags: <strong>[EDGE]</strong> = lean in, real strength · <strong>[CORE]</strong> = eBay staple, neutral · <strong>[RISK]</strong> = must cover credibly, less natural.</p>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Prompt</th>
+<th>Tag</th>
+<th>How I'd frame it (opener)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><strong>LLM serving + routing gateway</strong> for all eBay GenAI (Magical Listing, MT, agentic, relevance scoring) under a hard cost ceiling</td>
+<td>[EDGE]</td>
+<td>"One gateway, many features with different latency/cost SLAs. A router — complexity → model tier — in front of a shared vLLM fleet with semantic + prefix caching, and I instrument the escape/escalation rate from day one. My router work shows <strong>&gt;90% cost reduction at iso-quality</strong>, so the real engineering is measuring and controlling the ~5–10% that must escalate." (§2a)</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>RAG product-Q&amp;A / shopping assistant</strong> grounded in catalog + reviews + policies</td>
+<td>[EDGE]</td>
+<td>"Retrieval-first, generation-second, refuse-when-unsure. I separate <em>retrieval quality</em> from <em>generation faithfulness</em> and measure them independently — RAGAS-style faithfulness plus an LLM judge I've calibrated against humans. The winning behavior is refusal over fabrication." (§2b)</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>Product search ranking / relevance</strong> at eBay scale</td>
+<td>[RISK]</td>
+<td>"Retrieve-then-rank over 2B listings. I spend my time on the two parts that decide quality: how I <em>train</em> the two-tower retriever (sampling bias is the whole game) and how I make the ranker multi-task and <em>calibrated</em>, then prove a win offline → interleaving → A/B." (Full: <strong>Flagship</strong> doc.)</td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>LLM-as-judge / evaluation harness</strong> at scale (ranking labels, listing quality, MT)</td>
+<td>[EDGE]</td>
+<td>"The judge is a model, so I treat it as a system to validate: calibrate against a human gold set (spot-check 2–5%), correct position/verbosity/self-enhancement bias, and gate any judge below ~80% human agreement out of the training-signal path. Dynamic held-out sets to fight contamination."</td>
+</tr>
+<tr>
+<td>5</td>
+<td><strong>Continued-pretraining / domain adaptation</strong> (e-Llama-style: make a base LLM e-commerce-native)</td>
+<td>[CORE]</td>
+<td>"Data curation is 80% of the work — dedup, quality filter, PII scrub — then a 50/50 domain/general mix at <strong>10% of original LR</strong> to avoid catastrophic forgetting. I build the eval harness <em>before</em> burning GPU-hours." (§2h)</td>
+</tr>
+<tr>
+<td>6</td>
+<td><strong>Magical Listing</strong> — photo(s) → full structured listing (VLM + KG + agentic)</td>
+<td>[CORE]</td>
+<td>"Separate perception (VLM: what is this?) from structured validation (KG: what are legal attribute values for this category?), glued by an agent orchestrator with per-step fallback so the seller always gets a partial-useful result." (§2g)</td>
+</tr>
+<tr>
+<td>7</td>
+<td><strong>Machine translation for cross-border listings</strong> at billions/year</td>
+<td>[CORE]</td>
+<td>"Two paths: zero-shot in-house model for high-resource pairs, RAG / translation-memory for low-resource pairs. A real-time path for buyer-visible text and a throughput-optimized batch path for indexing." (§2f)</td>
+</tr>
+<tr>
+<td>8</td>
+<td><strong>Query understanding / semantic search</strong> (lang-ID → spell → intent → NER → embedding)</td>
+<td>[CORE]</td>
+<td>"A cheap shared layer that runs before retrieval and feeds every downstream consumer. Because retrieval, ranking, ads and MT all read its output, latency (&lt;20 ms) and cross-consumer consistency are the hard constraints — not model accuracy." (§2d)</td>
+</tr>
+<tr>
+<td>9</td>
+<td><strong>Personalized recommendation / homepage feed</strong></td>
+<td>[RISK]</td>
+<td>"Same retrieve-then-rank spine as search, but the query is the <em>user</em>. Candidate gen from a sequential user tower + item-to-item co-engagement; multi-task ranker (click/cart/purchase) with a diversity/exploration budget so the feedback loop doesn't collapse." (Recs forks live in the <strong>Flagship</strong> doc.)</td>
+</tr>
+<tr>
+<td>10</td>
+<td><strong>Real-time fraud / anomaly / trust &amp; safety</strong> for transactions or listings</td>
+<td>[RISK]</td>
+<td>"Streaming, sub-100 ms, extreme imbalance, adversarial and drifting. Cost-sensitive fast model on point-in-time streaming features + a rules/allow-deny layer + human-in-the-loop for the gray zone. Metric is <strong>precision@review-capacity</strong>, not accuracy." (§2c)</td>
+</tr>
+<tr>
+<td>11</td>
+<td><strong>Sponsored / ads ranking</strong> with auction + budget pacing</td>
+<td>[CORE]</td>
+<td>"Two coupled systems: a <em>calibrated</em> pCTR·pCVR model (calibration matters because the score sets a price, not just a sort order) and an auction + pacing layer. eCPM ranking, budget pacing as control theory, and a relevance floor via LLM-judge." (§2e)</td>
+</tr>
+<tr>
+<td>12</td>
+<td><strong>Generative recommender / semantic-ID system</strong> (OneRec/TIGER — unify retrieve + rank)</td>
+<td>[EDGE, frontier]</td>
+<td>"Where recsys meets foundation models — my lane. Tokenize items into semantic IDs (RQ-VAE over content embeddings), then an encoder-decoder generates the next-item ID, collapsing retrieval and ranking into one model. Honest tradeoffs: it's a serving-latency and cold-start bet, not a free lunch." (Frontier detail in the <strong>Flagship</strong> doc.)</td>
+</tr>
+<tr>
+<td>13</td>
+<td><strong>Delivery-time / ETA prediction</strong> (or demand forecasting) — the likely <strong>outside-domain</strong> prompt</td>
+<td>[RISK]</td>
+<td>"This is <em>regression / forecasting</em>, not retrieve-then-rank — I'd say that out loud and switch shapes. Predict a <strong>P90 delivery promise</strong> with quantile/pinball loss (late ≫ early), backtest with <strong>rolling-origin CV</strong>, and calibrate by <strong>interval coverage</strong>, not ECE. North-star is on-time-rate vs. the promised date." (§2j)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Honorable mentions</strong> (frame in one line): agentic shopping assistant with tool use + guardrails; a 3T-token data-curation/dedup pipeline; visual "Shop the Look" similarity search; a GPU-fleet cost-optimization design; an online/near-real-time re-ranking pipeline (ingestion → retrain trigger → shadow).</p>
+<blockquote class="warn">
+<p><strong>Trap:</strong> never open with architecture. Open with the business metric and the guardrail bundle, <em>then</em> the spine. The #1 silent way to fail this round is "thinking like a researcher, not a production engineer."</p>
+</blockquote>
+<hr />
+<h2 id="2-fuller-skeletons-frame-components-tricky-bits-metrics">2. Fuller skeletons (frame → components → tricky bits → metrics)</h2>
+<p>Each skeleton is enough to draw the boxes and survive one probe per tricky bit. Shared method (latency budget, two-stage retrieval, hybrid BM25+dense, the honest-ops pivot) lives in the <strong>ML System Design Framework</strong>, <strong>Flagship</strong>, <strong>Scaling Playbook</strong>, and <strong>MLOps Honest-Gap Script</strong> — I reference, not repeat.</p>
+<h3 id="2a-llm-serving-routing-gateway-under-a-cost-ceiling-edge-my-strongest-design">2a. LLM serving + routing gateway under a cost ceiling  <em>[EDGE — my strongest design]</em></h3>
+<p><strong>Frame.</strong> One shared GenAI platform behind many features (Magical Listing, MT, relevance scoring, agentic flows) that have <em>different</em> latency and cost SLAs. The design goal is not "serve an LLM" — it's <strong>maximize quality per dollar under a hard cost ceiling</strong>, which means routing cheap-model-first and controlling the escalation tail.</p>
+<p><strong>Key components.</strong></p>
+<ul>
+<li><strong>Router</strong> — classify each request by complexity/skill → model tier (small in-house → mid → frontier). Upfront routing for latency; optional cascade fallback for safety. This is exactly my MERA/LLM-Router work — details of architecture + training signal in <strong>Own-Papers Ground Truth</strong>.</li>
+<li><strong>Shared vLLM fleet</strong> — continuous batching + PagedAttention for throughput; quantized weights (FP8 default on Hopper); prefill/decode disaggregation if TTFT and inter-token latency need independent tuning.</li>
+<li><strong>Two caches.</strong> <em>Semantic cache</em> (embed the request, return a prior answer on high similarity — near-zero quality hit for repeated intents) and <em>prefix/KV cache</em> (reuse shared system-prompt prefixes across calls).</li>
+<li><strong>Model pool</strong> = eBay's zoo: LiLiuM (1B/7B/13B, ~34% faster generation from the custom tokenizer) for the cheap tiers, e-Llama (8B/70B) for harder e-commerce tasks, a frontier API only for the genuine tail. (Attribute LiLiuM/e-Llama as <strong>eBay's published work</strong>, not mine — see <strong>eBay AI Dossier</strong>.)</li>
+<li><strong>Escape/escalation-rate instrumentation from day one</strong> — the single metric that tells you whether the router is safe. Log every escalation and every low-confidence route.</li>
+</ul>
+<p><strong>Tricky bits.</strong></p>
+<ol>
+<li><strong>Controlling the tail, not the average.</strong> &gt;90% of mixed-difficulty queries go to a smaller model at iso-quality; the whole risk lives in the ~5–10% that must escalate. Instrument the escape rate, alarm on it, and keep the cascade as a fallback so a mis-route degrades cost, not quality.</li>
+<li><strong>The router is a model that drifts.</strong> Monitor the <em>decision distribution</em> (share of traffic per tier) as a first-class drift signal — a silent shift means either input drift or a router regression. Retrain cadence + shadow-eval before promoting a new router.</li>
+<li><strong>Calibration of the routing score.</strong> A confidence threshold that sets the tier must mean what it says; recalibrate on a schedule.</li>
+</ol>
+<p><strong>Metrics.</strong> Cost per query at <strong>iso-quality</strong> (north-star); escape/escalation rate; per-tier quality (LLM-judge + human spot-check); TTFT / TPOT / p99; KV-cache utilization and <strong>goodput</strong> (not raw throughput); cache hit-rate. Quantify the win with the verified numbers: <strong>&gt;90% cost reduction at iso-quality</strong> (LLM Router), <strong>87.3% router-decision accuracy at 51.8% serving cost</strong> (MERA — <em>router-decision</em> accuracy, never "task accuracy"), <strong>53%</strong> on TwinRouterBench (trained router vs. unrouted Opus, matched resolve, dynamic track).</p>
+<blockquote class="warn">
+<p>⚠ <strong>[CONFIRM TONY]:</strong> whether MERA is strictly upfront-routing or a hybrid with a cascade fallback, and the exact model pool used — keep these precise, they've caused a fix pass before.</p>
+</blockquote>
+<h3 id="2b-rag-product-qa-shopping-assistant-edge">2b. RAG product-Q&amp;A / shopping assistant  <em>[EDGE]</em></h3>
+<p><strong>Frame.</strong> Answer buyer/seller questions grounded in catalog + item specifics + reviews + policies. Two <strong>independently measured</strong> qualities: <em>retrieval</em> (did we fetch the right context?) and <em>faithfulness</em> (did we answer only from it, and refuse when we can't?). A plausible wrong answer about a real transaction is worse than no answer.</p>
+<p><strong>Key components.</strong></p>
+<ul>
+<li>Query → <strong>query understanding</strong> (reuse §2d) → <strong>hybrid retrieval</strong>: dense over product/review chunks + BM25 for exact SKUs/specs + <strong>KG lookup</strong> for structured attributes → rerank top-k.</li>
+<li><strong>Generator</strong> = cost-routed in-house LLM (§2a) with a strict "answer from context or say <em>I don't know</em>" system prompt.</li>
+<li><strong>Structured, attributed output</strong> — answer with citations back to the source listing/review, so it's auditable.</li>
+<li><strong>Eval harness</strong> = a rolling human-checked gold set + a calibrated LLM judge (this <em>is</em> part of the system, not an afterthought).</li>
+</ul>
+<p><strong>Tricky bits.</strong></p>
+<ol>
+<li><strong>Faithfulness / hallucination.</strong> Evaluate with RAGAS-style reference-free faithfulness + a calibrated judge; enforce <strong>refusal over fabrication</strong>. Separating this from retrieval recall is what lets you debug "wrong answer" = "wrong context" vs. "unfaithful generation".</li>
+<li><strong>Freshness.</strong> Prices and stock change; retrieval must hit <strong>live structured fields at query time</strong>, not a stale vector snapshot — otherwise you confidently quote last week's price.</li>
+<li><strong>Grounding vs. helpfulness tension.</strong> Too strict → refuses useful questions; too loose → fabricates. Tune the refusal threshold as a product decision and monitor the refusal rate.</li>
+<li><strong>Structured-vs-unstructured retrieval arbitration.</strong> Classify the query type first: a structured-fact question ("what's the screen size / is it waterproof?") routes to the <strong>product knowledge graph</strong>, not the passage retriever, which only fuzzily matches prose; open-ended questions go to passages. When KG and passage retrieval conflict on a fact, resolve with the <strong>KG as authority</strong> (structured attributes are curated ground truth; review/description text is noisy).</li>
+</ol>
+<p><strong>Metrics.</strong> Retrieval: recall@k / MRR over catalog+reviews+KG. Generation: faithfulness score, refusal-correctness (refuses when it should, answers when it can), citation accuracy. System: judge–human agreement (gate &lt;~80%), end-to-end answer helpfulness, latency, cost per answer (routed).</p>
+<h3 id="2c-fraud-anomaly-trust-safety-risk-own-the-ops-gap-honestly">2c. Fraud / anomaly / trust &amp; safety  <em>[RISK — own the ops gap honestly]</em></h3>
+<p><strong>Frame.</strong> A streaming binary/three-way decision under a <strong>sub-100 ms</strong> budget, with <strong>extreme class imbalance</strong> (fraud &lt;&lt;1%), adversarial and non-stationary. Optimize <strong>precision@review-capacity</strong> and <strong>recall on high-loss events</strong> — never raw accuracy (a 99.9%-accurate "always allow" model is useless). Cost-sensitive: a missed fraud costs ~100× a false alarm.</p>
+<p><strong>Key components.</strong></p>
+<ul>
+<li>Event stream (Kafka) → <strong>point-in-time-correct streaming features</strong>: velocity ("# transactions this account, last 5 min"), graph features (shared device/IP/payment instrument across accounts).</li>
+<li><strong>Fast model</strong> — GBDT / isolation-forest baseline; LSTM or transformer autoencoder for sequence anomaly.</li>
+<li><strong>Rules / allow-deny layer</strong> for known patterns — cheap, auditable, instant to ship, and it catches the obvious while the model handles the gray zone.</li>
+<li><strong>Three-way decision:</strong> allow / block / <strong>route to human review</strong> for the uncertain band.</li>
+<li><strong>Delayed labels</strong> — ground truth (chargebacks) arrives days-to-weeks later.</li>
+</ul>
+<p><strong>Tricky bits.</strong></p>
+<ol>
+<li><strong>Label delay.</strong> You learn truth weeks later → use proxy labels + delayed-feedback correction, and monitor input/prediction drift <em>now</em> rather than waiting for labels (the proxy ladder from the <strong>MLOps Honest-Gap Script</strong>).</li>
+<li><strong>Adversarial drift.</strong> Attackers adapt within days → drift monitoring (PSI/KS on inputs, decision-mix on outputs) + fast retrain is core infrastructure, not a nice-to-have.</li>
+<li><strong>Graph structure.</strong> Fraud rings share entities → account-linkage / GNN features beat per-transaction features.</li>
+</ol>
+<p><strong>Metrics.</strong> Precision@review-capacity, recall on high-$ loss, dollar-weighted loss caught, review-queue volume (ops cost), decision latency p99, drift alarms. My anomaly/compression instincts transfer here — but I'd own the "I haven't personally run live payment on-call" gap using the <strong>MLOps Honest-Gap Script</strong>, not bluff it.</p>
+<h3 id="2d-query-understanding-semantic-search-core">2d. Query understanding / semantic search  <em>[CORE]</em></h3>
+<p><strong>Frame.</strong> A cheap <strong>shared pre-retrieval layer</strong> whose outputs every downstream stage consumes (retrieval, ranking, ads, MT). Because it's shared, the hard constraints are <strong>latency (&lt;20 ms)</strong> and <strong>cross-consumer consistency</strong> — a change here silently moves ranking <em>and</em> ads revenue — not raw model accuracy.</p>
+<p><strong>Key components</strong> (a pipeline of small models):</p>
+<ul>
+<li><strong>Language ID</strong> (fastText) → <strong>spell/normalization</strong> (edit-distance + LM prior) → <strong>intent &amp; category classification</strong> (soft taxonomy distribution) → <strong>NER / attribute tagging</strong> (brand, model, size, color, condition → structured filter constraints) → <strong>query embedding</strong> (eBERT/LiLiuM encoder) → optional <strong>query rewriting/expansion</strong> (increasingly an LLM, run <strong>async/cached, never on the hot path</strong>).</li>
+</ul>
+<p><strong>Tricky bits.</strong></p>
+<ol>
+<li><strong>It's shared infra</strong> — version it and monitor <strong>per-consumer</strong>, because one change ripples into every downstream system at once.</li>
+<li><strong>Head vs. tail queries</strong> — traffic is Zipfian, so <strong>cache/precompute the head</strong> and spend model budget on the tail.</li>
+<li><strong>Multilingual</strong> — 7 markets → per-locale tagging/normalization; this is where eBay's custom tokenizer + MT plug in.</li>
+</ol>
+<p><strong>Metrics.</strong> Per-stage: spell-correction accuracy, intent/category F1, NER F1. System: p50/p99 latency, cache hit-rate, and — the one that matters — <strong>downstream lift</strong> (does better QU raise retrieval recall / GMV per session?). Consistency: version-diff monitoring per consumer.</p>
+<h3 id="2e-ads-sponsored-ranking-core">2e. Ads / sponsored ranking  <em>[CORE]</em></h3>
+<p><strong>Frame.</strong> Two coupled systems — a <strong>calibrated</strong> response model and an <strong>auction + pacing</strong> layer. Calibration is load-bearing here (unlike organic sort) because the predicted probability sets a <strong>price</strong> and a <strong>spend</strong>, not just an order.</p>
+<p><strong>Key components.</strong></p>
+<ul>
+<li>Candidate ads → <strong>multi-task pCTR·pCVR model</strong> (MMoE/PLE, shared with organic ranking method) → <strong>eCPM = bid × pCTR</strong> (or pCVR) ranking → <strong>auction</strong> (generalized second-price / VCG-style) → <strong>budget pacing</strong> (throttle each advertiser so daily spend is smooth, not front-loaded) → <strong>relevance floor</strong> (don't show irrelevant high-bid ads) → blended with organic under a whole-page objective.</li>
+</ul>
+<p><strong>Tricky bits.</strong></p>
+<ol>
+<li><strong>Calibration = revenue.</strong> A miscalibrated pCTR mis-prices the entire auction, so <strong>ECE is a revenue metric here</strong>, monitored per segment and recalibrated on a schedule (Platt/isotonic).</li>
+<li><strong>Pacing is control theory, not ML.</strong> PID-style controllers smooth spend across the day — name it explicitly; it's a common gap.</li>
+<li><strong>Multi-sided objective.</strong> Buyer relevance vs. advertiser ROI vs. eBay revenue, tuned jointly; a <strong>relevance floor via LLM-judge</strong> keeps the buyer experience honest. eBay Ads publishes here (keyphrase-relevance LLM-judge, LLMDistill4Ads) — ground it there.</li>
+</ol>
+<p><strong>Metrics.</strong> Revenue/RPM, eCPM, calibration (ECE), advertiser ROAS + budget-delivery smoothness, relevance floor pass-rate, and buyer guardrails (organic CTR/GMV not cannibalized).</p>
+<h3 id="2f-machine-translation-for-listings-core">2f. Machine translation for listings  <em>[CORE]</em></h3>
+<p><strong>Frame.</strong> Translate billions of listing texts/year across 7 markets. Split by <strong>resource level</strong> and by <strong>path</strong>: high-resource pairs get zero-shot in-house MT; low-resource pairs get RAG / translation-memory grounding. And <strong>real-time</strong> (buyer-visible text, tight latency) vs. <strong>batch</strong> (bulk indexing, throughput-optimized) are two different serving profiles.</p>
+<p><strong>Key components.</strong></p>
+<ul>
+<li><strong>High-resource pairs:</strong> zero-shot in-house model (LiLiuM/e-Llama) — fast, good enough, cheap.</li>
+<li><strong>Low-resource pairs:</strong> <strong>RAG / translation-memory</strong> — BM25 over the bilingual catalog retrieves prior human/verified translations of similar listings, injected as context to steer terminology.</li>
+<li><strong>Two serving paths:</strong> real-time (buyer clicks a foreign listing → &lt;~2 s) vs. batch (index-time bulk translation → optimize throughput/cost).</li>
+<li><strong>Domain glossary / terminology enforcement</strong> — brand names, sizes, category terms must not be "translated" wrongly.</li>
+</ul>
+<p><strong>Tricky bits.</strong></p>
+<ol>
+<li><strong>Terminology fidelity</strong> — e-commerce entities (brand, model, size) must survive translation; translation-memory + glossary constraints handle this better than raw MT.</li>
+<li><strong>Real-time vs. batch tradeoff</strong> — same model, different optimization (latency vs. throughput); route by path.</li>
+<li><strong>Quality estimation without references</strong> — you rarely have gold translations at scale, so use a reference-free QE model / LLM-judge to flag low-confidence outputs for review.</li>
+</ol>
+<p><strong>Metrics.</strong> COMET/BLEU where references exist; reference-free QE score; terminology-accuracy on entities; real-time latency p99 vs. batch throughput/cost; buyer engagement on translated listings. eBay publishes on RAG-MT — cite it (<strong>eBay AI Dossier</strong>).</p>
+<h3 id="2g-magical-listing-photo-listing-core">2g. Magical Listing (photo → listing)  <em>[CORE]</em></h3>
+<p><strong>Frame.</strong> Seller uploads photo(s) → system produces a full structured listing (title, category, attributes, description, price hint). The design principle: <strong>separate perception from validation</strong>, and orchestrate with per-step fallback so the seller always gets a partial-useful draft even when a step fails.</p>
+<p><strong>Key components.</strong></p>
+<ul>
+<li><strong>VLM perception</strong> — "what is this?" → category guess, visible attributes, a draft title/description. (eBay's VLM work: a fine-tuned <strong>Gemma3-4B reaches F1 50.5, beating zero-shot Gemma3-27B at 44.8, ~3.8× faster</strong> — cite as eBay's published work.)</li>
+<li><strong>Product knowledge-graph structured validation</strong> — "what are the <em>legal</em> attribute values for this category?" The KG constrains and corrects the VLM's free-text into a valid, filterable listing (enum snapping, required-attribute completion).</li>
+<li><strong>Agentic orchestrator</strong> — sequences perception → KG validation → title/description generation → price suggestion, with <strong>per-step fallback</strong> (if the VLM is unsure of category, fall back to asking the seller one question rather than failing the whole flow).</li>
+</ul>
+<p><strong>Tricky bits.</strong></p>
+<ol>
+<li><strong>Perception vs. validation separation</strong> — the VLM hallucinates attributes; the KG is the source of truth for what's <em>legal</em> in a category. Don't let the VLM write directly to the listing.</li>
+<li><strong>Per-step fallback / graceful degradation</strong> — a partial listing the seller edits beats a blocked flow; every agent step needs a fallback.</li>
+<li><strong>Structured-output reliability</strong> — force the model to emit schema-valid attributes (constrained decoding / validation-and-repair loop against the KG).</li>
+</ol>
+<p><strong>Metrics.</strong> Attribute-extraction F1 (vs. KG-valid ground truth), category accuracy, listing completion rate, seller edit-rate (how much they had to fix — lower is better), time-to-list, and downstream: do generated listings convert as well as hand-written ones?</p>
+<h3 id="2h-continued-pretraining-domain-adaptation-e-llama-style-core-versleyebays-turf">2h. Continued-pretraining / domain adaptation (e-Llama-style)  <em>[CORE — Versley/eBay's turf]</em></h3>
+<p><strong>Frame.</strong> Take a strong base LLM (Llama-3.1 8B/70B) and make it e-commerce-native via continued pretraining on domain tokens <strong>without catastrophic forgetting</strong> of general ability. The unglamorous truth: <strong>data curation is 80% of the work</strong>, and the eval harness must exist <em>before</em> you spend a single GPU-hour.</p>
+<p><strong>Key components.</strong></p>
+<ul>
+<li><strong>Data pipeline (the 80%):</strong> collect e-commerce corpus → <strong>dedup</strong> (MinHash/LSH; at 1T+ tokens, 1% dup = 10B wasted tokens) → <strong>quality filter</strong> → <strong>PII scrub</strong> → <strong>contamination audit</strong> against the eval sets.</li>
+<li><strong>Training recipe:</strong> <strong>50/50 domain/general mix</strong> (the general half is the anti-forgetting anchor) at <strong>LR = 10% of the original</strong> — both ablated by eBay. e-Llama = continued pretraining of Llama-3.1 <strong>8B &amp; 70B on 1T e-commerce tokens</strong> (attribute as eBay's published work).</li>
+<li><strong>Eval harness built FIRST:</strong> internal e-commerce NLU tasks + general-capability regression checks + contamination detection. You cannot tell if adaptation worked without it.</li>
+</ul>
+<p><strong>Tricky bits.</strong></p>
+<ol>
+<li><strong>Catastrophic forgetting</strong> — the whole reason for the 50/50 mix and the low LR; measure it with a general-capability regression suite, not just domain gains.</li>
+<li><strong>Data curation dominates outcome</strong> — dedup + quality filtering move the needle more than architecture; PII/contamination are correctness <em>and</em> compliance issues.</li>
+<li><strong>Eval-first discipline</strong> — build the measuring stick before training, or you're flying blind on a very expensive run (this is also a strong PM story — see the project walkthrough).</li>
+</ol>
+<p><strong>Metrics.</strong> Domain NLU lift (e-commerce task suite) <strong>vs.</strong> general-capability regression (must stay flat), training loss/perplexity on held-out domain + general, MFU during the run (40–47% good on H100), contamination-audit clean. Tie the payoff to serving: a well-adapted 8B beats a zero-shot larger model at a fraction of the cost — the small-beats-big economics that run through the whole <strong>eBay AI Dossier</strong>.</p>
+<h3 id="2i-online-near-real-time-re-ranking-core">2i. Online / near-real-time re-ranking  <em>[CORE]</em></h3>
+<p><strong>Frame.</strong> The base ranker (trained offline, see <strong>Flagship</strong>) is stale the moment it ships: fresh inventory, flash demand, price changes, and same-session intent aren't in it. This skeleton is the <strong>freshness layer</strong> on top of the flagship spine — it keeps the <em>retrieval + two-tower + multi-task ranker</em> from the Flagship doc and adds the machinery to react in minutes-to-seconds, not the daily/weekly training cadence.</p>
+<p><strong>Key components.</strong></p>
+<ul>
+<li><strong>Streaming ingestion</strong> — Kafka/Flink over the click/cart/purchase/impression stream, producing <strong>point-in-time-correct</strong> engagement counters (leak-free, same discipline as the fraud features in §2c).</li>
+<li><strong>Online / near-line feature updates</strong> — a feature store with two write paths: <strong>near-line</strong> (materialized every few minutes: item CTR, trending velocity, in-stock/price) and <strong>online</strong> (per-request session context: what this user just clicked). Reuse the query-understanding output (§2d) rather than recomputing.</li>
+<li><strong>Re-ranking layer</strong> — a light model on top of base ranker scores that folds in the fresh signals (real-time popularity, session sequence, business boosts/de-boosts). Cheap enough to run on the top-k the base ranker already returned.</li>
+<li><strong>Retrain-trigger policy</strong> — don't retrain on a fixed clock; trigger on <strong>drift + staleness signals</strong>: PSI/KS on feature inputs, decision-mix shift on outputs, and a freshness SLA (e.g. new-listing exposure lag). A trigger fires a shadow run, not a direct push.</li>
+<li><strong>Shadow → canary → ramp</strong> — new re-ranker runs in <strong>shadow</strong> (scores logged, not served) to compare against live, then <strong>canary</strong> on a small traffic slice with automated guardrail checks, then gradual ramp. Auto-rollback on guardrail breach.</li>
+</ul>
+<p><strong>Tricky bits.</strong></p>
+<ol>
+<li><strong>Point-in-time correctness / no leakage.</strong> Online features are the easiest place to leak future info into training labels; the streaming pipeline must stamp features as-of request time, or offline eval lies.</li>
+<li><strong>Feedback-loop collapse.</strong> Real-time popularity signals are self-reinforcing (rich-get-richer) → keep an exploration budget and de-bias so the loop doesn't starve fresh inventory.</li>
+<li><strong>Latency budget.</strong> The re-rank step spends from the <em>same</em> end-to-end budget as retrieval + base ranking, so it gets a tight slice (single-digit ms on top-k only); a slow feature lookup silently blows the p99. Degrade gracefully to base-ranker order if the online store times out.</li>
+</ol>
+<p><strong>Metrics.</strong> Freshness/coverage (new-listing exposure lag, % catalog served), online-vs-offline score agreement (leakage canary), engagement lift on the canary (CTR/CVR/GMV per session) vs. guardrails not cannibalized, feature-pipeline freshness SLA + p99, retrain-trigger precision (did fires correspond to real drift?), re-rank step latency p99.</p>
+<h3 id="2j-delivery-time-eta-prediction-demand-forecasting-risk-the-outside-domain-curveball">2j. Delivery-time / ETA prediction (+ demand forecasting)  <em>[RISK — the outside-domain curveball]</em></h3>
+<p><strong>Frame.</strong> A <strong>continuous-target regression / forecasting</strong> problem — <em>not</em> retrieve-then-rank, and that's exactly the point. The recruiter flagged the design round may sit outside your core domain, and "estimate the delivery date for this listing" (a real buyer-facing eBay surface) or "forecast demand for inventory/pricing" is the canonical outside-domain e-commerce prompt. The candidate-gen → rank spine <strong>does not apply</strong> here; say that out loud and switch shapes. North-star is <strong>on-time rate against the promised date</strong> (plus MAPE / weighted-quantile loss on the estimate) — never NDCG or GMV/session.</p>
+<p><strong>Key components.</strong></p>
+<ul>
+<li><strong>Target &amp; horizon</strong> — predict the <em>distribution</em> of delivery time (origin → destination), or forecast demand per item/category over a horizon. Frame the ETA as a <strong>quantile you promise</strong>, not a point estimate.</li>
+<li><strong>Features (point-in-time correct)</strong> — carrier + service level, origin/destination zones, historical lane transit times, per-seller handling time, day-of-week / holiday / peak-season calendars, weather/disruption signals. Reuse the <strong>feature-store + as-of-request-time discipline</strong> from §2c/§2i — leakage is just as fatal here as in ranking.</li>
+<li><strong>Model</strong> — gradient-boosted trees are the strong tabular baseline; add a <strong>quantile-regression head</strong> for the promise. For demand, a <strong>global</strong> forecasting model (one model over all series with covariates) beats per-series ARIMA at catalog scale.</li>
+</ul>
+<p><strong>Tricky bits.</strong></p>
+<ol>
+<li><strong>Quantile / pinball loss + asymmetric cost.</strong> A delivery <em>promise</em> is a <strong>P90, not a mean</strong> — being <strong>late costs far more than being early</strong> (a broken promise hurts trust and triggers claims), so you optimize the <strong>pinball loss at τ≈0.9</strong>, which penalizes under-prediction asymmetrically. Naming this is the single highest-signal move in the room.</li>
+<li><strong>Backtesting, not a random split.</strong> Evaluate with <strong>rolling-origin / time-series cross-validation</strong> (train on the past, test on the future, roll the origin forward) — a random train/test split leaks the future into the past and lies. This is the forecasting analogue of point-in-time correctness.</li>
+<li><strong>Interval calibration, not classifier ECE.</strong> The right calibration metric is <strong>prediction-interval coverage</strong> — does your P10–P90 band actually contain the outcome ~80% of the time? — distinct from the classification ECE used everywhere else in this bank.</li>
+<li><strong>Hierarchical reconciliation (demand variant).</strong> Forecasts at item / category / region levels must be mutually consistent (they should sum); reconcile them (e.g. MinT) so the item forecasts agree with the category total the business actually plans against.</li>
+</ol>
+<p><strong>Metrics.</strong> On-time rate vs. promised date (north-star), pinball loss at the promised quantile, MAPE / WAPE on the point estimate, prediction-interval coverage (calibration), and the business tie-in: promise-breakage rate, conversion lift from tighter/earlier promises. For demand: revenue-weighted forecast accuracy, stock-out / over-stock cost.</p>
+<blockquote>
+<p><strong>The unfamiliar-domain move (say this when the prompt is truly outside your lane).</strong> "I'll state the invariant spine — objective + guardrails, features with point-in-time correctness, a simple strong baseline, an offline metric that matches the business cost, then shadow → canary → ramp — and I'll flag the domain-specific piece (here, the carrier/logistics physics) as the part I'd validate with a domain expert before trusting it." That's the design-round analogue of the <strong>MLOps Honest-Gap Script</strong>: a credible non-bluffing spine plus an explicit "here's what I'd confirm" reads as senior judgment, not a gap.</p>
+</blockquote>
+<hr />
+<h2 id="3-how-to-use-this-bank">3. How to use this bank</h2>
+<ul>
+<li><strong>Before the round:</strong> pick the 4–5 prompts you're weakest on from §1 and rehearse the opener until it's automatic. Skim the matching §2 skeleton so you can expand any node on probing.</li>
+<li><strong>In the room:</strong> open with the metric bundle, draw the spine, then say "let me go deep on X" and pick the tricky bit <em>you</em> want to defend. You control the depth.</li>
+<li><strong>When they say "now 10× it":</strong> switch to the <strong>Scaling Playbook</strong> 6-axis walk (data → model → training → serving → cost → org), ending each on "what breaks first + the cheapest lever."</li>
+<li><strong>When ops comes up:</strong> use the <strong>MLOps Honest-Gap Script</strong> verbatim — own the live-canary/drift gap in one clause, pivot to efficiency. Don't overstate.</li>
+</ul>
+<blockquote class="warn">
+<p><strong>Trap:</strong> don't quote a wrong own-paper number. <strong>&gt;90%</strong> cost reduction at iso-quality; <strong>87.3% router-decision</strong> accuracy (never "task accuracy") at <strong>51.8%</strong> serving cost; <strong>53%</strong> TwinRouterBench (specific matched-resolve dynamic-track figure); Diffusion Weights <strong>~3.2×</strong>. When in doubt, defer to <strong>Own-Papers Ground Truth</strong>.</p>
+</blockquote>
+      <nav class="prevnext"><a class="pn prev" href="s2_21_recsys_search_design.html">‹ <span>Flagship: Search Ranking &amp; Recs</span></a><a class="pn next" href="s2_23_scaling_playbook.html"><span>The Scaling Playbook</span> ›</a></nav>
+    </article>
+    <aside class="toc"><div class="toc-title">On this page</div><ul>
+<li><a href="#1-ranked-probable-prompts-with-a-30-second-opener">1. Ranked probable prompts (with a 30-second opener)</a></li>
+<li><a href="#2-fuller-skeletons-frame-components-tricky-bits-metrics">2. Fuller skeletons (frame → components → tricky bits → metrics)</a></li>
+<li><a href="#3-how-to-use-this-bank">3. How to use this bank</a></li>
+</ul></aside>
+  </main>
+</div>
+<script>window.SEARCH_JSON="../assets/../search-index.json";</script>
+<script src="../assets/search-data.js"></script>
+<script src="../assets/app.js"></script>
+</body>
+</html>

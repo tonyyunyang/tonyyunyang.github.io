@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Scaling Playbook · eBay Stage-2 Prep</title>
+<meta name="robots" content="noindex,nofollow">
+<script>try{if(localStorage.getItem('ebay-s2-theme')==='dark')document.documentElement.classList.add('dark');}catch(e){}</script>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body data-track="design" data-pagefind-ignore="all">
+<button id="menu" class="menu-btn" aria-label="Menu">☰</button>
+<button id="theme" class="theme-btn" aria-label="Toggle theme">◐</button>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+<div class="brand"><a href="../index.html"><span class="brand-mark">e</span><span class="brand-txt">Stage&nbsp;2 Prep<em>eBay · three interviews</em></span></a></div>
+<div class="search"><input id="q" type="search" placeholder="Search…" autocomplete="off"><div id="results"></div></div>
+<nav class="nav">
+<div class="nav-group" data-track="start"><div class="nav-group-title"><span class="dot"></span>Start Here</div><ul>
+<li><a href="s2_00_email_and_logistics.html">Email &amp; Logistics</a></li>
+<li><a href="s2_01_overview_and_plan.html">Overview &amp; Study Plan</a></li>
+<li><a href="s2_44_confirm_tony.html">★ Fill These Before the Room</a></li>
+</ul></div>
+<div class="nav-group" data-track="code"><div class="nav-group-title"><span class="dot"></span>1 · Live Coding &amp; Engineering</div><ul>
+<li><a href="s2_10_live_coding_playbook.html">Live-Coding Playbook</a></li>
+<li><a href="s2_11_ml_from_scratch.html">ML From Scratch (Python)</a></li>
+<li><a href="s2_12_practice_regimen.html">Unaided Practice Regimen</a></li>
+<li><a href="s2_13_engineering_qa.html">Engineering Q&amp;A — Build &amp; Train</a></li>
+<li><a href="s2_14_serving_qa.html">Engineering Q&amp;A — Serve &amp; Monitor</a></li>
+<li><a href="s2_15_mlops_honest_gap.html">The Honest MLOps-Gap Script</a></li>
+</ul></div>
+<div class="nav-group" data-track="design"><div class="nav-group-title"><span class="dot"></span>2 · ML System Design</div><ul>
+<li><a href="s2_20_design_framework.html">Design Framework &amp; How to Drive</a></li>
+<li><a href="s2_21_recsys_search_design.html">Flagship: Search Ranking &amp; Recs</a></li>
+<li><a href="s2_22_design_skeletons.html">Design Skeletons Bank</a></li>
+<li class="active"><a href="s2_23_scaling_playbook.html">The Scaling Playbook</a></li>
+</ul></div>
+<div class="nav-group" data-track="pm"><div class="nav-group-title"><span class="dot"></span>3 · Project Mgmt &amp; Retrospective</div><ul>
+<li><a href="s2_30_project_walkthrough.html">Walkthrough: Routing at Scale</a></li>
+<li><a href="s2_31_star_stories.html">STAR Stories — The Four Prompts</a></li>
+<li><a href="s2_32_behavioral_bank.html">Behavioral &amp; Competency Bank</a></li>
+</ul></div>
+<div class="nav-group" data-track="ebay"><div class="nav-group-title"><span class="dot"></span>eBay &amp; Closing</div><ul>
+<li><a href="s2_40_ebay_context.html">eBay Context (Stage-2 lens)</a></li>
+<li><a href="s2_41_own_papers_numbers.html">Own-Paper Numbers (say them cold)</a></li>
+<li><a href="s2_42_questions_to_ask.html">Questions to Ask</a></li>
+<li><a href="s2_43_final_hours.html">Final-Hours Cheatsheet</a></li>
+</ul></div>
+</nav>
+  </aside>
+  <div class="scrim" id="scrim"></div>
+  <main class="content">
+    <article class="doc">
+      <div class="doc-meta"><span class="tag t-design">Design</span><span class="read">7 min read</span></div>
+      <h1 id="the-scaling-playbook">The Scaling Playbook</h1>
+<p><em>Your reusable answer shape for any "now 10× it / how does this scale?" question. Round 1 already threw one at you, and eBay grades systems thinking. Read it until the six axes are muscle memory, then drill the worked walk out loud.</em></p>
+<h2 id="the-one-move-that-wins-the-question">The one move that wins the question</h2>
+<p>When an interviewer says <strong>"now 10× it"</strong> or <strong>"how does this scale?"</strong>, they are not asking for scaling laws (Chinchilla/MFU/inference-optimal live in the <em>ML System Design Framework</em> — reach for those only if the question is about <em>training</em> compute-optimality). They are testing whether you reason about a system under load like an operator. So don't free-associate. <strong>Walk six axes, in order, out loud</strong> — and for <strong>every</strong> axis land the same two-part punch:</p>
+<blockquote>
+<p><strong>The meta-move — end each axis on:</strong> <em>"here's what breaks </em><em>first</em><em>, and here's the </em><em>cheapest</em><em> lever that fixes it."</em></p>
+</blockquote>
+<p>That phrase is the whole grade. It shows you know where a system actually fails (not where it's flashy) and that you reach for the low-quality-cost lever before the expensive one. And because the cheapest lever is almost always <em>efficiency</em> — cache, quantize, route, shard — every scaling answer flows straight back to your thesis: <strong>the systems race, not the scaling race.</strong></p>
+<p><strong>The six axes, in order:</strong></p>
+<blockquote>
+<p><strong>DATA → MODEL → TRAINING → SERVING → COST → ORG</strong></p>
+</blockquote>
+<p>Mnemonic: you build a model from <strong>data</strong>, you <strong>train</strong> it, you <strong>serve</strong> it, you pay the <strong>cost</strong>, and someone <strong>runs</strong> it at 3am. Same order every time.</p>
+<hr />
+<h2 id="the-six-axes-at-a-glance">The six axes at a glance</h2>
+<p>Memorize this table. The last two columns are the punch you must land on each axis.</p>
+<table>
+<thead>
+<tr>
+<th>Axis</th>
+<th>Ask out loud</th>
+<th>What breaks <strong>FIRST</strong></th>
+<th><strong>Cheapest</strong> lever (least quality hit)</th>
+<th>eBay-scale magnitude</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>DATA</strong></td>
+<td>"What grows, and what goes stale?"</td>
+<td>The labeling/feedback loop + feature freshness — <strong>not</strong> storage</td>
+<td>Importance-sample rare events; <strong>tier</strong> feature freshness; dedup hard</td>
+<td>~100M searches/day → ~10¹⁰–10¹¹ log rows/yr; 3T-token corpora (1% dup = 30B wasted tokens)</td>
+</tr>
+<tr>
+<td><strong>MODEL</strong></td>
+<td>"What's the real memory/compute hog?"</td>
+<td>One GPU can't hold the <strong>embedding table</strong> (recsys) or the <strong>KV cache</strong> (LLM) long before FLOPs bite</td>
+<td>Quantize (AWQ 4-bit, &lt;0.5% quality) + GQA/MQA; <strong>shard</strong> the embedding table</td>
+<td>Recsys embeddings ≈ <strong>48% of compute / 65% of comms</strong>; 2B listing/seller/category IDs</td>
+</tr>
+<tr>
+<td><strong>TRAINING</strong></td>
+<td>"Throughput and stability at cluster scale"</td>
+<td><strong>Communication</strong> (all-reduce / embedding all-to-all) + data-loader starvation — before raw compute</td>
+<td>FSDP/ZeRO sharding + grad checkpointing; <strong>fix the data loader before buying GPUs</strong></td>
+<td>MFU 40–47% is good on H100; e-Llama 1T tokens, LiLiuM 3T tokens</td>
+</tr>
+<tr>
+<td><strong>SERVING</strong></td>
+<td>"Batch vs. real-time, and the p99 tail"</td>
+<td>The <strong>p99 tail</strong> + GPU memory — not the average</td>
+<td>Continuous batching; <strong>split</strong> real-time vs. async paths; cheap L1 → expensive L2</td>
+<td>search p99 &lt;500ms; ~1–2k QPS mean, several× at peak/holiday</td>
+</tr>
+<tr>
+<td><strong>COST</strong></td>
+<td>"The lever ladder, least-quality-impact first"</td>
+<td>Your GPU budget / <strong>cost-per-token</strong> — the bill, before quality</td>
+<td>Cache (semantic+prefix, ~0 hit) → quantize → <strong>route small-first</strong></td>
+<td>LLM Router <strong>&gt;90% cost reduction at iso-quality</strong>; VLM 4B beats zero-shot 27B at ~3.8× faster</td>
+</tr>
+<tr>
+<td><strong>ORG</strong></td>
+<td>"Who runs it at 3am, and how do we not break it?"</td>
+<td>On-call load + whatever <strong>silently drifts</strong></td>
+<td>Make it <strong>cheaper/simpler to operate</strong>; canary + versioning + drift on the <em>decision</em> mix</td>
+<td>7 markets, hard holiday drift → scheduled retrains</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<blockquote class="warn">
+<p>⚠ <strong>ORG-axis trap:</strong> the ORG axis is your known gap (large-scale production on-call, live canary, real-time drift). Do <strong>not</strong> narrate it as lived experience. Describe the machinery in the abstract and pivot to efficiency — the exact wording lives in <em>The Honest MLOps-Gap Script</em>. Say the playbook, own the one clause, move on.</p>
+</blockquote>
+<hr />
+<h2 id="the-worked-walk-to-drill-scale-routing-itself-your-edge">The worked walk to drill — scale routing <em>itself</em> (your edge)</h2>
+<p>This is the one to steer probes toward. It maps directly onto your project (cross-ref <em>Project Walkthrough: Cost-Efficient LLM Routing</em>) and eBay's real model zoo (LiLiuM 1B/7B/13B, e-Llama 8B/70B, frontier fallback).</p>
+<ul>
+<li><strong>DATA</strong> — routing decisions + per-skill outcomes. <em>Breaks first:</em> the <strong>traffic distribution drifts</strong> (new categories, seasonal spikes, new listing flows), so yesterday's routing policy silently misroutes; <em>cheapest lever:</em> log the decision mix and retrain on a cadence, don't assume stationarity.</li>
+<li><strong>MODEL</strong> — the router must be <em>tiny</em> relative to the models it routes to, or it eats its own savings. <em>Breaks first:</em> a heavy router adds latency to <em>every</em> request; <em>cheapest lever:</em> a small classifier/encoder kept <strong>sub-10ms</strong>.</li>
+<li><strong>TRAINING</strong> — learn the (query → best-model) policy per skill. <em>Cheapest lever:</em> the benchmark-first approach (TwinRouterBench) so every retrain is measured, not guessed — <strong>53%</strong> (trained router vs. unrouted Opus, matched resolve, dynamic track).</li>
+<li><strong>SERVING</strong> — the router sits on the hot path in front of the fleet. <em>Breaks first:</em> the router itself becomes a throughput bottleneck; <em>cheapest lever:</em> make it <strong>horizontally shardable</strong> — partition by request type/entity so it scales out linearly.</li>
+<li><strong>COST</strong> — the whole point. <strong>MERA: 87.3% router-decision accuracy at 51.8% serving cost</strong>; the router-first design gets <strong>&gt;90% cost reduction at iso-quality</strong> on favorable traffic. <em>Cheapest lever:</em> route the routine listing-title request to LiLiuM-1B, the cross-border translation to e-Llama, and only genuinely hard reasoning to 70B/frontier.</li>
+<li><strong>ORG</strong> — operate the router like a model. <em>Breaks first:</em> <strong>drift on the <em>decision</em> distribution</strong> — the router's output mix shifts before any accuracy label lands; <em>cheapest lever:</em> an SLA-aware knob (operator sets "hold quality at X" directly) + drift monitoring on the decision mix, not just model accuracy.</li>
+</ul>
+<blockquote>
+<p><strong>Say it like this</strong> (the pocket version): <em>"At one QPS the interesting number is accuracy; at eBay QPS the interesting number is cost-per-quality under drift — with a router cheap and shardable enough that it doesn't spend the savings it creates."</em></p>
+</blockquote>
+<hr />
+<h2 id="where-to-plant-scaling-so-it-doesnt-sound-bolted-on">Where to plant scaling (so it doesn't sound bolted on)</h2>
+<p>Scaling should feel native to how you think, not like a checklist you produce on demand. Plant it in <strong>both</strong> rounds.</p>
+<h3 id="in-a-system-design-answer-round-2">In a system-design answer (Round 2)</h3>
+<ul>
+<li><strong>Open by naming scale</strong> — the moment you clarify requirements, say the magnitudes ("2B listings, ~100M searches/day, p99 &lt;500ms, 7 markets"). That frames every later choice as scale-driven.</li>
+<li><strong>Use scale as the <em>reason</em> for a decision, not an afterthought.</strong> "I'd shard the embedding tables because at 2B IDs they're the memory hog, not the MLP" is far stronger than tacking "and it scales" onto the end.</li>
+<li><strong>When they say "now 10× it," run the six axes explicitly</strong> — narrate the walk, land breaks-first/cheapest-lever each time, and close on the cost axis (your edge). Full worked designs are in <em>Flagship: Search Ranking &amp; Recsys</em> and <em>System Design Skeletons Bank</em>.</li>
+</ul>
+<h3 id="in-the-project-walkthrough-round-3">In the project walkthrough (Round 3)</h3>
+<p>Plant scaling at these anchors so it reads as a spine, not an add-on (full script in <em>Project Walkthrough: Cost-Efficient LLM Routing</em>):</p>
+<ol>
+<li><strong>In the hook</strong> — end the first sentence with "…and does that survive scaling up?" so the whole project is framed as a scaling question from word one.</li>
+<li><strong>In a key decision</strong> — justify learned-router-over-cascade <em>by</em> scale: "cascades' escalation tax dominates <em>at volume</em>." Scale as the reason for a fork is the strongest form.</li>
+<li><strong>In results</strong> — translate the % into eBay-scale money and GPU/carbon footprint; the number only bites at scale.</li>
+<li><strong>In the retrospective/scale beat</strong> — the explicit trio: router <strong>sub-10ms + horizontally shardable</strong>; <strong>drift on the decision mix</strong> + retraining cadence; an <strong>SLA-aware knob</strong>. Map targets onto the real zoo (LiLiuM 1B/7B/13B, e-Llama 8B/70B, frontier).</li>
+<li><strong>In probe redirects</strong> — when pushed on an ops area you're thin on, answer honestly then pivot to a <em>scaling</em> strength (batching, shardable routing, cost-per-quality as the north star).</li>
+</ol>
+<blockquote class="warn">
+<p>⚠ <strong>[CONFIRM TONY:</strong> in the walkthrough, keep the eBay-scale dollar/GPU translation <em>directional</em> ("at real serving volume, halving cost on routable traffic is a seven-figure line item") — do not assert a specific eBay infra number you can't defend.<strong>]</strong></p>
+</blockquote>
+<hr />
+<h2 id="pocket-lines-say-these-under-pressure">Pocket lines (say these under pressure)</h2>
+<ul>
+<li><strong>The shape:</strong> "DATA → MODEL → TRAINING → SERVING → COST → ORG — and for each, what breaks first and the cheapest lever."</li>
+<li><strong>The meta-move:</strong> "Always end on what breaks first and the cheapest lever that fixes it."</li>
+<li><strong>The recsys trap:</strong> "The hog is the embedding table, not the MLP — so I shard before I add layers."</li>
+<li><strong>The serving trap:</strong> "The p99 tail breaks before the average, so I split real-time from batch."</li>
+<li><strong>The cost ladder:</strong> "Least-quality-hit first: cache, quantize, then route small-first."</li>
+<li><strong>The routing one-liner:</strong> "At eBay QPS the number that matters is cost-per-quality under drift, with a router cheap enough not to spend its own savings."</li>
+<li><strong>The thesis anchor:</strong> "Every scaling question ends at efficiency — that's the systems race, not the scaling race."</li>
+</ul>
+      <nav class="prevnext"><a class="pn prev" href="s2_22_design_skeletons.html">‹ <span>Design Skeletons Bank</span></a><a class="pn next" href="s2_30_project_walkthrough.html"><span>Walkthrough: Routing at Scale</span> ›</a></nav>
+    </article>
+    <aside class="toc"><div class="toc-title">On this page</div><ul>
+<li><a href="#the-one-move-that-wins-the-question">The one move that wins the question</a></li>
+<li><a href="#the-six-axes-at-a-glance">The six axes at a glance</a></li>
+<li><a href="#the-worked-walk-to-drill-scale-routing-itself-your-edge">The worked walk to drill — scale routing itself (your edge)</a></li>
+<li><a href="#where-to-plant-scaling-so-it-doesnt-sound-bolted-on">Where to plant scaling (so it doesn&#x27;t sound bolted on)</a></li>
+<li><a href="#pocket-lines-say-these-under-pressure">Pocket lines (say these under pressure)</a></li>
+</ul></aside>
+  </main>
+</div>
+<script>window.SEARCH_JSON="../assets/../search-index.json";</script>
+<script src="../assets/search-data.js"></script>
+<script src="../assets/app.js"></script>
+</body>
+</html>

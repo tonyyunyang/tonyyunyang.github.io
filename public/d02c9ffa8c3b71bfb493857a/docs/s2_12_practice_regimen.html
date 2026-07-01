@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unaided Practice Regimen · eBay Stage-2 Prep</title>
+<meta name="robots" content="noindex,nofollow">
+<script>try{if(localStorage.getItem('ebay-s2-theme')==='dark')document.documentElement.classList.add('dark');}catch(e){}</script>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body data-track="code" data-pagefind-ignore="all">
+<button id="menu" class="menu-btn" aria-label="Menu">☰</button>
+<button id="theme" class="theme-btn" aria-label="Toggle theme">◐</button>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+<div class="brand"><a href="../index.html"><span class="brand-mark">e</span><span class="brand-txt">Stage&nbsp;2 Prep<em>eBay · three interviews</em></span></a></div>
+<div class="search"><input id="q" type="search" placeholder="Search…" autocomplete="off"><div id="results"></div></div>
+<nav class="nav">
+<div class="nav-group" data-track="start"><div class="nav-group-title"><span class="dot"></span>Start Here</div><ul>
+<li><a href="s2_00_email_and_logistics.html">Email &amp; Logistics</a></li>
+<li><a href="s2_01_overview_and_plan.html">Overview &amp; Study Plan</a></li>
+<li><a href="s2_44_confirm_tony.html">★ Fill These Before the Room</a></li>
+</ul></div>
+<div class="nav-group" data-track="code"><div class="nav-group-title"><span class="dot"></span>1 · Live Coding &amp; Engineering</div><ul>
+<li><a href="s2_10_live_coding_playbook.html">Live-Coding Playbook</a></li>
+<li><a href="s2_11_ml_from_scratch.html">ML From Scratch (Python)</a></li>
+<li class="active"><a href="s2_12_practice_regimen.html">Unaided Practice Regimen</a></li>
+<li><a href="s2_13_engineering_qa.html">Engineering Q&amp;A — Build &amp; Train</a></li>
+<li><a href="s2_14_serving_qa.html">Engineering Q&amp;A — Serve &amp; Monitor</a></li>
+<li><a href="s2_15_mlops_honest_gap.html">The Honest MLOps-Gap Script</a></li>
+</ul></div>
+<div class="nav-group" data-track="design"><div class="nav-group-title"><span class="dot"></span>2 · ML System Design</div><ul>
+<li><a href="s2_20_design_framework.html">Design Framework &amp; How to Drive</a></li>
+<li><a href="s2_21_recsys_search_design.html">Flagship: Search Ranking &amp; Recs</a></li>
+<li><a href="s2_22_design_skeletons.html">Design Skeletons Bank</a></li>
+<li><a href="s2_23_scaling_playbook.html">The Scaling Playbook</a></li>
+</ul></div>
+<div class="nav-group" data-track="pm"><div class="nav-group-title"><span class="dot"></span>3 · Project Mgmt &amp; Retrospective</div><ul>
+<li><a href="s2_30_project_walkthrough.html">Walkthrough: Routing at Scale</a></li>
+<li><a href="s2_31_star_stories.html">STAR Stories — The Four Prompts</a></li>
+<li><a href="s2_32_behavioral_bank.html">Behavioral &amp; Competency Bank</a></li>
+</ul></div>
+<div class="nav-group" data-track="ebay"><div class="nav-group-title"><span class="dot"></span>eBay &amp; Closing</div><ul>
+<li><a href="s2_40_ebay_context.html">eBay Context (Stage-2 lens)</a></li>
+<li><a href="s2_41_own_papers_numbers.html">Own-Paper Numbers (say them cold)</a></li>
+<li><a href="s2_42_questions_to_ask.html">Questions to Ask</a></li>
+<li><a href="s2_43_final_hours.html">Final-Hours Cheatsheet</a></li>
+</ul></div>
+</nav>
+  </aside>
+  <div class="scrim" id="scrim"></div>
+  <main class="content">
+    <article class="doc">
+      <div class="doc-meta"><span class="tag t-code">Coding</span><span class="read">12 min read</span></div>
+      <h1 id="unaided-practice-regimen">Unaided Practice Regimen</h1>
+<p><em>Your no-AI, no-autocomplete drill plan to rebuild raw coding muscle memory before Round 1 (Live Coding &amp; Engineering). Start it 5–7 days out and run it daily. Open the </em><em>Approach keys</em><em> section only after a genuine attempt.</em></p>
+<p>You're AI-native, so your real risk isn't knowing the algorithms — it's (a) typing them <strong>unaided</strong> and (b) <strong>narrating out loud</strong> while your hands move. This regimen drills exactly those two muscles. For the spoken UMPIRE protocol, the pattern catalogue, the ML-primitive reference code, and the recovery/hint playbook, see the companion doc <strong>Live Coding Mastery</strong> — this page is the <em>training schedule</em> that makes those automatic.</p>
+<blockquote class="warn">
+<p>⚠ <strong>[CONFIRM TONY]:</strong> How many prep days and hours/day do you actually have? 7 days at ~2.5–3 h/day = full plan; compress to the 5-day track (below) if less.</p>
+</blockquote>
+<hr />
+<h2 id="rules-of-engagement-non-negotiable">Rules of engagement (non-negotiable)</h2>
+<ul>
+<li><strong>AI off. Autocomplete off.</strong> Practice in a plain editor or a bare CoderPad-style pad — no linter fix-its, no Copilot ghost text. Your gap is <em>unaided</em> recall; simulate the real room.</li>
+<li><strong>Talk out loud, every rep.</strong> Record yourself or use a rubber duck. If you solved it silently, you did not practice the graded skill. Narrate all of UMPIRE, not just the code.</li>
+<li><strong>Timed, always.</strong> Every rep runs against a clock (cadence below). Time pressure is the point.</li>
+<li><strong>Type it, don't read it.</strong> Re-implementing a primitive from a blank file 3× beats re-reading it 10×. No copy-paste, ever.</li>
+<li><strong>Primitives from memory, daily.</strong> The ML shapes are the highest-leverage thing for this team and the fastest to make reflexive — one from-scratch primitive every single day.</li>
+<li><strong>No peeking before 25 min.</strong> Approach keys are at the very bottom for a reason. Earn them.</li>
+</ul>
+<hr />
+<h2 id="the-per-problem-rep-cadence-the-clock">The per-problem rep cadence (the clock)</h2>
+<p>Every full rep is a mini interview round on one problem. Nest each problem into this budget and <em>say the beat you're in</em> out loud:</p>
+<table>
+<thead>
+<tr>
+<th>Beat</th>
+<th>Time</th>
+<th>What you do (out loud)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Talk / plan</strong></td>
+<td><strong>~8 min</strong></td>
+<td>Restate, clarify inputs/edge cases, name the pattern, state brute-force → improved approach <strong>and</strong> target complexity <em>before typing</em>. Get a nod.</td>
+</tr>
+<tr>
+<td><strong>Code</strong></td>
+<td><strong>~25 min</strong></td>
+<td>Narrate intent per block, meaningful names, guard clauses first. If stuck at ~25 min, read <em>only</em> the one-line key, close it, re-implement from memory.</td>
+</tr>
+<tr>
+<td><strong>Test</strong></td>
+<td><strong>~10 min</strong></td>
+<td>Hand-trace one normal case + the edge cases you named (empty, single, duplicates). Find and fix bugs <em>out loud</em> — that's a positive signal. Then state time + space complexity in three sentences.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Full-cadence rep = ~43 min.</strong> You won't do every problem at full cadence — that's a marathon. Each day:</p>
+<ul>
+<li><strong>2 problems at full cadence</strong> (the 8/25/10 mock-round simulation, out loud, complexity stated).</li>
+<li><strong>Remaining problems as speed reps (~20 min each):</strong> still timed and narrated, but skip straight to the pattern and code — you're drilling recall, not the full ceremony.</li>
+<li><strong>1 primitive from a blank file (~15 min),</strong> re-typed until it runs clean.</li>
+</ul>
+<hr />
+<h2 id="week-at-a-glance">Week at a glance</h2>
+<table>
+<thead>
+<tr>
+<th>Day</th>
+<th>Patterns to drill</th>
+<th>Problems (target)</th>
+<th>Primitive from blank</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1</strong></td>
+<td>Arrays + Hashmap · narration habit</td>
+<td>Two Sum · Group Anagrams · Top-K Frequent · Valid Anagram · Contains Duplicate (<strong>5</strong>)</td>
+<td>Softmax (stable) + Cross-Entropy</td>
+</tr>
+<tr>
+<td><strong>2</strong></td>
+<td>Two Pointers · Sliding Window</td>
+<td>Valid Palindrome · 3Sum · Container With Most Water · Longest Substring No Repeat · Min Size Subarray Sum (<strong>5</strong>)</td>
+<td>kNN + z-score normalize</td>
+</tr>
+<tr>
+<td><strong>3</strong></td>
+<td>Stack · Binary Search</td>
+<td>Valid Parentheses · Min Stack · Daily Temperatures · Binary Search · Search in Rotated Sorted Array · Koko Eating Bananas (<strong>6</strong>)</td>
+<td>Logistic Regression + gradient descent</td>
+</tr>
+<tr>
+<td><strong>4</strong></td>
+<td>Trees (BFS / DFS)</td>
+<td>Max Depth · Level-Order Traversal · Validate BST · Invert Tree · Lowest Common Ancestor · Path Sum (<strong>6</strong>)</td>
+<td>Scaled Dot-Product Attention (+ causal mask)</td>
+</tr>
+<tr>
+<td><strong>5</strong></td>
+<td>Graphs · Heaps</td>
+<td>Number of Islands · Course Schedule (topo) · Rotting Oranges · Kth Largest · Merge k Sorted Lists (<strong>5</strong>)</td>
+<td>K-Means + Precision/Recall/F1</td>
+</tr>
+<tr>
+<td><strong>6</strong></td>
+<td><strong>ML gauntlet</strong> + BPE</td>
+<td><em>(10 primitives — see Day 6)</em></td>
+<td><em>all of them, in one sitting</em></td>
+</tr>
+<tr>
+<td><strong>7</strong></td>
+<td><strong>Two full mock rounds</strong></td>
+<td>1 Tier-1 DSA + 1 ML build-or-debug + optional Backtracking/DP sampler</td>
+<td><em>(debug-a-broken-model rep)</em></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="day-by-day">Day-by-day</h2>
+<h3 id="day-1-arrays-hashmap-get-the-narration-fluent">Day 1 — Arrays / Hashmap + get the narration fluent</h3>
+<p><strong>Pattern tell:</strong> "find a pair/complement," "count frequencies," "group by," "seen before?" → trade space for time with a <code>dict</code> / <code>Counter</code> / <code>set</code>.
+<strong>Problems (5):</strong> Two Sum · Group Anagrams · Top-K Frequent Elements · Valid Anagram · Contains Duplicate.
+<strong>Full cadence:</strong> Two Sum, Group Anagrams. <strong>Speed:</strong> the other three.
+<strong>Primitive from blank:</strong> Softmax (numerically stable) + Cross-Entropy. Nail the <strong>subtract-the-max</strong> trick and the <code>+1e-12</code> in the log. Check your version against the ML-primitive reference code in <strong>Live Coding Mastery</strong>.
+<strong>Goal today:</strong> get the out-loud protocol comfortable on easy problems — the point of Day 1 is the <em>mouth</em>, not the difficulty.</p>
+<h3 id="day-2-two-pointers-sliding-window">Day 2 — Two Pointers + Sliding Window</h3>
+<p><strong>Pattern tell:</strong> sorted input or in-place O(1) space → two pointers; "longest/shortest <strong>contiguous</strong> substring/subarray," "at most k distinct" → sliding window (expand right, shrink left on break).
+<strong>Problems (5):</strong> Valid Palindrome · 3Sum · Container With Most Water · Longest Substring Without Repeating Characters · Minimum Size Subarray Sum.
+<strong>Full cadence:</strong> 3Sum, Longest Substring No Repeat. <strong>Speed:</strong> the other three.
+<strong>Primitive from blank:</strong> kNN + z-score normalize. Talking point: normalize features <em>before</em> distances; O(N·D) per query.</p>
+<h3 id="day-3-stack-binary-search">Day 3 — Stack + Binary Search</h3>
+<p><strong>Pattern tell:</strong> matching parens / "next greater" / monotonic stack; sorted array or "search the answer space" → binary search on a predicate.
+<strong>Problems (6):</strong> Valid Parentheses · Min Stack · Daily Temperatures · Binary Search · Search in Rotated Sorted Array · Koko Eating Bananas.
+<strong>Full cadence:</strong> Daily Temperatures, Koko Eating Bananas (search-on-answer is the hardest muscle here). <strong>Speed:</strong> the other four.
+<strong>Primitive from blank:</strong> Logistic Regression + gradient descent. The whole point: gradient of BCE is <code>(p − y)</code>. Say it, don't derive it live.</p>
+<h3 id="day-4-trees-bfs-dfs">Day 4 — Trees (BFS / DFS)</h3>
+<p><strong>Pattern tell:</strong> binary/n-ary tree; "level order" → BFS with a <code>deque</code>; "depth / path / validate" → DFS recursion combining child results.
+<strong>Problems (6):</strong> Max Depth · Level-Order Traversal · Validate BST · Invert Binary Tree · Lowest Common Ancestor · Path Sum.
+<strong>Full cadence:</strong> Validate BST, Level-Order Traversal. <strong>Speed:</strong> the other four.
+<strong>Primitive from blank:</strong> Scaled Dot-Product Attention, then add a <strong>causal mask</strong>. Nail: divide by <code>√d</code>, softmax over the right axis, mask future with <code>-1e9</code>. Extend to multi-head <em>verbally</em>. Check against the reference code in <strong>Live Coding Mastery</strong>.</p>
+<h3 id="day-5-graphs-heaps">Day 5 — Graphs + Heaps</h3>
+<p><strong>Pattern tell:</strong> grid/"islands"/connectivity → BFS/DFS flood-fill or union-find; prerequisites → Kahn's topo sort; "top-k / kth / merge k / running median" → <code>heapq</code>.
+<strong>Problems (5):</strong> Number of Islands · Course Schedule (topo sort) · Rotting Oranges (multi-source BFS) · Kth Largest Element · Merge k Sorted Lists.
+<strong>Full cadence:</strong> Course Schedule, Merge k Sorted Lists. <strong>Speed:</strong> the other three.
+<strong>Primitive from blank:</strong> K-Means + Precision/Recall/F1. Guard the <strong>empty-cluster</strong> case; guard <strong>every divide-by-zero</strong> in the metrics.</p>
+<h3 id="day-6-ml-primitive-gauntlet-bpe-the-single-most-ebay-relevant-session">Day 6 — ML primitive gauntlet + BPE <em>(the single most eBay-relevant session)</em></h3>
+<p>From a <strong>blank file, one sitting</strong>, implement all ten, then re-type any that stumbled until clean:
+softmax · cross-entropy · scaled dot-product attention · sigmoid + logreg · kNN · k-means · precision/recall/F1 · AUC (rank-based) · Welford running mean/var · <strong>BPE merge step</strong>.
+Then <strong>overfit logreg on a 4-point toy set</strong> to prove your code actually runs. BPE matters directly — eBay ships a custom e-commerce tokenizer; know that <strong>merge order matters</strong> (encoding replays merges in learned order). Reference shapes live in <strong>Live Coding Mastery</strong>.
+<strong>No speed/full split today</strong> — the whole day <em>is</em> the recall drill.</p>
+<h3 id="day-7-two-full-mock-rounds-under-time">Day 7 — Two full mock rounds under time</h3>
+<ul>
+<li><strong>Round A:</strong> one Tier-1 DSA problem, <strong>45 min</strong>, out loud, timed, zero lookups.</li>
+<li><strong>Round B:</strong> one ML <strong>build-or-debug</strong>, 45 min. Debug bugs to expect: missing max-subtraction in softmax, wrong reduction axis, forgotten <code>keepdims</code>, off-by-one in a mask, sign error in a gradient.</li>
+<li><strong>Ideally with a friend</strong> who plants <em>one deliberate hint</em> so you rehearse taking it gracefully (paraphrase → integrate → extend past it).</li>
+<li><strong>Optional sampler if time:</strong> Subsets · Permutations · Coin Change · House Robber (backtracking / 1-D DP — state + recurrence <em>out loud first</em>).</li>
+</ul>
+<hr />
+<h2 id="every-day-fixed-ribs-do-these-regardless">Every-day fixed ribs (do these regardless)</h2>
+<ul>
+<li><strong>One "complexity in three sentences" rep:</strong> time, then space (volunteer space unprompted), then the one tradeoff if it exists.</li>
+<li><strong>One "I'm stuck → recovery" rep:</strong> practice saying <em>"Let me get the correct brute-force working first, then optimize"</em> — securing a working baseline is the highest-value move you own.</li>
+<li><strong>Primitives never fully cool:</strong> even on DSA days, one primitive from blank keeps the shapes warm.</li>
+</ul>
+<p><em>(The exact spoken scripts for narration, recovery, and hint-taking live in </em><em>Live Coding Mastery</em><em> — rehearse them there, drill them here.)</em></p>
+<h2 id="compress-to-5-days-if-short">Compress to 5 days if short</h2>
+<ul>
+<li><strong>Merge Day 3 into Day 2</strong> (do 3 stack + 2 binary-search problems), and <strong>fold the Day 7 sampler into Day 6.</strong></li>
+<li>Keep <strong>Day 6 (gauntlet)</strong> and <strong>at least one full mock</strong> no matter what — they're non-negotiable.</li>
+<li>Minimum viable week: Day 1, Day 2+3 merged, Day 4, Day 5, Day 6 (+ one mock). Primitives still daily.</li>
+</ul>
+<hr />
+<h2 id="python-power-tools-gotchas-drill-these-to-reflex">Python power tools + gotchas (drill these to reflex)</h2>
+<p>Reaching for the right stdlib tool <em>signals fluency</em>; the gotchas below are common interviewer probes — be ready to <strong>explain</strong> each, not just avoid it.</p>
+<h3 id="power-tools">Power tools</h3>
+<pre><code class="language-python">from collections import Counter, defaultdict, deque
+Counter(s).most_common(k)          # frequency counts in one line; Counters add/subtract
+adj = defaultdict(list); adj[u].append(v)   # kills the &quot;key exists?&quot; boilerplate
+q = deque([root]); q.append(x); q.popleft() # O(1) both ends — the CORRECT BFS queue
+
+import heapq
+heapq.heappush(h, (priority, item)); heapq.heappop(h)   # min-heap; push -x for max-heap
+heapq.nlargest(k, nums)            # top-k without hand-rolling a size-k heap
+
+import bisect
+i = bisect.bisect_left(a, x)       # O(log n) search in a sorted list
+bisect.insort(a, x)                # keep a list sorted on insert
+
+# comprehensions &amp; generators — say &quot;generator&quot; when you don't need the whole list
+squares = [x*x for x in nums if x &gt; 0]
+total   = sum(x*x for x in nums)   # generator: no intermediate list materialized
+
+# enumerate / zip — never write range(len(...)) for indexing
+for i, val in enumerate(nums): ...
+for a, b in zip(xs, ys): ...
+a, b = b, a + b                    # tuple unpacking / simultaneous assignment
+</code></pre>
+<h3 id="the-traps-that-bite-know-cold">The traps that bite (know cold)</h3>
+<table>
+<thead>
+<tr>
+<th>Trap</th>
+<th>The bug</th>
+<th>The fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Mutable default arg</strong></td>
+<td><code>def f(x, acc=[])</code> — the list is created <strong>once at def time</strong> and shared across all calls, so it accumulates.</td>
+<td><code>def f(x, acc=None): acc = [] if acc is None else acc</code></td>
+</tr>
+<tr>
+<td><strong>Falsy-zero bug</strong></td>
+<td><code>if x:</code> is False for <code>0</code>, <code>0.0</code>, <code>""</code>, <code>[]</code>, <code>None</code>. If <strong>0 is valid data</strong>, you silently skip it.</td>
+<td>Test <code>if x is not None:</code> when 0 is a legal value.</td>
+</tr>
+<tr>
+<td><strong>Late-binding closure</strong></td>
+<td><code>[lambda: i for i in range(3)]</code> — all three capture the <em>final</em> <code>i</code> (=2).</td>
+<td>Bind now with a default: <code>lambda i=i: i</code>.</td>
+</tr>
+<tr>
+<td><strong>Shallow vs deep copy</strong></td>
+<td><code>b = a</code> aliases; <code>a[:]</code> / <code>list(a)</code> copies one level only. <code>[[0]*n]*m</code> <strong>shares every row</strong>.</td>
+<td>Nested → <code>copy.deepcopy</code>; grid → <code>[[0]*n for _ in range(m)]</code>.</td>
+</tr>
+<tr>
+<td><strong>Integer division</strong></td>
+<td><code>/</code> is float; <code>//</code> floors toward <strong>−∞</strong> (<code>-7 // 2 == -4</code>), not toward zero.</td>
+<td>Use <code>//</code> for indices, <code>divmod(a, b)</code> for both. Python ints are unbounded — no overflow (nice vs Java/C++).</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Two more worth saying out loud:</strong> building a string with <code>+=</code> in a loop is <strong>O(n²)</strong> — collect into a list and <code>"".join(parts)</code>. And <strong>iterating a list/dict while mutating it</strong> misbehaves — iterate over a copy or build a new collection.</p>
+<hr />
+<h2 id="approach-keys-spoilers-dont-read-until-youve-tried">⚠ Approach keys — spoilers; don't read until you've tried</h2>
+<blockquote>
+<p>Read only after a genuine 25-minute attempt. These are one-line nudges to <em>unstick</em>, not full solutions.</p>
+</blockquote>
+<p><strong>Day 1 — Arrays / Hashmap</strong></p>
+<ul>
+<li><strong>Two Sum:</strong> dict value→index; for each x check <code>target−x</code> in map <em>before</em> inserting x.</li>
+<li><strong>Group Anagrams:</strong> key by <code>tuple(sorted(word))</code> (or 26-length count tuple) → <code>defaultdict(list)</code>.</li>
+<li><strong>Top-K Frequent:</strong> <code>Counter</code> then <code>heapq.nlargest(k, ...)</code> — O(n log k); or bucket-sort by frequency for O(n).</li>
+<li><strong>Valid Anagram:</strong> length check, then compare <code>Counter(a) == Counter(b)</code> (or sorted).</li>
+<li><strong>Contains Duplicate:</strong> <code>len(set(nums)) &lt; len(nums)</code>, or seen-set with early exit.</li>
+</ul>
+<p><strong>Day 2 — Two Pointers / Sliding Window</strong></p>
+<ul>
+<li><strong>Valid Palindrome:</strong> two pointers inward, skip non-alphanumerics, compare lowercased.</li>
+<li><strong>3Sum:</strong> sort; fix i, two-pointer the rest; skip duplicates on all three indices.</li>
+<li><strong>Container With Most Water:</strong> two pointers at ends; move the <strong>shorter</strong> wall inward.</li>
+<li><strong>Longest Substring No Repeat:</strong> sliding window + last-seen-index map; jump <code>left</code> past the repeat.</li>
+<li><strong>Min Size Subarray Sum:</strong> grow right adding to sum; while sum ≥ target shrink left, record min length.</li>
+</ul>
+<p><strong>Day 3 — Stack / Binary Search</strong></p>
+<ul>
+<li><strong>Valid Parentheses:</strong> stack; push opens, on close pop and match; empty stack at end = valid.</li>
+<li><strong>Min Stack:</strong> second stack of running minima (or store <code>(val, min_so_far)</code> tuples).</li>
+<li><strong>Daily Temperatures:</strong> monotonic <strong>decreasing</strong> stack of indices; pop when a warmer day arrives.</li>
+<li><strong>Binary Search:</strong> standard lo/hi; own the loop invariant, not just exact-match.</li>
+<li><strong>Search in Rotated:</strong> one half is always sorted — decide which, then whether target lies inside it.</li>
+<li><strong>Koko Bananas:</strong> binary-search the <strong>answer</strong> (eating speed); predicate = "can finish in h hours?"</li>
+</ul>
+<p><strong>Day 4 — Trees</strong></p>
+<ul>
+<li><strong>Max Depth:</strong> DFS, <code>1 + max(left, right)</code>.</li>
+<li><strong>Level-Order:</strong> BFS with a <code>deque</code>, process one level (<code>len(q)</code>) at a time.</li>
+<li><strong>Validate BST:</strong> DFS carrying <code>(low, high)</code> bounds; each node strictly within.</li>
+<li><strong>Invert Tree:</strong> swap children, recurse.</li>
+<li><strong>LCA (BST):</strong> walk down; both values &lt; node → left, both &gt; → right, else you're at the split = LCA.</li>
+<li><strong>Path Sum:</strong> DFS subtracting <code>node.val</code>; at a leaf check remainder == 0.</li>
+</ul>
+<p><strong>Day 5 — Graphs / Heaps</strong></p>
+<ul>
+<li><strong>Number of Islands:</strong> scan grid; on a <code>1</code>, DFS/BFS flood-fill to sink the island, count once.</li>
+<li><strong>Course Schedule:</strong> build graph + indegrees; Kahn's BFS; cycle iff you can't process all nodes.</li>
+<li><strong>Rotting Oranges:</strong> multi-source BFS from all rotten cells at once; minutes = BFS levels.</li>
+<li><strong>Kth Largest:</strong> size-k min-heap; heap top is the answer.</li>
+<li><strong>Merge k Lists:</strong> min-heap of <code>(val, i, node)</code> across heads; pop smallest, push its <code>next</code>.</li>
+</ul>
+<p><strong>Day 7 — Backtracking / DP sampler</strong></p>
+<ul>
+<li><strong>Subsets / Permutations:</strong> choose → recurse → undo; subsets branch include/exclude.</li>
+<li><strong>Coin Change / House Robber:</strong> 1-D DP; <code>dp[i]</code> = best up to amount/index i; state + recurrence <em>before</em> coding.</li>
+</ul>
+<p><strong>Primitive self-check cues</strong> <em>(verify without opening the other doc)</em></p>
+<ul>
+<li><strong>Softmax:</strong> subtract row-max before <code>exp</code>; <strong>Cross-Entropy:</strong> <code>−log(p[true])</code>, add <code>1e-12</code>.</li>
+<li><strong>Attention:</strong> scores <code>= Q @ K.T / √d</code>, mask future with <code>-1e9</code>, softmax over last axis.</li>
+<li><strong>Logreg:</strong> gradient of BCE is <code>X.T @ (p − y) / N</code> — beautifully <code>(p − y)</code>.</li>
+<li><strong>kNN:</strong> normalize first, <code>argsort(dists)[:k]</code>, majority vote. <strong>K-Means:</strong> guard the empty cluster.</li>
+<li><strong>PRF1 / AUC:</strong> guard every divide-by-zero; AUC = P(random positive ranked above random negative).</li>
+<li><strong>Welford:</strong> avoids catastrophic cancellation of "sum-of-squares − square-of-sum."</li>
+<li><strong>BPE:</strong> <code>Counter</code> adjacent pairs → merge the max-count pair → <strong>replay merges in learned order</strong>.</li>
+</ul>
+      <nav class="prevnext"><a class="pn prev" href="s2_11_ml_from_scratch.html">‹ <span>ML From Scratch (Python)</span></a><a class="pn next" href="s2_13_engineering_qa.html"><span>Engineering Q&amp;A — Build &amp; Train</span> ›</a></nav>
+    </article>
+    <aside class="toc"><div class="toc-title">On this page</div><ul>
+<li><a href="#rules-of-engagement-non-negotiable">Rules of engagement (non-negotiable)</a></li>
+<li><a href="#the-per-problem-rep-cadence-the-clock">The per-problem rep cadence (the clock)</a></li>
+<li><a href="#week-at-a-glance">Week at a glance</a></li>
+<li><a href="#day-by-day">Day-by-day</a></li>
+<li><a href="#every-day-fixed-ribs-do-these-regardless">Every-day fixed ribs (do these regardless)</a></li>
+<li><a href="#compress-to-5-days-if-short">Compress to 5 days if short</a></li>
+<li><a href="#python-power-tools-gotchas-drill-these-to-reflex">Python power tools + gotchas (drill these to reflex)</a></li>
+<li><a href="#approach-keys-spoilers-dont-read-until-youve-tried">⚠ Approach keys — spoilers; don&#x27;t read until you&#x27;ve tried</a></li>
+</ul></aside>
+  </main>
+</div>
+<script>window.SEARCH_JSON="../assets/../search-index.json";</script>
+<script src="../assets/search-data.js"></script>
+<script src="../assets/app.js"></script>
+</body>
+</html>

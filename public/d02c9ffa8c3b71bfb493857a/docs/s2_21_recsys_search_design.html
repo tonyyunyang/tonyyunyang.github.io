@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Flagship: Search Ranking &amp; Recs · eBay Stage-2 Prep</title>
+<meta name="robots" content="noindex,nofollow">
+<script>try{if(localStorage.getItem('ebay-s2-theme')==='dark')document.documentElement.classList.add('dark');}catch(e){}</script>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body data-track="design" data-pagefind-ignore="all">
+<button id="menu" class="menu-btn" aria-label="Menu">☰</button>
+<button id="theme" class="theme-btn" aria-label="Toggle theme">◐</button>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+<div class="brand"><a href="../index.html"><span class="brand-mark">e</span><span class="brand-txt">Stage&nbsp;2 Prep<em>eBay · three interviews</em></span></a></div>
+<div class="search"><input id="q" type="search" placeholder="Search…" autocomplete="off"><div id="results"></div></div>
+<nav class="nav">
+<div class="nav-group" data-track="start"><div class="nav-group-title"><span class="dot"></span>Start Here</div><ul>
+<li><a href="s2_00_email_and_logistics.html">Email &amp; Logistics</a></li>
+<li><a href="s2_01_overview_and_plan.html">Overview &amp; Study Plan</a></li>
+<li><a href="s2_44_confirm_tony.html">★ Fill These Before the Room</a></li>
+</ul></div>
+<div class="nav-group" data-track="code"><div class="nav-group-title"><span class="dot"></span>1 · Live Coding &amp; Engineering</div><ul>
+<li><a href="s2_10_live_coding_playbook.html">Live-Coding Playbook</a></li>
+<li><a href="s2_11_ml_from_scratch.html">ML From Scratch (Python)</a></li>
+<li><a href="s2_12_practice_regimen.html">Unaided Practice Regimen</a></li>
+<li><a href="s2_13_engineering_qa.html">Engineering Q&amp;A — Build &amp; Train</a></li>
+<li><a href="s2_14_serving_qa.html">Engineering Q&amp;A — Serve &amp; Monitor</a></li>
+<li><a href="s2_15_mlops_honest_gap.html">The Honest MLOps-Gap Script</a></li>
+</ul></div>
+<div class="nav-group" data-track="design"><div class="nav-group-title"><span class="dot"></span>2 · ML System Design</div><ul>
+<li><a href="s2_20_design_framework.html">Design Framework &amp; How to Drive</a></li>
+<li class="active"><a href="s2_21_recsys_search_design.html">Flagship: Search Ranking &amp; Recs</a></li>
+<li><a href="s2_22_design_skeletons.html">Design Skeletons Bank</a></li>
+<li><a href="s2_23_scaling_playbook.html">The Scaling Playbook</a></li>
+</ul></div>
+<div class="nav-group" data-track="pm"><div class="nav-group-title"><span class="dot"></span>3 · Project Mgmt &amp; Retrospective</div><ul>
+<li><a href="s2_30_project_walkthrough.html">Walkthrough: Routing at Scale</a></li>
+<li><a href="s2_31_star_stories.html">STAR Stories — The Four Prompts</a></li>
+<li><a href="s2_32_behavioral_bank.html">Behavioral &amp; Competency Bank</a></li>
+</ul></div>
+<div class="nav-group" data-track="ebay"><div class="nav-group-title"><span class="dot"></span>eBay &amp; Closing</div><ul>
+<li><a href="s2_40_ebay_context.html">eBay Context (Stage-2 lens)</a></li>
+<li><a href="s2_41_own_papers_numbers.html">Own-Paper Numbers (say them cold)</a></li>
+<li><a href="s2_42_questions_to_ask.html">Questions to Ask</a></li>
+<li><a href="s2_43_final_hours.html">Final-Hours Cheatsheet</a></li>
+</ul></div>
+</nav>
+  </aside>
+  <div class="scrim" id="scrim"></div>
+  <main class="content">
+    <article class="doc">
+      <div class="doc-meta"><span class="tag t-design">Design</span><span class="read">27 min read</span></div>
+      <h1 id="flagship-search-ranking-recs">Flagship: Search Ranking &amp; Recs</h1>
+<p><em>The one worked design to have cold. Read this the night before the ML System Design round — it's eBay's bread-and-butter and Tony's flagged weak spot, so it must be airtight. One end-to-end story, deep exactly where the general playbook is thin.</em></p>
+<p><strong>How to use this.</strong> Narrate the 60-second spine (§13) first, then expand any node when probed. Everything here is ONE design: <em>"Design product search ranking / personalized recommendations at eBay scale (~2B listings)."</em> Search is the spine; recommendations are the same machine with the <strong>user</strong> as the query — I promote that fork to its own section (§4A). For the 14-step framework and the latency-budget ASCII, see <em>Design Framework &amp; How to Drive</em>; for the five other worked designs and the LLM serving/routing gateway, see the <em>Design Skeletons Bank</em>. This doc does not repeat those.</p>
+<hr />
+<h2 id="1-frame-it-in-one-breath">1. Frame it in one breath</h2>
+<blockquote>
+<p><strong>Say it like this:</strong> "Retrieve-then-rank over 2B listings. I'll spend my time on the three things that actually decide quality: how I <em>train</em> the two-tower retriever — because sampling bias is the whole game — how I make the ranker multi-objective and <em>calibrated</em>, and how I prove a win offline → interleaving → A/B before it touches GMV. Everything else is plumbing I'll wire up but not dwell on."</p>
+</blockquote>
+<p>That opener does two things: it shows I know where the hard parts are (not the architecture diagram, which everyone draws), and it sets up the deep dives so I control the conversation.</p>
+<hr />
+<h2 id="2-requirements-metrics-name-the-bundle-not-one-number">2. Requirements &amp; metrics — name the bundle, not one number</h2>
+<p><strong>eBay defaults</strong> (state, don't re-derive): ~2B active listings, ~135M MAU, ~100M searches/day, p50 200ms / p99 &lt;500ms, 7 language markets (EN/DE/FR/ES/IT/NL/PL), DSA/GDPR constraints.</p>
+<p><strong>North-star + guardrails, said together.</strong> The single most common junior mistake is optimizing CTR. CTR rewards clickbait. State the bundle out loud:</p>
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Metric</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>North-star</strong></td>
+<td><strong>GMV per search session</strong></td>
+<td>The business metric; resists clickbait</td>
+</tr>
+<tr>
+<td>Guardrails</td>
+<td>purchase-rate, latency p99, null/low-recall query rate</td>
+<td>catch the ways GMV can be gamed</td>
+</tr>
+<tr>
+<td>Fairness guardrail</td>
+<td>seller-impression Gini (no concentration increase)</td>
+<td>marketplace health; DSA exposure</td>
+</tr>
+<tr>
+<td><strong>Offline proxy</strong></td>
+<td><strong>NDCG@10</strong> on graded relevance (also MRR, recall@100)</td>
+<td>cheap, fast — but only a <em>proxy</em></td>
+</tr>
+</tbody>
+</table>
+<p><strong>The one-liner that shows judgment:</strong> "The offline metric is a proxy I periodically re-validate against the online north-star. Proxy/target divergence — the model climbs NDCG while GMV goes flat — is the classic failure, so I never treat NDCG as the goal, only as a fast gate."</p>
+<p><strong>Two label regimes, not one</strong> (this is the whole hinge of §3):</p>
+<ul>
+<li><strong>Graded editorial relevance</strong> — small, clean, expensive. Used for offline NDCG and as the <em>final arbiter</em>.</li>
+<li><strong>Behavioral engagement</strong> (clicks/carts/purchases) — huge, biased. Used for <em>training</em>.</li>
+</ul>
+<blockquote>
+<p><strong>Say it like this:</strong> "Clicks train the model; graded relevance judges it. I never let the biased signal be the final arbiter."</p>
+</blockquote>
+<hr />
+<h2 id="3-labels-the-click-bias-problem-the-part-everyone-hand-waves">3. Labels &amp; the click-bias problem (the part everyone hand-waves)</h2>
+<p>Behavioral logs are the only signal at scale, and they're biased three ways. Name all three and a fix for each — this is where you separate yourself from a candidate who just says "we use clicks."</p>
+<table>
+<thead>
+<tr>
+<th>Bias</th>
+<th>Mechanism</th>
+<th>Fix I'd use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Position bias</strong></td>
+<td>Top slots get clicked regardless of true relevance</td>
+<td>IPS-weight each click by <code>1/propensity(position)</code>; estimate the propensity via periodic <strong>randomization</strong> (RandPair / RandTop-k on a small traffic slice) or a position-bias model. Modern refinements (doc-similarity-enhanced IPS, control-function estimators) give real but modest gains (~1.3%).</td>
+</tr>
+<tr>
+<td><strong>Selection bias</strong></td>
+<td>Only <em>shown</em> items can be clicked; the unshown are unlabeled, not negative</td>
+<td>Counterfactual / off-policy estimation; treat unshown as <strong>missing</strong>, not negative; run an exploration budget so some impressions have known uniform propensity.</td>
+</tr>
+<tr>
+<td><strong>Trust / presentation bias</strong></td>
+<td>Rich snippets, images, badges inflate clicks independent of relevance</td>
+<td>Model it jointly with position (mixture-based correction), or accept it as noise and lean on editorial labels for the final eval.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>The propensity is estimated, not looked up.</strong> <code>p(shown | item, position)</code> comes from the logging policy — eBay logs the score and rank the production ranker assigned each displayed item. If the logging policy changes, historical propensities go stale. More robust than raw IPS is the <strong>doubly-robust (DR)</strong> estimator, which is unbiased if <em>either</em> the propensity model <em>or</em> a direct reward model is correct:</p>
+<pre><code>DR(item) = direct_model(item) + (observed_reward − direct_model(item)) / propensity(item)
+</code></pre>
+<p>The 5% exploration slice (§10) is what makes some propensities uniform and clean, breaking the dependence on the logging policy.</p>
+<p><strong>The 2026 twist worth dropping</strong> (signals I'm current): teams are testing <strong>LLM-generated relevance annotations</strong> as a partial replacement for click labels — cheaper than human editors, less biased than clicks — but you must validate the judge against a human gold set first (position/verbosity/self-enhancement bias; gate any judge below ~80% agreement). One sentence, big signal.</p>
+<hr />
+<h2 id="4-candidate-generation-two-tower-training-done-right">4. Candidate generation — two-tower training done <em>right</em></h2>
+<p>This is where retrieval quality actually lives. "Two-tower, in-batch negatives" is one line in most answers; that one line is the whole ballgame.</p>
+<p><strong>Architecture (fork point).</strong></p>
+<ul>
+<li>Query tower encodes <code>[query text, query context]</code>; item tower encodes <code>[title, category, attrs, image embedding]</code>. Both → L2-normalized d-dim vectors; score = cosine. Item embeddings are pre-computed and ANN-indexed.</li>
+<li><strong>Search fork:</strong> query tower = the text-query encoder.</li>
+<li><strong>Recs fork:</strong> "query" tower = a <strong>user tower</strong> over the behavior sequence — last-N item IDs through a GRU for the long horizon plus a small Transformer over the recent ~20 interactions. Everything below is identical.</li>
+</ul>
+<p><strong>The training problem is negative sampling, and it has a specific trap:</strong></p>
+<ol>
+<li><strong>In-batch negatives</strong> (reuse the other items in the batch as negatives) is the efficient default — but it <strong>biases toward popular items</strong>, because popular items show up as negatives more often and get pushed down disproportionately.</li>
+<li><strong>logQ correction</strong> is the fix: subtract <code>log Q(item)</code> (the item's sampling / appearance probability) from its logit before the softmax. This de-biases the in-batch approximation of the full softmax. Naming this <em>unprompted</em> is a strong signal — it's the industry-standard trick. (If pushed: RecSys 2025's "Correcting the LogQ Correction" shows even the correction has known failure modes.) <strong><code>Q</code> is <em>estimated</em>, not known</strong> — for an established item it's just its historical appearance frequency, but for a <strong>streaming / cold item</strong> you have almost no count, so I'd keep a running frequency (a <strong>count-min sketch</strong> over the impression stream) with a <strong>smoothing prior / floor</strong> so a brand-new item doesn't get a near-zero <code>Q</code> and an exploding correction. That estimate goes <strong>stale when the logging policy shifts</strong> (the appearance distribution moves), which is another reason to tie it to the 5% exploration slice (§10) where propensities are clean and uniform.</li>
+<li><strong>Hard negatives</strong> on top of in-batch: mine items that are <em>close but wrong</em> — same category, semantically near, but never co-engaged. Without them the retriever only learns to separate obvious junk and collapses on fine distinctions. Mix easy (in-batch) + hard (mined) at a tuned ratio; too many hard negatives destabilizes training.</li>
+<li><strong>Temperature <code>τ</code></strong> on the contrastive loss controls how peaked the distribution is — tune it, it materially moves recall@k.</li>
+</ol>
+<blockquote>
+<p><strong>Say it like this:</strong> "The failure mode of a lazily-trained two-tower is that it retrieves popular, generically-relevant items and misses the long tail — which is exactly eBay's inventory. logQ correction plus hard-negative mining is how you fix that, and I'd watch <strong>recall@100 on tail queries</strong> specifically, not just aggregate recall — because aggregate recall stays high while the tail quietly dies."</p>
+</blockquote>
+<p><strong>Retrieval is multi-channel, and fusion is itself a learning problem.</strong> eBay won't have one retriever — it'll have dense ANN + BM25 (exact product codes, brands, UPCs) + item-to-item co-engagement + maybe a trending channel. Say <strong>RRF (Reciprocal Rank Fusion)</strong> as the v1 baseline, then: "I'd learn the channel weights <em>per query intent</em> — treat multi-channel fusion as a query-dependent learning-to-rank problem over heterogeneous sources rather than a fixed RRF weight" as v2. That progression shows you know both the pragmatic start and the ceiling.</p>
+<blockquote class="warn">
+<p>⚠ <strong>[CONFIRM TONY]:</strong> If asked "which channel dominates at eBay," don't assert a split — eBay's exact retrieval mix isn't public. Say "I'd measure per-channel recall contribution and tune from there."</p>
+</blockquote>
+<hr />
+<h2 id="4a-the-feed-fork-recommendations-as-a-first-class-surface">4A. The feed fork — recommendations as a first-class surface</h2>
+<p>The recs fork is <em>not</em> "search with the user as query and everything else identical." Four things genuinely change, and volunteering them shows I've actually built a feed, not just relabeled a search box.</p>
+<ol>
+<li>
+<p><strong>Candidate generation is query-less.</strong> There's no text query to anchor recall, so I generate from three sources and fuse: the <strong>user tower</strong> (behavior-sequence embedding → ANN over the item index), <strong>item-to-item co-engagement</strong> ("users who bought/viewed X also engaged Y" — cheap, high-precision, and the workhorse for the "More like this" rail), and a <strong>trending / fresh</strong> channel so a cold-start user or an exhausted session still has supply. Same RRF-then-learned-fusion progression as §4, but the mix skews toward co-engagement and trending because there's no query intent to lean on.</p>
+</li>
+<li>
+<p><strong>Whole-page / slate ranking is a first-class objective, not a post-hoc guard.</strong> In search, MMR-style diversity is mostly a collapse-guard on top of a pointwise sort. In a feed the <em>slate</em> is the product: the value of item 4 depends on items 1–3 already shown (redundancy, category balance, seller spread), so I optimize <strong>page-level expected value</strong> — a listwise / slate objective (e.g. a slate re-ranker or a generative list model) — rather than sorting independent pCVR scores and hoping MMR patches it. Diversity moves from a penalty term to part of the objective.</p>
+</li>
+<li>
+<p><strong>User-embedding serving freshness is the real serving constraint.</strong> You <strong>cannot run a full user-Transformer over each user's behavior sequence at request time, across ~135M MAU</strong> — the tail latency and cost are untenable. (Say "135M <em>monthly active users</em>," not "135M-parameter model" — a request-time session Transformer over the last ~20 events <em>does</em> run in production; the untenable thing is a full-history forward per request at that user count.) So I split the user embedding: a <strong>long-horizon component precomputed on a cadence</strong> (batch, hours-old, captures durable taste) plus a <strong>recent-interaction component refreshed near-real-time</strong> (the last ~N events streamed in, so a click 30 seconds ago actually moves the next feed). Request time is then a cheap combine (concat / small head) over two mostly-precomputed vectors, not a full Transformer forward. This is the recs analogue of the feature-freshness tiers in §6.</p>
+</li>
+<li>
+<p><strong>Position effects and feed staleness are structural.</strong> Infinite scroll means position bias is severe and <em>depth-dependent</em> (engagement decays down the scroll, so IPS propensities must be modeled per feed-depth, not just per top-k slot), and a feed that doesn't refresh its candidate pool re-shows the same items and goes <strong>stale within a session</strong> — I'd cap per-session repeats and rotate the trending/fresh channel so scrolling keeps surfacing new supply.</p>
+</li>
+</ol>
+<blockquote>
+<p><strong>Say it like this:</strong> "The feed is the same retrieve-then-rank machine, but three things flip: candidate generation is query-less so I lean on the user tower plus item-to-item co-engagement plus trending; ranking becomes a slate problem where diversity is <em>in</em> the objective, not an MMR patch; and I can't run a full user-Transformer over every user's behavior sequence at request time across ~135M monthly actives, so the user embedding is a slow precomputed long-horizon vector plus a near-real-time recent-interaction vector combined cheaply per request."</p>
+</blockquote>
+<hr />
+<h2 id="5-ranking-multi-task-calibration">5. Ranking — multi-task + calibration</h2>
+<p><strong>Why multi-task, concretely.</strong> The business cares about a <em>chain</em>: click → add-to-cart → purchase → (no return). Each step is sparser and closer to what you actually want. Single-objective on clicks over-serves clickbait. So the ranker predicts several heads jointly.</p>
+<p><strong>Architecture ladder</strong> — say them in order, pick one, justify the pick:</p>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>What it is</th>
+<th>When it breaks / wins</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Shared-bottom</strong></td>
+<td>one trunk, per-task heads</td>
+<td>simplest; suffers <strong>negative transfer</strong> when tasks conflict (click vs. purchase want different things)</td>
+</tr>
+<tr>
+<td><strong>MMoE</strong></td>
+<td>shared expert pool, per-task gating network picks its mix</td>
+<td>reduces negative transfer; the standard production choice</td>
+</tr>
+<tr>
+<td><strong>PLE</strong> (Progressive Layered Extraction)</td>
+<td>explicitly separates <em>shared</em> vs <em>task-specific</em> experts in stacked layers</td>
+<td>beats MMoE when tasks are heterogeneous (click is dense/easy, CVR is sparse/hard); current large-e-commerce default</td>
+</tr>
+</tbody>
+</table>
+<p>Naming <strong>PLE and <em>why</em></strong> — task-specific experts stop the shared experts from being dominated by the easy, dense click task — is a strong signal. Under the trunk, feature interactions still matter: <strong>DCN-V2</strong> (explicit bounded-degree crosses) is the workhorse; DeepFM as a baseline.</p>
+<p><strong>Blend to a single score:</strong></p>
+<pre><code>score = w1·pClick + w2·pCart + w3·pPurchase + w4·pRelevance − w5·pReturnRisk
+</code></pre>
+<p><strong>How the weights actually get set</strong> (don't hand-wave "tuned to GMV" — that's the junior answer). It's a three-stage funnel matching §7: (1) <strong>offline search</strong> — coordinate descent or Bayesian optimization over the weight vector against a <strong>business-proxy objective</strong> on replayed logs (expected GMV / session under the new order), because you can't A/B every candidate weight set; (2) the shortlist that survives goes to <strong>interleaving</strong> for a fast, sensitive ranking-preference read; (3) survivors graduate to an <strong>A/B on realized GMV</strong>. Crucially I frame this as <strong>constrained optimization</strong>, not free maximization: guardrails like <strong>seller-impression Gini</strong> and <strong>return-rate</strong> are <strong>hard constraints</strong>, so the search is "maximize the GMV proxy <em>subject to</em> Gini ≤ threshold and return-rate ≤ threshold" — a Lagrangian with the guardrails as penalty/constraint terms, not soft nice-to-haves. And I'd flag the <strong>multiple-comparisons trap</strong>: sweeping many weight vectors on a single 2-week A/B window will surface a "winner" by chance, so I fix the candidate set <em>before</em> the test, <strong>hold out</strong> a final confirmation split (or correct the significance threshold), and treat the offline/interleaving stages as the place to prune — not the A/B. Fork: for <strong>ads</strong> this becomes an eCPM auction score (<code>bid × pCTR</code>), and calibration stops being optional (see below).</p>
+<p><strong>Calibration is load-bearing — and the general playbook barely mentions it.</strong> The moment you <em>blend</em> heads or feed a score into an auction / business rule / threshold, the probabilities must mean what they say: a predicted 0.1 pCVR must convert ~10% of the time. Rankers trained on imbalanced, biased data are systematically mis-calibrated.</p>
+<ul>
+<li><strong>Measure:</strong> Expected Calibration Error (ECE), plus reliability diagrams <em>per segment</em> (new vs. established items, per market — calibration that's fine in aggregate can be badly off for cold items).</li>
+<li><strong>Fix:</strong> Platt scaling / isotonic regression / temperature scaling on a held-out set; recalibrate on a schedule, because <strong>calibration drifts even when ranking AUC doesn't</strong>.</li>
+<li><strong>Calibrated heads do <em>not</em> compose into a calibrated blend.</strong> Even if pClick, pCart, and pPurchase are each individually well-calibrated, the weighted blend <code>w1·pClick + … − w5·pReturnRisk</code> is <strong>not</strong> automatically a calibrated estimate of anything — the weights, head correlations, and the minus term destroy the per-head calibration. So I calibrate at <strong>two levels</strong>: the individual heads, <em>and</em> a final calibration map fit on the <strong>blended score against the realized downstream outcome</strong> (e.g. realized purchase / GMV), then I <strong>monitor ECE on the served quantity itself</strong> — the number the auction / threshold actually consumes — not just on the component heads.</li>
+</ul>
+<blockquote>
+<p><strong>Say it like this:</strong> "AUC tells you the <em>order</em> is right; calibration tells you the <em>numbers</em> are right. For a pure sort you only need order. The instant a downstream consumer — an auction, a budget pacer, a <code>pCVR × price</code> blend, a threshold — reads the actual value, you need calibration, and I monitor ECE as a first-class metric, not an afterthought."</p>
+</blockquote>
+<hr />
+<h2 id="6-features-feature-store-point-in-time-correctness">6. Features — feature store &amp; point-in-time correctness</h2>
+<p>A feature store exists to prevent two failure classes. Name both.</p>
+<ol>
+<li><strong>Train/serve skew</strong> — the same feature computed by two code paths (batch SQL for training, an online service for serving) drifts apart. Fix: a single feature-definition source materialized for both offline and online.</li>
+<li><strong>Label leakage via point-in-time joins</strong> — the subtle, high-impact one. When you build a training row for <code>(query, item, t)</code>, every feature must be joined <strong>as of time <code>t</code></strong> (<code>feature_ts ≤ t</code>), not at its latest value. Accidentally join the <em>current</em> item-CTR into a row from last week and you've leaked the future.</li>
+</ol>
+<blockquote class="warn">
+<p><strong>Trap:</strong> This leakage <strong>inflates offline AUC by 5–20% while online collapses</strong> — it is the single most common "great offline, dead online" bug. Feast/Tecton-style time-travel joins exist precisely for this. When someone describes that symptom, audit point-in-time correctness <em>first</em> (§12).</p>
+</blockquote>
+<p><strong>Freshness tiers</strong> — say you'd tier features, not treat them uniformly:</p>
+<table>
+<thead>
+<tr>
+<th>Tier</th>
+<th>Example</th>
+<th>Path</th>
+<th>Freshness</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Static</td>
+<td>item attributes, category</td>
+<td>batch</td>
+<td>hours OK</td>
+</tr>
+<tr>
+<td>Near-real-time</td>
+<td>item CTR/CVR</td>
+<td>micro-batch</td>
+<td>minutes</td>
+</tr>
+<tr>
+<td>Streaming</td>
+<td>session/context features</td>
+<td>Flink/Kafka</td>
+<td>seconds</td>
+</tr>
+</tbody>
+</table>
+<p>The streaming path is where the cost and the on-call pain live.</p>
+<blockquote>
+<p><strong>Say it like this (own the gap gracefully):</strong> "I know the point-in-time correctness contract cold — it's the highest-leverage correctness bug in the whole system. The streaming ops at 100k events/sec is where I'd pair with the platform team; I've run this at research and shadow-eval scale, not a live 3am rotation, and I'd rather be precise about that."</p>
+</blockquote>
+<hr />
+<h2 id="7-evaluation-bridge-offline-interleaving-ab">7. Evaluation bridge — offline → interleaving → A/B</h2>
+<p>The general playbook jumps from offline NDCG straight to A/B. The in-between is where modern teams get <strong>10–100x faster</strong>. Present it as a three-phase funnel:</p>
+<ol>
+<li><strong>Offline</strong> — NDCG@10 / MRR / recall@k on graded relevance + replayed logs. Cheap, fast, weakly predictive. Gate: don't ship a regression.</li>
+<li><strong>Interleaving</strong> — for candidates that pass offline, mix results from ranker A and ranker B into <em>one</em> list per user and attribute each click to whichever ranker sourced it. Because every user sees both rankers, it removes between-user variance → <strong>~10–100x more sensitive than A/B</strong>, so it calls a winner on a small fraction of the traffic and runtime an A/B would need. Published interleaving pipelines (Netflix, Bing) report the same 10–100x sensitivity win. <em>This is the tool that lets a research team iterate weekly instead of monthly.</em></li>
+<li><strong>A/B</strong> — only interleaving winners graduate to a real A/B on the <strong>business</strong> metric (GMV/session). User-level randomization (not session — spillover), ≥2 weeks for weekly seasonality, <strong>per-market splits</strong> (DE/FR/ES/IT effects genuinely differ). Canary 1% → 10% → 50% → 100% with automated rollback on guardrail breach.</li>
+</ol>
+<p><strong>Name interleaving's limit unprompted</strong> (shows judgment): "Interleaving measures <em>ranking preference</em>, not downstream marketplace effects — seller supply response, long-term retention. So it's a fast filter, not a replacement for A/B on GMV."</p>
+<p><strong>Two-sided-marketplace caveat — the A/B itself is biased (SUTVA violation).</strong> A plain buyer-randomized A/B silently assumes one buyer's treatment doesn't affect another's outcome (SUTVA). On a marketplace that's false: ranking <strong>reallocates seller impressions and supply</strong> — a treatment that surfaces different sellers changes the impressions, prices, and stock that <em>control</em> buyers then see, so the two arms interfere and the buyer-side readout is contaminated (and the seller side is invisible to buyer randomization entirely). I'd measure the seller side with a <strong>design that randomizes at the interference boundary</strong>: <strong>cluster / region randomization</strong> (whole markets or seller-cohorts in one arm), a <strong>budget-split / two-sided design</strong>, or a <strong>switchback</strong> (flip the whole system on a time cadence) so supply-side effects are inside the experimental unit, not leaking across it.</p>
+<hr />
+<h2 id="8-serving-scale-the-two-facts-most-candidates-miss">8. Serving &amp; scale — the two facts most candidates miss</h2>
+<p>Don't re-draw the 200ms latency budget (it's in the general playbook). Add the two scale decisions that reveal real experience:</p>
+<p><strong>ANN index choice is a scale/cost decision, not a default.</strong></p>
+<table>
+<thead>
+<tr>
+<th>Index</th>
+<th>Use when</th>
+<th>Cost profile</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>HNSW</strong></td>
+<td>recall is king, RAM is plentiful (≤~100M vectors in-memory)</td>
+<td>~5–20ms, memory-heavy</td>
+</tr>
+<tr>
+<td><strong>IVF-PQ / DiskANN</strong></td>
+<td>billion-scale, memory-bound</td>
+<td>compressed, partly on disk, slower</td>
+</tr>
+<tr>
+<td>FAISS-GPU / managed ScaNN (Vertex)</td>
+<td>billions with dynamism</td>
+<td>throughput-oriented</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Do the arithmetic out loud — it forces the design.</strong> 2B vectors × 768 dims × 4 bytes (fp32) ≈ <strong>6.1 TB</strong> of raw embeddings. That does not fit in one box's RAM, and you're not paying to keep 6 TB hot. Product quantization (say 768 dims → ~96 bytes/vector) compresses it to <strong>~190 GB</strong> — now it fits across a handful of memory nodes. That single calculation is <em>why</em> the index is IVF-PQ / DiskANN, not flat HNSW, and <em>why</em> it's sharded.</p>
+<p><strong>Shard / replica topology + scatter-gather.</strong> Partition the index across <strong>N shards</strong> (by hash, or by a coarse IVF/semantic-ID bucket so related items co-locate), each shard <strong>replicated R times</strong> for QPS and availability. A query <strong>scatters</strong> to all N shards (or to the shards its coarse bucket selects), each returns its local top-k, and a broker <strong>gathers and merges</strong> to a global top-k. Then a <strong>two-stage retrieve</strong>: stage 1 does a cheap <strong>coarse-quantized / PQ</strong> scan to get a large candidate set fast, stage 2 <strong>re-ranks that shortlist against fuller-precision vectors</strong> (or the raw fp32 for the survivors) to recover the recall PQ threw away. Tail latency is set by the slowest shard, so replicas + hedged requests matter as much as the index itself.</p>
+<p>eBay's 2B listings + constant new-listing churn → you need <strong>incremental/streaming indexing</strong>: a separate <em>hot</em> index for &lt;24h listings, merged at query time, because a full re-embed + re-index on every encoder update is untenable.</p>
+<p><strong>Embedding version-sync — the failure mode nobody mentions until it bites.</strong> The query tower and the item index must be the <strong>same tower version</strong>: cosine similarity is only meaningful between vectors from the <em>same</em> embedding space. So a <strong>tower retrain is not a model swap, it's a full 2B item re-embed</strong> — every item vector in the index is now from the old space and incompatible with the new query tower. You can't do that in place while serving. The pattern: build the re-embedded index as a <strong>shadow index</strong> offline, validate it, then <strong>atomically dual-cutover</strong> the query tower and the item index together (flip both at once behind the router). This is a <em>different</em> mechanism from the hot-index-for-fresh-listings trick above: the hot index adds <em>new items</em> under the <em>current</em> tower version; the shadow-index cutover replaces the <em>entire</em> index because the <em>tower version itself</em> changed. Conflating the two is the classic "why did recall fall off a cliff after we shipped the new encoder" incident.</p>
+<p><strong>The ranking model's real memory hog is embedding tables, not the MLP.</strong> Item/seller/category ID embeddings dominate: at web scale they set the <strong>memory-capacity ceiling</strong> and the bulk of the <strong>all-to-all communication</strong> in RecSys training/serving — <em>not</em> the FLOPs (the lookups are memory-/bandwidth-bound, the MLP on top is tiny). So "scaling the model" here means <strong>sharding embedding tables</strong> (model-parallel across GPUs, or hybrid CPU-hosted embeddings + GPU top-MLP), not adding layers. (Industry RecSys is trending toward LLM-scale via embedding-table engineering, not deeper nets.)</p>
+<hr />
+<h2 id="9-cold-start-lean-on-content-until-behavior-exists">9. Cold start — lean on content until behavior exists</h2>
+<p>The content side of the two-tower <strong>is</strong> the cold-start solution. Say that explicitly.</p>
+<ul>
+<li><strong>New item:</strong> its content/visual embedding places it in the two-tower space on day one — it inherits its neighbors' priors. Add a small, <strong>decaying</strong> exploration boost until ~100 impressions accumulate; transfer seller reputation as a prior (a seller with 10k clean transactions starts with higher trust).</li>
+<li><strong>New user:</strong> session-bootstrap — the first ~3 interactions update real-time features immediately — plus a popularity/geo prior. Optional cold-start UI (ask 3 preference questions at signup) to seed.</li>
+<li><strong>New market (MT-adjacent):</strong> zero-shot multilingual capability day 0 → RAG bootstrap from existing bilingual inventory → LoRA once ~1k examples exist.</li>
+</ul>
+<blockquote>
+<p><strong>Say it like this:</strong> "I don't treat cold start as a bolt-on. The two-tower's content tower already embeds a brand-new listing into the same space as established items, so it gets reasonable neighbors immediately. The only thing missing is behavioral signal, and a decaying exploration boost buys that in ~100 impressions."</p>
+</blockquote>
+<hr />
+<h2 id="10-feedback-loop-collapse-instrument-it-dont-hope">10. Feedback-loop collapse — instrument it, don't hope</h2>
+<p>A recommender trained on its own impressions concentrates: it shows popular items → they get clicked → it learns they're good → shows them more. Left unchecked for ~48h without exploration, the served distribution can concentrate to a ~10x narrower item set than the catalog. <strong>Make it measurable:</strong></p>
+<ul>
+<li><strong>Impression Gini alarm:</strong> track the Gini coefficient of impressions across items/sellers, daily. Alarm if it rises past ~0.7.</li>
+<li><strong>Exploration budget:</strong> non-negotiable 5–10% of impressions. Prefer <strong>Thompson sampling</strong> over ε-greedy/UCB — it adapts the exploration rate to the model's <em>uncertainty</em>, not just to item age.</li>
+<li><strong>Diversity enforcement:</strong> MMR (penalize items too similar to already-selected) + category/seller caps (e.g. max 3 from one seller in the top 10).</li>
+</ul>
+<blockquote>
+<p><strong>Say it like this:</strong> "Feedback-loop collapse isn't a philosophical risk, it's a number I watch — impression-Gini. If it crosses ~0.7 that's an alarm. The fix is a fixed exploration budget with Thompson sampling, and it doubles as the clean, uniform-propensity signal that de-biases my training data. Same mechanism solves two problems."</p>
+</blockquote>
+<hr />
+<h2 id="11-monitoring-three-layers">11. Monitoring — three layers</h2>
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>What</th>
+<th>Signal / threshold</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Input</strong></td>
+<td>feature drift, null-rate</td>
+<td>PSI/KS per feature (alarm PSI &gt; 0.2), null-rate spikes</td>
+</tr>
+<tr>
+<td><strong>Model</strong></td>
+<td>calibration + quality</td>
+<td>ECE creep; online NDCG proxy on a <em>fresh</em> held-out slice</td>
+</tr>
+<tr>
+<td><strong>Business</strong></td>
+<td>end-to-end health</td>
+<td>GMV/session, seller-Gini, latency p99</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Seasonality is the trap:</strong> e-commerce drifts hard around holidays and end-of-season. Use time-aware features and <em>expect</em> scheduled retrains — a drift alarm that fires every December isn't a bug, it's the calendar.</p>
+<hr />
+<h2 id="12-failure-modes-id-volunteer">12. Failure modes I'd volunteer</h2>
+<p>Volunteering these unprompted is a strong-senior signal — it shows I've been burned and know where to look.</p>
+<table>
+<thead>
+<tr>
+<th>Failure</th>
+<th>Tell</th>
+<th>Mitigation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Great offline, dead online</strong></td>
+<td>AUC↑ offline, flat/down A/B</td>
+<td><strong>Audit point-in-time leakage (§6) first</strong> — it's the usual culprit</td>
+</tr>
+<tr>
+<td>Retriever returns popular-generic, misses tail</td>
+<td>tail-query recall low, GMV flat on long-tail sessions</td>
+<td>logQ correction + hard negatives (§4); track tail-recall</td>
+</tr>
+<tr>
+<td>Calibration drift</td>
+<td>ECE creeps up while AUC steady</td>
+<td>scheduled recalibration; per-segment reliability diagrams</td>
+</tr>
+<tr>
+<td>Ranker gamed</td>
+<td>keyword-stuffed titles rank</td>
+<td>separate exact-match features; seller-trust signals; editorial audit</td>
+</tr>
+<tr>
+<td>Index staleness</td>
+<td>new listings invisible for hours</td>
+<td>hot near-real-time index merged with main (§8)</td>
+</tr>
+<tr>
+<td>Feedback collapse</td>
+<td>impression-Gini↑</td>
+<td>exploration budget + diversity caps (§10)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>"Great offline, dead online" is a differential diagnosis, not one bug — I'd rank the causes</strong> (cheapest/most-common first) rather than name a single culprit:</p>
+<ol>
+<li><strong>Point-in-time leakage</strong> (§6) — a future-valued feature joined into a past row inflates offline AUC 5–20% and vanishes online. Most common, cheapest to check, so it's #1.</li>
+<li><strong>Train/serve skew</strong> (§6) — the feature is computed by two code paths (batch SQL vs. online service) that quietly diverge, so the model sees different inputs offline vs. in production.</li>
+<li><strong>Offline candidate-set / incumbent selection bias</strong> — the subtle one. Offline eval replays logs that only contain items the <em>incumbent</em> ranker chose to show. A better retriever surfaces <strong>previously-unshown, unlabeled</strong> items, which score as misses on logged labels — so it looks <strong>worse offline while being better online</strong>. The fix isn't to trust offline; it's <strong>off-policy / counterfactual evaluation</strong> with <strong>exploration-propensity labels</strong> from the 5% slice (§10), so unshown-but-relevant items aren't silently counted as negatives.</li>
+<li><strong>Proxy-metric divergence</strong> — NDCG@10 climbs but GMV/session stays flat (§2's proxy/target gap). The offline number improved; the thing you actually sell didn't.</li>
+<li><strong>Train-window vs serving distribution shift</strong> — the model was trained on a window that no longer matches live traffic (seasonality, catalog turnover, a new market), so honest offline numbers on stale data don't transfer.</li>
+</ol>
+<blockquote>
+<p><strong>Say it like this (the meta-move):</strong> "When someone tells me a model was great offline and died online, I don't reach for the architecture — I run a ranked differential: point-in-time leakage first because it's the most common and cheapest to check, then train/serve skew, then whether offline eval is penalizing the retriever for surfacing items the incumbent never showed, then proxy-vs-GMV divergence, then plain train/serve distribution shift."</p>
+</blockquote>
+<hr />
+<h2 id="13-the-60-second-spine-open-with-this-then-expand-on-probing">13. The 60-second spine (open with this, then expand on probing)</h2>
+<blockquote>
+<p>"Retrieve-then-rank over 2B items. <strong>Query understanding</strong> normalizes the query and produces an embedding. <strong>Candidate generation</strong> is multi-channel — a two-tower dense retriever trained with in-batch negatives <em>plus logQ correction plus hard negatives</em>, because sampling bias is the whole game, alongside BM25 for exact codes and item-to-item CF — fused by a learned, query-dependent ranker rather than fixed weights. <strong>Ranking</strong> is a multi-task PLE/MMoE model predicting click/cart/purchase, blended to a GMV-aligned score and <strong>calibrated</strong> — ECE-monitored — because that score feeds business rules. Features come from a store with <strong>point-in-time joins</strong> so I don't leak the future. I prove wins <strong>offline (NDCG) → interleaving (fast, ~100x more sensitive) → A/B (GMV, per market)</strong>. Cold start rides the content side of the two-tower; feedback-loop collapse I watch via impression-Gini with a Thompson-sampling exploration budget. And if you ask where I'd take it — generative retrieval with semantic IDs, which is where recsys and foundation models converge."</p>
+</blockquote>
+<p>That last clause is the bait for §14 — it invites the frontier question onto Tony's turf.</p>
+<hr />
+<h2 id="14-the-frontier-fork-generative-retrieval-semantic-ids">14. The frontier fork — generative retrieval / semantic IDs</h2>
+<p>If they push <em>"what would you build in two years / where is the field going,"</em> this is the high-signal answer and it's Tony's lane (recsys × foundation models).</p>
+<p><strong>The idea.</strong> Replace <code>embed → ANN → rank</code> with a <strong>single generative model that emits the item-ID sequence directly</strong>. Items are tokenized into <strong>semantic IDs</strong> — a hierarchy of codebook tokens from an <strong>RQ-VAE over content embeddings</strong>, so similar items share ID prefixes. A Transformer (encoder-decoder) then <em>generates</em> the next item's semantic ID given user history, collapsing retrieval <strong>and</strong> ranking into one model.</p>
+<p><strong>A real production instance to cite</strong> (not just a benchmark): <strong>Kuaishou's OneRec</strong> (2025) — encoder-decoder + sparse MoE, session-wise list generation, DPO preference-alignment on top. Deployed to hundreds of millions of DAU, retrained daily, and it <em>beat the classic cascade in production</em> — which TIGER didn't; TIGER was a benchmark result.</p>
+<p><strong>The honest trade-offs (this is what earns the point — don't sell it as a free lunch):</strong></p>
+<table>
+<thead>
+<tr>
+<th>Concern</th>
+<th>Two-tower cascade</th>
+<th>Generative / semantic-ID</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Cold start</strong></td>
+<td>content tower embeds new item day 0</td>
+<td>new item has no learned ID token → need content-derived semantic IDs to place it</td>
+</tr>
+<tr>
+<td><strong>Serving</strong></td>
+<td>one ANN lookup (~ms)</td>
+<td>autoregressive decoding, pricier — but unifies two systems into one</td>
+</tr>
+<tr>
+<td><strong>Controllability</strong></td>
+<td>business rules bolt onto a scored list easily</td>
+<td>diversity/rules are harder to impose on a generative decoder</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>Say it like this:</strong> "It's a genuine architecture bet, not a free win. The interesting engineering is exactly the serving-cost and cold-start questions — which is the systems-vs-scaling trade-off I work on. I'd pilot it on one high-traffic surface, keep the two-tower as the fallback, and only migrate if it beats the cascade on GMV in a real A/B — the bar OneRec actually cleared."</p>
+</blockquote>
+<hr />
+<p><em>Complements </em>Design Framework &amp; How to Drive<em> (framework, latency budget) and the </em>Design Skeletons Bank<em> (the five other designs + the LLM routing/serving gateway). For the verified own-paper numbers — LLM Router &gt;90% cost reduction at iso-quality, MERA 87.3% router-decision accuracy at 51.8% serving cost — see the own-papers ground-truth doc; don't quote them from memory.</em></p>
+      <nav class="prevnext"><a class="pn prev" href="s2_20_design_framework.html">‹ <span>Design Framework &amp; How to Drive</span></a><a class="pn next" href="s2_22_design_skeletons.html"><span>Design Skeletons Bank</span> ›</a></nav>
+    </article>
+    <aside class="toc"><div class="toc-title">On this page</div><ul>
+<li><a href="#1-frame-it-in-one-breath">1. Frame it in one breath</a></li>
+<li><a href="#2-requirements-metrics-name-the-bundle-not-one-number">2. Requirements &amp; metrics — name the bundle, not one number</a></li>
+<li><a href="#3-labels-the-click-bias-problem-the-part-everyone-hand-waves">3. Labels &amp; the click-bias problem (the part everyone hand-waves)</a></li>
+<li><a href="#4-candidate-generation-two-tower-training-done-right">4. Candidate generation — two-tower training done right</a></li>
+<li><a href="#4a-the-feed-fork-recommendations-as-a-first-class-surface">4A. The feed fork — recommendations as a first-class surface</a></li>
+<li><a href="#5-ranking-multi-task-calibration">5. Ranking — multi-task + calibration</a></li>
+<li><a href="#6-features-feature-store-point-in-time-correctness">6. Features — feature store &amp; point-in-time correctness</a></li>
+<li><a href="#7-evaluation-bridge-offline-interleaving-ab">7. Evaluation bridge — offline → interleaving → A/B</a></li>
+<li><a href="#8-serving-scale-the-two-facts-most-candidates-miss">8. Serving &amp; scale — the two facts most candidates miss</a></li>
+<li><a href="#9-cold-start-lean-on-content-until-behavior-exists">9. Cold start — lean on content until behavior exists</a></li>
+<li><a href="#10-feedback-loop-collapse-instrument-it-dont-hope">10. Feedback-loop collapse — instrument it, don&#x27;t hope</a></li>
+<li><a href="#11-monitoring-three-layers">11. Monitoring — three layers</a></li>
+<li><a href="#12-failure-modes-id-volunteer">12. Failure modes I&#x27;d volunteer</a></li>
+<li><a href="#13-the-60-second-spine-open-with-this-then-expand-on-probing">13. The 60-second spine (open with this, then expand on probing)</a></li>
+<li><a href="#14-the-frontier-fork-generative-retrieval-semantic-ids">14. The frontier fork — generative retrieval / semantic IDs</a></li>
+</ul></aside>
+  </main>
+</div>
+<script>window.SEARCH_JSON="../assets/../search-index.json";</script>
+<script src="../assets/search-data.js"></script>
+<script src="../assets/app.js"></script>
+</body>
+</html>

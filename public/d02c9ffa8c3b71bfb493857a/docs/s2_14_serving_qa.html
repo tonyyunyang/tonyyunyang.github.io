@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Engineering Q&amp;A — Serve &amp; Monitor · eBay Stage-2 Prep</title>
+<meta name="robots" content="noindex,nofollow">
+<script>try{if(localStorage.getItem('ebay-s2-theme')==='dark')document.documentElement.classList.add('dark');}catch(e){}</script>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body data-track="code" data-pagefind-ignore="all">
+<button id="menu" class="menu-btn" aria-label="Menu">☰</button>
+<button id="theme" class="theme-btn" aria-label="Toggle theme">◐</button>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+<div class="brand"><a href="../index.html"><span class="brand-mark">e</span><span class="brand-txt">Stage&nbsp;2 Prep<em>eBay · three interviews</em></span></a></div>
+<div class="search"><input id="q" type="search" placeholder="Search…" autocomplete="off"><div id="results"></div></div>
+<nav class="nav">
+<div class="nav-group" data-track="start"><div class="nav-group-title"><span class="dot"></span>Start Here</div><ul>
+<li><a href="s2_00_email_and_logistics.html">Email &amp; Logistics</a></li>
+<li><a href="s2_01_overview_and_plan.html">Overview &amp; Study Plan</a></li>
+<li><a href="s2_44_confirm_tony.html">★ Fill These Before the Room</a></li>
+</ul></div>
+<div class="nav-group" data-track="code"><div class="nav-group-title"><span class="dot"></span>1 · Live Coding &amp; Engineering</div><ul>
+<li><a href="s2_10_live_coding_playbook.html">Live-Coding Playbook</a></li>
+<li><a href="s2_11_ml_from_scratch.html">ML From Scratch (Python)</a></li>
+<li><a href="s2_12_practice_regimen.html">Unaided Practice Regimen</a></li>
+<li><a href="s2_13_engineering_qa.html">Engineering Q&amp;A — Build &amp; Train</a></li>
+<li class="active"><a href="s2_14_serving_qa.html">Engineering Q&amp;A — Serve &amp; Monitor</a></li>
+<li><a href="s2_15_mlops_honest_gap.html">The Honest MLOps-Gap Script</a></li>
+</ul></div>
+<div class="nav-group" data-track="design"><div class="nav-group-title"><span class="dot"></span>2 · ML System Design</div><ul>
+<li><a href="s2_20_design_framework.html">Design Framework &amp; How to Drive</a></li>
+<li><a href="s2_21_recsys_search_design.html">Flagship: Search Ranking &amp; Recs</a></li>
+<li><a href="s2_22_design_skeletons.html">Design Skeletons Bank</a></li>
+<li><a href="s2_23_scaling_playbook.html">The Scaling Playbook</a></li>
+</ul></div>
+<div class="nav-group" data-track="pm"><div class="nav-group-title"><span class="dot"></span>3 · Project Mgmt &amp; Retrospective</div><ul>
+<li><a href="s2_30_project_walkthrough.html">Walkthrough: Routing at Scale</a></li>
+<li><a href="s2_31_star_stories.html">STAR Stories — The Four Prompts</a></li>
+<li><a href="s2_32_behavioral_bank.html">Behavioral &amp; Competency Bank</a></li>
+</ul></div>
+<div class="nav-group" data-track="ebay"><div class="nav-group-title"><span class="dot"></span>eBay &amp; Closing</div><ul>
+<li><a href="s2_40_ebay_context.html">eBay Context (Stage-2 lens)</a></li>
+<li><a href="s2_41_own_papers_numbers.html">Own-Paper Numbers (say them cold)</a></li>
+<li><a href="s2_42_questions_to_ask.html">Questions to Ask</a></li>
+<li><a href="s2_43_final_hours.html">Final-Hours Cheatsheet</a></li>
+</ul></div>
+</nav>
+  </aside>
+  <div class="scrim" id="scrim"></div>
+  <main class="content">
+    <article class="doc">
+      <div class="doc-meta"><span class="tag t-code">Coding</span><span class="read">29 min read</span></div>
+      <h1 id="engineering-qa-serve-monitor">Engineering Q&amp;A — Serve &amp; Monitor</h1>
+<p><em>Spoken-ready answers for the Interview-1 engineering Q&amp;A on inference optimization, serving/deployment, and monitoring. Read each aloud once so the phrasing lands in your own voice. This is your home turf — lead with the formula or the metric, quantify, and own the ops-scale gap in one clause instead of faking it.</em></p>
+<hr />
+<h2 id="how-to-use-this-doc">How to use this doc</h2>
+<p>Three rules baked into every answer:</p>
+<ol>
+<li><strong>Lead with conceptual command.</strong> Say the formula, the number, or the mechanic first — that proves domain fluency before you explain.</li>
+<li><strong>Own the ops gap in one clause, then pivot.</strong> Live canary, real-time drift, and on-call rotation are the <em>known gap</em>. Don't invent production war stories. Say "I know this cold conceptually; I haven't owned an on-call rotation at that scale," then pivot to your real edge — efficiency and serving cost. The full framing lives in the <strong>Honest MLOps-Gap Script</strong> doc; don't recite it in full every time, just point at it and move on.</li>
+<li><strong>Ground in eBay where it's natural</strong> — serving LiLiuM, cross-border MT latency, the VLM cost story — but don't force it.</li>
+</ol>
+<p>Your fallback thesis: <em>"AI is moving from a scaling race to a systems race — what matters is how we train, route, compress, deploy, and apply models under real constraints."</em> Inference optimization is that thesis made concrete.</p>
+<blockquote class="warn">
+<p>⚠ <strong>[CONFIRM TONY]:</strong> Have a true answer ready for "which of these serving stacks have you actually run hands-on?" (vLLM? SGLang? Triton? TensorRT-LLM?). Name the one you've genuinely used at research/shadow scale so you're precise, and treat the rest as "I know the design, haven't operated it in prod." Rehearsed truthful template to confirm and adjust to your real experience: <em>"I've run vLLM at research/shadow scale; Triton and TensorRT-LLM I know by design, but haven't operated at production scale."</em></p>
+</blockquote>
+<hr />
+<h1 id="section-a-inference-optimization">Section A — Inference Optimization</h1>
+<p><em>Your strongest ground. Answer with confidence and specificity.</em></p>
+<h3 id="a1-walk-me-through-how-youd-cut-the-inference-cost-of-a-7b-llm-in-production">A1. Walk me through how you'd cut the inference cost of a 7B LLM in production.</h3>
+<p><strong>Say it like this:</strong></p>
+<blockquote>
+<p>I'd attack it in layers, cheapest wins first.</p>
+<p>Start with <strong>quantization</strong> — FP8 on Hopper or Blackwell because it's near-lossless, roughly 1.5x throughput and half the memory for about a half-point accuracy cost. Only drop to INT4-AWQ if I'm VRAM-constrained and the task isn't code or math.</p>
+<p>Then make sure I'm on an engine with <strong>continuous batching and PagedAttention</strong> — that alone is a 10–20x throughput unlock over naive batching, keeping the GPU at 90%+ utilization instead of 40%.</p>
+<p>After that I'd add <strong>prefix caching</strong> if there's shared context, and <strong>speculative decoding</strong> with a small draft model on the latency-sensitive paths.</p>
+<p>The meta-point: the biggest lever is often not touching the model at all — it's routing cheap queries to a cheap model, which is exactly the LLM Router and MERA work I did.</p>
+</blockquote>
+<h3 id="a2-what-is-the-kv-cache-and-why-does-it-dominate-inference-memory">A2. What is the KV cache and why does it dominate inference memory?</h3>
+<p><strong>Say it like this:</strong></p>
+<blockquote>
+<p>During autoregressive decoding every new token attends to all previous tokens, so instead of recomputing keys and values for the whole prefix each step, we cache them — that's the KV cache. It grows <strong>linearly with sequence length and batch size</strong>, which is why long-context or high-concurrency serving blows past even an H100's 80 GB. The formula I keep in my head is <code>2 × layers × kv_heads × head_dim × seq × batch × bytes</code> — the 2 is for K and V. For Llama-3-70B at 4K tokens that's about 1.3 GB <em>per sequence</em>, so a batch of 32 already burns 40+ GB on cache alone. That's the whole reason PagedAttention and GQA exist.</p>
+</blockquote>
+<h3 id="a3-explain-pagedattention-and-why-it-matters">A3. Explain PagedAttention and why it matters.</h3>
+<p><strong>Say it like this:</strong></p>
+<blockquote>
+<p>PagedAttention borrows virtual-memory paging from operating systems. Instead of allocating one big contiguous KV block per request — which bleeds memory to internal and external fragmentation — it chops the cache into small fixed-size blocks, usually 16 tokens, that can live anywhere in GPU memory. That cuts memory waste by up to about 90%, so you fit far more concurrent sequences on the same card, and that's where vLLM's big throughput gains come from. It also makes prefix sharing cheap — two requests with the same system prompt literally point at the same physical blocks.</p>
+</blockquote>
+<h3 id="a4-continuous-in-flight-batching-vs-static-batching">A4. Continuous (in-flight) batching vs. static batching?</h3>
+<p><strong>Say it like this:</strong></p>
+<blockquote>
+<p>Static batching waits for a full batch, runs it to completion, and only then admits new requests — so a short request gets stuck behind a long one and the GPU idles. <strong>Continuous batching</strong> admits a new request the instant any sequence frees a slot, at the token level. In practice that takes GPU utilization from roughly 40% to 90%+ and is the single biggest throughput win in modern engines — vLLM, SGLang, TensorRT-LLM. The intuition for why batching helps at all: decode is memory-bandwidth-bound, so once you've paid to load the weights, pushing more sequences through them is nearly free until you saturate compute.</p>
+</blockquote>
+<h3 id="a5-when-does-batching-stop-helping">A5. When does batching stop helping?</h3>
+<p><strong>Say it like this:</strong></p>
+<blockquote>
+<p>Batching amortizes the cost of streaming weights from HBM, because decode is bandwidth-bound — you load the weights once and reuse them across every sequence. So throughput climbs almost linearly with batch size <em>until</em> you either run out of KV-cache memory to hold more sequences, or cross into being compute-bound, where you're just adding latency with no throughput gain. Prefill is the opposite — compute-bound from the start, because you process all prompt tokens in parallel. That prefill-versus-decode asymmetry is exactly why 2025-era stacks are moving to <strong>disaggregated serving</strong>, splitting prefill and decode onto different GPUs so they stop fighting over the same resource.</p>
+</blockquote>
+<h3 id="a6-fp8-vs-int8-vs-int4-how-do-you-choose">A6. FP8 vs INT8 vs INT4 — how do you choose?</h3>
+<p><strong>Say it like this:</strong></p>
+<blockquote>
+<p>Default to <strong>FP8</strong> on modern GPUs — NVIDIA's own guidance is to try it first, because it gives near-FP16 quality, about 1.5x throughput, and half the memory, for roughly a 0.6-point accuracy hit.</p>
+<p>INT8 sits in the middle and honestly doesn't buy much over FP8 on Hopper.</p>
+<p><strong>INT4</strong> is where it gets interesting for cost — around 2.7x faster than BF16 and under 2 points on MMLU-Pro, but it drops roughly 8 points on HumanEval, so I'd never use INT4 for code, math, or reasoning-heavy work. (All ballparks — the precision-and-task caveat is the point, so I say "roughly.")</p>
+<p>Rule of thumb: FP8 for quality-critical, INT4-AWQ only when VRAM is the binding constraint and the task tolerates it.</p>
+</blockquote>
+<h3 id="a7-awq-vs-gptq-vs-gguf">A7. AWQ vs GPTQ vs GGUF?</h3>
+<p><strong>Say it like this:</strong></p>
+<blockquote>
+<p>They're all weight quantization but differ in method and target. <strong>GPTQ</strong> does layer-wise quantization using second-order Hessian information — solid, fast to run. <strong>AWQ</strong>, activation-aware quantization, protects the small fraction of salient weights that matter most for activations; it usually gets lower perplexity than GPTQ at INT4 on reasoning tasks, at the cost of a slightly slower quantization pass. <strong>GGUF</strong> is the llama.cpp format for CPU and edge, with named tiers — Q5_K_M and Q6_K are near-BF16, Q2_K noticeably degrades. For a GPU server I reach for AWQ or FP8; GGUF is for laptop or CPU deployment.</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Format</th>
+<th>Method</th>
+<th>Best for</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>GPTQ</strong></td>
+<td>Layer-wise, Hessian-based</td>
+<td>Fast to quantize, GPU</td>
+</tr>
+<tr>
+<td><strong>AWQ</strong></td>
+<td>Protects salient weights</td>
+<td>Lower INT4 perplexity on reasoning, GPU</td>
+</tr>
+<tr>
+<td><strong>GGUF</strong></td>
+<td>Named tiers (Q2_K…Q6_K)</td>
+<td>CPU / edge / laptop</td>
+</tr>
+</tbody>
+</table>
+<h3 id="a8-what-is-speculative-decoding-and-whats-the-catch">A8. What is speculative decoding and what's the catch?</h3>
+<p><strong>Say it like this:</strong></p>
+<blockquote>
+<p>You run a small, cheap <strong>draft model</strong> to propose several tokens ahead, then the big target model verifies all of them in one forward pass. Because verification is parallel, you accept a run of tokens per big-model step and get a real wall-clock speedup — often 2x or more, higher when the draft is well-aligned. The catch is it's a <em>latency</em> optimization, not a <em>throughput</em> one: it burns extra compute on speculation, so under high batch load where the GPU is already saturated it can actually hurt aggregate throughput. It only pays off when the acceptance rate is high, which depends on how well the draft mimics the target.</p>
+</blockquote>
+<h3 id="a9-gqa-and-mqa-what-problem-do-they-solve">A9. GQA and MQA — what problem do they solve?</h3>
+<p><strong>Say it like this:</strong></p>
+<blockquote>
+<p>Both shrink the KV cache by sharing key-value heads. <strong>Multi-Query Attention</strong> goes to the extreme — one KV head shared by all query heads — which minimizes cache but can cost quality. <strong>Grouped-Query Attention</strong> is the practical middle ground: query heads are grouped to share a smaller number of KV heads. Llama-2-70B uses 8 KV heads instead of 64 — an 8x cut in cache size with almost no quality loss — which is why GQA is now the default in basically every serious open model.</p>
+</blockquote>
+<p><strong>Trap:</strong> when you plug numbers into the KV formula live, use <code>kv_heads</code> for a GQA/MQA model, <strong>not</strong> <code>n_heads</code>. Grabbing the full query-head count is an 8x error on a Llama-2-70B-style model — a common slip under pressure.</p>
+<h3 id="a10-prefill-vs-decode-why-talk-about-them-separately">A10. Prefill vs decode — why talk about them separately?</h3>
+<p><strong>Say it like this:</strong></p>
+<blockquote>
+<p>They have completely different performance profiles. <strong>Prefill</strong> processes the whole prompt at once, a big parallel matmul — compute-bound, and it sets your Time-To-First-Token. <strong>Decode</strong> generates one token at a time, each step re-reading the weights and KV cache from memory — memory-bandwidth-bound, and it sets your Time-Per-Output-Token. Optimizations follow: chunked prefill (Sarathi-style) interleaves prefill chunks with decode so a long prompt doesn't stall everyone; disaggregated serving physically separates them. Knowing which phase you're bottlenecked on tells you whether to buy compute or bandwidth.</p>
+</blockquote>
+<h3 id="a11-what-does-torchcompile-buy-you-and-where-does-onnx-fit">A11. What does torch.compile buy you, and where does ONNX fit?</h3>
+<p><strong>Say it like this:</strong></p>
+<blockquote>
+<p><code>torch.compile</code> traces the model into a graph and fuses ops, giving roughly a 1.5x speedup out of the box; in <code>reduce-overhead</code> mode it layers on <strong>CUDA graphs</strong>, which kill per-kernel launch overhead and can push the total to 2–3x over an unoptimized baseline. It's production-stable as of PyTorch 2.6. <strong>ONNX Runtime</strong> is the more portable path — you export to a framework-agnostic graph and get runtime kernel selection, dynamic batching, and deployment where you don't want a full PyTorch stack. For maximum NVIDIA performance you'd compile to <strong>TensorRT-LLM</strong> instead, which generates fused kernels per model and shape but locks you to NVIDIA.</p>
+</blockquote>
+<h3 id="a12-when-would-you-distill-instead-of-quantize">A12. When would you distill instead of quantize?</h3>
+<p><strong>Say it like this:</strong></p>
+<blockquote>
+<p>Quantization keeps the architecture and just lowers numeric precision — cheap, fast, reversible. <strong>Distillation</strong> trains a genuinely smaller student to mimic a larger teacher, so it changes latency and cost structurally, not just at the bit level. I'd distill when I need a permanently smaller footprint for a well-scoped task and I have teacher outputs to train on — eBay's own VLM paper is a clean example: a fine-tuned Gemma3-4B hit F1 50.5, <em>beating</em> a zero-shot Gemma3-27B at 44.8 while running about 3.8x faster. That's the pattern — a small specialized model dominating a big general one on cost <em>and</em> quality for a narrow task. And they compose: distill first, then quantize the student.</p>
+</blockquote>
+<hr />
+<h1 id="section-b-serving-deployment">Section B — Serving &amp; Deployment</h1>
+<p><em>Ops-adjacent. Show conceptual command, own the scale gap in a clause, pivot to efficiency.</em></p>
+<h3 id="b1-which-serving-stack-would-you-pick-and-why">B1. Which serving stack would you pick and why?</h3>
+<p><strong>Say it like this:</strong></p>
+<blockquote>
+<p>For LLMs I default to <strong>vLLM</strong> — the strongest balance of throughput, ecosystem maturity, and deployment flexibility, with PagedAttention and continuous batching first-class. <strong>SGLang</strong> is my pick when there's heavy prefix reuse — multi-turn chat or eval workloads — because its RadixAttention builds a radix tree over cached KV pages and reuses the longest common prefix, up to about 6x throughput on structured workloads. <strong>TensorRT-LLM</strong> is fastest on NVIDIA if I can afford per-model compilation and the lock-in. Worth noting Hugging Face's <strong>TGI</strong> is now in maintenance mode and they point people to vLLM or SGLang. For classic non-LLM models — ranking, vision — I'd reach for <strong>Triton</strong>, which handles multi-framework serving, dynamic batching, and concurrent model execution behind one endpoint.</p>
+</blockquote>
+<h3 id="b2-rest-vs-grpc-for-model-serving">B2. REST vs gRPC for model serving?</h3>
+<p><strong>Say it like this:</strong></p>
+<blockquote>
+<p>REST over HTTP/JSON is universal, easy to debug, fine for low-volume or external-facing endpoints. <strong>gRPC</strong> uses HTTP/2 and Protobuf — binary, multiplexed, lower-latency — so it's better for high-throughput internal service-to-service traffic and for streaming token-by-token. Triton and KServe expose both under the standard KServe inference protocol, so I'd typically offer gRPC to internal callers who care about tail latency and REST for everything else. For token streaming specifically you also see SSE and WebSockets on the REST side.</p>
+</blockquote>
+<h3 id="b3-walk-me-through-a-safe-rollout-of-a-new-model-version">B3. Walk me through a safe rollout of a new model version.</h3>
+<p><strong>Say it like this:</strong></p>
+<blockquote>
+<p>I'd stage it. First <strong>shadow deploy</strong> — mirror live traffic to the new model but don't serve its responses, so I can compare outputs against production at zero user risk. If that's clean, move to a <strong>canary</strong>: route a small slice, say 5–10%, and watch quality and latency SLOs before ramping. KServe makes this literally a <code>canaryTrafficPercent: 10</code> field, and promotion is just removing it. <strong>Blue-green</strong> is the option when I need an instant atomic switch with instant rollback — two identical environments, flip traffic — but for LLMs that's expensive because you pay for double the GPUs. I'll be honest: I understand these patterns and their tradeoffs well conceptually, but I haven't personally owned a canary rotation at eBay's traffic scale — my hands-on depth is on the model-efficiency side, making the thing you're rolling out cheaper and faster.</p>
+</blockquote>
+<h3 id="b4-canary-vs-ab-testing-vs-shadow-arent-they-the-same">B4. Canary vs A/B testing vs shadow — aren't they the same?</h3>
+<p><strong>Say it like this:</strong></p>
+<blockquote>
+<p>They overlap but answer different questions. <strong>Shadow</strong> answers <em>"is the new model safe and correct?"</em> — it processes real inputs but its outputs never reach users. <strong>Canary</strong> answers <em>"can I safely ramp this to everyone?"</em> — it serves a small, growing subset while you watch operational health, rolling back fast if metrics dip. <strong>A/B testing</strong> answers <em>"which model is better for the business?"</em> — it splits users randomly and compares a business metric like conversion or click-through with statistical rigor. The clean sequence is shadow for safety, canary for operational rollout, A/B for the business decision. Complementary, not interchangeable.</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Stage</th>
+<th>Question it answers</th>
+<th>Outputs reach users?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Shadow</strong></td>
+<td>Is it safe and correct?</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>Canary</strong></td>
+<td>Can I ramp to everyone?</td>
+<td>Yes, small growing slice</td>
+</tr>
+<tr>
+<td><strong>A/B</strong></td>
+<td>Which is better for the business?</td>
+<td>Yes, random split</td>
+</tr>
+</tbody>
+</table>
+<h3 id="b5-how-do-you-roll-back-a-bad-deploy">B5. How do you roll back a bad deploy?</h3>
+<p><strong>Say it like this:</strong></p>
+<blockquote>
+<p>The fastest rollback is one you designed in advance. With blue-green it's an atomic flip back to the known-good environment; with canary you just set the split back to zero. The prerequisites are a <strong>model registry</strong> with versioned, immutable artifacts so "the previous good model" is an exact, reproducible thing, plus health checks and SLO alarms that can trigger rollback automatically instead of waiting for a human. The subtle failure mode is state — if the new model changed a feature schema or wrote to a shared store, a naive rollback leaves you inconsistent, so you version features and keep changes backward-compatible. I'll be candid that automated rollback tooling at scale is more something I know the shape of than something I've operated on-call — see the Honest MLOps-Gap Script for how I frame that.</p>
+</blockquote>
+<h3 id="b6-what-is-a-model-registry-and-why-do-you-need-one">B6. What is a model registry and why do you need one?</h3>
+<p><strong>Say it like this:</strong></p>
+<blockquote>
+<p>A model registry is the versioned system of record for trained models — each entry an immutable artifact with its lineage: training-data version, code commit, hyperparameters, eval metrics. It's what makes deployment reproducible and rollback trustworthy, because "promote version 47" and "revert to version 46" become exact operations instead of hoping you can rebuild the right binary. It's also the governance surface — stage transitions from staging to production, approvals, audit trail. MLflow, SageMaker Model Registry, or Vertex fill this role.</p>
+</blockquote>
+<h3 id="b7-how-do-you-autoscale-gpu-inference">B7. How do you autoscale GPU inference?</h3>
+<p><strong>Say it like this:</strong></p>
+<blockquote>
+<p>GPU serving doesn't scale like stateless web servers — cold starts are slow because you're loading tens of gigabytes of weights, and requests are stateful thanks to the KV cache. So I scale on serving-specific signals — <strong>queue depth / pending requests, TTFT, and KV-cache utilization</strong>, not raw CPU. I'd keep a warm pool to hide cold starts and lean hard on continuous batching first, because a well-batched single GPU often beats naively spreading load across many underutilized ones — spiky low-concurrency traffic underfills batches and runs 3–5x worse than peak throughput. This connects straight to my routing work: the cheapest way to autoscale is to <em>not send</em> easy queries to the expensive model in the first place.</p>
+</blockquote>
+<h3 id="b8-whats-a-feature-store-and-when-does-it-matter">B8. What's a feature store and when does it matter?</h3>
+<p><strong>Say it like this:</strong></p>
+<blockquote>
+<p>A feature store is the shared layer that computes, stores, and serves features consistently for both training and inference. Its whole reason to exist is to kill <strong>training-serving skew</strong> — the bug where a feature is computed one way offline and a subtly different way in the online path, so the model silently degrades in production. It gives you point-in-time-correct features offline and low-latency lookups online, from one definition. It matters most for tabular real-time systems — recommendations, ranking, fraud — so eBay's search and ads ranking would live on exactly this kind of infrastructure. It's less central to a stateless LLM prompt path.</p>
+</blockquote>
+<h3 id="b9-how-would-you-serve-ebays-lilium-or-e-llama-efficiently">B9. How would you serve eBay's LiLiuM or e-Llama efficiently?</h3>
+<p><strong>Say it like this:</strong></p>
+<blockquote>
+<p>I'd start from what these models are built for. LiLiuM's custom e-commerce tokenizer already gives roughly 34% faster generation because it needs fewer tokens for the same text — an efficiency win before I even touch serving. On top I'd run vLLM with continuous batching and FP8, and enable <strong>prefix caching</strong> aggressively, because an e-commerce assistant reuses huge shared system prompts and product context across requests, so caching that prefix is nearly-free throughput. For the 70B e-Llama I'd look at tensor parallelism across GPUs and possibly prefill-decode disaggregation. And crucially I'd put a <strong>router</strong> in front — many queries don't need the 70B at all, and routing them to the 7B or 1B is the highest-leverage cost lever, exactly the direction of my research.</p>
+</blockquote>
+<h3 id="b10-one-big-model-or-a-fleet-of-small-ones">B10. One big model or a fleet of small ones?</h3>
+<p><strong>Say it like this:</strong></p>
+<blockquote>
+<p>It's a cost-versus-coverage question. One big model is operationally simpler and better on the long tail of hard queries, but you pay premium latency and GPU cost on <em>every</em> request, including the trivial ones. A fleet — a router in front of several specialized or differently-sized models — serves the ~80% of easy traffic cheaply and reserves the expensive model for what actually needs it. That's the thesis of my LLM Router work, where I held quality roughly constant while cutting cost by over 90%, and of MERA, where agentic routing hit 87.3% router-decision accuracy at 51.8% of full-serving cost. The tradeoff is added system complexity — you now have a router to train, monitor, and keep from becoming its own bottleneck.</p>
+</blockquote>
+<hr />
+<h1 id="section-c-monitoring-observability">Section C — Monitoring &amp; Observability</h1>
+<p><em>The core of the known gap. Lead with the metric/threshold, own the on-call gap in one clause, pivot.</em></p>
+<h3 id="c1-what-would-you-put-on-a-serving-dashboard-for-an-llm-endpoint">C1. What would you put on a serving dashboard for an LLM endpoint?</h3>
+<p><strong>Say it like this:</strong></p>
+<blockquote>
+<p>Three tiers. <strong>Latency SLOs</strong>: TTFT, TPOT, and end-to-end p50/p95/p99 — tails matter more than averages, because a good p99 is what users actually feel. <strong>Throughput and saturation</strong>: tokens/sec, requests in flight, KV-cache utilization, GPU utilization. <strong>Reliability</strong>: error rate, timeout rate, queue depth. vLLM, TGI, and TensorRT-LLM all expose these on a Prometheus <code>/metrics</code> endpoint, so the standard stack is Prometheus scraping the server and Grafana graphing it. I'd frame my target as <strong>goodput</strong> — the fraction of requests meeting <em>all</em> their SLOs at once, say TTFT under 500 ms and TPOT under 15 ms — rather than raw throughput, because raw throughput can look great while users are timing out.</p>
+</blockquote>
+<h3 id="c2-data-drift-vs-concept-drift-and-how-do-you-detect-each">C2. Data drift vs concept drift — and how do you detect each?</h3>
+<p><strong>Say it like this:</strong></p>
+<blockquote>
+<p><strong>Data drift</strong> is when the input distribution shifts — the model still maps features to labels the same way, but you're seeing inputs it wasn't trained on. <strong>Concept drift</strong> is when the relationship itself changes: the same input should now produce a different label — a fraud pattern evolving, shopping behavior shifting after a holiday. Data drift I detect without labels using distribution tests — <strong>PSI</strong> and the <strong>KS test</strong> on numeric features, chi-square on categoricals. Concept drift is harder because it needs outcomes, so I watch model quality against ground truth as labels arrive, plus proxy signals. The distinction matters operationally: data drift might just need a retrain on fresh data, while concept drift means the target moved and you may need to rethink the model.</p>
+</blockquote>
+<h3 id="c3-how-does-psi-work-and-what-thresholds-do-you-use">C3. How does PSI work and what thresholds do you use?</h3>
+<p><strong>Say it like this:</strong></p>
+<blockquote class="warn">
+<p>PSI, the Population Stability Index, buckets a feature's distribution and compares the reference (training) distribution to the current production one, summing <code>(current% − reference%) × ln(current% / reference%)</code> across buckets. The conventional read is <strong>under 0.1 stable, 0.1 to 0.2 moderate drift worth watching, above 0.2 significant drift</strong> that likely warrants action. In practice I'd tune thresholds per feature by importance — you don't want the same alarm sensitivity on a weak feature as on a dominant one — and calibrate to avoid alert fatigue. I'll be straight: I know these tests and thresholds well conceptually; standing up a live drift-monitoring pipeline with on-call paging is something I've studied more than operated at production scale.</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>PSI</th>
+<th>Read</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>&lt; 0.1</td>
+<td>Stable</td>
+<td>None</td>
+</tr>
+<tr>
+<td>0.1 – 0.2</td>
+<td>Moderate drift</td>
+<td>Watch</td>
+</tr>
+<tr>
+<td>&gt; 0.2</td>
+<td>Significant drift</td>
+<td>Act (investigate / retrain)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="c4-the-ks-test-when-and-why">C4. The KS test — when and why?</h3>
+<p><strong>Say it like this:</strong></p>
+<blockquote>
+<p>The two-sample Kolmogorov-Smirnov test compares two distributions by their maximum CDF gap and gives a statistic plus a p-value, so it's my go-to for shift in a <em>continuous</em> numeric feature. The gotcha at production scale is that with millions of samples KS becomes hypersensitive — it'll flag statistically significant but practically meaningless differences — so I calibrate the threshold against expected batch size and lean on effect-size measures like PSI alongside it, not the raw p-value. For categorical features KS doesn't apply and I'd use chi-square or PSI on binned distributions instead.</p>
+</blockquote>
+<h3 id="c5-labels-arrive-late-how-do-you-monitor-quality-in-the-meantime">C5. Labels arrive late — how do you monitor quality in the meantime?</h3>
+<p><strong>Say it like this:</strong></p>
+<blockquote>
+<p>This is the real production headache — ground truth for a live prediction can lag days or weeks: a purchase, a return, a fraud chargeback — so you can't measure accuracy in real time. So I monitor a ladder of proxies while I wait. <strong>Immediately</strong>: input drift (PSI/KS) and prediction drift — if the model's output distribution suddenly shifts, that's an early warning before labels land. <strong>Short delay</strong>: business proxies like click-through or engagement. <strong>True delay</strong>: I reconcile against ground truth as it arrives and backfill the real quality metrics, keeping a rolling window so I can attribute a dip to the right model version. And for generative outputs where labels barely exist, <strong>LLM-as-judge</strong> on a sampled slice gives a continuous quality signal at a fraction of human-eval cost.</p>
+</blockquote>
+<h3 id="c6-how-do-you-monitor-a-generative-model-with-no-clean-label">C6. How do you monitor a generative model with no clean label?</h3>
+<p><strong>Say it like this:</strong></p>
+<blockquote>
+<p>You build a graded evaluation ladder, because there's no single accuracy number. First, a <strong>golden set</strong> of 100–500 human-labeled examples as ground truth — without that anchor you can't tell whether an automated judge tracks quality or has drifted into measuring style. Then an <strong>LLM-as-judge</strong> scoring a sampled slice of live traffic continuously, but calibrated against the golden set so I know its accuracy and can catch it drifting. Then user-signal proxies — thumbs, edits, regenerations, task completion. The practice I like most: turn every user-reported failure into a regression test case, so the eval suite compounds and yesterday's incident can't silently recur.</p>
+</blockquote>
+<h3 id="c7-what-do-logging-metrics-and-tracing-each-give-you">C7. What do logging, metrics, and tracing each give you?</h3>
+<p><strong>Say it like this:</strong></p>
+<blockquote>
+<p>They're the three pillars, each answering a different question. <strong>Metrics</strong> are cheap aggregate time series — latency, throughput, error rate — great for dashboards and alerting on <em>"is something wrong right now?"</em> <strong>Logs</strong> are discrete event records with detail, for <em>"what exactly happened on this request?"</em> <strong>Tracing</strong> follows one request across every service hop — router, model, post-processing — which is how you answer <em>"where did the latency actually go?"</em> in a multi-stage pipeline. For an LLM system I'd specifically trace the split between prefill and decode time plus any router or retrieval hop, because that decomposition tells me which stage to optimize.</p>
+</blockquote>
+<h3 id="c8-how-would-you-set-up-alerting-without-drowning-in-noise">C8. How would you set up alerting without drowning in noise?</h3>
+<p><strong>Say it like this:</strong></p>
+<blockquote>
+<p>Alert on <strong>symptoms users feel</strong>, not every raw metric — SLO burn on p99 latency, error rate, or goodput falling below target — rather than a single node's CPU. I'd use multi-window burn-rate alerts so a brief blip doesn't page anyone but a sustained SLO violation does, and tier severity so only genuine user-facing pain wakes someone. For drift I'd batch-evaluate on a cadence — every 5 to 15 minutes for an online API — with per-feature thresholds so weak features can't spam the channel. I'll be honest that designing an on-call alerting policy engineers actually trust is a craft I respect and have studied more than lived; where I add real value is upstream, keeping the system efficient enough that there's less to fire in the first place.</p>
+</blockquote>
+<h3 id="c9-whats-a-feedback-loop-and-how-can-it-go-wrong">C9. What's a feedback loop and how can it go wrong?</h3>
+<p><strong>Say it like this:</strong></p>
+<blockquote>
+<p>A feedback loop is using production outcomes — clicks, purchases, corrections, judge scores — to retrain and improve the model. The failure mode is a <strong>degenerate loop</strong>: the model's own outputs influence the data it later trains on, so it reinforces its own biases. Classic example is a recommender that only ever shows popular items, so it only collects engagement on popular items, and the long tail dies — the model looks like it's improving on the metric while actually narrowing. Guardrails are exploration (don't only serve the argmax), logging propensity scores for unbiased offline evaluation, and a holdout population that never sees the loop so you keep an honest baseline.</p>
+</blockquote>
+<h3 id="c10-first-24-hours-after-a-model-goes-live-what-do-you-watch">C10. First 24 hours after a model goes live — what do you watch?</h3>
+<p><strong>Say it like this:</strong></p>
+<blockquote>
+<p>Concentric rings. <strong>Operational health first</strong> — error rate, p99 latency, TTFT, GPU and KV-cache saturation — because an outage beats a bad prediction for urgency. <strong>Then input integrity</strong> — data-quality checks for nulls, schema mismatches, out-of-range values, since a broken upstream feed corrupts a healthy model instantly, plus PSI on key features versus training. <strong>Then prediction behavior</strong> — is the output distribution sane versus the shadow run, is the model over-abstaining or over-confident. Because true labels lag, I'd keep the previous version warm for fast rollback and lean on the shadow comparison I ran pre-launch as my quality baseline until real ground truth catches up.</p>
+</blockquote>
+<hr />
+<h1 id="cheat-block-reason-from-these-live">Cheat Block — reason from these live</h1>
+<h3 id="1-kv-cache-memory-the-one-formula-to-know-cold">1. KV-cache memory (the one formula to know cold)</h3>
+<pre><code>KV bytes = 2 × layers × kv_heads × head_dim × seq_len × batch × bytes_per_elem
+           │         │                                              │
+           K and V   use kv_heads for GQA/MQA, n_heads for MHA      2 = FP16/BF16
+                     (mixing these up is an 8x error!)              1 = INT8, 0.5 = INT4
+</code></pre>
+<p><strong>Worked example — Llama-3-70B, BF16, 4096 tokens, batch 1:</strong>
+<code>2 × 80 × 8 × 128 × 4096 × 1 × 2 ≈ 1.34 GB per sequence.</code>
+→ Batch of 32 ≈ <strong>43 GB</strong> of KV cache alone. That's why an 80 GB H100 runs out fast on long context, and why PagedAttention + GQA exist.</p>
+<p><strong>Key intuitions:</strong></p>
+<ul>
+<li>Grows <strong>linearly</strong> in <code>seq_len</code> and <code>batch</code> → long context and high concurrency are the killers.</li>
+<li>GQA cuts <code>kv_heads</code> (Llama-2-70B: 8 vs 64 = <strong>8x</strong> smaller cache).</li>
+<li>Quantizing the KV cache (FP8/INT8) halves or quarters it — cheap capacity win.</li>
+</ul>
+<p><strong>Trap:</strong> for a GQA/MQA model plug in <code>kv_heads</code>, never <code>n_heads</code> — that's the single most common live arithmetic slip, and it's an 8x error.</p>
+<h3 id="2-batching-throughput-intuition-one-sentence">2. Batching throughput intuition (one sentence)</h3>
+<blockquote>
+<p><strong>Decode is memory-bandwidth-bound</strong>, so once you've paid to stream the weights from HBM, running more sequences through them is nearly free — throughput scales ~linearly with batch until you run out of KV memory or hit the compute roofline. <strong>Prefill is compute-bound.</strong></p>
+</blockquote>
+<ul>
+<li>Static batching → ~40% GPU utilization. Continuous batching → <strong>90%+</strong>.</li>
+<li>Spiky low-concurrency traffic underfills batches → runs <strong>3–5x worse</strong> than published peak.</li>
+<li>Prefill/decode asymmetry → the case for <strong>chunked prefill</strong> and <strong>disaggregated serving</strong>.</li>
+</ul>
+<h3 id="3-quantization-tradeoff-table-fast-recall">3. Quantization tradeoff table (fast recall)</h3>
+<table>
+<thead>
+<tr>
+<th>Precision</th>
+<th>Speed vs BF16</th>
+<th>Quality</th>
+<th>Use when</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>FP8</strong></td>
+<td>~1.5x, ½ memory</td>
+<td>~0.6 pt loss, near-FP16</td>
+<td>Default on Hopper/Blackwell; quality-critical</td>
+</tr>
+<tr>
+<td><strong>INT8</strong></td>
+<td>modest over FP8</td>
+<td>comparable</td>
+<td>Rarely the clear winner on modern GPUs</td>
+</tr>
+<tr>
+<td><strong>INT4 (AWQ)</strong></td>
+<td>~2.7x</td>
+<td>&lt;2 pt MMLU, <strong>−8 pt HumanEval</strong></td>
+<td>VRAM-bound; <strong>not</strong> code/math/reasoning</td>
+</tr>
+<tr>
+<td><strong>GGUF Q5_K_M / Q6_K</strong></td>
+<td>—</td>
+<td>near-BF16</td>
+<td>CPU / edge / laptop</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>AWQ</strong> &lt; GPTQ perplexity at INT4 (protects salient weights); GPTQ = Hessian-based, faster to quantize.</li>
+<li>Rule: <strong>FP8 first</strong> (NVIDIA's own guidance), INT4-AWQ only when memory forces it.</li>
+</ul>
+<h3 id="4-cost-latency-framing-talk-in-unit-economics">4. Cost / latency framing (talk in unit economics)</h3>
+<ul>
+<li><strong>Cost per 1M tokens</strong> is the currency of serving. 2025 ballpark: ~$5–6.50/1M tokens on H100/H200 depending on achieved throughput; GPT-4-class has fallen ~10x/year.</li>
+<li><strong>Latency SLOs</strong>: TTFT (set by prefill), TPOT (set by decode), E2E p99. Track <strong>goodput</strong> = fraction meeting <em>all</em> SLOs.</li>
+<li>Rough pull of each lever: quantization + right-sizing → <strong>−30–75% cost</strong>; continuous batching + spec-decode + KV reuse → <strong>+40–80% throughput</strong>; <strong>routing</strong> (skip the big model) → often the largest single lever.</li>
+<li>H200 (141 GB HBM3e) now serves a 70B on one GPU where you used to need two H100s → structural cost drop.</li>
+</ul>
+<blockquote>
+<p><strong>Say "roughly" on every exact figure — the precision and the task are the caveat.</strong> These are ballparks, not benchmarks I'm quoting from a table in the room:</p>
+<ul>
+<li>INT4 ≈ <strong>−8 pt on HumanEval</strong> — that's <em>code</em>; on MMLU-Pro it's under 2 pt. The task is the whole point.</li>
+<li>FP8 ≈ <strong>0.6 pt</strong> loss — near-FP16, quality-critical-safe.</li>
+<li>FlashAttention-3 ≈ <strong>75%</strong> of H100 FP16 peak — kernel-level, not end-to-end.</li>
+<li><code>torch.compile</code> stable ≈ <strong>2.6x</strong> with CUDA graphs — depends on baseline and shape.</li>
+<li>"H200 serves a 70B on one GPU" — true at <strong>FP8</strong>, tight at <strong>BF16</strong>.
+If pressed on any one, say "roughly, at [precision] on [task]" and move to the mechanism. Don't die on a decimal.</li>
+</ul>
+</blockquote>
+<hr />
+<h1 id="tying-in-your-work-routing-mera-twinrouterbench-pruning">Tying in your work — routing, MERA, TwinRouterBench, pruning</h1>
+<p><em>Say these when asked "what have you actually done here?" — real numbers, no ops overclaim. For the full honest-gap framing, point to the </em><em>Honest MLOps-Gap Script</em><em> doc rather than reciting it.</em></p>
+<p><strong>The honest frame to open with:</strong></p>
+<blockquote>
+<p>"My hands-on depth is on the model-efficiency and serving-cost side — quantization, routing, compression, batching economics. I know the production-ops layer — canary, live drift, on-call — well conceptually, but I haven't owned an on-call rotation at large scale. Where I move the needle is making the thing you're serving cheaper and faster before it ever hits the SLO dashboard."</p>
+</blockquote>
+<p><strong>LLM Router — the cost lever.</strong></p>
+<blockquote>
+<p>"The cheapest inference is the request you never send to the big model. I built a router that held quality roughly constant while cutting cost by over 90% — easy queries to a small model, the large one reserved for hard ones. In serving terms that's fewer expensive GPU-seconds and lower p99, because small models have lower TTFT and TPOT."</p>
+</blockquote>
+<p><strong>MERA — routing under real constraints.</strong></p>
+<blockquote>
+<p>"MERA extended that to agentic routing with skill adaptation — 87.3% router-decision accuracy at 51.8% of full-serving cost. The systems point: the router is itself a latency-sensitive component in the critical path, so it has to be cheap and fast or it eats the savings it's supposed to create."</p>
+</blockquote>
+<p><strong>TwinRouterBench — measuring it honestly.</strong></p>
+<blockquote>
+<p>"I care about <em>benchmarking</em> routing rigorously — that's what TwinRouterBench is for, so cost-vs-quality claims are reproducible instead of cherry-picked. It's a step-level benchmark, not a cost-reduction method; I'm 3rd of 17 authors and I owned the labeling and cost-accounting. The number people quote — a 53% cost cut — is a <em>trained router vs. unrouted Opus, at matched resolve on the dynamic track</em>: a downstream training-utility check that the labels work as supervision, not a headline property of the benchmark. That mindset maps straight onto serving — define the SLO, define goodput, measure whether the optimization actually holds under real traffic."</p>
+</blockquote>
+<p><strong>Pruning / nnU-Net — structural compression.</strong></p>
+<blockquote>
+<p>"On the compression side I first-authored a MIDL short paper where &gt;80% of a trained nnU-Net's weights removed at proxy Dice &gt;0.95 — a weight-redundancy result; unstructured, so I don't claim a speedup number, and the latency step is structured pruning. Same goal as quantization, at the weight level. It composes: prune, then quantize, then serve with continuous batching."</p>
+</blockquote>
+<p><strong>Diffusion Weights — training-time efficiency.</strong></p>
+<blockquote>
+<p>"And on the training side, Diffusion Weights got a ~3.2x wall-clock fine-tune speedup — so I think about efficiency across the whole lifecycle, not just inference."</p>
+</blockquote>
+<p><strong>The eBay bridge.</strong></p>
+<blockquote class="warn">
+<p>"eBay already lives this — LiLiuM's custom tokenizer is ~34% faster generation, e-Llama continues Llama-3.1 on 1T e-commerce tokens, and the VLM paper shows a fine-tuned Gemma3-4B beating a zero-shot 27B while running about 3.8x faster. That's exactly the small-specialized-beats-big-general economics I've been publishing on. I'd want a router in front of a LiLiuM/e-Llama fleet, driving down serving cost the way I did in my research."</p>
+<p>⚠ <strong>[CONFIRM TONY]:</strong> If you want to cite a concrete serving-cost or latency number from your <em>own</em> benchmarking (throughput, p99, GPU-hours saved) beyond the canonical figures above, confirm the exact number first — don't improvise one in the room. If you don't have a verified figure, stay on the canonical results and speak to the mechanism.</p>
+</blockquote>
+      <nav class="prevnext"><a class="pn prev" href="s2_13_engineering_qa.html">‹ <span>Engineering Q&amp;A — Build &amp; Train</span></a><a class="pn next" href="s2_15_mlops_honest_gap.html"><span>The Honest MLOps-Gap Script</span> ›</a></nav>
+    </article>
+    <aside class="toc"><div class="toc-title">On this page</div><ul>
+<li><a href="#how-to-use-this-doc">How to use this doc</a></li>
+<li class="sub"><a href="#a1-walk-me-through-how-youd-cut-the-inference-cost-of-a-7b-llm-in-production">A1. Walk me through how you&#x27;d cut the inference cost of a 7B LLM in production.</a></li>
+<li class="sub"><a href="#a2-what-is-the-kv-cache-and-why-does-it-dominate-inference-memory">A2. What is the KV cache and why does it dominate inference memory?</a></li>
+<li class="sub"><a href="#a3-explain-pagedattention-and-why-it-matters">A3. Explain PagedAttention and why it matters.</a></li>
+<li class="sub"><a href="#a4-continuous-in-flight-batching-vs-static-batching">A4. Continuous (in-flight) batching vs. static batching?</a></li>
+<li class="sub"><a href="#a5-when-does-batching-stop-helping">A5. When does batching stop helping?</a></li>
+<li class="sub"><a href="#a6-fp8-vs-int8-vs-int4-how-do-you-choose">A6. FP8 vs INT8 vs INT4 — how do you choose?</a></li>
+<li class="sub"><a href="#a7-awq-vs-gptq-vs-gguf">A7. AWQ vs GPTQ vs GGUF?</a></li>
+<li class="sub"><a href="#a8-what-is-speculative-decoding-and-whats-the-catch">A8. What is speculative decoding and what&#x27;s the catch?</a></li>
+<li class="sub"><a href="#a9-gqa-and-mqa-what-problem-do-they-solve">A9. GQA and MQA — what problem do they solve?</a></li>
+<li class="sub"><a href="#a10-prefill-vs-decode-why-talk-about-them-separately">A10. Prefill vs decode — why talk about them separately?</a></li>
+<li class="sub"><a href="#a11-what-does-torchcompile-buy-you-and-where-does-onnx-fit">A11. What does torch.compile buy you, and where does ONNX fit?</a></li>
+<li class="sub"><a href="#a12-when-would-you-distill-instead-of-quantize">A12. When would you distill instead of quantize?</a></li>
+<li class="sub"><a href="#b1-which-serving-stack-would-you-pick-and-why">B1. Which serving stack would you pick and why?</a></li>
+<li class="sub"><a href="#b2-rest-vs-grpc-for-model-serving">B2. REST vs gRPC for model serving?</a></li>
+<li class="sub"><a href="#b3-walk-me-through-a-safe-rollout-of-a-new-model-version">B3. Walk me through a safe rollout of a new model version.</a></li>
+<li class="sub"><a href="#b4-canary-vs-ab-testing-vs-shadow-arent-they-the-same">B4. Canary vs A/B testing vs shadow — aren&#x27;t they the same?</a></li>
+<li class="sub"><a href="#b5-how-do-you-roll-back-a-bad-deploy">B5. How do you roll back a bad deploy?</a></li>
+<li class="sub"><a href="#b6-what-is-a-model-registry-and-why-do-you-need-one">B6. What is a model registry and why do you need one?</a></li>
+<li class="sub"><a href="#b7-how-do-you-autoscale-gpu-inference">B7. How do you autoscale GPU inference?</a></li>
+<li class="sub"><a href="#b8-whats-a-feature-store-and-when-does-it-matter">B8. What&#x27;s a feature store and when does it matter?</a></li>
+<li class="sub"><a href="#b9-how-would-you-serve-ebays-lilium-or-e-llama-efficiently">B9. How would you serve eBay&#x27;s LiLiuM or e-Llama efficiently?</a></li>
+<li class="sub"><a href="#b10-one-big-model-or-a-fleet-of-small-ones">B10. One big model or a fleet of small ones?</a></li>
+<li class="sub"><a href="#c1-what-would-you-put-on-a-serving-dashboard-for-an-llm-endpoint">C1. What would you put on a serving dashboard for an LLM endpoint?</a></li>
+<li class="sub"><a href="#c2-data-drift-vs-concept-drift-and-how-do-you-detect-each">C2. Data drift vs concept drift — and how do you detect each?</a></li>
+<li class="sub"><a href="#c3-how-does-psi-work-and-what-thresholds-do-you-use">C3. How does PSI work and what thresholds do you use?</a></li>
+<li class="sub"><a href="#c4-the-ks-test-when-and-why">C4. The KS test — when and why?</a></li>
+<li class="sub"><a href="#c5-labels-arrive-late-how-do-you-monitor-quality-in-the-meantime">C5. Labels arrive late — how do you monitor quality in the meantime?</a></li>
+<li class="sub"><a href="#c6-how-do-you-monitor-a-generative-model-with-no-clean-label">C6. How do you monitor a generative model with no clean label?</a></li>
+<li class="sub"><a href="#c7-what-do-logging-metrics-and-tracing-each-give-you">C7. What do logging, metrics, and tracing each give you?</a></li>
+<li class="sub"><a href="#c8-how-would-you-set-up-alerting-without-drowning-in-noise">C8. How would you set up alerting without drowning in noise?</a></li>
+<li class="sub"><a href="#c9-whats-a-feedback-loop-and-how-can-it-go-wrong">C9. What&#x27;s a feedback loop and how can it go wrong?</a></li>
+<li class="sub"><a href="#c10-first-24-hours-after-a-model-goes-live-what-do-you-watch">C10. First 24 hours after a model goes live — what do you watch?</a></li>
+<li class="sub"><a href="#1-kv-cache-memory-the-one-formula-to-know-cold">1. KV-cache memory (the one formula to know cold)</a></li>
+<li class="sub"><a href="#2-batching-throughput-intuition-one-sentence">2. Batching throughput intuition (one sentence)</a></li>
+<li class="sub"><a href="#3-quantization-tradeoff-table-fast-recall">3. Quantization tradeoff table (fast recall)</a></li>
+<li class="sub"><a href="#4-cost-latency-framing-talk-in-unit-economics">4. Cost / latency framing (talk in unit economics)</a></li>
+</ul></aside>
+  </main>
+</div>
+<script>window.SEARCH_JSON="../assets/../search-index.json";</script>
+<script src="../assets/search-data.js"></script>
+<script src="../assets/app.js"></script>
+</body>
+</html>

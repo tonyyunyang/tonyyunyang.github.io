@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Engineering Q&amp;A — Build &amp; Train · eBay Stage-2 Prep</title>
+<meta name="robots" content="noindex,nofollow">
+<script>try{if(localStorage.getItem('ebay-s2-theme')==='dark')document.documentElement.classList.add('dark');}catch(e){}</script>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body data-track="code" data-pagefind-ignore="all">
+<button id="menu" class="menu-btn" aria-label="Menu">☰</button>
+<button id="theme" class="theme-btn" aria-label="Toggle theme">◐</button>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+<div class="brand"><a href="../index.html"><span class="brand-mark">e</span><span class="brand-txt">Stage&nbsp;2 Prep<em>eBay · three interviews</em></span></a></div>
+<div class="search"><input id="q" type="search" placeholder="Search…" autocomplete="off"><div id="results"></div></div>
+<nav class="nav">
+<div class="nav-group" data-track="start"><div class="nav-group-title"><span class="dot"></span>Start Here</div><ul>
+<li><a href="s2_00_email_and_logistics.html">Email &amp; Logistics</a></li>
+<li><a href="s2_01_overview_and_plan.html">Overview &amp; Study Plan</a></li>
+<li><a href="s2_44_confirm_tony.html">★ Fill These Before the Room</a></li>
+</ul></div>
+<div class="nav-group" data-track="code"><div class="nav-group-title"><span class="dot"></span>1 · Live Coding &amp; Engineering</div><ul>
+<li><a href="s2_10_live_coding_playbook.html">Live-Coding Playbook</a></li>
+<li><a href="s2_11_ml_from_scratch.html">ML From Scratch (Python)</a></li>
+<li><a href="s2_12_practice_regimen.html">Unaided Practice Regimen</a></li>
+<li class="active"><a href="s2_13_engineering_qa.html">Engineering Q&amp;A — Build &amp; Train</a></li>
+<li><a href="s2_14_serving_qa.html">Engineering Q&amp;A — Serve &amp; Monitor</a></li>
+<li><a href="s2_15_mlops_honest_gap.html">The Honest MLOps-Gap Script</a></li>
+</ul></div>
+<div class="nav-group" data-track="design"><div class="nav-group-title"><span class="dot"></span>2 · ML System Design</div><ul>
+<li><a href="s2_20_design_framework.html">Design Framework &amp; How to Drive</a></li>
+<li><a href="s2_21_recsys_search_design.html">Flagship: Search Ranking &amp; Recs</a></li>
+<li><a href="s2_22_design_skeletons.html">Design Skeletons Bank</a></li>
+<li><a href="s2_23_scaling_playbook.html">The Scaling Playbook</a></li>
+</ul></div>
+<div class="nav-group" data-track="pm"><div class="nav-group-title"><span class="dot"></span>3 · Project Mgmt &amp; Retrospective</div><ul>
+<li><a href="s2_30_project_walkthrough.html">Walkthrough: Routing at Scale</a></li>
+<li><a href="s2_31_star_stories.html">STAR Stories — The Four Prompts</a></li>
+<li><a href="s2_32_behavioral_bank.html">Behavioral &amp; Competency Bank</a></li>
+</ul></div>
+<div class="nav-group" data-track="ebay"><div class="nav-group-title"><span class="dot"></span>eBay &amp; Closing</div><ul>
+<li><a href="s2_40_ebay_context.html">eBay Context (Stage-2 lens)</a></li>
+<li><a href="s2_41_own_papers_numbers.html">Own-Paper Numbers (say them cold)</a></li>
+<li><a href="s2_42_questions_to_ask.html">Questions to Ask</a></li>
+<li><a href="s2_43_final_hours.html">Final-Hours Cheatsheet</a></li>
+</ul></div>
+</nav>
+  </aside>
+  <div class="scrim" id="scrim"></div>
+  <main class="content">
+    <article class="doc">
+      <div class="doc-meta"><span class="tag t-code">Coding</span><span class="read">26 min read</span></div>
+      <h1 id="engineering-qa-build-train">Engineering Q&amp;A — Build &amp; Train</h1>
+<p><em>Spoken-ready Q&amp;A for Interview 1 (Live Coding &amp; Engineering) covering Docker, testing, CI/CD, and — going deep — distributed training and infra optimization. Read the blockquotes out loud until they're your own words; there's no AI in the room. For anything production-ops (canary, live drift, on-call), see "The Honest MLOps-Gap Script".</em></p>
+<p><strong>How to use under pressure:</strong> don't recite. Internalize the <em>shape</em> of each answer — the one number, the one trade-off, the one story. This loop deep-probes, so if they push past the script, fall back to first principles and <em>derive</em> rather than recall. Training (Topic 4) is your home turf — go there confidently.</p>
+<hr />
+<h2 id="topic-1-docker-containers-for-ml">TOPIC 1 — Docker &amp; Containers for ML</h2>
+<h3 id="q11-why-containerize-an-ml-application-at-all">Q1.1 — Why containerize an ML application at all?</h3>
+<p><strong>Say it like this:</strong></p>
+<blockquote>
+<p>The core problem in ML is reproducibility. A model that trains fine on my laptop breaks in production over a different CUDA version, a different NumPy, or a missing system library.</p>
+<p>A container pins the entire environment — OS libraries, Python deps, CUDA and cuDNN — into one immutable image, so "works on my machine" becomes "works everywhere."</p>
+<p>That matters twice for ML: once for training reproducibility, and again for serving, where I need the exact same preprocessing and library versions the model was trained against. It's the same instinct as fixing random seeds — I'm removing hidden sources of variance from the system.</p>
+</blockquote>
+<h3 id="q12-how-do-you-get-gpu-access-inside-a-container">Q1.2 — How do you get GPU access inside a container?</h3>
+<p><strong>Say it like this:</strong></p>
+<blockquote>
+<p>You install the <strong>NVIDIA Container Toolkit on the host</strong> — not inside the container — and it bridges Docker to the host's NVIDIA driver. The container ships CUDA and cuDNN, but the <em>driver</em> always lives on the host; you never install drivers inside the image. Then you run with <code>docker run --gpus all</code>, or <code>--gpus '"device=0,1"'</code> to pin specific GPUs, and inside the container <code>nvidia-smi</code> should list your devices.</p>
+</blockquote>
+<p><strong>Trap:</strong> the CUDA toolkit version in the image must be compatible with the host driver. The driver is backward-compatible with older CUDA, not forward — so a too-new CUDA image on an old driver fails.</p>
+<h3 id="q13-your-ml-image-is-15-gb-how-do-you-shrink-it">Q1.3 — Your ML image is 15 GB. How do you shrink it?</h3>
+<p><strong>Say it like this:</strong></p>
+<blockquote>
+<p>First, <strong>multi-stage builds</strong> — build wheels or compile custom kernels in a heavy <code>-devel</code> base with compilers and <code>nvcc</code>, then <code>COPY --from=builder</code> only the artifacts into a slim <code>-runtime</code> base, dropping the whole build toolchain. Second, pick the right base: <code>nvidia/cuda:xx-runtime</code> instead of <code>-devel</code>, or a slim Python base, and skip a full Conda if pip wheels suffice. Third, order layers by change frequency so dependency layers stay cached, use a <code>.dockerignore</code> to keep datasets and checkpoints out of the build context, and collapse <code>RUN</code> commands so apt-cache deletions actually land in the same layer.</p>
+</blockquote>
+<pre><code class="language-dockerfile"># builder stage: heavy, has compilers
+FROM nvidia/cuda:12.4.0-devel AS builder
+COPY requirements.txt .
+RUN pip wheel --wheel-dir /wheels -r requirements.txt
+
+# runtime stage: slim, only the built artifacts
+FROM nvidia/cuda:12.4.0-runtime
+COPY --from=builder /wheels /wheels
+RUN pip install --no-index --find-links=/wheels /wheels/*
+COPY src/ /app/src/          # code last: only this layer rebuilds on edits
+</code></pre>
+<h3 id="q14-walk-me-through-a-good-dockerfile-layer-strategy">Q1.4 — Walk me through a good Dockerfile layer strategy.</h3>
+<p><strong>Say it like this:</strong></p>
+<blockquote>
+<p>Layers cache top-to-bottom and invalidate on the first change, so I put the <em>least</em> frequently changing things first: base image, then system packages, then Python deps, then finally the application code. That way editing a training script rebuilds only the last layer instead of re-installing PyTorch every time. I pin versions explicitly — <code>torch==2.x</code>, a fixed base-image digest — because a floating <code>latest</code> tag silently breaks reproducibility. And large data stays out entirely: datasets and weights get mounted as volumes or pulled from object storage at runtime, never baked into the image.</p>
+</blockquote>
+<h3 id="q15-docker-compose-or-kubernetes-for-serving">Q1.5 — Docker Compose or Kubernetes for serving?</h3>
+<p><strong>Say it like this:</strong></p>
+<blockquote>
+<p>Depends on scale and who operates it. <strong>Compose</strong> is single-host, near-zero learning curve — great for local dev, integration tests, or a small service where one box carries the load; you get 80% of the value for 20% of the complexity. <strong>Kubernetes</strong> earns its complexity when you schedule across many nodes, autoscale on custom signals, do GPU scheduling via device plugins, or hit strict availability SLAs — that's where Compose hits a wall, especially for GPU endpoints. For a research-to-prod handoff I'd prototype the serving container in Compose and hand K8s, or a managed layer like KServe, to the platform team — which is candidly also where my hands-on production-ops experience ends, and I'd say so.</p>
+</blockquote>
+<h3 id="q16-how-do-you-handle-secrets-and-config-in-containers">Q1.6 — How do you handle secrets and config in containers?</h3>
+<p><strong>Say it like this:</strong></p>
+<blockquote>
+<p>Never bake secrets into the image — anything in a layer is recoverable by anyone who pulls it. I pass config through environment variables or mounted config files, and secrets through the orchestrator's secret store — K8s Secrets, Docker secrets, or a vault — injected at runtime. Twelve-factor style: config lives in the environment, not the code, so the same image promotes cleanly from staging to prod with only the env changing. For ML that also means model version, feature-store endpoints, and thresholds are config, not hardcoded constants.</p>
+</blockquote>
+<h3 id="q17-container-vs-vm-briefly">Q1.7 — Container vs VM, briefly?</h3>
+<p><strong>Say it like this:</strong></p>
+<blockquote>
+<p>A VM virtualizes hardware and runs a full guest OS with its own kernel, so it's heavy — gigabytes and slow to boot. A container shares the host kernel and isolates just the process, filesystem, and network namespaces, so it's megabytes of overhead and starts in milliseconds. For ML that's why containers won — I can pack many inference replicas onto one GPU host cheaply and spin them up fast for autoscaling. The trade-off is weaker isolation: containers share a kernel, so it's process isolation, not a security boundary as hard as a VM.</p>
+<p><strong>Connect it to my work (Docker):</strong> My compression work points at image and serving footprint. In my nnU-Net pruning paper I removed &gt;80% of a trained model's weights at proxy Dice &gt;0.95 — but I'm careful about what that buys: it's a weight-REDUNDANCY result, and it's UNSTRUCTURED, so I don't claim a speedup, and the container/replica payoff — packing more replicas per GPU — needs the STRUCTURED follow-up to actually land. I frame containerization as the <em>delivery mechanism</em> for efficiency work: routing cuts the compute a request needs, and a tight multi-stage image is how that saving reaches production. It ties to eBay's own results too — a finetuned Gemma3-4B beating a zero-shot Gemma3-27B at ~3.8x faster inference is exactly the kind of model that packs into a lean GPU container.</p>
+</blockquote>
+<hr />
+<h2 id="topic-2-testing-ml-systems">TOPIC 2 — Testing ML Systems</h2>
+<h3 id="q21-how-is-testing-an-ml-system-different-from-testing-normal-software">Q2.1 — How is testing an ML system different from testing normal software?</h3>
+<p><strong>Say it like this:</strong></p>
+<blockquote>
+<p>In normal software the logic is deterministic — same input, same output — so tests are straightforward. ML adds two headaches: <strong>non-determinism</strong> (random init, stochastic optimization, and data shuffling mean two runs differ), and the fact that <strong>behavior is defined by data, not just code</strong> — so a passing unit test doesn't mean the model is good. So I test on three axes — code, data, and model — and I kill non-determinism by fixing seeds across NumPy, PyTorch, and Python, and pinning the environment in a container. The mental model I like: assert on <em>properties and tolerances</em>, not exact float equality.</p>
+</blockquote>
+<h3 id="q22-what-would-you-actually-unit-test-in-an-ml-pipeline">Q2.2 — What would you actually unit-test in an ML pipeline?</h3>
+<p><strong>Say it like this:</strong></p>
+<blockquote>
+<p>The deterministic pieces, which is more than people think: data transforms and feature engineering, tokenization, the shape and dtype of tensors flowing between stages, and any custom loss or metric. For a feature like "days since last purchase," I write a unit test with a hand-crafted input and the exact expected value — that's pure logic, fully deterministic. I also test the plumbing: that a forward pass runs, that loss drops on a single-batch overfit test, and that a checkpoint saves and reloads to identical weights. These run fast and catch the majority of real bugs before any training happens.</p>
+</blockquote>
+<h3 id="q23-how-do-you-handle-non-determinism-so-tests-dont-flake">Q2.3 — How do you handle non-determinism so tests don't flake?</h3>
+<p><strong>Say it like this:</strong></p>
+<blockquote>
+<p>First, seed everything — <code>torch.manual_seed</code>, <code>numpy.random.seed</code>, Python's <code>random</code>, and <code>PYTHONHASHSEED</code>; for full GPU determinism I'd add <code>torch.use_deterministic_algorithms(True)</code>, accepting it may be slower. Second, assert with tolerances — <code>torch.allclose</code> with an <code>atol</code>/<code>rtol</code> instead of exact equality — because floating-point and hardware differences make bit-exactness unrealistic. Third, pin the environment in a container so CI runs on the same library and CUDA versions I developed against. And where I genuinely can't remove variance, I test <em>statistical properties</em> — accuracy above a threshold, output distribution in range — rather than a single value.</p>
+</blockquote>
+<pre><code class="language-python">def seed_everything(seed=42):
+    random.seed(seed); np.random.seed(seed)
+    torch.manual_seed(seed); torch.cuda.manual_seed_all(seed)
+
+# assert on tolerance, never == on floats
+assert torch.allclose(out, expected, atol=1e-5, rtol=1e-4)
+</code></pre>
+<h3 id="q24-unit-vs-integration-tests-here-what-does-each-look-like">Q2.4 — Unit vs integration tests here — what does each look like?</h3>
+<p><strong>Say it like this:</strong></p>
+<blockquote>
+<p>A <strong>unit test</strong> isolates one deterministic function — a feature transform, a metric — with a tiny hand-made input; it's milliseconds and needs no services. An <strong>integration test</strong> wires real stages together — read data, engineer features, write to the store; or load model then serve a prediction — to catch interface mismatches the unit tests can't see, so it's slower because it touches real services and sample data. In ML I add an <strong>end-to-end pipeline test</strong> on a small fixture dataset: does the whole train-eval loop run and produce a model artifact without crashing? I gate every commit on the fast unit tests and run the heavier integration tests pre-merge or on a schedule.</p>
+</blockquote>
+<h3 id="q25-how-do-you-validate-the-data-not-just-the-code">Q2.5 — How do you validate the <em>data</em>, not just the code?</h3>
+<p><strong>Say it like this:</strong></p>
+<blockquote>
+<p>Code tests won't catch schema drift or a column that's suddenly 40% nulls — that needs <strong>data validation</strong> as a first-class gate. I'd use something like <strong>Great Expectations</strong> to declare expectations — column types, value ranges, null rates, category sets — and run them as checkpoints at pipeline boundaries: on ingest, after feature engineering, before training. In a pipeline you can drive those expectation suites from pytest so a validation failure fails the build like any other test. The principle is fail-fast: bad data caught at ingest is cheap; bad data discovered as a degraded model in production is expensive.</p>
+</blockquote>
+<h3 id="q26-beyond-accuracy-how-do-you-test-model-behavior">Q2.6 — Beyond accuracy, how do you test model <em>behavior</em>?</h3>
+<p><strong>Say it like this:</strong></p>
+<blockquote>
+<p>I borrow the CheckList framework — <strong>invariance, directional, and minimum-functionality tests</strong>. An <em>invariance</em> test applies a label-preserving perturbation, like swapping a synonym or a name, and asserts the prediction doesn't change; a <em>directional</em> test makes a change that <em>should</em> move the output a known way — adding strongly negative text shouldn't make sentiment more positive; and an <em>MFT</em> is a simple hand-built case the model must get right. These catch brittleness and bias that aggregate accuracy hides — critical for an e-commerce model touching real listings and buyers. It's the difference between "the model scores 0.9" and "the model behaves sensibly on the cases I care about."</p>
+</blockquote>
+<h3 id="q27-how-do-you-keep-tests-fast-enough-for-ci">Q2.7 — How do you keep tests fast enough for CI?</h3>
+<p><strong>Say it like this:</strong></p>
+<blockquote>
+<p>Tier them. Cheap deterministic unit tests run on every push and must finish in seconds — so I use tiny synthetic fixtures, not real datasets, and mock external services. The slow stuff — full pipeline runs, training smoke tests, large data validation — runs pre-merge or nightly, not on every commit. For model tests I use a "tiny model, tiny data" pattern: two layers, ten samples, one step — enough to prove the code path works without paying for real training. I also cache dependencies and Docker layers in CI so setup isn't the bottleneck.</p>
+<p><strong>Connect it to my work (Testing):</strong> My routing work is a natural testing story — a router is a <em>decision function</em>, so I can unit-test it hard: given a query with known difficulty, does it route to the right tier? On MERA I care about 87.3% router-decision accuracy at 51.8% serving cost, so I frame router evaluation as behavioral testing — invariance (paraphrase the query, routing shouldn't flip) and directional (a harder query should escalate to the stronger model). And benchmarks like TwinRouterBench are essentially regression-test suites for routing quality: they let me prove a change didn't quietly degrade decisions before it ships.</p>
+</blockquote>
+<hr />
+<h2 id="topic-3-cicd-for-ml">TOPIC 3 — CI/CD for ML</h2>
+<h3 id="q31-what-does-cicd-look-like-for-ml-and-hows-it-different">Q3.1 — What does CI/CD look like for ML, and how's it different?</h3>
+<p><strong>Say it like this:</strong></p>
+<blockquote>
+<p>Standard CI/CD versions and tests <em>code</em>; ML has to version and test the <strong>trifecta — code, data, and model — as one unit</strong>, because a result is only reproducible if all three are pinned. So my pipeline, triggered on a git push through something like GitHub Actions, runs lint and unit tests, then data validation, then optionally a training smoke test, and gates a model artifact into a registry. The extra machinery is versioning: <strong>Git</strong> for code, <strong>DVC</strong> for data and large artifacts, and <strong>MLflow</strong> for experiment tracking and the model registry. The goal is that any past model can be rebuilt exactly from a commit hash plus a data version plus the recorded hyperparameters.</p>
+</blockquote>
+<h3 id="q32-data-and-models-are-too-big-for-git-how-do-you-version-them">Q3.2 — Data and models are too big for Git. How do you version them?</h3>
+<p><strong>Say it like this:</strong></p>
+<blockquote>
+<p><strong>DVC</strong> is the standard answer — it stores small pointer files in Git that reference the large data or model blobs in remote object storage like S3. So <code>git checkout</code> of an old commit plus <code>dvc pull</code> reconstructs the exact dataset and model that commit was built with — Git-like versioning without bloating the repo. For experiments and lineage I pair it with <strong>MLflow</strong>, which logs parameters, metrics, and artifacts per run and gives a registry with stage transitions, staging to production. Together they make a model traceable back to the code, data, and config that produced it.</p>
+</blockquote>
+<h3 id="q33-how-do-you-make-an-ml-result-reproducible">Q3.3 — How do you make an ML result reproducible?</h3>
+<p><strong>Say it like this:</strong></p>
+<blockquote>
+<p>Pin all four layers: <strong>code</strong> via git commit, <strong>data</strong> via a DVC hash, <strong>environment</strong> via a pinned Docker image, and <strong>randomness</strong> via fixed seeds. Then log the run — hyperparameters, metrics, git SHA, data version — in MLflow or Weights &amp; Biases so the record stays queryable. The test I hold myself to: someone else, months later, can go from a commit hash to a bit-similar model without asking me anything. True bit-exactness on GPU is hard, so in practice I aim for pinned seeds plus deterministic-algorithm flags and accept tight tolerances.</p>
+</blockquote>
+<h3 id="q34-what-runs-in-a-github-actions-workflow-for-an-ml-repo">Q3.4 — What runs in a GitHub Actions workflow for an ML repo?</h3>
+<p><strong>Say it like this:</strong></p>
+<blockquote>
+<p>A YAML workflow triggered on push or PR. Cheap stages first — checkout, restore cached deps, lint, and fast unit tests — these gate every commit. Then data validation and a short training or inference smoke test on a fixture, so I catch breakage without a full training run in CI. On merge to main I'd build and push the Docker image, register the model artifact, and optionally kick off a real training or eval job on a GPU runner. The philosophy is fail-fast and cheap-first: order stages so the quickest checks reject bad changes before you spend on expensive ones.</p>
+</blockquote>
+<h3 id="q35-would-you-actually-train-a-model-inside-ci">Q3.5 — Would you actually train a model inside CI?</h3>
+<p><strong>Say it like this:</strong></p>
+<blockquote>
+<p>Not the full run — GPU minutes are expensive and CI should be fast. In CI I run a <strong>training smoke test</strong>: tiny model, tiny data, one or two steps, asserting the loss is finite and the pipeline produces an artifact — that proves the code path without the cost. Real training I trigger as a separate job on dedicated GPU infrastructure, orchestrated but not blocking the merge. There's a pattern called <strong>CML — Continuous Machine Learning</strong> — that posts training metrics back as a comment on the PR, which keeps a human in the loop on model quality.</p>
+</blockquote>
+<h3 id="q36-how-do-you-deploy-a-new-model-version-safely">Q3.6 — How do you deploy a new model version safely?</h3>
+<p><strong>Say it like this:</strong></p>
+<blockquote>
+<p>The model is an artifact promoted through the registry — staging, then production — with the deployment being an image plus a model version, so I can roll back by re-pointing to the previous version. The safe rollout patterns are <strong>canary</strong> — route a small percentage of traffic to the new model and watch metrics — and <strong>shadow or blue-green</strong>, running the new model alongside the old on live traffic without serving its output, and comparing. I'll be honest that I understand these patterns more than I've operated them at scale; my hands-on strength is the model efficiency that makes a rollout cheaper, not the production canary tooling itself. As an offline gate I'd also require the new model to beat the incumbent on a held-out eval before it's even eligible to deploy.</p>
+</blockquote>
+<p><em>(For the full canary / live-drift / on-call answer, see "The Honest MLOps-Gap Script".)</em></p>
+<h3 id="q37-where-do-mlflow-and-dvc-actually-fit-together">Q3.7 — Where do MLflow and DVC actually fit together?</h3>
+<p><strong>Say it like this:</strong></p>
+<blockquote>
+<p>Think of it as: <strong>DVC versions the inputs, MLflow tracks the process and outputs.</strong> DVC pins datasets and large artifacts to storage with Git-tracked pointers; MLflow logs each experiment's params, metrics, and resulting model, and hosts the registry that serving pulls from. A clean setup wires them so an MLflow run records <em>which</em> DVC data version it consumed — now lineage is complete end to end. Starting fresh I'd reach for MLflow first for tracking and registry, and add DVC once the datasets change often enough that versioning them by hand hurts.</p>
+<p><strong>Connect it to my work (CI/CD):</strong> Reproducibility is where my research habits pay off — my routing and compression results only mean something if they reproduce, so pinning seeds, data versions, and configs is already how I run experiments; MLflow and DVC are just the productionized version of that discipline. Benchmarks like TwinRouterBench are effectively CI gates for a router — a new routing policy has to clear the benchmark before it ships, same as a model has to beat the incumbent on held-out eval. And my Diffusion Weights work — accelerating generative training ~3.2x — is a CI story too: faster training means the retrain-and-evaluate loop turns over cheaper and more often.</p>
+</blockquote>
+<hr />
+<h2 id="topic-4-distributed-efficient-training-infra-optimization">TOPIC 4 — Distributed &amp; Efficient Training (Infra Optimization)</h2>
+<blockquote>
+<p>This is the deep-probe zone and your edge. Derive the numbers, don't recite them.</p>
+</blockquote>
+<p><strong>Killer numbers to have cold:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Fact</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mixed-precision Adam memory</td>
+<td><strong>18 bytes / param</strong></td>
+</tr>
+<tr>
+<td>7B model, states only</td>
+<td><strong>~126 GB</strong> (7B × 18)</td>
+</tr>
+<tr>
+<td>ZeRO paper figure</td>
+<td>16 B/param (assumes <strong>fp16</strong> gradients, not fp32)</td>
+</tr>
+<tr>
+<td>Activation checkpointing cost</td>
+<td><strong>~+33% compute</strong> (one extra forward)</td>
+</tr>
+<tr>
+<td>Good large-scale MFU</td>
+<td><strong>~40–50%</strong></td>
+</tr>
+<tr>
+<td>FlashAttention memory</td>
+<td><strong>O(N²) → O(N)</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="q41-explain-the-memory-footprint-of-training-a-large-model">Q4.1 — Explain the memory footprint of training a large model.</h3>
+<p><strong>Say it like this:</strong></p>
+<blockquote>
+<p>Four buckets — <strong>model weights, gradients, optimizer states, and activations.</strong> For mixed-precision training with Adam, the per-parameter cost derives cleanly: 2 bytes for the bf16 weights used in the forward and backward, 4 bytes for the fp32 master copy of the weights, 4 bytes for the fp32 gradient, and 8 bytes for Adam's two states — momentum and variance — in fp32. That's <strong>2 + 4 + 4 + 8 = 18 bytes per parameter</strong> before activations. So a 7B model is ~126 GB just for states, which is exactly why it doesn't fit on one GPU and you need sharding.</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Precision</th>
+<th>Bytes/param</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Weights (compute copy)</td>
+<td>bf16</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Master weights</td>
+<td>fp32</td>
+<td>4</td>
+</tr>
+<tr>
+<td>Gradients</td>
+<td>fp32</td>
+<td>4</td>
+</tr>
+<tr>
+<td>Adam momentum</td>
+<td>fp32</td>
+<td>4</td>
+</tr>
+<tr>
+<td>Adam variance</td>
+<td>fp32</td>
+<td>4</td>
+</tr>
+<tr>
+<td><strong>Total</strong></td>
+<td></td>
+<td><strong>18</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Trap (if they push):</strong> the original ZeRO paper quotes <strong>16 bytes/param</strong> because it assumes <strong>fp16</strong> gradients rather than fp32 — the 16-vs-18 difference is entirely the gradient precision. Flag that and you show you actually understand the derivation.</p>
+<h3 id="q42-the-fifth-bucket-is-activations-why-do-they-matter-and-how-do-you-control-them">Q4.2 — The fifth bucket is activations — why do they matter and how do you control them?</h3>
+<p><strong>Say it like this:</strong></p>
+<blockquote>
+<p>Activations are the intermediate tensors saved during the forward pass so the backward pass can compute gradients, and they scale with batch size and sequence length — so for long-context or large-batch training they can dominate, often more than the parameters. The main lever is <strong>gradient (activation) checkpointing</strong>: you discard most activations in the forward pass and <em>recompute</em> them in the backward pass, trading compute for memory. It costs roughly one extra forward pass — about <strong>+33% compute</strong> — in exchange for a large memory saving that lets you fit bigger batches or models.</p>
+</blockquote>
+<p><strong>Back-of-envelope (have the sizing ready):</strong> activations scale as roughly <em>layers × batch × seq × hidden × bytes</em> — the intermediate tensors stacked across the network. The Megatron per-transformer-layer form makes it concrete: <code>s·b·h·(34 + 5·a·s/h)</code> bytes without checkpointing, where <code>s</code>=seq, <code>b</code>=batch, <code>h</code>=hidden, <code>a</code>=attention heads. The <code>5·a·s/h</code> term is the attention score matrix — it grows with sequence length, which is why long context is what blows up activation memory. Full checkpointing collapses that to storing just each layer's input, roughly <code>2·s·b·h·layers</code> bytes (the ×2 is bf16's 2 bytes/element), and recomputes the rest.</p>
+<p><strong>Trap:</strong> checkpointing actually <em>lowers</em> your reported <strong>MFU</strong>, because those recomputation FLOPs are real work the GPU does but they don't count as "useful model FLOPs." Interviewers love that subtlety.</p>
+<h3 id="q43-ddp-vs-fsdp-whats-the-difference-and-when-do-you-use-each">Q4.3 — DDP vs FSDP — what's the difference and when do you use each?</h3>
+<p><strong>Say it like this:</strong></p>
+<blockquote class="warn">
+<p><strong>DDP — Distributed Data Parallel</strong> — replicates the <em>full</em> model and optimizer state on every GPU, splits the data across them, and does an AllReduce to average gradients each step; simple and fast, but only works if the whole model fits on one GPU. <strong>FSDP — Fully Sharded Data Parallel</strong> — shards the parameters, gradients, and optimizer states across GPUs, and gathers each layer's parameters just-in-time for its forward/backward, then frees them, so it fits models far bigger than one GPU. The key framing is that FSDP <strong>trades communication for memory</strong> — you pay extra all-gather and reduce-scatter traffic to avoid holding the full model. So DDP when the model fits and you want throughput; FSDP when it doesn't and memory is the binding constraint.</p>
+</blockquote>
+<h3 id="q44-explain-deepspeed-zero-stages-1-2-and-3">Q4.4 — Explain DeepSpeed ZeRO stages 1, 2, and 3.</h3>
+<p><strong>Say it like this:</strong></p>
+<blockquote>
+<p>ZeRO progressively shards the three redundant pieces of state across data-parallel GPUs. <strong>Stage 1</strong> shards the <em>optimizer states</em>; <strong>Stage 2</strong> adds <em>gradients</em>; <strong>Stage 3</strong> adds the <em>parameters</em> themselves — so each stage saves more memory at the cost of more communication. The clean way to remember it: 1 = optimizer, 2 = + gradients, 3 = + parameters. And <strong>PyTorch FSDP full-shard is essentially equivalent to ZeRO-3</strong> — same idea, different framework lineage. In practice you pick the lowest stage that makes your model fit, because higher stages add communication overhead.</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Stage</th>
+<th>Shards</th>
+<th>Mnemonic</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ZeRO-1</td>
+<td>optimizer states</td>
+<td>optimizer</td>
+</tr>
+<tr>
+<td>ZeRO-2</td>
+<td>+ gradients</td>
+<td>+ gradients</td>
+</tr>
+<tr>
+<td>ZeRO-3</td>
+<td>+ parameters</td>
+<td>+ params (≈ FSDP full-shard)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="q45-tensor-pipeline-data-and-sequence-parallelism-and-when-do-you-combine-them">Q4.5 — Tensor, pipeline, data, and sequence parallelism — and when do you combine them?</h3>
+<p><strong>Say it like this:</strong></p>
+<blockquote>
+<p><strong>Data parallelism</strong> replicates the model and splits the batch — the default, easiest, scales throughput. <strong>Tensor parallelism</strong> splits individual layers' matrices across GPUs, each doing part of a matmul, so it's communication-heavy and you keep it <em>within</em> a fast NVLink node.</p>
+<p><strong>Pipeline parallelism</strong> splits the model by <em>layers</em> across GPUs and streams micro-batches through to keep them busy, minimizing the pipeline "bubble." <strong>Sequence parallelism</strong> shards along the sequence dimension for very long contexts.</p>
+<p>For the biggest models you combine them — <strong>3D parallelism</strong>, data + tensor + pipeline — mapping tensor-parallel inside a node, pipeline across nodes, and data-parallel on top. The mental rule: chatty parallelism, tensor, goes where the interconnect is fastest.</p>
+</blockquote>
+<h3 id="q46-bf16-vs-fp16-for-mixed-precision-does-it-matter">Q4.6 — bf16 vs fp16 for mixed precision — does it matter?</h3>
+<p><strong>Say it like this:</strong></p>
+<blockquote>
+<p>Yes, and it's a favorite gotcha. <strong>bf16</strong> has the same 8-bit exponent as fp32, so it keeps fp32's dynamic <em>range</em> while giving up mantissa precision — that means gradients rarely underflow and you <strong>don't need loss scaling</strong>. <strong>fp16</strong> has a much narrower exponent range, so small gradients underflow to zero and you <em>must</em> use a <strong>GradScaler</strong>, or loss scaling, to shift them into representable range. On modern accelerators — A100, H100 — bf16 is the default for training precisely because it's more numerically robust with less babysitting. Either way you keep an fp32 master copy of the weights and do the optimizer update in fp32 for stability.</p>
+</blockquote>
+<p><strong>Trap:</strong> if you say fp16 and forget the GradScaler, your training silently diverges from gradient underflow. bf16 is the safer default <em>because</em> it removes that failure mode.</p>
+<h3 id="q47-what-is-mfu-and-why-do-we-care">Q4.7 — What is MFU and why do we care?</h3>
+<p><strong>Say it like this:</strong></p>
+<blockquote>
+<p><strong>MFU — Model FLOPs Utilization — is the fraction of the GPU's theoretical peak FLOPs your training actually converts into useful model computation.</strong> It's the honest efficiency metric: ~40–50% MFU on large-scale training is considered good, and it maps directly to how much of your very expensive GPU time isn't wasted. It's distinct from <strong>HFU — Hardware FLOPs Utilization</strong> — which <em>counts</em> recomputation FLOPs, so activation checkpointing raises HFU but lowers MFU, because the recompute is hardware work that isn't "model" work. I care about MFU because it's the training-side analogue of the serving-cost efficiency I optimize for — same result, less compute burned.</p>
+</blockquote>
+<h3 id="q48-warmup-and-cosine-decay-why-and-what-changes-for-continued-pretraining">Q4.8 — Warmup and cosine decay — why, and what changes for continued pretraining?</h3>
+<p><strong>Say it like this:</strong></p>
+<blockquote>
+<p><strong>Warmup</strong> — a short linear ramp over roughly 0.5–2% of steps — lets the optimizer's momentum and variance estimates stabilize before you apply a large learning rate, which prevents the early divergence you get from big updates on a cold optimizer. Then <strong>cosine decay</strong> smoothly anneals the LR down, often to about 10% of peak, which empirically converges better than a flat rate. The important nuance for <strong>continued pretraining</strong> — exactly what eBay does with e-Llama — is you <em>restart</em> a short warmup and use a <em>lower</em> peak LR, because you're adapting an already-trained model and a full-size LR would blow away what it learned. So the warmup there is about re-stabilizing the optimizer on the new data distribution, not training from scratch.</p>
+</blockquote>
+<h3 id="q49-gradient-accumulation-what-is-it-and-when-do-you-reach-for-it">Q4.9 — Gradient accumulation — what is it and when do you reach for it?</h3>
+<p><strong>Say it like this:</strong></p>
+<blockquote>
+<p>Gradient accumulation lets you simulate a large batch on limited memory by running several micro-batches forward/backward, summing their gradients, and only stepping the optimizer after K of them. Done right, accumulating K micro-batches on one GPU is mathematically equivalent to a K-times-larger batch, or to data-parallel training across K GPUs. I reach for it when I need a large effective batch for stability but the batch won't fit in memory — it trades wall-clock time for memory.</p>
+</blockquote>
+<pre><code class="language-python">for i, batch in enumerate(loader):
+    loss = model(batch) / K          # divide by K → average, not sum
+    loss.backward()                  # accumulate grads
+    if (i + 1) % K == 0:
+        optimizer.step(); optimizer.zero_grad()
+</code></pre>
+<p><strong>Trap:</strong> you must divide the loss by K so the accumulated gradient is the <em>average</em>, not the sum — otherwise your effective learning rate is K times too big.</p>
+<h3 id="q410-what-is-flashattention-and-why-did-it-matter">Q4.10 — What is FlashAttention and why did it matter?</h3>
+<p><strong>Say it like this:</strong></p>
+<blockquote>
+<p>Standard attention materializes the full N×N score matrix in GPU HBM, so memory and bandwidth blow up as O(N²) with sequence length.</p>
+<p><strong>FlashAttention</strong> is a fused, IO-aware kernel that tiles the computation into blocks that fit in fast on-chip SRAM and uses an <strong>online softmax</strong> to compute the normalized output block-by-block. It never writes the full matrix to HBM — memory drops from O(N²) to O(N), and it's faster because it moves bandwidth-bound work off HBM.</p>
+<p><strong>FlashAttention-3</strong> goes further on Hopper by overlapping data movement (TMA) with the matmuls and using low precision, hitting ~75% of peak. The upshot: it's what makes long-context training and inference tractable, and it's essentially free, accuracy-preserving speedup.</p>
+</blockquote>
+<h3 id="q411-how-do-you-checkpoint-and-resume-a-long-training-run-robustly">Q4.11 — How do you checkpoint and resume a long training run robustly?</h3>
+<p><strong>Say it like this:</strong></p>
+<blockquote class="warn">
+<p>You periodically save the full training state — not just model weights, but optimizer states, the LR-scheduler position, the RNG states, and the step count — so a resume continues <em>exactly</em> where it left off rather than restarting the schedule. On a multi-day run this is non-negotiable because hardware fails; you want to lose minutes, not days. For sharded training — FSDP or ZeRO — checkpointing is distributed, each rank saves its shard, and you want asynchronous saving so you're not stalling all the GPUs while writing to disk. A good sanity check: resume from a checkpoint and confirm the loss curve continues smoothly instead of spiking, which tells you the optimizer and RNG state were actually restored.</p>
+<p>⚠ <strong>[CONFIRM TONY]:</strong> Know your honest answer to "have you <em>personally</em> run distributed training, and with which stack — DDP, FSDP, or DeepSpeed ZeRO?" State exactly what you've launched hands-on vs. understand conceptually. If it's single-node multi-GPU DDP, say that; don't imply multi-node FSDP at scale if you haven't. Precision here reads as senior; over-claiming gets caught on the follow-up.</p>
+<p><strong>Rehearsed template — confirm before you say it:</strong> "Hands-on I've run single-node multi-GPU DDP; FSDP and ZeRO I understand well but haven't launched multi-node at scale." Only speak this once Tony has verified it matches reality — lock the canonical wording in <strong>"The Honest MLOps-Gap Script"</strong> so the same line is used everywhere.</p>
+<p><strong>Connect it to my work (Training optimization):</strong> This is my home turf framed at training-time instead of serving-time — the whole memory-vs-compute-vs-communication trade space <em>is</em> the systems-race thesis. <strong>Diffusion Weights</strong> is the headline: accelerating generative training ~3.2x is exactly an MFU/throughput story — more useful model computation per GPU-hour. My <strong>pruning</strong> work is the inference-side mirror — same "do more with less compute" instinct: I removed &gt;80% of a trained nnU-Net's weights at proxy Dice &gt;0.95, a weight-redundancy result. I'm careful that it's UNSTRUCTURED, so I don't claim a speedup — the latency/replica payoff needs the STRUCTURED follow-up. And I can speak to eBay's own stack credibly: I understand <em>why</em> e-Llama uses LR = 10% of the original for continued pretraining (adapt without catastrophic forgetting), why LiLiuM's custom e-commerce tokenizer buys ~34% faster generation (fewer tokens per sequence = less compute per output), and why a finetuned Gemma3-4B beating a zero-shot Gemma3-27B is the right systems call.</p>
+</blockquote>
+<hr />
+<h2 id="the-production-ops-gap">The production-ops gap</h2>
+<p>Everything above is <em>build and train</em> — the side I own end to end. When they turn to live canary releases, real-time drift monitoring, and on-call, don't improvise: use the rehearsed answer in <strong>"The Honest MLOps-Gap Script"</strong> verbatim. It owns the gap plainly, names the concepts to prove I'm not ignorant, and pivots to the efficiency and model-quality strengths that make a rollout cheaper and safer. Underclaiming credibly beats overclaiming — this loop deep-probes.</p>
+      <nav class="prevnext"><a class="pn prev" href="s2_12_practice_regimen.html">‹ <span>Unaided Practice Regimen</span></a><a class="pn next" href="s2_14_serving_qa.html"><span>Engineering Q&amp;A — Serve &amp; Monitor</span> ›</a></nav>
+    </article>
+    <aside class="toc"><div class="toc-title">On this page</div><ul>
+<li><a href="#topic-1-docker-containers-for-ml">TOPIC 1 — Docker &amp; Containers for ML</a></li>
+<li><a href="#topic-2-testing-ml-systems">TOPIC 2 — Testing ML Systems</a></li>
+<li><a href="#topic-3-cicd-for-ml">TOPIC 3 — CI/CD for ML</a></li>
+<li><a href="#topic-4-distributed-efficient-training-infra-optimization">TOPIC 4 — Distributed &amp; Efficient Training (Infra Optimization)</a></li>
+<li><a href="#the-production-ops-gap">The production-ops gap</a></li>
+</ul></aside>
+  </main>
+</div>
+<script>window.SEARCH_JSON="../assets/../search-index.json";</script>
+<script src="../assets/search-data.js"></script>
+<script src="../assets/app.js"></script>
+</body>
+</html>
