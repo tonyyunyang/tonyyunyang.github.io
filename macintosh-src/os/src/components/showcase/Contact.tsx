@@ -47,22 +47,39 @@ const Contact: React.FC<ContactProps> = (props) => {
         }
     }, [email, name, message]);
 
-    function submitForm() {
+    async function submitForm() {
         if (!isFormValid) {
             setFormMessage('Form unable to validate, please try again.');
             setFormMessageColor('red');
             return;
         }
-        // this site is fully static, so the form composes the email locally
-        const subject = `${name}${company ? ` (${company})` : ''} — via My Macintosh`;
-        const body = `${message}\n\n— ${name}\n${email}`;
-        window.location.href = `mailto:tonyyunyang@outlook.com?subject=${encodeURIComponent(
-            subject
-        )}&body=${encodeURIComponent(body)}`;
-        setFormMessage(
-            `Your mail app just opened with everything pre-filled — hit send there. Thank you ${name}!`
-        );
-        setFormMessageColor(colors.blue);
+        setIsLoading(true);
+        // the site is fully static — a Google Form quietly plays backend
+        const params = new URLSearchParams({
+            'entry.1901215463': name,
+            'entry.176907638': email,
+            'entry.1144218926': company,
+            'entry.270384138': message,
+        });
+        try {
+            await fetch(
+                'https://docs.google.com/forms/d/e/1FAIpQLSfJh-gzhnzR_UjOlNZT6fswgrzbwcZZgycTWfJRmGnBsKGUBA/formResponse',
+                { method: 'POST', mode: 'no-cors', body: params }
+            );
+            setFormMessage(
+                `Message sent! Thank you ${name}, I will get back to you soon.`
+            );
+            setFormMessageColor(colors.blue);
+            setCompany('');
+            setEmail('');
+            setName('');
+            setMessage('');
+        } catch (e) {
+            setFormMessage(
+                'Something went wrong — please email me directly instead.'
+            );
+            setFormMessageColor('red');
+        }
         setIsLoading(false);
     }
 
@@ -196,7 +213,7 @@ const Contact: React.FC<ContactProps> = (props) => {
                                     <sub>
                                         {formMessage
                                             ? `${formMessage}`
-                                            : ' The form opens your mail app with the message pre-filled'}
+                                            : 'Your message goes straight to my inbox'}
                                     </sub>
                                 </b>
                             </p>

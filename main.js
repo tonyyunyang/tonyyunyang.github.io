@@ -733,6 +733,319 @@
     wittImg.src = "media/witt.png";
   }
 
+  /* ---------------- the three keys ----------------
+     Copper, jade, crystal — the three gates — as floating particle
+     clouds. Each key turns slowly in 3D; bring the cursor near one and
+     it eases around to face you, brightens, and throws off glints.
+     They are not for poking — only for finding. */
+
+  const keysCanvas = document.getElementById("p1Keys");
+  if (keysCanvas && keysCanvas.getContext) {
+    const KW = 440;
+    const KH = 176;
+    const KCY = 80; // the keys' resting centerline
+    const KF = 560; // perspective focal length
+    const TAU = Math.PI * 2;
+    let kseed = 31337;
+    const krand = () => ((kseed = (kseed * 1664525 + 1013904223) >>> 0) / 4294967296);
+
+    // each key is painted flat (140×400), sampled to particles, extruded in z
+    const sampleKey = (paint) => {
+      const oc = document.createElement("canvas");
+      oc.width = 140;
+      oc.height = 400;
+      const c = oc.getContext("2d", { willReadFrequently: true });
+      c.fillStyle = c.strokeStyle = "#fff";
+      c.lineCap = "round";
+      paint(c);
+      const d = c.getImageData(0, 0, 140, 400).data;
+      const pts = [];
+      for (let y = 1; y < 400; y += 3) {
+        for (let x = 1; x < 140; x += 3) {
+          if (d[(y * 140 + x) * 4 + 3] > 128) {
+            pts.push({
+              x: (x - 70 + krand() * 2 - 1) * 0.38,
+              y: (y - 200 + krand() * 2 - 1) * 0.38,
+              z: (krand() - 0.5) * 11,
+              hi: krand() < 0.16,
+              sx: (krand() - 0.5) * 260,
+              sy: (krand() - 0.5) * 220,
+            });
+          }
+        }
+      }
+      return pts;
+    };
+
+    const ring = (c, cx, cy, ro, ri) => {
+      c.beginPath();
+      c.arc(cx, cy, ro, 0, TAU);
+      c.arc(cx, cy, ri, 0, TAU, true);
+      c.fill("evenodd");
+    };
+
+    const paintCopper = (c) => {
+      ring(c, 70, 72, 54, 37); // round bow
+      c.lineWidth = 10; // the monogram inside it
+      c.beginPath();
+      c.moveTo(50, 98);
+      c.lineTo(70, 36);
+      c.lineTo(90, 98);
+      c.moveTo(57, 76);
+      c.lineTo(83, 76);
+      c.stroke();
+      for (let i = 0; i < 5; i++) {
+        const inset = i % 2 ? 5 : 0; // ribbed collar
+        c.fillRect(52 + inset, 130 + i * 11, 36 - inset * 2, 8);
+      }
+      c.fillRect(62, 185, 16, 175); // stem
+      c.fillRect(78, 300, 28, 13); // blocky teeth
+      c.fillRect(78, 322, 38, 13);
+      c.fillRect(78, 345, 22, 13);
+    };
+
+    const paintJade = (c) => {
+      c.beginPath(); // sunburst bow
+      for (let k = 0; k < 24; k++) {
+        const r = k % 2 ? 62 : 42;
+        const a = (k * Math.PI) / 12;
+        const x = 70 + r * Math.sin(a);
+        const y = 74 - r * Math.cos(a);
+        if (k) c.lineTo(x, y);
+        else c.moveTo(x, y);
+      }
+      c.closePath();
+      c.moveTo(70, 56); // diamond cut-out
+      c.lineTo(84, 74);
+      c.lineTo(70, 92);
+      c.lineTo(56, 74);
+      c.closePath();
+      c.fill("evenodd");
+      c.fillRect(58, 138, 24, 10);
+      for (let y = 152; y < 312; y += 20) {
+        c.beginPath(); // chevroned stem
+        c.moveTo(59, y);
+        c.lineTo(70, y + 7);
+        c.lineTo(81, y);
+        c.lineTo(81, y + 13);
+        c.lineTo(70, y + 20);
+        c.lineTo(59, y + 13);
+        c.closePath();
+        c.fill();
+      }
+      c.fillRect(54, 316, 36, 10); // comb teeth
+      for (let i = 0; i < 5; i++) c.fillRect(55 + i * 7, 326, 5, 20 + (i % 2) * 16);
+    };
+
+    const paintCrystal = (c) => {
+      c.lineWidth = 6; // an orb of threads
+      c.beginPath();
+      c.arc(70, 72, 52, 0, TAU);
+      c.stroke();
+      c.lineWidth = 4;
+      c.beginPath();
+      c.arc(70, 72, 40, 0, TAU);
+      c.arc(70, 72, 27, 0, TAU);
+      c.stroke();
+      for (let k = 0; k < 8; k++) {
+        const a = (k * Math.PI) / 4;
+        c.beginPath();
+        c.moveTo(70 + 12 * Math.sin(a), 72 - 12 * Math.cos(a));
+        c.lineTo(70 + 50 * Math.sin(a), 72 - 50 * Math.cos(a));
+        c.stroke();
+      }
+      c.fillRect(66, 10, 8, 12); // finial
+      c.fillRect(56, 128, 28, 7); // baluster beads
+      c.fillRect(61, 141, 18, 7);
+      c.fillRect(56, 154, 28, 7);
+      c.fillRect(64, 165, 12, 152); // stem
+      c.beginPath();
+      c.arc(70, 240, 10, 0, TAU);
+      c.fill();
+      c.beginPath(); // crystal shards
+      c.moveTo(76, 316);
+      c.lineTo(102, 328);
+      c.lineTo(76, 340);
+      c.moveTo(76, 338);
+      c.lineTo(94, 350);
+      c.lineTo(76, 360);
+      c.moveTo(62, 330);
+      c.lineTo(70, 378);
+      c.lineTo(78, 330);
+      c.fill();
+    };
+
+    const dotSprite = (rgb) => {
+      const s = document.createElement("canvas");
+      s.width = s.height = 16;
+      const sc = s.getContext("2d");
+      sc.fillStyle = `rgb(${rgb[0]},${rgb[1]},${rgb[2]})`;
+      sc.beginPath();
+      sc.arc(8, 8, 7, 0, TAU);
+      sc.fill();
+      return s;
+    };
+
+    const KEYS = [
+      { paint: paintCopper, cx: 90, base: [184, 115, 51], hi: [228, 166, 104], speed: 0.5, phase: 0.6, delay: 0 },
+      { paint: paintJade, cx: 235, base: [70, 134, 102], hi: [148, 199, 170], speed: 0.38, phase: 2.5, delay: 0.35 },
+      { paint: paintCrystal, cx: 380, base: [136, 158, 186], hi: [226, 236, 247], speed: 0.6, phase: 4.4, delay: 0.7 },
+    ];
+    for (const k of KEYS) {
+      k.pts = sampleKey(k.paint);
+      k.theta = k.phase;
+      k.hover = 0;
+      k.ramp = 0;
+      k.dotBase = dotSprite(k.base);
+      k.dotHi = dotSprite(k.hi);
+    }
+    window.__keys = { KEYS, cy: KCY }; // for tests
+
+    const keyCaps = Array.from(document.querySelectorAll(".p1-key-cap"));
+    const DPRK = Math.min(2, window.devicePixelRatio || 1);
+    keysCanvas.width = KW * DPRK;
+    keysCanvas.height = KH * DPRK;
+    const kctx = keysCanvas.getContext("2d");
+    kctx.scale(DPRK, DPRK);
+
+    const kpx = { x: -1e4, y: -1e4 };
+    window.addEventListener(
+      "pointermove",
+      (e) => {
+        kpx.x = e.clientX;
+        kpx.y = e.clientY;
+      },
+      { passive: true }
+    );
+
+    const sparks = [];
+    let hovered = -1;
+    let lastT = 0;
+    let revealT = 0;
+    let kraf = null;
+
+    const easeOut = (t) => 1 - Math.pow(1 - t, 3);
+
+    const drawKeys = (now, dt, mx, my) => {
+      hovered = -1;
+      let best = 1e9;
+      for (let i = 0; i < 3; i++) {
+        const d = Math.hypot(mx - KEYS[i].cx, my - KCY);
+        if (d < 74 && d < best) {
+          best = d;
+          hovered = i;
+        }
+      }
+      for (let i = 0; i < keyCaps.length; i++) keyCaps[i].dataset.show = String(i === hovered);
+
+      kctx.clearRect(0, 0, KW, KH);
+      for (let i = 0; i < 3; i++) {
+        const k = KEYS[i];
+        if ((now - revealT) / 1000 > k.delay) k.ramp = Math.min(1, k.ramp + dt / 0.9);
+        const e = easeOut(k.ramp);
+        k.hover += ((i === hovered ? 1 : 0) - k.hover) * Math.min(1, dt * 7);
+        // the keys swing about face-front (never illegibly edge-on);
+        // approach one and it stills itself to face you
+        k.theta = 0.55 * (1 - k.hover) * Math.sin((now / 1000) * k.speed + k.phase);
+        const bob = Math.sin((now / 1000) * 0.9 + k.phase) * 4.5 * (1 - 0.5 * k.hover);
+        const cos = Math.cos(k.theta);
+        const sin = Math.sin(k.theta);
+        const boost = 1 + 0.8 * k.hover;
+        for (const p of k.pts) {
+          const xr = p.x * cos + p.z * sin;
+          const zr = -p.x * sin + p.z * cos;
+          const pr = KF / (KF + zr * 3);
+          let px = k.cx + xr * pr;
+          let py = KCY + (p.y + bob) * pr;
+          if (e < 1) {
+            px = k.cx + p.sx + (px - k.cx - p.sx) * e;
+            py = KCY + p.sy + (py - KCY - p.sy) * e;
+          }
+          const shade = 0.5 + 0.5 * clamp((30 - zr) / 60, 0, 1);
+          kctx.globalAlpha = Math.min(0.7, (p.hi ? 0.38 : 0.26) * shade * boost) * e;
+          const r = (p.hi ? 1.5 : 1.25) * pr * (1 + 0.12 * k.hover);
+          kctx.drawImage(p.hi ? k.dotHi : k.dotBase, px - r, py - r, r * 2, r * 2);
+        }
+        // glints fly off the presented key
+        if (k.hover > 0.5 && sparks.length < 46) {
+          for (let n = 0; n < 2; n++) {
+            const p = k.pts[(krand() * k.pts.length) | 0];
+            const xr = p.x * cos + p.z * sin;
+            sparks.push({
+              x: k.cx + xr,
+              y: KCY + p.y + bob,
+              vx: (krand() - 0.5) * 26,
+              vy: -14 - krand() * 22,
+              life: 1,
+              hi: k.dotHi,
+            });
+          }
+        }
+      }
+      for (let i = sparks.length - 1; i >= 0; i--) {
+        const sp = sparks[i];
+        sp.life -= dt * 2.2;
+        if (sp.life <= 0) {
+          sparks.splice(i, 1);
+          continue;
+        }
+        sp.x += sp.vx * dt;
+        sp.y += sp.vy * dt;
+        kctx.globalAlpha = 0.75 * sp.life;
+        kctx.drawImage(sp.hi, sp.x - 3, sp.y - 3, 6, 6);
+        kctx.globalAlpha = 0.9 * sp.life;
+        kctx.fillStyle = "#fff";
+        kctx.fillRect(sp.x - 0.8, sp.y - 0.8, 1.6, 1.6);
+      }
+      kctx.globalAlpha = 1;
+    };
+
+    const kframe = (now) => {
+      kraf = requestAnimationFrame(kframe);
+      if (!p1Revealed) {
+        lastT = now;
+        revealT = now; // assembly starts when the curtain lifts
+        return;
+      }
+      const dt = Math.min(0.05, lastT ? (now - lastT) / 1000 : 0.016);
+      lastT = now;
+      const rect = keysCanvas.getBoundingClientRect();
+      if (rect.width === 0) return;
+      const s = rect.width / KW;
+      drawKeys(now, dt, (kpx.x - rect.left) / s, (kpx.y - rect.top) / s);
+    };
+
+    if (reducedMotion) {
+      // a still print: three keys facing forward, fully assembled
+      for (const k of KEYS) {
+        k.theta = 0;
+        k.ramp = 1;
+      }
+      revealT = -1e6;
+      drawKeys(0, 0, -1e4, -1e4);
+    } else if ("IntersectionObserver" in window) {
+      const io = new IntersectionObserver(
+        (entries) => {
+          for (const en of entries) {
+            if (en.isIntersecting) {
+              if (!kraf) {
+                lastT = 0;
+                kframe(performance.now());
+              }
+            } else if (kraf) {
+              cancelAnimationFrame(kraf);
+              kraf = null;
+            }
+          }
+        },
+        { threshold: 0.05 }
+      );
+      io.observe(keysCanvas);
+    } else {
+      kframe(performance.now());
+    }
+  }
+
   /* ---------------- init ---------------- */
 
   window.history.scrollRestoration = "manual";

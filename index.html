@@ -57,7 +57,14 @@
               <a href="https://scholar.google.com/citations?user=rIFdBYAAAAAJ&amp;hl=en" target="_blank" rel="noopener noreferrer">Scholar</a>
               <a href="https://www.linkedin.com/in/tonyyunyang/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
             </div>
-            <svg class="p1-key" viewBox="0 0 325 125" aria-hidden="true"><path fill="#B87333" d="M50 0h75v25H50zM25 25h25v25H25zM125 25h25v25h-25zM0 50h25v25H0zM150 50h175v25H150zM25 75h25v25H25zM125 75h25v25h-25zM250 75h25v25h-25zM300 75h25v25h-25zM50 100h75v25H50zM250 100h25v25h-25zM300 100h25v25h-25z"/></svg>
+            <!-- the three keys, floating and turning as particle clouds;
+                 bring the cursor near one and it presents itself (main.js) -->
+            <div class="p1-keys-wrap" aria-hidden="true">
+              <canvas id="p1Keys"></canvas>
+              <span class="p1-key-cap" data-cap="0"><i>the copper key &middot; found</i></span>
+              <span class="p1-key-cap" data-cap="1"><i>the jade key &middot; a leap not taken</i></span>
+              <span class="p1-key-cap" data-cap="2"><i>the crystal key &middot; cannot be unlocked alone</i></span>
+            </div>
           </div>
         </div>
 
@@ -205,5 +212,7 @@
   </button>
 
   <script src="main.js"></script>
+  <!-- visit tracking beacon (MapMyVisitors, no widget) -->
+  <img src="https://mapmyvisitors.com/map.png?d=UNLT3au7iicWzLZC0Uv8wRF7FnqMJln5vmS-2mNegMU&cl=ffffff" alt="" aria-hidden="true" width="1" height="1" style="position:absolute;left:-9999px;top:0" />
 </body>
 </html>

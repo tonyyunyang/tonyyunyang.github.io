@@ -74,7 +74,10 @@ references rewritten to `/2025/…`); the CV corner and the hidden card's CV lin
 read before they save). Rauno Freiberg and Henry Heffernan remain only as
 deliberate attribution (code comments, the Macintosh Credits app, LICENSE).
 And — some races are won by going backwards; there is a frame before the
-beginning.
+beginning, where three keys (copper, jade, crystal — particle clouds,
+swinging in 3D) float above the signature. Every page also carries a 1px
+MapMyVisitors beacon — visit tracking with no widget rendered; stats at
+mapmyvisitors.com/web/1c555.
 
 ## Personalization
 
@@ -156,8 +159,9 @@ details changed:
 - **My Showcase** is fully Tony's: Home/About/Experience from the CV,
   Projects split into Software / Research (the five publications, each
   linking back to `paper.html`) / Life (running, lifting, cooking).
-- The Contact form is backend-free: it opens the visitor's mail client
-  pre-filled (his original posted to his personal mail API).
+- The Contact form posts straight to a Google Form (no server to run):
+  submissions appear in the form's responses, mapped field-for-field
+  (entry IDs live in `Contact.tsx`).
 - The **Credits** app keeps every one of Henry's original slides and gains a
   leading "Original Work" slide crediting him and both repos.
 - The monitor iframe points at the self-hosted `/macintosh/os/` — nothing

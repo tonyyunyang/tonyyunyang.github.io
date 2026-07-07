@@ -479,18 +479,42 @@ h1 {
   background: var(--yellow);
   outline: 0;
 }
-.p1-key {
+/* the three keys float bottom-left; captions whisper under the hovered one */
+.p1-keys-wrap {
   position: absolute;
   left: 64px;
-  bottom: 48px;
-  width: 118px;
+  bottom: 16px;
+  width: 440px;
+  height: 176px;
+  pointer-events: none;
 }
+.p1-keys-wrap canvas {
+  position: absolute;
+  inset: 0;
+}
+.frame .p1-key-cap {
+  position: absolute;
+  bottom: 2px;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  font-size: 13px;
+  color: var(--colors-gray10);
+  opacity: 0;
+  transition: opacity 0.45s ease;
+}
+.p1-key-cap i {
+  font-family: Georgia, serif;
+}
+.p1-key-cap[data-cap="0"] { left: 90px; }
+.p1-key-cap[data-cap="1"] { left: 235px; }
+.p1-key-cap[data-cap="2"] { left: 380px; }
+.p1-key-cap[data-show="true"] { opacity: 1; }
 
-/* the four anchors arrive in reading order: identity, spectrum, links, key */
+/* the four anchors arrive in reading order: identity, spectrum, links, keys */
 .p1-top,
 .p1-spectrum,
 .p1-links,
-.p1-key {
+.p1-keys-wrap {
   opacity: 0;
   transform: translateY(14px);
   transition: opacity 0.5s ease, transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
@@ -498,11 +522,11 @@ h1 {
 .playerOne[data-revealed="true"] .p1-top { transition-delay: 0.08s; }
 .playerOne[data-revealed="true"] .p1-spectrum { transition-delay: 0.2s; }
 .playerOne[data-revealed="true"] .p1-links { transition-delay: 0.32s; }
-.playerOne[data-revealed="true"] .p1-key { transition-delay: 0.4s; }
+.playerOne[data-revealed="true"] .p1-keys-wrap { transition-delay: 0.4s; }
 .playerOne[data-revealed="true"] .p1-top,
 .playerOne[data-revealed="true"] .p1-spectrum,
 .playerOne[data-revealed="true"] .p1-links,
-.playerOne[data-revealed="true"] .p1-key {
+.playerOne[data-revealed="true"] .p1-keys-wrap {
   opacity: 1;
   transform: none;
 }
@@ -642,7 +666,7 @@ h1 {
   .p1-top,
   .p1-spectrum,
   .p1-links,
-  .p1-key,
+  .p1-keys-wrap,
   .p1-hint {
     transition: none;
   }
