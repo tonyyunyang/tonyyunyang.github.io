@@ -901,65 +901,76 @@
 
     /* -- the hand: two poses; the dust crossfades from reach to grip -- */
 
+    /* both poses share one space; the shaft being grabbed runs
+       vertically through x = 78, so fingers reach and wrap across it */
+
     const paintHandOpen = (c) => {
-      c.beginPath();
-      c.ellipse(110, 148, 38, 46, 0, 0, TAU);
+      c.beginPath(); // palm edge-on, right of the shaft
+      c.ellipse(150, 132, 30, 44, -0.08, 0, TAU);
       c.fill();
+      c.lineWidth = 16; // four fingers reaching left, gently fanned
       const fingers = [
-        [-26, 54],
-        [-9, 68],
-        [8, 64],
-        [25, 50],
+        [150, 102, 62, 94],
+        [150, 122, 52, 120],
+        [150, 142, 56, 146],
+        [150, 160, 68, 168],
       ];
-      c.lineWidth = 17;
       for (const f of fingers) {
         c.beginPath();
-        c.moveTo(110 + f[0], 114);
-        c.lineTo(110 + f[0] * 1.4, 114 - f[1]);
+        c.moveTo(f[0], f[1]);
+        c.lineTo(f[2], f[3]);
         c.stroke();
       }
-      c.lineWidth = 19; // thumb
+      c.lineWidth = 18; // thumb spread low, ready to lock
       c.beginPath();
-      c.moveTo(78, 152);
-      c.lineTo(44, 122);
+      c.moveTo(138, 168);
+      c.lineTo(96, 188);
       c.stroke();
     };
 
     const paintHandFist = (c) => {
-      c.beginPath();
-      c.ellipse(110, 134, 42, 40, 0, 0, TAU);
+      c.beginPath(); // the back of the hand, right of the shaft
+      c.ellipse(146, 130, 34, 42, 0, 0, TAU);
       c.fill();
+      c.lineWidth = 15; // fingers wrapping across the shaft
       for (let i = 0; i < 4; i++) {
-        c.beginPath(); // knuckles
-        c.arc(80 + i * 20, 98 + (i === 0 || i === 3 ? 6 : 0), 12, 0, TAU);
+        const y = 100 + i * 19;
+        c.beginPath();
+        c.moveTo(146, y);
+        c.lineTo(60, y + 2);
+        c.stroke();
+        c.beginPath(); // fingertip curling on the far side
+        c.arc(60, y + 9, 7.5, 0, TAU);
         c.fill();
       }
-      c.lineWidth = 18; // thumb wrapped across
+      c.lineWidth = 17; // thumb locking over the top
       c.beginPath();
-      c.moveTo(74, 140);
-      c.lineTo(118, 150);
+      c.moveTo(152, 100);
+      c.lineTo(84, 84);
       c.stroke();
     };
 
     const sampleHand = () => {
       const poses = [paintHandOpen, paintHandFist].map((paint) => {
         const oc = document.createElement("canvas");
-        oc.width = oc.height = 220;
+        oc.width = 260;
+        oc.height = 220;
         const c = oc.getContext("2d", { willReadFrequently: true });
         c.fillStyle = c.strokeStyle = "#fff";
         c.lineCap = "round";
         paint(c);
-        return c.getImageData(0, 0, 220, 220).data;
+        return c.getImageData(0, 0, 260, 220).data;
       });
       const pts = [];
       for (let y = 1; y < 220; y += 2) {
-        for (let x = 1; x < 220; x += 2) {
-          const aO = poses[0][(y * 220 + x) * 4 + 3] > 128 ? 1 : 0;
-          const aC = poses[1][(y * 220 + x) * 4 + 3] > 128 ? 1 : 0;
+        for (let x = 1; x < 260; x += 2) {
+          const aO = poses[0][(y * 260 + x) * 4 + 3] > 128 ? 1 : 0;
+          const aC = poses[1][(y * 260 + x) * 4 + 3] > 128 ? 1 : 0;
           if ((aO || aC) && krand() < 0.55) {
             pts.push({
-              x: (x - 110 + (krand() - 0.5) * 2.4) * 0.76,
-              y: (y - 132 + (krand() - 0.5) * 2.4) * 0.76,
+              // coordinates relative to the shaft grip point (78, 130)
+              x: (x - 78 + (krand() - 0.5) * 1.6) * 0.75,
+              y: (y - 130 + (krand() - 0.5) * 1.6) * 0.75,
               aO,
               aC,
               tw: krand() * TAU,
@@ -1103,9 +1114,11 @@
       // the hand, over everything it holds
       if (hand.t > 0.01 && hand.key >= 0) {
         const k = KEYS[hand.key];
-        const hx = k.cx + 30 + (k.cx + 3 - (k.cx + 30)) * reach;
-        const hy = KH + 80 + (KCY + 26 - 8 * grip - (KH + 80)) * reach;
-        const rot = -0.32 * (1 - reach);
+        // the hand slides in from the right, level with the stem,
+        // and its grip point settles exactly on the shaft
+        const hx = k.cx + 210 * (1 - reach);
+        const hy = KH + 90 + (KCY + 24 - 8 * grip - (KH + 90)) * reach;
+        const rot = -0.3 * (1 - reach);
         const cr = Math.cos(rot);
         const sr = Math.sin(rot);
         for (const p of hand.pts) {
