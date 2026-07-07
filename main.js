@@ -33,6 +33,49 @@
   const coarse = window.matchMedia("(pointer: coarse)").matches;
   const SLIDE_STEP = STRIDE / (coarse ? 5 : 3);
 
+  /* ---------------- touch-first? offer a gentle heads-up ----------------
+     Trust the platform's own answer where it exists (UA-CH mobile flag),
+     else require the capability signals to agree: a coarse primary pointer
+     that can't hover, backed by real touch points. That combination is a
+     phone or tablet, but not a hovering touchscreen laptop. */
+  function isTouchFirst() {
+    const uaData = navigator.userAgentData;
+    if (uaData && typeof uaData.mobile === "boolean") {
+      if (uaData.mobile) return true; // authoritative on Chromium
+    }
+    const coarsePointer = window.matchMedia("(pointer: coarse)").matches;
+    const noHover = window.matchMedia("(hover: none)").matches;
+    const touchPoints = navigator.maxTouchPoints || 0;
+    // iPadOS reports as desktop Safari, so also catch touch + no hover there
+    return (coarsePointer && noHover) || (touchPoints > 1 && noHover);
+  }
+
+  function setupMobileNote() {
+    const note = document.getElementById("mobileNote");
+    if (!note || !isTouchFirst()) return;
+    try {
+      if (localStorage.getItem("mobileNoteSeen") === "true") return;
+    } catch (e) {}
+    note.hidden = false;
+    const dismiss = () => {
+      note.dataset.show = "false";
+      try {
+        localStorage.setItem("mobileNoteSeen", "true");
+      } catch (e) {}
+      setTimeout(() => (note.hidden = true), 700);
+    };
+    const btn = document.getElementById("mobileNoteBtn");
+    if (btn) btn.addEventListener("click", dismiss);
+    // let the first paint settle, then spring it up
+    setTimeout(() => (note.dataset.show = "true"), 900);
+  }
+  // the note lives at the end of <body>, after this script runs
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", setupMobileNote);
+  } else {
+    setupMobileNote();
+  }
+
   const clamp = (v, lo, hi) => Math.min(Math.max(v, lo), hi);
 
   /* ---------------- spring engine ---------------- */
