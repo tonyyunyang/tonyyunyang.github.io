@@ -1,0 +1,649 @@
+/* ============================================================
+   Replica of raunofreiberg.com landing page — styles.
+   Values extracted from the live site's CSS (light theme is
+   forced on the index route, so only light tokens are used).
+   ============================================================ */
+
+:root {
+  --yellow: #FFFF02;
+  --orange: #FF6100;
+  --colors-red: #FF484C;
+
+  /* Radix gray (light) — only the steps the landing page uses */
+  --colors-gray1: hsl(0 0% 99%);
+  --colors-gray4: hsl(0 0% 93%);   /* page background (#EDEDED) */
+  --colors-gray9: hsl(0 0% 56.1%);
+  --colors-gray11: hsl(0 0% 43.5%);
+  --colors-gray12: hsl(0 0% 9%);
+  --colors-focus: var(--colors-gray9);
+
+  --radii-round: 9999px;
+  --root-background: var(--colors-gray4);
+  --fonts-body: X, -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+    "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+    "Helvetica Neue", sans-serif;
+
+  --frame-width: 1200px;
+  --frame-height: 720px;
+}
+
+@supports (color: color(display-p3 1 1 1)) {
+  :root {
+    --orange: color(display-p3 0.99 0.4 0.02);
+  }
+}
+
+/* The site serves PP Neue Montreal Medium as family "X" for both weights */
+@font-face {
+  font-family: X;
+  font-weight: 400;
+  font-display: swap;
+  src: url(fonts/dd.woff2) format("woff2");
+}
+@font-face {
+  font-family: X;
+  font-weight: 500;
+  font-display: swap;
+  src: url(fonts/dd.woff2) format("woff2");
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html,
+body {
+  background: var(--root-background);
+}
+
+html {
+  overscroll-behavior: none;
+  touch-action: pan-x pan-y;
+  scrollbar-width: none;
+}
+html::-webkit-scrollbar {
+  display: none;
+}
+
+body {
+  margin: 0;
+  font-family: var(--fonts-body);
+}
+
+::selection {
+  background: var(--yellow);
+  color: black;
+}
+
+h1, h2, h3, h4, h5, h6, p { margin: 0; }
+h1, h2, h3 { font-weight: 500; }
+
+/* the original site sets its italic voice in Georgia */
+em, i { font-family: Georgia, serif; }
+
+a {
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+button {
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  font-family: var(--fonts-body);
+  border: 0;
+}
+
+/* visually hidden (aria-live region) */
+.vh {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  white-space: nowrap;
+  position: absolute;
+}
+
+/* ---------------- layout ---------------- */
+
+.ghost {
+  pointer-events: none;
+  user-select: none;
+}
+
+.center,
+.cross {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.cross {
+  mix-blend-mode: difference;
+  cursor: pointer;
+}
+
+.frames {
+  display: flex;
+  gap: 8px;
+  flex-direction: row;
+  width: var(--frame-width);
+  height: var(--frame-height);
+  will-change: transform;
+}
+
+@keyframes fadeFrames {
+  to { opacity: 1; }
+}
+
+.frame {
+  outline: 0;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.frame:not([data-variant="main"]) {
+  opacity: 0;
+  animation: fadeFrames 0.35s ease-in-out 0.8s forwards;
+}
+.root[data-cancel-animation="true"] .frame {
+  animation-delay: 0s;
+}
+.frame:focus-visible [data-sheet] {
+  outline: 4px solid var(--colors-focus);
+  outline-offset: 4px;
+}
+
+.frame a,
+.frame h1 span,
+.frame p {
+  font-size: 85px;
+  font-weight: 400;
+}
+.frame p[data-size="medium"] {
+  font-size: 75px;
+}
+.frame h3 {
+  font-size: 720px;
+  font-weight: 400;
+  white-space: nowrap;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.sheet {
+  width: 100%;
+  height: 100%;
+  background: white;
+  overflow-x: clip;
+}
+.sheet-yellow {
+  background: var(--yellow);
+}
+
+.contents {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+.contents[data-color="yellow"] {
+  background: var(--yellow);
+  padding: 50px;
+}
+/* mantra sheet: cited question (serif italic, top left) answered in the
+   site's own voice (grotesk, bottom right) — a diagonal call-and-response */
+.contents[data-color="yellow"] {
+  position: relative;
+}
+.frame p.mantra-question {
+  position: absolute;
+  top: 50px;
+  left: 50px;
+  line-height: 1.15;
+}
+.frame p.mantra-answer {
+  position: absolute;
+  right: 50px;
+  bottom: 50px;
+  text-align: right;
+  line-height: 1.15;
+}
+.frame p.mantra-source {
+  position: absolute;
+  left: 50px;
+  bottom: 68px;
+  font-size: 14px;
+  color: var(--colors-gray11);
+}
+
+.centerFull {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+.centerFull > svg {
+  flex-shrink: 0;
+}
+.centerFull > svg[data-icon="history"] {
+  height: 50%;
+  width: fit-content;
+}
+.scaleUp svg {
+  scale: 1.2;
+}
+
+/* main intro sheet */
+.main {
+  padding: 64px;
+  display: flex;
+  align-items: center;
+  gap: 64px;
+  color: var(--colors-gray12);
+}
+
+.circle {
+  border-radius: var(--radii-round);
+  aspect-ratio: 1 / 1;
+}
+.circle-main {
+  background: var(--yellow);
+  height: 100%;
+  position: absolute;
+  display: flex;
+  right: 0;
+  top: 0;
+}
+.circle-dd {
+  background: var(--orange);
+  height: 100%;
+}
+
+.label {
+  font-size: 14px;
+  color: var(--colors-gray11);
+  position: absolute;
+  transform-origin: top left;
+  top: -28px;
+}
+
+.clipReveal {
+  display: block;
+  overflow: hidden;
+}
+.clipReveal span {
+  display: inline-block;
+  transform: translateY(100px);
+}
+.clipReveal[data-variant="offset"] {
+  margin-left: 64px;
+}
+
+h1 {
+  position: relative;
+}
+
+/* contact frame */
+.contact {
+  --padding: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+.contact button {
+  cursor: copy;
+}
+.contact a,
+.contact button {
+  color: var(--colors-gray12);
+  border-radius: 12px;
+}
+.contact a:focus-visible,
+.contact button:focus-visible {
+  outline: 4px solid var(--colors-focus);
+  outline-offset: 4px;
+}
+.contact a[data-position="top-left"] { position: absolute; top: var(--padding); left: var(--padding); }
+.contact a[data-position="top-right"] { position: absolute; top: var(--padding); right: var(--padding); }
+.contact a[data-position="bottom-left"] { position: absolute; bottom: var(--padding); left: var(--padding); }
+.contact a[data-position="bottom-right"] { position: absolute; bottom: var(--padding); right: var(--padding); }
+
+.email {
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+.email > * {
+  grid-area: 1 / 1;
+}
+.email p {
+  font-size: 85px;
+  font-weight: 400;
+}
+
+/* ---------------- minimap ---------------- */
+
+.minimap {
+  position: fixed;
+  top: 64px;
+  left: 50%;
+  transform: translateX(-50%);
+  pointer-events: none;
+  --line-width: 1px;
+  --line-height: 18px;
+  --line-gap: 9px;
+  --line-color: var(--colors-gray9);
+  --tracker-width: 30px;
+}
+.minimap-inner {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--line-gap);
+}
+.minimap .line {
+  width: var(--line-width);
+  height: var(--line-height);
+  background: var(--line-color);
+  position: relative;
+}
+.minimap .tracker {
+  width: var(--tracker-width);
+  height: var(--line-height);
+  position: absolute;
+  background: transparent;
+  border: var(--line-width) solid var(--line-color);
+}
+
+/* ---------------- debug (wireframe) mode: click the cross ---------------- */
+
+.root[data-debug="true"] .circle,
+.root[data-debug="true"] .contents,
+.root[data-debug="true"] .main {
+  background: transparent;
+}
+.root[data-debug="true"] .circle {
+  border: 1px solid #000;
+}
+.root[data-debug="true"] [data-sheet] {
+  border: 1px solid #000;
+  background: transparent;
+}
+.root[data-debug="true"] [data-sheet] svg path {
+  stroke: #000;
+  stroke-width: 1px;
+}
+.root[data-debug="true"] .contact a,
+.root[data-debug="true"] h1 span,
+.root[data-debug="true"] h3,
+.root[data-debug="true"] p {
+  color: transparent;
+  -webkit-text-stroke: 1px #000;
+}
+.root[data-debug="true"] [data-icon="history"] path {
+  stroke: #000;
+  fill: #000;
+  stroke-width: 0px;
+}
+
+/* ---------------- touch devices: native horizontal scroll ---------------- */
+
+@media (pointer: coarse) {
+  .ghost {
+    height: 1px !important;
+  }
+  .center {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    transform: none;
+    top: 0;
+    left: 0;
+  }
+  .mainContainer {
+    position: absolute;
+  }
+}
+
+/* ---------------- player one: the frame before the beginning ---------------- */
+
+.playerOne {
+  visibility: hidden;
+}
+.playerOne[data-revealed="true"] {
+  visibility: visible;
+}
+.p1-sheet {
+  position: relative;
+  color: var(--colors-gray12);
+  transform: scale(0.94);
+  opacity: 0;
+  transition: transform 0.55s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.4s ease;
+}
+.playerOne[data-revealed="true"] .p1-sheet {
+  transform: scale(1);
+  opacity: 1;
+}
+
+/* the frame speaks the site's diagonal grammar: identity top-left,
+   links bottom-right, the copper key bottom-left as the signature */
+.p1-top {
+  position: absolute;
+  top: 52px;
+  left: 64px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.frame .p1-kicker {
+  font-size: 22px;
+  color: var(--colors-gray11);
+}
+.p1-kicker i {
+  font-family: Georgia, serif;
+}
+.p1-name {
+  font-size: 140px;
+  font-weight: 400;
+  line-height: 0.95;
+  letter-spacing: -0.01em;
+}
+.frame .p1-text {
+  font-size: 21px;
+  line-height: 1.5;
+  color: var(--colors-gray12);
+}
+.p1-links {
+  position: absolute;
+  right: 64px;
+  bottom: 52px;
+  display: flex;
+  gap: 26px;
+}
+.frame .p1-links a {
+  font-size: 18px;
+  color: var(--colors-gray12);
+}
+.frame .p1-links a:hover,
+.frame .p1-links a:focus-visible {
+  background: var(--yellow);
+  outline: 0;
+}
+.p1-key {
+  position: absolute;
+  left: 64px;
+  bottom: 48px;
+  width: 118px;
+}
+
+/* the four anchors arrive in reading order: identity, spectrum, links, key */
+.p1-top,
+.p1-spectrum,
+.p1-links,
+.p1-key {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.5s ease, transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.playerOne[data-revealed="true"] .p1-top { transition-delay: 0.08s; }
+.playerOne[data-revealed="true"] .p1-spectrum { transition-delay: 0.2s; }
+.playerOne[data-revealed="true"] .p1-links { transition-delay: 0.32s; }
+.playerOne[data-revealed="true"] .p1-key { transition-delay: 0.4s; }
+.playerOne[data-revealed="true"] .p1-top,
+.playerOne[data-revealed="true"] .p1-spectrum,
+.playerOne[data-revealed="true"] .p1-links,
+.playerOne[data-revealed="true"] .p1-key {
+  opacity: 1;
+  transform: none;
+}
+
+/* the spectrum: one frame-wide gesture. eight fields, each a frequency;
+   under the cursor the band magnifies and turns copper (the key's metal) */
+.p1-spectrum {
+  position: absolute;
+  left: 64px;
+  right: 64px;
+  top: 322px;
+}
+.p1-spec-labels {
+  position: relative;
+  height: 38px;
+}
+.p1-spec-labels[data-side="top"] {
+  margin-bottom: 16px;
+}
+.p1-spec-labels[data-side="bottom"] {
+  margin-top: 16px;
+}
+.frame .p1-spec-labels span {
+  position: absolute;
+  transform: translateX(-50%);
+  font-size: 13px;
+  line-height: 1.3;
+  text-align: center;
+  color: var(--colors-gray11);
+  transition: color 0.15s ease;
+  white-space: nowrap;
+}
+.p1-spec-labels[data-side="top"] span {
+  bottom: 0;
+}
+.p1-spec-labels span[data-zone="0"] { left: 6.25%; }
+.p1-spec-labels span[data-zone="1"] { left: 18.75%; }
+.p1-spec-labels span[data-zone="2"] { left: 31.25%; }
+.p1-spec-labels span[data-zone="3"] { left: 43.75%; }
+.p1-spec-labels span[data-zone="4"] { left: 56.25%; }
+.p1-spec-labels span[data-zone="5"] { left: 68.75%; }
+.p1-spec-labels span[data-zone="6"] { left: 81.25%; }
+.p1-spec-labels span[data-zone="7"] { left: 93.75%; }
+.p1-spec-labels span[data-pole="true"] {
+  font-weight: 500;
+}
+.p1-spec-labels span[data-active="true"] {
+  color: var(--colors-gray12);
+}
+.p1-spec-band {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 96px;
+  cursor: crosshair;
+  touch-action: none;
+}
+.p1-spec-band .bar {
+  width: 2px;
+  background: var(--colors-gray9);
+  transition: transform 0.14s ease-out, background-color 0.14s ease-out;
+  will-change: transform;
+}
+.frame .p1-status {
+  margin-top: 18px;
+  min-height: 22px;
+  text-align: center;
+  font-size: 14px;
+}
+.p1-status i {
+  font-family: Georgia, serif;
+  color: var(--colors-gray9);
+}
+.p1-status i[data-hidden="true"] {
+  display: none;
+}
+.frame .p1-status span {
+  font-family: Menlo, Consolas, monospace;
+  font-size: 14px;
+  color: var(--colors-gray11);
+}
+
+/* ---------------- wittgenstein, silkscreened on the mantra sheet ---------------- */
+
+.mantra-witt {
+  position: absolute;
+  top: 12px;
+  right: 96px;
+  height: calc(100% - 24px);
+  pointer-events: none;
+  z-index: 0;
+}
+.frame p.mantra-question,
+.frame p.mantra-answer,
+.frame p.mantra-source {
+  z-index: 1;
+}
+
+/* the hint chip, left of the minimap */
+.p1-hint {
+  position: fixed;
+  top: 58px;
+  right: calc(50% + 128px);
+  z-index: 20;
+  border: 0;
+  background: transparent;
+  padding: 6px 10px;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(-6px);
+  pointer-events: none;
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.p1-hint[data-show="true"] {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+.p1-hint i {
+  font-family: Georgia, serif;
+  font-style: italic;
+  font-size: 14px;
+  color: var(--colors-gray9);
+  white-space: nowrap;
+  transition: color 0.2s ease;
+}
+.p1-hint:hover i {
+  color: var(--colors-gray12);
+}
+.p1-hint:focus-visible {
+  outline: 2px solid var(--colors-focus);
+  border-radius: 6px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .p1-sheet,
+  .p1-top,
+  .p1-spectrum,
+  .p1-links,
+  .p1-key,
+  .p1-hint {
+    transition: none;
+  }
+}

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Projects — Tony Yang</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <script>
+    (function () {
+      var t = localStorage.getItem("theme");
+      if (t !== "light" && t !== "dark") {
+        t = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      }
+      document.documentElement.classList.add(t);
+    })();
+  </script>
+  <link rel="stylesheet" href="tokens.css" />
+  <style>
+    html.light, html.light body { background: var(--colors-gray4); }
+    html.dark, html.dark body { background: var(--colors-gray1); }
+
+    .home-link {
+      position: fixed;
+      top: 24px;
+      left: 28px;
+      font-size: 14px;
+      color: var(--colors-gray11);
+      z-index: 30;
+    }
+    .home-link:hover { color: var(--colors-gray12); }
+    .home-link:focus-visible {
+      outline: 2px solid var(--colors-focus);
+      outline-offset: 4px;
+      border-radius: 6px;
+    }
+
+    main {
+      padding-top: 200px;
+      min-height: 100vh;
+    }
+    .list {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+      padding: 0 128px 128px;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+    @media (max-width: 960px) {
+      .list { padding: 0 24px 128px; }
+    }
+
+    /* row recipe from the live /projects page: name + sweeping rule + year */
+    .project {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      width: calc(100% + 32px);
+      position: relative;
+      overflow: hidden;
+      padding: 12px;
+      margin: -14px;
+      border-radius: 14px;
+      outline: 0;
+      opacity: 0;
+      animation: rowIn 0.3s ease forwards;
+    }
+    @keyframes rowIn { to { opacity: 1; } }
+    .project:hover { background: var(--colors-gray3); }
+    .project:focus-visible {
+      box-shadow: 0 0 0 2px var(--colors-gray1), 0 0 0 4px var(--colors-gray9);
+    }
+    .project .name {
+      font-size: 14px;
+      line-height: 28px;
+      font-weight: 500;
+      color: var(--colors-gray12);
+      display: inline-block;
+      white-space: nowrap;
+    }
+    .project .rule {
+      flex: 1;
+      position: relative;
+    }
+    .project .rule::after,
+    .project .rule::before {
+      content: "";
+      position: absolute;
+      bottom: -1px;
+      height: 1px;
+      width: 0;
+    }
+    .project .rule::after {
+      animation: ruleIn 1s ease forwards;
+      animation-delay: var(--sweep-delay);
+    }
+    .project .rule::before {
+      z-index: 3;
+      animation: ruleFlash 1s ease forwards;
+      animation-delay: var(--flash-delay);
+    }
+    @keyframes ruleIn {
+      0% { background: transparent; }
+      50% { background: var(--colors-gray10); }
+      100% { width: 100%; background: var(--colors-gray5); }
+    }
+    @keyframes ruleFlash {
+      0% { background: transparent; }
+      50% { background: var(--colors-gray10); }
+      100% { width: 100%; background: transparent; }
+    }
+    .project .year {
+      font-size: 14px;
+      line-height: 28px;
+      color: var(--colors-gray9);
+      white-space: nowrap;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .project { opacity: 1; animation: none; }
+      .project .rule::after {
+        animation: none;
+        width: 100%;
+        background: var(--colors-gray5);
+      }
+      .project .rule::before { animation: none; }
+    }
+  </style>
+</head>
+<body>
+  <a class="home-link" href="index.html">← Home</a>
+  <div class="verticalFade" data-side="top" aria-hidden="true"></div>
+  <div class="minimap" aria-hidden="true">
+    <div class="minimap-inner" id="minimap"></div>
+  </div>
+
+  <main>
+    <nav class="list" id="list" aria-label="Projects"></nav>
+  </main>
+
+  <script src="textfx.js"></script>
+  <script>
+    (function () {
+      "use strict";
+
+      /* edit freely — entries without href open the under-construction page */
+      var PROJECTS = [
+        { name: "My Macintosh", year: "2026", href: "macintosh/" },
+        { name: "This Website", year: "2026" },
+      ];
+
+      /* minimap: ticks + route trackers, active at the projects slot */
+      var ROUTES = [
+        { href: "index.html", x: 0, label: "Home" },
+        { href: "ai.html", x: 80, label: "AI Research" },
+        { href: "projects.html", x: 140, label: "Projects" },
+      ];
+      var ACTIVE_X = 140;
+      var mm = document.getElementById("minimap");
+      for (var i = 0; i < 20; i++) {
+        var line = document.createElement("div");
+        line.className = "line";
+        var hidden = ROUTES.some(function (r) {
+          var d = r.x + 32 - 10 * i;
+          return d >= 0 && d < 34;
+        });
+        if (hidden) line.dataset.hidden = "true";
+        mm.appendChild(line);
+      }
+      ROUTES.forEach(function (r) {
+        var a = document.createElement("a");
+        a.className = "tracker";
+        a.href = r.href;
+        a.setAttribute("aria-label", r.label);
+        a.style.transform = "translateX(" + r.x + "px)";
+        mm.appendChild(a);
+      });
+      var active = document.createElement("div");
+      active.className = "tracker";
+      active.dataset.active = "true";
+      active.style.transform = "translateX(" + ACTIVE_X + "px)";
+      active.style.pointerEvents = "none";
+      mm.appendChild(active);
+
+      /* project rows */
+      var list = document.getElementById("list");
+      PROJECTS.forEach(function (p, i) {
+        var a = document.createElement("a");
+        a.className = "project";
+        a.href = p.href || "soon.html?t=" + encodeURIComponent(p.name);
+        a.style.animationDelay = 0.1 * i + "s";
+        a.style.setProperty("--sweep-delay", 0.05 * i + "s");
+        a.style.setProperty("--flash-delay", 0.1 * i + "s");
+
+        var name = document.createElement("span");
+        name.className = "name";
+        var rule = document.createElement("span");
+        rule.className = "rule";
+        var year = document.createElement("span");
+        year.className = "year";
+
+        a.appendChild(name);
+        a.appendChild(rule);
+        a.appendChild(year);
+        list.appendChild(a);
+
+        window.scrambleReveal(name, { text: p.name });
+        window.scrambleReveal(year, { text: p.year });
+      });
+    })();
+  </script>
+</body>
+</html>

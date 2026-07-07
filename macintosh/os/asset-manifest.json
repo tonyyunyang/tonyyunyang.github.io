@@ -1,0 +1,29 @@
+{
+  "files": {
+    "main.css": "./static/css/main.22d0a6ca.css",
+    "main.js": "./static/js/main.1b43b99e.js",
+    "static/js/787.749b4a44.chunk.js": "./static/js/787.749b4a44.chunk.js",
+    "static/media/computer.mp4": "./static/media/computer.f6d03fdb3cc6238c1dd0.mp4",
+    "static/media/tony-family.jpg": "./static/media/tony-family.b742176accfeb433ad84.jpg",
+    "static/media/tony-childhood-beach.jpg": "./static/media/tony-childhood-beach.1c9b5c64ea4e7bfde1f8.jpg",
+    "static/media/tony-wife.jpg": "./static/media/tony-wife.430de067e45c43023b70.jpg",
+    "static/media/tony-jiandan.jpg": "./static/media/tony-jiandan.c08c3a5218d17c040f1a.jpg",
+    "static/media/MSSansSerif.ttf": "./static/media/MSSansSerif.aa14e7b110864a3c2e08.ttf",
+    "static/media/Tongyun_Yang_Resume.pdf": "./static/media/Tongyun_Yang_Resume.16b3da3df0d76aefb4a6.pdf",
+    "static/media/tony-headshot.jpg": "./static/media/tony-headshot.d058d751b01f91136112.jpg",
+    "static/media/tony-strength.jpg": "./static/media/tony-strength.41d037e6d1d19a6515ba.jpg",
+    "static/media/ee.jpg": "./static/media/ee.7656e3a317181c8a39b1.jpg",
+    "static/media/Terminal.ttf": "./static/media/Terminal.6a1b7290048681921b2c.ttf",
+    "static/media/neverGiveUp.jpg": "./static/media/neverGiveUp.c9ee4e48677de77065a9.jpg",
+    "static/media/Millennium.ttf": "./static/media/Millennium.e16d74a8e8e0567ce30e.ttf",
+    "static/media/Millennium-Bold.ttf": "./static/media/Millennium-Bold.cd5e3be832ebd008c852.ttf",
+    "index.html": "./index.html",
+    "main.22d0a6ca.css.map": "./static/css/main.22d0a6ca.css.map",
+    "main.1b43b99e.js.map": "./static/js/main.1b43b99e.js.map",
+    "787.749b4a44.chunk.js.map": "./static/js/787.749b4a44.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.22d0a6ca.css",
+    "static/js/main.1b43b99e.js"
+  ]
+}

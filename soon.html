@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Coming soon — Tony Yang</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <script>
+    (function () {
+      var t = localStorage.getItem("theme");
+      if (t !== "light" && t !== "dark") {
+        t = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      }
+      document.documentElement.classList.add(t);
+    })();
+  </script>
+  <link rel="stylesheet" href="tokens.css" />
+  <style>
+    html.light, html.light body { background: var(--colors-gray4); }
+    html.dark, html.dark body { background: var(--colors-gray1); }
+    html { overscroll-behavior: none; }
+
+    .home-link {
+      position: fixed;
+      top: 24px;
+      left: 28px;
+      font-size: 14px;
+      color: var(--colors-gray11);
+      z-index: 10;
+    }
+    .home-link:hover { color: var(--colors-gray12); }
+    .home-link:focus-visible {
+      outline: 2px solid var(--colors-focus);
+      outline-offset: 4px;
+      border-radius: 6px;
+    }
+
+    .center {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    .stage {
+      width: 1200px;
+      height: 720px;
+      will-change: transform;
+    }
+    .frame-label {
+      font-size: 14px;
+      color: var(--colors-gray11);
+      position: absolute;
+      transform-origin: top left;
+    }
+    .sheet {
+      width: 100%;
+      height: 100%;
+      background: var(--card-bg);
+      overflow: hidden;
+      padding: 64px;
+      display: flex;
+      align-items: center;
+      gap: 64px;
+      color: var(--colors-gray12);
+      position: relative;
+    }
+    .circle {
+      background: var(--yellow);
+      height: 100%;
+      aspect-ratio: 1 / 1;
+      border-radius: var(--radii-round);
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+    h1 { position: relative; font-weight: 400; }
+    h1 span { font-size: 85px; font-weight: 400; }
+    .clipReveal { display: block; overflow: hidden; }
+    .clipReveal > span { display: inline-block; transform: translateY(100px); }
+    .clipReveal[data-variant="offset"] { margin-left: 64px; }
+    h1 .em { font-family: var(--fonts-serif); font-style: italic; }
+  </style>
+</head>
+<body>
+  <a class="home-link" href="index.html">← Home</a>
+
+  <div class="center">
+    <div class="stage" id="stage" style="opacity:0">
+      <div class="frame-label" id="frameLabel">Coming soon</div>
+      <div class="sheet">
+        <div class="circle" id="circle" style="transform:scale(0)"></div>
+        <h1 id="lines"></h1>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      "use strict";
+      var reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+      var clamp = function (v, lo, hi) { return Math.min(Math.max(v, lo), hi); };
+
+      var name = new URLSearchParams(location.search).get("t") || "This page";
+      document.title = name + " — coming soon";
+
+      // staircase lines, alternating offsets, like the landing intro
+      var lines = [
+        { text: name, offset: false },
+        { text: "is under", offset: true },
+        { text: "construction.", offset: false },
+        { text: "Coming soon.", offset: true, em: true },
+      ];
+      var container = document.getElementById("lines");
+      var spans = lines.map(function (l) {
+        var outer = document.createElement("span");
+        outer.className = "clipReveal";
+        if (l.offset) outer.dataset.variant = "offset";
+        var inner = document.createElement("span");
+        inner.textContent = l.text;
+        if (l.em) inner.className = "em";
+        outer.appendChild(inner);
+        container.appendChild(outer);
+        return inner;
+      });
+
+      var stage = document.getElementById("stage");
+      var circle = document.getElementById("circle");
+      var label = document.getElementById("frameLabel");
+
+      function layout() {
+        var fit = clamp(Math.min(innerWidth / 1300, innerHeight / 1020), 0.2, 1);
+        stage.style.transform = "scale(" + fit + ")";
+        var inv = 1 / fit;
+        label.style.transform = "scale(" + inv + ")";
+        label.style.top = -28 * inv + "px";
+      }
+      layout();
+      addEventListener("resize", layout);
+      stage.style.opacity = "1";
+
+      // spring engine with the landing's exact constants
+      var springs = [];
+      function animate(apply, from, to, k, c, m, delay) {
+        var s = { v: from, vel: 0, t: reduced ? to : from, apply: apply, k: k, c: c, m: m };
+        springs.push(s);
+        apply(s.v);
+        setTimeout(function () { s.t = to; }, reduced ? 0 : delay);
+      }
+      var last = performance.now();
+      (function tick(now) {
+        var dt = Math.min((now - last) / 1000, 0.064);
+        last = now;
+        springs.forEach(function (s) {
+          var steps = Math.ceil(dt / 0.004), h = dt / steps;
+          for (var i = 0; i < steps; i++) {
+            s.vel += ((s.k * (s.t - s.v) - s.c * s.vel) / s.m) * h;
+            s.v += s.vel * h;
+          }
+          s.apply(s.v);
+        });
+        requestAnimationFrame(tick);
+      })(last);
+
+      // pop the sheet, reveal lines, drop the circle in — landing choreography
+      var fitNow = function () {
+        return clamp(Math.min(innerWidth / 1300, innerHeight / 1020), 0.2, 1);
+      };
+      animate(function (v) {
+        stage.style.transform = "scale(" + fitNow() * v + ")";
+      }, reduced ? 1 : 0, 1, 320, 60, 0.2, 0);
+      spans.forEach(function (span, i) {
+        animate(function (v) { span.style.transform = "translateY(" + v + "px)"; },
+          reduced ? 0 : 100, 0, 240, 32, 0.1, 200 + i * 100);
+      });
+      animate(function (v) { circle.style.transform = "scale(" + v + ")"; },
+        reduced ? 1 : 0, 1, 600, 80, 0.2, 400);
+    })();
+  </script>
+</body>
+</html>

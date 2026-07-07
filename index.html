@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Tony Yang — AI Researcher &amp; Engineer</title>
+  <meta name="description" content="Tony Yang is an AI Researcher &amp; Engineer working from Infra to Applications. Publications, projects, and a Macintosh you can boot." />
+  <meta property="og:title" content="Tony Yang — AI Researcher &amp; Engineer" />
+  <meta property="og:description" content="Tony Yang is an AI Researcher &amp; Engineer working from Infra to Applications." />
+  <link rel="preload" href="fonts/dd.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main id="root" class="root" data-sheet="index" data-debug="false" data-cancel-animation="false">
+    <!-- Ghost element: its size creates the scrollable area (JS sets the +px extents) -->
+    <div id="ghost" class="ghost" aria-hidden="true"></div>
+
+    <div class="center">
+      <div id="frames" class="frames" style="opacity:0">
+
+        <!-- Frame -1: hidden one stride BEFORE the start — found by going backwards -->
+        <div id="playerOne" class="frame playerOne" aria-hidden="true"
+             style="width:1200px;height:720px;position:absolute;left:-1240px;top:0">
+          <div class="label">Player One</div>
+          <div class="sheet p1-sheet" data-sheet="true">
+            <div class="p1-top">
+              <p class="p1-kicker"><i>you found the copper key.</i></p>
+              <h2 class="p1-name">Tony</h2>
+              <p class="p1-text">AI researcher &amp; engineer in Amsterdam.<br />
+                PhD dropout. MSc, TU Delft.</p>
+            </div>
+            <div class="p1-spectrum" aria-label="A spectrum of AI research fields; move across it to hear each field's frequency">
+              <div class="p1-spec-labels" data-side="top" aria-hidden="true">
+                <span data-zone="1">Wireless<br />Sensing</span>
+                <span data-zone="3">Model<br />Compression</span>
+                <span data-zone="5">World<br />Models</span>
+                <span data-zone="7" data-pole="true">Smart Routing &amp;<br />Agentic Benchmarks</span>
+              </div>
+              <div class="p1-spec-band" id="p1Band"></div>
+              <div class="p1-spec-labels" data-side="bottom" aria-hidden="true">
+                <span data-zone="0" data-pole="true">Affective<br />Computing</span>
+                <span data-zone="2">Medical<br />Imaging</span>
+                <span data-zone="4">Diffusion<br />Models</span>
+                <span data-zone="6">LLM<br />Systems</span>
+              </div>
+              <p class="p1-status">
+                <i id="p1SpecHint">run your cursor across it.</i>
+                <span id="p1Hz"></span>
+              </p>
+            </div>
+            <div class="p1-links">
+              <a href="Tongyun-Yang-CV.pdf" target="_blank" rel="noopener" aria-label="CV (PDF, opens in a new tab)">CV</a>
+              <a href="mailto:tonyyunyang@outlook.com">Email</a>
+              <a href="https://github.com/tonyyunyang" target="_blank" rel="noopener noreferrer">GitHub</a>
+              <a href="https://x.com/satoshiotabvbu" target="_blank" rel="noopener noreferrer">X</a>
+              <a href="https://scholar.google.com/citations?user=rIFdBYAAAAAJ&amp;hl=en" target="_blank" rel="noopener noreferrer">Scholar</a>
+              <a href="https://www.linkedin.com/in/tonyyunyang/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            </div>
+            <svg class="p1-key" viewBox="0 0 325 125" aria-hidden="true"><path fill="#B87333" d="M50 0h75v25H50zM25 25h25v25H25zM125 25h25v25h-25zM0 50h25v25H0zM150 50h175v25H150zM25 75h25v25H25zM125 75h25v25h-25zM250 75h25v25h-25zM300 75h25v25h-25zM50 100h75v25H50zM250 100h25v25h-25zM300 100h25v25h-25z"/></svg>
+          </div>
+        </div>
+
+        <!-- Frame 0: main intro sheet (pops in with a spring) -->
+        <div id="mainContainer" class="mainContainer" style="transform:scale(0)">
+          <div class="frame" data-variant="main" style="width:1200px;height:720px">
+            <div class="sheet main" data-sheet="true">
+              <div id="mainCircle" class="circle circle-main" style="transform:scale(0)"></div>
+              <h1>
+                <span class="clipReveal"><span data-reveal>Tony Yang</span></span>
+                <span class="clipReveal" data-variant="offset"><span data-reveal>is an AI</span></span>
+                <span class="clipReveal"><span data-reveal>Researcher</span></span>
+                <span class="clipReveal" data-variant="offset"><span data-reveal>&amp; Engineer</span></span>
+                <span class="clipReveal"><span data-reveal>working from Infra</span></span>
+                <span class="clipReveal" data-variant="offset"><span data-reveal>to Applications</span></span>
+              </h1>
+            </div>
+          </div>
+        </div>
+
+        <!-- Frame 1: AI Research (slide, max = sheet overflow, measured) -->
+        <a class="frame" data-variant="slide" data-slide-max="177" data-frame-index="1"
+           style="width:1200px;height:720px;position:absolute;left:1240px"
+           href="ai.html"
+           aria-label="AI Research">
+          <div class="label">AI Research</div>
+          <div class="sheet" data-sheet="true">
+            <div class="contents" data-slide-contents>
+              <h3 aria-hidden="true">AI</h3>
+              <div class="circle circle-dd"></div>
+            </div>
+          </div>
+        </a>
+
+        <!-- Frame 2: Craft (slide, max 330) -->
+        <a class="frame" data-variant="slide" data-slide-max="330" data-frame-index="2"
+           style="width:1200px;height:720px;position:absolute;left:2480px"
+           href="soon.html?t=Craft"
+           aria-label="Craft">
+          <div class="label">Craft</div>
+          <div class="sheet" data-sheet="true">
+            <div class="contents" data-slide-contents>
+              <h3 aria-hidden="true">Craft</h3>
+            </div>
+          </div>
+        </a>
+
+        <!-- Frame 3: My Macintosh (boots the 3D experience, adapted from Henry Heffernan's open-source portfolio) -->
+        <a class="frame" data-variant="default" data-frame-index="3"
+           style="width:1200px;height:720px;position:absolute;left:3720px"
+           href="macintosh/"
+           aria-label="My Macintosh">
+          <div class="label">My Macintosh</div>
+          <div class="sheet" data-sheet="true">
+            <div class="centerFull">
+              <svg data-icon="history" width="450" height="450" viewBox="0 0 450 450" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M25 0h25v25h-25ZM50 0h25v25h-25ZM75 0h25v25h-25ZM100 0h25v25h-25ZM125 0h25v25h-25ZM150 0h25v25h-25ZM175 0h25v25h-25ZM200 0h25v25h-25ZM225 0h25v25h-25ZM250 0h25v25h-25ZM275 0h25v25h-25ZM300 0h25v25h-25ZM325 0h25v25h-25ZM350 0h25v25h-25ZM375 0h25v25h-25ZM400 0h25v25h-25ZM0 25h25v25h-25ZM425 25h25v25h-25ZM0 50h25v25h-25ZM75 50h25v25h-25ZM100 50h25v25h-25ZM125 50h25v25h-25ZM150 50h25v25h-25ZM175 50h25v25h-25ZM200 50h25v25h-25ZM225 50h25v25h-25ZM250 50h25v25h-25ZM275 50h25v25h-25ZM300 50h25v25h-25ZM325 50h25v25h-25ZM350 50h25v25h-25ZM425 50h25v25h-25ZM0 75h25v25h-25ZM75 75h25v25h-25ZM350 75h25v25h-25ZM425 75h25v25h-25ZM0 100h25v25h-25ZM75 100h25v25h-25ZM350 100h25v25h-25ZM425 100h25v25h-25ZM0 125h25v25h-25ZM75 125h25v25h-25ZM350 125h25v25h-25ZM425 125h25v25h-25ZM0 150h25v25h-25ZM75 150h25v25h-25ZM350 150h25v25h-25ZM425 150h25v25h-25ZM0 175h25v25h-25ZM75 175h25v25h-25ZM350 175h25v25h-25ZM425 175h25v25h-25ZM0 200h25v25h-25ZM75 200h25v25h-25ZM350 200h25v25h-25ZM425 200h25v25h-25ZM0 225h25v25h-25ZM75 225h25v25h-25ZM350 225h25v25h-25ZM425 225h25v25h-25ZM0 250h25v25h-25ZM75 250h25v25h-25ZM100 250h25v25h-25ZM125 250h25v25h-25ZM150 250h25v25h-25ZM175 250h25v25h-25ZM200 250h25v25h-25ZM225 250h25v25h-25ZM250 250h25v25h-25ZM275 250h25v25h-25ZM300 250h25v25h-25ZM325 250h25v25h-25ZM350 250h25v25h-25ZM425 250h25v25h-25ZM0 275h25v25h-25ZM425 275h25v25h-25ZM0 300h25v25h-25ZM75 300h25v25h-25ZM250 300h25v25h-25ZM275 300h25v25h-25ZM300 300h25v25h-25ZM325 300h25v25h-25ZM350 300h25v25h-25ZM425 300h25v25h-25ZM0 325h25v25h-25ZM425 325h25v25h-25ZM0 350h25v25h-25ZM425 350h25v25h-25ZM0 375h25v25h-25ZM425 375h25v25h-25ZM25 400h25v25h-25ZM50 400h25v25h-25ZM75 400h25v25h-25ZM100 400h25v25h-25ZM125 400h25v25h-25ZM150 400h25v25h-25ZM175 400h25v25h-25ZM200 400h25v25h-25ZM225 400h25v25h-25ZM250 400h25v25h-25ZM275 400h25v25h-25ZM300 400h25v25h-25ZM325 400h25v25h-25ZM350 400h25v25h-25ZM375 400h25v25h-25ZM400 400h25v25h-25ZM50 425h25v25h-25ZM75 425h25v25h-25ZM100 425h25v25h-25ZM125 425h25v25h-25ZM150 425h25v25h-25ZM175 425h25v25h-25ZM200 425h25v25h-25ZM225 425h25v25h-25ZM250 425h25v25h-25ZM275 425h25v25h-25ZM300 425h25v25h-25ZM325 425h25v25h-25ZM350 425h25v25h-25ZM375 425h25v25h-25Z" fill="#0000FF"></path></svg>
+            </div>
+          </div>
+        </a>
+
+        <!-- Frame 4: Projects (slide, max 1373) -->
+        <a class="frame" data-variant="slide" data-slide-max="1373" data-frame-index="4"
+           style="width:1200px;height:720px;position:absolute;left:4960px"
+           href="projects.html"
+           aria-label="Projects">
+          <div class="label">Projects</div>
+          <div class="sheet" data-sheet="true">
+            <div class="contents" data-slide-contents>
+              <div class="contents">
+                <h3>Projects</h3>
+              </div>
+            </div>
+          </div>
+        </a>
+
+        <!-- Frame 5: Field Notes (handwritten strokes) -->
+        <a class="frame" data-variant="default" data-frame-index="5"
+           style="width:1200px;height:720px;position:absolute;left:6200px"
+           href="soon.html?t=Tony%27s%20Field%20Notes"
+           aria-label="Field Notes">
+          <div class="label">Field Notes</div>
+          <div class="sheet" data-sheet="true">
+            <div class="centerFull scaleUp">
+              <svg width="672" height="74" viewBox="0 0 672 74" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.2 12.9C14.5 12.2 21.5 11.5 27.8 11.2C32.5 11 36.8 11 40.3 11.4" stroke="var(--colors-red)" stroke-width="7" stroke-linecap="round"></path><path d="M23.9 12.4C24.05 20.2 24.2 30 24 38.5C23.85 44.5 23.4 49.2 22.7 54.2" stroke="var(--colors-red)" stroke-width="7" stroke-linecap="round"></path><g transform="translate(-84 0)"><path d="M147.064 40.3106C146.257 39.8483 145.449 39.3859 144.456 39.6042C143.462 39.8225 142.308 40.7356 141.598 41.8336C140.221 43.9619 140.418 47.4206 140.76 50.8167C140.91 52.3048 141.787 53.1857 142.654 53.8843C143.52 54.5829 144.547 55.0394 145.899 55.0748C148.916 55.154 151.502 53.6072 153 51.9836C154.214 47.4778 154.437 43.6961 153.743 41.2583C153.164 40.0861 152.125 39.0458 149.303 37.6237" stroke="var(--colors-red)" stroke-width="7" stroke-linecap="round"></path></g><g transform="translate(-12 0)"><path d="M101.356 30.9553C101.287 40.0024 101.971 46.7724 102.429 51.3097C102.813 55.1119 108.758 40.9389 113.378 37.1267C115.11 35.6971 116.688 36.9534 117.56 38.1199C118.826 40.7496 120.032 43.2842 121.516 46.2992C122.201 48.2871 122.748 51.2046 124.004 55.9398" stroke="var(--colors-red)" stroke-width="7" stroke-linecap="round"></path></g><path d="M120.3 34.6C121 40.8 122.1 46.9 124.2 52.2C125.2 54.8 126.9 56.4 129.1 57.1" stroke="var(--colors-red)" stroke-width="7" stroke-linecap="round"></path><path d="M140.9 33.2C139.8 41.5 138.7 49.8 137.2 57.6C136.1 63.3 134.4 67.4 130.8 69.5C127.9 71.2 124.4 70.4 122.3 68.4" stroke="var(--colors-red)" stroke-width="7" stroke-linecap="round"></path><g transform="translate(-16 0)"><path d="M168.373 14.0314C168.47 17.1304 168.566 20.2293 169.301 22.1681C170.035 24.1069 171.405 24.7917 172.816 25.4972" stroke="var(--colors-red)" stroke-width="7" stroke-linecap="round"></path></g><g transform="translate(-14 0)"><path d="M196.816 35.7172C193.965 36.5073 190.997 38.2839 189.064 41.2382C185.644 46.4625 194.602 52.1753 194.314 58.5733C193.619 59.6175 192.466 59.8458 191.021 59.5954C189.576 59.345 187.874 58.609 186.121 57.8508" stroke="var(--colors-red)" stroke-width="7" stroke-linecap="round"></path></g><path d="M264.282 10.1872C264.282 11.9859 264.282 22.8883 264.143 38.6819C263.724 45.8572 263.436 48.4877 263.31 50.8112C263.184 51.9029 262.931 52.8171 262.416 54.5147" stroke="var(--colors-red)" stroke-width="7" stroke-linecap="round"></path><path d="M265.557 12.6185C269.687 12.6185 273.816 12.6185 279.584 12.341C285.353 12.0634 292.636 11.5082 300.14 10.9362" stroke="var(--colors-red)" stroke-width="7" stroke-linecap="round"></path><path d="M264.079 36.2095C264.245 36.2095 265.688 35.9304 268.521 35.3885C269.997 35.1259 271.549 34.8883 275.072 34.8682C278.594 34.8481 284.039 35.0526 289.649 35.2634" stroke="var(--colors-red)" stroke-width="7" stroke-linecap="round"></path><path d="M314.254 37.8531C313.336 40.2497 312.746 46.215 314.688 54.4124C315.134 56.0202 315.256 57.0026 315.734 57.2557C316.212 57.5087 317.043 57.0026 318.151 56.226" stroke="var(--colors-red)" stroke-width="7" stroke-linecap="round"></path><path d="M317.505 22.0117L317.757 21.5015" stroke="#FF484C" stroke-width="7" stroke-linecap="round"></path><path d="M338.42 45.6285C339.755 44.8658 342.439 42.6737 344.541 39.7025C345.547 38.2804 345.472 36.305 345.261 34.5248C345.058 32.8047 343.607 31.2075 342.11 29.7422C340.523 28.189 337.996 29.2671 336.602 30.1033C335.198 30.9451 334.683 32.8712 334.3 34.8553C333.102 41.0719 337.665 49.6515 339.929 53.7239C342.573 56.7084 345.592 58.6452 347.813 59.023C348.869 59.1515 349.783 59.1515 352.488 58.6413" stroke="var(--colors-red)" stroke-width="7" stroke-linecap="round"></path><path d="M365.62 8.49187C363.893 19.5002 364.366 28.0744 366.055 39.0753C366.468 51.5178 366.952 60.7456 367.783 63.4542C368.215 64.6881 368.669 65.6365 370.648 68.1247" stroke="var(--colors-red)" stroke-width="7" stroke-linecap="round"></path><path d="M397.954 49.3211C397.863 49.2298 397.27 49.0465 396.169 48.885C395.078 48.7251 393.763 49.379 392.258 50.3013C389.124 52.2225 388.918 55.4822 388.643 58.3403C388.501 59.8158 388.869 61.5098 389.589 63.1425C390.179 64.4822 391.628 65.3436 393.196 66.0321C394.424 66.5709 396.159 66.2101 398.652 64.7346C405.797 60.5064 404.692 55.6476 405.448 49.5379C406.901 37.7966 405.028 32.6234 404.804 28.6854C404.547 24.1671 403.664 17.8181 403.031 14.3083C402.685 12.3918 402.759 9.77843 402.736 8.03424C402.735 7.97123 402.668 9.59451 404.067 19.0587C405.465 28.523 408.31 45.7834 409.828 55.1857C411.509 65.5999 411.77 67.5924 412.234 69.1926C412.488 69.8617 412.779 70.2406 413.351 70.2516C413.923 70.2625 414.768 69.894 415.774 69.2395" stroke="var(--colors-red)" stroke-width="7" stroke-linecap="round"></path><path d="M507.191 22.5197C507.076 22.748 506.96 22.9762 506.816 27.4994C506.673 32.0225 506.504 40.8337 506.501 46.8651C506.498 52.8966 506.665 55.8815 506.136 62.0693" stroke="var(--colors-red)" stroke-width="7" stroke-linecap="round"></path><path d="M509.949 22.9188C518.609 36.2486 525.862 45.8 530.909 51.4926C532.769 53.5907 535.414 54.9947 537.538 56.2513C538.521 56.3666 539.311 55.4214 539.985 49.008C540.658 42.5945 541.191 30.7415 542.085 17.4829" stroke="var(--colors-red)" stroke-width="7" stroke-linecap="round"></path><path d="M567.398 42.0063C567.167 42.0063 565.549 42.4628 562.875 43.668C560.446 44.7624 559.824 48.1467 559.816 51.095C559.813 52.4177 560.724 53.3118 561.842 53.8962C564.297 55.1797 568.321 54.4101 571.963 53.0829C573.466 52.5354 573.809 51.2539 573.96 49.9851C574.111 48.7162 573.942 47.2457 573.451 46.0273C572.96 44.8089 572.151 43.8871 569.22 42.9374" stroke="var(--colors-red)" stroke-width="7" stroke-linecap="round"></path><path d="M595.672 23.7923C594.768 25.0272 592.094 32.6133 589.201 44.2746C588.516 48.9859 589.42 51.248 590.513 52.7556C591.607 54.2633 592.862 54.9481 597.064 55.3033" stroke="var(--colors-red)" stroke-width="7" stroke-linecap="round"></path><path d="M582.322 38.5435C584.119 38.4279 585.916 38.3123 589.596 38.1189C593.276 37.9255 598.785 37.6577 605.152 37.0316" stroke="var(--colors-red)" stroke-width="7" stroke-linecap="round"></path><path d="M619.708 54.2613C625.514 51.7921 631.943 48.9417 633.512 47.2188C634.323 46.327 634.348 44.7979 634.177 43.5684C634.006 42.339 633.428 41.3016 632.452 40.7094C631.476 40.1172 630.12 40.0016 628.938 40.3378C626.605 41.0017 625.228 43.4693 624.31 45.8634C623.437 48.1408 623.839 51.6676 624.408 55.4596C624.656 57.1102 625.654 58.0254 627.276 58.577C631.324 59.2426 635.956 59.0924 639.744 58.5185C641.402 58.2123 642.523 57.8758 643.677 57.529" stroke="var(--colors-red)" stroke-width="7" stroke-linecap="round"></path><path d="M668.289 37.2931C667.37 37.2931 665.013 38.4271 662.094 40.8533C660.821 41.9115 660.932 43.562 661.665 44.9764C663.336 48.1999 666.099 50.1984 666.507 52.3487C666.458 53.4719 665.89 54.66 664.711 55.7285C663.532 56.7971 661.759 57.7101 657.138 59.6883" stroke="var(--colors-red)" stroke-width="7" stroke-linecap="round"></path></svg>
+            </div>
+          </div>
+        </a>
+
+        <!-- Frame 6: contact corners + copy email -->
+        <div class="frame" data-variant="default" data-frame-index="6"
+             style="width:1200px;height:720px;position:absolute;left:7440px">
+          <div class="sheet" data-sheet="true">
+            <div class="contact">
+              <a href="https://x.com/satoshiotabvbu" data-position="top-left" target="_blank" rel="noopener noreferrer">X</a>
+              <a href="Tongyun-Yang-CV.pdf" data-position="top-right" target="_blank" rel="noopener" aria-label="CV (PDF, opens in a new tab)">CV</a>
+              <a href="2025/" data-position="bottom-left" aria-label="2025 — the previous site, archived">2025</a>
+              <a href="https://github.com/tonyyunyang" data-position="bottom-right" target="_blank" rel="noopener noreferrer">GitHub</a>
+              <button id="copyEmail" aria-label="Copy email">
+                <div class="email" aria-hidden="true">
+                  <p id="emailLabel">Email</p>
+                  <p id="copiedLabel" style="transform:translateY(90px)">Copied</p>
+                </div>
+              </button>
+              <div id="copyLive" role="region" aria-live="polite" class="vh"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Frame 7: mantra -->
+        <div class="frame" data-variant="default" data-frame-index="7"
+             style="width:1200px;height:720px;position:absolute;left:8680px">
+          <div class="sheet sheet-yellow" data-sheet="true">
+            <div class="contents" data-color="yellow">
+              <!-- Wittgenstein, halftoned from the Nähr photograph into a
+                   particle field: near-transparent ink dots that scatter
+                   around the cursor and lean after it (see main.js) -->
+              <canvas class="mantra-witt" id="wittCanvas" aria-hidden="true"></canvas>
+              <p class="mantra-question" data-size="medium"><i>The limits of language<br />mean the limits of the world?</i></p>
+              <p class="mantra-answer" data-size="medium">Perhaps, yet we dwell<br />in more than we can name.</p>
+              <p class="mantra-source">after Wittgenstein, Tractatus 5.6</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Center crosshair: click to toggle debug/wireframe mode -->
+    <svg id="cross" class="cross" data-cross="true" aria-hidden="true" width="20" height="20" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <g>
+        <line x1="14.75" y1="0" x2="14.75" y2="30" stroke="white" stroke-width="1.5"></line>
+        <line y1="14.25" x2="30" y2="14.25" stroke="white" stroke-width="1.5"></line>
+      </g>
+    </svg>
+  </main>
+
+  <!-- Minimap: 20 ticks, tracker slides 0..160px with scroll progress (JS builds ticks) -->
+  <div id="minimap" class="minimap" aria-hidden="true" data-index="true">
+    <div class="minimap-inner" id="minimapInner"></div>
+  </div>
+
+  <!-- A hint surfaces after a while, just left of the minimap -->
+  <button id="p1Hint" class="p1-hint" aria-label="Hint: try scrolling backwards at the very beginning">
+    <i>some races are won by going backwards.</i>
+  </button>
+
+  <script src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Research — Tony Yang</title>
+  <meta name="description" content="Publications and blog posts on AI by Tony Yang." />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <script>
+    /* theme before first paint: stored preference, else system */
+    (function () {
+      var t = localStorage.getItem("theme");
+      if (t !== "light" && t !== "dark") {
+        t = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      }
+      document.documentElement.classList.add(t);
+    })();
+  </script>
+  <link rel="stylesheet" href="tokens.css" />
+  <link rel="stylesheet" href="gallery.css" />
+  <style>
+    .home-link {
+      position: fixed;
+      top: 24px;
+      left: 28px;
+      font-size: 14px;
+      color: var(--colors-gray11);
+      z-index: 30;
+    }
+    .home-link:hover { color: var(--colors-gray12); }
+    .home-link:focus-visible {
+      outline: 2px solid var(--colors-focus);
+      outline-offset: 4px;
+      border-radius: 6px;
+    }
+  </style>
+</head>
+<body>
+  <a class="home-link" href="index.html">← Home</a>
+  <!-- frosted strip: content blurs away as it passes under the minimap -->
+  <div class="verticalFade" data-side="top" aria-hidden="true"></div>
+  <div class="minimap" aria-hidden="true">
+    <div class="minimap-inner" id="minimap"></div>
+  </div>
+
+  <main class="page">
+    <h1 class="page-title" data-text="AI Research">&nbsp;</h1>
+
+    <section aria-label="Publications">
+      <div class="section-label" data-text="Publications">&nbsp;</div>
+      <div class="grid" id="pubGrid"></div>
+    </section>
+
+    <section aria-label="Blog">
+      <div class="section-label" data-text="Blog">&nbsp;</div>
+      <div class="grid" id="blogGrid"></div>
+    </section>
+  </main>
+
+  <script src="publications.js"></script>
+  <script src="textfx.js"></script>
+  <script src="gallery.js"></script>
+</body>
+</html>

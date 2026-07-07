@@ -1,0 +1,200 @@
+/* ============================================================
+   Gallery page — card recipe taken from the live /craft page:
+   white card, 12px radius, gray5 hairline, 4px padding, 8px
+   radius media, 13px caption, "View" button, 3-column grid.
+   ============================================================ */
+
+/* the gallery lives on the same canvas as the landing page */
+html.light,
+html.light body {
+  background: var(--colors-gray4);
+}
+html.dark,
+html.dark body {
+  background: var(--colors-gray1);
+}
+
+.page {
+  padding: 8px 8px 4px 4px;
+  margin-top: 138px;
+  max-width: 1400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* page heading in the landing page's type scale */
+.page-title {
+  font-size: 64px;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  color: var(--colors-gray12);
+  padding: 0 0 40px 8px;
+}
+
+.section-label {
+  font-size: 14px;
+  color: var(--colors-gray11);
+  padding: 0 0 12px 8px;
+}
+
+section + section {
+  margin-top: 48px;
+}
+
+/* cards enter with the landing's staggered choreography */
+@keyframes cardIn {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.card[data-animate] {
+  opacity: 0;
+  animation: cardIn 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+@media (prefers-reduced-motion: reduce) {
+  .card[data-animate] {
+    opacity: 1;
+    animation: none;
+  }
+}
+
+.grid {
+  --gap: 8px;
+  display: flex;
+  margin-left: calc(var(--gap) * -1);
+  width: auto;
+}
+.column {
+  padding-left: var(--gap);
+  background-clip: padding-box;
+  width: 33.3333%;
+}
+
+.card {
+  display: block;
+  width: 100%;
+  background: var(--card-bg);
+  height: fit-content;
+  position: relative;
+  margin-bottom: var(--gap);
+  overflow: hidden;
+  transform: translateZ(0);
+  border: 1px solid var(--colors-gray5);
+  border-radius: 12px;
+  padding: 4px;
+}
+.card[data-interactive="true"] {
+  cursor: pointer;
+}
+.card[data-interactive="true"]:focus-visible {
+  outline: 2px solid var(--colors-focus);
+  outline-offset: 2px;
+}
+
+.card-media {
+  position: relative;
+  overflow: hidden;
+  transform: translateZ(0);
+  border-radius: 8px;
+  aspect-ratio: 16 / 9;
+}
+.card-media video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: inherit;
+}
+
+/* placeholder tile while there is no video yet */
+.card-placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.card-placeholder span {
+  font-size: 56px;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+}
+
+.card-caption {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 8px 8px 8px;
+  font-size: 15px;
+  line-height: 21px;
+}
+.card-caption .meta {
+  font-size: 13px;
+}
+.card-caption .title {
+  color: var(--colors-gray12);
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+.card-caption .meta {
+  color: var(--caption-dim);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.card [data-fake-button] {
+  height: 40px;
+  background: var(--colors-gray3);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--colors-gray12);
+  margin-top: 4px;
+  transition: background 150ms ease, color 150ms ease;
+}
+.card[data-interactive="true"]:hover [data-fake-button],
+.card[data-interactive="true"]:focus-visible [data-fake-button] {
+  background: var(--colors-gray4);
+}
+
+/* blog space-holder */
+.card-empty {
+  border-style: solid;
+  padding: 4px;
+}
+.card-empty .card-media {
+  background: var(--colors-gray3);
+}
+.card-empty .card-placeholder {
+  flex-direction: column;
+  gap: 8px;
+}
+.card-empty .card-placeholder p {
+  font-size: 14px;
+  color: var(--colors-gray11);
+  text-align: center;
+  max-width: 26ch;
+  line-height: 1.5;
+}
+
+@media (max-width: 960px) {
+  .column { width: 50%; }
+}
+@media (max-width: 640px) {
+  .grid { display: block; margin-left: 0; }
+  .column { width: 100%; padding-left: 0; }
+  .page { margin-top: 112px; padding: 8px; }
+}

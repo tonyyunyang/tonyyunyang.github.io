@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Paper — Tony Yang</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <script>
+    (function () {
+      var t = localStorage.getItem("theme");
+      if (t !== "light" && t !== "dark") {
+        t = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      }
+      document.documentElement.classList.add(t);
+    })();
+  </script>
+  <link rel="stylesheet" href="tokens.css" />
+  <link rel="stylesheet" href="paper.css" />
+</head>
+<body>
+  <main id="root" class="paper-root">
+    <div id="ghost" class="ghost" aria-hidden="true"></div>
+    <div class="center">
+      <div id="sheets" class="sheets" style="opacity:0"></div>
+    </div>
+  </main>
+
+  <!-- dock: actions native to the current paper (2022.rauno.me style) -->
+  <nav id="dock" class="dock" aria-label="Paper actions"></nav>
+  <div id="copyLive" role="region" aria-live="polite" class="vh"></div>
+
+  <script src="publications.js"></script>
+  <script src="textfx.js"></script>
+  <script src="paper.js"></script>
+</body>
+</html>

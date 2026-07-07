@@ -1,0 +1,219 @@
+/* ============================================================
+   Shared design tokens for the subpages (gallery + paper).
+   Gray scales are the Radix values extracted from the live
+   site's stitches theme. The landing page keeps its own
+   forced-light styles; subpages support light + dark.
+   ============================================================ */
+
+:root {
+  --yellow: #FFFF02;
+  --orange: #FF6100;
+  --blue-accent: #0000FF;
+  --green: rgb(0, 175, 63);
+  --red-accent: #FF484C;
+
+  --radii-1: 4px;
+  --radii-2: 8px;
+  --radii-3: 16px;
+  --radii-round: 9999px;
+
+  --fonts-body: X, -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+    "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+    "Helvetica Neue", sans-serif;
+  --fonts-mono: "JetBrains Mono", Menlo, monospace;
+  --fonts-serif: Georgia, serif;
+
+  --transitions-snappy: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+@supports (color: color(display-p3 1 1 1)) {
+  :root {
+    --orange: color(display-p3 0.99 0.4 0.02);
+    --green: color(display-p3 0.083 0.75 0.283);
+  }
+}
+
+.light {
+  --colors-gray1: hsl(0 0% 99%);
+  --colors-gray2: hsl(0 0% 97.3%);
+  --colors-gray3: hsl(0 0% 95.1%);
+  --colors-gray4: hsl(0 0% 93%);
+  --colors-gray5: hsl(0 0% 90.9%);
+  --colors-gray6: hsl(0 0% 88.7%);
+  --colors-gray7: hsl(0 0% 85.8%);
+  --colors-gray8: hsl(0 0% 78%);
+  --colors-gray9: hsl(0 0% 56.1%);
+  --colors-gray10: hsl(0 0% 52.3%);
+  --colors-gray11: hsl(0 0% 43.5%);
+  --colors-gray12: hsl(0 0% 9%);
+  --colors-bg: #fff;
+  --colors-focus: var(--colors-gray9);
+  --caption-dim: hsl(0 0% 0% / 0.565);
+  --card-bg: #ffffff;
+  --shadow-dock: 0 0 0 1px var(--colors-gray5), 0 12px 32px rgba(0, 0, 0, 0.08),
+    0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.dark {
+  --colors-gray1: hsl(0 0% 8.5%);
+  --colors-gray2: hsl(0 0% 11%);
+  --colors-gray3: hsl(0 0% 13.6%);
+  --colors-gray4: hsl(0 0% 15.8%);
+  --colors-gray5: hsl(0 0% 17.9%);
+  --colors-gray6: hsl(0 0% 20.5%);
+  --colors-gray7: hsl(0 0% 24.3%);
+  --colors-gray8: hsl(0 0% 31.2%);
+  --colors-gray9: hsl(0 0% 43.9%);
+  --colors-gray10: hsl(0 0% 49.4%);
+  --colors-gray11: hsl(0 0% 62.8%);
+  --colors-gray12: hsl(0 0% 93%);
+  --colors-bg: #000;
+  --colors-focus: var(--colors-gray9);
+  --caption-dim: hsl(0 0% 100% / 0.56);
+  --card-bg: var(--colors-gray2);
+  --shadow-dock: 0 0 0 1px var(--colors-gray5), 0 12px 32px rgba(0, 0, 0, 0.5),
+    0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+@font-face {
+  font-family: X;
+  font-weight: 400;
+  font-display: swap;
+  src: url(fonts/dd.woff2) format("woff2");
+}
+@font-face {
+  font-family: X;
+  font-weight: 500;
+  font-display: swap;
+  src: url(fonts/dd.woff2) format("woff2");
+}
+@font-face {
+  font-family: "JetBrains Mono";
+  font-weight: 400;
+  font-display: swap;
+  src: url(fonts/JetBrainsMono-Regular.woff2) format("woff2");
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html,
+body {
+  background: var(--colors-gray1);
+}
+
+body {
+  margin: 0;
+  font-family: var(--fonts-body);
+  color: var(--colors-gray12);
+}
+
+::selection {
+  background: var(--yellow);
+  color: black;
+}
+
+h1, h2, h3, h4, h5, h6, p { margin: 0; }
+h1, h2, h3 { font-weight: 500; }
+em, i { font-family: var(--fonts-serif); }
+
+a {
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+button {
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  font-family: var(--fonts-body);
+  color: inherit;
+  border: 0;
+  cursor: pointer;
+}
+
+/* elements waiting for their text reveal stay invisible — no flash */
+[data-reveal-pending] {
+  visibility: hidden;
+}
+
+.vh {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  white-space: nowrap;
+  position: absolute;
+}
+
+/* rauno's verticalFade: a frosted strip content blurs under */
+.verticalFade {
+  position: fixed;
+  pointer-events: none;
+  user-select: none;
+  width: 100%;
+  left: 0;
+  top: 0;
+  height: 128px;
+  z-index: 9;
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  background: linear-gradient(to top, transparent, var(--colors-gray4));
+  -webkit-mask-image: linear-gradient(to bottom, black 25%, transparent);
+  mask-image: linear-gradient(to bottom, black 25%, transparent);
+  will-change: transform;
+}
+.dark .verticalFade {
+  background: linear-gradient(to top, transparent, var(--colors-gray1));
+}
+
+/* minimap (static variant for subpages) */
+.minimap {
+  z-index: 10;
+}
+.minimap {
+  position: fixed;
+  top: 64px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+}
+.minimap-inner {
+  display: flex;
+  align-items: flex-end;
+  gap: 9px;
+}
+.minimap .line {
+  width: 1px;
+  height: 18px;
+  background: var(--colors-gray9);
+  position: relative;
+}
+.minimap .line[data-hidden="true"] {
+  opacity: 0;
+}
+.minimap .tracker {
+  width: 30px;
+  height: 18px;
+  position: absolute;
+  background: transparent;
+  border: 1px solid var(--colors-gray9);
+  border-radius: 0;
+  display: block;
+}
+.minimap .tracker[data-active="true"] {
+  background: var(--yellow);
+  border-color: var(--yellow);
+}
+.minimap .tracker:focus-visible {
+  outline: 2px solid var(--colors-focus);
+  outline-offset: 2px;
+}
