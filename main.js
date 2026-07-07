@@ -541,8 +541,8 @@
     clearTimeout(specIdleTimer);
     specIdleTimer = setTimeout(() => {
       hzLabel.textContent = "";
-      specHint.textContent = "run your cursor across it.";
-      specHint.dataset.hidden = "false";
+      specHint.textContent = ""; // the band explains itself, or it doesn't
+      specHint.dataset.hidden = "true";
     }, 1400);
   });
 
@@ -734,44 +734,68 @@
   }
 
   /* ---------------- the three keys ----------------
-     Copper, jade, crystal — the three gates — as floating particle
-     clouds. Each key turns slowly in 3D; bring the cursor near one and
-     it eases around to face you, brightens, and throws off glints.
-     They are not for poking — only for finding. */
+     Copper, jade, crystal — the three gates — spinning in the air
+     beside the kicker, each a cloud of fine metallic dust. Bring the
+     cursor near one and a hand rises, closes around its stem, and
+     holds it still, facing you. Let go and it spins on. */
 
   const keysCanvas = document.getElementById("p1Keys");
   if (keysCanvas && keysCanvas.getContext) {
-    const KW = 440;
-    const KH = 176;
-    const KCY = 80; // the keys' resting centerline
-    const KF = 560; // perspective focal length
+    const KW = 640;
+    const KH = 260;
+    const KCY = 118; // the keys' resting centerline
+    const KF = 620; // perspective focal length
+    const KX = [100, 300, 500];
     const TAU = Math.PI * 2;
     let kseed = 31337;
     const krand = () => ((kseed = (kseed * 1664525 + 1013904223) >>> 0) / 4294967296);
 
-    // each key is painted flat (140×400), sampled to particles, extruded in z
-    const sampleKey = (paint) => {
+    /* -- silhouettes: painted flat, sampled to dust, extruded in z -- */
+
+    const sampleInk = (w, h, paint, step, keep, spread) => {
       const oc = document.createElement("canvas");
-      oc.width = 140;
-      oc.height = 400;
+      oc.width = w;
+      oc.height = h;
       const c = oc.getContext("2d", { willReadFrequently: true });
       c.fillStyle = c.strokeStyle = "#fff";
       c.lineCap = "round";
       paint(c);
-      const d = c.getImageData(0, 0, 140, 400).data;
+      const d = c.getImageData(0, 0, w, h).data;
+      const ink = (x, y) => x > 0 && y > 0 && x < w && y < h && d[(y * w + x) * 4 + 3] > 128;
       const pts = [];
-      for (let y = 1; y < 400; y += 3) {
-        for (let x = 1; x < 140; x += 3) {
-          if (d[(y * 140 + x) * 4 + 3] > 128) {
+      for (let y = 1; y < h; y += step) {
+        for (let x = 1; x < w; x += step) {
+          if (ink(x, y) && krand() < keep) {
             pts.push({
-              x: (x - 70 + krand() * 2 - 1) * 0.38,
-              y: (y - 200 + krand() * 2 - 1) * 0.38,
-              z: (krand() - 0.5) * 11,
-              hi: krand() < 0.16,
-              sx: (krand() - 0.5) * 260,
-              sy: (krand() - 0.5) * 220,
+              x: (x - w / 2 + krand() - 0.5) * spread,
+              y: (y - h / 2 + krand() - 0.5) * spread,
+              z: (krand() - 0.5) * 9,
+              hi: krand() < 0.14,
+              edge: false,
+              tw: krand() * TAU, // shimmer phase
+              sx: (krand() - 0.5) * 360,
+              sy: (krand() - 0.5) * 260,
             });
           }
+        }
+      }
+      // a second pass traces the contour, so the silhouette stays
+      // crisp at every angle of the spin
+      for (let y = 1; y < h; y += 2) {
+        for (let x = 1; x < w; x += 2) {
+          if (!ink(x, y)) continue;
+          if (ink(x - 2, y) && ink(x + 2, y) && ink(x, y - 2) && ink(x, y + 2)) continue;
+          if (krand() > 0.75) continue;
+          pts.push({
+            x: (x - w / 2 + (krand() - 0.5) * 0.6) * spread,
+            y: (y - h / 2 + (krand() - 0.5) * 0.6) * spread,
+            z: (krand() - 0.5) * 4,
+            hi: false,
+            edge: true,
+            tw: krand() * TAU,
+            sx: (krand() - 0.5) * 360,
+            sy: (krand() - 0.5) * 260,
+          });
         }
       }
       return pts;
@@ -875,11 +899,82 @@
       c.fill();
     };
 
-    const dotSprite = (rgb) => {
+    /* -- the hand: two poses; the dust crossfades from reach to grip -- */
+
+    const paintHandOpen = (c) => {
+      c.beginPath();
+      c.ellipse(110, 148, 38, 46, 0, 0, TAU);
+      c.fill();
+      const fingers = [
+        [-26, 54],
+        [-9, 68],
+        [8, 64],
+        [25, 50],
+      ];
+      c.lineWidth = 17;
+      for (const f of fingers) {
+        c.beginPath();
+        c.moveTo(110 + f[0], 114);
+        c.lineTo(110 + f[0] * 1.4, 114 - f[1]);
+        c.stroke();
+      }
+      c.lineWidth = 19; // thumb
+      c.beginPath();
+      c.moveTo(78, 152);
+      c.lineTo(44, 122);
+      c.stroke();
+    };
+
+    const paintHandFist = (c) => {
+      c.beginPath();
+      c.ellipse(110, 134, 42, 40, 0, 0, TAU);
+      c.fill();
+      for (let i = 0; i < 4; i++) {
+        c.beginPath(); // knuckles
+        c.arc(80 + i * 20, 98 + (i === 0 || i === 3 ? 6 : 0), 12, 0, TAU);
+        c.fill();
+      }
+      c.lineWidth = 18; // thumb wrapped across
+      c.beginPath();
+      c.moveTo(74, 140);
+      c.lineTo(118, 150);
+      c.stroke();
+    };
+
+    const sampleHand = () => {
+      const poses = [paintHandOpen, paintHandFist].map((paint) => {
+        const oc = document.createElement("canvas");
+        oc.width = oc.height = 220;
+        const c = oc.getContext("2d", { willReadFrequently: true });
+        c.fillStyle = c.strokeStyle = "#fff";
+        c.lineCap = "round";
+        paint(c);
+        return c.getImageData(0, 0, 220, 220).data;
+      });
+      const pts = [];
+      for (let y = 1; y < 220; y += 2) {
+        for (let x = 1; x < 220; x += 2) {
+          const aO = poses[0][(y * 220 + x) * 4 + 3] > 128 ? 1 : 0;
+          const aC = poses[1][(y * 220 + x) * 4 + 3] > 128 ? 1 : 0;
+          if ((aO || aC) && krand() < 0.55) {
+            pts.push({
+              x: (x - 110 + (krand() - 0.5) * 2.4) * 0.76,
+              y: (y - 132 + (krand() - 0.5) * 2.4) * 0.76,
+              aO,
+              aC,
+              tw: krand() * TAU,
+            });
+          }
+        }
+      }
+      return pts;
+    };
+
+    const dotSprite = (r, g, b) => {
       const s = document.createElement("canvas");
       s.width = s.height = 16;
       const sc = s.getContext("2d");
-      sc.fillStyle = `rgb(${rgb[0]},${rgb[1]},${rgb[2]})`;
+      sc.fillStyle = `rgb(${r},${g},${b})`;
       sc.beginPath();
       sc.arc(8, 8, 7, 0, TAU);
       sc.fill();
@@ -887,22 +982,33 @@
     };
 
     const KEYS = [
-      { paint: paintCopper, cx: 90, base: [184, 115, 51], hi: [228, 166, 104], speed: 0.5, phase: 0.6, delay: 0 },
-      { paint: paintJade, cx: 235, base: [70, 134, 102], hi: [148, 199, 170], speed: 0.38, phase: 2.5, delay: 0.35 },
-      { paint: paintCrystal, cx: 380, base: [136, 158, 186], hi: [226, 236, 247], speed: 0.6, phase: 4.4, delay: 0.7 },
+      { paint: paintCopper, base: [176, 106, 44], hi: [232, 168, 100], speed: 0.85, phase: 0.6 },
+      { paint: paintJade, base: [58, 122, 90], hi: [150, 203, 172], speed: 0.66, phase: 2.5 },
+      { paint: paintCrystal, base: [120, 144, 176], hi: [235, 242, 250], speed: 1.05, phase: 4.4 },
     ];
-    for (const k of KEYS) {
-      k.pts = sampleKey(k.paint);
+    KEYS.forEach((k, i) => {
+      k.cx = KX[i];
+      k.pts = sampleInk(140, 400, k.paint, 2, 0.85, 0.47);
       k.theta = k.phase;
-      k.hover = 0;
       k.ramp = 0;
-      k.dotBase = dotSprite(k.base);
-      k.dotHi = dotSprite(k.hi);
-    }
-    window.__keys = { KEYS, cy: KCY }; // for tests
+      k.delay = i * 0.3;
+      k.dotBase = dotSprite(k.base[0], k.base[1], k.base[2]);
+      k.dotHi = dotSprite(k.hi[0], k.hi[1], k.hi[2]);
+    });
+
+    const hand = {
+      pts: sampleHand(),
+      dot: dotSprite(31, 30, 26),
+      t: 0, // 0 = away, 1 = holding
+      key: -1, // which key it reaches for
+      burst: false,
+    };
+    window.__keys = { KEYS, cy: KCY, hand }; // for tests
 
     const keyCaps = Array.from(document.querySelectorAll(".p1-key-cap"));
     const DPRK = Math.min(2, window.devicePixelRatio || 1);
+    keysCanvas.style.width = `${KW}px`;
+    keysCanvas.style.height = `${KH}px`;
     keysCanvas.width = KW * DPRK;
     keysCanvas.height = KH * DPRK;
     const kctx = keysCanvas.getContext("2d");
@@ -919,7 +1025,6 @@
     );
 
     const sparks = [];
-    let hovered = -1;
     let lastT = 0;
     let revealT = 0;
     let kraf = null;
@@ -927,75 +1032,107 @@
     const easeOut = (t) => 1 - Math.pow(1 - t, 3);
 
     const drawKeys = (now, dt, mx, my) => {
-      hovered = -1;
+      const sec = now / 1000;
+      let hovered = -1;
       let best = 1e9;
       for (let i = 0; i < 3; i++) {
         const d = Math.hypot(mx - KEYS[i].cx, my - KCY);
-        if (d < 74 && d < best) {
+        if (d < 100 && d < best) {
           best = d;
           hovered = i;
         }
       }
       for (let i = 0; i < keyCaps.length; i++) keyCaps[i].dataset.show = String(i === hovered);
 
+      // the hand eases in toward the hovered key, closes as it arrives
+      if (hovered >= 0) hand.key = hovered;
+      hand.t = clamp(hand.t + (hovered >= 0 ? dt * 2.6 : -dt * 3.4), 0, 1);
+      const reach = easeOut(hand.t);
+      const grip = clamp((hand.t - 0.6) / 0.4, 0, 1);
+      if (grip > 0.85 && !hand.burst && hand.key >= 0) {
+        hand.burst = true; // one glint burst at the catch
+        const k = KEYS[hand.key];
+        for (let n = 0; n < 12; n++)
+          sparks.push({
+            x: k.cx + (krand() - 0.5) * 44,
+            y: KCY - 44 + (krand() - 0.5) * 40,
+            vx: (krand() - 0.5) * 60,
+            vy: -26 - krand() * 40,
+            life: 1,
+            hi: k.dotHi,
+          });
+      }
+      if (grip < 0.5) hand.burst = false;
+
       kctx.clearRect(0, 0, KW, KH);
       for (let i = 0; i < 3; i++) {
         const k = KEYS[i];
         if ((now - revealT) / 1000 > k.delay) k.ramp = Math.min(1, k.ramp + dt / 0.9);
         const e = easeOut(k.ramp);
-        k.hover += ((i === hovered ? 1 : 0) - k.hover) * Math.min(1, dt * 7);
-        // the keys swing about face-front (never illegibly edge-on);
-        // approach one and it stills itself to face you
-        k.theta = 0.55 * (1 - k.hover) * Math.sin((now / 1000) * k.speed + k.phase);
-        const bob = Math.sin((now / 1000) * 0.9 + k.phase) * 4.5 * (1 - 0.5 * k.hover);
+        const held = i === hand.key ? grip : 0;
+        // spinning in the air; the hand stills it, facing forward
+        k.theta += k.speed * dt * (1 - held);
+        if (held > 0) {
+          const face = Math.round(k.theta / TAU) * TAU;
+          k.theta += (face - k.theta) * Math.min(1, dt * 7) * held;
+        }
+        const bob = Math.sin(sec * 0.9 + k.phase) * 4 * (1 - held) - 8 * held;
         const cos = Math.cos(k.theta);
         const sin = Math.sin(k.theta);
-        const boost = 1 + 0.8 * k.hover;
-        for (const p of k.pts) {
+        const glow = 1 + 0.45 * held;
+        for (let j = 0; j < k.pts.length; j++) {
+          const p = k.pts[j];
           const xr = p.x * cos + p.z * sin;
           const zr = -p.x * sin + p.z * cos;
-          const pr = KF / (KF + zr * 3);
+          const pr = KF / (KF + zr * 2.2);
           let px = k.cx + xr * pr;
           let py = KCY + (p.y + bob) * pr;
           if (e < 1) {
             px = k.cx + p.sx + (px - k.cx - p.sx) * e;
             py = KCY + p.sy + (py - KCY - p.sy) * e;
           }
-          const shade = 0.5 + 0.5 * clamp((30 - zr) / 60, 0, 1);
-          kctx.globalAlpha = Math.min(0.7, (p.hi ? 0.38 : 0.26) * shade * boost) * e;
-          const r = (p.hi ? 1.5 : 1.25) * pr * (1 + 0.12 * k.hover);
+          const shade = 0.45 + 0.55 * clamp((26 - zr) / 52, 0, 1);
+          const shimmer = 0.86 + 0.22 * Math.sin(sec * 2.8 + p.tw);
+          const base = p.edge ? 0.52 : p.hi ? 0.5 : 0.3;
+          kctx.globalAlpha = Math.min(0.78, base * shade * shimmer * glow) * e;
+          const r = (p.edge ? 0.85 : p.hi ? 1.05 : 0.8) * pr;
           kctx.drawImage(p.hi ? k.dotHi : k.dotBase, px - r, py - r, r * 2, r * 2);
         }
-        // glints fly off the presented key
-        if (k.hover > 0.5 && sparks.length < 46) {
-          for (let n = 0; n < 2; n++) {
-            const p = k.pts[(krand() * k.pts.length) | 0];
-            const xr = p.x * cos + p.z * sin;
-            sparks.push({
-              x: k.cx + xr,
-              y: KCY + p.y + bob,
-              vx: (krand() - 0.5) * 26,
-              vy: -14 - krand() * 22,
-              life: 1,
-              hi: k.dotHi,
-            });
-          }
+      }
+
+      // the hand, over everything it holds
+      if (hand.t > 0.01 && hand.key >= 0) {
+        const k = KEYS[hand.key];
+        const hx = k.cx + 30 + (k.cx + 3 - (k.cx + 30)) * reach;
+        const hy = KH + 80 + (KCY + 26 - 8 * grip - (KH + 80)) * reach;
+        const rot = -0.32 * (1 - reach);
+        const cr = Math.cos(rot);
+        const sr = Math.sin(rot);
+        for (const p of hand.pts) {
+          const a = p.aO + (p.aC - p.aO) * grip;
+          if (a < 0.04) continue;
+          const px = hx + p.x * cr - p.y * sr;
+          const py = hy + p.x * sr + p.y * cr;
+          const shimmer = 0.9 + 0.16 * Math.sin(sec * 2.2 + p.tw);
+          kctx.globalAlpha = 0.42 * a * shimmer * reach;
+          kctx.drawImage(hand.dot, px - 1.1, py - 1.1, 2.2, 2.2);
         }
       }
+
       for (let i = sparks.length - 1; i >= 0; i--) {
         const sp = sparks[i];
-        sp.life -= dt * 2.2;
+        sp.life -= dt * 2;
         if (sp.life <= 0) {
           sparks.splice(i, 1);
           continue;
         }
         sp.x += sp.vx * dt;
         sp.y += sp.vy * dt;
-        kctx.globalAlpha = 0.75 * sp.life;
-        kctx.drawImage(sp.hi, sp.x - 3, sp.y - 3, 6, 6);
-        kctx.globalAlpha = 0.9 * sp.life;
+        kctx.globalAlpha = 0.8 * sp.life;
+        kctx.drawImage(sp.hi, sp.x - 2.6, sp.y - 2.6, 5.2, 5.2);
+        kctx.globalAlpha = 0.95 * sp.life;
         kctx.fillStyle = "#fff";
-        kctx.fillRect(sp.x - 0.8, sp.y - 0.8, 1.6, 1.6);
+        kctx.fillRect(sp.x - 0.7, sp.y - 0.7, 1.4, 1.4);
       }
       kctx.globalAlpha = 1;
     };

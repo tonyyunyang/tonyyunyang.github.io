@@ -74,8 +74,9 @@ references rewritten to `/2025/…`); the CV corner and the hidden card's CV lin
 read before they save). Rauno Freiberg and Henry Heffernan remain only as
 deliberate attribution (code comments, the Macintosh Credits app, LICENSE).
 And — some races are won by going backwards; there is a frame before the
-beginning, where three keys (copper, jade, crystal — particle clouds,
-swinging in 3D) float above the signature. Every page also carries a 1px
+beginning, where three keys — copper, jade, crystal — spin in the air
+as clouds of fine particle dust beside the kicker; drift toward one and
+a hand rises, closes around its stem, and holds it still, facing you. Every page also carries a 1px
 MapMyVisitors beacon — visit tracking with no widget rendered; stats at
 mapmyvisitors.com/web/1c555.
 
@@ -83,7 +84,7 @@ mapmyvisitors.com/web/1c555.
 
 The content has been personalized while keeping every link, layout, and spring
 untouched: intro reads "Tony Yang is an AI Researcher & Engineer working from
-Infra to Applications"; the DD frame shows "AI" (slide max re-measured to 177 to
+Infra to Applications"; the DD frame shows "AGI" (slide max re-measured to 689 to
 keep the reveal flush); Field Notes says "Tony's Field Notes" — reusing the
 original handwriting stroke paths for "Field Notes"/o/n/'/s with hand-drawn T
 and y to match; contact corners read "CV" (top-right, the PDF in a new tab)
