@@ -199,6 +199,7 @@
 
   function onScrollChange(offset) {
     if (wheeling) focusScroll.stop();
+    if (offset > 0) dismissScrollHint(); // they've got it — retire the lesson
     if (p1Revealed && offset > 0) hidePlayerOne();
     if (!cancelledIntro) {
       cancelledIntro = true;
@@ -413,6 +414,7 @@
     playerOne.dataset.revealed = "true";
     playerOne.removeAttribute("aria-hidden");
     p1Hint.dataset.show = "false"; // the riddle has been answered — retire it while the card is up
+    dismissScrollHint(); // going backwards proves they can already travel
     ensureAudio(); // the hint-chip path arrives here inside a click — unlock now
     if (reducedMotion) revealShift.jump(1);
     else revealShift.set(1);
@@ -443,6 +445,20 @@
   setTimeout(() => {
     if (!p1Revealed) p1Hint.dataset.show = "true";
   }, p1Found ? 1600 : 5200);
+
+  /* ---------------- scroll hint: the riddle's practical twin ----------------
+     Surfaces only for visitors who haven't scrolled yet; the first real
+     scroll (or opening Player One) retires it for the rest of the visit. */
+  const scrollHint = document.getElementById("scrollHint");
+  let scrollHintDone = false;
+  function dismissScrollHint() {
+    if (scrollHintDone) return;
+    scrollHintDone = true;
+    scrollHint.dataset.show = "false";
+  }
+  setTimeout(() => {
+    if (!scrollHintDone && !p1Revealed) scrollHint.dataset.show = "true";
+  }, 1400);
 
   /* ---------------- the spectrum: every field has a frequency ----------------
      Eight fields of AI research left-to-right; crossing a zone plays its note.

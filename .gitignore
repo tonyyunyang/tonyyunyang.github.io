@@ -2,3 +2,4 @@
 node_modules/
 macintosh-src/os/build/
 macintosh-src/shell/public/
+.playwright-mcp/

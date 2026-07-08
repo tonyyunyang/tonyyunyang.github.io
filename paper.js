@@ -112,8 +112,7 @@
   /* ---------- sheet 0: title ---------- */
   var titleSheet = el("div", "sheet sheet-title");
   var eyebrow = el("div", "eyebrow",
-    "<span class='index-chip' style='background:" + pub.accent.bg + ";color:" + pub.accent.fg + "'>" +
-    pub.index + "</span><span>" + pub.venue + " · " + pub.year + "</span>");
+    "<span class='index-chip'>" + pub.index + "</span><span>" + pub.venue + " · " + pub.year + "</span>");
   /* born empty — the scramble types the title in, so it never flashes;
      a non-breaking space keeps the line box height before reveal */
   var h1 = el("h1", null, "&nbsp;");
@@ -157,20 +156,39 @@
   /* ---------- sheet 4: video ---------- */
   var mediaSheet = el("div", "sheet sheet-media");
   var ph = el("div", "media-placeholder");
-  ph.style.background = pub.accent.bg;
-  ph.style.color = pub.accent.fg;
   ph.appendChild(el("span", "big-index", pub.index));
   ph.appendChild(el("span", "hint", "Video placeholder — drop media/" + pub.slug + ".mp4 to replace."));
   mediaSheet.appendChild(ph);
-  var video = document.createElement("video");
-  video.muted = true; video.loop = true; video.autoplay = true; video.playsInline = true;
-  video.src = "media/" + pub.slug + ".mp4";
-  video.style.display = "none";
-  video.addEventListener("canplay", function () {
-    video.style.display = "block";
-    ph.style.display = "none";
-  });
-  mediaSheet.appendChild(video);
+  if (!reducedMotion) {
+    var video = document.createElement("video");
+    video.muted = true; video.defaultMuted = true; video.setAttribute("muted", "");
+    video.loop = true; video.autoplay = true; video.playsInline = true;
+    video.src = "media/" + pub.slug + ".mp4";
+    video.style.display = "none";
+    /* sound: always born muted; the visitor opts in */
+    var SOUND_OFF =
+      "<svg viewBox='0 0 24 24'><path d='M4 9.5v5h3.4l4.6 4V5.5l-4.6 4H4z'/><path d='m16 10.2 3.8 3.8M19.8 10.2 16 14'/></svg>";
+    var SOUND_ON =
+      "<svg viewBox='0 0 24 24'><path d='M4 9.5v5h3.4l4.6 4V5.5l-4.6 4H4z'/><path d='M15.5 9.7a3.3 3.3 0 0 1 0 4.6M17.9 7.4a6.6 6.6 0 0 1 0 9.2'/></svg>";
+    var soundBtn = el("button", "sound-btn", SOUND_OFF);
+    soundBtn.setAttribute("aria-label", "Unmute video");
+    soundBtn.setAttribute("aria-pressed", "false");
+    soundBtn.style.display = "none";
+    soundBtn.addEventListener("click", function () {
+      video.muted = !video.muted;
+      if (!video.muted && video.paused) video.play();
+      soundBtn.innerHTML = video.muted ? SOUND_OFF : SOUND_ON;
+      soundBtn.setAttribute("aria-label", video.muted ? "Unmute video" : "Mute video");
+      soundBtn.setAttribute("aria-pressed", video.muted ? "false" : "true");
+    });
+    video.addEventListener("canplay", function () {
+      video.style.display = "block";
+      ph.style.display = "none";
+      soundBtn.style.display = "flex";
+    });
+    mediaSheet.appendChild(video);
+    mediaSheet.appendChild(soundBtn);
+  }
 
   /* ---------- sheet 5: bibtex ---------- */
   var bibSheet = el("div", "sheet sheet-bibtex");

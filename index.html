@@ -211,6 +211,16 @@
     <i>some races are won by going backwards.</i>
   </button>
 
+  <!-- The riddle's practical twin, right of the minimap: a miniature ruler
+       demonstrates the sideways travel; dismissed forever on first scroll -->
+  <div id="scrollHint" class="scroll-hint" role="note" aria-label="Scroll or swipe to move through the page">
+    <span class="scroll-hint-demo" aria-hidden="true">
+      <span class="sh-line"></span><span class="sh-line"></span><span class="sh-line"></span><span class="sh-line"></span><span class="sh-line"></span>
+      <span class="sh-tracker"></span>
+    </span>
+    <i>scroll or swipe to travel</i>
+  </div>
+
   <script src="main.js"></script>
   <!-- a small confession for touch-first visitors (revealed by main.js) -->
   <aside id="mobileNote" class="mobile-note" role="note" aria-label="Best experienced on a desktop" hidden>

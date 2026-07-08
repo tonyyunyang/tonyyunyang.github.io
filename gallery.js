@@ -37,16 +37,21 @@
   mm.appendChild(active);
 
   /* ---- publication cards ---- */
+  var reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
   function mediaBlock(pub) {
     var media = document.createElement("div");
     media.className = "card-media";
     var ph = document.createElement("div");
     ph.className = "card-placeholder";
-    ph.style.background = pub.accent.bg;
-    ph.innerHTML = "<span style='color:" + pub.accent.fg + "'>" + pub.index + "</span>";
+    ph.innerHTML = "<span>" + pub.index + "</span>";
     media.appendChild(ph);
+    /* reduced motion: keep the designed static tile, skip the video entirely */
+    if (reducedMotion) return media;
     var video = document.createElement("video");
     video.muted = true;
+    video.defaultMuted = true;
+    video.setAttribute("muted", "");
     video.loop = true;
     video.autoplay = true;
     video.playsInline = true;

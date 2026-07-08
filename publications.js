@@ -6,7 +6,6 @@
    - slug        stable id, used in URLs (paper.html?p=<slug>)
      and for media files (media/<slug>.mp4 — drop a video there
      and both the card and the paper page pick it up).
-   - accent      placeholder tile color while there is no video
    - links       omit / null any that don't exist — the paper
      page dock only renders what is present.
    - highlight   author name to emphasize.
@@ -32,7 +31,6 @@ window.PUBLICATIONS = [
     venueLong:
       "Proceedings of the ACM on Interactive, Mobile, Wearable and Ubiquitous Technologies 9(3), 1–41",
     year: "2025",
-    accent: { bg: "var(--yellow)", fg: "#000" },
     links: {
       pdf: "https://dl.acm.org/doi/pdf/10.1145/3749545",
       page: "https://dl.acm.org/doi/abs/10.1145/3749545",
@@ -82,7 +80,6 @@ window.PUBLICATIONS = [
     venueLong:
       "RLEval: Methods and Reinforcement Learning Environments for Evaluating AI Agents (also arXiv:2605.18859)",
     year: "2026",
-    accent: { bg: "var(--blue-accent)", fg: "#fff" },
     links: {
       pdf: "https://arxiv.org/pdf/2605.18859",
       page: "https://arxiv.org/abs/2605.18859",
@@ -119,7 +116,6 @@ window.PUBLICATIONS = [
     venueLong:
       "RLEval: Methods and Reinforcement Learning Environments for Evaluating AI Agents",
     year: "2026",
-    accent: { bg: "var(--orange)", fg: "#000" },
     links: {
       pdf: "https://openreview.net/pdf?id=6oyBiDMCHs",
       page: "https://openreview.net/forum?id=6oyBiDMCHs",
@@ -155,7 +151,6 @@ window.PUBLICATIONS = [
     venueLong:
       "International Conference on Medical Image Computing and Computer-Assisted Intervention, LNCS 15962, 555–565",
     year: "2025",
-    accent: { bg: "var(--red-accent)", fg: "#fff" },
     links: {
       pdf: null,
       page: "https://link.springer.com/chapter/10.1007/978-3-032-04947-6_53",
@@ -182,7 +177,6 @@ window.PUBLICATIONS = [
     venue: "MIDL Short Papers",
     venueLong: "Medical Imaging with Deep Learning — Short Papers",
     year: "2025",
-    accent: { bg: "var(--green)", fg: "#000" },
     links: {
       pdf: "https://openreview.net/pdf?id=uTTOhthEDR",
       page: "https://openreview.net/forum?id=uTTOhthEDR",

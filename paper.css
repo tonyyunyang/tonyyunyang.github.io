@@ -123,6 +123,9 @@ html.dark body {
   border-radius: var(--radii-round);
   font-size: 12px;
   padding: 0 6px;
+  background: #fff;
+  color: #000;
+  box-shadow: inset 0 0 0 1px var(--colors-gray6);
 }
 .sheet-title h1 {
   font-size: 68px;
@@ -221,8 +224,44 @@ html.dark body {
 .sheet-media video {
   width: 100%;
   height: 100%;
-  object-fit: contain;
-  background: black;
+  object-fit: cover;
+}
+
+/* sound toggle — videos are born muted, the visitor opts in */
+.sound-btn {
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 150ms ease, transform 150ms ease;
+}
+.sound-btn:hover {
+  background: rgba(0, 0, 0, 0.55);
+  transform: scale(1.06);
+}
+.sound-btn:focus-visible {
+  outline: 2px solid var(--colors-focus);
+  outline-offset: 2px;
+}
+.sound-btn svg {
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 .media-placeholder {
   position: absolute;
@@ -230,6 +269,8 @@ html.dark body {
   display: flex;
   align-items: center;
   justify-content: center;
+  background: #fff;
+  color: #000;
 }
 .media-placeholder .big-index {
   font-size: 280px;
